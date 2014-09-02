@@ -1,0 +1,26 @@
+email subject: expanded STAT 545A / STAT 547M
+
+sent to alums of STAT 545A and 540 from 2013W 2012W 2011W 2010W via the Faculty Service Centre on 2014-08-12
+
+Hello alums of STAT 545A and/or STAT 540!
+
+I hope this email finds you well.
+
+I am writing to let you know about an expansion of STAT 545A for fall 2014. In addition to the usual 1.5 credit course offered the first half of the semester, I will be offering an additional 1.5 credits as a "topics" course: STAT 547M Basic Training for Data Science.
+
+If you have taken STAT 545A before, YOU CAN TAKE this 1.5 credit course. One of the main reasons we are offering the new content this way is so that STAT 545A alums can get the additional 1.5 credits.
+
+If you have taken STAT 540, you would see some familiar content in 545A/547M, mostly from the computing lab. But there is much more content and the statistical computing is really the focus. So the course may still be quite valuable to some of you.
+
+You can get more info here as the course develops:
+https://github.com/jennybc/STAT545
+
+Wishing you a productive semester,
+Jenny
+
+Jennifer Bryan
+Associate Professor
+Department of Statistics and
+   the Michael Smith Laboratories
+University of British Columbia
+Vancouver, BC Canada
