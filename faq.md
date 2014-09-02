@@ -35,6 +35,7 @@ Therefore, in 2014/2015, we will pilot a full semester on data exploration, visu
     - Take STAT 545A and STAT 547M!
   * Can I audit?
     - PROBABLY. Come talk to me.
+    - Official auditing instructions for UBC [undergrads](http://students.ubc.ca/enrolment/courses/academic-planning/audit) and [graduate students](http://www.grad.ubc.ca/current-students/managing-your-program/audit)
   * I am an unclassified student, SFU student, UBC undergradate, etc. Can I take the course?
     - PROBABLY. Come talk to me.
   * What if I've never had a stats class?
