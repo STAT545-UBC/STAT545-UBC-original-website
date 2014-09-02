@@ -46,6 +46,7 @@ dat <- cdat %>% split(cdat$course)
 dat <- lapply(dat, 'rownames<-', NULL)
 ```
 
+<!-- unholy hack to make following two tables less wide and the same wide -->
 <style type="text/css">
 table {
    max-width: 50%;

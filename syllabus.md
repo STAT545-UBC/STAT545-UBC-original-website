@@ -6,6 +6,7 @@ Until we truly get rolling, you can also see a chronology of the course [from 20
 
 
 
+<!-- unholy hack to make following two tables less wide and the same wide -->
 <style type="text/css">
 table {
    max-width: 50%;

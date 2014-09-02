@@ -1,4 +1,10 @@
-# People
+---
+title: "People"
+output:
+  html_document:
+    includes:
+      after_body: include/nothing.html
+---
 
 [Jennifer (Jenny) Bryan](http://www.stat.ubc.ca/~jenny/), lead instructor
 
