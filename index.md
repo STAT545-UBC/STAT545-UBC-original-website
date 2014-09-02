@@ -30,8 +30,8 @@ Learn how to
 
 Use the navigation bar above!
 
+[\@STAT545](https://twitter.com/STAT545) on Twitter
+
 The course organization on GitHub: <https://github.com/STAT545-UBC>  
 
-Repo that creates this website: <https://github.com/STAT545-UBC/STAT545-UBC.github.io>  
-
-[\@STAT545](https://twitter.com/STAT545) on Twitter
+Repo that creates this website: <https://github.com/STAT545-UBC/STAT545-UBC.github.io>
