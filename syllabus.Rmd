@@ -6,6 +6,60 @@ output:
       after_body: include/nothing.html
 ---
 
-A chronological diary of the course will evolve here. Something like [this from 2013](http://www.stat.ubc.ca/~jenny/STAT545A/current.html) but hopefully more attractive!
+```{r include = FALSE}
+library(xtable)
+options(xtable.comment = FALSE)
+library(dplyr)
+library(stringr)
+```
 
-Where marks will come from: The plan is to submit work once a week. The end result may still resemble a "final project", but one that has been built up gradually over the term. Expect some peer evaluation. No final exam.
+Until we truly get rolling, you can also see a chronology of the course [from 2013](http://www.stat.ubc.ca/~jenny/STAT545A/current.html).
+
+```{r include = FALSE}
+rawdat <- read.csv(file.path("course-admin", "class-meetings.csv"),
+                   stringsAsFactors = FALSE,
+                   colClasses = list(course = 'factor', dow = 'factor'))
+cdat <- rawdat %>%
+  mutate(ugly_date = ISOdate(2014, match(month, tolower(month.name)), day),
+         date = sprintf("%s-%02d %s",
+                        tolower(months(ugly_date, abbreviate = TRUE)),
+                        day, dow),
+         notes = ifelse(grepl("^cm", cm) & raw_notes != "",
+                        sprintf("%s: %s", cm, raw_notes), raw_notes))
+cdat %>% head(3)
+
+## link to the README of any class meetings where such exists
+cmdat <-
+  data.frame(readme = list.files("cm", pattern = 'README.md',
+                                 recursive = TRUE, full.names = TRUE),
+             stringsAsFactors = FALSE)
+cmdat <- cmdat %>%
+  mutate(cm = str_extract(readme, "cm[0-9]+"),
+         link = paste0("https://github.com/STAT545-UBC/STAT545-UBC.github.io/",
+                       "tree/master/", dirname(readme)))
+cdat <- cdat %>% left_join(select(cmdat, -readme))
+
+cdat <- cdat %>%
+  mutate(notes = str_replace(notes, "(cm[0-9]{3})", '<a href="LINK">\\1</a>'))
+cdat <- cdat %>% mutate(notes = str_replace(notes, "LINK", link))
+dat <- cdat %>% split(cdat$course)
+dat <- lapply(dat, 'rownames<-', NULL)
+```
+
+<style type="text/css">
+table {
+   max-width: 50%;
+}
+</style>
+
+#### STAT 545A
+
+```{r results = 'asis', echo = FALSE}
+knitr::kable(dat[["STAT545A"]] %>% select(date, notes))
+```
+
+#### STAT 547M
+
+```{r results = 'asis', echo = FALSE}
+knitr::kable(dat[["STAT547M"]] %>% select(date, notes))
+```
