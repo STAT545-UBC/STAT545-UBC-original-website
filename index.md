@@ -1,0 +1,31 @@
+
+# Data wrangling, exploration, and analysis with R
+
+### UBC STAT 545A and 547M
+
+Learn how to
+
+  * explore, groom, visualize, and analyze data
+  * make all of that reproducible, reusable, and shareable
+  * using R
+
+### Selected topics
+
+  * Introduction to [R](http://www.r-project.org) and the [RStudio IDE](http://www.rstudio.com/products/rstudio/); scripts, the workspace, RStudio Projects
+  * Generate reports from R scripts and [R Markdown](http://rmarkdown.rstudio.com)
+  * Care and feeding of data in R
+  * Data aggregation; "apply" functions, [`plyr`](http://plyr.had.co.nz), [`dplyr`](https://github.com/hadley/dplyr)
+  * Data visualization with [`ggplot2`](http://ggplot2.org)
+  * Graphs and descriptive stats for quantitative and categorical variables
+  * Writing R functions
+  * Coding style and project organization
+  * Version control with Git; collaboration via [GitHub](https://github.com)
+  * Character data; regular expressions
+  * Interactive pages, apps, and graphics with [Shiny](http://shiny.rstudio.com) and [`ggvis`](http://ggvis.rstudio.com)
+  * Get data off the web and expose data, code, results on the web
+  * Distribute data and code via an R package
+  * Automate an analytical pipeline, e.g. via `Make`
+
+### More info?
+
+Use the navigation bar above to access ...

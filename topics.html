@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Topics</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<body class="news">
+  <header>
+    <div class="nav">
+      <ul>
+        <li class="home"><a href="index.html">Home</a></li>
+        <li class="faq"><a href="faq.html">FAQ</a></li>
+        <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+        <li class="topics"><a href="topics.html">Topics</a></li>
+        <li class="people"><a href="people.html">People</a></li>
+      </ul>
+    </div>
+  </header>
+</body>
+
+<div id="header">
+<h1 class="title">Topics</h1>
+</div>
+
+
+<p>All course content will be indexed here.</p>
+<p>In the meantime, feel free to look at material from the past:</p>
+<ul>
+<li><a href="http://www.stat.ubc.ca/~jenny/STAT545A/quick-index.html">Clean index</a> into topics covered in 2013</li>
+<li><a href="https://github.com/jennybc/STAT545A_2013">GitHub repository</a> for 2013 course materials</li>
+</ul>
+<p>Topics traditionally covered in STAT 545A, with light updating:</p>
+<ul>
+<li>Introduction to R and the <a href="http://www.rstudio.com/products/rstudio/">RStudio IDE</a></li>
+<li>R scripts and workspaces, RStudio Projects; how to get your work done</li>
+<li>Creating reports from R scripts and <a href="http://rmarkdown.rstudio.com">R Markdown</a>, using <a href="http://yihui.name/knitr/"><code>knitr</code></a></li>
+<li>Deep thoughts about data analytic work</li>
+<li>Care and feeding of data in R; data frames</li>
+<li>R objects – beyond data frames</li>
+<li>Indexing, subsetting</li>
+<li>Data aggregation; “apply” functions, <a href="http://plyr.had.co.nz"><code>plyr</code></a>, <a href="https://github.com/hadley/dplyr"><code>dplyr</code></a></li>
+<li>How to help yourself, how to ask questions to get useful answers</li>
+<li>How to get data in and out of R, staying as “open” as possible</li>
+<li>How to get figures out of R</li>
+<li>Be the boss of your factors, i.e. categorical variables</li>
+<li>Use of color in R</li>
+<li>Single quantitative variable: visualizations and descriptive statistics</li>
+<li>Two quantitative variables: visualizations and descriptive statistics</li>
+<li>Categorical variables: visualizations and descriptive statistics</li>
+<li>Multivariate visualizations</li>
+<li>Visualizing and summarizing data when “grouped”</li>
+<li>Coding style and project organization</li>
+</ul>
+<p>New topics for STAT 545A and/or STAT 547M will be selected from here:</p>
+<ul>
+<li>Bash shell / unix basics, personal system administration.</li>
+<li>Version control with Git, collaboration via <a href="https://github.com">GitHub</a></li>
+<li>The tabular data mentality, “tidy” data, data reshaping</li>
+<li>Regular expressions, programmatic transformation and searching of character data</li>
+<li>Writing R functions</li>
+<li><code>ggplot2</code> will be used instead of <code>lattice</code> for visualization</li>
+<li>Creating interactive pages, apps, and graphics via <a href="http://shiny.rstudio.com">Shiny</a> and (maybe) <a href="http://ggvis.rstudio.com"><code>ggvis</code></a></li>
+<li>Unit testing, at least as a mentality. Maybe will cover formal unit testing, e.g. <code>testthat</code></li>
+<li>Stats particularly useful in exploration (and often neglected in standard intro stats courses)
+<ul>
+<li>robust summary statistics</li>
+<li>robust regression</li>
+<li>smoothing</li>
+<li>density estimation</li>
+<li>cluster analysis, PCA, SVD, MDS</li>
+</ul></li>
+<li>Embrace the web:
+<ul>
+<li>getting data from the web, e.g. using an API or via scraping</li>
+<li>exposing your hard work on the web (data, code, results)</li>
+</ul></li>
+<li>Distributing data and code to the world via an R package</li>
+<li>Automating an analytical pipeline, e.g. via <code>Make</code>.</li>
+</ul>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

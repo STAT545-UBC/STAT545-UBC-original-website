@@ -1,0 +1,9 @@
+html_document:
+  keep_md: true
+  theme: united
+  css: libs/local/nav.css
+  self_contained: false
+  lib_dir: libs
+  includes:
+    before_body: include/nav.html
+    after_body: include/license-footer.html
