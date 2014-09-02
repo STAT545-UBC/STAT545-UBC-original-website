@@ -58,3 +58,7 @@ However, __if you have never programmed or worked at the command line before, pr
 ### Do I need a computer?
 
 YES. You absolutely must have access to a computer on which you can install software, download data, etc. In fact, *class meetings* will be a mix of lecture, discussion, and live coding. Students will get the most out of this if they can bring their own laptop to class every day. If this is not possible, we will try to help you work something out.
+
+### Where do course marks come from?
+
+The plan is to submit work once a week. The end result may still resemble a "final project", but one that has been built up gradually over the term. Expect some peer evaluation. No final exam.
