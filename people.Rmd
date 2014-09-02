@@ -6,8 +6,17 @@ output:
       after_body: include/nothing.html
 ---
 
-Instructor: [Jennifer (Jenny) Bryan][jb], <jenny@stat.ubc.ca>  
-TA: Dean Attali (STAT 545A)  
-Other assistance from Shaun Jackman, Bernhard Konrad, Julia Gustavsen, Gloria (Luolan) Li
+[Jennifer (Jenny) Bryan](http://www.stat.ubc.ca/~jenny/), lead instructor
 
-[jb]: http://www.stat.ubc.ca/~jenny/
+  * <jenny@stat.ubc.ca>  
+  * [\@JennyBryan](https://twitter.com/JennyBryan)
+
+Dean Attali, TA for STAT 545A
+
+Julia Gustavsen, TA-at-large
+
+Shaun Jackman, TA-at-large
+
+Bernhard Konrad, TA-at-large
+
+Gloria (Luolan) Li, TA-at-large
