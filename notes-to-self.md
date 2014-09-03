@@ -23,4 +23,13 @@ I'm generating a table of class meetings on the Syllabus page and my hacky solut
 
 Random note for STAT 547M and getting data from the web. The flight data used in Wickham's UseR! 2014 `dplyr` tutorial ... once you find the airports with the worst delays, it would be totally natural to look up the IATA airport codes on the web to see where they are. Would lead naturally to talking to an API from R (Googling suggest such exist for the IATA codes). Then you could even map them or something.
 
-Link to http://swirlstats.com in the first block on learning R.
+Link to <http://swirlstats.com> in the first block on learning R.
+
+Links collected when writing Git installation instructions. Most of these may not be needed by STAT 545A and are interesting to me re: re-installing my OS.
+
+  * <http://superuser.com/questions/666086/install-git-under-osx-mavericks> go here if Mac users install Git from git-scm.com and then have trouble with the Xcode git wrapper getting in the way
+  * <http://blog.bobbyallen.me/2014/03/07/how-to-install-git-without-having-to-install-xcode-on-macosx/>
+  * <http://coolestguidesontheplanet.com/install-update-latest-version-git-mac-osx-10-9-mavericks/>
+  * <http://burnedpixel.com/blog/setting-up-git-and-github-on-your-mac/>
+  * <http://www.moncefbelyamani.com/how-to-install-xcode-homebrew-git-rvm-ruby-on-mac/>
+  * <https://github.com/jennybc/stat540_2014/blob/master/seminars/seminar92_git.md>
