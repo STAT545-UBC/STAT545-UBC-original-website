@@ -19,4 +19,8 @@ Shaun Jackman, TA-at-large
 
 Bernhard Konrad, TA-at-large
 
+  * <konradbe@math.ubc.ca>
+  * [\@BernhardKonrad](https://twitter.com/BernhardKonrad)
+  * [Github](https://github.com/BernhardKonrad)
+
 Gloria (Luolan) Li, TA-at-large
