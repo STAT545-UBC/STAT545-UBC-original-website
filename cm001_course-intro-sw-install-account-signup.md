@@ -7,12 +7,50 @@ output:
 
 ### cm001 2014-09-03 Wednesday overview
 
-  * Introduction to the course *slides to be posted after class*
+  * Introduction to the course
   * Students to do for Monday 2014-09-08 (see below)
     - install software
     - sign up for accounts
   * Don't panic if there are glitches. That's normal.
   * What's coming? We'll help you begin to use all your new toys next week!
+
+#### Slides and links
+
+Slides available on [slideshare](http://www.slideshare.net/jenniferbryan5811/ubc-stat545-2014-cm001-intro-tocourse)
+
+<iframe src="http://www.slideshare.net/slideshow/embed_code/38663458" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/jenniferbryan5811/ubc-stat545-2014-cm001-intro-tocourse" title="UBC STAT545 2014 Cm001 intro to-course" target="_blank">UBC STAT545 2014 Cm001 intro to-course</a> </strong> from <strong><a href="http://www.slideshare.net/jenniferbryan5811" target="_blank">Jennifer Bryan</a></strong> </div>
+
+Selected links from the slides
+
+  * [The Big Data Brain Drain: Why Science is in Trouble](http://jakevdp.github.io/blog/2013/10/26/big-data-brain-drain/)
+  * [The data science Venn diagram](http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram)
+  * [Slides from Hadley Wickham's talk in the Simply Statistics Unconference](http://t.co/D931Og8mq3)
+  * 2014-08-17 NYT article [For Big-Data Scientists:, 'Janitor Work' Is Key Hurdle to Insights](http://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html?partner=rss&emc=rss&smid=tw-nytimesscience&_r=0) by Steve Lohr
+  * [Data carpentry](http://mimno.infosci.cornell.edu/b/articles/carpentry/) (response to NYT article re: janitor work)
+  * [The Forgotten Job of a Data Scientist: Editing](http://www.john-foreman.com/blog/the-forgotten-job-of-a-data-scientist-editing)
+  * [10 things statistics taught us about big data analysis](http://simplystatistics.org/2014/05/22/10-things-statistics-taught-us-about-big-data-analysis/)
+  * [The 80/20 rule of statistical methods development](http://simplystatistics.org/2014/03/20/the-8020-rule-of-statistical-methods-development/)
+  * [Don't use Hadoop - your data isn't that big](http://www.chrisstucchio.com/blog/2013/hadoop_hatred.html)
+  * [Most data isn’t "big," and businesses are wasting money pretending it is](http://qz.com/81661/most-data-isnt-big-and-businesses-are-wasting-money-pretending-it-is/)
+  * [Big data is like teenage sex](https://www.facebook.com/dan.ariely/posts/904383595868)
+  * [Edward Tufte](http://www.edwardtufte.com) book [chapter 5 on the Challenger Disaster](http://www.edwardtufte.com/tufte/books_textb)
+  * "Let's Practice What We Preach: Turning Tables into Graphs". The American Statistician, Volume 56, Number 2, 1 May 2002, pp. 121-130(10) by Gelman A, Pasarica C, Dodhia. [via JSTOR](http://www.jstor.org/stable/3087382)
+  * [Data Sharing and Management Snafu in 3 Short Acts](https://www.youtube.com/watch?v=N2zK3sAtr-4&feature=youtu.be), a video
+  * [The R Project](http://www.r-project.org)
+  * [RStudio IDE](http://www.rstudio.com/products/rstudio/)
+  * [R Markdown](http://rmarkdown.rstudio.com)
+  * [knitr](http://yihui.name/knitr/)
+  * ["FINAL".doc](http://www.phdcomics.com/comics/archive.php?comicid=1531) from PHDCOMICS
+  * [Git](http://git-scm.com)
+  * [GitHub](https://github.com)
+  * [The Best Map Ever Made of America’s Racial Segregation](http://www.wired.com/design/2013/08/how-segregated-is-your-city-this-eye-opening-map-shows-you/?viewall=true)
+    - [The Racial Dot Map](http://www.coopercenter.org/demographics/Racial-Dot-Map)
+    - [unorthodox123/RacialDotMap](https://github.com/unorthodox123/RacialDotMap) on GitHub
+  * [Foodborne Chicago finds dodgy restaurants with tweets, and R](http://blog.revolutionanalytics.com/2013/08/foodborne-chicago.html)
+    - [corynissen/foodborne_classifier](https://github.com/corynissen/foodborne_classifier) on GitHub
+  * [Roger Peng](http://www.biostat.jhsph.edu/~rpeng/)
+  * [GNU Make for Reproducible Data Analysis](http://zmjones.com/make/)
+  * [stackoverflow](http://stackoverflow.com)
 
 #### Git
 
@@ -72,4 +110,4 @@ Fair warning: for some things, you will have to use the command line. But the mo
 
 <http://rpubs.com>
 
-This is a free hosting service provided by RStudio. It is the fastest way to get a report up on the web, based on an R script or an R Markdown file. We may use this a little before we move on to other techniques. Best to go ahead and register for a free account.
+This is a free hosting service provided by RStudio. It is the fastest way to get a report up on the web, based on an R script or an R Markdown file. But I think its days are numbered. Still, we may use this a little before we move on to other techniques. Registering for a free account is a "nice to do", not a "must do".

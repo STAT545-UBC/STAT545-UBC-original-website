@@ -35,3 +35,4 @@ Links collected when writing Git installation instructions. Most of these may no
   * <https://github.com/jennybc/stat540_2014/blob/master/seminars/seminar92_git.md>
   
 <http://joshldavis.com/2014/06/30/github-university-follow-up/> Good write up of using GitHub in a course
+
