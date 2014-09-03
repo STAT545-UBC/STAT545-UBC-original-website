@@ -7,7 +7,7 @@ Learn how to
 
   * explore, groom, visualize, and analyze data
   * make all of that reproducible, reusable, and shareable
-  * using R
+  * use R
 
 ### Selected topics
 
