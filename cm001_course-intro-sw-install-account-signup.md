@@ -45,6 +45,8 @@ If you choose not get a Twitter account, you will want to visit the [\@STAT545 p
 
 If you set up (or already have a Twitter account), you should follow [\@STAT545](https://twitter.com/STAT545).
 
+You could also follow me as an individual, an account I use very differently (and sparingly), at [\@JennyBryan](https://twitter.com/JennyBryan). Ditto for the course TAs. You can learn some good people to follow re: data science and R by looking at who we follow and who we have Twitter conversations with.
+
 #### GitHub
 
   * Register for a free individual GitHub account and request [the student discount](https://education.github.com). This should give you some free private repositories for a couple of years. Do this ASAP! I think a human vets these requests, so it could take a couple of days.
