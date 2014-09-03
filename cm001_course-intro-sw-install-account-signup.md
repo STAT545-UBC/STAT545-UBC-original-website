@@ -58,15 +58,13 @@ Things you might already have
 
   * As mentioned above, __RStudio__ has a basic front-end for Git(Hub). I use this more and more for quick, simple operations.
 
-  * GitHub itself offers clients: [GitHub for Mac](https://mac.github.com) and [GitHub for Windows](https://windows.github.com). I have friends and family using these and they seem happy.
-    - Windows users who installed GitHub for Windows will have Git itself *and* a nice GUI.
-    - Mac users would need to install Git first (documented elsewhere) and then install GitHub for Mac as 
+  * GitHub itself offers clients: [GitHub for Mac](https://mac.github.com) and [GitHub for Windows](https://windows.github.com). I have friends and family using these and they seem happy. If you chose this route for installing Git itself, then you can relax because you already have a Git GUI installed.
 
-[SourceTree](http://www.sourcetreeapp.com) is a free, much more powerful Git(Hub) client that I highly recommend. It was my first Git GUI and is still my favorite for nontrivial Git tasks.
+Things you would have to install
 
+  * [SourceTree](http://www.sourcetreeapp.com) is a free, much more powerful Git(Hub) client that I highly recommend. It was my first Git GUI and is still my favorite for nontrivial Git tasks.
 
-
-Fair warning: for some things, you will have to use the command line.
+Fair warning: for some things, you will have to use the command line. But the more powerful your Git GUI client is, the less often this happens.
 
 #### RPubs
 
