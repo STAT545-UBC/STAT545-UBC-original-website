@@ -7,8 +7,6 @@ output:
 ---
 
 ```{r include = FALSE}
-library(xtable)
-options(xtable.comment = FALSE)
 library(dplyr)
 library(stringr)
 ```
@@ -30,18 +28,14 @@ cdat %>% head(3)
 
 ## link to the README of any class meetings where such exists
 cmdat <-
-  data.frame(readme = list.files("cm", pattern = 'README.md',
-                                 recursive = TRUE, full.names = TRUE),
+  data.frame(html = list.files(pattern = '^cm.*html$'),
              stringsAsFactors = FALSE)
-cmdat <- cmdat %>%
-  mutate(cm = str_extract(readme, "cm[0-9]+"),
-         link = paste0("https://github.com/STAT545-UBC/STAT545-UBC.github.io/",
-                       "tree/master/", dirname(readme)))
-cdat <- cdat %>% left_join(select(cmdat, -readme))
+cmdat <- cmdat %>% mutate(cm = str_extract(html, "cm[0-9]+"))
+cdat <- cdat %>% left_join(cmdat)
 
 cdat <- cdat %>%
   mutate(notes = str_replace(notes, "(cm[0-9]{3})", '<a href="LINK">\\1</a>'))
-cdat <- cdat %>% mutate(notes = str_replace(notes, "LINK", link))
+cdat <- cdat %>% mutate(notes = str_replace(notes, "LINK", html))
 dat <- cdat %>% split(cdat$course)
 dat <- lapply(dat, 'rownames<-', NULL)
 ```

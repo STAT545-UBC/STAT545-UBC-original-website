@@ -16,22 +16,22 @@ table {
 #### STAT 545A
 
 
-|date       |notes                                                                                                                                                                             |
-|:----------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|sep-01 mon |no class; Labor Day                                                                                                                                                               |
-|sep-03 wed |<a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/cm/cm001_course-intro-sw-install-account-signup">cm001</a>: Intro to course; S/W install; acct sign-ups |
-|sep-08 mon |                                                                                                                                                                                  |
-|sep-10 wed |                                                                                                                                                                                  |
-|sep-15 mon |                                                                                                                                                                                  |
-|sep-17 wed |                                                                                                                                                                                  |
-|sep-22 mon |                                                                                                                                                                                  |
-|sep-24 wed |                                                                                                                                                                                  |
-|sep-29 mon |                                                                                                                                                                                  |
-|oct-01 wed |                                                                                                                                                                                  |
-|oct-06 mon |                                                                                                                                                                                  |
-|oct-08 wed |                                                                                                                                                                                  |
-|oct-13 mon |no class; Thanksgiving                                                                                                                                                            |
-|oct-15 wed |                                                                                                                                                                                  |
+|date       |notes                                                                                                              |
+|:----------|:------------------------------------------------------------------------------------------------------------------|
+|sep-01 mon |no class; Labor Day                                                                                                |
+|sep-03 wed |<a href="cm001_course-intro-sw-install-account-signup.html">cm001</a>: Intro to course; S/W install; acct sign-ups |
+|sep-08 mon |                                                                                                                   |
+|sep-10 wed |                                                                                                                   |
+|sep-15 mon |                                                                                                                   |
+|sep-17 wed |                                                                                                                   |
+|sep-22 mon |                                                                                                                   |
+|sep-24 wed |                                                                                                                   |
+|sep-29 mon |                                                                                                                   |
+|oct-01 wed |                                                                                                                   |
+|oct-06 mon |                                                                                                                   |
+|oct-08 wed |                                                                                                                   |
+|oct-13 mon |no class; Thanksgiving                                                                                             |
+|oct-15 wed |                                                                                                                   |
 
 #### STAT 547M
 
