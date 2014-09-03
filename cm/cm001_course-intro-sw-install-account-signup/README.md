@@ -3,15 +3,16 @@ output:
   html_document:
     toc: true
     toc_depth: 4
-    includes:
-      after_body: ../../include/nothing.html
 ---
 
 ### cm001 2014-09-03 Wednesday overview
 
-  * Introduction to the course
-  * TO DO: install software
-  * TO DO: sign up for accounts
+  * Introduction to the course *slides to be posted after class*
+  * Students to do for Monday 2014-09-08 (see below)
+    - install software
+    - sign up for accounts
+  * Don't panic if there are glitches. That's normal.
+  * What's coming? We'll help you begin to use all your new toys next week!
 
 #### Git
 
@@ -23,17 +24,15 @@ For now, follow the "install Git" instructions from this recent Software Carpent
 
 #### R and RStudio
 
-Follow these instructions from a recent SWC Bootcamp I led:
+Follow [these instructions](../../block000_r-rstudio-install.html). Stick with it to the bitter end, where you try to get Git and RStudio talking to each other.
 
-<http://jennybc.github.io/2014-05-12-ubc/r-setup.html>
-
-Follow to the bitter end, where you try to get Git and RStudio talking to each other.
+If you have some ancient version or R and/or RStudio, just go ahead and update! It often requires more technical skill to function with old software (and hardware).
 
 #### Twitter
 
 <https://twitter.com>  
 
-Instructor will use the [\@STAT545](https://twitter.com/STAT545) Twitter account to make micro-announcements, share interesting links, and facilitate a conversation amongst ourselves __in public__.
+I will use the [\@STAT545](https://twitter.com/STAT545) Twitter account to make micro-announcements, share interesting links, and facilitate a conversation amongst ourselves __in public__.
 
 In class, we'll talk about Twitter, its scholarly use, and privacy. Some relevant links:
 
@@ -52,9 +51,23 @@ If you set up (or already have a Twitter account), you should follow [\@STAT545]
 
 #### GitHub
 
-  * Register an [educational GitHub account](https://education.github.com); it has the added perk of giving you some free private repositories for a couple of years. You probably want a *student, individual* account.
-  * Optional: Upload your photo to [Gravatar](http://gravatar.com), if you're comfortable with that. This photo will appear in your GitHub profile, be associated with your commits and comments, etc. Consider using the same photo for Twitter.
+  * Register for a free individual GitHub account and request [the student discount](https://education.github.com). This should give you some free private repositories for a couple of years. Do this ASAP! I think a human vets these requests, so it could take a couple of days.
+    - As with Twitter, think before you set up your public profile. I suggest you use a real name and begin to build a scholarly identity in social media and coding, but it's a decision you should make with intention.
+  
+#### Git(Hub) client
+
+Learning how and why to use version control can be rough at first. I certainly found the use of a GUI -- as opposed to the command line -- extremely helpful when I was getting started.
+
+As mentioned above, __RStudio__ has a basic front-end for Git(Hub). I use this more and more for quick, simple operations.
+
+[SourceTree](http://www.sourcetreeapp.com) is a free, much more powerful Git(Hub) client that I highly recommend. It was my first Git GUI and is still my favorite for nontrivial Git tasks.
+
+GitHub itself offers clients: [GitHub for Mac](https://mac.github.com) and [GitHub for Windows](https://windows.github.com). I have friends and family using this and they are happy with it.
+
+Fair warning: for some things, you will have to use the command line.
 
 #### RPubs
 
 <http://rpubs.com>
+
+This is a free hosting service provided by RStudio. It is the fastest way to get a report up on the web, based on an R script or an R Markdown file. We may use this a little before we move on to other techniques. Best to go ahead and register for a free account.

@@ -22,3 +22,5 @@ I'm generating a table of class meetings on the Syllabus page and my hacky solut
 #### Miscellany
 
 Random note for STAT 547M and getting data from the web. The flight data used in Wickham's UseR! 2014 `dplyr` tutorial ... once you find the airports with the worst delays, it would be totally natural to look up the IATA airport codes on the web to see where they are. Would lead naturally to talking to an API from R (Googling suggest such exist for the IATA codes). Then you could even map them or something.
+
+Link to http://swirlstats.com in the first block on learning R.
