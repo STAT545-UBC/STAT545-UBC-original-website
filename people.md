@@ -29,3 +29,8 @@ Bernhard Konrad, TA-at-large
   * [GitHub](https://github.com/BernhardKonrad)
 
 Gloria (Luolan) Li, TA-at-large
+
+  * <lli@bcgsc.ca>
+  * [\@LuolanLi](https://twitter.com/LuolanLi)
+  * [GitHub](https://github.com/gloriali)
+
