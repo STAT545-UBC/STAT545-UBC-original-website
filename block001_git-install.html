@@ -72,53 +72,70 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="TOC">
 <ul>
+<li><a href="#overview">Overview</a></li>
 <li><a href="#git-installation-windows">Git installation: Windows</a></li>
 <li><a href="#git-installation-mac">Git installation: Mac</a></li>
 <li><a href="#git-installation-linux">Git installation: Linux</a></li>
 </ul>
 </div>
 
+<div id="overview" class="section level4">
+<h4>Overview</h4>
+<p>Learning how and why to use version control can be rough at first. I found the use of a GUI – as opposed to the command line – extremely helpful when I was getting started. I call this sort of helper application a <strong>Git client</strong>.</p>
+<p>Git and your Git client are not the same thing, just like R and RStudio are not the same thing. A Git client and the RStudio IDE are not <em>necessary</em> to use to Git or R, respectively, but they make the experience more pleasant.</p>
+<p>What’s my point? Use of a Git client affects how you will install Git and how you will configure Git to interact with GitHub. Some Git clients will install Git for you; these are the Git clients aimed at novices, which prioritize ease of use over power. Other Git clients, aimed at intermediate/advanced users, will assume you can install Git yourself.</p>
+<p>RStudio offers a very basic Git client. I use this often for simple operations, but you probably want another, more powerful one as well.</p>
+<p>Fair warning: for some things, you will have to use the command line. But the more powerful your Git client is, the less often this happens.</p>
+</div>
 <div id="git-installation-windows" class="section level3">
 <h3>Git installation: Windows</h3>
 <p>I do not personally use Windows but some of my best friends do :)</p>
-<p>Here are two approaches I can recommend.</p>
+<p>TL;DR: follow the <a href="https://help.github.com/articles/set-up-git#platform-windows">instructions from GitHub</a>.</p>
+<p>If you want more advice from me, here are two approaches I can recommend.</p>
 <p><a href="http://software-carpentry.org">Software Carpentry</a> is an organization that “teaches lab skills for scientific computing”. They recommend:</p>
 <ul>
-<li><a href="http://msysgit.github.io">Git for Windows</a>, previously known as <code>mysysgit</code>, to get Git in addition to some other useful tools, such as the Bash shell.</li>
+<li>Install <a href="http://msysgit.github.io">Git for Windows</a>, previously known as <code>mysysgit</code>, to get Git in addition to some other useful tools, such as the Bash shell.</li>
 <li>This approach supports a transition to more expert use, because I think it leaves you with a more conventional Git installation and the Bash shell, which will be useful as you venture outside of R/RStudio.</li>
+<li>This also leaves you with a Git client, but not a very good one. <a href="http://www.sourcetreeapp.com">SourceTree</a> is a free, powerful Git(Hub) client that I highly recommend. It was my first Git client and is still my favorite for nontrivial Git tasks.</li>
 </ul>
-<p>The GitHub hosting site offers <a href="https://windows.github.com">GitHub for Windows</a> that provides Git itself, a GUI front-end, and smooth integration with GitHub.</p>
+<p>The GitHub hosting site offers <a href="https://windows.github.com">GitHub for Windows</a> that provides Git itself, a client, and smooth integration with GitHub.</p>
 <ul>
 <li><a href="https://help.github.com/articles/set-up-git#platform-windows">Their Windows set-up instructions</a> recommend this method of Git installation.</li>
 <li>This is a better choice for novices in scientific computing, because it’s more likely to “just work”. You may eventually outgrow it, but you can cross that bridge when you come to it.</li>
 </ul>
+<p><em>still need to add words about Git configuration and GitHub credentials</em></p>
 </div>
 <div id="git-installation-mac" class="section level3">
 <h3>Git installation: Mac</h3>
 <p>I am a Mac user, so have experience here.</p>
-<p>As with Windows, I present several approaches, but the weight I put on them is different.</p>
+<p>TL;DR: follow the <a href="https://help.github.com/articles/set-up-git#platform-mac">instructions from GitHub</a>.</p>
+<p>If you want more advice from me, here are approaches I can recommend.</p>
 <p>You can install Git from here: <a href="http://git-scm.com/downloads">http://git-scm.com/downloads</a>.</p>
 <ul>
 <li>Should work for OS X 10.8 and higher.</li>
 <li>For older versions of OS X (10.5-10.7) use the most recent available installer available <a href="https://code.google.com/p/git-osx-installer/downloads/list">here</a>. Use the Leopard installer for 10.5 and the Snow Leopard installer for 10.6-10.7.</li>
 <li>This arguably sets you up the best for the future and should “just work” for most people. It will certainly get you the latest version of Git of all approaches described here. It is the most widely recommended installation method.</li>
 <li>Let me know if you get errors about having “no developer tools” or Xcode and I can link to some solutions.</li>
+<li>This leaves you with NO Git client! <a href="http://www.sourcetreeapp.com">SourceTree</a> is a free, powerful Git(Hub) client that I highly recommend. It was my first Git client and is still my favorite for nontrivial Git tasks.</li>
 </ul>
-<p>You can get Git from Apple’s developer tools. <em>Exactly how to do this varies quite a bit across different OS X versions, plus it seems to be inferior to the other approaches I present. Will not flesh out for now.</em></p>
-<p>The GitHub hosting site offers <a href="https://windows.github.com">GitHub for Mac</a> that provides the option to install Git itself.</p>
+<p>You can also get Git from Apple’s developer tools. <em>Exactly how to do this varies quite a bit across different OS X versions, plus it seems to be inferior to the other approaches I present. Will not flesh out for now.</em></p>
+<p>The GitHub hosting site offers <a href="https://windows.github.com">GitHub for Mac</a> that provides <em>the option</em> to install Git itself, a client, and smooth integration with GitHub..</p>
 <ul>
-<li>This blog post <a href="https://github.com/blog/1510-installing-git-from-github-for-mac">Installing Git from GitHub for Mac</a> explains how to trigger that option.</li>
+<li>This blog post <a href="https://github.com/blog/1510-installing-git-from-github-for-mac">Installing Git from GitHub for Mac</a> explains how to trigger the options to install Gitself, which I recommend.</li>
 <li>This is a good choice for novices in scientific computing, because it’s more likely to “just work”. You may eventually outgrow it, but you can cross that bridge when you come to it.</li>
 </ul>
 <p>If you anticipate getting heavily into scientific computing, you’re going to be installing lots of software. You should check out <a href="http://brew.sh">homebrew</a>, “the missing package manager for OS X”. Among many other things, it can install Git for you. Our own TA <a href="https://github.com/sjackman">Shaun Jackman</a> works on <a href="https://github.com/Homebrew/homebrew-science">homebrew-science</a>, so he’s the local expert.</p>
+<p><em>still need to add words about Git configuration and GitHub credentials</em></p>
 </div>
 <div id="git-installation-linux" class="section level3">
 <h3>Git installation: Linux</h3>
+<p>TL;DR: follow the <a href="https://help.github.com/articles/set-up-git#platform-linux">instructions from GitHub</a>.</p>
 <p>If Git is not already available on your machine you can try to install it via your distro’s package manager (e.g. apt-get or yum).</p>
 <p>Ubuntu or Debian Linux</p>
 <pre class="sh"><code>sudo apt-get install git</code></pre>
 <p>Fedora or RedHat Linux</p>
 <pre class="sh"><code>sudo yum install git</code></pre>
+<p><em>still need to add words about Git configuration and GitHub credentials</em></p>
 </div>
 
 <div class="footer">

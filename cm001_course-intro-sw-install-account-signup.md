@@ -11,6 +11,7 @@ output:
   * Students to do for Monday 2014-09-08 (see below)
     - install software
     - sign up for accounts
+    - note: I advice you do all of that in the order of presentation below
   * Don't panic if there are glitches. That's normal.
   * What's coming? We'll help you begin to use all your new toys next week!
 
@@ -52,7 +53,15 @@ Selected links from the slides
   * [GNU Make for Reproducible Data Analysis](http://zmjones.com/make/)
   * [stackoverflow](http://stackoverflow.com)
 
-#### Git
+#### Register a GitHub account
+
+__Do this first!__
+
+  * Register for a free individual GitHub account and request [the student discount](https://education.github.com). This should give you some free private repositories for a couple of years. Do this ASAP! I think a human vets these requests, so it could take a couple of days.
+    - As with Twitter (see below), think before you set up your public profile. I suggest you use a real name and begin to build a scholarly identity in social media and coding, but it's a decision you should make with intention.
+  * We will elicit your GitHub username soon so we can add you to the [STAT 545 GitHub Organization](https://github.com/STAT545-UBC/).
+
+#### Git(Hub) and Git client
 
 Follow [these instructions](block001_git-install.html).
 
@@ -79,32 +88,11 @@ In class, we'll talk about Twitter, its scholarly use, and privacy. Some relevan
   * [Using Twitter in university research, teaching and
 impact activities: A guide for academics and researchers (PDF)](http://blogs.lse.ac.uk/impactofsocialsciences/files/2011/11/Published-Twitter_Guide_Sept_2011.pdf)
 
-If you choose not get a Twitter account, you will want to visit the [\@STAT545 profile page](https://twitter.com/STAT545) regularly to see what's up.
+If you choose not to get a Twitter account, you will want to visit the [\@STAT545 profile page](https://twitter.com/STAT545) regularly to see what's up.
 
-If you set up (or already have a Twitter account), you should follow [\@STAT545](https://twitter.com/STAT545).
+If you set up (or already have a Twitter account), you should follow [\@STAT545](https://twitter.com/STAT545). We will elicit your Twitter handle soon so we can follow you back.
 
 You could also follow me as an individual, an account I use very differently (and sparingly), at [\@JennyBryan](https://twitter.com/JennyBryan). Ditto for the course TAs. You can learn some good people to follow re: data science and R by looking at who we follow and who we have Twitter conversations with.
-
-#### GitHub
-
-  * Register for a free individual GitHub account and request [the student discount](https://education.github.com). This should give you some free private repositories for a couple of years. Do this ASAP! I think a human vets these requests, so it could take a couple of days.
-    - As with Twitter, think before you set up your public profile. I suggest you use a real name and begin to build a scholarly identity in social media and coding, but it's a decision you should make with intention.
-  
-#### Git(Hub) client
-
-Learning how and why to use version control can be rough at first. I certainly found the use of a GUI -- as opposed to the command line -- extremely helpful when I was getting started.
-
-Things you might already have
-
-  * As mentioned above, __RStudio__ has a basic front-end for Git(Hub). I use this more and more for quick, simple operations.
-
-  * GitHub itself offers clients: [GitHub for Mac](https://mac.github.com) and [GitHub for Windows](https://windows.github.com). I have friends and family using these and they seem happy. If you chose this route for installing Git itself, then you can relax because you already have a Git GUI installed.
-
-Things you would have to install
-
-  * [SourceTree](http://www.sourcetreeapp.com) is a free, much more powerful Git(Hub) client that I highly recommend. It was my first Git GUI and is still my favorite for nontrivial Git tasks.
-
-Fair warning: for some things, you will have to use the command line. But the more powerful your Git GUI client is, the less often this happens.
 
 #### RPubs
 
