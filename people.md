@@ -14,7 +14,11 @@ output:
 
 Dean Attali, TA for STAT 545A
 
-Julia Gustavsen, TA-at-large
+[Julia Gustavsen](http://www.juliagustavsen.com), TA-at-large
+
+  * <jgustavsen@eos.ubc.ca>
+  * [\@JuliaGustavsen](http://twitter.com/JuliaGustavsen)
+  * [Github](https://github.com/jooolia)
 
 [Shaun Jackman](http://sjackman.ca), TA-at-large
 
