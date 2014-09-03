@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Git Installation</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<body class="news">
+  <header>
+    <div class="nav">
+      <ul>
+        <li class="home"><a href="index.html">Home</a></li>
+        <li class="faq"><a href="faq.html">FAQ</a></li>
+        <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+        <li class="topics"><a href="topics.html">Topics</a></li>
+        <li class="people"><a href="people.html">People</a></li>
+      </ul>
+    </div>
+  </header>
+</body>
+
+<div id="header">
+<h1 class="title">Git Installation</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#git-installation-windows">Git installation: Windows</a></li>
+<li><a href="#git-installation-mac">Git installation: Mac</a></li>
+<li><a href="#git-installation-linux">Git installation: Linux</a></li>
+</ul>
+</div>
+
+<div id="git-installation-windows" class="section level3">
+<h3>Git installation: Windows</h3>
+<p>I do not personally use Windows but some of my best friends do :)</p>
+<p>Here are two approaches I can recommend.</p>
+<p><a href="http://software-carpentry.org">Software Carpentry</a> is an organization that “teaches lab skills for scientific computing”. They recommend:</p>
+<ul>
+<li><a href="http://msysgit.github.io">Git for Windows</a>, previously known as <code>mysysgit</code>, to get Git in addition to some other useful tools, such as the Bash shell.</li>
+<li>This approach supports a transition to more expert use, because I think it leaves you with a more conventional Git installation and the Bash shell, which will be useful as you venture outside of R/RStudio.</li>
+</ul>
+<p>The GitHub hosting site offers <a href="https://windows.github.com">GitHub for Windows</a> that provides Git itself, a GUI front-end, and smooth integration with GitHub.</p>
+<ul>
+<li><a href="https://help.github.com/articles/set-up-git#platform-windows">Their Windows set-up instructions</a> recommend this method of Git installation.</li>
+<li>This is a better choice for novices in scientific computing, because it’s more likely to “just work”. You may eventually outgrow it, but you can cross that bridge when you come to it.</li>
+</ul>
+</div>
+<div id="git-installation-mac" class="section level3">
+<h3>Git installation: Mac</h3>
+<p>I am a Mac user, so have experience here.</p>
+<p>As with Windows, I present several approaches, but the weight I put on them is different.</p>
+<p>You can install Git from here: <a href="http://git-scm.com/downloads">http://git-scm.com/downloads</a>.</p>
+<ul>
+<li>Should work for OS X 10.8 and higher.</li>
+<li>For older versions of OS X (10.5-10.7) use the most recent available installer available <a href="https://code.google.com/p/git-osx-installer/downloads/list">here</a>. Use the Leopard installer for 10.5 and the Snow Leopard installer for 10.6-10.7.</li>
+<li>This arguably sets you up the best for the future and should “just work” for most people. It will certainly get you the latest version of Git of all approaches described here. It is the most widely recommended installation method.</li>
+<li>Let me know if you get errors about having “no developer tools” or Xcode and I can link to some solutions.</li>
+</ul>
+<p>You can get Git from Apple’s developer tools. <em>Exactly how to do this varies quite a bit across different OS X versions, plus it seems to be inferior to the other approaches I present. Will not flesh out for now.</em></p>
+<p>The GitHub hosting site offers <a href="https://windows.github.com">GitHub for Mac</a> that provides the option to install Git itself.</p>
+<ul>
+<li>This blog post <a href="https://github.com/blog/1510-installing-git-from-github-for-mac">Installing Git from GitHub for Mac</a> explains how to trigger that option.</li>
+<li>This is a good choice for novices in scientific computing, because it’s more likely to “just work”. You may eventually outgrow it, but you can cross that bridge when you come to it.</li>
+</ul>
+<p>If you anticipate getting heavily into scientific computing, you’re going to be installing lots of software. You should check out <a href="http://brew.sh">homebrew</a>, “the missing package manager for OS X”. Among many other things, it can install Git for you. Our own TA <a href="https://github.com/sjackman">Shaun Jackman</a> works on <a href="https://github.com/Homebrew/homebrew-science">homebrew-science</a>, so he’s the local expert.</p>
+</div>
+<div id="git-installation-linux" class="section level3">
+<h3>Git installation: Linux</h3>
+<p>If Git is not already available on your machine you can try to install it via your distro’s package manager (e.g. apt-get or yum).</p>
+<p>Ubuntu or Debian Linux</p>
+<pre class="sh"><code>sudo apt-get install git</code></pre>
+<p>Fedora or RedHat Linux</p>
+<pre class="sh"><code>sudo yum install git</code></pre>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
