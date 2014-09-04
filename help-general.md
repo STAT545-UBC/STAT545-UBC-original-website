@@ -6,7 +6,9 @@ title: "How to get unstuck"
 
 What to do when you are stuck ...
 
-Help yourself or, __maybe__, ~~drag others into your hell~~ ask for help.
+Help yourself or, __maybe__, ~~drag others into your hell~~ ask for help. The links below contains excellent self-help advice.
+
+While you are getting started, I recommend you [seek help within the STAT545 community](help-STAT545.html) first, before, e.g. posting to external forums. We are more cuddly.
 
 Here are some good resources to get your head in the right place.
 

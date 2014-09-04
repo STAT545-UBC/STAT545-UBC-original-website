@@ -12,7 +12,7 @@ output:
 
 What to do when you're stuck? First, try a little harder to help thyself. Use the strategies [given here](help-general.html). __Still__ stuck? Ask for help! 
 
-While you are getting started, I recommend you seek help with the STAT545 community first, before, e.g. posting to external forums. We are more cuddly.
+While you are getting started, I recommend you seek help within the STAT545 community first, before, e.g. posting to external forums. We are more cuddly.
 
 The instructor and TAs stand ready to assist you, but your peers will also be a great source of good questions and answers. For that reason, we encourage you to seek help in ways that are visible to others. Your instructors/TAs are more likely to seize opportunities for public heroism, plus others can benefit from seeing the discussion.
 
@@ -59,6 +59,3 @@ On the [People](people.html) page, you see all of our emails. See the GitHub sec
 #### Google Group (not!)
 
 In the past I have run a private Google Group for my classes. But with our use of Twitter and GitHub, I am hoping to avoid any more channels of communication.
-
-<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/sjackman">@sjackman</a> Just a tweet to demonstrate how to tweet at someone. Pls reply to help me show what such a convo will look like.</p>&mdash; STAT 545 at UBC (@STAT545) <a href="https://twitter.com/STAT545/status/507627877169242113">September 4, 2014</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
