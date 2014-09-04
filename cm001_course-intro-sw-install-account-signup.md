@@ -11,7 +11,7 @@ output:
   * Students to do for Monday 2014-09-08 (see below)
     - install software
     - sign up for accounts
-    - note: I advice you do all of that in the order of presentation below
+    - note: I advise you do all of that in the order of presentation below
   * Don't panic if there are glitches. That's normal.
   * What's coming? We'll help you begin to use all your new toys next week!
 
