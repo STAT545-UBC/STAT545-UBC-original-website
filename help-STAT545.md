@@ -26,7 +26,6 @@ Example: you are working on homework in a repository and some code is not workin
     - BAD: "aaaaaarrrrrrgh!", "things not working", "i need help"
     - GOOD: 'error when indexing a matrix: "incorrect number of dimensions"'
   * Stay specific and be complete-but-concise in the body of the description. Don't expect your helper to play 20 questions with you.
-  * *adapt here once the other 'how to get help' page is mature.*
   * Tag someone or some group of people. Start by typing the `@` symbol and GitHub will generate some good suggestions. You can also type or paste in the GitHub username yourself. Examples: to tag Jenny, use `@jennybc`; to tag Dean use `@daattali`; to tag all instructional staff tag `@STAT545-UBC/owners`. *Should I create a team within our Organization just for help? Will that sort of tag work globally or only within repos owned by the Organization?*
   * Don't forget to click "Submit new issue"!
 

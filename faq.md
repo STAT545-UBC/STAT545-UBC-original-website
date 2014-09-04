@@ -1,4 +1,12 @@
-# FAQ
+---
+title: "FAQ"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    includes:
+      after_body: include/nothing.html
+---
 
 ### Course facts
 
@@ -54,3 +62,8 @@ YES. You absolutely must have access to a computer on which you can install soft
 ### Where do course marks come from?
 
 The plan is to submit work once a week. The end result may still resemble a "final project", but one that has been built up gradually over the term. Expect some peer evaluation. No final exam.
+
+### How do I get help?
+
+  * [General, external strategies](help-general.html) for solving computing problems, especially with R
+  * [Specific advice](help-STAT545.html) within these courses
