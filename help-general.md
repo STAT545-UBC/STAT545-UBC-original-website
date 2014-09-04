@@ -4,6 +4,8 @@ title: "How to get unstuck"
 
 *this page still under development*
 
+*advice on searching official R documentation will be given elsewhere*
+
 What to do when you are stuck ...
 
 Help yourself or, __maybe__, ~~drag others into your hell~~ ask for help. The links below contains excellent self-help advice.
