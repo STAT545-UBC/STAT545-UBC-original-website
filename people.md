@@ -14,6 +14,11 @@ output:
 
 Dean Attali, TA for STAT 545A
 
+  * Office Hours: TBA
+  * <daattali@gmail.com>
+  * [\@daattali](http://twitter.com/daattali)
+  * [GitHub](https://github.com/daattali)
+
 [Julia Gustavsen](http://www.juliagustavsen.com), TA-at-large
 
   * <jgustavsen@eos.ubc.ca>
