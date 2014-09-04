@@ -69,7 +69,7 @@ Follow [these instructions](block001_git-install.html).
 
 Follow [these instructions](block000_r-rstudio-install.html). Stick with it to the bitter end, where you try to get Git and RStudio talking to each other.
 
-If you have some ancient version or R and/or RStudio, just go ahead and update! It often requires more technical skill to function with old software (and hardware).
+If you have some ancient version of R and/or RStudio, just go ahead and update! It often requires more technical skill to function with old software (and hardware).
 
 #### Twitter
 
