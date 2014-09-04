@@ -59,7 +59,7 @@ You can also get Git from Apple's developer tools. *Exactly how to do this varie
 
 The GitHub hosting site offers [GitHub for Mac](https://windows.github.com) that provides *the option* to install Git itself, a client, and smooth integration with GitHub..
 
-  * This blog post [Installing Git from GitHub for Mac](https://github.com/blog/1510-installing-git-from-github-for-mac) explains how to trigger the option to install Gitself, which I recommend.
+  * This blog post [Installing Git from GitHub for Mac](https://github.com/blog/1510-installing-git-from-github-for-mac) explains how to trigger the option to install Git, which I recommend.
   * This is a good choice for novices in scientific computing, because it's more likely to "just work". You may eventually outgrow it, but you can cross that bridge when you come to it.
 
 If you anticipate getting heavily into scientific computing, you're going to be installing lots of software. You should check out [homebrew](http://brew.sh), "the missing package manager for OS X". Among many other things, it can install Git for you. Our own TA [Shaun Jackman](https://github.com/sjackman) works on [homebrew-science](https://github.com/Homebrew/homebrew-science), so he's the local expert.
