@@ -49,6 +49,7 @@ Two options:
 
   * __Public__ Tweet directly at [\@STAT545](https://twitter.com/STAT545) by starting your tweet with `@STAT545`. This is called an `@reply` because it usually occurs when you reply to a tweet but you can also initiate a conversation this way. This conversation __will be public__ but it will only show up in the feed of people who follow both conversants.
     - This method will be great for short questions about, e.g. homework. Basically anything you could hope to handle in 140 character chunks and that others might benefit from.
+    - Check this [sample conversation](https://twitter.com/STAT545/status/507627877169242113) between [\@STAT545](https://twitter.com/STAT545) and [\@sjackman](https://twitter.com/sjackman) to see how this looks. If you are following both [\@STAT545](https://twitter.com/STAT545) and [\@sjackman](https://twitter.com/sjackman), you should see an initial tweet from [\@STAT545](https://twitter.com/STAT545), followed by a reply from [\@sjackman](https://twitter.com/sjackman).
   * __Private__ Direct message [\@STAT545](https://twitter.com/STAT545) by [clicking on the envelope icon in the upper right](https://support.twitter.com/articles/14606-how-to-post-and-delete-direct-messages-dms). This will only work once `@STAT545` is following you. This conversation will be private.
 
 #### Email
@@ -58,3 +59,6 @@ On the [People](people.html) page, you see all of our emails. See the GitHub sec
 #### Google Group (not!)
 
 In the past I have run a private Google Group for my classes. But with our use of Twitter and GitHub, I am hoping to avoid any more channels of communication.
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/sjackman">@sjackman</a> Just a tweet to demonstrate how to tweet at someone. Pls reply to help me show what such a convo will look like.</p>&mdash; STAT 545 at UBC (@STAT545) <a href="https://twitter.com/STAT545/status/507627877169242113">September 4, 2014</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
