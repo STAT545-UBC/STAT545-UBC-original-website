@@ -14,7 +14,7 @@ output:
 
 Dean Attali, TA for STAT 545A
 
-  * Office Hours: TBA
+  * Office Hours: Mon Wed 11:00am - 1:00pm [ESB](http://www.maps.ubc.ca/PROD/index_detail.php?show=y,n,n,n,n,y&bldg2Search=n&locat1=225) 3174, across from main STAT office
   * <daattali@gmail.com>
   * [\@daattali](http://twitter.com/daattali)
   * [GitHub](https://github.com/daattali)
