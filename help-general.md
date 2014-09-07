@@ -33,4 +33,8 @@ Here are some good resources to get your head in the right place.
   
   * Read the [R-help posting guide](http://www.r-project.org/posting-guide.html). *But don't rush to post any questions there!*
 
-
+  * More links via [How to Ask Questions](https://github.com/ireapps/scraping-class/blob/master/notes/how-to-ask-questions.md) from a web-scraping class
+  
+    - [How to Ask for Programming Help](http://codingkilledthecat.wordpress.com/2012/06/26/how-to-ask-for-programming-help/)
+    - [Stack Exchange's 'How to ask'](https://codereview.stackexchange.com/help/how-to-ask)
+    - [Matt Gemmell's 'What have you tried?'](http://mattgemmell.com/what-have-you-tried/)

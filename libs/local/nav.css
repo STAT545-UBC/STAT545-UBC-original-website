@@ -4,6 +4,17 @@ body {
   /* background: #ccc; */
 }
  
+.nav {
+  position: relative;
+  margin-top: 10px;
+}
+
+.nav .nav-logo {
+  position: absolute;
+  left: 40px;
+  top: -10px;
+}
+ 
 .nav ul {
   list-style: none;
   background-color: #444;

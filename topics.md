@@ -1,22 +1,11 @@
 # Topics
 
-All course content will be indexed here, *sans* course-related minutiae like homework due dates.
+All course content will be indexed here.
 
-Until we get rolling, feel free to look at older material that will appear here in updated form:
+In the meantime, feel free to look at material from the past:
 
   * [Clean index](http://www.stat.ubc.ca/~jenny/STAT545A/quick-index.html) into topics covered in 2013
   * [GitHub repository](https://github.com/jennybc/STAT545A_2013) for 2013 course materials
-  
-### Updated topics
-
-  * [Install Git and more](block001_git-install.html)
-  * [Install R and Rstudio](block000_r-rstudio-install.html)
-  
-### Course material
-
-  * [class meeting 001](cm001_course-intro-sw-install-account-signup.html) deals with "What is data science? What is data carpentry?" and includes links re: use of Twitter in academia
-
-### What's coming
 
 Topics traditionally covered in STAT 545A, with light updating:
 
@@ -61,4 +50,4 @@ New topics for STAT 545A and/or STAT 547M will be selected from here:
     - exposing your hard work on the web (data, code, results)
   * Distributing data and code to the world via an R package
   * Automating an analytical pipeline, e.g. via `Make`.
-  
+

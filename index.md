@@ -1,3 +1,9 @@
+---
+output:
+  html_document:
+    includes:
+      after_body: include/nothing.html
+---
 
 # Data wrangling, exploration, and analysis with R
 
@@ -7,7 +13,7 @@ Learn how to
 
   * explore, groom, visualize, and analyze data
   * make all of that reproducible, reusable, and shareable
-  * use R
+  * using R
 
 ### Selected topics
 
