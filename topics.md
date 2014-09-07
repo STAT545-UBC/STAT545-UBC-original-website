@@ -1,0 +1,53 @@
+# Topics
+
+All course content will be indexed here.
+
+In the meantime, feel free to look at material from the past:
+
+  * [Clean index](http://www.stat.ubc.ca/~jenny/STAT545A/quick-index.html) into topics covered in 2013
+  * [GitHub repository](https://github.com/jennybc/STAT545A_2013) for 2013 course materials
+
+Topics traditionally covered in STAT 545A, with light updating:
+
+  * Introduction to R and the [RStudio IDE](http://www.rstudio.com/products/rstudio/)
+  * R scripts and workspaces, RStudio Projects; how to get your work done
+  * Creating reports from R scripts and [R Markdown](http://rmarkdown.rstudio.com), using [`knitr`](http://yihui.name/knitr/)
+  * Deep thoughts about data analytic work
+  * Care and feeding of data in R; data frames
+  * R objects -- beyond data frames
+  * Indexing, subsetting
+  * Data aggregation; "apply" functions, [`plyr`](http://plyr.had.co.nz), [`dplyr`](https://github.com/hadley/dplyr)
+  * How to help yourself, how to ask questions to get useful answers
+  * How to get data in and out of R, staying as "open" as possible
+  * How to get figures out of R
+  * Be the boss of your factors, i.e. categorical variables
+  * Use of color in R
+  * Single quantitative variable: visualizations and descriptive statistics
+  * Two quantitative variables: visualizations and descriptive statistics
+  * Categorical variables: visualizations and descriptive statistics
+  * Multivariate visualizations
+  * Visualizing and summarizing data when "grouped"
+  * Coding style and project organization
+  
+New topics for STAT 545A and/or STAT 547M will be selected from here:
+
+  * Bash shell / unix basics, personal system administration.
+  * Version control with Git, collaboration via [GitHub](https://github.com)
+  * The tabular data mentality, "tidy" data, data reshaping
+  * Regular expressions, programmatic transformation and searching of character data
+  * Writing R functions
+  * `ggplot2` will be used instead of `lattice` for visualization
+  * Creating interactive pages, apps, and graphics via [Shiny](http://shiny.rstudio.com) and (maybe) [`ggvis`](http://ggvis.rstudio.com)
+  * Unit testing, at least as a mentality. Maybe will cover formal unit testing, e.g. `testthat`
+  * Stats particularly useful in exploration (and often neglected in standard intro stats courses)
+    - robust summary statistics
+    - robust regression
+    - smoothing
+    - density estimation
+    - cluster analysis, PCA, SVD, MDS
+  * Embrace the web:
+    - getting data from the web, e.g. using an API or via scraping
+    - exposing your hard work on the web (data, code, results)
+  * Distributing data and code to the world via an R package
+  * Automating an analytical pipeline, e.g. via `Make`.
+

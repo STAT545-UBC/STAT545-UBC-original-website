@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#cm001-2014-09-03-wednesday-overview">cm001 2014-09-03 Wednesday overview</a><ul>
+<li><a href="#slides-and-links">Slides and links</a></li>
+<li><a href="#register-a-github-account">Register a GitHub account</a></li>
+<li><a href="#github-and-git-client">Git(Hub) and Git client</a></li>
+<li><a href="#r-and-rstudio">R and RStudio</a></li>
+<li><a href="#twitter">Twitter</a></li>
+<li><a href="#rpubs">RPubs</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="cm001-2014-09-03-wednesday-overview" class="section level3">
+<h3>cm001 2014-09-03 Wednesday overview</h3>
+<ul>
+<li>Introduction to the course</li>
+<li>Students to do for Monday 2014-09-08 (see below)
+<ul>
+<li>install software</li>
+<li>sign up for accounts</li>
+<li>note: I advise you do all of that in the order of presentation below</li>
+</ul></li>
+<li>Don’t panic if there are glitches. That’s normal.</li>
+<li>What’s coming? We’ll help you begin to use all your new toys next week!</li>
+</ul>
+<div id="slides-and-links" class="section level4">
+<h4>Slides and links</h4>
+<p>Slides available on <a href="http://www.slideshare.net/jenniferbryan5811/ubc-stat545-2014-cm001-intro-tocourse">slideshare</a></p>
+<iframe src="http://www.slideshare.net/slideshow/embed_code/38663458" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> 
+<div style="margin-bottom:5px">
+<strong> <a href="https://www.slideshare.net/jenniferbryan5811/ubc-stat545-2014-cm001-intro-tocourse" title="UBC STAT545 2014 Cm001 intro to-course" target="_blank">UBC STAT545 2014 Cm001 intro to-course</a> </strong> from <strong><a href="http://www.slideshare.net/jenniferbryan5811" target="_blank">Jennifer Bryan</a></strong>
+</div>
+<p>Selected links from the slides</p>
+<ul>
+<li><a href="http://jakevdp.github.io/blog/2013/10/26/big-data-brain-drain/">The Big Data Brain Drain: Why Science is in Trouble</a></li>
+<li><a href="http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram">The data science Venn diagram</a></li>
+<li><a href="http://t.co/D931Og8mq3">Slides from Hadley Wickham’s talk in the Simply Statistics Unconference</a></li>
+<li>2014-08-17 NYT article <a href="http://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html?partner=rss&amp;emc=rss&amp;smid=tw-nytimesscience&amp;_r=0">For Big-Data Scientists:, ‘Janitor Work’ Is Key Hurdle to Insights</a> by Steve Lohr</li>
+<li><a href="http://mimno.infosci.cornell.edu/b/articles/carpentry/">Data carpentry</a> (response to NYT article re: janitor work)</li>
+<li><a href="http://www.john-foreman.com/blog/the-forgotten-job-of-a-data-scientist-editing">The Forgotten Job of a Data Scientist: Editing</a></li>
+<li><a href="http://simplystatistics.org/2014/05/22/10-things-statistics-taught-us-about-big-data-analysis/">10 things statistics taught us about big data analysis</a></li>
+<li><a href="http://simplystatistics.org/2014/03/20/the-8020-rule-of-statistical-methods-development/">The 80/20 rule of statistical methods development</a></li>
+<li><a href="http://www.chrisstucchio.com/blog/2013/hadoop_hatred.html">Don’t use Hadoop - your data isn’t that big</a></li>
+<li><a href="http://qz.com/81661/most-data-isnt-big-and-businesses-are-wasting-money-pretending-it-is/">Most data isn’t “big,” and businesses are wasting money pretending it is</a></li>
+<li><a href="https://www.facebook.com/dan.ariely/posts/904383595868">Big data is like teenage sex</a></li>
+<li><a href="http://www.edwardtufte.com">Edward Tufte</a> book <a href="http://www.edwardtufte.com/tufte/books_textb">chapter 5 on the Challenger Disaster</a></li>
+<li>“Let’s Practice What We Preach: Turning Tables into Graphs”. The American Statistician, Volume 56, Number 2, 1 May 2002, pp. 121-130(10) by Gelman A, Pasarica C, Dodhia. <a href="http://www.jstor.org/stable/3087382">via JSTOR</a></li>
+<li><a href="https://www.youtube.com/watch?v=N2zK3sAtr-4&amp;feature=youtu.be">Data Sharing and Management Snafu in 3 Short Acts</a>, a video</li>
+<li><a href="http://www.r-project.org">The R Project</a></li>
+<li><a href="http://www.rstudio.com/products/rstudio/">RStudio IDE</a></li>
+<li><a href="http://rmarkdown.rstudio.com">R Markdown</a></li>
+<li><a href="http://yihui.name/knitr/">knitr</a></li>
+<li><a href="http://www.phdcomics.com/comics/archive.php?comicid=1531">“FINAL”.doc</a> from PHDCOMICS</li>
+<li><a href="http://git-scm.com">Git</a></li>
+<li><a href="https://github.com">GitHub</a></li>
+<li><a href="http://www.wired.com/design/2013/08/how-segregated-is-your-city-this-eye-opening-map-shows-you/?viewall=true">The Best Map Ever Made of America’s Racial Segregation</a>
+<ul>
+<li><a href="http://www.coopercenter.org/demographics/Racial-Dot-Map">The Racial Dot Map</a></li>
+<li><a href="https://github.com/unorthodox123/RacialDotMap">unorthodox123/RacialDotMap</a> on GitHub</li>
+</ul></li>
+<li><a href="http://blog.revolutionanalytics.com/2013/08/foodborne-chicago.html">Foodborne Chicago finds dodgy restaurants with tweets, and R</a>
+<ul>
+<li><a href="https://github.com/corynissen/foodborne_classifier">corynissen/foodborne_classifier</a> on GitHub</li>
+</ul></li>
+<li><a href="http://www.biostat.jhsph.edu/~rpeng/">Roger Peng</a></li>
+<li><a href="http://zmjones.com/make/">GNU Make for Reproducible Data Analysis</a></li>
+<li><a href="http://stackoverflow.com">stackoverflow</a></li>
+</ul>
+</div>
+<div id="register-a-github-account" class="section level4">
+<h4>Register a GitHub account</h4>
+<p><strong>Do this first!</strong></p>
+<ul>
+<li>Register for a free individual GitHub account and request <a href="https://education.github.com">the student discount</a>. This should give you some free private repositories for a couple of years. Do this ASAP! I think a human vets these requests, so it could take a couple of days.
+<ul>
+<li>As with Twitter (see below), think before you set up your public profile. I suggest you use a real name and begin to build a scholarly identity in social media and coding, but it’s a decision you should make with intention.</li>
+</ul></li>
+<li>We will elicit your GitHub username soon so we can add you to the <a href="https://github.com/STAT545-UBC/">STAT 545 GitHub Organization</a>.</li>
+</ul>
+</div>
+<div id="github-and-git-client" class="section level4">
+<h4>Git(Hub) and Git client</h4>
+<p>Follow <a href="block001_git-install.html">these instructions</a>.</p>
+</div>
+<div id="r-and-rstudio" class="section level4">
+<h4>R and RStudio</h4>
+<p>Follow <a href="block000_r-rstudio-install.html">these instructions</a>. Stick with it to the bitter end, where you try to get Git and RStudio talking to each other.</p>
+<p>If you have some ancient version of R and/or RStudio, just go ahead and update! It often requires more technical skill to function with old software (and hardware).</p>
+</div>
+<div id="twitter" class="section level4">
+<h4>Twitter</h4>
+<p><a href="https://twitter.com">https://twitter.com</a></p>
+<p>I will use the <a href="https://twitter.com/STAT545">@STAT545</a> Twitter account to make micro-announcements, share interesting links, and facilitate a conversation amongst ourselves <strong>in public</strong>.</p>
+<p>In class, we’ll talk about Twitter, its scholarly use, and privacy. Some relevant links:</p>
+<ul>
+<li><a href="http://chronicle.com/blogs/profhacker/disposable-twitter-accounts-for-classroom-use/40145">Disposable Twitter Accounts for Classroom Use</a> from ProfHacker on the Chronicle of Higher Education
+<ul>
+<li>Good quote: “I strongly encourage you to create a disposable account if for any reason you prefer not to share your personal account for classroom activities.”</li>
+</ul></li>
+<li><a href="http://catherinecronin.wordpress.com/2012/02/29/525/">Resources for exploring digital identity, privacy and authenticity</a> from Catherine Cronin</li>
+<li><a href="http://ivory.idyll.org/blog/advice-to-graduate-students.html">Some advice to young graduate students</a> from C. Titus Brown</li>
+<li><a href="http://blog.impactstory.org/how-to-be-the-grad-student-your-advisor-brags-about/">How to be the grad student your advisor brags about</a> from the blog of Impactstory</li>
+<li><a href="http://chronicle.com/article/10-Commandments-of-Twitter-for/131813/">10 Commandments of Twitter for Academics</a> from Do Your Job Better on the Chronicle of Higher Education</li>
+<li><a href="http://blogs.lse.ac.uk/impactofsocialsciences/files/2011/11/Published-Twitter_Guide_Sept_2011.pdf">Using Twitter in university research, teaching and impact activities: A guide for academics and researchers (PDF)</a></li>
+</ul>
+<p>If you choose not to get a Twitter account, you will want to visit the <a href="https://twitter.com/STAT545">@STAT545 profile page</a> regularly to see what’s up.</p>
+<p>If you set up (or already have a Twitter account), you should follow <a href="https://twitter.com/STAT545">@STAT545</a>. We will elicit your Twitter handle soon so we can follow you back.</p>
+<p>You could also follow me as an individual, an account I use very differently (and sparingly), at <a href="https://twitter.com/JennyBryan">@JennyBryan</a>. Ditto for the course TAs. You can learn some good people to follow re: data science and R by looking at who we follow and who we have Twitter conversations with.</p>
+</div>
+<div id="rpubs" class="section level4">
+<h4>RPubs</h4>
+<p><a href="http://rpubs.com">http://rpubs.com</a></p>
+<p>This is a free hosting service provided by RStudio. It is the fastest way to get a report up on the web, based on an R script or an R Markdown file. But I think its days are numbered. Still, we may use this a little before we move on to other techniques. Registering for a free account is a “nice to do”, not a “must do”.</p>
+</div>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
