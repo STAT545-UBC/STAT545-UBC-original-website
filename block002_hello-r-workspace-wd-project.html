@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>R basics, workspace and working directory, RStudio projects</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">R basics, workspace and working directory, RStudio projects</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#basics-of-working-with-r-at-the-command-line-and-rstudio-goodies">Basics of working with R at the command line and RStudio goodies</a></li>
+<li><a href="#workspace-and-working-directory">Workspace and working directory</a><ul>
+<li><a href="#workspace-.rdata">Workspace, .RData</a></li>
+<li><a href="#working-directory">Working directory</a></li>
+</ul></li>
+<li><a href="#rstudio-projects">RStudio projects</a></li>
+<li><a href="#stuff">stuff</a></li>
+</ul>
+</div>
+
+<div id="basics-of-working-with-r-at-the-command-line-and-rstudio-goodies" class="section level3">
+<h3>Basics of working with R at the command line and RStudio goodies</h3>
+<p>Launch RStudio/R.</p>
+<p>Notice the default panes:</p>
+<ul>
+<li>Console (entire left)</li>
+<li>Environment/History (tabbed in upper right)</li>
+<li>Files/Plots/Packages/Help (tabbed in lower right)</li>
+</ul>
+<p>FYI: you can change the default location of the panes, among many other things: <a href="https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio">Customizing RStudio</a>.</p>
+<p>Go into the Console, where we interact with the live R process.</p>
+<p>Make an assignment and then inspect the object you just created.</p>
+<pre class="r"><code>x &lt;- 3 * 4
+x</code></pre>
+<pre><code>## [1] 12</code></pre>
+<p>All R statements where you create objects – “assignments” – have this form:</p>
+<pre class="r"><code>objectName &lt;- value</code></pre>
+<p>and in my head I hear, e.g., “x gets 12”.</p>
+<p>You will make lots of assignments and the operator <code>&lt;-</code> is a pain to type. Don’t be lazy and use <code>=</code>, although it would work, because it will just sow confusion later. Instead, utilize RStudio’s keyboard shortcut: Alt + - (the minus sign).</p>
+<p>Notice that RStudio automagically surrounds <code>&lt;-</code> with spaces, which demonstrates a useful code formatting practice. Code is miserable to read on a good day. Give your eyes a break and use spaces.</p>
+<p>RStudio offers many handy <a href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts">keyboard shortcuts</a>. Also, Alt+Shift+K brings up a keyboard shortcut reference card.</p>
+<p>Object names cannot start with a digit and cannot contain certain other characters such as a comma or a space. You will be wise to adopt a <a href="http://en.wikipedia.org/wiki/Snake_case">convention for demarcating words</a> in names.</p>
+<pre><code>i_use_snake_case
+other.people.use.periods
+evenOthersUseCamelCase</code></pre>
+<p>Make another assignment</p>
+<pre class="r"><code>this_is_a_really_long_name &lt;- 2.5</code></pre>
+<p>To inspect this, try out RStudio’s completion facility: type the first few characters, press TAB, add characters until you disambiguate, then press return.</p>
+<p>Make another assignment</p>
+<pre class="r"><code>jenny_rocks &lt;- 2^3</code></pre>
+<p>Let’s try to inspect:</p>
+<pre class="r"><code>jennyrocks</code></pre>
+<pre><code>## Error: object &#39;jennyrocks&#39; not found</code></pre>
+<pre class="r"><code>jeny_rocks</code></pre>
+<pre><code>## Error: object &#39;jeny_rocks&#39; not found</code></pre>
+<p>Implicit contract with the computer / scripting language: Computer will do tedious computation for you. In return, you will be completely precise in your instructions. Typos matter. Case matters. Get better at typing.</p>
+<p>R has a mind-blowing collection of built-in functions that are accessed like so</p>
+<pre class="r"><code>functionName(arg1 = val1, arg2 = val2, and so on)</code></pre>
+<p>Let’s try using <code>seq()</code> which makes regular sequences of numbers and, while we’re at it, demo more helpful features of RStudio.</p>
+<p>Type <code>se</code> and hit TAB. A pop up shows you possible completions. Specify <code>seq()</code> by typing more to disambiguate or using the up/down arrows to select. Notice the floating tool-tip-type help that pops up, reminding you of a function’s arguments. If you want even more help, press F1 as directed to get the full documentation in the help tab of the lower right pane. Now open the parentheses and notice the automatic addition of the closing parenthesis and the placement of cursor in the middle. Type the arguments <code>1, 10</code> and hit return. RStudio also exits the parenthetical expression for you. IDEs are great.</p>
+<pre class="r"><code>seq(1, 10)</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>The above also demonstrates something about how R resolves function arguments. You can always specify in <code>name = value</code> form. But if you do not, R attempts to resolve by position. So above, it is assumed that we want a sequence <code>from = 1</code> that goes <code>to = 1</code>. Since we didn’t specify step size, the default value of <code>by</code> in the function definition is used, which ends up being 1 in this case. For functions I call often, I might use this resolve by position for the first argument or maybe the first two. After that, I always use <code>name = value</code>.</p>
+<p>Make this assignment and notice similar help with quotation marks.</p>
+<pre class="r"><code>yo &lt;- &quot;hello world&quot;</code></pre>
+<p>If you just make an assignment, you don’t get to see the value, so then you’re tempted to immediately inspect.</p>
+<pre class="r"><code>y &lt;- seq(1, 10)
+y</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>This common action can be shortened by surrounding the assignment with parentheses, which causes assignment and “print to screen” to happen.</p>
+<pre class="r"><code>(y &lt;- seq(1, 10))</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>Not all functions have (or require) arguments:</p>
+<pre class="r"><code>date()</code></pre>
+<pre><code>## [1] &quot;Mon Sep  8 00:42:27 2014&quot;</code></pre>
+<p>Now look at your workspace – in the upper right pane. The workspace is where user-defined objects accumulate. You can also get a listing of these objects with commands:</p>
+<pre class="r"><code>objects()</code></pre>
+<pre><code>## [1] &quot;jenny_rocks&quot;                &quot;metadata&quot;                  
+## [3] &quot;this_is_a_really_long_name&quot; &quot;x&quot;                         
+## [5] &quot;y&quot;                          &quot;yo&quot;</code></pre>
+<pre class="r"><code>ls()</code></pre>
+<pre><code>## [1] &quot;jenny_rocks&quot;                &quot;metadata&quot;                  
+## [3] &quot;this_is_a_really_long_name&quot; &quot;x&quot;                         
+## [5] &quot;y&quot;                          &quot;yo&quot;</code></pre>
+<p>If you want to remove the object named <code>y</code>, you can do this</p>
+<pre class="r"><code>rm(y)</code></pre>
+<p>To remove everything:</p>
+<pre class="r"><code>rm(list = ls())</code></pre>
+<p>or click the broom in RStudio’s Environment pane.</p>
+</div>
+<div id="workspace-and-working-directory" class="section level3">
+<h3>Workspace and working directory</h3>
+<p>One day you will need to quit R, go do something else and return to your analysis later.</p>
+<p>One day you will have multiple analyses going that use R and you want to keep them separate.</p>
+<p>One day you will need to bring data from the outside world into R and send numerical results and figures from R back out into the world.</p>
+<p>To handle these real life situations, you need to make two decisions:</p>
+<ul>
+<li><p>What about your analysis is “real”, i.e. you will save it as your lasting record of what happened?</p></li>
+<li><p>Where does your analysis “live”?</p></li>
+</ul>
+<div id="workspace-.rdata" class="section level4">
+<h4>Workspace, .RData</h4>
+<p>As a beginning R user, it’s OK to consider your workspace “real”. <em>Very soon</em>, I urge you to evolve to the next level, where you consider your saved R scripts as “real”. (In either case, of course the input data is very much real and requires preservation!) With the input data and the R code you used, you can reproduce <em>everything</em>. You can make your analysis fancier. You can get to the bottom of puzzling results and discover and fix bugs in your code. You can reuse the code to conduct similar analyses in new projects. You can remake a figure with different aspect ratio or save is as TIFF instead of PDF. You are ready to take questions. You are ready for the future.</p>
+<p>If you regard your workspace as “real” (saving and reloading all the time), if you need to redo analysis … you’re going to either redo a lot of typing (making mistakes all the way) or will have to mine your R history for the commands you used. Rather than <a href="https://support.rstudio.com/hc/en-us/articles/200526217-Command-History">becoming an expert on managing the R history</a>, a better use of your time and psychic energy is to keep your “good” R code in a script for future reuse.</p>
+<p>Because it can be useful sometimes, note the commands you’ve recently run appear in the History pane.</p>
+<p>But you don’t have to choose right now and the two strategies are not incompatible. Let’s demo the save / reload the workspace approach.</p>
+<p>Upon quitting R, you have to decide if you want to save your workspace, for potential restoration the next time you launch R. Depending on your set up, R or your IDE, eg RStudio, will probably prompt you to make this decision.</p>
+<p>Quit R/Rstudio, either from the menu, using a keyboard shortcut, or by typing <code>q()</code> in the Console. You’ll get a prompt like this:</p>
+<blockquote>
+<p>Save workspace image to ~/.Rdata?</p>
+</blockquote>
+<p><em>Note where the workspace image is to be saved</em> and then click <code>Save</code>.</p>
+<p>Using your favorite method, visit the directory where image was saved and verify there is a file named <code>.RData</code>. You will also see a file <code>.Rhistory</code>, holding the commands submitted in your recent session.</p>
+<p>Restart RStudio. In the Console you will see a line like this:</p>
+<pre><code>[Workspace loaded from ~/.RData]</code></pre>
+<p>indicating that your workspace has been restored. Look in the Workspace pane and you’ll see the same objects as before. In the History tab of the same pane, you should also see your command history.You’re back in business. This way of starting and stopping analytical work will not serve you well for long but it’s a start.</p>
+</div>
+<div id="working-directory" class="section level4">
+<h4>Working directory</h4>
+<p>Any process running on your computer has a notion of its “working directory”. In R, this is where R will look, by default, for files you ask it to load. It also where, by default, any files you write to disk will go. Chances are your current working directory is the directory we inspected above, i.e. the one where RStudio wanted to save the workspace.</p>
+<p>You can explicitly check your working directory with:</p>
+<pre class="r"><code>getwd()</code></pre>
+<p>It is also displayed at the top of the RStudio console.</p>
+<p>As a beginning R user, it’s OK let your home directory or any other weird directory on your computer be R’s working directory. <em>Very soon</em>, I urge you to evolve to the next level, where you organize your analytical projects into directories and, when working on project A, set R’s working directory to the associated directory.</p>
+<p><strong>Although I do not recommend it</strong>, in case you’re curious, you can set R’s working directory at the command line like so:</p>
+<pre class="r"><code>setwd(&quot;~/myCoolProject&quot;)</code></pre>
+<p><strong>Although I do not recommend it</strong>, you can also use RStudio’s Files pane to navigate to a directory and then set it as working directory from the menu: Session –&gt; Set Working Directory –&gt; To Files Pane Location. (You’ll see even more options there). Or within the Files pane, choose <strong>More</strong> and <strong>Set As Working Directory</strong>.</p>
+<p>But there’s a better way. A way that also puts you on the path to managing your R work like an expert.</p>
+</div>
+</div>
+<div id="rstudio-projects" class="section level3">
+<h3>RStudio projects</h3>
+<p>Keeping all the files associated with a project organized together – input data, R scripts, analytical results, figures – is such a wise and common practice that RStudio has built-in support for this via it’s <em>projects</em>.</p>
+<p><a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">Using Projects</a></p>
+<p>Let’s make one to use for the rest of this workshop/class. Do this: File &gt; New Project …. The directory name you choose here will be the project name. Call it whatever you want (or follow me for convenience).</p>
+<p>I created a directory and, therefore RStudio project, called <code>swc</code> in my <code>tmp</code> directory, FYI.</p>
+<!-- https://github.com/yihui/knitr/issues/277 -->
+
+
+<pre class="r"><code>setwd(&quot;~/tmp/swc&quot;)
+getwd()</code></pre>
+<p>Now check that the “home” directory for your project is the working directory of our current R process:</p>
+<pre class="r"><code>getwd()</code></pre>
+<p><em>I can’t print my output here because this document itself does not reside in the RStudio Project we just created.</em></p>
+<p>Let’s enter a few commands in the Console, as if we are just beginning a project:</p>
+<pre class="r"><code>a &lt;- 2
+b &lt;- -3
+sig_sq &lt;- 0.5
+x &lt;- runif(40)
+y &lt;- a + b * x + rnorm(40, sd = sqrt(sig_sq))
+(avg_x &lt;- mean(x))</code></pre>
+<pre><code>## [1] 0.4961</code></pre>
+<pre class="r"><code>write(avg_x, &quot;avg_x.txt&quot;)
+plot(x, y)
+abline(a, b, col = &quot;purple&quot;)</code></pre>
+<p><img src="block002_hello-r-workspace-wd-project_files/figure-html/toy-line.png" alt="plot of chunk toy-line" /></p>
+<pre class="r"><code>dev.print(pdf, &quot;toy_line_plot.pdf&quot;)</code></pre>
+<pre><code>## pdf 
+##   2</code></pre>
+<p>Let’s say this is a good start of an analysis and your ready to start preserving the logic and code. Visit the History tab of the upper right pane. Select these commands. Click “To Source”. Now you have a new pane containing a nascent R script. Click on the floppy disk to save. Give it a name ending in <code>.R</code> or <code>.r</code>, I used <code>toy-line.r</code> and note that, by default, it will go in the directory associated with your project.</p>
+<p>Quit RStudio. Inspect the folder associated with your project if you wish. Maybe view the PDF in an external viewer.</p>
+<p>Restart RStudio. Notice that things, by default, restore to where we were earlier, e.g. objects in the workspace, the command history, which files are open for editing, where we are in the file system browser, the working directory for the R process, etc. These are all Good Things.</p>
+<p>Change some things about your code. Top priority would be to set a sample size <code>n</code> at the top, e.g. <code>n &lt;- 40</code>, and then replace all the hard-wired 40’s with <code>n</code>. Change some other minor-but-detectable stuff, i.e. alter the sample size <code>n</code>, the slope of the line <code>b</code>,the color of the line … whatever. Practice the different ways to re-run the code:</p>
+<ul>
+<li><p>Walk through line by line by keyboard shortcut (command + enter) or mouse (click Run in the upper right corner of editor pane).</p></li>
+<li><p>Source the entire document – equivalent to entering <code>source('toy-line.r')</code> in the Console – by keyboard shortcut (shift command S) or mouse (click Source in the upper right corner of editor pane or select from the mini-menu accessible from the associated down triangle).</p></li>
+<li><p>Source with echo from the Source mini-menu.</p></li>
+</ul>
+<p>Visit your figure in an external viewer to verify that the PDF is changing as you expect.</p>
+<p>In your favorite OS-specific way, search your files for <code>toy_line_plot.pdf</code> and presumably you will find the PDF itself (no surprise) but <em>also the script that created it (<code>toy-line.r</code>)</em>. This latter phenomenon is a huge win. One day you will want to remake a figure or just simply understand where it came from. If you rigorously save figures to file <strong>with R code and not ever ever ever the mouse or the clipboard</strong>, you will sing my praises one day. Trust me.</p>
+</div>
+<div id="stuff" class="section level3">
+<h3>stuff</h3>
+<p>It is traditional to save R scripts with a <code>.R</code> or <code>.r</code> suffix. Follow this convention unless you have some extraordinary reason not to.</p>
+<p>Comments start with one or more <code>#</code> symbols. Use them. RStudio helps you (de)comment selected lines with Ctrl+Shift+C (windows and linux) or Command+Shift+C (mac).</p>
+<p>Clean out the workspace, ie pretend like you’ve just revisited this project after a long absence. The broom icon or <code>rm(list = ls())</code>. Good idea to do this, restart R (available from the Session menu), re-run your analysis to truly check that the code you’re saving is complete and correct (or at least rule out obvious problems!).</p>
+<p>This workflow will serve you well in the future:</p>
+<ul>
+<li>Create an RStudio project for an analytical project</li>
+<li>Keep inputs there (we’ll soon talk about importing)</li>
+<li>Keep scripts there; edit them, run them in bits or as a whole from there</li>
+<li>Keep outputs there (like the PDF written above)</li>
+</ul>
+<p>Avoid using the mouse for pieces of your analytical workflow, such as loading a dataset or saving a figure. Terribly important for reproducility and for making it possible to retrospectively determine how a numerical table or PDF was actually produced (searching on local disk on filename, among <code>.R</code> files, will lead to the relevant script).</p>
+<p>Many long-time users never save the workspace, never save <code>.RData</code> files (I’m one of them), never save or consult the history. Once/if you get to that point, there are options available in RStudio to disable the loading of .RData and permanently suppress the prompt on exit to save the workspace (go to Tools-&gt;Options-&gt;General).</p>
+<p>For the record, when loading data into R and/or writing outputs to file, you can always specify the absolute path and thereby insulate yourself from the current working directory. This is rarely necessary when using RStudio Projects properly.</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
