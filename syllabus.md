@@ -20,7 +20,7 @@ table {
 |:----------|:------------------------------------------------------------------------------------------------------------------|
 |sep-01 mon |no class; Labor Day                                                                                                |
 |sep-03 wed |<a href="cm001_course-intro-sw-install-account-signup.html">cm001</a>: Intro to course; S/W install; acct sign-ups |
-|sep-08 mon |                                                                                                                   |
+|sep-08 mon |<a href="cm002_r-rstudio-intro.html">cm002</a>: Deep Thoughts about data analytic work; intro to R and RStudio     |
 |sep-10 wed |                                                                                                                   |
 |sep-15 mon |                                                                                                                   |
 |sep-17 wed |                                                                                                                   |
