@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>The many flavors of R objects</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">The many flavors of R objects</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#vectors-are-everywhere">Vectors are everywhere</a></li>
+<li><a href="#indexing-a-vector">Indexing a vector</a></li>
+<li><a href="#lists-hold-just-about-anything">lists hold just about anything</a></li>
+<li><a href="#creating-a-data.frame-explicitly">Creating a data.frame explicitly</a></li>
+<li><a href="#indexing-arrays-e.g.matrices">Indexing arrays, e.g. matrices</a></li>
+<li><a href="#creating-arrays-e.g.matrices">Creating arrays, e.g. matrices</a></li>
+<li><a href="#putting-it-all-together-implications-for-data.frames">Putting it all together … implications for data.frames</a></li>
+<li><a href="#table-of-atomic-r-object-flavors">Table of atomic R object flavors</a></li>
+</ul>
+</div>
+
+<blockquote>
+<p>“Rigor and clarity are not synonymous” – Larry Wasserman</p>
+</blockquote>
+<blockquote>
+<p>“Never hesitate to sacrifice truth for clarity.” – Greg Wilson’s dad</p>
+</blockquote>
+<div id="vectors-are-everywhere" class="section level3">
+<h3>Vectors are everywhere</h3>
+<p>Your garden variety R object is a vector. A single piece of info that you regard as a scalar is just a vector of length 1 and R will cheerfully let you add stuff to it. Square brackets are used for isolating elements of a vector for inspection, modification, etc. This is often called <strong>indexing</strong>. Go through the following code carefully, as it’s really rather surprising. BTW, indexing begins at 1 in R, unlike many other languages that index from 0.</p>
+<pre class="r"><code>x &lt;- 3 * 4
+x</code></pre>
+<pre><code>## [1] 12</code></pre>
+<pre class="r"><code>is.vector(x)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>length(x)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>x[2] &lt;- 100
+x</code></pre>
+<pre><code>## [1]  12 100</code></pre>
+<pre class="r"><code>x[5] &lt;- 3
+x</code></pre>
+<pre><code>## [1]  12 100  NA  NA   3</code></pre>
+<pre class="r"><code>x[11]</code></pre>
+<pre><code>## [1] NA</code></pre>
+<pre class="r"><code>x[0]</code></pre>
+<pre><code>## numeric(0)</code></pre>
+<p>R is built to work with vectors. Many operations are <em>vectorized</em>, i.e. by default they will happen component-wise when given a vector as input. Newbies often don’t internalize or exploit this and they write lots of unnecessary <code>for</code> loops.</p>
+<pre class="r"><code>x &lt;- 1:4
+## which would you rather write and read?
+## the vectorized version ...
+(y &lt;- x^2) </code></pre>
+<pre><code>## [1]  1  4  9 16</code></pre>
+<pre class="r"><code>## or the for loop version?
+z &lt;- vector(mode = mode(x), length = length(x))
+for(i in seq_along(x)) {
+  z[i] &lt;- x[i]^2
+}
+identical(y, z)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>When reading function documentation, keep your eyes peeled for arguments that can be vectors. You’ll be surprised how common they are. For example, the mean and standard deviation of random normal variates can be provided as vectors.</p>
+<pre class="r"><code>set.seed(1999)
+rnorm(5, mean = 10^(1:5))</code></pre>
+<pre><code>## [1]     10.73     99.96   1001.20  10001.47 100000.13</code></pre>
+<pre class="r"><code>round(rnorm(5, sd = 10^(0:4)), 2)</code></pre>
+<pre><code>## [1]     0.52    -5.49  -118.56 -1147.28 11607.42</code></pre>
+<p>This could be awesome in some settings, but dangerous in others, i.e. if you exploit this by mistake and get no warning. This is one of the reasons it’s so important to keep close tabs on your R objects: are they what you expect in terms of their flavor and length or dimensions? Check early and check often.</p>
+<p>Notice that R also recycles vectors, if they are not the necessary length. You will get a warning if R suspects recycling is unintended, i.e. when one length is not an integer multiple of another, but recycling is silent if it seems like you know what you’re doing. Can be a beautiful thing when you’re doing this deliberately, but devasting when you don’t.</p>
+<blockquote>
+<p>Question: is there a way to turn recycling off? Not that I know of.</p>
+</blockquote>
+<pre class="r"><code>(y &lt;- 1:3)</code></pre>
+<pre><code>## [1] 1 2 3</code></pre>
+<pre class="r"><code>(z &lt;- 3:7)</code></pre>
+<pre><code>## [1] 3 4 5 6 7</code></pre>
+<pre class="r"><code>y + z</code></pre>
+<pre><code>## Warning: longer object length is not a multiple of shorter object length</code></pre>
+<pre><code>## [1] 4 6 8 7 9</code></pre>
+<pre class="r"><code>(y &lt;- 1:10)</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<pre class="r"><code>(z &lt;- 3:7)</code></pre>
+<pre><code>## [1] 3 4 5 6 7</code></pre>
+<pre class="r"><code>y + z</code></pre>
+<pre><code>##  [1]  4  6  8 10 12  9 11 13 15 17</code></pre>
+<p>The catenate function <code>c()</code> is your go-to function for making vectors.</p>
+<pre class="r"><code>str(c(&quot;hello&quot;, &quot;world&quot;))</code></pre>
+<pre><code>##  chr [1:2] &quot;hello&quot; &quot;world&quot;</code></pre>
+<pre class="r"><code>str(c(1:3, 100, 150))</code></pre>
+<pre><code>##  num [1:5] 1 2 3 100 150</code></pre>
+<p>Plain vanilla R objects are called “atomic vectors” and an absolute requirement is that all the bits of info they hold are of the same flavor, i.e. all numeric or logical or character. If that’s not already true upon creation, the elements will be coerced to the same flavor, using a “lowest common denominator” approach (usually character). This is another stellar opportunity for you to create an object of one flavor without meaning to do so and to remain ignorant of that for a long time. Check early, check often.</p>
+<pre class="r"><code>(x &lt;- c(&quot;cabbage&quot;, pi, TRUE, 4.3))</code></pre>
+<pre><code>## [1] &quot;cabbage&quot;          &quot;3.14159265358979&quot; &quot;TRUE&quot;            
+## [4] &quot;4.3&quot;</code></pre>
+<pre class="r"><code>str(x)</code></pre>
+<pre><code>##  chr [1:4] &quot;cabbage&quot; &quot;3.14159265358979&quot; &quot;TRUE&quot; &quot;4.3&quot;</code></pre>
+<pre class="r"><code>length(x)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>mode(x)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>class(x)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>The most important atomic vector types are</p>
+<ul>
+<li>logical: TRUE’s AND FALSE’s, easily coerced into 1’s and 0’s</li>
+<li>numeric: numbers and, yes, integers and double-precision floating point numbers are different but you can live happily for a long time without worrying about this</li>
+<li>character</li>
+</ul>
+<p>Let’s create some simple vectors for more demos below.</p>
+<pre class="r"><code>n &lt;- 8
+set.seed(1)
+(w &lt;- round(rnorm(n), 2)) # numeric floating point</code></pre>
+<pre><code>## [1] -0.63  0.18 -0.84  1.60  0.33 -0.82  0.49  0.74</code></pre>
+<pre class="r"><code>(x &lt;- 1:n) # numeric integer</code></pre>
+<pre><code>## [1] 1 2 3 4 5 6 7 8</code></pre>
+<pre class="r"><code>## another way to accomplish by hand is x &lt;- c(1, 2, 3, 4, 5, 6, 7, 8)
+(y &lt;- LETTERS[1:n]) # character</code></pre>
+<pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot;</code></pre>
+<pre class="r"><code>(z &lt;- runif(n) &gt; 0.3) # logical</code></pre>
+<pre><code>## [1]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE</code></pre>
+<p>Use <code>str()</code> and any other functions you wish to inspect these objects, such as <code>length()</code>, <code>mode()</code>, <code>class()</code>, <code>is.numeric()</code>, <code>is.logical()</code>, etc. Like the <code>is.xxx()</code> family of functions, there are also <code>as.xxx()</code> functions you can experiment with.</p>
+<pre class="r"><code>str(w)</code></pre>
+<pre><code>##  num [1:8] -0.63 0.18 -0.84 1.6 0.33 -0.82 0.49 0.74</code></pre>
+<pre class="r"><code>length(x)</code></pre>
+<pre><code>## [1] 8</code></pre>
+<pre class="r"><code>is.logical(y)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>as.numeric(z)</code></pre>
+<pre><code>## [1] 1 1 1 1 1 0 1 0</code></pre>
+</div>
+<div id="indexing-a-vector" class="section level3">
+<h3>Indexing a vector</h3>
+<p>We’ve said, and even seen, that square brackets are used to index a vector. There is great flexibility in what one can put inside the square brackets and it’s worth understanding the many options. They are all useful, just in different contexts.</p>
+<p>Most common, useful ways to index a vector</p>
+<ul>
+<li>logical vector: keep elements associated with TRUEs, ditch the FALSEs</li>
+<li>vector of positive integers specifying the keepers</li>
+<li>vector of negative integers specifying the losers</li>
+<li>character vector, naming the keepers</li>
+</ul>
+<pre class="r"><code>w</code></pre>
+<pre><code>## [1] -0.63  0.18 -0.84  1.60  0.33 -0.82  0.49  0.74</code></pre>
+<pre class="r"><code>names(w) &lt;- letters[seq_along(w)]
+w</code></pre>
+<pre><code>##     a     b     c     d     e     f     g     h 
+## -0.63  0.18 -0.84  1.60  0.33 -0.82  0.49  0.74</code></pre>
+<pre class="r"><code>w &lt; 0</code></pre>
+<pre><code>##     a     b     c     d     e     f     g     h 
+##  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE</code></pre>
+<pre class="r"><code>which(w &lt; 0)</code></pre>
+<pre><code>## a c f 
+## 1 3 6</code></pre>
+<pre class="r"><code>w[w &lt; 0]</code></pre>
+<pre><code>##     a     c     f 
+## -0.63 -0.84 -0.82</code></pre>
+<pre class="r"><code>seq(from = 1, to = length(w), by = 2)</code></pre>
+<pre><code>## [1] 1 3 5 7</code></pre>
+<pre class="r"><code>w[seq(from = 1, to = length(w), by = 2)]</code></pre>
+<pre><code>##     a     c     e     g 
+## -0.63 -0.84  0.33  0.49</code></pre>
+<pre class="r"><code>w[-c(2, 5)]</code></pre>
+<pre><code>##     a     c     d     f     g     h 
+## -0.63 -0.84  1.60 -0.82  0.49  0.74</code></pre>
+<pre class="r"><code>w[c(&#39;c&#39;, &#39;a&#39;, &#39;f&#39;)]</code></pre>
+<pre><code>##     c     a     f 
+## -0.84 -0.63 -0.82</code></pre>
+</div>
+<div id="lists-hold-just-about-anything" class="section level3">
+<h3>lists hold just about anything</h3>
+<p>Lists are basically über-vectors in R. It’s like a vector, but with no requirement that the elements be of the same flavor. In data analysis, you won’t make lists very often, at least not consciously, but you should still know about them. Why?</p>
+<ul>
+<li>data.frames are lists! They are a special case where each element is an atomic vector, all having the same length.</li>
+<li>many functions will return lists to you and you will want to extract goodies from them, such as the p-value for a hypothesis test or the estimated error variance in a regression model</li>
+</ul>
+<p>Here we repeat an assignment from above, using <code>list()</code> instead of <code>c()</code> to combine things and you’ll notice that the different flavors of the consitutent parts are retained this time.</p>
+<pre class="r"><code>## earlier: a &lt;- c(&quot;cabbage&quot;, pi, TRUE, 4.3)
+(a &lt;- list(&quot;cabbage&quot;, pi, TRUE, 4.3))</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;cabbage&quot;
+## 
+## [[2]]
+## [1] 3.142
+## 
+## [[3]]
+## [1] TRUE
+## 
+## [[4]]
+## [1] 4.3</code></pre>
+<pre class="r"><code>str(a)</code></pre>
+<pre><code>## List of 4
+##  $ : chr &quot;cabbage&quot;
+##  $ : num 3.14
+##  $ : logi TRUE
+##  $ : num 4.3</code></pre>
+<pre class="r"><code>length(a)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>mode(a)</code></pre>
+<pre><code>## [1] &quot;list&quot;</code></pre>
+<pre class="r"><code>class(a)</code></pre>
+<pre><code>## [1] &quot;list&quot;</code></pre>
+<p>List components can also have names. You can create or change names after a list already exists or this can be integrated into the initial assignment.</p>
+<pre class="r"><code>names(a)</code></pre>
+<pre><code>## NULL</code></pre>
+<pre class="r"><code>names(a) &lt;- c(&quot;veg&quot;, &quot;dessert&quot;, &quot;myAim&quot;, &quot;number&quot;)
+a</code></pre>
+<pre><code>## $veg
+## [1] &quot;cabbage&quot;
+## 
+## $dessert
+## [1] 3.142
+## 
+## $myAim
+## [1] TRUE
+## 
+## $number
+## [1] 4.3</code></pre>
+<pre class="r"><code>a &lt;- list(veg = &quot;cabbage&quot;, dessert = pi, myAim = TRUE, number = 4.3)
+names(a)</code></pre>
+<pre><code>## [1] &quot;veg&quot;     &quot;dessert&quot; &quot;myAim&quot;   &quot;number&quot;</code></pre>
+<p>Indexing a list is similar to indexing a vector but it is necessarily more complex. The fundamental issue is this: if you request a single element from the list, do you want a list of length 1 containing only that element or do you want the element itself? For the former (desired return value is a list), we use single square brackets, <code>[</code> and <code>]</code>, just like indexing a vector. For the latter (desired return value is a single element), we use a dollar sign <code>$</code>, which you’ve already used to get one variable from a data.frame, or double square brackets, <code>[[</code> and <code>]]</code>.</p>
+<blockquote>
+<p>Warning: the rest of this section might make your eyes glaze over. Skip to the next section if you need to; come back later when some list is ruining your day.</p>
+</blockquote>
+<p>A slightly more complicated list will make our demos more educational. Now we really see that the elements can differ in flavor and length.</p>
+<pre class="r"><code>(a &lt;- list(veg = c(&quot;cabbage&quot;, &quot;eggplant&quot;),
+           tNum = c(pi, exp(1), sqrt(2)),
+           myAim = TRUE,
+           joeNum = 2:6))</code></pre>
+<pre><code>## $veg
+## [1] &quot;cabbage&quot;  &quot;eggplant&quot;
+## 
+## $tNum
+## [1] 3.142 2.718 1.414
+## 
+## $myAim
+## [1] TRUE
+## 
+## $joeNum
+## [1] 2 3 4 5 6</code></pre>
+<pre class="r"><code>str(a)</code></pre>
+<pre><code>## List of 4
+##  $ veg   : chr [1:2] &quot;cabbage&quot; &quot;eggplant&quot;
+##  $ tNum  : num [1:3] 3.14 2.72 1.41
+##  $ myAim : logi TRUE
+##  $ joeNum: int [1:5] 2 3 4 5 6</code></pre>
+<pre class="r"><code>length(a)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>class(a)</code></pre>
+<pre><code>## [1] &quot;list&quot;</code></pre>
+<pre class="r"><code>mode(a)</code></pre>
+<pre><code>## [1] &quot;list&quot;</code></pre>
+<p>Here’s are ways to get a single list element:</p>
+<pre class="r"><code>a[[2]] # index with a positive integer</code></pre>
+<pre><code>## [1] 3.142 2.718 1.414</code></pre>
+<pre class="r"><code>a$myAim # use dollar sign and element name</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>str(a$myAim) # we get myAim itself, a length 1 logical vector</code></pre>
+<pre><code>##  logi TRUE</code></pre>
+<pre class="r"><code>a[[&quot;tNum&quot;]] # index with length 1 character vector </code></pre>
+<pre><code>## [1] 3.142 2.718 1.414</code></pre>
+<pre class="r"><code>str(a[[&quot;tNum&quot;]]) # we get tNum itself, a length 3 numeric vector</code></pre>
+<pre><code>##  num [1:3] 3.14 2.72 1.41</code></pre>
+<pre class="r"><code>iWantThis &lt;- &quot;joeNum&quot; # indexing with length 1 character object
+a[[iWantThis]] # we get joeNum itself, a length 5 integer vector</code></pre>
+<pre><code>## [1] 2 3 4 5 6</code></pre>
+<pre class="r"><code>a[[c(&quot;joeNum&quot;, &quot;veg&quot;)]] # does not work! can&#39;t get &gt; 1 elements! see below</code></pre>
+<pre><code>## Error: subscript out of bounds</code></pre>
+<p>A case when one must use the double bracket approach, as opposed to the dollar sign, is when the indexing object itself is an R object; we show that above.</p>
+<p>What if you want more than one element? You must index vector-style with single square brackets. Note that the return value will always be a list, unlike the return value from double square brackets, even if you only request 1 element.</p>
+<pre class="r"><code>names(a)</code></pre>
+<pre><code>## [1] &quot;veg&quot;    &quot;tNum&quot;   &quot;myAim&quot;  &quot;joeNum&quot;</code></pre>
+<pre class="r"><code>a[c(&quot;tNum&quot;, &quot;veg&quot;)] # indexing by length 2 character vector</code></pre>
+<pre><code>## $tNum
+## [1] 3.142 2.718 1.414
+## 
+## $veg
+## [1] &quot;cabbage&quot;  &quot;eggplant&quot;</code></pre>
+<pre class="r"><code>str(a[c(&quot;tNum&quot;, &quot;veg&quot;)]) # returns list of length 2</code></pre>
+<pre><code>## List of 2
+##  $ tNum: num [1:3] 3.14 2.72 1.41
+##  $ veg : chr [1:2] &quot;cabbage&quot; &quot;eggplant&quot;</code></pre>
+<pre class="r"><code>a[&quot;veg&quot;] # indexing by length 1 character vector</code></pre>
+<pre><code>## $veg
+## [1] &quot;cabbage&quot;  &quot;eggplant&quot;</code></pre>
+<pre class="r"><code>str(a[&quot;veg&quot;])# returns list of length 1</code></pre>
+<pre><code>## List of 1
+##  $ veg: chr [1:2] &quot;cabbage&quot; &quot;eggplant&quot;</code></pre>
+<pre class="r"><code>length(a[&quot;veg&quot;]) # really, it does!</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>length(a[&quot;veg&quot;][[1]]) # contrast with length of the veg vector itself</code></pre>
+<pre><code>## [1] 2</code></pre>
+</div>
+<div id="creating-a-data.frame-explicitly" class="section level3">
+<h3>Creating a data.frame explicitly</h3>
+<p>In data analysis, we often import data into data.frame via <code>read.table()</code>. But one can also construct a data.frame directly using <code>data.frame()</code>.</p>
+<pre class="r"><code>n &lt;- 8
+set.seed(1)
+(jDat &lt;- data.frame(w = round(rnorm(n), 2),
+                    x = 1:n,
+                    y = I(LETTERS[1:n]),
+                    z = runif(n) &gt; 0.3,
+                    v = rep(LETTERS[9:12], each = 2)))</code></pre>
+<pre><code>##       w x y     z v
+## 1 -0.63 1 A  TRUE I
+## 2  0.18 2 B  TRUE I
+## 3 -0.84 3 C  TRUE J
+## 4  1.60 4 D  TRUE J
+## 5  0.33 5 E  TRUE K
+## 6 -0.82 6 F FALSE K
+## 7  0.49 7 G  TRUE L
+## 8  0.74 8 H FALSE L</code></pre>
+<pre class="r"><code>str(jDat)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    8 obs. of  5 variables:
+##  $ w: num  -0.63 0.18 -0.84 1.6 0.33 -0.82 0.49 0.74
+##  $ x: int  1 2 3 4 5 6 7 8
+##  $ y:Class &#39;AsIs&#39;  chr [1:8] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; ...
+##  $ z: logi  TRUE TRUE TRUE TRUE TRUE FALSE ...
+##  $ v: Factor w/ 4 levels &quot;I&quot;,&quot;J&quot;,&quot;K&quot;,&quot;L&quot;: 1 1 2 2 3 3 4 4</code></pre>
+<pre class="r"><code>mode(jDat)</code></pre>
+<pre><code>## [1] &quot;list&quot;</code></pre>
+<pre class="r"><code>class(jDat)</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<blockquote>
+<p>Sidebar: What is <code>I()</code>, used when creating the variable <span class="math">\(y\)</span> in the above data.frame? Short version: it tells R to do something <em>quite literally</em>. Here we are protecting the letters from being coerced to factor. We are ensuring we get a character vector. Note we let character-to-factor conversion happen in creating the <span class="math">\(v\)</span> variable above. More about (foiling) R’s determination to convert character data to factor can be found <a href="block08_bossYourFactors.html">here</a>.</p>
+</blockquote>
+<p>data.frames really are lists! Double square brackets can be used to get individual variables. Single square brackets can be used to get one or more variables, returned as a data.frame (though <code>subset(..., select = ...))</code> is how I would more likely do in a data analysis).</p>
+<pre class="r"><code>is.list(jDat) # data.frames are lists</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>jDat[[5]] # this works but I prefer ...</code></pre>
+<pre><code>## [1] I I J J K K L L
+## Levels: I J K L</code></pre>
+<pre class="r"><code>jDat$v # using dollar sign and name, when possible</code></pre>
+<pre><code>## [1] I I J J K K L L
+## Levels: I J K L</code></pre>
+<pre class="r"><code>jDat[c(&quot;x&quot;, &quot;z&quot;)] # get multiple variables</code></pre>
+<pre><code>##   x     z
+## 1 1  TRUE
+## 2 2  TRUE
+## 3 3  TRUE
+## 4 4  TRUE
+## 5 5  TRUE
+## 6 6 FALSE
+## 7 7  TRUE
+## 8 8 FALSE</code></pre>
+<pre class="r"><code>str(jDat[c(&quot;x&quot;, &quot;z&quot;)]) # returns a data.frame</code></pre>
+<pre><code>## &#39;data.frame&#39;:    8 obs. of  2 variables:
+##  $ x: int  1 2 3 4 5 6 7 8
+##  $ z: logi  TRUE TRUE TRUE TRUE TRUE FALSE ...</code></pre>
+<pre class="r"><code>identical(subset(jDat, select = c(x, z)), jDat[c(&quot;x&quot;, &quot;z&quot;)])</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<blockquote>
+<p>Question: How do I make a data.frame from a list? It is an absolute requirement that the constituent vectors have the same length, although they can be of different flavors. Assuming you meet that requirement, use <code>as.data.frame()</code> to convert.</p>
+</blockquote>
+<pre class="r"><code>## note difference in the printing of a list vs. a data.frame
+(qDat &lt;- list(w = round(rnorm(n), 2),
+              x = 1:(n-1), ## &lt;-- LOOK HERE! I MADE THIS VECTOR SHORTER!
+              y = I(LETTERS[1:n])))</code></pre>
+<pre><code>## $w
+## [1] -0.62 -2.21  1.12 -0.04 -0.02  0.94  0.82  0.59
+## 
+## $x
+## [1] 1 2 3 4 5 6 7
+## 
+## $y
+## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot;</code></pre>
+<pre class="r"><code>as.data.frame(qDat) ## does not work! elements don&#39;t have same length!</code></pre>
+<pre><code>## Error: arguments imply differing number of rows: 8, 7</code></pre>
+<pre class="r"><code>qDat$x &lt;- 1:n ## fix the short variable x
+(qDat &lt;- as.data.frame(qDat)) ## we&#39;re back in business</code></pre>
+<pre><code>##       w x y
+## 1 -0.62 1 A
+## 2 -2.21 2 B
+## 3  1.12 3 C
+## 4 -0.04 4 D
+## 5 -0.02 5 E
+## 6  0.94 6 F
+## 7  0.82 7 G
+## 8  0.59 8 H</code></pre>
+<p>You will encounter weirder situations in which you want to make a data.frame out of a list and there are many tricks. Ask me and we’ll beef up this section.</p>
+</div>
+<div id="indexing-arrays-e.g.matrices" class="section level3">
+<h3>Indexing arrays, e.g. matrices</h3>
+<p>Though data.frames are recommended as the default receptacle for rectangular data, there are times when one will store rectangular data as a matrix instead. A matrix is a generalization of an atomic vector and the requirement that all the elements be of the same flavor still holds. General arrays are available in R, where a matrix is an important special case having dimension 2.</p>
+<p>Let’s make a simple matrix and give it decent row and column names, which we know is a good practice. You’ll see familiar or self-explanatory functions below for getting to know a matrix.</p>
+<pre class="r"><code>## don&#39;t worry if the construction of this matrix confuses you; just focus on
+## the product
+jMat &lt;- outer(as.character(1:4), as.character(1:4),
+              function(x, y) {
+                paste0(&#39;x&#39;, x, y)
+                })
+jMat</code></pre>
+<pre><code>##      [,1]  [,2]  [,3]  [,4] 
+## [1,] &quot;x11&quot; &quot;x12&quot; &quot;x13&quot; &quot;x14&quot;
+## [2,] &quot;x21&quot; &quot;x22&quot; &quot;x23&quot; &quot;x24&quot;
+## [3,] &quot;x31&quot; &quot;x32&quot; &quot;x33&quot; &quot;x34&quot;
+## [4,] &quot;x41&quot; &quot;x42&quot; &quot;x43&quot; &quot;x44&quot;</code></pre>
+<pre class="r"><code>str(jMat)</code></pre>
+<pre><code>##  chr [1:4, 1:4] &quot;x11&quot; &quot;x21&quot; &quot;x31&quot; &quot;x41&quot; &quot;x12&quot; &quot;x22&quot; ...</code></pre>
+<pre class="r"><code>class(jMat)</code></pre>
+<pre><code>## [1] &quot;matrix&quot;</code></pre>
+<pre class="r"><code>mode(jMat)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>dim(jMat)</code></pre>
+<pre><code>## [1] 4 4</code></pre>
+<pre class="r"><code>nrow(jMat)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>ncol(jMat)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code>rownames(jMat)</code></pre>
+<pre><code>## NULL</code></pre>
+<pre class="r"><code>rownames(jMat) &lt;- paste0(&quot;row&quot;, seq_len(nrow(jMat)))
+colnames(jMat) &lt;- paste0(&quot;col&quot;, seq_len(ncol(jMat)))
+dimnames(jMat) # also useful for assignment</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;row1&quot; &quot;row2&quot; &quot;row3&quot; &quot;row4&quot;
+## 
+## [[2]]
+## [1] &quot;col1&quot; &quot;col2&quot; &quot;col3&quot; &quot;col4&quot;</code></pre>
+<pre class="r"><code>jMat</code></pre>
+<pre><code>##      col1  col2  col3  col4 
+## row1 &quot;x11&quot; &quot;x12&quot; &quot;x13&quot; &quot;x14&quot;
+## row2 &quot;x21&quot; &quot;x22&quot; &quot;x23&quot; &quot;x24&quot;
+## row3 &quot;x31&quot; &quot;x32&quot; &quot;x33&quot; &quot;x34&quot;
+## row4 &quot;x41&quot; &quot;x42&quot; &quot;x43&quot; &quot;x44&quot;</code></pre>
+<p>Indexing a matrix is very similar to indexing a vector or a list: use square brackets and index with logical, integer numeric (positive or negative), or character vectors. Combine those approaches if you like! The main new wrinkle is the use of a comma <code>,</code> to distinguish rows and columns. The <span class="math">\(i,j\)</span>-th element is the element at the intersection of row <span class="math">\(i\)</span> and column <span class="math">\(j\)</span> and is obtained with <code>jMat[i, j]</code>. Request an entire row or an entire column by simplying leaving the associated index empty. The <code>drop =</code> argument controls whether the return value should be an atomic vector (<code>drop = TRUE</code>) or a matrix with a single row or column (<code>drop = FALSE</code>). Notice how row and column names persist and can help you stay oriented.</p>
+<pre class="r"><code>jMat[2, 3]</code></pre>
+<pre><code>## [1] &quot;x23&quot;</code></pre>
+<pre class="r"><code>jMat[2, ] # getting row 2</code></pre>
+<pre><code>##  col1  col2  col3  col4 
+## &quot;x21&quot; &quot;x22&quot; &quot;x23&quot; &quot;x24&quot;</code></pre>
+<pre class="r"><code>is.vector(jMat[2, ]) # we get row 2 as an atomic vector</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>jMat[ , 3, drop = FALSE] # getting column 3</code></pre>
+<pre><code>##      col3 
+## row1 &quot;x13&quot;
+## row2 &quot;x23&quot;
+## row3 &quot;x33&quot;
+## row4 &quot;x43&quot;</code></pre>
+<pre class="r"><code>dim(jMat[ , 3, drop = FALSE]) # we get column 3 as a 4 x 1 matrix</code></pre>
+<pre><code>## [1] 4 1</code></pre>
+<pre class="r"><code>jMat[c(&quot;row1&quot;, &quot;row4&quot;), c(&quot;col2&quot;, &quot;col3&quot;)]</code></pre>
+<pre><code>##      col2  col3 
+## row1 &quot;x12&quot; &quot;x13&quot;
+## row4 &quot;x42&quot; &quot;x43&quot;</code></pre>
+<pre class="r"><code>jMat[-c(2, 3), c(TRUE, TRUE, FALSE, FALSE)] # wacky but possible</code></pre>
+<pre><code>##      col1  col2 
+## row1 &quot;x11&quot; &quot;x12&quot;
+## row4 &quot;x41&quot; &quot;x42&quot;</code></pre>
+<p>Under the hood, of course, matrices are just vectors with some extra facilities for indexing. R is a <a href="http://en.wikipedia.org/wiki/Row-major_order">column-major order</a> language, in contrast to C and Python which use row-major order. What this means is that in the underlying vector storage of a matrix, the columns are stacked up one after the other. Matrices can be indexed <em>exactly</em> like a vector, i.e. with no comma <span class="math">\(i,j\)</span> business, like so:</p>
+<pre class="r"><code>jMat[7]</code></pre>
+<pre><code>## [1] &quot;x32&quot;</code></pre>
+<pre class="r"><code>jMat</code></pre>
+<pre><code>##      col1  col2  col3  col4 
+## row1 &quot;x11&quot; &quot;x12&quot; &quot;x13&quot; &quot;x14&quot;
+## row2 &quot;x21&quot; &quot;x22&quot; &quot;x23&quot; &quot;x24&quot;
+## row3 &quot;x31&quot; &quot;x32&quot; &quot;x33&quot; &quot;x34&quot;
+## row4 &quot;x41&quot; &quot;x42&quot; &quot;x43&quot; &quot;x44&quot;</code></pre>
+<p>How to understand this: start counting in the upper left corner, move down the column, continue from the top of column 2 and you’ll land on the element “x32” when you get to 7.</p>
+<p>If you have meaningful, systematic row or column names, there are many possibilities for indexing via regular expressions. Maybe we will talk about <code>grep</code> later….</p>
+<pre class="r"><code>jMat[1, grepl(&quot;[24]&quot;, colnames(jMat))]</code></pre>
+<pre><code>##  col2  col4 
+## &quot;x12&quot; &quot;x14&quot;</code></pre>
+<p>Note also that one can put an indexed matrix on the receiving end of an assignment operation and, as long as your replacement values have valid shape or extent, you can change the matrix.</p>
+<pre class="r"><code>jMat[&quot;row1&quot;, 2:3] &lt;- c(&quot;HEY!&quot;, &quot;THIS IS NUTS!&quot;)
+jMat</code></pre>
+<pre><code>##      col1  col2   col3            col4 
+## row1 &quot;x11&quot; &quot;HEY!&quot; &quot;THIS IS NUTS!&quot; &quot;x14&quot;
+## row2 &quot;x21&quot; &quot;x22&quot;  &quot;x23&quot;           &quot;x24&quot;
+## row3 &quot;x31&quot; &quot;x32&quot;  &quot;x33&quot;           &quot;x34&quot;
+## row4 &quot;x41&quot; &quot;x42&quot;  &quot;x43&quot;           &quot;x44&quot;</code></pre>
+<p>Note that R can also work with vectors and matrices in the proper mathematical sense, i.e. perform matrix algebra. That is a separate topic. To get you started, read the help on <code>%*%</code> for matrix multiplication …</p>
+</div>
+<div id="creating-arrays-e.g.matrices" class="section level3">
+<h3>Creating arrays, e.g. matrices</h3>
+<p>There are 3 main ways to create a matrix. It goes without saying that the inputs must comply with the requirement that all matrix elements are the same flavor. If that’s not true, you risk an error or, worse, silent conversion to character.</p>
+<ul>
+<li>Filling a matrix with a vector</li>
+<li>Glueing vectors together as rows or columns</li>
+<li>Conversion of a data.frame</li>
+</ul>
+<p>Let’s demonstrate. Here we fill a matrix with a vector, explore filling by rows and giving row and columns at creation. Notice that recycling happens here too, so if the input vector is not large enough, R will recycle it.</p>
+<pre class="r"><code>matrix(1:15, nrow = 5)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    6   11
+## [2,]    2    7   12
+## [3,]    3    8   13
+## [4,]    4    9   14
+## [5,]    5   10   15</code></pre>
+<pre class="r"><code>matrix(&quot;yo!&quot;, nrow = 3, ncol = 6)</code></pre>
+<pre><code>##      [,1]  [,2]  [,3]  [,4]  [,5]  [,6] 
+## [1,] &quot;yo!&quot; &quot;yo!&quot; &quot;yo!&quot; &quot;yo!&quot; &quot;yo!&quot; &quot;yo!&quot;
+## [2,] &quot;yo!&quot; &quot;yo!&quot; &quot;yo!&quot; &quot;yo!&quot; &quot;yo!&quot; &quot;yo!&quot;
+## [3,] &quot;yo!&quot; &quot;yo!&quot; &quot;yo!&quot; &quot;yo!&quot; &quot;yo!&quot; &quot;yo!&quot;</code></pre>
+<pre class="r"><code>matrix(c(&quot;yo!&quot;, &quot;foo?&quot;), nrow = 3, ncol = 6)</code></pre>
+<pre><code>##      [,1]   [,2]   [,3]   [,4]   [,5]   [,6]  
+## [1,] &quot;yo!&quot;  &quot;foo?&quot; &quot;yo!&quot;  &quot;foo?&quot; &quot;yo!&quot;  &quot;foo?&quot;
+## [2,] &quot;foo?&quot; &quot;yo!&quot;  &quot;foo?&quot; &quot;yo!&quot;  &quot;foo?&quot; &quot;yo!&quot; 
+## [3,] &quot;yo!&quot;  &quot;foo?&quot; &quot;yo!&quot;  &quot;foo?&quot; &quot;yo!&quot;  &quot;foo?&quot;</code></pre>
+<pre class="r"><code>matrix(1:15, nrow = 5, byrow = TRUE)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    4    5    6
+## [3,]    7    8    9
+## [4,]   10   11   12
+## [5,]   13   14   15</code></pre>
+<pre class="r"><code>matrix(1:15, nrow = 5,
+       dimnames = list(paste0(&quot;row&quot;, 1:5),
+                       paste0(&quot;col&quot;, 1:3)))</code></pre>
+<pre><code>##      col1 col2 col3
+## row1    1    6   11
+## row2    2    7   12
+## row3    3    8   13
+## row4    4    9   14
+## row5    5   10   15</code></pre>
+<p>Here we create a matrix by glueing vectors together. Watch the vector names propagate as row or column names.</p>
+<pre class="r"><code>vec1 &lt;- 5:1
+vec2 &lt;- 2^(1:5)
+cbind(vec1, vec2)</code></pre>
+<pre><code>##      vec1 vec2
+## [1,]    5    2
+## [2,]    4    4
+## [3,]    3    8
+## [4,]    2   16
+## [5,]    1   32</code></pre>
+<pre class="r"><code>rbind(vec1, vec2)</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## vec1    5    4    3    2    1
+## vec2    2    4    8   16   32</code></pre>
+<p>Here we create a matrix from a data.frame.</p>
+<pre class="r"><code>vecDat &lt;- data.frame(vec1 = 5:1,
+                     vec2 = 2^(1:5))
+str(vecDat)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    5 obs. of  2 variables:
+##  $ vec1: int  5 4 3 2 1
+##  $ vec2: num  2 4 8 16 32</code></pre>
+<pre class="r"><code>vecMat &lt;- as.matrix(vecDat)
+str(vecMat)</code></pre>
+<pre><code>##  num [1:5, 1:2] 5 4 3 2 1 2 4 8 16 32
+##  - attr(*, &quot;dimnames&quot;)=List of 2
+##   ..$ : NULL
+##   ..$ : chr [1:2] &quot;vec1&quot; &quot;vec2&quot;</code></pre>
+<p>Here we create a matrix from a data.frame, but experience the “silently convert everything to character” fail. As an added bonus, I’m also allowing the “convert character to factor” thing to happen when we create the data.frame initially. Let this be a reminder to take control of your objects!</p>
+<pre class="r"><code>multiDat &lt;- data.frame(vec1 = 5:1,
+                       vec2 = paste0(&quot;hi&quot;, 1:5))
+str(multiDat)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    5 obs. of  2 variables:
+##  $ vec1: int  5 4 3 2 1
+##  $ vec2: Factor w/ 5 levels &quot;hi1&quot;,&quot;hi2&quot;,&quot;hi3&quot;,..: 1 2 3 4 5</code></pre>
+<pre class="r"><code>(multiMat &lt;- as.matrix(multiDat))</code></pre>
+<pre><code>##      vec1 vec2 
+## [1,] &quot;5&quot;  &quot;hi1&quot;
+## [2,] &quot;4&quot;  &quot;hi2&quot;
+## [3,] &quot;3&quot;  &quot;hi3&quot;
+## [4,] &quot;2&quot;  &quot;hi4&quot;
+## [5,] &quot;1&quot;  &quot;hi5&quot;</code></pre>
+<pre class="r"><code>str(multiMat)</code></pre>
+<pre><code>##  chr [1:5, 1:2] &quot;5&quot; &quot;4&quot; &quot;3&quot; &quot;2&quot; &quot;1&quot; &quot;hi1&quot; &quot;hi2&quot; &quot;hi3&quot; ...
+##  - attr(*, &quot;dimnames&quot;)=List of 2
+##   ..$ : NULL
+##   ..$ : chr [1:2] &quot;vec1&quot; &quot;vec2&quot;</code></pre>
+</div>
+<div id="putting-it-all-together-implications-for-data.frames" class="section level3">
+<h3>Putting it all together … implications for data.frames</h3>
+<p>This behind the scenes tour is still aimed at making you a better data analyst. Hopefully the slog through vectors, matrices, and lists will be redeemed by greater prowess at manipulating data.frames. Why should this be true?</p>
+<ul>
+<li>a data.frame is a <em>list</em></li>
+<li>the list elements are the variables and they are <em>atomic vectors</em></li>
+<li>data.frames are rectangular, like their matrix friends, so your intuition – and even some syntax – can be borrowed from the matrix world</li>
+</ul>
+<p>A data.frame is a list that quacks like a matrix.</p>
+<p>Reviewing list-style indexing of a data.frame:</p>
+<pre class="r"><code>jDat</code></pre>
+<pre><code>##       w x y     z v
+## 1 -0.63 1 A  TRUE I
+## 2  0.18 2 B  TRUE I
+## 3 -0.84 3 C  TRUE J
+## 4  1.60 4 D  TRUE J
+## 5  0.33 5 E  TRUE K
+## 6 -0.82 6 F FALSE K
+## 7  0.49 7 G  TRUE L
+## 8  0.74 8 H FALSE L</code></pre>
+<pre class="r"><code>jDat$z</code></pre>
+<pre><code>## [1]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE</code></pre>
+<pre class="r"><code>iWantThis &lt;- &quot;z&quot;
+jDat[[iWantThis]]</code></pre>
+<pre><code>## [1]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE</code></pre>
+<pre class="r"><code>str(jDat[[iWantThis]]) # we get an atomic vector</code></pre>
+<pre><code>##  logi [1:8] TRUE TRUE TRUE TRUE TRUE FALSE ...</code></pre>
+<p>Reviewing vector-style indexing of a data.frame:</p>
+<pre class="r"><code>jDat[&quot;y&quot;]</code></pre>
+<pre><code>##   y
+## 1 A
+## 2 B
+## 3 C
+## 4 D
+## 5 E
+## 6 F
+## 7 G
+## 8 H</code></pre>
+<pre class="r"><code>str(jDat[&quot;y&quot;]) # we get a data.frame with one variable, y</code></pre>
+<pre><code>## &#39;data.frame&#39;:    8 obs. of  1 variable:
+##  $ y:Class &#39;AsIs&#39;  chr [1:8] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; ...</code></pre>
+<pre class="r"><code>iWantThis &lt;- c(&quot;w&quot;, &quot;v&quot;)
+jDat[iWantThis] # index with a vector of variable names</code></pre>
+<pre><code>##       w v
+## 1 -0.63 I
+## 2  0.18 I
+## 3 -0.84 J
+## 4  1.60 J
+## 5  0.33 K
+## 6 -0.82 K
+## 7  0.49 L
+## 8  0.74 L</code></pre>
+<pre class="r"><code>str(jDat[c(&quot;w&quot;, &quot;v&quot;)])</code></pre>
+<pre><code>## &#39;data.frame&#39;:    8 obs. of  2 variables:
+##  $ w: num  -0.63 0.18 -0.84 1.6 0.33 -0.82 0.49 0.74
+##  $ v: Factor w/ 4 levels &quot;I&quot;,&quot;J&quot;,&quot;K&quot;,&quot;L&quot;: 1 1 2 2 3 3 4 4</code></pre>
+<pre class="r"><code>str(subset(jDat, select = c(w, v))) # using subset() function</code></pre>
+<pre><code>## &#39;data.frame&#39;:    8 obs. of  2 variables:
+##  $ w: num  -0.63 0.18 -0.84 1.6 0.33 -0.82 0.49 0.74
+##  $ v: Factor w/ 4 levels &quot;I&quot;,&quot;J&quot;,&quot;K&quot;,&quot;L&quot;: 1 1 2 2 3 3 4 4</code></pre>
+<p>Demonstrating matrix-style indexing of a data.frame:</p>
+<pre class="r"><code>jDat[ , &quot;v&quot;]</code></pre>
+<pre><code>## [1] I I J J K K L L
+## Levels: I J K L</code></pre>
+<pre class="r"><code>str(jDat[ , &quot;v&quot;])</code></pre>
+<pre><code>##  Factor w/ 4 levels &quot;I&quot;,&quot;J&quot;,&quot;K&quot;,&quot;L&quot;: 1 1 2 2 3 3 4 4</code></pre>
+<pre class="r"><code>jDat[ , &quot;v&quot;, drop = FALSE]</code></pre>
+<pre><code>##   v
+## 1 I
+## 2 I
+## 3 J
+## 4 J
+## 5 K
+## 6 K
+## 7 L
+## 8 L</code></pre>
+<pre class="r"><code>str(jDat[ , &quot;v&quot;, drop = FALSE])</code></pre>
+<pre><code>## &#39;data.frame&#39;:    8 obs. of  1 variable:
+##  $ v: Factor w/ 4 levels &quot;I&quot;,&quot;J&quot;,&quot;K&quot;,&quot;L&quot;: 1 1 2 2 3 3 4 4</code></pre>
+<pre class="r"><code>jDat[c(2, 4, 7), c(1, 4)] # awful and arbitrary but syntax works</code></pre>
+<pre><code>##      w    z
+## 2 0.18 TRUE
+## 4 1.60 TRUE
+## 7 0.49 TRUE</code></pre>
+<pre class="r"><code>jDat[jDat$z, ]</code></pre>
+<pre><code>##       w x y    z v
+## 1 -0.63 1 A TRUE I
+## 2  0.18 2 B TRUE I
+## 3 -0.84 3 C TRUE J
+## 4  1.60 4 D TRUE J
+## 5  0.33 5 E TRUE K
+## 7  0.49 7 G TRUE L</code></pre>
+<pre class="r"><code>subset(jDat, subset = z)</code></pre>
+<pre><code>##       w x y    z v
+## 1 -0.63 1 A TRUE I
+## 2  0.18 2 B TRUE I
+## 3 -0.84 3 C TRUE J
+## 4  1.60 4 D TRUE J
+## 5  0.33 5 E TRUE K
+## 7  0.49 7 G TRUE L</code></pre>
+</div>
+<div id="table-of-atomic-r-object-flavors" class="section level3">
+<h3>Table of atomic R object flavors</h3>
+<blockquote>
+<p>This table will be hideous unless Pandoc is used to compile.</p>
+</blockquote>
+<table>
+<colgroup>
+<col width="16%" />
+<col width="22%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">“flavor”</th>
+<th align="left">type reported by typeof()</th>
+<th align="left">mode()</th>
+<th align="left">class()</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><p>character</p></td>
+<td align="left"><p>character</p></td>
+<td align="left"><p>character</p></td>
+<td align="left"><p>character</p></td>
+</tr>
+<tr class="even">
+<td align="left"><p>logical</p></td>
+<td align="left"><p>logical</p></td>
+<td align="left"><p>logical</p></td>
+<td align="left"><p>logical</p></td>
+</tr>
+<tr class="odd">
+<td align="left"><p>numeric</p></td>
+<td align="left"><p>integer or double</p></td>
+<td align="left"><p>numeric</p></td>
+<td align="left"><p>integer or double</p></td>
+</tr>
+<tr class="even">
+<td align="left"><p>factor</p></td>
+<td align="left"><p>integer</p></td>
+<td align="left"><p>numeric</p></td>
+<td align="left"><p>factor</p></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>This should be legible no matter what.</p>
+</blockquote>
+<pre><code>+-----------+---------------+-----------+-----------+
+| &quot;flavor&quot;  | type reported | mode()    | class()   |
+|           | by typeof()   |           |           |
++===========+===============+===========+===========+
+| character | character     | character | character |
++-----------+---------------+-----------+-----------+
+| logical   | logical       | logical   | logical   |
++-----------+---------------+-----------+-----------+
+| numeric   | integer       | numeric   | integer   |
+|           | or double     |           | or double |
++-----------+---------------+-----------+-----------+
+| factor    | integer       | numeric   | factor    |
++-----------+---------------+-----------+-----------+</code></pre>
+<p>Thinking about objects according to the flavors above will work fairly well for most purposes most of the time, at least when you’re first getting started. Notice that most rows in the table are quite homogeneous, i.e. a logical vector is a logical vector is a logical vector. But the row pertaining to factors is an exception, which highlights the special nature of factors. (for more, go <a href="block08_bossYourFactors.html">here</a>).</p>
+<blockquote>
+<p>JB note to self. Possible TO ADD but probably belongs in separate tutorial on changing and adding to data.frames: cbind and rbind with data.frames, transform(). do.call() tricks for data.frames. adding/removing variables to/from data.frames. Does this belong in earlier tutorial on the care and feeding of a data.frame? Fits in well with subset(), after all.</p>
+</blockquote>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
