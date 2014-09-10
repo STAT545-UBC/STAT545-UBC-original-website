@@ -37,7 +37,7 @@ The GitHub hosting site offers [GitHub for Windows](https://windows.github.com) 
   * [Their Windows set-up instructions](https://help.github.com/articles/set-up-git#platform-windows) recommend this method of Git installation.
   * This is a better choice for novices in scientific computing, because it's more likely to "just work". You may eventually outgrow it, but you can cross that bridge when you come to it.
   
-*still need to add words about Git configuration and GitHub credentials*
+After installation, you still need to configure Git and get it to remember your GitHub username and password. If your Git client guides you through this, seize that opportunity! Otherwise go [here](block003_git-config-credential-cache.html) for some assistance.
 
 ### Git installation: Mac
 
@@ -64,7 +64,7 @@ The GitHub hosting site offers [GitHub for Mac](https://windows.github.com) that
 
 If you anticipate getting heavily into scientific computing, you're going to be installing lots of software. You should check out [homebrew](http://brew.sh), "the missing package manager for OS X". Among many other things, it can install Git for you. Our own TA [Shaun Jackman](https://github.com/sjackman) works on [homebrew-science](https://github.com/Homebrew/homebrew-science), so he's the local expert.
 
-*still need to add words about Git configuration and GitHub credentials*
+After installation, you still need to configure Git and get it to remember your GitHub username and password. If your Git client guides you through this, seize that opportunity! Otherwise go [here](block003_git-config-credential-cache.html) for some assistance.
 
 ### Git installation: Linux
 
@@ -84,4 +84,4 @@ Fedora or RedHat Linux
 sudo yum install git
 ```
 
-*still need to add words about Git configuration and GitHub credentials*
+After installation, you still need to configure Git and get it to remember your GitHub username and password. If your Git client guides you through this, seize that opportunity! Otherwise go [here](block003_git-config-credential-cache.html) for some assistance.
