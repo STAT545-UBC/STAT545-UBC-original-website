@@ -2,7 +2,7 @@ cm,course,dow,month,day,raw_notes
 ,STAT545A,mon,september,1,no class; Labor Day
 cm001,STAT545A,wed,september,3,Intro to course; S/W install; acct sign-ups
 cm002,STAT545A,mon,september,8,Deep Thoughts about data analytic work; intro to R and RStudio
-cm003,STAT545A,wed,september,10,
+cm003,STAT545A,wed,september,10,Basic flavors of R objects; Git(Hub) and (R) Markdown crash course
 cm004,STAT545A,mon,september,15,
 cm005,STAT545A,wed,september,17,
 cm006,STAT545A,mon,september,22,
