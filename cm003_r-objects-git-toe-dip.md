@@ -11,6 +11,7 @@ output:
   * Basics of R objects (TBC in future classes)
   * Just enough Git and Markdown knowledge for you to submit homework
     - Homework will be due before class Monday 2014-09-15. Not posted yet but will be creating a basic (R?) Markdown document and posting to GitHub.
+    - Procedure will be a __modified__ version of [the one used in STAT 540](http://www.ugrad.stat.ubc.ca/%7Estat540/homework/hw_submission-instructions.html); I said __modified__ ... please wait for the STAT 545A instructions to be posted!
   * What's next?
     - DATA!!
     - Exploring the Gapminder data
