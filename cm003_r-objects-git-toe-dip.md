@@ -31,7 +31,8 @@ Notes and and some links from the slides
 
 You did finish working through: [R basics, workspace and working directory, RStudio projects](block002_hello-r-workspace-wd-project.html), right?
 
-  * Because I assume you've got a little script like [toy-line.r](block002_toy-line.r) written by now. We've probably used it in class today.
+  * Because I assume you've got a little script like [toy-line.r](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/block002_toy-line.r) written by now. We've probably used it in class today.
+  * That also contained helpful information on sending R code to the Console from the script editor. Important!
   
 We will start to talk about R objects today
 
