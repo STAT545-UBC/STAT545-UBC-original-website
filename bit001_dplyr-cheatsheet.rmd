@@ -133,7 +133,7 @@ We basically get `x = superheroes` back, but with the addition of variable `yr_f
   ```
 </td>
   <td valign="top">
-  left_join(superheroes, publishers)
+  left_join(x = superheroes, y = publishers)
   ```{r results='asis', echo=FALSE}
   knitr::kable(ljsp)
   ```
@@ -166,7 +166,7 @@ We keep __only__ Hellboy now (and do not get `yr_founded`).
   ```
 </td>
   <td valign="top">
-  anti_join(superheroes, publishers)
+  anti_join(x = superheroes, y = publishers)
   ```{r results='asis', echo=FALSE}
   knitr::kable(ajsp)
   ```
@@ -212,7 +212,7 @@ In a way, this does illustrate multiple matches, if you think about it from the 
 > semi_join(x, y): return all rows from x where there are matching values in y, keeping just columns from x. A semi join differs from an inner join because an inner join will return one row of x for each matching row of y, where a semi join will never duplicate rows of x.
 
 ```{r}
-(sjps <- semi_join(publishers, superheroes))
+(sjps <- semi_join(x = publishers, y = superheroes))
 ```
 
 Now the effects of switching the `x` and `y` roles is more clear. The result resembles `x = publishers`, but the publisher Image is lost, because there are no observations where `publisher == "Image"` in `y = superheroes`.
@@ -265,7 +265,7 @@ We get a similar result as with `inner_join()` but the publisher Image survives 
   ```
 </td>
   <td valign="top">
-  left_join(publishers, superheroes)
+  left_join(x = publishers, y = superheroes)
   ```{r results='asis', echo=FALSE}
   knitr::kable(ljps)
   ```
@@ -298,10 +298,17 @@ We keep __only__ publisher Image now (and the variables found in `x = publishers
   ```
 </td>
   <td valign="top">
-  anti_join(publishers, superheroes)
+  anti_join(x = publishers, y = superheroes)
   ```{r results='asis', echo=FALSE}
   knitr::kable(ajps)
   ```
 </td>
 </tr>
 </table>
+
+#### sessionInfo()
+
+```{r}
+sessionInfo()
+```
+

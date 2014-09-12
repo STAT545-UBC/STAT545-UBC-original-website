@@ -85,6 +85,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#semi_joinsuperheroes-publishers-1">semi_join(superheroes, publishers)</a></li>
 <li><a href="#left_joinsuperheroes-publishers-1">left_join(superheroes, publishers)</a></li>
 <li><a href="#anti_joinsuperheroes-publishers-1">anti_join(superheroes, publishers)</a></li>
+<li><a href="#sessioninfo">sessionInfo()</a></li>
 </ul>
 </div>
 
@@ -540,7 +541,7 @@ publishers &lt;- read.csv(text = publishers, strip.white = TRUE)</code></pre>
 </td>
   <td valign="top">
   
-<p>left_join(superheroes, publishers)</p>
+<p>left_join(x = superheroes, y = publishers)</p>
 <table>
 <thead>
 <tr class="header">
@@ -706,7 +707,7 @@ publishers &lt;- read.csv(text = publishers, strip.white = TRUE)</code></pre>
 </td>
   <td valign="top">
   
-<p>anti_join(superheroes, publishers)</p>
+<p>anti_join(x = superheroes, y = publishers)</p>
 <table>
 <thead>
 <tr class="header">
@@ -899,7 +900,7 @@ publishers &lt;- read.csv(text = publishers, strip.white = TRUE)</code></pre>
 <blockquote>
 <p>semi_join(x, y): return all rows from x where there are matching values in y, keeping just columns from x. A semi join differs from an inner join because an inner join will return one row of x for each matching row of y, where a semi join will never duplicate rows of x.</p>
 </blockquote>
-<pre class="r"><code>(sjps &lt;- semi_join(publishers, superheroes))</code></pre>
+<pre class="r"><code>(sjps &lt;- semi_join(x = publishers, y = superheroes))</code></pre>
 <pre><code>## Joining by: &quot;publisher&quot;</code></pre>
 <pre><code>##   publisher yr_founded
 ## 1    Marvel       1939
@@ -1121,7 +1122,7 @@ publishers &lt;- read.csv(text = publishers, strip.white = TRUE)</code></pre>
 </td>
   <td valign="top">
   
-<p>left_join(publishers, superheroes)</p>
+<p>left_join(x = publishers, y = superheroes)</p>
 <table>
 <thead>
 <tr class="header">
@@ -1287,7 +1288,7 @@ publishers &lt;- read.csv(text = publishers, strip.white = TRUE)</code></pre>
 </td>
   <td valign="top">
   
-<p>anti_join(publishers, superheroes)</p>
+<p>anti_join(x = publishers, y = superheroes)</p>
 <table>
 <thead>
 <tr class="header">
@@ -1306,7 +1307,27 @@ publishers &lt;- read.csv(text = publishers, strip.white = TRUE)</code></pre>
 </tr>
 </table>
 
-
+</div>
+<div id="sessioninfo" class="section level4">
+<h4>sessionInfo()</h4>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.1.0 (2014-04-10)
+## Platform: x86_64-apple-darwin10.8.0 (64-bit)
+## 
+## locale:
+## [1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] dplyr_0.2.0.99
+## 
+## loaded via a namespace (and not attached):
+##  [1] assertthat_0.1   digest_0.6.4     evaluate_0.5.5   formatR_0.10    
+##  [5] htmltools_0.2.4  knitr_1.6        magrittr_1.0.1   parallel_3.1.0  
+##  [9] Rcpp_0.11.1      rmarkdown_0.2.64 stringr_0.6.2    tools_3.1.0     
+## [13] yaml_2.1.13</code></pre>
 </div>
 
 <div class="footer">

@@ -216,7 +216,7 @@ We basically get `x = superheroes` back, but with the addition of variable `yr_f
   |Image     |       1992|
 </td>
   <td valign="top">
-  left_join(superheroes, publishers)
+  left_join(x = superheroes, y = publishers)
   
   |name     |alignment |gender |publisher         | yr_founded|
   |:--------|:---------|:------|:-----------------|----------:|
@@ -276,7 +276,7 @@ We keep __only__ Hellboy now (and do not get `yr_founded`).
   |Image     |       1992|
 </td>
   <td valign="top">
-  anti_join(superheroes, publishers)
+  anti_join(x = superheroes, y = publishers)
   
   |name    |alignment |gender |publisher         |
   |:-------|:---------|:------|:-----------------|
@@ -355,7 +355,7 @@ In a way, this does illustrate multiple matches, if you think about it from the 
 
 
 ```r
-(sjps <- semi_join(publishers, superheroes))
+(sjps <- semi_join(x = publishers, y = superheroes))
 ```
 
 ```
@@ -456,7 +456,7 @@ We get a similar result as with `inner_join()` but the publisher Image survives 
   |Hellboy  |good      |male   |Dark Horse Comics |
 </td>
   <td valign="top">
-  left_join(publishers, superheroes)
+  left_join(x = publishers, y = superheroes)
   
   |publisher | yr_founded|name     |alignment |gender |
   |:---------|----------:|:--------|:---------|:------|
@@ -516,7 +516,7 @@ We keep __only__ publisher Image now (and the variables found in `x = publishers
   |Hellboy  |good      |male   |Dark Horse Comics |
 </td>
   <td valign="top">
-  anti_join(publishers, superheroes)
+  anti_join(x = publishers, y = superheroes)
   
   |publisher | yr_founded|
   |:---------|----------:|
@@ -524,3 +524,31 @@ We keep __only__ publisher Image now (and the variables found in `x = publishers
 </td>
 </tr>
 </table>
+
+#### sessionInfo()
+
+
+```r
+sessionInfo()
+```
+
+```
+## R version 3.1.0 (2014-04-10)
+## Platform: x86_64-apple-darwin10.8.0 (64-bit)
+## 
+## locale:
+## [1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] dplyr_0.2.0.99
+## 
+## loaded via a namespace (and not attached):
+##  [1] assertthat_0.1   digest_0.6.4     evaluate_0.5.5   formatR_0.10    
+##  [5] htmltools_0.2.4  knitr_1.6        magrittr_1.0.1   parallel_3.1.0  
+##  [9] Rcpp_0.11.1      rmarkdown_0.2.64 stringr_0.6.2    tools_3.1.0     
+## [13] yaml_2.1.13
+```
+
