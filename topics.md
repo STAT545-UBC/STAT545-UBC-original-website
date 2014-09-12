@@ -19,13 +19,18 @@ Until we get rolling, feel free to look at older material that will appear here 
 
   * [Class meeting 001](cm001_course-intro-sw-install-account-signup.html) deals with "What is data science? What is data carpentry?" and includes links re: use of Twitter in academia.
   * [Class meeting 002](cm002_r-rstudio-intro.html) provides some Deep Thoughts about data analytic work, then shifts into a hands-on intro to R and RStudio.
+  * [Class meeting 003](cm003_r-objects-git-toe-dip.html) Started basic flavors of R objects; Git(Hub) and (R) Markdown crash course so first HW0 can be submitted. All hands-on.
+
+### Short random things
+
+  * [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
 
 ### What's coming
 
 Topics traditionally covered in STAT 545A, with light updating:
 
   * ~~Introduction to R and the [RStudio IDE](http://www.rstudio.com/products/rstudio/)~~ *done*
-  * R scripts and workspaces, RStudio Projects; how to get your work done
+  * ~~R scripts and workspaces, RStudio Projects; how to get your work done~~ *done*
   * Creating reports from R scripts and [R Markdown](http://rmarkdown.rstudio.com), using [`knitr`](http://yihui.name/knitr/)
   * ~~Deep thoughts about data analytic work~~ *done*
   * Care and feeding of data in R; data frames

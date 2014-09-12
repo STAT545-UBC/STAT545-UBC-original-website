@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Jenny Bryan" />
+
+
+<title>Cheatsheet for dplyr join functions</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Cheatsheet for dplyr join functions</h1>
+<h4 class="author"><em>Jenny Bryan</em></h4>
+<h4 class="date"><em>11 September, 2014</em></h4>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#why-the-cheatsheet">Why the cheatsheet</a></li>
+<li><a href="#inner_joinsuperheroes-publishers">inner_join(superheroes, publishers)</a></li>
+<li><a href="#semi_joinsuperheroes-publishers">semi_join(superheroes, publishers)</a></li>
+<li><a href="#left_joinsuperheroes-publishers">left_join(superheroes, publishers)</a></li>
+<li><a href="#anti_joinsuperheroes-publishers">anti_join(superheroes, publishers)</a></li>
+<li><a href="#inner_joinpublishers-superheroes">inner_join(publishers, superheroes)</a></li>
+<li><a href="#semi_joinsuperheroes-publishers-1">semi_join(superheroes, publishers)</a></li>
+<li><a href="#left_joinsuperheroes-publishers-1">left_join(superheroes, publishers)</a></li>
+<li><a href="#anti_joinsuperheroes-publishers-1">anti_join(superheroes, publishers)</a></li>
+</ul>
+</div>
+
+<div id="why-the-cheatsheet" class="section level4">
+<h4>Why the cheatsheet</h4>
+<p>Examples for those of us who don’t speak SQL so good. There are lots of <a href="http://images.google.com/images?q=sql+join">Venn diagrams re: SQL joins on the interwebs</a>, but I wanted R examples.</p>
+<p><a href="http://www.rdocumentation.org/packages/dplyr">Full documentation</a> for the <code>dplyr</code> package, which is developed by Hadley Wickham and Romain Francois on <a href="https://github.com/hadley/dplyr">GitHub</a>.</p>
+<p>Working with two small data.frames, <code>superheroes</code> and <code>publishers</code>.</p>
+<pre class="r"><code>suppressPackageStartupMessages(library(dplyr))
+
+superheroes &lt;-
+  c(&quot;    name, alignment, gender,         publisher&quot;,
+    &quot; Magneto,       bad,   male,            Marvel&quot;,
+    &quot;   Storm,      good, female,            Marvel&quot;,
+    &quot;Mystique,       bad, female,            Marvel&quot;,
+    &quot;  Batman,      good,   male,                DC&quot;,
+    &quot;   Joker,       bad,   male,                DC&quot;,
+    &quot;Catwoman,       bad, female,                DC&quot;,
+    &quot; Hellboy,      good,   male, Dark Horse Comics&quot;)
+superheroes &lt;- read.csv(text = superheroes, strip.white = TRUE)
+
+publishers &lt;- 
+  c(&quot;publisher, yr_founded&quot;,
+    &quot;       DC,       1934&quot;,
+    &quot;   Marvel,       1939&quot;,
+    &quot;    Image,       1992&quot;)
+publishers &lt;- read.csv(text = publishers, strip.white = TRUE)</code></pre>
+<p>Sorry, cheat sheet does not illustrate “multiple match” situations terribly well.</p>
+<p>Sub-plot: watch the row and variable order of the join results for a healthy reminder of why it’s dangerous to rely on any of that in an analysis.</p>
+</div>
+<div id="inner_joinsuperheroes-publishers" class="section level4">
+<h4>inner_join(superheroes, publishers)</h4>
+<blockquote>
+<p>inner_join(x, y): return all rows from x where there are matching values in y, and all columns from x and y. If there are multiple matches between x and y, all combination of the matches are returned</p>
+</blockquote>
+<pre class="r"><code>(ijsp &lt;- inner_join(superheroes, publishers))</code></pre>
+<pre><code>## Joining by: &quot;publisher&quot;</code></pre>
+<pre><code>##       name alignment gender publisher yr_founded
+## 1  Magneto       bad   male    Marvel       1939
+## 2    Storm      good female    Marvel       1939
+## 3 Mystique       bad female    Marvel       1939
+## 4   Batman      good   male        DC       1934
+## 5    Joker       bad   male        DC       1934
+## 6 Catwoman       bad female        DC       1934</code></pre>
+<p>We lose Hellboy in the join because, although he appears in <code>x = superheroes</code>, his publisher Dark Horse Comics does not appear in <code>y = publishers</code>. The join result has all variables from <code>x = superheroes</code> plus <code>yr_founded</code>, from <code>y</code>.</p>
+<table border = 1>
+<tr>
+<td valign="top">
+  
+<p>superheroes</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">alignment</th>
+<th align="left">gender</th>
+<th align="left">publisher</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Magneto</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Storm</td>
+<td align="left">good</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="odd">
+<td align="left">Mystique</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Batman</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Joker</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="even">
+<td align="left">Catwoman</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Hellboy</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">Dark Horse Comics</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td valign="top">
+  
+<p>publishers</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">publisher</th>
+<th align="right">yr_founded</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">DC</td>
+<td align="right">1934</td>
+</tr>
+<tr class="even">
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+</tr>
+<tr class="odd">
+<td align="left">Image</td>
+<td align="right">1992</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td valign="top">
+  
+<p>inner_join(x = superheroes, y = publishers)</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">alignment</th>
+<th align="left">gender</th>
+<th align="left">publisher</th>
+<th align="right">yr_founded</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Magneto</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+</tr>
+<tr class="even">
+<td align="left">Storm</td>
+<td align="left">good</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+</tr>
+<tr class="odd">
+<td align="left">Mystique</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+</tr>
+<tr class="even">
+<td align="left">Batman</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+<td align="right">1934</td>
+</tr>
+<tr class="odd">
+<td align="left">Joker</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+<td align="right">1934</td>
+</tr>
+<tr class="even">
+<td align="left">Catwoman</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">DC</td>
+<td align="right">1934</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+  
+</div>
+<div id="semi_joinsuperheroes-publishers" class="section level4">
+<h4>semi_join(superheroes, publishers)</h4>
+<blockquote>
+<p>semi_join(x, y): return all rows from x where there are matching values in y, keeping just columns from x. A semi join differs from an inner join because an inner join will return one row of x for each matching row of y, where a semi join will never duplicate rows of x.</p>
+</blockquote>
+<pre class="r"><code>(sjsp &lt;- semi_join(superheroes, publishers))</code></pre>
+<pre><code>## Joining by: &quot;publisher&quot;</code></pre>
+<pre><code>##       name alignment gender publisher
+## 1   Batman      good   male        DC
+## 2    Joker       bad   male        DC
+## 3 Catwoman       bad female        DC
+## 4  Magneto       bad   male    Marvel
+## 5    Storm      good female    Marvel
+## 6 Mystique       bad female    Marvel</code></pre>
+<p>We get a similar result as with <code>inner_join()</code> but the join result contains only the variables originally found in <code>x = superheroes</code>.</p>
+<table border = 1>
+  <tr>
+  <td valign="top">
+  
+<p>superheroes</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">alignment</th>
+<th align="left">gender</th>
+<th align="left">publisher</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Magneto</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Storm</td>
+<td align="left">good</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="odd">
+<td align="left">Mystique</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Batman</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Joker</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="even">
+<td align="left">Catwoman</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Hellboy</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">Dark Horse Comics</td>
+</tr>
+</tbody>
+</table>
+</td>
+  <td valign="top">
+  
+<p>publishers</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">publisher</th>
+<th align="right">yr_founded</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">DC</td>
+<td align="right">1934</td>
+</tr>
+<tr class="even">
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+</tr>
+<tr class="odd">
+<td align="left">Image</td>
+<td align="right">1992</td>
+</tr>
+</tbody>
+</table>
+</td>
+  <td valign="top">
+  
+<p>semi-join(x = superheroes, y = publishers)</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">alignment</th>
+<th align="left">gender</th>
+<th align="left">publisher</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Batman</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="even">
+<td align="left">Joker</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Catwoman</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">DC</td>
+</tr>
+<tr class="even">
+<td align="left">Magneto</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="odd">
+<td align="left">Storm</td>
+<td align="left">good</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Mystique</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+
+</div>
+<div id="left_joinsuperheroes-publishers" class="section level4">
+<h4>left_join(superheroes, publishers)</h4>
+<blockquote>
+<p>left_join(x, y): return all rows from x, and all columns from x and y. If there are multiple matches between x and y, all combination of the matches are returned</p>
+</blockquote>
+<pre class="r"><code>(ljsp &lt;- left_join(superheroes, publishers))</code></pre>
+<pre><code>## Joining by: &quot;publisher&quot;</code></pre>
+<pre><code>##       name alignment gender         publisher yr_founded
+## 1  Magneto       bad   male            Marvel       1939
+## 2    Storm      good female            Marvel       1939
+## 3 Mystique       bad female            Marvel       1939
+## 4   Batman      good   male                DC       1934
+## 5    Joker       bad   male                DC       1934
+## 6 Catwoman       bad female                DC       1934
+## 7  Hellboy      good   male Dark Horse Comics         NA</code></pre>
+<p>We basically get <code>x = superheroes</code> back, but with the addition of variable <code>yr_founded</code>, which is unique to <code>y = publishers</code>. Hellboy, whose publisher does not appear in <code>y = publishers</code>, has an <code>NA</code> for <code>yr_founded</code>.</p>
+<table border = 1>
+  <tr>
+  <td valign="top">
+  
+<p>superheroes</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">alignment</th>
+<th align="left">gender</th>
+<th align="left">publisher</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Magneto</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Storm</td>
+<td align="left">good</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="odd">
+<td align="left">Mystique</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Batman</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Joker</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="even">
+<td align="left">Catwoman</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Hellboy</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">Dark Horse Comics</td>
+</tr>
+</tbody>
+</table>
+</td>
+  <td valign="top">
+  
+<p>publishers</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">publisher</th>
+<th align="right">yr_founded</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">DC</td>
+<td align="right">1934</td>
+</tr>
+<tr class="even">
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+</tr>
+<tr class="odd">
+<td align="left">Image</td>
+<td align="right">1992</td>
+</tr>
+</tbody>
+</table>
+</td>
+  <td valign="top">
+  
+<p>left_join(superheroes, publishers)</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">alignment</th>
+<th align="left">gender</th>
+<th align="left">publisher</th>
+<th align="right">yr_founded</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Magneto</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+</tr>
+<tr class="even">
+<td align="left">Storm</td>
+<td align="left">good</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+</tr>
+<tr class="odd">
+<td align="left">Mystique</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+</tr>
+<tr class="even">
+<td align="left">Batman</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+<td align="right">1934</td>
+</tr>
+<tr class="odd">
+<td align="left">Joker</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+<td align="right">1934</td>
+</tr>
+<tr class="even">
+<td align="left">Catwoman</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">DC</td>
+<td align="right">1934</td>
+</tr>
+<tr class="odd">
+<td align="left">Hellboy</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">Dark Horse Comics</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+
+</div>
+<div id="anti_joinsuperheroes-publishers" class="section level4">
+<h4>anti_join(superheroes, publishers)</h4>
+<blockquote>
+<p>anti_join(x, y): return all rows from x where there are not matching values in y, keeping just columns from x</p>
+</blockquote>
+<pre class="r"><code>(ajsp &lt;- anti_join(superheroes, publishers))</code></pre>
+<pre><code>## Joining by: &quot;publisher&quot;</code></pre>
+<pre><code>##      name alignment gender         publisher
+## 1 Hellboy      good   male Dark Horse Comics</code></pre>
+<p>We keep <strong>only</strong> Hellboy now (and do not get <code>yr_founded</code>).</p>
+<table border = 1>
+  <tr>
+  <td valign="top">
+  
+<p>superheroes</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">alignment</th>
+<th align="left">gender</th>
+<th align="left">publisher</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Magneto</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Storm</td>
+<td align="left">good</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="odd">
+<td align="left">Mystique</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Batman</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Joker</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="even">
+<td align="left">Catwoman</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Hellboy</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">Dark Horse Comics</td>
+</tr>
+</tbody>
+</table>
+</td>
+  <td valign="top">
+  
+<p>publishers</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">publisher</th>
+<th align="right">yr_founded</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">DC</td>
+<td align="right">1934</td>
+</tr>
+<tr class="even">
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+</tr>
+<tr class="odd">
+<td align="left">Image</td>
+<td align="right">1992</td>
+</tr>
+</tbody>
+</table>
+</td>
+  <td valign="top">
+  
+<p>anti_join(superheroes, publishers)</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">alignment</th>
+<th align="left">gender</th>
+<th align="left">publisher</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Hellboy</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">Dark Horse Comics</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+
+</div>
+<div id="inner_joinpublishers-superheroes" class="section level4">
+<h4>inner_join(publishers, superheroes)</h4>
+<blockquote>
+<p>inner_join(x, y): return all rows from x where there are matching values in y, and all columns from x and y. If there are multiple matches between x and y, all combination of the matches are returned</p>
+</blockquote>
+<pre class="r"><code>(ijps &lt;- inner_join(publishers, superheroes))</code></pre>
+<pre><code>## Joining by: &quot;publisher&quot;</code></pre>
+<pre><code>##   publisher yr_founded     name alignment gender
+## 1    Marvel       1939  Magneto       bad   male
+## 2    Marvel       1939    Storm      good female
+## 3    Marvel       1939 Mystique       bad female
+## 4        DC       1934   Batman      good   male
+## 5        DC       1934    Joker       bad   male
+## 6        DC       1934 Catwoman       bad female</code></pre>
+<p>In a way, this does illustrate multiple matches, if you think about it from the <code>x = publishers</code> direction. Every publisher that has a match in <code>y = superheroes</code> appears multiple times in the result, once for each match. In fact, we’re getting the same result as with <code>inner_join(superheroes, publishers)</code>, up to variable order (which you should also never rely on in an analysis).</p>
+<table border = 1>
+<tr>
+<td valign="top">
+  
+<p>superheroes</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">publisher</th>
+<th align="right">yr_founded</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">DC</td>
+<td align="right">1934</td>
+</tr>
+<tr class="even">
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+</tr>
+<tr class="odd">
+<td align="left">Image</td>
+<td align="right">1992</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td valign="top">
+  
+<p>publishers</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">alignment</th>
+<th align="left">gender</th>
+<th align="left">publisher</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Magneto</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Storm</td>
+<td align="left">good</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="odd">
+<td align="left">Mystique</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Batman</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Joker</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="even">
+<td align="left">Catwoman</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Hellboy</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">Dark Horse Comics</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td valign="top">
+  
+<p>inner_join(x = publishers, y = superheroes)</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">publisher</th>
+<th align="right">yr_founded</th>
+<th align="left">name</th>
+<th align="left">alignment</th>
+<th align="left">gender</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+<td align="left">Magneto</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+</tr>
+<tr class="even">
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+<td align="left">Storm</td>
+<td align="left">good</td>
+<td align="left">female</td>
+</tr>
+<tr class="odd">
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+<td align="left">Mystique</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+</tr>
+<tr class="even">
+<td align="left">DC</td>
+<td align="right">1934</td>
+<td align="left">Batman</td>
+<td align="left">good</td>
+<td align="left">male</td>
+</tr>
+<tr class="odd">
+<td align="left">DC</td>
+<td align="right">1934</td>
+<td align="left">Joker</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+</tr>
+<tr class="even">
+<td align="left">DC</td>
+<td align="right">1934</td>
+<td align="left">Catwoman</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+  
+</div>
+<div id="semi_joinsuperheroes-publishers-1" class="section level4">
+<h4>semi_join(superheroes, publishers)</h4>
+<blockquote>
+<p>semi_join(x, y): return all rows from x where there are matching values in y, keeping just columns from x. A semi join differs from an inner join because an inner join will return one row of x for each matching row of y, where a semi join will never duplicate rows of x.</p>
+</blockquote>
+<pre class="r"><code>(sjps &lt;- semi_join(publishers, superheroes))</code></pre>
+<pre><code>## Joining by: &quot;publisher&quot;</code></pre>
+<pre><code>##   publisher yr_founded
+## 1    Marvel       1939
+## 2        DC       1934</code></pre>
+<p>Now the effects of switching the <code>x</code> and <code>y</code> roles is more clear. The result resembles <code>x = publishers</code>, but the publisher Image is lost, because there are no observations where <code>publisher == &quot;Image&quot;</code> in <code>y = superheroes</code>.</p>
+<table border = 1>
+  <tr>
+  <td valign="top">
+  
+<p>superheroes</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">publisher</th>
+<th align="right">yr_founded</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">DC</td>
+<td align="right">1934</td>
+</tr>
+<tr class="even">
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+</tr>
+<tr class="odd">
+<td align="left">Image</td>
+<td align="right">1992</td>
+</tr>
+</tbody>
+</table>
+</td>
+  <td valign="top">
+  
+<p>publishers</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">alignment</th>
+<th align="left">gender</th>
+<th align="left">publisher</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Magneto</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Storm</td>
+<td align="left">good</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="odd">
+<td align="left">Mystique</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Batman</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Joker</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="even">
+<td align="left">Catwoman</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Hellboy</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">Dark Horse Comics</td>
+</tr>
+</tbody>
+</table>
+</td>
+  <td valign="top">
+  
+<p>semi-join(x = publishers, y = superheroes)</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">publisher</th>
+<th align="right">yr_founded</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+</tr>
+<tr class="even">
+<td align="left">DC</td>
+<td align="right">1934</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+
+</div>
+<div id="left_joinsuperheroes-publishers-1" class="section level4">
+<h4>left_join(superheroes, publishers)</h4>
+<blockquote>
+<p>left_join(x, y): return all rows from x, and all columns from x and y. If there are multiple matches between x and y, all combination of the matches are returned</p>
+</blockquote>
+<pre class="r"><code>(ljps &lt;- left_join(publishers, superheroes))</code></pre>
+<pre><code>## Joining by: &quot;publisher&quot;</code></pre>
+<pre><code>##   publisher yr_founded     name alignment gender
+## 1        DC       1934   Batman      good   male
+## 2        DC       1934    Joker       bad   male
+## 3        DC       1934 Catwoman       bad female
+## 4    Marvel       1939  Magneto       bad   male
+## 5    Marvel       1939    Storm      good female
+## 6    Marvel       1939 Mystique       bad female
+## 7     Image       1992     &lt;NA&gt;      &lt;NA&gt;   &lt;NA&gt;</code></pre>
+<p>We get a similar result as with <code>inner_join()</code> but the publisher Image survives in the join, even though no superheroes from Image appear in <code>y = superheroes</code>. As a result, Image has <code>NA</code>s for <code>name</code>, <code>alignment</code>, and <code>gender</code>.</p>
+<table border = 1>
+  <tr>
+  <td valign="top">
+  
+<p>publishers</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">publisher</th>
+<th align="right">yr_founded</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">DC</td>
+<td align="right">1934</td>
+</tr>
+<tr class="even">
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+</tr>
+<tr class="odd">
+<td align="left">Image</td>
+<td align="right">1992</td>
+</tr>
+</tbody>
+</table>
+</td>
+  <td valign="top">
+  
+<p>superheroes</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">alignment</th>
+<th align="left">gender</th>
+<th align="left">publisher</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Magneto</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Storm</td>
+<td align="left">good</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="odd">
+<td align="left">Mystique</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Batman</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Joker</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="even">
+<td align="left">Catwoman</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Hellboy</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">Dark Horse Comics</td>
+</tr>
+</tbody>
+</table>
+</td>
+  <td valign="top">
+  
+<p>left_join(publishers, superheroes)</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">publisher</th>
+<th align="right">yr_founded</th>
+<th align="left">name</th>
+<th align="left">alignment</th>
+<th align="left">gender</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">DC</td>
+<td align="right">1934</td>
+<td align="left">Batman</td>
+<td align="left">good</td>
+<td align="left">male</td>
+</tr>
+<tr class="even">
+<td align="left">DC</td>
+<td align="right">1934</td>
+<td align="left">Joker</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+</tr>
+<tr class="odd">
+<td align="left">DC</td>
+<td align="right">1934</td>
+<td align="left">Catwoman</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+</tr>
+<tr class="even">
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+<td align="left">Magneto</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+</tr>
+<tr class="odd">
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+<td align="left">Storm</td>
+<td align="left">good</td>
+<td align="left">female</td>
+</tr>
+<tr class="even">
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+<td align="left">Mystique</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+</tr>
+<tr class="odd">
+<td align="left">Image</td>
+<td align="right">1992</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+
+</div>
+<div id="anti_joinsuperheroes-publishers-1" class="section level4">
+<h4>anti_join(superheroes, publishers)</h4>
+<blockquote>
+<p>anti_join(x, y): return all rows from x where there are not matching values in y, keeping just columns from x</p>
+</blockquote>
+<pre class="r"><code>(ajps &lt;- anti_join(publishers, superheroes))</code></pre>
+<pre><code>## Joining by: &quot;publisher&quot;</code></pre>
+<pre><code>##   publisher yr_founded
+## 1     Image       1992</code></pre>
+<p>We keep <strong>only</strong> publisher Image now (and the variables found in <code>x = publishers</code>).</p>
+<table border = 1>
+  <tr>
+  <td valign="top">
+  
+<p>publishers</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">publisher</th>
+<th align="right">yr_founded</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">DC</td>
+<td align="right">1934</td>
+</tr>
+<tr class="even">
+<td align="left">Marvel</td>
+<td align="right">1939</td>
+</tr>
+<tr class="odd">
+<td align="left">Image</td>
+<td align="right">1992</td>
+</tr>
+</tbody>
+</table>
+</td>
+  <td valign="top">
+  
+<p>superheroes</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">alignment</th>
+<th align="left">gender</th>
+<th align="left">publisher</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Magneto</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Storm</td>
+<td align="left">good</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="odd">
+<td align="left">Mystique</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Batman</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Joker</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="even">
+<td align="left">Catwoman</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Hellboy</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">Dark Horse Comics</td>
+</tr>
+</tbody>
+</table>
+</td>
+  <td valign="top">
+  
+<p>anti_join(publishers, superheroes)</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">publisher</th>
+<th align="right">yr_founded</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Image</td>
+<td align="right">1992</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+
+
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

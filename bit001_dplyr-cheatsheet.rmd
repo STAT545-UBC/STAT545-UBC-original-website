@@ -1,0 +1,307 @@
+---
+title: "Cheatsheet for dplyr join functions"
+author: "Jenny Bryan"
+date: "11 September, 2014"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+---
+
+#### Why the cheatsheet
+
+Examples for those of us who don't speak SQL so good. There are lots of [Venn diagrams re: SQL joins on the interwebs](http://images.google.com/images?q=sql+join), but I wanted R examples.
+
+[Full documentation](http://www.rdocumentation.org/packages/dplyr) for the `dplyr` package, which is developed by Hadley Wickham and Romain Francois on [GitHub](https://github.com/hadley/dplyr).
+
+Working with two small data.frames, `superheroes` and `publishers`.
+
+```{r collapse = TRUE}
+suppressPackageStartupMessages(library(dplyr))
+
+superheroes <-
+  c("    name, alignment, gender,         publisher",
+    " Magneto,       bad,   male,            Marvel",
+    "   Storm,      good, female,            Marvel",
+    "Mystique,       bad, female,            Marvel",
+    "  Batman,      good,   male,                DC",
+    "   Joker,       bad,   male,                DC",
+    "Catwoman,       bad, female,                DC",
+    " Hellboy,      good,   male, Dark Horse Comics")
+superheroes <- read.csv(text = superheroes, strip.white = TRUE)
+
+publishers <- 
+  c("publisher, yr_founded",
+    "       DC,       1934",
+    "   Marvel,       1939",
+    "    Image,       1992")
+publishers <- read.csv(text = publishers, strip.white = TRUE)
+```
+
+Sorry, cheat sheet does not illustrate "multiple match" situations terribly well.
+
+Sub-plot: watch the row and variable order of the join results for a healthy reminder of why it's dangerous to rely on any of that in an analysis.
+
+#### inner_join(superheroes, publishers)
+
+> inner_join(x, y): return all rows from x where there are matching values in y, and all columns from x and y. If there are multiple matches between x and y, all combination of the matches are returned
+
+```{r}
+(ijsp <- inner_join(superheroes, publishers))
+```
+
+We lose Hellboy in the join because, although he appears in `x = superheroes`, his publisher Dark Horse Comics does not appear in `y = publishers`. The join result has all variables from `x = superheroes` plus `yr_founded`, from `y`.
+
+<table border = 1>
+<tr>
+<td valign="top">
+  superheroes
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(superheroes)
+  ```
+</td>
+<td valign="top">
+  publishers
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(publishers)
+  ```
+</td>
+<td valign="top">
+  inner_join(x = superheroes, y = publishers)
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(ijsp)
+  ```
+</td>
+</tr>
+</table>
+  
+#### semi_join(superheroes, publishers)
+
+> semi_join(x, y): return all rows from x where there are matching values in y, keeping just columns from x. A semi join differs from an inner join because an inner join will return one row of x for each matching row of y, where a semi join will never duplicate rows of x.
+
+```{r}
+(sjsp <- semi_join(superheroes, publishers))
+```
+
+We get a similar result as with `inner_join()` but the join result contains only the variables originally found in `x = superheroes`.
+
+<table border = 1>
+  <tr>
+  <td valign="top">
+  superheroes
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(superheroes)
+  ```
+</td>
+  <td valign="top">
+  publishers
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(publishers)
+  ```
+</td>
+  <td valign="top">
+  semi-join(x = superheroes, y = publishers)
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(sjsp)
+  ```
+</td>
+</tr>
+</table>
+
+#### left_join(superheroes, publishers)
+
+> left_join(x, y): return all rows from x, and all columns from x and y. If there are multiple matches between x and y, all combination of the matches are returned
+
+```{r}
+(ljsp <- left_join(superheroes, publishers))
+```
+
+We basically get `x = superheroes` back, but with the addition of variable `yr_founded`, which is unique to `y = publishers`. Hellboy, whose publisher does not appear in `y = publishers`, has an `NA` for `yr_founded`.
+
+<table border = 1>
+  <tr>
+  <td valign="top">
+  superheroes
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(superheroes)
+  ```
+</td>
+  <td valign="top">
+  publishers
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(publishers)
+  ```
+</td>
+  <td valign="top">
+  left_join(superheroes, publishers)
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(ljsp)
+  ```
+</td>
+</tr>
+</table>
+
+#### anti_join(superheroes, publishers)
+
+> anti_join(x, y): return all rows from x where there are not matching values in y, keeping just columns from x
+
+```{r}
+(ajsp <- anti_join(superheroes, publishers))
+```
+
+We keep __only__ Hellboy now (and do not get `yr_founded`).
+
+<table border = 1>
+  <tr>
+  <td valign="top">
+  superheroes
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(superheroes)
+  ```
+</td>
+  <td valign="top">
+  publishers
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(publishers)
+  ```
+</td>
+  <td valign="top">
+  anti_join(superheroes, publishers)
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(ajsp)
+  ```
+</td>
+</tr>
+</table>
+
+#### inner_join(publishers, superheroes)
+
+> inner_join(x, y): return all rows from x where there are matching values in y, and all columns from x and y. If there are multiple matches between x and y, all combination of the matches are returned
+
+```{r}
+(ijps <- inner_join(publishers, superheroes))
+```
+
+In a way, this does illustrate multiple matches, if you think about it from the `x = publishers` direction. Every publisher that has a match in `y = superheroes` appears multiple times in the result, once for each match. In fact, we're getting the same result as with `inner_join(superheroes, publishers)`, up to variable order (which you should also never rely on in an analysis).
+
+<table border = 1>
+<tr>
+<td valign="top">
+  superheroes
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(publishers)
+  ```
+</td>
+<td valign="top">
+  publishers
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(superheroes)
+  ```
+</td>
+<td valign="top">
+  inner_join(x = publishers, y = superheroes)
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(ijps)
+  ```
+</td>
+</tr>
+</table>
+  
+#### semi_join(superheroes, publishers)
+
+> semi_join(x, y): return all rows from x where there are matching values in y, keeping just columns from x. A semi join differs from an inner join because an inner join will return one row of x for each matching row of y, where a semi join will never duplicate rows of x.
+
+```{r}
+(sjps <- semi_join(publishers, superheroes))
+```
+
+Now the effects of switching the `x` and `y` roles is more clear. The result resembles `x = publishers`, but the publisher Image is lost, because there are no observations where `publisher == "Image"` in `y = superheroes`.
+
+<table border = 1>
+  <tr>
+  <td valign="top">
+  superheroes
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(publishers)
+  ```
+</td>
+  <td valign="top">
+  publishers
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(superheroes)
+  ```
+</td>
+  <td valign="top">
+  semi-join(x = publishers, y = superheroes)
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(sjps)
+  ```
+</td>
+</tr>
+</table>
+
+#### left_join(superheroes, publishers)
+
+> left_join(x, y): return all rows from x, and all columns from x and y. If there are multiple matches between x and y, all combination of the matches are returned
+
+```{r}
+(ljps <- left_join(publishers, superheroes))
+```
+
+We get a similar result as with `inner_join()` but the publisher Image survives in the join, even though no superheroes from Image appear in `y = superheroes`. As a result, Image has `NA`s for `name`, `alignment`, and `gender`.
+
+<table border = 1>
+  <tr>
+  <td valign="top">
+  publishers
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(publishers)
+  ```
+</td>
+  <td valign="top">
+  superheroes
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(superheroes)
+  ```
+</td>
+  <td valign="top">
+  left_join(publishers, superheroes)
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(ljps)
+  ```
+</td>
+</tr>
+</table>
+
+#### anti_join(superheroes, publishers)
+
+> anti_join(x, y): return all rows from x where there are not matching values in y, keeping just columns from x
+
+```{r}
+(ajps <- anti_join(publishers, superheroes))
+```
+
+We keep __only__ publisher Image now (and the variables found in `x = publishers`).
+
+<table border = 1>
+  <tr>
+  <td valign="top">
+  publishers
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(publishers)
+  ```
+</td>
+  <td valign="top">
+  superheroes
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(superheroes)
+  ```
+</td>
+  <td valign="top">
+  anti_join(publishers, superheroes)
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(ajps)
+  ```
+</td>
+</tr>
+</table>
