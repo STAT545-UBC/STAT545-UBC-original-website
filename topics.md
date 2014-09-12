@@ -23,6 +23,7 @@ Until we get rolling, feel free to look at older material that will appear here 
 
 ### Short random things
 
+  * [Lesson I contributed](bit002_tidying-lotr-data.html) to [Data Carpentry](http://software-carpentry.org/blog/2014/05/our-first-data-carpentry-workshop.html) on tidying data
   * [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
 
 ### What's coming
