@@ -306,6 +306,41 @@ We keep __only__ publisher Image now (and the variables found in `x = publishers
 </tr>
 </table>
 
+#### NOT dplyr: merge(superheroes, publishers, all = TRUE)
+
+What if you want to merge two data.frames and keep rows that appear in *either*? In SQL jargon, this is an outer join and is not yet implemented in `dplyr`, though it will come. In the meantime, you could use `merge()` from base R.
+
+> merge(x, y): Merge two data frames by common columns or row names, or do other versions of database join operations
+
+```{r}
+(OJsp <- merge(superheroes, publishers, all = TRUE))
+```
+
+We keep Hellboy (whose publisher Dark Horse Comics is not in `publishers`) and Image (a publisher with no superheroes in `superheroes`) and get variables from both data.frames. Therefore observations for which there is no match in the two data.frames carry `NA`s in the variables from the other data source.
+
+<table border = 1>
+  <tr>
+  <td valign="top">
+  superheroes
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(superheroes)
+  ```
+</td>
+  <td valign="top">
+  publishers
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(publishers)
+  ```
+</td>
+  <td valign="top">
+  merge(superheroes, publishers, all = TRUE)
+  ```{r results='asis', echo=FALSE}
+  knitr::kable(OJsp)
+  ```
+</td>
+</tr>
+</table>
+
 #### sessionInfo()
 
 ```{r}

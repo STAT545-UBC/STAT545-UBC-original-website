@@ -525,6 +525,72 @@ We keep __only__ publisher Image now (and the variables found in `x = publishers
 </tr>
 </table>
 
+#### NOT dplyr: merge(superheroes, publishers, all = TRUE)
+
+What if you want to merge two data.frames and keep rows that appear in *either*? In SQL jargon, this is an outer join and is not yet implemented in `dplyr`, though it will come. In the meantime, you could use `merge()` from base R.
+
+> merge(x, y): Merge two data frames by common columns or row names, or do other versions of database join operations
+
+
+```r
+(OJsp <- merge(superheroes, publishers, all = TRUE))
+```
+
+```
+##           publisher     name alignment gender yr_founded
+## 1 Dark Horse Comics  Hellboy      good   male         NA
+## 2                DC   Batman      good   male       1934
+## 3                DC    Joker       bad   male       1934
+## 4                DC Catwoman       bad female       1934
+## 5            Marvel  Magneto       bad   male       1939
+## 6            Marvel    Storm      good female       1939
+## 7            Marvel Mystique       bad female       1939
+## 8             Image     <NA>      <NA>   <NA>       1992
+```
+
+We keep Hellboy (whose publisher Dark Horse Comics is not in `publishers`) and Image (a publisher with no superheroes in `superheroes`) and get variables from both data.frames. Therefore observations for which there is no match in the two data.frames carry `NA`s in the variables from the other data source.
+
+<table border = 1>
+  <tr>
+  <td valign="top">
+  superheroes
+  
+  |name     |alignment |gender |publisher         |
+  |:--------|:---------|:------|:-----------------|
+  |Magneto  |bad       |male   |Marvel            |
+  |Storm    |good      |female |Marvel            |
+  |Mystique |bad       |female |Marvel            |
+  |Batman   |good      |male   |DC                |
+  |Joker    |bad       |male   |DC                |
+  |Catwoman |bad       |female |DC                |
+  |Hellboy  |good      |male   |Dark Horse Comics |
+</td>
+  <td valign="top">
+  publishers
+  
+  |publisher | yr_founded|
+  |:---------|----------:|
+  |DC        |       1934|
+  |Marvel    |       1939|
+  |Image     |       1992|
+</td>
+  <td valign="top">
+  merge(superheroes, publishers, all = TRUE)
+  
+  |publisher         |name     |alignment |gender | yr_founded|
+  |:-----------------|:--------|:---------|:------|----------:|
+  |Dark Horse Comics |Hellboy  |good      |male   |         NA|
+  |DC                |Batman   |good      |male   |       1934|
+  |DC                |Joker    |bad       |male   |       1934|
+  |DC                |Catwoman |bad       |female |       1934|
+  |Marvel            |Magneto  |bad       |male   |       1939|
+  |Marvel            |Storm    |good      |female |       1939|
+  |Marvel            |Mystique |bad       |female |       1939|
+  |Image             |NA       |NA        |NA     |       1992|
+</td>
+</tr>
+</table>
+
 #### sessionInfo()
 
 
