@@ -82,9 +82,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#left_joinsuperheroes-publishers">left_join(superheroes, publishers)</a></li>
 <li><a href="#anti_joinsuperheroes-publishers">anti_join(superheroes, publishers)</a></li>
 <li><a href="#inner_joinpublishers-superheroes">inner_join(publishers, superheroes)</a></li>
-<li><a href="#semi_joinsuperheroes-publishers-1">semi_join(superheroes, publishers)</a></li>
-<li><a href="#left_joinsuperheroes-publishers-1">left_join(superheroes, publishers)</a></li>
-<li><a href="#anti_joinsuperheroes-publishers-1">anti_join(superheroes, publishers)</a></li>
+<li><a href="#semi_joinpublishers-superheroes">semi_join(publishers, superheroes)</a></li>
+<li><a href="#left_joinpublishers-superheroes">left_join(publishers, superheroes)</a></li>
+<li><a href="#anti_joinpublishers-superheroes">anti_join(publishers, superheroes)</a></li>
 <li><a href="#not-dplyr-mergesuperheroes-publishers-all-true">NOT dplyr: merge(superheroes, publishers, all = TRUE)</a></li>
 <li><a href="#sessioninfo">sessionInfo()</a></li>
 </ul>
@@ -896,8 +896,8 @@ publishers &lt;- read.csv(text = publishers, strip.white = TRUE)</code></pre>
 </table>
   
 </div>
-<div id="semi_joinsuperheroes-publishers-1" class="section level4">
-<h4>semi_join(superheroes, publishers)</h4>
+<div id="semi_joinpublishers-superheroes" class="section level4">
+<h4>semi_join(publishers, superheroes)</h4>
 <blockquote>
 <p>semi_join(x, y): return all rows from x where there are matching values in y, keeping just columns from x. A semi join differs from an inner join because an inner join will return one row of x for each matching row of y, where a semi join will never duplicate rows of x.</p>
 </blockquote>
@@ -1019,8 +1019,8 @@ publishers &lt;- read.csv(text = publishers, strip.white = TRUE)</code></pre>
 </table>
 
 </div>
-<div id="left_joinsuperheroes-publishers-1" class="section level4">
-<h4>left_join(superheroes, publishers)</h4>
+<div id="left_joinpublishers-superheroes" class="section level4">
+<h4>left_join(publishers, superheroes)</h4>
 <blockquote>
 <p>left_join(x, y): return all rows from x, and all columns from x and y. If there are multiple matches between x and y, all combination of the matches are returned</p>
 </blockquote>
@@ -1191,8 +1191,8 @@ publishers &lt;- read.csv(text = publishers, strip.white = TRUE)</code></pre>
 </table>
 
 </div>
-<div id="anti_joinsuperheroes-publishers-1" class="section level4">
-<h4>anti_join(superheroes, publishers)</h4>
+<div id="anti_joinpublishers-superheroes" class="section level4">
+<h4>anti_join(publishers, superheroes)</h4>
 <blockquote>
 <p>anti_join(x, y): return all rows from x where there are not matching values in y, keeping just columns from x</p>
 </blockquote>

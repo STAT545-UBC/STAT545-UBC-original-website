@@ -207,7 +207,7 @@ In a way, this does illustrate multiple matches, if you think about it from the 
 </tr>
 </table>
   
-#### semi_join(superheroes, publishers)
+#### semi_join(publishers, superheroes)
 
 > semi_join(x, y): return all rows from x where there are matching values in y, keeping just columns from x. A semi join differs from an inner join because an inner join will return one row of x for each matching row of y, where a semi join will never duplicate rows of x.
 
@@ -240,7 +240,7 @@ Now the effects of switching the `x` and `y` roles is more clear. The result res
 </tr>
 </table>
 
-#### left_join(superheroes, publishers)
+#### left_join(publishers, superheroes)
 
 > left_join(x, y): return all rows from x, and all columns from x and y. If there are multiple matches between x and y, all combination of the matches are returned
 
@@ -273,7 +273,7 @@ We get a similar result as with `inner_join()` but the publisher Image survives 
 </tr>
 </table>
 
-#### anti_join(superheroes, publishers)
+#### anti_join(publishers, superheroes)
 
 > anti_join(x, y): return all rows from x where there are not matching values in y, keeping just columns from x
 
