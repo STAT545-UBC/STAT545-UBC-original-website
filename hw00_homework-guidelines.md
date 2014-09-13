@@ -27,7 +27,9 @@ We created this repository for you but it is empty. When you first visit, you sh
 
 If you already familiar with GitHub, edit the `README.md` any way you wish.
 
-If you are new to Git and GitHub, click on the `README` link in "We recommend every repository include a README ..." and you will be able to edit `README.md` in the browser and make your first commit. At the very least, change it to something like "This is the repository of Jenny Bryan," just to prove you have been there. Practice making a link, for example, to the [main STAT545 webpage](http://stat545-ubc.github.io).
+If you are new to Git and GitHub, click on the `README` link in "We recommend every repository include a README ..." and you will be able to edit `README.md` in the browser and make your first commit. If you are still mystified by Git(Hub), you can use this browser-based method to edit `README.md` until you get more comfortable with using Git locally and pushing to GitHub.
+
+__At the very least__, change it to something like "This is the repository of Jenny Bryan," just to prove you have been there. Practice making a link, for example, to the [main STAT545 webpage](http://stat545-ubc.github.io). Much better is to introduce yourself to the class; this page is private to STAT 545 but will be visible to all students and staff. Feel free to read up on Markdown and practice with some of the syntax. Here's a [simple example file](https://github.com/jennybc/2013-11_sfu/blob/master/simple-markdown.md), as automatically rendered by GitHub, and here is the [raw source](https://raw.githubusercontent.com/jennybc/2013-11_sfu/master/simple-markdown.md).
 
 ### Authoring Markdown files
 
