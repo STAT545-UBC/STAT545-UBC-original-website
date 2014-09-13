@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>General Homework Guidelines</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">General Homework Guidelines</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#github-pre-requisites">GitHub pre-requisites</a></li>
+<li><a href="#edit-readme.md">Edit <code>README.md</code></a></li>
+<li><a href="#authoring-markdown-files">Authoring Markdown files</a></li>
+<li><a href="#authoring-r-markdown-files">Authoring R Markdown files</a><ul>
+<li><a href="#more-advanced-topics">More advanced topics</a></li>
+</ul></li>
+<li><a href="#organization-of-your-coursework-repository">Organization of your coursework repository</a></li>
+<li><a href="#which-files-to-commit">Which files to commit</a></li>
+<li><a href="#how-to-submit-homework">How to submit homework</a></li>
+<li><a href="#make-your-work-shine">Make your work shine!</a><ul>
+<li><a href="#make-it-easy-for-people-to-access-your-work">Make it easy for people to access your work</a></li>
+<li><a href="#make-it-easy-for-others-to-run-your-code">Make it easy for others to run your code</a></li>
+<li><a href="#make-pretty-tables">Make pretty tables</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="github-pre-requisites" class="section level3">
+<h3>GitHub pre-requisites</h3>
+<p>We assume the following</p>
+<ul>
+<li>You’ve already <a href="block001_git-install.html">installed Git and (probably) a Git client</a>.</li>
+<li>You’ve already <a href="cm001_course-intro-sw-install-account-signup.html#register-a-github-account">registered a free GitHub account</a>. And provided your username to us.</li>
+<li>You’ve confirmed that you can use command line Git and/or your Git client – perhaps even RStudio! – to <a href="block003_git-config-credential-cache.html">push, pull, etc. to/from GitHub</a>.</li>
+<li>You’ve logged in to <a href="https://github.com">GitHub</a> …
+<ul>
+<li><a href="https://help.github.com/articles/how-do-i-access-my-organization-account">switched over to the STAT545 Organization</a> …</li>
+<li>and confirmed that you can access a repository with your name on it. Example: a student named Jennifer Bryan should be able to access a repository named <code>zz_jennifer_bryan-coursework</code>.</li>
+</ul></li>
+</ul>
+<p>This is the repository where you put your homework.</p>
+<p>DO NOT PASS GO until all of the above is DONE.</p>
+</div>
+<div id="edit-readme.md" class="section level3">
+<h3>Edit <code>README.md</code></h3>
+<p>We created this repository for you but it is empty. When you first visit, you should see a screen like <a href="img/screenshot-empty-repo.png">this</a>. You need to create a <code>README.md</code> file to welcome your visitors (you, STAT545 instructor/TAs, STAT545 peers).</p>
+<p>If you already familiar with GitHub, edit the <code>README.md</code> any way you wish.</p>
+<p>If you are new to Git and GitHub, click on the <code>README</code> link in “We recommend every repository include a README …” and you will be able to edit <code>README.md</code> in the browser and make your first commit. At the very least, change it to something like “This is the repository of Jenny Bryan,” just to prove you have been there. Practice making a link, for example, to the <a href="http://stat545-ubc.github.io">main STAT545 webpage</a>.</p>
+</div>
+<div id="authoring-markdown-files" class="section level3">
+<h3>Authoring Markdown files</h3>
+<p>Throughout this course, any basic text document should be written in <a href="http://daringfireball.net/projects/markdown/basics">Markdown</a> and should always have a filename that ends in <code>.md</code>. These files are pleasant to write and read, but are also easily converted into HTML and other output formats. GitHub provides an attractive HTML-like preview for Markdown documents. RStudio’s “Preview HTML” button will compile the open document to actual HTML and open a preview.</p>
+<p>Whenever you are editing Markdown documents in RStudio, you can display a Markdown cheatsheet by clicking the question Mark <code>?</code> at the top of the editor pane.</p>
+</div>
+<div id="authoring-r-markdown-files" class="section level3">
+<h3>Authoring R Markdown files</h3>
+<p>If your document is describing a data analysis, author it in <a href="http://rmarkdown.rstudio.com">R Markdown</a>, which is like Markdown, but with the addition of R “code chunks” that are runnable. The filename should end in <code>.Rmd</code> or <code>.rmd</code>. RStudio’s “Knit HTML” button will compile the open document to actual HTML and open a preview.</p>
+<p>Whenever you are editing R Markdown documents in RStudio, click the question Mark <code>?</code> at the top of the editor pane to display a Markdown cheatsheet or visit RStudio’s <a href="http://rmarkdown.rstudio.com">R Markdown website</a>.</p>
+<div id="more-advanced-topics" class="section level4">
+<h4>More advanced topics</h4>
+<p>We will soon talk about the process of knitting R Markdown to Markdown, which can then be converted to HTML and more.</p>
+<ul>
+<li>How and when to keep the intermediate <code>.md</code> file.</li>
+<li>How to use “chunk options” to control aspects of your report.</li>
+<li>How to use the source of the homework assignment itself as a skeleton for your homework submission.</li>
+</ul>
+</div>
+</div>
+<div id="organization-of-your-coursework-repository" class="section level3">
+<h3>Organization of your coursework repository</h3>
+<p>As the course goes on, you will accumulate many files in your repository. In due course, we will offer guidelines on using sub-directories to organize things.</p>
+<p>BTW we truly mean <a href="http://en.wikipedia.org/wiki/Directory_(computing)">directories or “folders”</a> – NOT a <a href="http://git-scm.com/book/en/Git-Branching">Git branch</a> or anything fancy like that!</p>
+<p>You have a top-level <code>README.md</code> for your repository. Once you create sub-directories, you may also want to have a <code>README.md</code> file in each sub-directory to serve as a landing pages for, e.g., a homework assignment or a data directory.</p>
+</div>
+<div id="which-files-to-commit" class="section level3">
+<h3>Which files to commit</h3>
+<ul>
+<li>Always commit the main source document, e.g., the R script or R Markdown or Markdown document. Commit early, commit often!</li>
+<li>For R Markdown source, also commit the intermediate Markdown (<code>.md</code>) file and any accompaying files, such as figures.
+<ul>
+<li>Some purists would say intermediate and downstream products do NOT belong in the repo. After all, you can always recreate them from source, right? But here in reality, it turns out to be incredibly handy to have this in the repo.</li>
+</ul></li>
+<li>Commit the end product HTML (<code>.html</code>) file.
+<ul>
+<li>See above comment re: version control purists vs. pragmatists.</li>
+</ul></li>
+<li>You may not want to commit the Markdown and HTML until the work is fairly advanced, maybe even until submission. Once these enter the repo, you really should recompile them each time you commit changes to the R Markdown source, so that the Git history reflects the way these files should evolve as an ensemble.</li>
+<li><strong>Never ever</strong> edit the intermediate/output documents “by hand”. Only edit the source and then regenerate the downstream products from that.</li>
+</ul>
+</div>
+<div id="how-to-submit-homework" class="section level3">
+<h3>How to submit homework</h3>
+<ul>
+<li>Make sure you have
+<ul>
+<li>Saved all the files associated with your solution locally.</li>
+<li>Commited all those files to your local Git repository.</li>
+<li>Pushed the current state of your local repo to GitHub.</li>
+</ul></li>
+<li>Open an issue, link to the latest commit, and tag the staff:
+<ul>
+<li>Visit your GitHub repo in a web browser.</li>
+<li>Just above the file list, look for “latest commit” followed by ten numbers and letters (called the revision SHA) and a clipboard icon.</li>
+<li>Click the clipboard icon to copy the revision SHA to your clipboard.</li>
+<li>Click on “Issues”, then on “New Issue”. Name the issue “Mark homework x of <em>firstname-lastname</em>”, where <em>x</em> is, 1, 2, ….</li>
+<li>In the issue description, tag the prof/TAs by including the text <code>@STAT545-UBC/owners</code>, and paste the revision SHA.</li>
+<li>Click “Submit new issue”. You’re done! Congratulations!</li>
+</ul></li>
+</ul>
+</div>
+<div id="make-your-work-shine" class="section level3">
+<h3>Make your work shine!</h3>
+<p>Here are some minor tweaks that can make a big difference in how awesome your product is.</p>
+<div id="make-it-easy-for-people-to-access-your-work" class="section level4">
+<h4>Make it easy for people to access your work</h4>
+<p>Reduce the friction for TAs and profs to get the hard-working source code (the R markdown) <strong>and</strong> the front-facing report (HTML).</p>
+<ul>
+<li>Create a <code>README.md</code> in the homework’s subdirectory to serve as the landing page for your submission. Whenever anyone visits this subdirectory of your repo, this will be automatically rendered nicely! In particular, hyperlinks will work.</li>
+<li>With this <code>README.md</code> file, create annotated links to the documents TAs and profs will need to access. Such as:
+<ul>
+<li>Your main R markdown document.</li>
+<li>The intermediate Markdown product that comes from knitting your main R markdown document. Remember GitHub will render this into pseudo-HTML automagically. Remember the figures in <code>figures/</code> need to be available in the repo in order appear here.</li>
+<li>The final pretty HTML report. Read instructions below on how access the pretty, not the ugly source.</li>
+</ul></li>
+</ul>
+<blockquote>
+<p>You could link to an HTML report on RPubs, but a GitHub-only solution is preferred. RPubs isn’t really necessary once your work is hosted on GitHub. Plus it’s kinda nice to keep this private.</p>
+</blockquote>
+<p>If you want to see an example of a <code>README.md</code> that links to and explains a bunch of files in the same repo + subdirectory, you can look at <a href="https://github.com/jennybc/STAT545A/tree/master/hw06_scaffolds/02_rAndMake">this example</a> from STAT 545A 2013.</p>
+<!--
+#### Linking to HTML files in the repo
+
+Simply visiting an HTML file in a GitHub repo just shows ugly HTML source. You need to do a little extra work to see this rendered as a proper webpage.
+
+  * Navigate to the HTML file on GitHub. Click on "Raw" to get the raw version; the URL should look something like this: `https://raw.github.com/stat540-2014-bryan-jennifer-hw/hw01/stat540-2014-bryan-jennifer-hw01.html`. Copy that URL!
+  * Create a link to that in the usual Markdown way BUT prepend `http://htmlpreview.github.io/?` to the URL. So the URL in your link should look something like this: `http://htmlpreview.github.io/?https://raw.github.com/stat540-2014-bryan-jennifer-hw/hw01/stat540-2014-bryan-jennifer-hw01.html`. You can learn more about this preview facility [here](http://htmlpreview.github.io).
+  * This sort of link would be fabulous to include in `README.md`.
+-->
+
+</div>
+<div id="make-it-easy-for-others-to-run-your-code" class="section level4">
+<h4>Make it easy for others to run your code</h4>
+<ul>
+<li>In exactly one, very early R chunk, load any necessary packages, so your dependencies are obvious.</li>
+<li>In exactly one, very early R chunk, import anything coming from an external file. This will make it easy for someone to see which data files are required, edit to reflect their locals paths if necessary, etc. There are situations where you might not keep data in the repo itself.</li>
+<li>Pretend you are someone else. Clone a fresh copy of your own repo from GitHub, fire up a new RStudio session and try to knit your R markdown file. Does it “just work”? It should!</li>
+</ul>
+</div>
+<div id="make-pretty-tables" class="section level4">
+<h4>Make pretty tables</h4>
+<p>Instead of just printing an object with R, you could format the info in an attractive table. Some leads:</p>
+<ul>
+<li>The <code>kable()</code> function from <code>knitr</code>.</li>
+<li>Also look into the packages <code>xtable</code>, <code>pander</code>.</li>
+<li><a href="https://twitter.com/polesasunder/status/464132152347475968">Great flowchart</a> from Andrew MacDonald <a href="https://twitter.com/polesasunder">@polesasunder</a></li>
+</ul>
+</div>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

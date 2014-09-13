@@ -63,6 +63,8 @@ YES. You absolutely must have access to a computer on which you can install soft
 
 The plan is to submit work once a week. The end result may still resemble a "final project", but one that has been built up gradually over the term. Expect some peer evaluation. No final exam.
 
+Here are [general guidelines](hw00_homework-guidelines.html) for homework submission.
+
 ### How do I get help?
 
   * [General, external strategies](help-general.html) for solving computing problems, especially with R
