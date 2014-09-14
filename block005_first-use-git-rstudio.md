@@ -30,13 +30,13 @@ From RStudio, go to *Tools > Global Options > Git* and make sure that the box *G
 
     - __WARNING__: On Windows, do __NOT__ use `C:/Program Files (x86)/Git/cmd/git.exe`. The difference between the good and bad paths is `bin` vs. `cmd`.
 
-__Restart__ RStudio if you made any changes.
-
 If you are not sure where the Git exectuable lives, try this in a shell:
 
   * `which git` (Mac, Linux)
   
   * `where git` (?some? versions of Windows)
+  
+__Restart__ RStudio if you made any changes. THIS IS VERY IMPORTANT. DO IT.
 
 ### Step 2: Introduce yourself to `git`
 

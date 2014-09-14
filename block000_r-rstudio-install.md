@@ -65,6 +65,8 @@ If you're still reading, it may be necessary to explicitly tell RStudio where to
   * Fill in the Git executable field correctly. Here is a [screenshot](http://www.molecularecologist.com/wp-content/uploads/2013/11/Screenshot-2013-11-12-09.53.56-Copy1.png) of someone doing this on a Windows machine.
   * If you think Git has been installed but you're not sure where it is, entering `which git` at the shell command line should reveal the path to the Git executable.
   
+It is __very important__ to restart RStudio after installing Git or after telling RStudio where to find Git. Even if it feels like you have done this, do it again just to be safe!
+
 If none of this works, get help from us.
 
 ### Further resources
