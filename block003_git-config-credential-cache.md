@@ -23,6 +23,8 @@ git config --global user.name 'Your Name'
 git config --global user.email 'your@email.com'
 ```
 
+Your `user.name` does __NOT__ have to be your GitHub username, although it can be. Another good option is your actual first name and last name. Your commits will be labelled with this name, so this should be informative to potential collaborators.
+
 ### Getting `git` to remember your GitHub username and password
 
 It will be maddening to enter you GitHub credentials every time you push or pull. That sort of friction will kill your momentum and enthusiasm. You must get that sorted out so it's automatic.
