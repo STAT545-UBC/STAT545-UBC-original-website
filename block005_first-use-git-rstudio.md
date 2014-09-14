@@ -146,6 +146,8 @@ This will certainly ask for your username and password, and update the GitHub re
 
 **You only have to set this up once every couple of months or once per computer.**
 
+You will know you have truly succeeded once you have at least one successful push to GitHub in which you are NOT challenged for your user name and password. 
+
 #### Linux
 
   * In the shell (Tools > Shell), enter `git --version` and verify that you have 1.7.10 or newer. If you don't, update Git.
