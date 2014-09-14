@@ -11,10 +11,12 @@ output:
   * Basics of R objects (TBC in future classes)
   * Just enough Git and Markdown knowledge for you to submit homework
     - NEW Here is the hands-on activity Bernhard lead, [testing your installation and configuration of Git, GitHub, and RStudio](block005_first-use-git-rstudio.html)
-    - Homework will be due before class Monday 2014-09-15. ~~Not posted yet but will be creating a basic (R?) Markdown document and posting to GitHub.~~
-    - NEW Do these bits of the [General Homework Guidelines](http://stat545-ubc.github.io/hw00_homework-guidelines.html): GitHub pre-requisites and Edit `README.md`
-    - ~~Procedure will be a __modified__ version of [the one used in STAT 540](http://www.ugrad.stat.ubc.ca/%7Estat540/homework/hw_submission-instructions.html); I said __modified__ ... please wait for the STAT 545A instructions!~~
     - See the block on [configuring Git to communicate with GitHub](block003_git-config-credential-cache.html), if you are still struggling. This is one-time pain (or once-per-computer pain), so don't despair.
+    - Homework will be due before class Monday 2014-09-15. ~~Not posted yet but will be creating a basic (R?) Markdown document and posting to GitHub.~~
+    - NEW Read the [General Homework Guidelines](http://stat545-ubc.github.io/hw00_homework-guidelines.html)
+    - NEW See the assignment [Homework 01](hw01_edit-README.html)
+    - ~~Procedure will be a __modified__ version of [the one used in STAT 540](http://www.ugrad.stat.ubc.ca/%7Estat540/homework/hw_submission-instructions.html); I said __modified__ ... please wait for the STAT 545A instructions!~~
+    
   * What's next?
     - DATA!!
     - Exploring the Gapminder data
