@@ -13,6 +13,8 @@ output:
 * Install RStudio's IDE (stands for _integrated development environment_), a powerful user interface for R. Get the Open Source Edition of RStudio Desktop: <http://www.rstudio.com/products/rstudio/>
     - RStudio comes with a __text editor__, so there is no immediate need to install a separate stand-alone editor.
     - RStudio can __interface with Git(Hub)__. However, you must do all the Git(Hub) set up described elsewhere before you can take advantage of this.
+    
+If you have a pre-existing installation of R and/or RStudio, we highly recommend that you reinstall and upgrade to the most recent version. It is very easy and RStudio, specifically, is changing rapidly and positively (written 2014-09). If you upgrade R, you will need to also update any packages you have installed.
 
 ### Testing testing
 
