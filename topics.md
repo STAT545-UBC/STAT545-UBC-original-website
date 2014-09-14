@@ -12,6 +12,7 @@ Until we get rolling, feel free to look at older material that will appear here 
   * [Install Git and more](block001_git-install.html)
   * [Install R and Rstudio](block000_r-rstudio-install.html)
   * [Git configuration and credential caching](block003_git-config-credential-cache.html)
+  * [Test your installation and configuration of Git, GitHub, and RStudio](block005_first-use-git-rstudio.html)
   * [Basic R and RStudio, workspace, working directory, RStudio Project](block002_hello-r-workspace-wd-project.html)
   * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
   
