@@ -20,7 +20,7 @@ Until we get rolling, feel free to look at older material that will appear here 
 
   * [Class meeting 001](cm001_course-intro-sw-install-account-signup.html) deals with "What is data science? What is data carpentry?" and includes links re: use of Twitter in academia.
   * [Class meeting 002](cm002_r-rstudio-intro.html) provides some Deep Thoughts about data analytic work, then shifts into a hands-on intro to R and RStudio.
-  * [Class meeting 003](cm003_r-objects-git-toe-dip.html) Started basic flavors of R objects; Git(Hub) and (R) Markdown crash course so first HW0 can be submitted. All hands-on.
+  * [Class meeting 003](cm003_r-objects-git-toe-dip.html) Started basic flavors of R objects; Git(Hub) and (R) Markdown crash course so first homework can be submitted. All hands-on.
   * [General homework guidelines](hw00_homework-guidelines.html)
   * [Homework 01](hw01_edit-README.html) Edit `README.md`
 

@@ -91,18 +91,17 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="git-installation-windows" class="section level3">
 <h3>Git installation: Windows</h3>
 <p>I do not personally use Windows but some of my best friends do :)</p>
-<p>TL;DR: follow the <a href="https://help.github.com/articles/set-up-git#platform-windows">instructions from GitHub</a>.</p>
-<p>If you want more advice from me, here are two approaches I can recommend.</p>
-<p><a href="http://software-carpentry.org">Software Carpentry</a> is an organization that “teaches lab skills for scientific computing”. They recommend:</p>
+<p><del>TL;DR: follow the <a href="https://help.github.com/articles/set-up-git#platform-windows">instructions from GitHub</a>.</del> <em>Update from the future:</em> we now have a strong recommendation for option 1 (“Git for Windows”, a.k.a. <code>mysysgit</code>) over option 2 (“GitHub for Windows”).</p>
+<p>Option 1 (<em>recommended</em>): <a href="http://software-carpentry.org">Software Carpentry</a> is an organization that “teaches lab skills for scientific computing”. They recommend:</p>
 <ul>
 <li>Install <a href="http://msysgit.github.io">Git for Windows</a>, previously known as <code>mysysgit</code>, to get Git in addition to some other useful tools, such as the Bash shell.</li>
-<li>This approach supports a transition to more expert use, because I think it leaves you with a more conventional Git installation and the Bash shell, which will be useful as you venture outside of R/RStudio.</li>
-<li>This also leaves you with a Git client, but not a very good one. <a href="http://www.sourcetreeapp.com">SourceTree</a> is a free, powerful Git(Hub) client that I highly recommend. It was my first Git client and is still my favorite for nontrivial Git tasks.</li>
+<li>This approach leaves the Git executable in a conventional location, which will help you and other programs, e.g. RStudio, find it and use it. This also supports a transition to more expert use, because <code>mysysgit</code> installs the Bash shell, which will be useful as you venture outside of R/RStudio.</li>
+<li>This also leaves you with a Git client, though not a very good one. <a href="http://www.sourcetreeapp.com">SourceTree</a> is a free, powerful Git(Hub) client that I highly recommend. It was my first Git client and is still my favorite for nontrivial Git tasks.</li>
 </ul>
-<p>The GitHub hosting site offers <a href="https://windows.github.com">GitHub for Windows</a> that provides Git itself, a client, and smooth integration with GitHub.</p>
+<p>Option 2 (<em>we do not recommend this as of 2014-09-14</em>): The GitHub hosting site offers <a href="https://windows.github.com">GitHub for Windows</a> that provides Git itself, a client, and smooth integration with GitHub.</p>
 <ul>
 <li><a href="https://help.github.com/articles/set-up-git#platform-windows">Their Windows set-up instructions</a> recommend this method of Git installation.</li>
-<li>This is a better choice for novices in scientific computing, because it’s more likely to “just work”. You may eventually outgrow it, but you can cross that bridge when you come to it.</li>
+<li><em>Update from the future</em>: We had several instances of GitHub for Windows installing Git in suboptimal locations, such as <code>~/AppData/Local</code>, and in other places we could never find. If you were <strong>only</strong> going to interact with GitHub via this app, maybe that’s OK, but that’s not the case for us. Therefore, we recommend option 1 instead.</li>
 </ul>
 <p>After installation, you still need to configure Git and get it to remember your GitHub username and password. If your Git client guides you through this, seize that opportunity! Otherwise go <a href="block003_git-config-credential-cache.html">here</a> for some assistance.</p>
 </div>

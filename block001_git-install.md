@@ -22,20 +22,18 @@ Fair warning: for some things, you will have to use the command line. But the mo
 
 I do not personally use Windows but some of my best friends do :)
 
-TL;DR: follow the [instructions from GitHub](https://help.github.com/articles/set-up-git#platform-windows).
+~~TL;DR: follow the [instructions from GitHub](https://help.github.com/articles/set-up-git#platform-windows).~~ *Update from the future:* we now have a strong recommendation for option 1 ("Git for Windows", a.k.a. `mysysgit`) over option 2 ("GitHub for Windows").
 
-If you want more advice from me, here are two approaches I can recommend.
-
-[Software Carpentry](http://software-carpentry.org) is an organization that "teaches lab skills for scientific computing". They recommend:
+Option 1 (*recommended*): [Software Carpentry](http://software-carpentry.org) is an organization that "teaches lab skills for scientific computing". They recommend:
 
   * Install [Git for Windows](http://msysgit.github.io), previously known as `mysysgit`, to get Git in addition to some other useful tools, such as the Bash shell.
-  * This approach supports a transition to more expert use, because I think it leaves you with a more conventional Git installation and the Bash shell, which will be useful as you venture outside of R/RStudio.
-  * This also leaves you with a Git client, but not a very good one. [SourceTree](http://www.sourcetreeapp.com) is a free, powerful Git(Hub) client that I highly recommend. It was my first Git client and is still my favorite for nontrivial Git tasks.
+  * This approach leaves the Git executable in a conventional location, which will help you and other programs, e.g. RStudio, find it and use it. This also supports a transition to more expert use, because `mysysgit` installs the Bash shell, which will be useful as you venture outside of R/RStudio.
+  * This also leaves you with a Git client, though not a very good one. [SourceTree](http://www.sourcetreeapp.com) is a free, powerful Git(Hub) client that I highly recommend. It was my first Git client and is still my favorite for nontrivial Git tasks.
   
-The GitHub hosting site offers [GitHub for Windows](https://windows.github.com) that provides Git itself, a client, and smooth integration with GitHub.
+Option 2 (*we do not recommend this as of 2014-09-14*): The GitHub hosting site offers [GitHub for Windows](https://windows.github.com) that provides Git itself, a client, and smooth integration with GitHub.
 
   * [Their Windows set-up instructions](https://help.github.com/articles/set-up-git#platform-windows) recommend this method of Git installation.
-  * This is a better choice for novices in scientific computing, because it's more likely to "just work". You may eventually outgrow it, but you can cross that bridge when you come to it.
+  * *Update from the future*: We had several instances of GitHub for Windows installing Git in suboptimal locations, such as `~/AppData/Local`, and in other places we could never find. If you were __only__ going to interact with GitHub via this app, maybe that's OK, but that's not the case for us. Therefore, we recommend option 1 instead.
   
 After installation, you still need to configure Git and get it to remember your GitHub username and password. If your Git client guides you through this, seize that opportunity! Otherwise go [here](block003_git-config-credential-cache.html) for some assistance.
 
