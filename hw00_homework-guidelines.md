@@ -12,7 +12,7 @@ We assume the following
 
   * You've already [installed Git and (probably) a Git client](block001_git-install.html).
   * You've already [registered a free GitHub account](cm001_course-intro-sw-install-account-signup.html#register-a-github-account). And provided your username to us.
-  * You've confirmed that you can use command line Git and/or your Git client -- perhaps even RStudio! -- to [push, pull, etc. to/from GitHub](block003_git-config-credential-cache.html).
+  * You've confirmed that you can use command line Git and/or your Git client -- perhaps even RStudio! -- to [push, pull, etc. to/from GitHub](block003_git-config-credential-cache.html). Recall our [in-class hands on activity](block005_first-use-git-rstudio.html) where we tested all this.
   * You've logged in to [GitHub](https://github.com) ...
     - [switched over to the STAT545 Organization](https://help.github.com/articles/how-do-i-access-my-organization-account) ...
     - and confirmed that you can access a repository with your name on it. Example: a student named Jennifer Bryan should be able to access a repository named `zz_jennifer_bryan-coursework`.
@@ -21,15 +21,9 @@ This is the repository where you put your homework.
 
 DO NOT PASS GO until all of the above is DONE.
 
-### Edit `README.md`
+### Have a decent `README.md`
 
-We created this repository for you but it is empty. When you first visit, you should see a screen like [this](img/screenshot-empty-repo.png). You need to create a `README.md` file to welcome your visitors (you, STAT545 instructor/TAs, STAT545 peers).
-
-If you already familiar with GitHub, edit the `README.md` any way you wish.
-
-If you are new to Git and GitHub, click on the `README` link in "We recommend every repository include a README ..." and you will be able to edit `README.md` in the browser and make your first commit. If you are still mystified by Git(Hub), you can use this browser-based method to edit `README.md` until you get more comfortable with using Git locally and pushing to GitHub.
-
-__At the very least__, change it to something like "This is the repository of Jenny Bryan," just to prove you have been there. Practice making a link, for example, to the [main STAT545 webpage](http://stat545-ubc.github.io). Much better is to introduce yourself to the class; this page is private to STAT 545 but will be visible to all students and staff. Feel free to read up on Markdown and practice with some of the syntax. Here's a [simple example file](https://github.com/jennybc/2013-11_sfu/blob/master/simple-markdown.md), as automatically rendered by GitHub, and here is the [raw source](https://raw.githubusercontent.com/jennybc/2013-11_sfu/master/simple-markdown.md).
+In the [first homework](hw01_edit-README.html) you have created a top-level `README.md` for your repository. Keep it in good shape!
 
 ### Authoring Markdown files
 
