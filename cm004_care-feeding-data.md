@@ -41,5 +41,5 @@ I want to check in on people who looked at [swirl](http://swirlstats.com).
 
 Today will work on this:
 
-  * [Basic care and feeding of data in R](block02_careFeedingData.html)
+  * [Basic care and feeding of data in R](block006_care-feeding-data.html) *DRAFT; porting from 2013 not complete yet*
 
