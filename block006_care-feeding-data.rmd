@@ -1,0 +1,230 @@
+---
+title: "Basic care and feeding of data in R"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+---
+
+__NOTE: ROUGH DRAFT AFTER BRINGING CONTENT OVER FROM 2013. I still need to modernize some things (e.g. the transition to `ggplot2` from `lattice`), so look for an update soon.__
+
+### Optional getting started advice
+
+*I need to rewrite this for this year. Sketched for now:*
+
+  * Be in a relevant RStudio Project before you begin work
+  * Clean out the workspace
+  * Restart R
+  * Open new R script and write R commands there
+  * Save file to a reasonable name. Save often
+
+### Obtaining the Gapminder data
+
+We will work with some of the data from the [Gapminder project](http://www.gapminder.org). Here is an excerpt prepared for your use. Please save this file locally, for example, in the directory associated with your RStudio Project:
+
+  * <http://www.stat.ubc.ca/~jenny/notOcto/STAT545A/examples/gapminder/data/gapminderDataFiveYear.txt>
+  * Nicer URL: <http://tiny.cc/gapminder>
+  
+You should now have a plain text file called `gapminderDataFiveYear.txt` on your computer, in your working directory. Do this to confirm:
+
+```{r eval = FALSE}
+list.files()
+```
+
+If you __don't__ see `gapminderDataFiveYear.txt` there, DEAL WITH THAT BEFORE YOU MOVE ON.
+
+### Creating a data.frame via import
+
+In real life you will usually bring data into R from an outside file. This rarely goes smoothly for "wild caught" datasets, which have little gremlins lurking in them that complicate import and require cleaning. Since this is not our focus today, we will work with a "domesticated" dataset JB uses a lot in teaching, an extract from the Gapminder data Hans Rosling has popularized.
+
+> Assumption:  The file `gapminderDataFiveYear.txt` is saved on your computer and available for reading in R's current working directory.
+
+Bring the data into R. Note that RStudio's tab completion facilities can help you with filenames, as well as function and object names. Try it out!
+```{r, eval = FALSE}
+gDat <- read.delim("gapminderDataFiveYear.txt")
+```
+
+One can also read data directly from a URL, though this is more of a party trick than a great general strategy.
+```{r}
+## data import from URL
+gdURL <- "http://www.stat.ubc.ca/~jenny/notOcto/STAT545A/examples/gapminder/data/gapminderDataFiveYear.txt"
+gdURL <- "http://tiny.cc/gapminder"
+gDat <- read.delim(file = gdURL)
+```
+The R function `read.table()` is the main workhorse for importing rectangular spreadsheet-y data into an R data.frame. Use it. Read the documentation. There you will learn about handy wrappers around `read.table()`, such as `read.delim()` where many arguments have been preset to anticipate some common file formats. Competent use of the many arguments of `read.table()` can eliminate a very great deal of agony and post-import fussing around.
+
+Whenever you have rectangular, spreadsheet-y data, your default data receptacle in R is a data.frame. Do not depart from this without good reason. data.frames are awesome because...
+
+  * data.frames package related variables neatly together,
+    - keeping them in sync vis-a-vis row order
+    - applying any filtering of observations uniformly
+  * most functions for inference, modelling, and graphing are happy to be passed a data.frame via a `data =` argument as the place to find the variables you're working on
+  * data.frames -- unlike general arrays or, specifically, matrices in R -- can hold variables of different flavors (heuristic term defined later), such as character data (subject ID or name), quantitative data (white blood cell count), and categorical information (treated vs. untreated)
+
+Get an overview of the object we just created with `str()` which displays the structure of an object. It will provide a sensible description of almost anything and, worst case, nothing bad can actually happen. When in doubt, just `str()` some of the recently created objects to get some ideas about what to do next.
+```{r}
+str(gDat)
+```
+We could print the whole thing to screen (not so useful with datasets of any size) but it's nicer to look at the first bit or the last bit or a random snippet (I've written a function `peek()` to look at some random rows).
+```{r}
+head(gDat)
+tail(gDat)
+#peek(gDat) # you won't have this function!
+```
+
+*JB note to self: possible sidebar constructing `peek()` here*
+
+More ways to query basic info on a data.frame. Note: with some of the commands below we're benefitting from the fact that even though data.frames are technically NOT matrices, it's usually fine to think of them that way and many functions have reasonable methods for both types of input.
+```{r}
+names(gDat)# variable or column names
+ncol(gDat)
+length(gDat)
+head(rownames(gDat)) # boring, in this case
+dim(gDat)
+nrow(gDat)
+#dimnames(gDat) # ill-advised here ... too many rows
+```
+
+A statistical overview can be obtained with `summary()`
+```{r}
+summary(gDat)
+```
+
+Although we haven't begun our formal coverage of visualization yet, it's so important for smell-testing dataset that we will make a few figures anyway. The mysteries of these commands are revealed elsewhere.
+
+```{r eval = FALSE}
+plot(lifeExp ~ year, gDat)
+plot(lifeExp ~ gdpPercap, gDat)
+plot(lifeExp ~ log(gdpPercap), gDat)
+```
+
+> Sidebar on equals: A single equal sign `=` is most commonly used to specify values of arguments when calling functions in R, e.g. `group = continent`. It can be used for assignment but we advise against that, in favor of `<-`. A double equal sign `==` is a binary comparison operator, akin to less than `<` or greater than `>`, returning the logical value `TRUE` in the case of equality and `FALSE` otherwise. Although you may not yet understand exactly why, `subset = country == "Colombia"` restricts operation -- scatterplotting, in above examples -- to observations where the country is Colombia.
+
+Let's go back to the result of `str()` to talk about data.frames and vectors in R
+```{r}
+str(gDat)
+```
+A data.frame is a special case of a *list*, which is used in R to hold just about anything. data.frames are the special case where the length of each list component is the same. data.frames are superior to matrices in R because they can hold vectors of different flavors (heuristic term explained below), e.g. numeric, character, and categorical data can be stored together. This comes up alot.
+
+To specify a single variable from a data.frame, use the dollar sign `$`. Let's explore the numeric variable for life expectancy.
+```{r}
+head(gDat$lifeExp)
+summary(gDat$lifeExp)
+hist(gDat$lifeExp)
+```
+
+The year variable is a numeric integer variable, but since there are so few unique values it also functions a bit like a categorical variable.
+```{r}
+summary(gDat$year)
+table(gDat$year)
+```
+
+The variables for country and continent hold truly categorical information, which is stored as a *factor* in R.
+```{r}
+class(gDat$continent)
+summary(gDat$continent)
+levels(gDat$continent)
+nlevels(gDat$continent)
+table(gDat$continent)
+barplot(table(gDat$continent))
+dotchart(table(gDat$continent))
+#dotplot(table(gDat$continent), type = "h", col.line = NA)
+#dotplot(table(gDat$continent), type = c("p", "h"), col.line = NA)
+str(gDat$continent)
+```
+The __levels__ of the factor `continent` are "Africa", "Americas", etc. and this is what's usually presented to your eyeballs by R. In general, the levels are friendly human-readable character strings, like "male/female" and "control/treated". But never ever ever forget that, under the hood, R is really storing integer codes 1, 2, 3, etc. Look at the result from `str(gDat$continent)` if you are skeptical. This [Janus](http://en.wikipedia.org/wiki/Janus)-like nature of factors means they are rich with booby traps for the unsuspecting but they are a necessary evil. I recommend you resolve to learn how to properly care and feed for factors. The pros far outweigh the cons. Specifically in modelling and figure-making, factors are anticipated and accomodated by the functions and packages you will want to exploit. ~~In the figures below, the continent factor is easily mapped into panels or colors and a legend by `xyplot()` from the `lattice` package (and you will find factors equally powerful within `ggplot2`)~~.
+
+```{r}
+library(ggplot2)
+p <- ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) # just initializes
+p <- ggplot(subset(gDat, year == 2007),
+            aes(x = gdpPercap, y = lifeExp)) # just initializes
+p <- p + scale_x_log10() # log the x axis the right way
+p + geom_point() # scatterplot
+p + geom_point(aes(color = continent)) # map continent to color
+p + geom_point(alpha = (1/3), size = 3)
+p + geom_point() + geom_smooth(lwd = 3, se = FALSE)
+p + aes(color = continent) + geom_point() + geom_smooth(lwd = 3, se = FALSE)
+p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent)
+```
+
+### `subset()` is the nicest way to isolate bits of data.frames (and other things)
+
+Logical little pieces of data.frames are useful for sanity checking, prototyping visualizations or computations for later scale-up, etc. Many functions are happy to restrict their operations to a subset of observations via a formal `subset =` argument. In fact, you've already seen that in many of the examples above. There is a stand-alone function, also confusingly called `subset()`, that can isolate pieces of an object for inspection or assignment. Although `subset()` can work on objects other than data.frames, we focus on that usage here.
+
+The `subset()` function has a `subset =` argument (sorry, not my fault it's so confusing) for specifying which observations to keep. This expression will be evaluated within the specified data.frame, which is non-standard but convenient.
+```{r}
+subset(gDat, subset = country == "Uruguay")
+```
+Contrast the above command with this one accomplishing the same thing:
+```{r}
+gDat[1621:1632, ]
+```
+Yes, these both return the same result. But the second command is horrible for these reasons:
+
+  * It contains [Magic Numbers](http://en.wikipedia.org/wiki/Magic_number_(programming)). The reason for keeping rows 1621 to 1632 will be non-obvious to someone else and that includes __you__ in a couple of weeks.
+  * It is fragile. If the rows of `gDat` are reordered or if some observations are eliminated, these rows may no longer correspond to the Uruguay data.
+
+In contrast, the first command, using `subset()`, is self-documenting; one does not need to be an R expert to take a pretty good guess at what's happening. It's also more robust. It will still produce the correct result even if `gDat` has undergone some reasonable set of transformations.
+
+The `subset()` function can also be used to select certain variables via the `select` argument. It also offers unusual flexibility, so you can, for example, provide the names of variables you wish to keep without surrounding by quotes. I suppose this is mostly a good thing, but even the documentation stresses that the `subset()` function is intended for interactive use (which I interpret more broadly to mean data analysis, as opposed to programming).
+
+You can use `subset =` and `select =` together to simultaneously filter rows and columns or variables.
+```{r}
+subset(gDat, subset = country == "Mexico",
+       select = c(country, year, lifeExp))
+```
+
+<!---
+Let's get the data for just 2007.
+How many rows?
+How many observations per continent?
+Scatterplot life expectancy against GDP per capita.
+Variants of that: indicate continent by color, do for just one continent, do for multiple continents at once but in separate plots
+```{r}
+hDat <- subset(gDat, subset = year == 2007)
+str(hDat)
+table(hDat$continent)
+#xyplot(lifeExp ~ gdpPercap, hDat)
+#xyplot(lifeExp ~ gdpPercap, hDat, group = continent, auto.key = TRUE)
+#xyplot(lifeExp ~ gdpPercap | continent, hDat)
+```
+--->
+
+Many of the functions for inference, modelling, and graphics that permit you to specify a data.frame via`data = ` also offer a `subset =` argument that limits the computation to certain observations. You've seen this in various graphing commands above. Here's an example when fitting a linear model:
+```{r}
+p <- ggplot(subset(gDat, country == "Colombia"), aes(x = year, y = lifeExp))
+p + geom_point() + geom_smooth(lwd = 1, se = FALSE, method = "lm")
+(minYear <- min(gDat$year))
+myFit <- lm(lifeExp ~ I(year - minYear), gDat, subset = country == "Colombia")
+summary(myFit)
+```
+
+### Review of data.frames and the best ways to exploit them
+
+Use data.frames
+
+Work within your data.frames by passing them to the `data =` argument of functions that offer that. If you need to restrict operations, use the `subset =` argument. Do computations or make figures *in situ* -- don't create little copies and excerpts of your data. This will leave a cleaner workspace and cleaner code.
+
+This workstyle leaves behind code that is also fairly self-documenting, e.g.,
+```{r, eval = FALSE}
+lm(lifeExp ~ year, gDat, subset = country == "Colombia")
+xyplot(lifeExp ~ year, gDat, subset = country == "Colombia")
+```
+
+The availability and handling of `data =` and `subset =` arguments is broad enough-- though sadly not universal -- that sometimes you can even copy and paste these argument specifications, for example, from an exploratory plotting command into a model-fitting command. Consistent use of this convention also makes you faster at writing and reading such code. 
+
+Two important practices
+
+  * give variables short informative names (`lifeExp` versus "X5")
+  * refer to variables by name, not by column number
+  
+This will produce code that is self-documenting and more robust. Variable names often propagate to downstream outputs like figures and numerical tables and therefore good names have a positive multiplier effect throughout an analysis.
+
+If a function doesn't have a `data =` argument where you can provide a data.frame, you can fake it with `with()`. `with()` helps you avoid the creation of temporary, confusing little partial copies of your data. Use it -- possibly in combination with `subset()` -- to do specific computations without creating all the intermediate temporary objects you have no lasting interest in. `with()` is also useful if you are tempted to use `attach()` in order to save some typing. __Never ever use `attach()`. It is evil.__ If you've never heard of it, consider yourself lucky.
+
+Example: How would you compute the correlation of life expectancy and GDP per capita for the country of Colombia? The `cor()` function sadly does not offer the usual `data =` and `subset =` arguments. Here's a nice way to combine `with()` and `subset()` to accomplish without unnecessary object creation and with fairly readable code.
+```{r}
+with(subset(gDat, subset = country == "Colombia"),
+     cor(lifeExp, gdpPercap))
+```

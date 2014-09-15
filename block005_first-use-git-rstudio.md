@@ -82,9 +82,9 @@ Before you leave this page, copy the URL of your repo to the clipboard. In the r
 
   * Go back to RStudio, and start a new Project: File > New Project > Version Control > Git. In the "repository URL" paste the URL of your new Github repository, e.g., `https://github.com/BernhardKonrad/helloGithub`.
 
-  * Choose the directory in which you want to put your repository and click "Create Project".
+  * Choose the directory in which you want to put your repository and click "Create Project". This will create a new sub-directory, which will be all of these things: a directory on your computer, a GitHub repository, and an RStudio Project.
 
-This will create a new directory and download the `README.md` file that we created on GitHub in the previous step. Look in RStudio's file browser pane for the `README.md` file.
+This should download the `README.md` file that we created on GitHub in the previous step. Look in RStudio's file browser pane for the `README.md` file.
 
 Awesome, you can now automatically download content from your (or any other public) GitHub repository!
 
