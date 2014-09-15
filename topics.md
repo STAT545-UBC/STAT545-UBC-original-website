@@ -15,6 +15,7 @@ Until we get rolling, feel free to look at older material that will appear here 
   * [Test your installation and configuration of Git, GitHub, and RStudio](block005_first-use-git-rstudio.html)
   * [Basic R and RStudio, workspace, working directory, RStudio Project](block002_hello-r-workspace-wd-project.html)
   * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
+  * [Basic care and feeding of data in R](block006_care-feeding-data.html) *DRAFT; porting from 2013 not complete yet*
   
 ### Course material
 
@@ -23,6 +24,7 @@ Until we get rolling, feel free to look at older material that will appear here 
   * [Class meeting 003](cm003_r-objects-git-toe-dip.html) Started basic flavors of R objects; Git(Hub) and (R) Markdown crash course so first homework can be submitted. All hands-on.
   * [General homework guidelines](hw00_homework-guidelines.html)
   * [Homework 01](hw01_edit-README.html) Edit `README.md`
+  * [Class meeting 004](cm004_care-feeding-data.html) Data.frames are awesome. Let's explore one (Gapminder).
 
 ### Short random things
 
