@@ -94,7 +94,7 @@ Reading code is inherently miserable. Especially if it's someone else's code. No
   * Blog post [Style guide for R code](http://andrewgelman.com/2007/09/18/style_guide_for/) by Andrew Gelman (read the comments too). In another blog post [Migrating from dot to underscore](http://andrewgelman.com/2012/08/28/migrating-from-dot-to-underscore/) he took up the divisive issue of demarcating words by underscores versus dots (read the comments too).
   * Martin Mächler's keynote talk from UseR! 2004, [Good Programming Practice](http://www.ci.tuwien.ac.at/Conferences/useR-2004/Keynotes/Maechler.pdf)
   * Chapter 2 Poetics of [S Poetry](http://www.burns-stat.com/documents/books/s-poetry/) by Patrick Burns, the same guy who wrote [The R Inferno](http://www.burns-stat.com/documents/books/the-r-inferno/).
-  * Karl Broman's [Coding Practices](http://www.biostat.wisc.edu/~kbroman/teaching/statprog/coding_ho.pdf).
+  * Karl Broman's [Writing Clear Code](http://kbroman.org/Tools4RR/assets/lectures/07_clearcode_withnotes.pdf).
   
 Key principles in code formatting, according to JB:
 
