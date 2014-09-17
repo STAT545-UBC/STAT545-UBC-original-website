@@ -4,23 +4,23 @@
 
 ## How to do peer review well: 
 
-* Give thoughtful, constructive and considerate comments. 
-* Be specific and concise.
-* Use the rubric to for ideas about criteria to evaluate and comment on  (see [XX](https://github.com/STAT545-UBC/XX-rubric-lives-here))
-* Try to learn something new and, if you succeed, point that out.
-* If you can't find anything to praise or that you found helpful, then at least offer some suggestions in a kind way.
+  * Give thoughtful, constructive and considerate comments. 
+  * Be specific and concise.
+  * Use [the rubric](peer-review01_marking-rubric.html) to for ideas about criteria to evaluate and comment on
+  * Try to learn something new and, if you succeed, point that out.
+  * If you can't find anything to praise or that you found helpful, then at least offer some suggestions in a kind way.
 
 ## How you will be marked: 
 
-* It's binary. Each peer review will be deemed "lame" or "good".
+  * It's binary. Each peer review will be deemed "lame" or "good".
 
-* Hallmarks of "lame" feedback:
+  * Hallmarks of "lame" feedback:
 
-  - Your review is so generic that it's hard to determine which assignment you're reviewing.
-  - Your review is mean.
-  - You can't find anything to praise/learn and yet you don't offer any suggestions either.
+    - Your review is so generic that it's hard to determine which assignment you're reviewing.
+    - Your review is mean.
+    - You can't find anything to praise/learn and yet you don't offer any suggestions either.
 
-* Each review you do will get you 1 point if "good" and 0 points if "lame". Those will totalled over all assignments for your "peer review" mark.
+  * Each review you do will get you 1 point if "good" and 0 points if "lame". Those will be totalled over all assignments to form your peer review mark.
 
 ## Additional resources:
 
