@@ -35,8 +35,18 @@ You should have finished working through these by now:
 
 I want to check in on people who looked at [swirl](http://swirlstats.com).
 
-#### `ggplot2` links
+#### Short intro to `ggplot2`
+
+This week's goal is just to introduce `ggplot2`, so your HW02 about exploring data can contain some figures: "Start the way you mean to finish ... which is with lots of figures!"
 
 All of this will be eventually ported over into STAT545 materials but will go ahead and link now.
 
   * A `ggplot2` [tutorial](https://github.com/jennybc/ggplot2-tutorial) I taught May 2013
+
+#### R Markdown
+
+This week's goal is for you to report on your data exploration by authoring an R Markdown document.
+
+Here is material from a talk and short workshop I gave at SFU in November 2013
+
+  * <https://github.com/jennybc/2013-11_sfu>
