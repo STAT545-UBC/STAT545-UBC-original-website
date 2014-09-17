@@ -1,0 +1,268 @@
+R coding style and organizing analytical projects
+========================================================
+
+```{r include = FALSE}
+require(knitr)
+## I format my code intentionally!
+## do not re-format it for me!
+opts_chunk$set(tidy = FALSE)
+
+## sometimes necessary until I can figure out why loaded packages are leaking
+## from one file to another, e.g. from block91_latticeGraphics.rmd to this file
+if(length(yo <- grep("gplots", search())) > 0) detach(pos = yo)
+if(length(yo <- grep("gdata", search())) > 0) detach(pos = yo)
+if(length(yo <- grep("gtools", search())) > 0) detach(pos = yo)
+```
+
+### Optional getting started advice
+
+*Ignore if you don't need this bit of support.*
+
+This is one in a series of tutorials in which we explore basic data import, exploration and much more using data from the [Gapminder project](http://www.gapminder.org). Now is the time to make sure you are working in the appropriate directory on your computer, perhaps through the use of an [RStudio project](block01_basicsWorkspaceWorkingDirProject.html). To ensure a clean slate, you may wish to clean out your workspace and restart R (both available from the RStudio Session menu, among other methods). Confirm that the new R process has the desired working directory, for example, with the `getwd()` command or by glancing at the top of RStudio's Console pane.
+
+Open a new R script (in RStudio, File > New > R Script). Develop and run your code from there (recommended) or periodicially copy "good" commands from the history. In due course, save this script with a name ending in .r or .R, containing no spaces or other funny stuff, and evoking "code style".
+
+### Load the Gapminder data and `lattice`
+
+```{r}
+library(lattice)
+## gDat <- read.delim("gapminderDataFiveYear.txt")
+gdURL <- "http://www.stat.ubc.ca/~jenny/notOcto/STAT545A/examples/gapminder/data/gapminderDataFiveYear.txt"
+gDat <- read.delim(file = gdURL)
+jDat <- droplevels(subset(gDat, continent != "Oceania"))
+str(jDat)
+```
+
+### Deep thoughts
+
+> "Let us change our traditional attitude to the construction of programs. Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to human beings what we want a computer to do." -- Donald E. Knuth
+
+Your goal in your R scripting is not limited to getting the right results, right now. You need to think bigger than that.
+
+  * Could someone else read your code and get the basic idea? Could they fix, modify, extend it with a reasonable amount of time and psychic energy?
+  * Can __you__ read your code a couple of months from now, late at night and in a huge hurry, and understand, fix, modify, extend it?
+  * Does your code break after trivial changes to the input, such as
+    - pre-sorting the rows into a different row order?
+    - presenting the columns or variables in a different order?
+    - eliminating some rows or variables in an preprocessing script?
+  * If you want to make a "small" change like use a different color or use a different p-value cutoff or showcase a different country as an example, do you need to change one line of code or fifty?
+
+It is easy to underappreciate these considerations when you are new to scripting. But, if I have built up any credibility with you over the past several weeks, please TRUST ME when I say that your coding style is very, very important to the quality of work and your happiness in it.
+
+### Source is real
+
+This has been implicit in everything we have done together and we addressed this briefly very early on when we talked about [managing workspaces](http://www.stat.ubc.ca/~jenny/STAT545A/block01_basicsWorkspaceWorkingDirProject.html#workspace-and-working-directory). Let's be very explicit now:
+
+"__The source code is real.__ The objects are realizations of the source code. Source for EVERY user modified object is placed in a particular directory or directories, for later editing and retrieval." -- from the [ESS](http://ess.r-project.org) manual
+
+I like to type commands into the R Console as much as the next person. I do it all the time. The immediacy! The power! This is great for inspection, "thinking out loud" with R, etc. but this is not how you preserve real work. As soon as you've done something of any value, that you might want to repeat, get that code saved into a script ASAP.
+
+How to get code into a script if you've been working in the Console:
+
+  * Mine your R history for the "keeper" commands. In RStudio, visit the History tab in the Workspace/History/... pane. Select the commands you want, using your usual OS-specific ways of selecting ranges of things or disconnected things, and click on "To Source" to send to a script. Read more about RStudio's support for [managing the R history](http://www.rstudio.com/ide/docs/using/history).
+
+I lied above about working in the Console. I do that quite rarely actually. Which brings me to my real recommendation about how to work:
+
+  * Always compose R commands in a script or an R Markdown file. Done. But how do you test/develop the code in this approach? At first, you use RStudio's buttons to send code to the Console: look in the upper right corner of the editing tab/pane and/or look in the Code menu. Before long, you will want to exploit the keyboard shortcuts for all of this, which you can read about [here](http://www.rstudio.com/ide/docs/using/keyboard_shortcuts).
+  
+  
+### What else is real
+
+OK, a bit more than source code is real. What else?
+
+  * Raw data. Try to preserve this exactly as it came from its producer, warts and all. I sometimes even revoke my own write permission.
+
+In theory, we would stop here: only input data and source code are real. After all, now you should be able to reproduce everything, right? In theory, yes, but harsh reality has softened my hard edges. Let's get pragmatic.
+
+Here in the real world, you will also want to save and protect a few other things:
+
+  * Clean, ready-to-analyze data. This is probably the starting point for many other analyses and scripts. You may also need to share this with collaborators -- often the data generators! -- who aren't R/scripting/reproducible research zealots like we are. Meet them where they live, with a clean tab- or comma-delimited file, ready for import into Excel.
+  * Figures. Yes I save the scripts that made them and I often turn really important figures into functions, for ease of regeneration with various tweaks. But still save a decent PDF of every figure that seems like it might be useful for drafting a talk and you'll sleep better. If you use Windows and/or Microsoft Office products, perhaps save a very high resolution PNG as well.
+  * Statistical results with one or more of these special features:
+    - Result took a long time and/or a lot of RAM to compute. You might not always have the luxury of recomputing upon demand.
+    - Result required an add-on package to compute. There is no guarantee that this package will not change dramatically in the next release. There is no guarantee that this package will be maintained and continue to work with future versions of R.
+
+The form in which you save these things is another important choice. Short version: default should be plain text, human readable, language/software agnostic. I am not naive enough to think that is always possible. Read more on writing information to file [here](http://www.stat.ubc.ca/~jenny/STAT545A/block05_getNumbersOut.html).
+
+### Coding style
+
+Reading code is inherently miserable. Especially if it's someone else's code. Note that your own code feels foreign after a sufficient amount of time. Do everyone a favor and adopt a coding style. Here are some good documents to read and many go beyond simple formatting to address coding practice more generally:
+
+  * [Google's R Style Guide](http://google-styleguide.googlecode.com/svn/trunk/Rguide.xml)
+  * [Hadley Wickham's adaptation](http://stat405.had.co.nz/r-style.html) of the Google style. His [code marking rubric](http://hadley.github.io/stat405/assessment/code-rubric.pdf) is also informative.
+  * [R Coding Conventions](https://docs.google.com/document/edit?id=1esDVxyWvH8AsX-VJa-8oqWaHLs4stGlIbk8kLc5VlII) by Henrik Bengtsson
+  * Blog post [Style guide for R code](http://andrewgelman.com/2007/09/18/style_guide_for/) by Andrew Gelman (read the comments too). In another blog post [Migrating from dot to underscore](http://andrewgelman.com/2012/08/28/migrating-from-dot-to-underscore/) he took up the divisive issue of demarcating words by underscores versus dots (read the comments too).
+  * Martin Mächler's keynote talk from UseR! 2004, [Good Programming Practice](http://www.ci.tuwien.ac.at/Conferences/useR-2004/Keynotes/Maechler.pdf)
+  * Chapter 2 Poetics of [S Poetry](http://www.burns-stat.com/documents/books/s-poetry/) by Patrick Burns, the same guy who wrote [The R Inferno](http://www.burns-stat.com/documents/books/the-r-inferno/).
+  * Karl Broman's [Writing Clear Code](http://kbroman.org/Tools4RR/assets/lectures/07_clearcode_withnotes.pdf).
+  
+Key principles in code formatting, according to JB:
+
+  * surround binary operators with space: `a <= b` not `a<=b`
+  * the single equals sign `=` is an example of such a binary operator: `this = that` not `this=that`
+  * use a space after a comma: `xyplot(y ~ x, myDat)` not `xyplot(y~x,myDat)`
+  * use hard line breaks to keep lines 80 characters or shorter; if this breaks up a function call, use indenting to visually indicate the continuation; example:
+        
+        ## drop some observations and unused factor levels
+        lotrDat <-
+          droplevels(subset(lotrDat,
+                            !(Race %in% c("Gollum", "Ent", "Dead", "Nazgul"))))
+                        
+  * use indenting when you are, e.g. inside a block delimited by curly braces; example:
+  
+        jFun <- function(x) {
+            estCoefs <- coef(lm(lifeExp ~ I(year - yearMin), x))
+            names(estCoefs) <- c("intercept", "slope")
+            return(estCoefs)
+            }
+  * develop a convention for comments: e.g. use `## ` to begin any full lines of comments and indent them as if they were code; use `# ` plus a specific horizontal position to append a comment to a line containing code; example:
+  
+        ## here is a pure comment line
+        myName <- "jenny"            # this is, in fact, my name
+        myDog <- "buzzy"             # I used to have a dog
+
+If you use an R-aware text editor or IDE, such as RStudio or Emacs Speaks Statistics, then much of the above is automatic or extremely easy.
+
+Structuring a script:
+
+  * Always load packages at the beginning; If it's fairly self-evident why the package is needed, at least to me, I just load and move on. If it's a specialty or convenience package, then I remind myself what function(s) I'm going to use; this way, if I don't have the package down the road, I can get a sense of how hard it's going to be to fix up and run the code.
+  
+        library(car)              # recode()
+        
+  * I frequently put information I get during interactive execution into comments in an R script. Why? It helps me spot unexpected changes when I re-run an analysis or when I revisit an object and it has changed flavor or dimension. This is very low-tech and not very robust -- the comments are NOT changed automatically -- but I find it's still useful even in the era of `knitr` and "Compile Notebook". Your mileage may vary.
+  * ? do I have anything more to say here, that's not obvious or said better elsewhere by someone else?
+
+### General principles
+
+I basically present principles verbatim from a conference report ["Good Programming Practices in Healthcare: Creating Robust Programs"](http://www.lexjansen.com/pharmasug/2011/tt/pharmasug-2011-tt05.pdf). Shockingly, this document is mostly about SAS (!) but most of their rules are great and apply broadly. Here are my favorites from pages 3 - 4:
+
+  * Rule of Modularity: Write simple parts connected by clean interfaces.
+  * Rule of Clarity: Clarity is better than cleverness.
+  * Rule of Composition: Design programs to be connected to other programs.
+  * Rule of Simplicity: Design for simplicity; add complexity only where you must.
+  *  Rule of Parsimony: Write a big program only when it is clear by demonstration that nothing else will do.
+  * Rule of Transparency: Design for visibility to make inspection and debugging easier.
+  * Rule of Robustness: Robustness is the child of transparency and simplicity.
+  * Rule of Representation: Fold knowledge into data so program logic can be stupid and robust.
+    - The use of `subset(myDat, subset = myFactor == someLevel)` or the `subset =` argument more generally is a great example of this.
+  * Rule of Least Surprise: In interface design, always do the least surprising thing.
+  * Rule of Silence: When a program has nothing surprising to say, it should say nothing.
+  * Rule of Repair: When you must fail, fail noisily and as soon as possible.
+  * Rule of Economy: Programmer time is expensive; conserve it in preference to machine time.
+  * Rule of Optimization: Prototype before polishing. Get it working before you optimize it.
+  * Rule of Diversity: Distrust all claims for "one true way".
+  * Rule of Extensibility: Design for the future, because it will be here sooner than you think.
+
+*Note from the future: thanks to a link tweeted by Hadley Wickahm, I now think these principles were taken from [http://www.faqs.org/docs/artu/ch01s06.html](http://www.faqs.org/docs/artu/ch01s06.html). In 2014, I should determine if the conference paper really adds anything here and, if not, cite the original.*
+  
+### Naming things
+
+> Not written yet but I want a placeholder and some notes here.
+
+word demarcation
+
+names for files, identifiers, functions
+
+dates: default to `YYYY-MM-DD`
+
+`2013-10-15_classList-filtered.txt` or `block05_getNumbersOut.rmd`: notice how easy it is for me to use regular expressions to split such (file)names into the date/number part and the "what is it" descriptive part, by splitting on underscore `_`. That's no accident! Thanks Andy Roth for teaching me that trick!
+
+use `sprintf()` literally or as inspiration to pad numbers with trailing zeros, so lexical and numeric order coincide
+
+### Avoid Magic Numbers
+
+Wikipedia definition of [Magic Numbers](http://en.wikipedia.org/wiki/Magic_number_(programming)): "unique values with unexplained meaning or multiple occurrences which could (preferably) be replaced with named constants"
+
+Why do we avoid Magic Numbers in programming? To make code more transparent, easier to maintain, more robust, more reusable, more self-consistent.
+
+How do we avoid Magic Numbers in programming?
+
+  * If it's an intrinsic fact about your data, derive it. Example: if you're mapping a factor into colors and you want to use the `Dark2` palette from `RColorBrewer`, don't just request 5 colors from the palette. Instead, use `nlevels()` to programmatically determine how many levels your factor has and take that many colors. If you later decide to drop a factor level or if you copy and paste this code from one project to another, the second approach is vastly superior.
+  
+        myColors  <- brewer.pal(nlevels(myFactor), name = 'Dark2')
+  
+  * If it's a semi-arbitrary choice you're making, make your choice in exactly one, very obvious place, transparently, give it an informative name, and use the resulting object(s) after that. Example: if you're generating some fake data to demonstrate something, don't hard wire a sample size of 15. Instead, make the assignment `n <- 15` (the use of `n` counts as an informative name, since the association between `n` and sample size in statistics is so strong). And from that point on, use `n`, e.g. to compute standard errors, form text strings for labelling figures, etc.
+   
+        n <- 20
+        x <- rnorm(n)
+        densityplot(~ x, main = paste("n =", n))
+        (seMean <- sd(x)/sqrt(n))
+
+### Make things repeatably random
+
+`set.seed()`
+
+> write more
+
+### Use names and aggressively exploit holistic facilities for subsetting, transformation, and labelling
+
+```{r include = FALSE}
+gDat <- plyr::arrange(gDat, year, country)
+min(which(gDat$year == 1967))  # 427
+max(which(gDat$year == 1967))  # 568
+```
+
+Which piece of code and figure would you like to decipher at 3 a.m.? Both are very basic and the figures rather ugly, but only one makes you angry at the person who wrote it. Go ahead and type the extra `r 202 - 44` characters of code ... I'll wait.
+```{r fig.show = 'hold', out.width = '49%'}
+## left-hand figure; code contains 44 characters
+xyplot(gDat[427:568,5]~log(gDat[427:568,6]))
+
+## right-hand figure; code contains 202 characters
+jYear <- 1967
+xyplot(lifeExp ~ gdpPercap, gDat,
+       subset = year == jYear, main = paste("year =", jYear),
+       group = continent, auto.key = TRUE, 
+       scales = list(x = list(log = 10, equispaced.log = FALSE)))
+```
+
+### Organization
+
+Big picture: devote a directory on your computer to a conceptual project. Make it literally an [RStudio Project](http://www.rstudio.com/ide/docs/using/projects), so it's easy to stop and start analyses, with sane handling of the R process's working directory. Give that directory a good name! Eventually, you will probably also want to make this directory a repository under version control, e.g. a Git repository.
+
+Within the project, once you have more than ~10 files, create subdirectories. JB generally has (in rough order of creation and file population):
+
+  * fromJoe. Let's say my collaborator and data producer is Joe. He will send me data with weird space-containing file names, data in Microsoft Excel workbooks, etc. It is futile to fight this, just quarantine all the crazy here. I rename things and/or export to plain text and put *those* files in my carefully prepared receptacles below. Whether I move, copy, or symlink depends on the situation. Whatever I did gets recorded in a README or in comments in my R code -- whatever makes it easiest for me to remind myself of a file's provenance, if it came from the outside world in a state that was not ready for programmatic analysis.
+  * data. This is where data from the outside world goes. If I do extensive cleaning, I might also write my ready-to-analyze dataset here.
+  * code. This is where R scripts go (and any other code).
+  * figs. This is where figures go.
+  * results. This is where the outputs of data aggregation, statistical modelling, inference, etc. go.
+  * prose. Holds key emails, internal documentation and explanations, interim reports of analyses, talks, manuscripts, final publications.
+  * *rmd, tentative*. Now that I'm writing more in R Markdown, I'm leaning towards making a directory just for that.
+  * web. Holds content for a web site, ready to push to a server. Probably holds HTML reports generated from documents in the rmd directory, possibly copies (or soft links) of R scripts I want to expose on the web, figures, etc.
+  
+Note: once you adopt a subdirectory organization, you'll need to visit any files that find files for reading or writing and edit the paths. For this reason, I often skip straight to my organizational strategy from the very start, when I know I'll eventually need it.
+
+`knitr` is fairly stubborn about the working directory being that in which the file you're compiling lives. This can be controlled / worked around, but just don't be surprised that this is a point of some friction. You can expect to pay extra special attention to this if you are generating figures and/or caching.
+
+Let's delve a little deeper into the `code` directory and talk about breaking the analysis into steps and, therefore, different scripts. At a minimum, I have these phases, each of which will be embodied in one -- or often many more -- files:
+
+  * explore/diagnose (+ visualize)
+  * clean/fix (+ visualize)
+  * analyze (+ visualize)
+  
+You notice that I am creating figures *all the time*, although eventually in a project I might have a few scripts that are solely devoted to figure-making. In a real-world analysis, each of the phases above will have several associated scripts. For example, I enacted the data cleaning and preparation for the Gapminder data over the course of five separate scripts.
+
+> For now, use my Keynote slides or the live Finder to tour a few projects.
+
+Good reads on other people's idea about how to organize an analytical project:
+
+  * stackoverflow thread [ESS workflow for R project/package development](http://stackoverflow.com/questions/3027476/ess-workflow-for-r-project-package-development). The advice is NOT specific to using Emacs Speaks Statistics (ESS), so don't be turned off by the title.
+  * stackoverflow thread [Workflow for statistical analysis and report writing](http://stackoverflow.com/questions/1429907/workflow-for-statistical-analysis-and-report-writing). Thread is closed as not being a great fit for the stackoverflow Q and A format, but luckily not before some great answers got posted!
+  * stackoverflow thread [How does software development compare with statistical programming/analysis?](http://stackoverflow.com/questions/2295389/how-does-software-development-compare-with-statistical-programming-analysis).
+  * Noble WS (2009) A Quick Guide to Organizing Computational Biology Projects. PLoS Comput Biol 5(7): e1000424. doi:10.1371/journal.pcbi.1000424. [open access at PLoS](http://dx.plos.org/10.1371/journal.pcbi.1000424)
+  * Sandve GK, Nekrutenko A, Taylor J, Hovig E (2013) Ten Simple Rules for Reproducible Computational Research. PLoS Comput Biol 9(10): e1003285. doi:10.1371/journal.pcbi.1003285 [open access at PLoS](http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003285)
+  * From Blog "Nice R Code" (yes we see what they did there) [Designing projects](http://nicercode.github.io/blog/2013-04-05-projects/)
+
+
+### TO INCORPORATE IN FUTURE
+
+The ProjectTemplate package: <http://www.johnmyleswhite.com/notebook/2010/08/26/projecttemplate/>
+
+An rOpenSci "Short Workflow for R Reports": <http://ropensci.github.io/reproducibility-guide/sections/workflows/workflow1/>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/johnmyleswhite">@johnmyleswhite</a> <a href="https://twitter.com/rvidal">@rvidal</a> <a href="https://twitter.com/adamlaiacano">@adamlaiacano</a> <a href="https://twitter.com/hadleywickham">@hadleywickham</a> <a href="https://twitter.com/rmflight">@rmflight</a> I made this in grad school, A,B,C diff starting points <a href="http://t.co/VVkZOO9WyH">pic.twitter.com/VVkZOO9WyH</a></p>&mdash; Hilary Parker (@hspter) <a href="https://twitter.com/hspter/statuses/493927863687450624">July 29, 2014</a></blockquote>
+
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
