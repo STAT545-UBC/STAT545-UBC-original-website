@@ -61,9 +61,18 @@ YES. You absolutely must have access to a computer on which you can install soft
 
 ### Where do course marks come from?
 
-The plan is to submit work once a week. The end result may still resemble a "final project", but one that has been built up gradually over the term. Expect some peer evaluation. No final exam.
+Course mark = 75% homework, 15% peer review, 10% engagement (i.e. attendance, participation in discussion in-class and/or online)
 
-Here are [general guidelines](hw00_homework-guidelines.html) for homework submission.
+Students submit homework once a week. The end result may still resemble a "final project", but one that has been built up gradually over the term.
+
+  * [General guidelines](hw00_homework-guidelines.html) for homework submission
+
+Each homework will be evaluated by 3 peer reviewers. The performance of thoughtful peer review will count as 15% of the overall course mark.
+
+  * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
+  * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
+  
+No final exam.
 
 ### How do I get help?
 
