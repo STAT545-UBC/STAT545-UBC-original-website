@@ -16,7 +16,7 @@ output:
     - Introductory words re `ggplot2`
   * R Markdown
   * What's next?
-    - HW 2 due before class Monday 2014-09-22
+    - [HW 2](hw02_explore-gapminder-use-rmarkdown.html) due before class Monday 2014-09-22
     - Next week we begin serious data wrangling and aggregation with apply functions, `plyr` and `dplyr`
     
 #### Slides and links
