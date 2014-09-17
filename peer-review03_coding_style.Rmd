@@ -251,6 +251,7 @@ Good reads on other people's idea about how to organize an analytical project:
   * stackoverflow thread [How does software development compare with statistical programming/analysis?](http://stackoverflow.com/questions/2295389/how-does-software-development-compare-with-statistical-programming-analysis).
   * Noble WS (2009) A Quick Guide to Organizing Computational Biology Projects. PLoS Comput Biol 5(7): e1000424. doi:10.1371/journal.pcbi.1000424. [open access at PLoS](http://dx.plos.org/10.1371/journal.pcbi.1000424)
   * Sandve GK, Nekrutenko A, Taylor J, Hovig E (2013) Ten Simple Rules for Reproducible Computational Research. PLoS Comput Biol 9(10): e1003285. doi:10.1371/journal.pcbi.1003285 [open access at PLoS](http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003285)
+  * From Blog "Nice R Code" (yes we see what they did there) [Designing projects](http://nicercode.github.io/blog/2013-04-05-projects/)
 
 
 ### TO INCORPORATE IN FUTURE
