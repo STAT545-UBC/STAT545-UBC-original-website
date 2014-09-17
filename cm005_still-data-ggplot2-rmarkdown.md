@@ -69,8 +69,11 @@ All of this will be eventually ported over into STAT545 materials but will go ah
 
 This week's goal is for you to report on your data exploration by authoring an R Markdown document.
 
+Here is a write-up of my hands-on demo:
+
+  * [Test your ability to author an R Markdown report](block007_first-use-rmarkdown.html)
+
 Here is material from a talk and short workshop I gave at SFU in November 2013
 
   * <https://github.com/jennybc/2013-11_sfu>
   
-*Still coming: I will write down what I did at the very end = practiced with the automatic "boilerplate" R Markdown provided by RStudio, then removed its "guts" and replaced with one very small R chunk relevant to HW02, then used RStudio GUI to specify to "keep_md", then commited lots of stuff and pushed.*

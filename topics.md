@@ -17,6 +17,7 @@ Until we get rolling, feel free to look at older material that will appear here 
   * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
   * [Basic care and feeding of data in R](block006_care-feeding-data.html) *DRAFT; porting from 2013 not complete yet*
   * [Introduction to `ggplot2`](https://github.com/jennybc/ggplot2-tutorial) *links to materials from a May 2014 workshop*
+  * [Test your ability to author an R Markdown report](block007_first-use-rmarkdown.html)
   
 ### Course material
 
