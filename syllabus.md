@@ -23,7 +23,7 @@ table {
 |sep-08 mon |<a href="cm002_r-rstudio-intro.html">cm002</a>: Deep Thoughts about data analytic work; intro to R and RStudio           |
 |sep-10 wed |<a href="cm003_r-objects-git-toe-dip.html">cm003</a>: Basic flavors of R objects; Git(Hub) and (R) Markdown crash course |
 |sep-15 mon |<a href="cm004_care-feeding-data.html">cm004</a>: Care and feeding of data (data.frames                                  |
-|sep-17 wed |                                                                                                                         |
+|sep-17 wed |<a href="cm005_still-data-ggplot2-rmarkdown.html">cm005</a>: Intro to ggplot2; R Markdown                                |
 |sep-22 mon |                                                                                                                         |
 |sep-24 wed |                                                                                                                         |
 |sep-29 mon |                                                                                                                         |

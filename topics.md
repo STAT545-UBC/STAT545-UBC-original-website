@@ -16,15 +16,20 @@ Until we get rolling, feel free to look at older material that will appear here 
   * [Basic R and RStudio, workspace, working directory, RStudio Project](block002_hello-r-workspace-wd-project.html)
   * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
   * [Basic care and feeding of data in R](block006_care-feeding-data.html) *DRAFT; porting from 2013 not complete yet*
+  * [Introduction to `ggplot2`](https://github.com/jennybc/ggplot2-tutorial) *links to materials from a May 2014 workshop*
   
 ### Course material
 
   * [Class meeting 001](cm001_course-intro-sw-install-account-signup.html) deals with "What is data science? What is data carpentry?" and includes links re: use of Twitter in academia.
   * [Class meeting 002](cm002_r-rstudio-intro.html) provides some Deep Thoughts about data analytic work, then shifts into a hands-on intro to R and RStudio.
   * [Class meeting 003](cm003_r-objects-git-toe-dip.html) Started basic flavors of R objects; Git(Hub) and (R) Markdown crash course so first homework can be submitted. All hands-on.
-  * [General homework guidelines](hw00_homework-guidelines.html)
-  * [Homework 01](hw01_edit-README.html) Edit `README.md`
   * [Class meeting 004](cm004_care-feeding-data.html) Data.frames are awesome. Let's explore one (Gapminder).
+  * [Class meeting 005](cm005_still-data-ggplot2-rmarkdown.html) Continue exploring data in a data.frame, maybe using `ggplot2` and in an R Markdown document
+  * [General homework guidelines](hw00_homework-guidelines.html)
+  * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
+  * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
+  * [Homework 01](hw01_edit-README.html) Edit `README.md`
+  
 
 ### Short random things
 
