@@ -2,17 +2,21 @@
 
 __NOTE: ROUGH DRAFT AFTER BRINGING CONTENT OVER FROM 2013. I still need to modernize some things (e.g. the transition to `ggplot2` from `lattice`), so look for an update soon.__
 
-### Optional getting started advice
+### Buckle your seatbelt
 
-*I need to rewrite this for this year. Sketched for now:*
+*Ignore if you don't need this bit of support.*
 
-  * Be in a relevant RStudio Project before you begin work
-  * Clean out the workspace
-  * Restart R
-  * Open new R script and write R commands there
-  * Save file to a reasonable name. Save often
+Now is the time to make sure you are working in an appropriate directory on your computer, probably through the use of an [RStudio Project](block002_hello-r-workspace-wd-project.html). Enter `getwd()` in the Console to see current working directory or, in RStudio, this is displayed in the bar at the top of Console.
 
-### Obtaining the Gapminder data
+You should clean out your workspace. In RStudio, click on the "Clear" broom icon from the Environment tab or use Session > Clear Workspace. You can also enter `rm(list = ls())` in the Console to accomplish same.
+
+Now restart R. This will ensure you don't have any packages loaded from previous calls to `library()`. In RStudio, use Session > Restart R. Otherwise, quit R with `q()` and re-launch it.
+
+Why do we do this? So that the code you write is complete and re-runnable. If you return to a clean slate often, you will root out hidden dependencies where one snippet of code only works because it relies on objects created by code saved elsewhere or, much worse, never saved at all. Similary, an aggressive clean slate approach will expose any usage of packages that have not been explicitly loaded. 
+
+Finally, open a new R script and develop and run your code from there. In RStudio, use File > New File > R Script. Save this script with a name ending in `.r` or `.R`, containing no spaces or other funny stuff, and that evokes whatever it is we're doing today. Example: `session03_data-aggregation.r`.
+
+### Get the Gapminder data
 
 We will work with some of the data from the [Gapminder project](http://www.gapminder.org). Here is an excerpt prepared for your use. Please save this file locally, for example, in the directory associated with your RStudio Project:
 
@@ -28,7 +32,7 @@ list.files()
 
 If you __don't__ see `gapminderDataFiveYear.txt` there, DEAL WITH THAT BEFORE YOU MOVE ON.
 
-### Creating a data.frame via import
+### Create a data.frame via import
 
 In real life you will usually bring data into R from an outside file. This rarely goes smoothly for "wild caught" datasets, which have little gremlins lurking in them that complicate import and require cleaning. Since this is not our focus today, we will work with a "domesticated" dataset JB uses a lot in teaching, an extract from the Gapminder data Hans Rosling has popularized.
 
@@ -55,7 +59,7 @@ Whenever you have rectangular, spreadsheet-y data, your default data receptacle 
   * data.frames package related variables neatly together,
     - keeping them in sync vis-a-vis row order
     - applying any filtering of observations uniformly
-  * most functions for inference, modelling, and graphing are happy to be passed a data.frame via a `data =` argument as the place to find the variables you're working on
+  * most functions for inference, modelling, and graphing are happy to be passed a data.frame via a `data =` argument as the place to find the variables you're working on; the latest and greatest packages actually __require__ that your data be in a data.frame
   * data.frames -- unlike general arrays or, specifically, matrices in R -- can hold variables of different flavors (heuristic term defined later), such as character data (subject ID or name), quantitative data (white blood cell count), and categorical information (treated vs. untreated)
 
 Get an overview of the object we just created with `str()` which displays the structure of an object. It will provide a sensible description of almost anything and, worst case, nothing bad can actually happen. When in doubt, just `str()` some of the recently created objects to get some ideas about what to do next.
@@ -571,7 +575,7 @@ This workstyle leaves behind code that is also fairly self-documenting, e.g.,
 
 ```r
 lm(lifeExp ~ year, gDat, subset = country == "Colombia")
-xyplot(lifeExp ~ year, gDat, subset = country == "Colombia")
+plot(lifeExp ~ year, gDat, subset = country == "Colombia")
 ```
 
 The availability and handling of `data =` and `subset =` arguments is broad enough-- though sadly not universal -- that sometimes you can even copy and paste these argument specifications, for example, from an exploratory plotting command into a model-fitting command. Consistent use of this convention also makes you faster at writing and reading such code. 

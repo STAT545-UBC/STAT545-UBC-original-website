@@ -73,28 +73,26 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="TOC">
 <ul>
-<li><a href="#optional-getting-started-advice">Optional getting started advice</a></li>
-<li><a href="#obtaining-the-gapminder-data">Obtaining the Gapminder data</a></li>
-<li><a href="#creating-a-data.frame-via-import">Creating a data.frame via import</a></li>
+<li><a href="#buckle-your-seatbelt">Buckle your seatbelt</a></li>
+<li><a href="#get-the-gapminder-data">Get the Gapminder data</a></li>
+<li><a href="#create-a-data.frame-via-import">Create a data.frame via import</a></li>
 <li><a href="#subset-is-the-nicest-way-to-isolate-bits-of-data.frames-and-other-things"><code>subset()</code> is the nicest way to isolate bits of data.frames (and other things)</a></li>
 <li><a href="#review-of-data.frames-and-the-best-ways-to-exploit-them">Review of data.frames and the best ways to exploit them</a></li>
 </ul>
 </div>
 
 <p><strong>NOTE: ROUGH DRAFT AFTER BRINGING CONTENT OVER FROM 2013. I still need to modernize some things (e.g. the transition to <code>ggplot2</code> from <code>lattice</code>), so look for an update soon.</strong></p>
-<div id="optional-getting-started-advice" class="section level3">
-<h3>Optional getting started advice</h3>
-<p><em>I need to rewrite this for this year. Sketched for now:</em></p>
-<ul>
-<li>Be in a relevant RStudio Project before you begin work</li>
-<li>Clean out the workspace</li>
-<li>Restart R</li>
-<li>Open new R script and write R commands there</li>
-<li>Save file to a reasonable name. Save often</li>
-</ul>
+<div id="buckle-your-seatbelt" class="section level3">
+<h3>Buckle your seatbelt</h3>
+<p><em>Ignore if you don’t need this bit of support.</em></p>
+<p>Now is the time to make sure you are working in an appropriate directory on your computer, probably through the use of an <a href="block002_hello-r-workspace-wd-project.html">RStudio Project</a>. Enter <code>getwd()</code> in the Console to see current working directory or, in RStudio, this is displayed in the bar at the top of Console.</p>
+<p>You should clean out your workspace. In RStudio, click on the “Clear” broom icon from the Environment tab or use Session &gt; Clear Workspace. You can also enter <code>rm(list = ls())</code> in the Console to accomplish same.</p>
+<p>Now restart R. This will ensure you don’t have any packages loaded from previous calls to <code>library()</code>. In RStudio, use Session &gt; Restart R. Otherwise, quit R with <code>q()</code> and re-launch it.</p>
+<p>Why do we do this? So that the code you write is complete and re-runnable. If you return to a clean slate often, you will root out hidden dependencies where one snippet of code only works because it relies on objects created by code saved elsewhere or, much worse, never saved at all. Similary, an aggressive clean slate approach will expose any usage of packages that have not been explicitly loaded.</p>
+<p>Finally, open a new R script and develop and run your code from there. In RStudio, use File &gt; New File &gt; R Script. Save this script with a name ending in <code>.r</code> or <code>.R</code>, containing no spaces or other funny stuff, and that evokes whatever it is we’re doing today. Example: <code>session03_data-aggregation.r</code>.</p>
 </div>
-<div id="obtaining-the-gapminder-data" class="section level3">
-<h3>Obtaining the Gapminder data</h3>
+<div id="get-the-gapminder-data" class="section level3">
+<h3>Get the Gapminder data</h3>
 <p>We will work with some of the data from the <a href="http://www.gapminder.org">Gapminder project</a>. Here is an excerpt prepared for your use. Please save this file locally, for example, in the directory associated with your RStudio Project:</p>
 <ul>
 <li><a href="http://www.stat.ubc.ca/~jenny/notOcto/STAT545A/examples/gapminder/data/gapminderDataFiveYear.txt">http://www.stat.ubc.ca/~jenny/notOcto/STAT545A/examples/gapminder/data/gapminderDataFiveYear.txt</a></li>
@@ -104,8 +102,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <pre class="r"><code>list.files()</code></pre>
 <p>If you <strong>don’t</strong> see <code>gapminderDataFiveYear.txt</code> there, DEAL WITH THAT BEFORE YOU MOVE ON.</p>
 </div>
-<div id="creating-a-data.frame-via-import" class="section level3">
-<h3>Creating a data.frame via import</h3>
+<div id="create-a-data.frame-via-import" class="section level3">
+<h3>Create a data.frame via import</h3>
 <p>In real life you will usually bring data into R from an outside file. This rarely goes smoothly for “wild caught” datasets, which have little gremlins lurking in them that complicate import and require cleaning. Since this is not our focus today, we will work with a “domesticated” dataset JB uses a lot in teaching, an extract from the Gapminder data Hans Rosling has popularized.</p>
 <blockquote>
 <p>Assumption: The file <code>gapminderDataFiveYear.txt</code> is saved on your computer and available for reading in R’s current working directory.</p>
@@ -125,7 +123,7 @@ gDat &lt;- read.delim(file = gdURL)</code></pre>
 <li>keeping them in sync vis-a-vis row order</li>
 <li>applying any filtering of observations uniformly</li>
 </ul></li>
-<li>most functions for inference, modelling, and graphing are happy to be passed a data.frame via a <code>data =</code> argument as the place to find the variables you’re working on</li>
+<li>most functions for inference, modelling, and graphing are happy to be passed a data.frame via a <code>data =</code> argument as the place to find the variables you’re working on; the latest and greatest packages actually <strong>require</strong> that your data be in a data.frame</li>
 <li>data.frames – unlike general arrays or, specifically, matrices in R – can hold variables of different flavors (heuristic term defined later), such as character data (subject ID or name), quantitative data (white blood cell count), and categorical information (treated vs. untreated)</li>
 </ul>
 <p>Get an overview of the object we just created with <code>str()</code> which displays the structure of an object. It will provide a sensible description of almost anything and, worst case, nothing bad can actually happen. When in doubt, just <code>str()</code> some of the recently created objects to get some ideas about what to do next.</p>
@@ -407,7 +405,7 @@ summary(myFit)</code></pre>
 <p>Work within your data.frames by passing them to the <code>data =</code> argument of functions that offer that. If you need to restrict operations, use the <code>subset =</code> argument. Do computations or make figures <em>in situ</em> – don’t create little copies and excerpts of your data. This will leave a cleaner workspace and cleaner code.</p>
 <p>This workstyle leaves behind code that is also fairly self-documenting, e.g.,</p>
 <pre class="r"><code>lm(lifeExp ~ year, gDat, subset = country == &quot;Colombia&quot;)
-xyplot(lifeExp ~ year, gDat, subset = country == &quot;Colombia&quot;)</code></pre>
+plot(lifeExp ~ year, gDat, subset = country == &quot;Colombia&quot;)</code></pre>
 <p>The availability and handling of <code>data =</code> and <code>subset =</code> arguments is broad enough– though sadly not universal – that sometimes you can even copy and paste these argument specifications, for example, from an exploratory plotting command into a model-fitting command. Consistent use of this convention also makes you faster at writing and reading such code.</p>
 <p>Two important practices</p>
 <ul>
