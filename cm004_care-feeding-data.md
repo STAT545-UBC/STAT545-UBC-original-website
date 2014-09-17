@@ -33,10 +33,6 @@ You should have finished working through these by now:
   * [R basics, workspace and working directory, RStudio projects](block002_hello-r-workspace-wd-project.html)
   * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
 
-#### Did anyone work with `swirl`?
-
-I want to check in on people who looked at [swirl](http://swirlstats.com).
-
 #### Hello Data! It's nice to meet you!
 
 Today will work on this:
