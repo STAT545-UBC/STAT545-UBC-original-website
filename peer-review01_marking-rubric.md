@@ -1,5 +1,6 @@
-# Marking rubric:
+# General homework rubric:
 
+*Also consult any specific guidance given in the relevant assignment itself.*
 
 Topic| Excellent: <br> ✓+ coded as +  | Satisfactory: <br> ✓ coded as 0  |Needs work: <br> ✓- coded as - |
 |----| ------ |-------| -----|
