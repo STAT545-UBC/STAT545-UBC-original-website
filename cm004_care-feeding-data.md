@@ -11,8 +11,8 @@ output:
   * Expect peer review instructions before we meet on Wednesday
     - you will each visit work of 3 other students
     - comment on it in an Issue (visible to all within STAT545)
-    - assign a check minus/--/plus mark in an email to prof/TA
-    - figure out what auditors are doing re HW and peer review
+    - assign a check minus/--/plus mark ~~in an email to prof/TA~~ via a web form
+    - ~~figure out what auditors are doing re HW and peer review~~ done
   * All about R and data today
     - DATA!!
     - Exploring the Gapminder data
