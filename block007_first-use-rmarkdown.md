@@ -26,7 +26,7 @@ Launch RStudio, probably in the Project that corresponds to the repository where
 
 ### Step 2: Practice with RStudio's boilerplate R Markdown document
 
-I am modelling "walk before you run" here. It is usually best, especially for novices, to increase complexity in small increments. We will test our system's ability to compile the ["hello world"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) of R Markdown documents before we muddy the waters with our own, probably buggy, documents.
+I am modelling "walk before you run" here. It is best, especially for novices, to increase complexity in small increments. We will test our system's ability to compile the ["hello world"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) of R Markdown documents before we muddy the waters with our own, probably buggy, documents.
 
 Do this: File > New File > R Markdown ...
 
@@ -35,7 +35,7 @@ Do this: File > New File > R Markdown ...
   - Accept the default output format of HTML.
   - Click OK.
   
-Now save this document to a reasonable filename and location. The filename should end in `.rmd` or `.Rmd`. I highly recommend saving in the top-level of the directory that is also also a Git repository for your coursework and that is also an RStudio project.
+Save this document to a reasonable filename and location. The filename should end in `.rmd` or `.Rmd`. I highly recommend saving in the top-level of the directory that is also also a Git repository for your coursework and that is also an RStudio project and that is also current working directory.
 
 Click on "Knit HTML" or do File > Knit. RStudio should display a preview of the resulting HTML. Also look at the file browser (which should be pointed at the directory where you saved the `.rmd` file). You should see the R Markdown document, i.e. `foo.rmd` AND the resulting HTML `foo.html`.
 
@@ -80,7 +80,14 @@ Now compile the whole document via "Knit HTML." Voilà!
 
 ### Step 5: Develop your report
 
-In this incremental manner, develop your report. Add code to this chunk. Refine it. Add new chunks. Go crazy! But run the code "manually" to make sure it works. Clean out your workspace and restart R and re-run everything periodically, if things get weird. Compile the whole document often to catch errors when they're easy to pinpoint and fix. Save often and commit everytime you reach a point that you'd like as a "fall back" position.
+In this incremental manner, develop your report. Add code to this chunk. Refine it. Add new chunks. Go crazy! But keep running the code "manually" to make sure it works. If it doesn't work with you sitting there babysitting it, I can guarantee you it will fail, in a more spectacular and cryptic way, once you run it at arms-length via "Knit HTML" or `rmarkdown::render()`. Clean out your workspace and restart R and re-run everything periodically, if things get weird. There are lots of chunk menu items and keyboard shortcuts to accelerate this workflow. Compile the whole document often to catch errors when they're easy to pinpoint and fix. Save often and commit everytime you reach a point that you'd like as a "fall back" position.
 
 You'll develop your own mojo soon, but this should give you your first successful R Markdown experience.
 
+### Step 6: Publish your report
+
+Since we are pushing coursework to GitHub anyway, I focus on how that delivers decent web publishing for "free."
+
+Markdown documents get special treatment on GitHub: when you visit one in a web browser, instead of seeing the raw Markdown, by default you see a preview of how it will look when compiled to proper HTML. This is why, in Step 3, we alter the YAML to request that the intermediate Markdown file be retained. If there are R chunks that make figures, `keep_md: yes` will also cause those figure files to be left behind in a sensibly named sub-directory. If you commit and push `foo.md` and everything inside `foo_files`, then anyone with permission to view your GitHub repo can see a decent-looking version of your report.
+
+HTML files, such as `foo.html`, are not immediately useful on GitHub (though your local versions are easily viewable). Visit one and you'll see the raw HTML. Yuck. But there is a way to get a preview: <http://htmlpreview.github.io>. Expect some pain with HTML files inside private repos. When it becomes vital to see proper HTML in its fully glory, it's time to use a more sophisticated web publishing strategy.
