@@ -43,3 +43,8 @@ Gloria (Luolan) Li, TA-at-large
   * [\@LuolanLi](https://twitter.com/LuolanLi)
   * [GitHub](https://github.com/gloriali)
 
+Andrew MacDonald, TA-at-large
+
+  * a.a.m.macdonald[at]gmail.com
+  * [\@polesasunder](https://twitter.com/polesasunder)
+  * [GitHub](https://github.com/aammd)
