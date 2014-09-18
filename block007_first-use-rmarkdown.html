@@ -87,6 +87,10 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="overview" class="section level3">
 <h3>Overview</h3>
 <p>This describes a hands-on activity where the goal is to author an R Markdown document and compile it to HTML. We discuss how to keep the intermediate Markdown file, the figures, and what to commit to Git and push to GitHub.</p>
+<p>Here is the official R Markdown documentation:</p>
+<ul>
+<li><a href="http://rmarkdown.rstudio.com">http://rmarkdown.rstudio.com</a></li>
+</ul>
 </div>
 <div id="step-0-software-installation-and-configuration" class="section level3">
 <h3>Step 0: Software installation and configuration</h3>
@@ -153,6 +157,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h3>Step 6: Publish your report</h3>
 <p>Since we are pushing coursework to GitHub anyway, I focus on how that delivers decent web publishing for “free.”</p>
 <p>Markdown documents get special treatment on GitHub: when you visit one in a web browser, instead of seeing the raw Markdown, by default you see a preview of how it will look when compiled to proper HTML. This is why, in Step 3, we alter the YAML to request that the intermediate Markdown file be retained. If there are R chunks that make figures, <code>keep_md: yes</code> will also cause those figure files to be left behind in a sensibly named sub-directory. If you commit and push <code>foo.md</code> and everything inside <code>foo_files</code>, then anyone with permission to view your GitHub repo can see a decent-looking version of your report.</p>
+<p>This is (sort of) another example of keeping things machine- and human-readable. By making <code>foo.rmd</code> available, others can see and run your <strong>actual code</strong>. By sharing <code>foo.md</code> and/or <code>foo.html</code>, others can casually browse your end product and decide if they even want to run your code.</p>
 <p>HTML files, such as <code>foo.html</code>, are not immediately useful on GitHub (though your local versions are easily viewable). Visit one and you’ll see the raw HTML. Yuck. But there is a way to get a preview: <a href="http://htmlpreview.github.io">http://htmlpreview.github.io</a>. Expect some pain with HTML files inside private repos. When it becomes vital to see proper HTML in its fully glory, it’s time to use a more sophisticated web publishing strategy.</p>
 </div>
 
