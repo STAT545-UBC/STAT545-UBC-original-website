@@ -84,7 +84,7 @@ Now compile the whole document via "Knit HTML." Voilà!
 
 ### Step 5: Develop your report
 
-In this incremental manner, develop your report. Add code to this chunk. Refine it. Add new chunks. Go crazy! But keep running the code "manually" to make sure it works. If it doesn't work with you sitting there babysitting it, I can guarantee you it will fail, in a more spectacular and cryptic way, once you run it at arms-length via "Knit HTML" or `rmarkdown::render()`. Clean out your workspace and restart R and re-run everything periodically, if things get weird. There are lots of chunk menu items and keyboard shortcuts to accelerate this workflow. Compile the whole document often to catch errors when they're easy to pinpoint and fix. Save often and commit everytime you reach a point that you'd like as a "fall back" position.
+In this incremental manner, develop your report. Add code to this chunk. Refine it. Add new chunks. Go crazy! But keep running the code "manually" to make sure it works. If it doesn't work with you babysitting it, I can guarantee you it will fail, in a more spectacular and cryptic way, when run at arms-length via "Knit HTML" or `rmarkdown::render()`. Clean out your workspace and restart R and re-run everything periodically, if things get weird. There are lots of chunk menu items and keyboard shortcuts to accelerate this workflow. Compile the whole document often to catch errors when they're easy to pinpoint and fix. Save often and commit everytime you reach a point that you'd like as a "fall back" position.
 
 You'll develop your own mojo soon, but this should give you your first successful R Markdown experience.
 
