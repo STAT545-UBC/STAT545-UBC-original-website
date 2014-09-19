@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Git(Hub) usage</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Git(Hub) usage</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#step-0-software-installation-and-configuration">Step 0: Software installation and configuration</a></li>
+<li><a href="#step-1-identify-the-remote-repository-to-work-on">Step 1: Identify the remote repository to work on</a></li>
+<li><a href="#step-2-establish-a-connection-between-the-remote-repository-and-a-local-one">Step 2: Establish a connection between the remote repository and a local one</a></li>
+<li><a href="#step-2-plan-b">Step 2, plan B</a></li>
+<li><a href="#step-3-commit-local-changes">Step 3 Commit local changes</a></li>
+<li><a href="#step-4-pull-from-github">Step 4 Pull from GitHub</a></li>
+<li><a href="#step-5-push-to-github">Step 5 Push to GitHub</a></li>
+<li><a href="#further-reading">Further reading</a></li>
+</ul>
+</div>
+
+<div id="overview" class="section level3">
+<h3>Overview</h3>
+<p>This describes the process of working with a Git(Hub) repository. It is highly specific to STAT545 and to using Git(Hub) with R stuff, so don’t expect a general tutorial.</p>
+<p><em>This is really just a draft / outline but will hopefully help even in this form.</em></p>
+</div>
+<div id="step-0-software-installation-and-configuration" class="section level3">
+<h3>Step 0: Software installation and configuration</h3>
+<p>We assume the following</p>
+<ul>
+<li>You’ve already <a href="block001_git-install.html">installed Git and (probably) a Git client</a>.</li>
+<li>You’ve already <a href="cm001_course-intro-sw-install-account-signup.html#register-a-github-account">registered a free GitHub account</a>.</li>
+<li>You’ve already <a href="block000_r-rstudio-install.html">installed R and RStudio</a>.</li>
+<li>You’ve <a href="block005_first-use-git-rstudio.html">tested your installation and configuration of Git, GitHub, and RStudio</a></li>
+<li>You’ve completed <a href="hw01_edit-README.html">Homework 01</a> or an equivalent exercise <strong>to truly test</strong> all of the above.</li>
+</ul>
+<p>We do not cover software installation and set-up here! This is just about <strong>usage</strong>.</p>
+</div>
+<div id="step-1-identify-the-remote-repository-to-work-on" class="section level3">
+<h3>Step 1: Identify the remote repository to work on</h3>
+<p>I assume we are talking about the private GitHub repository that STAT545 has granted you. If your name is “Jennifer Bryan”, your repo should be named <code>zz_jennifer_bryan-coursework</code>. Assuming you are logged in to GitHub, you should be able view (and edit online) this repo at a URL like so (link won’t work because it’s a fake example!):</p>
+<p><a href="https://github.com/STAT545-UBC/zz_jennifer_bryan-coursework">https://github.com/STAT545-UBC/zz_jennifer_bryan-coursework</a></p>
+</div>
+<div id="step-2-establish-a-connection-between-the-remote-repository-and-a-local-one" class="section level3">
+<h3>Step 2: Establish a connection between the remote repository and a local one</h3>
+<p><strong>You only do this once! If you’ve already set this up, read and confirm but don’t redo this. See Plan B.</strong></p>
+<p>Go through the process described in Step 4 of <a href="http://stat545-ubc.github.io/block005_first-use-git-rstudio.html#step-4-clone-the-new-github-repository-to-your-computer-via-rstudio">Test drive RStudio and Github</a> to establish a new connection between an existing remote GitHub repository and a new local repository.</p>
+<p>When you <strong>first</strong> do this, you accomplish two things:</p>
+<ul>
+<li>copy any files that exist on the remote, such as the <code>README.md</code> you created via the browser, to you local repo</li>
+<li>set up a long-term relationship for future pushing and pulling</li>
+</ul>
+<p>This is called “tracking a remote” in Git jargon. Learn more than you ever wanted to <a href="http://git-scm.com/book/en/Git-Basics-Working-with-Remotes">here</a>.</p>
+</div>
+<div id="step-2-plan-b" class="section level3">
+<h3>Step 2, plan B</h3>
+<p>If you think you’ve already established this connection, here’s how you can check.</p>
+<p>Launch RStudio and open the Project that you believe to be the Git repo associated with your coursework and to be tracking the correct repo on GitHub.</p>
+<p>Get into a shell (RStudio &gt; Tools&gt; Shell …).</p>
+<p>Enter <code>pwd</code> to see working directory and re-confirm that you are indeed in the correct directory.</p>
+<p>Enter <code>git remote -v</code>.</p>
+<p>Here’s what I see (note I’m in the main repo for STAT 545 content):</p>
+<pre class="sh"><code>origin  https://github.com/STAT545-UBC/STAT545-UBC.github.io.git (fetch)
+origin  https://github.com/STAT545-UBC/STAT545-UBC.github.io.git (push)</code></pre>
+<p>You should see something like that, but <strong>for your private STAT545 repository</strong>.</p>
+</div>
+<div id="step-3-commit-local-changes" class="section level3">
+<h3>Step 3 Commit local changes</h3>
+<p>I assume you’ve got some local work completed or can do some now. I’ll wait….</p>
+<p>Commit these changes to your local repo.</p>
+<p>From RStudio:</p>
+<ul>
+<li>Click the “Git” tab in upper right pane</li>
+<li>Check “Staged” box for any files whose existence or modifications you want to commit.
+<ul>
+<li>To see more detail on what’s changed in file since you last committed, click on “Diff” for a Git pop-up</li>
+</ul></li>
+<li>If you’re not already in the Git pop-up, click “Commit”</li>
+<li>Type a message in “Commit message”</li>
+<li>Click “Commit”</li>
+</ul>
+</div>
+<div id="step-4-pull-from-github" class="section level3">
+<h3>Step 4 Pull from GitHub</h3>
+<p>We will pull any changes that are on the GitHub repo but not yet on your local version. Why?</p>
+<ul>
+<li>More confirmation that the connection is working.</li>
+<li>Legitimate concern that there could be “upstream” changes you need. Maybe you’ve done some editing in the browser?</li>
+<li>Establish this habit for the future.</li>
+</ul>
+<p>If RStudio is behaving well as your Git client, you should be able to use the blue “pull” arrow button.</p>
+<p>You can also do this from the command line with <code>git pull</code>. Here’s what you’ll see if there’s nothing to pull, which is probably the case:</p>
+<pre class="sh"><code>Jennifers-MacBook-Pro-3:STAT545-UBC.github.io jenny$ git pull
+Already up-to-date.</code></pre>
+</div>
+<div id="step-5-push-to-github" class="section level3">
+<h3>Step 5 Push to GitHub</h3>
+<p>If RStudio is behaving well as your Git client, you should be able to use the green “push” arrow button.</p>
+<p>You can also do this from the command line with <code>git push</code>.</p>
+</div>
+<div id="further-reading" class="section level3">
+<h3>Further reading</h3>
+<p>Long-term, you should understand more about what you are doing. Rote clicking in RStudio is a short-term survival method but won’t work for long.</p>
+<p><a href="https://try.github.io/levels/1/challenges/1">trygit</a> is to (command line) Git as <a href="http://swirlstats.com">swirl</a> is to R. Learn by doing, in small bites.</p>
+<p>The book <a href="http://git-scm.com/book">Pro Git</a> is fantastic and comprehensive.</p>
+<p><a href="http://training.github.com/kit/">GitHub’s own training materials</a> may be helpful.</p>
+<ul>
+<li>They also point to <a href="https://help.github.com/articles/what-are-other-good-resources-for-learning-git-and-github">many other resources</a></li>
+</ul>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
