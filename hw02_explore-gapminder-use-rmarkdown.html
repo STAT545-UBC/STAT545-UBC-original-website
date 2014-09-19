@@ -73,8 +73,11 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="TOC">
 <ul>
-<li><a href="#overview">Overview</a></li>
-<li><a href="#draft-of-hw-guts">Draft of HW guts</a></li>
+<li><a href="#overview">Overview</a><ul>
+<li><a href="#bring-rectangular-data-in">Bring rectangular data in</a></li>
+<li><a href="#smell-test-the-data">Smell test the data</a></li>
+<li><a href="#explore-individual-variables">Explore individual variables</a></li>
+</ul></li>
 <li><a href="#report-your-process">Report your process</a></li>
 <li><a href="#submit-the-assignment">Submit the assignment</a></li>
 <li><a href="#rubric">Rubric</a></li>
@@ -85,21 +88,39 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h3>Overview</h3>
 <p>Consult the <a href="hw00_homework-guidelines.html">general homework guidelines</a>.</p>
 <p>Due before class Monday 2014-09-22.</p>
-<p>The goal is to practice exploring a dataset. In particular, to establish workflows based on <code>data.frame</code>. You will make a couple of figures with <code>ggplot2</code>. You will learn how to author a dynamic report in R Markdown and share it on the web.</p>
-</div>
-<div id="draft-of-hw-guts" class="section level3">
-<h3>Draft of HW guts</h3>
-<p>Work with the Gapminder excerpt from this week. If you really, really want to, you can explore a different dataset but get permission from Jenny.</p>
-<p>Import the data with <code>read.delim()</code> and with <code>read.table()</code>. FYI: <code>read.delim()</code> is just a wrapper around <code>read.table()</code> with specific arguments set to certain values. Read the documentation!</p>
+<p>The goal is to explore a newly imported a dataset. In particular, to establish workflows based on <code>data.frame</code>. You will make a couple of figures with <code>ggplot2</code>. You will learn how to author a dynamic report in R Markdown and share it on the web.</p>
+<p>Remember the <a href="http://en.wikipedia.org/wiki/Sampler_(needlework)">sampler concept</a>. Your homework should serve as your own personal cheatsheet in the future for things to do with a new dataset. Give yourself the cheatsheet you deserve!</p>
+<div id="bring-rectangular-data-in" class="section level4">
+<h4>Bring rectangular data in</h4>
+<p>Work with the <a href="http://tiny.cc/gapminder">Gapminder excerpt</a> introduced this week. <em>If you really, really want to, you can explore a different dataset but get permission from Jenny.</em></p>
+<p>Import the data with <code>read.delim()</code> and with <code>read.table()</code>. FYI: <code>read.delim()</code> is just a wrapper around <code>read.table()</code> with specific arguments set to certain values. <a href="http://www.rdocumentation.org/packages/utils/functions/read.table">Read the documentation!</a></p>
 <ul>
-<li>Try simple calls to both functions. Do you get the same resulting object in your workspace? Use all the ways we’ve learned to inspect an object to back up your claims with hard facts.</li>
+<li>Load the Gapminder data with both functions without specifying args other than <code>file</code>. Do you get the same resulting object in your workspace? Use all the ways we’ve learned to inspect an object to back up your claims with hard facts.</li>
 <li>If you’re not getting the same object, why not?</li>
-<li>Develop the call to <code>read.table()</code> that is equivalent to <code>read.delim()</code>, i.e. how do you need to set various arguments.</li>
+<li>Develop the call to <code>read.table()</code> that is equivalent to <code>read.delim()</code>, i.e. how do you need to set various arguments and describe this in prose as well.</li>
 </ul>
-<p>Determine and report basic facts like the number of observations and which variables are there and what sort of variables they are.</p>
-<p>Make at least one figure.</p>
-<p>Report some very basic descriptive statistics, such as results from <code>summary()</code>.</p>
-<p>There is no requirement to go beyond what we’ve presented in class/tutorials, but of course it’s great if your curiosity leads you to go further.</p>
+</div>
+<div id="smell-test-the-data" class="section level4">
+<h4>Smell test the data</h4>
+<p>Explore your new data.frame.</p>
+<ul>
+<li>Is it a data.frame, a matrix, a vector, a list?</li>
+<li>What’s its mode, class?</li>
+<li>How many variables?</li>
+<li>How many rows/observations?</li>
+<li>Can you get these facts about “extent” or “size” in more than one way? Can you imagine different functions being useful in different contexts?</li>
+<li>What flavor is each the variable?</li>
+</ul>
+</div>
+<div id="explore-individual-variables" class="section level4">
+<h4>Explore individual variables</h4>
+<p>Pick <strong>at least</strong> one categorical variable and at least one quantitiative variable to explore.</p>
+<ul>
+<li>Characterize what’s possible, i.e. all possible values or max vs. min … whatever’s appropriate.</li>
+<li>What’s typical? What’s the spread? What’s the distribution? Etc., tailored to the variable at hand.</li>
+<li>Feel free to use summary stats, tables, figures. We’re NOT expecting high production value (yet).</li>
+</ul>
+</div>
 </div>
 <div id="report-your-process" class="section level3">
 <h3>Report your process</h3>
@@ -107,13 +128,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="submit-the-assignment" class="section level3">
 <h3>Submit the assignment</h3>
-<p>Follow instructions on <a href="http://stat545-ubc.github.io/hw00_homework-guidelines.html#how-to-submit-homework">How to submit homework</a></p>
+<p>Follow instructions on <a href="hw00_homework-guidelines.html#how-to-submit-homework">How to submit homework</a></p>
 </div>
 <div id="rubric" class="section level3">
 <h3>Rubric</h3>
-<p>Check minus: ???</p>
-<p>Check: something in between</p>
-<p>Check plus: ???</p>
+<p><strong>Start using our <a href="peer-review01_marking-rubric.html">general rubric</a> for specifics to evaluate, but be gentle this week!</strong></p>
+<p>Check minus: Hits the elements listed above in a really minimal or rote way, maybe even with a few mistakes/omissions. And/or it’s hard to figure out which file I’m even supposed to be looking at.</p>
+<p>Check: Hits all the elements. No obvious mistakes. Pleasant to read. No heroic detective work required. Solid.</p>
+<p>Check plus: Some “above and beyond”, creativity, etc. You learned something new and you’re eager to incorporate it into your work now.</p>
 </div>
 
 <div class="footer">
