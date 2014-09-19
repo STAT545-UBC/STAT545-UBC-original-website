@@ -102,7 +102,11 @@ If RStudio is behaving well as your Git client, you should be able to use the gr
 
 You can also do this from the command line with `git push`.
 
-### Further reading
+### The end
+
+Now just ... repeat. Do work somewhere. Commit it. Push it or pull it depending on where you did it, but get local and remote "synced up". You're off to the races now.
+
+### Resources
 
 Long-term, you should understand more about what you are doing. Rote clicking in RStudio is a short-term survival method but won't work for long.
 
@@ -114,3 +118,4 @@ The book [Pro Git](http://git-scm.com/book) is fantastic and comprehensive.
 
   * They also point to [many other resources](https://help.github.com/articles/what-are-other-good-resources-for-learning-git-and-github)
 
+[SourceTree](https://help.github.com/articles/what-are-other-good-resources-for-learning-git-and-github) is a much more powerful Git client than RStudio provides. I highly recommend it if you'd like to minimize your usage of Git from the command line.
