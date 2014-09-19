@@ -56,9 +56,10 @@ Play with this visual tool for exploring tabular data:
   
 Check out the [`testdat`](https://github.com/ropensci/testdat) package. Does it ease the pain of getting your `read.table()` arguments "just right"?
 
+  * <https://github.com/ropensci/testdat>
   * Yeah, you will have to install from GitHub instead of CRAN. See above re: being optional.
   
-Read [What I do when I get a new data set as told through tweets](http://simplystatistics.org/2014/06/13/what-i-do-when-i-get-a-new-data-set-as-told-through-tweets/) to get some ideas!
+Read [What I do when I get a new data set as told through tweets](http://simplystatistics.org/2014/06/13/what-i-do-when-i-get-a-new-data-set-as-told-through-tweets/) from [SimplyStatistics](http://simplystatistics.org) to get some ideas!
   
 ### Report your process
 
