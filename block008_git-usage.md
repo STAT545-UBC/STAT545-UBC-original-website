@@ -10,8 +10,6 @@ output:
 
 This describes the process of working with a Git(Hub) repository. It is highly specific to STAT545 and to using Git(Hub) with R stuff, so don't expect a general tutorial.
 
-*This is really just a draft / outline but will hopefully help even in this form.*
-
 ### Step 0: Software installation and configuration
 
 We assume the following
