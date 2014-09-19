@@ -45,6 +45,21 @@ Pick __at least__ one categorical variable and at least one quantitiative variab
   * What's typical? What's the spread? What's the distribution? Etc., tailored to the variable at hand.
   * Feel free to use summary stats, tables, figures. We're NOT expecting high production value (yet).
   
+#### But I want to do more!
+
+*This is just for people who want to take things further! NOT REQUIRED!*
+
+Play with this visual tool for exploring tabular data:
+
+  * <http://setosa.io/blog/2014/08/03/csv-fingerprints/>
+  * Yeah, you might need to get the Gapminder excerpt into comma delimited form to use the tool. See above re: being optional.
+  
+Check out the [`testdat`](https://github.com/ropensci/testdat) package. Does it ease the pain of getting your `read.table()` arguments "just right"?
+
+  * Yeah, you will have to install from GitHub instead of CRAN. See above re: being optional.
+  
+Read [What I do when I get a new data set as told through tweets](http://simplystatistics.org/2014/06/13/what-i-do-when-i-get-a-new-data-set-as-told-through-tweets/) to get some ideas!
+  
 ### Report your process
 
 You're encouraged to reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc.
@@ -61,4 +76,4 @@ Check minus: Hits the elements listed above in a really minimal or rote way, may
 
 Check: Hits all the elements. No obvious mistakes. Pleasant to read. No heroic detective work required. Solid.
 
-Check plus: Some "above and beyond", creativity, etc. You learned something new and you're eager to incorporate it into your work now.
+Check plus: Some "above and beyond", creativity, etc. You learned something new from reviewing their work and you're eager to incorporate it into your work now.
