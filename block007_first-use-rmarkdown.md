@@ -8,7 +8,7 @@ output:
 
 ### Overview
 
-This describes a hands-on activity where the goal is to author an R Markdown document and compile it to HTML. We discuss how to keep the intermediate Markdown file, the figures, and what to commit to Git and push to GitHub.
+This describes a hands-on activity where the goal is to author an R Markdown document and render it to HTML. We discuss how to keep the intermediate Markdown file, the figures, and what to commit to Git and push to GitHub.
 
 Here is the official R Markdown documentation:
 
@@ -30,7 +30,7 @@ Launch RStudio, probably in the Project that corresponds to the repository where
 
 ### Step 2: Practice with RStudio's boilerplate R Markdown document
 
-I am modelling "walk before you run" here. It is best, especially for novices, to increase complexity in small increments. We will test our system's ability to compile the ["hello world"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) of R Markdown documents before we muddy the waters with our own, probably buggy, documents.
+I am modelling "walk before you run" here. It is best, especially for novices, to increase complexity in small increments. We will test our system's ability to render the ["hello world"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) of R Markdown documents before we muddy the waters with our own, probably buggy, documents.
 
 Do this: File > New File > R Markdown ...
 
@@ -46,6 +46,8 @@ Click on "Knit HTML" or do File > Knit. RStudio should display a preview of the 
 Congratulations, you've just made your first reproducible report with R Markdown.
 
 ### Step 3: Save the intermediate Markdown
+
+*This is directly related to eventual publishing on GitHub. If that does not apply to you, skip this step.*
 
 It will have nice side effects on GitHub if we save the intermediate Markdown file that is produced when compiling to HTML. The magical process is like so: `foo.rmd --> foo.md --> foo.html`. By default RStudio discards `foo.md` but it's easy to request that it be kept. This is one of the many things we can control in the YAML frontmatter -- the text at the top of your file between leading and trailing lines of `---`. Two approaches:
 
@@ -64,7 +66,7 @@ It will have nice side effects on GitHub if we save the intermediate Markdown fi
    ---  
 ```
 
-Save! Recompile via "Knit HTML" button.
+Save! Render via "Knit HTML" button.
 
 Now revisit the file browser. In addition to `foo.rmd` and `foo.html`, you should now see `foo.md` and a directory `foo_files`, where any figures created by the document will live.
 
@@ -80,11 +82,11 @@ Insert 1 to 3 lines of functioning code that begin the task at hand. "Walk throu
 
 Satisfied? Save!
 
-Now compile the whole document via "Knit HTML." Voilà!
+Now render the whole document via "Knit HTML." Voilà!
 
 ### Step 5: Develop your report
 
-In this incremental manner, develop your report. Add code to this chunk. Refine it. Add new chunks. Go crazy! But keep running the code "manually" to make sure it works. If it doesn't work with you babysitting it, I can guarantee you it will fail, in a more spectacular and cryptic way, when run at arms-length via "Knit HTML" or `rmarkdown::render()`. Clean out your workspace and restart R and re-run everything periodically, if things get weird. There are lots of chunk menu items and keyboard shortcuts to accelerate this workflow. Compile the whole document often to catch errors when they're easy to pinpoint and fix. Save often and commit everytime you reach a point that you'd like as a "fall back" position.
+In this incremental manner, develop your report. Add code to this chunk. Refine it. Add new chunks. Go crazy! But keep running the code "manually" to make sure it works. If it doesn't work with you babysitting it, I can guarantee you it will fail, in a more spectacular and cryptic way, when run at arms-length via "Knit HTML" or `rmarkdown::render()`. Clean out your workspace and restart R and re-run everything periodically, if things get weird. There are lots of chunk menu items and keyboard shortcuts to accelerate this workflow. Render the whole document often to catch errors when they're easy to pinpoint and fix. Save often and commit every time you reach a point that you'd like as a "fall back" position.
 
 You'll develop your own mojo soon, but this should give you your first successful R Markdown experience.
 
@@ -92,8 +94,21 @@ You'll develop your own mojo soon, but this should give you your first successfu
 
 Since we are pushing coursework to GitHub anyway, I focus on how that delivers decent web publishing for "free."
 
-Markdown documents get special treatment on GitHub: when you visit one in a web browser, instead of seeing the raw Markdown, by default you see a preview of how it will look when compiled to proper HTML. This is why, in Step 3, we alter the YAML to request that the intermediate Markdown file be retained. If there are R chunks that make figures, `keep_md: yes` will also cause those figure files to be left behind in a sensibly named sub-directory. If you commit and push `foo.md` and everything inside `foo_files`, then anyone with permission to view your GitHub repo can see a decent-looking version of your report.
+Markdown documents get special treatment on GitHub: when you visit one in a web browser, instead of seeing the raw Markdown, by default you see a preview of how it will look when rendered to proper HTML. This is why, in Step 3, we alter the YAML to request retention of the intermediate Markdown file. If there are R chunks that make figures, `keep_md: yes` will also cause those figure files to be left behind in a sensibly named sub-directory. If you commit and push `foo.md` and everything inside `foo_files`, then anyone with permission to view your GitHub repo can see a decent-looking version of your report.
 
 This is (sort of) another example of keeping things machine- and human-readable. By making `foo.rmd` available, others can see and run your __actual code__. By sharing `foo.md` and/or `foo.html`, others can casually browse your end product and decide if they even want to run your code.
 
 HTML files, such as `foo.html`, are not immediately useful on GitHub (though your local versions are easily viewable). Visit one and you'll see the raw HTML. Yuck. But there is a way to get a preview: <http://htmlpreview.github.io>. Expect some pain with HTML files inside private repos. When it becomes vital to see proper HTML in its fully glory, it's time to use a more sophisticated web publishing strategy.
+
+### Troubleshooting
+
+__Make sure RStudio and the `rmarkdown` package (and its dependencies) are up-to-date.__ In case of catastrophic failure to render R Markdown, consider that your software may be too old. R Markdown has been developing rapidly (written 2014-09), so you need a very current version of RStudio and `rmarkdown` to enjoy all the goodies we describe here.
+
+__Insert a chunk in your `.rmd` document so that it renders even when there are errors.__ Some errors are easier to diagnose if you can execute specific R statements during rendering and leave more evidence behind for forensic examination. Put [this chunk](https://gist.github.com/jennybc/679ea117b61c9126034a) near the top of your R Markdown document if you want `foo.rmd` to produce downstream documents (`.md` and/or `.html`) even in the face of errors.
+
+__Check your working directory.__ It's going to break your heart as you learn how often your mistakes are really mundane and basic. Ask me how I know. When things go wrong consider:
+
+  * What is the working directory?
+  * Is that file I want to read/write actually where I think it is?
+  
+Drop these commands into R chunks to check the above: `getwd()` will display working directory at __run time__. If you monkeyed around with working directory with, e.g., the mouse, maybe it's set to one place for your interactive development and another when "Knit HTML" takes over. `list.files()` is also handy for brute force checking of which files are lying around within arm's reach.

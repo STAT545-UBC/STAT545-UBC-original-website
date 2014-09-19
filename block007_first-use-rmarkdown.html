@@ -81,12 +81,13 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#step-4-swap-out-the-guts-of-the-document">Step 4: Swap out the “guts” of the document</a></li>
 <li><a href="#step-5-develop-your-report">Step 5: Develop your report</a></li>
 <li><a href="#step-6-publish-your-report">Step 6: Publish your report</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
 </ul>
 </div>
 
 <div id="overview" class="section level3">
 <h3>Overview</h3>
-<p>This describes a hands-on activity where the goal is to author an R Markdown document and compile it to HTML. We discuss how to keep the intermediate Markdown file, the figures, and what to commit to Git and push to GitHub.</p>
+<p>This describes a hands-on activity where the goal is to author an R Markdown document and render it to HTML. We discuss how to keep the intermediate Markdown file, the figures, and what to commit to Git and push to GitHub.</p>
 <p>Here is the official R Markdown documentation:</p>
 <ul>
 <li><a href="http://rmarkdown.rstudio.com">http://rmarkdown.rstudio.com</a></li>
@@ -109,7 +110,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="step-2-practice-with-rstudios-boilerplate-r-markdown-document" class="section level3">
 <h3>Step 2: Practice with RStudio’s boilerplate R Markdown document</h3>
-<p>I am modelling “walk before you run” here. It is best, especially for novices, to increase complexity in small increments. We will test our system’s ability to compile the <a href="http://en.wikipedia.org/wiki/%22Hello,_world!%22_program">“hello world”</a> of R Markdown documents before we muddy the waters with our own, probably buggy, documents.</p>
+<p>I am modelling “walk before you run” here. It is best, especially for novices, to increase complexity in small increments. We will test our system’s ability to render the <a href="http://en.wikipedia.org/wiki/%22Hello,_world!%22_program">“hello world”</a> of R Markdown documents before we muddy the waters with our own, probably buggy, documents.</p>
 <p>Do this: File &gt; New File &gt; R Markdown …</p>
 <ul>
 <li>Give it an informative title. This will appear in the document but does not necessarily have anything to do with the file’s name. But the title and filename should be similar! The title is for human eyeballs, so it can contain spaces and punctuation. The filename is for humans and computers, so it should have similar words in it but no spaces and no punctuation.</li>
@@ -123,6 +124,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="step-3-save-the-intermediate-markdown" class="section level3">
 <h3>Step 3: Save the intermediate Markdown</h3>
+<p><em>This is directly related to eventual publishing on GitHub. If that does not apply to you, skip this step.</em></p>
 <p>It will have nice side effects on GitHub if we save the intermediate Markdown file that is produced when compiling to HTML. The magical process is like so: <code>foo.rmd --&gt; foo.md --&gt; foo.html</code>. By default RStudio discards <code>foo.md</code> but it’s easy to request that it be kept. This is one of the many things we can control in the YAML frontmatter – the text at the top of your file between leading and trailing lines of <code>---</code>. Two approaches:</p>
 <ul>
 <li><p>RStudio GUI: click on the “gear” in the top bar of the source editor, near the “Knit HTML” button. Go to the Advanced tab and check “Keep markdown source file.”</p></li>
@@ -136,7 +138,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
      html_document:  
        keep_md: TRUE  
    ---  </code></pre>
-<p>Save! Recompile via “Knit HTML” button.</p>
+<p>Save! Render via “Knit HTML” button.</p>
 <p>Now revisit the file browser. In addition to <code>foo.rmd</code> and <code>foo.html</code>, you should now see <code>foo.md</code> and a directory <code>foo_files</code>, where any figures created by the document will live.</p>
 </div>
 <div id="step-4-swap-out-the-guts-of-the-document" class="section level3">
@@ -146,19 +148,30 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>Insert an empty R chunk, via the “Chunk” menu in upper right of source editor or with corresponding keyboard shortcut.</p>
 <p>Insert 1 to 3 lines of functioning code that begin the task at hand. “Walk through” and run those lines using the “Run button” the corresponding keyboard shortcut. You MUST make sure your code actually works!</p>
 <p>Satisfied? Save!</p>
-<p>Now compile the whole document via “Knit HTML.” Voilà!</p>
+<p>Now render the whole document via “Knit HTML.” Voilà!</p>
 </div>
 <div id="step-5-develop-your-report" class="section level3">
 <h3>Step 5: Develop your report</h3>
-<p>In this incremental manner, develop your report. Add code to this chunk. Refine it. Add new chunks. Go crazy! But keep running the code “manually” to make sure it works. If it doesn’t work with you babysitting it, I can guarantee you it will fail, in a more spectacular and cryptic way, when run at arms-length via “Knit HTML” or <code>rmarkdown::render()</code>. Clean out your workspace and restart R and re-run everything periodically, if things get weird. There are lots of chunk menu items and keyboard shortcuts to accelerate this workflow. Compile the whole document often to catch errors when they’re easy to pinpoint and fix. Save often and commit everytime you reach a point that you’d like as a “fall back” position.</p>
+<p>In this incremental manner, develop your report. Add code to this chunk. Refine it. Add new chunks. Go crazy! But keep running the code “manually” to make sure it works. If it doesn’t work with you babysitting it, I can guarantee you it will fail, in a more spectacular and cryptic way, when run at arms-length via “Knit HTML” or <code>rmarkdown::render()</code>. Clean out your workspace and restart R and re-run everything periodically, if things get weird. There are lots of chunk menu items and keyboard shortcuts to accelerate this workflow. Render the whole document often to catch errors when they’re easy to pinpoint and fix. Save often and commit every time you reach a point that you’d like as a “fall back” position.</p>
 <p>You’ll develop your own mojo soon, but this should give you your first successful R Markdown experience.</p>
 </div>
 <div id="step-6-publish-your-report" class="section level3">
 <h3>Step 6: Publish your report</h3>
 <p>Since we are pushing coursework to GitHub anyway, I focus on how that delivers decent web publishing for “free.”</p>
-<p>Markdown documents get special treatment on GitHub: when you visit one in a web browser, instead of seeing the raw Markdown, by default you see a preview of how it will look when compiled to proper HTML. This is why, in Step 3, we alter the YAML to request that the intermediate Markdown file be retained. If there are R chunks that make figures, <code>keep_md: yes</code> will also cause those figure files to be left behind in a sensibly named sub-directory. If you commit and push <code>foo.md</code> and everything inside <code>foo_files</code>, then anyone with permission to view your GitHub repo can see a decent-looking version of your report.</p>
+<p>Markdown documents get special treatment on GitHub: when you visit one in a web browser, instead of seeing the raw Markdown, by default you see a preview of how it will look when rendered to proper HTML. This is why, in Step 3, we alter the YAML to request retention of the intermediate Markdown file. If there are R chunks that make figures, <code>keep_md: yes</code> will also cause those figure files to be left behind in a sensibly named sub-directory. If you commit and push <code>foo.md</code> and everything inside <code>foo_files</code>, then anyone with permission to view your GitHub repo can see a decent-looking version of your report.</p>
 <p>This is (sort of) another example of keeping things machine- and human-readable. By making <code>foo.rmd</code> available, others can see and run your <strong>actual code</strong>. By sharing <code>foo.md</code> and/or <code>foo.html</code>, others can casually browse your end product and decide if they even want to run your code.</p>
 <p>HTML files, such as <code>foo.html</code>, are not immediately useful on GitHub (though your local versions are easily viewable). Visit one and you’ll see the raw HTML. Yuck. But there is a way to get a preview: <a href="http://htmlpreview.github.io">http://htmlpreview.github.io</a>. Expect some pain with HTML files inside private repos. When it becomes vital to see proper HTML in its fully glory, it’s time to use a more sophisticated web publishing strategy.</p>
+</div>
+<div id="troubleshooting" class="section level3">
+<h3>Troubleshooting</h3>
+<p><strong>Make sure RStudio and the <code>rmarkdown</code> package (and its dependencies) are up-to-date.</strong> In case of catastrophic failure to render R Markdown, consider that your software may be too old. R Markdown has been developing rapidly (written 2014-09), so you need a very current version of RStudio and <code>rmarkdown</code> to enjoy all the goodies we describe here.</p>
+<p><strong>Insert a chunk in your <code>.rmd</code> document so that it renders even when there are errors.</strong> Some errors are easier to diagnose if you can execute specific R statements during rendering and leave more evidence behind for forensic examination. Put <a href="https://gist.github.com/jennybc/679ea117b61c9126034a">this chunk</a> near the top of your R Markdown document if you want <code>foo.rmd</code> to produce downstream documents (<code>.md</code> and/or <code>.html</code>) even in the face of errors.</p>
+<p><strong>Check your working directory.</strong> It’s going to break your heart as you learn how often your mistakes are really mundane and basic. Ask me how I know. When things go wrong consider:</p>
+<ul>
+<li>What is the working directory?</li>
+<li>Is that file I want to read/write actually where I think it is?</li>
+</ul>
+<p>Drop these commands into R chunks to check the above: <code>getwd()</code> will display working directory at <strong>run time</strong>. If you monkeyed around with working directory with, e.g., the mouse, maybe it’s set to one place for your interactive development and another when “Knit HTML” takes over. <code>list.files()</code> is also handy for brute force checking of which files are lying around within arm’s reach.</p>
 </div>
 
 <div class="footer">
