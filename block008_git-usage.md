@@ -100,11 +100,24 @@ Already up-to-date.
 
 If RStudio is behaving well as your Git client, you should be able to use the green "push" arrow button.
 
-You can also do this from the command line with `git push`.
+You can also do this from the command line with `git push`. After I made some edits to this document and in the topic index, here's what my push looked like:
+
+```sh
+Jennifers-MacBook-Pro-3:STAT545-UBC.github.io jenny$ git push
+Counting objects: 13, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (10/10), done.
+Writing objects: 100% (10/10), 5.97 KiB | 0 bytes/s, done.
+Total 10 (delta 7), reused 0 (delta 0)
+To https://github.com/STAT545-UBC/STAT545-UBC.github.io.git
+   c82b90b..89b984e  master -> master
+```
+
+That's an example of a successful push.
 
 ### The end
 
-Now just ... repeat. Do work somewhere. Commit it. Push it or pull it depending on where you did it, but get local and remote "synced up". You're off to the races now.
+Now just ... repeat. Do work somewhere. Commit it. Push it or pull it depending on where you did it, but get local and remote "synced up". Repeat.
 
 ### Resources
 
