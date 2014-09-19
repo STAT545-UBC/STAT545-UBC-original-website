@@ -165,13 +165,18 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="troubleshooting" class="section level3">
 <h3>Troubleshooting</h3>
 <p><strong>Make sure RStudio and the <code>rmarkdown</code> package (and its dependencies) are up-to-date.</strong> In case of catastrophic failure to render R Markdown, consider that your software may be too old. R Markdown has been developing rapidly (written 2014-09), so you need a very current version of RStudio and <code>rmarkdown</code> to enjoy all the goodies we describe here.</p>
-<p><strong>Insert a chunk in your <code>.rmd</code> document so that it renders even when there are errors.</strong> Some errors are easier to diagnose if you can execute specific R statements during rendering and leave more evidence behind for forensic examination. Put <a href="https://gist.github.com/jennybc/679ea117b61c9126034a">this chunk</a> near the top of your R Markdown document if you want <code>foo.rmd</code> to produce downstream documents (<code>.md</code> and/or <code>.html</code>) even in the face of errors.</p>
+<p><strong>Insert a chunk in your <code>.rmd</code> document so that it renders even when there are errors.</strong> Some errors are easier to diagnose if you can execute specific R statements during rendering and leave more evidence behind for forensic examination. Put <a href="https://gist.github.com/jennybc/679ea117b61c9126034a">this chunk</a>:</p>
+<pre><code>```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```</code></pre>
+
+<p>near the top of your R Markdown document if you want to soldier on through errors, i.e. turn <code>foo.rmd</code> into <code>foo.md</code> and/or <code>foo.html</code> no matter what. This is also helpful if you are writing a tutorial and want to demo code that throws an error.</p>
 <p><strong>Check your working directory.</strong> It’s going to break your heart as you learn how often your mistakes are really mundane and basic. Ask me how I know. When things go wrong consider:</p>
 <ul>
 <li>What is the working directory?</li>
 <li>Is that file I want to read/write actually where I think it is?</li>
 </ul>
-<p>Drop these commands into R chunks to check the above: <code>getwd()</code> will display working directory at <strong>run time</strong>. If you monkeyed around with working directory with, e.g., the mouse, maybe it’s set to one place for your interactive development and another when “Knit HTML” takes over. <code>list.files()</code> is also handy for brute force checking of which files are lying around within arm’s reach.</p>
+<p>Drop these commands into R chunks to check the above: <code>getwd()</code> will display working directory at <strong>run time</strong>. If you monkeyed around with working directory with, e.g., the mouse, maybe it’s set to one place for your interactive development and another when “Knit HTML” takes over. <code>list.files()</code> is also handy for brute force checking of which files are lying around within arm’s reach. <a href="https://github.com/yihui/knitr/blob/master/FAQ.md">Don’t try to change working directory within an R Markdown document</a>. Just don’t. And don’t be in a hurry to create a complicated sub-directory structure. RStudio and <code>knitr</code> (which “Knit HTML” relies on) are rather opinionated about the working directory being set to the <code>.rmd</code> file’s location and about all files living together in one big happy directory. This can all be worked around. But not today.</p>
 </div>
 
 <div class="footer">
