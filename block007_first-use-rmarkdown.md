@@ -78,7 +78,7 @@ Write a single English sentence.
 
 Insert an empty R chunk, via the "Chunk" menu in upper right of source editor or with corresponding keyboard shortcut.
 
-Insert 1 to 3 lines of functioning code that begin the task at hand. "Walk through" and run those lines using the "Run button" the corresponding keyboard shortcut. You MUST make sure your code actually works!
+Insert 1 to 3 lines of functioning code that begin the task at hand. "Walk through" and run those lines using the "Run" button or the corresponding keyboard shortcut. You MUST make sure your code actually works!
 
 Satisfied? Save!
 
