@@ -18,7 +18,7 @@ Until we get rolling, feel free to look at older material that will appear here 
   * [Basic care and feeding of data in R](block006_care-feeding-data.html) *DRAFT; porting from 2013 not complete yet*
   * [Introduction to `ggplot2`](https://github.com/jennybc/ggplot2-tutorial) *links to materials from a May 2014 workshop*
   * [Test your ability to author an R Markdown report](block007_first-use-rmarkdown.html)
-  * [Git usage](block008_git-usage.html)
+  * [Git(Hub) usage](block008_git-usage.html)
   
 ### Course material
 
@@ -45,10 +45,10 @@ Topics traditionally covered in STAT 545A, with light updating:
 
   * ~~Introduction to R and the [RStudio IDE](http://www.rstudio.com/products/rstudio/)~~ *done*
   * ~~R scripts and workspaces, RStudio Projects; how to get your work done~~ *done*
-  * Creating reports from R scripts and [R Markdown](http://rmarkdown.rstudio.com), using [`knitr`](http://yihui.name/knitr/)
+  * ~~Creating reports from R scripts and [R Markdown](http://rmarkdown.rstudio.com), using [`knitr`](http://yihui.name/knitr/)~~ *done*
   * ~~Deep thoughts about data analytic work~~ *done*
-  * Care and feeding of data in R; data frames
-  * R objects -- beyond data frames
+  * ~~Care and feeding of data in R; data frames~~ *done*
+  * ~~R objects -- beyond data frames~~ *done*
   * Indexing, subsetting
   * Data aggregation; "apply" functions, [`plyr`](http://plyr.had.co.nz), [`dplyr`](https://github.com/hadley/dplyr)
   * How to help yourself, how to ask questions to get useful answers
