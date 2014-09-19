@@ -62,7 +62,7 @@ It will have nice side effects on GitHub if we save the intermediate Markdown fi
    date: "10 September, 2014"  
    output:  
      html_document:  
-       keep_md: TRUE  
+       keep_md: true  
    ---  
 ```
 
@@ -77,6 +77,10 @@ Select everything but the YAML frontmatter and ... delete it!
 Write a single English sentence.
 
 Insert an empty R chunk, via the "Chunk" menu in upper right of source editor or with corresponding keyboard shortcut.
+
+    ```{r}
+    ## insert your brilliant WORKING code here
+    ```
 
 Insert 1 to 3 lines of functioning code that begin the task at hand. "Walk through" and run those lines using the "Run" button or the corresponding keyboard shortcut. You MUST make sure your code actually works!
 
@@ -94,11 +98,11 @@ You'll develop your own mojo soon, but this should give you your first successfu
 
 Since we are pushing coursework to GitHub anyway, I focus on how that delivers decent web publishing for "free."
 
-Markdown documents get special treatment on GitHub: when you visit one in a web browser, instead of seeing the raw Markdown, by default you see a preview of how it will look when rendered to proper HTML. This is why, in Step 3, we alter the YAML to request retention of the intermediate Markdown file. If there are R chunks that make figures, `keep_md: yes` will also cause those figure files to be left behind in a sensibly named sub-directory. If you commit and push `foo.md` and everything inside `foo_files`, then anyone with permission to view your GitHub repo can see a decent-looking version of your report.
+Markdown documents get special treatment on GitHub: when you visit one in a web browser, instead of seeing the raw Markdown, by default you see a preview of how it will look when rendered to proper HTML. This is why, in Step 3, we alter the YAML to request retention of the intermediate Markdown file. If there are R chunks that make figures, `keep_md: true` will also cause those figure files to be left behind in a sensibly named sub-directory. If you commit and push `foo.md` and everything inside `foo_files`, then anyone with permission to view your GitHub repo can see a decent-looking version of your report.
 
 This is (sort of) another example of keeping things machine- and human-readable. By making `foo.rmd` available, others can see and run your __actual code__. By sharing `foo.md` and/or `foo.html`, others can casually browse your end product and decide if they even want to run your code.
 
-HTML files, such as `foo.html`, are not immediately useful on GitHub (though your local versions are easily viewable). Visit one and you'll see the raw HTML. Yuck. But there is a way to get a preview: <http://htmlpreview.github.io>. Expect some pain with HTML files inside private repos. When it becomes vital to see proper HTML in its full glory, it's time to use a more sophisticated web publishing strategy.
+HTML files, such as `foo.html`, are not immediately useful on GitHub (though your local versions are easily viewable). Visit one and you'll see the raw HTML. Yuck. But there is a way to get a preview: <http://htmlpreview.github.io>. Expect some token/authentication pain with HTML files inside private repos. When it becomes vital to see proper HTML in its full glory, it's time to use a more sophisticated web publishing strategy.
 
 ### Troubleshooting
 
