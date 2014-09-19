@@ -98,7 +98,7 @@ Markdown documents get special treatment on GitHub: when you visit one in a web 
 
 This is (sort of) another example of keeping things machine- and human-readable. By making `foo.rmd` available, others can see and run your __actual code__. By sharing `foo.md` and/or `foo.html`, others can casually browse your end product and decide if they even want to run your code.
 
-HTML files, such as `foo.html`, are not immediately useful on GitHub (though your local versions are easily viewable). Visit one and you'll see the raw HTML. Yuck. But there is a way to get a preview: <http://htmlpreview.github.io>. Expect some pain with HTML files inside private repos. When it becomes vital to see proper HTML in its fully glory, it's time to use a more sophisticated web publishing strategy.
+HTML files, such as `foo.html`, are not immediately useful on GitHub (though your local versions are easily viewable). Visit one and you'll see the raw HTML. Yuck. But there is a way to get a preview: <http://htmlpreview.github.io>. Expect some pain with HTML files inside private repos. When it becomes vital to see proper HTML in its full glory, it's time to use a more sophisticated web publishing strategy.
 
 ### Troubleshooting
 
