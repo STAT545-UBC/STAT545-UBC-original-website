@@ -168,6 +168,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="troubleshooting" class="section level3">
 <h3>Troubleshooting</h3>
 <p><strong>Make sure RStudio and the <code>rmarkdown</code> package (and its dependencies) are up-to-date.</strong> In case of catastrophic failure to render R Markdown, consider that your software may be too old. R Markdown has been developing rapidly (written 2014-09), so you need a very current version of RStudio and <code>rmarkdown</code> to enjoy all the goodies we describe here.</p>
+<p><strong>Get rid of your <code>.Rprofile</code></strong>, at least temporarily. I have found that a “mature” <code>.Rprofile</code> that has accumulated haphazardly over the years can cause trouble. Specifically, if you’ve got anything in there relating to <code>knitr</code>, <code>markdown</code>, <code>rmarkdown</code> and RStudio stuff, it may be preventing the installation or usage of the most recent goodies (see above). Comment the whole file out or rename it something else and relaunch or reinstall RStudio.</p>
 <p><strong>Insert a chunk in your <code>.rmd</code> document so that it renders even when there are errors.</strong> Some errors are easier to diagnose if you can execute specific R statements during rendering and leave more evidence behind for forensic examination. Put <a href="https://gist.github.com/jennybc/679ea117b61c9126034a">this chunk</a>:</p>
 <pre><code>```{r setup, include = FALSE, cache = FALSE}
 knitr::opts_chunk$set(error = TRUE)

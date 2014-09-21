@@ -108,6 +108,8 @@ HTML files, such as `foo.html`, are not immediately useful on GitHub (though you
 
 __Make sure RStudio and the `rmarkdown` package (and its dependencies) are up-to-date.__ In case of catastrophic failure to render R Markdown, consider that your software may be too old. R Markdown has been developing rapidly (written 2014-09), so you need a very current version of RStudio and `rmarkdown` to enjoy all the goodies we describe here.
 
+__Get rid of your `.Rprofile`__, at least temporarily. I have found that a "mature" `.Rprofile` that has accumulated haphazardly over the years can cause trouble. Specifically, if you've got anything in there relating to `knitr`, `markdown`, `rmarkdown` and RStudio stuff, it may be preventing the installation or usage of the most recent goodies (see above). Comment the whole file out or rename it something else and relaunch or reinstall RStudio.
+
 __Insert a chunk in your `.rmd` document so that it renders even when there are errors.__ Some errors are easier to diagnose if you can execute specific R statements during rendering and leave more evidence behind for forensic examination. Put [this chunk](https://gist.github.com/jennybc/679ea117b61c9126034a):
 
 <pre><code>```{r setup, include = FALSE, cache = FALSE}
