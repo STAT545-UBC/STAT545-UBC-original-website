@@ -11,7 +11,7 @@ output:
   * Basics of R objects (TBC in future classes)
   * Just enough Git and Markdown knowledge for you to submit homework
     - NEW Here is the hands-on activity Bernhard lead, [testing your installation and configuration of Git, GitHub, and RStudio](block005_first-use-git-rstudio.html)
-    - See the block on [configuring Git to communicate with GitHub](block003_git-config-credential-cache.html), if you are still struggling. This is one-time pain (or once-per-computer pain), so don't despair.
+    - See the block on [configuring Git to communicate with GitHub](git_credentials.html), if you are still struggling. This is one-time pain (or once-per-computer pain), so don't despair.
     - Homework will be due before class Monday 2014-09-15. ~~Not posted yet but will be creating a basic (R?) Markdown document and posting to GitHub.~~
     - NEW Read the [General Homework Guidelines](http://stat545-ubc.github.io/hw00_homework-guidelines.html)
     - NEW See the assignment [Homework 01](hw01_edit-README.html)

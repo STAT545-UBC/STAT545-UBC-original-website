@@ -75,25 +75,19 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <ul>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#step-0-git-installation-and-github-account-registration">Step 0: Git installation and GitHub account registration</a></li>
-<li><a href="#step-1-check-that-rstudio-knows-where-to-find-the-git-executable">Step 1: Check that RStudio knows where to find the Git executable</a></li>
-<li><a href="#step-2-introduce-yourself-to-git">Step 2: Introduce yourself to <code>git</code></a></li>
+<li><a href="#step-1-tell-rstudio-where-to-find-git">Step 1: <a href="git_whereToFind.html">Tell RStudio where to find Git</a></a></li>
+<li><a href="#step-2-introduced-yourself-to-git">Step 2: <a href="git_introduceToGit">Introduced yourself to Git</a></a></li>
 <li><a href="#step-3-create-a-new-repository-on-github">Step 3: Create a new repository on GitHub</a></li>
 <li><a href="#step-4-clone-the-new-github-repository-to-your-computer-via-rstudio">Step 4: Clone the new GitHub repository to your computer via RStudio</a></li>
 <li><a href="#step-4-plan-b">Step 4, plan B</a></li>
 <li><a href="#step-5-make-local-changes-save-then-and-commit-them">Step 5: Make local changes, save then, and commit them</a></li>
 <li><a href="#step-6-push-your-local-changes-online-to-github">Step 6: Push your local changes online to GitHub</a></li>
 <li><a href="#step-6-plan-b">Step 6, plan B</a></li>
-<li><a href="#step-7-automatic-github-authentication">Step 7: Automatic GitHub authentication</a><ul>
-<li><a href="#linux">Linux</a></li>
-<li><a href="#mac">Mac</a></li>
-<li><a href="#windows">Windows</a></li>
-</ul></li>
 </ul>
 </div>
 
 <div id="overview" class="section level3">
 <h3>Overview</h3>
-<p>This describes a hands-on activity where the goal is make sure all the software installation and account configuration is done. We will do a bit of Git work, but the Big Picture, i.e. Why are we doing this?, is covered elsewhere. This is really just a test.</p>
 </div>
 <div id="step-0-git-installation-and-github-account-registration" class="section level3">
 <h3>Step 0: Git installation and GitHub account registration</h3>
@@ -104,39 +98,11 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>You’ve already <a href="block000_r-rstudio-install.html">installed R and RStudio</a>.</li>
 </ul>
 </div>
-<div id="step-1-check-that-rstudio-knows-where-to-find-the-git-executable" class="section level3">
-<h3>Step 1: Check that RStudio knows where to find the Git executable</h3>
-<p><strong>You only have to set this up once per machine.</strong></p>
-<p>From RStudio, go to <em>Tools &gt; Global Options &gt; Git</em> and make sure that the box <em>Git executable</em> points to … the Git executable. It should read something like:</p>
-<ul>
-<li><p><code>/usr/bin/git</code> (Mac, Linux)</p></li>
-<li><p><code>C:/Program Files (x86)/Git/bin/git.exe</code> (Windows)</p>
-<ul>
-<li><strong>WARNING</strong>: On Windows, do <strong>NOT</strong> use <code>C:/Program Files (x86)/Git/cmd/git.exe</code>. The difference between the good and bad paths is <code>bin</code> vs. <code>cmd</code>.</li>
-</ul></li>
-</ul>
-<p>If you are not sure where the Git exectuable lives, try this in a shell:</p>
-<ul>
-<li><p><code>which git</code> (Mac, Linux)</p></li>
-<li><p><code>where git</code> (?some? versions of Windows)</p></li>
-</ul>
-<p><strong>Restart</strong> RStudio if you made any changes. THIS IS VERY IMPORTANT. DO IT.</p>
+<div id="step-1-tell-rstudio-where-to-find-git" class="section level3">
+<h3>Step 1: <a href="git_whereToFind.html">Tell RStudio where to find Git</a></h3>
 </div>
-<div id="step-2-introduce-yourself-to-git" class="section level3">
-<h3>Step 2: Introduce yourself to <code>git</code></h3>
-<p><strong>You only have to set this up once per machine.</strong></p>
-<p>From RStudio, go to <em>Tools &gt; Shell</em> and tell <code>git</code> your name and <strong>GitHub email</strong> by typing (use your own name and email):</p>
-<ul>
-<li><p><code>git config --global user.name 'Bernhard Konrad'</code></p>
-<ul>
-<li>This does <strong>NOT</strong> have to be your GitHub username, although it can be. Another good option is your actual first name and last name. Your commits will be labelled with this name, so this should be informative to potential collaborators.</li>
-</ul></li>
-<li><p><code>git config --global user.email 'bernhard.konrad@gmail.com'</code></p>
-<ul>
-<li>This <strong>must</strong> be the email that you used to sign up for GitHub.</li>
-</ul></li>
-</ul>
-<p>These commands return nothing. You can check that <code>git</code> understood what you typed by looking at the output of <code>git config --global --list</code>.</p>
+<div id="step-2-introduced-yourself-to-git" class="section level3">
+<h3>Step 2: <a href="git_introduceToGit">Introduced yourself to Git</a></h3>
 </div>
 <div id="step-3-create-a-new-repository-on-github" class="section level3">
 <h3>Step 3: Create a new repository on GitHub</h3>
@@ -167,14 +133,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h3>Step 4, plan B</h3>
 <p>If this Step 4 does not work, here is something to try:</p>
 <ul>
-<li><p>Create a new Rstudio project: File &gt; New Project &gt; New Directory &gt; Empty Project.</p></li>
-<li><p>Choose the directory in which you want to put your repository, check “Create a git repository,” and click “Create Project”.</p></li>
+<li><p>Create a new Rstudio project: <em>File &gt; New Project &gt; New Directory &gt; Empty Project</em>.</p></li>
+<li><p>Choose the directory in which you want to put your repository, check <em>“Create a git repository”</em> and click <em>“Create Project”</em>.</p></li>
 <li><p>Go to <em>Tools &gt; Shell</em> and type <code>git remote add origin https://github.com/BernhardKonrad/helloGithub</code> (substitute the URL for <strong>your</strong> test repository). This command has no output. It just associates the repository (and RStudio Project) on your machine with the companion repository on GitHub.</p></li>
 <li><p>Also in the shell, enter <code>git pull origin master</code>. This should download all files from the online GitHub repository.</p></li>
 </ul>
 <p>Now try this in the shell:</p>
 <ul>
-<li><code>git push -u origin master</code>. Our goal here is to trigger a challenge for your GitHub username and password. After you provide, you should see “Everything up-to-date”.</li>
+<li><code>git push -u origin master</code>. Our goal here is to trigger a challenge for your GitHub username and password. After you provide, you should see <em>“Everything up-to-date”</em>.</li>
 </ul>
 <p>Sometimes this initial usage from the command line is necessary, in order to elicit and remember your GitHub username and password. Best case scenario: you will now be able to pull and push from RStudio.</p>
 </div>
@@ -183,8 +149,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p><strong>Do this every time you finish a valuable chunk of work, probably many times a day.</strong></p>
 <ul>
 <li><p>From RStudio, modify the <code>README.md</code> file, e.g., by adding the line “This is a line from RStudio”. Save your changes.</p></li>
-<li><p>Commit your change to your local repository. <strong>Yes this is different from saving the file.</strong> Go to the Git tab in the the top right pane of RStudio. Click “Commit”.</p></li>
-<li><p>This opens a new window, RStudio’s Git client. Click the checkbox of the “README.md” file, write a commit message, and click “commit”.</p></li>
+<li><p>Commit your change to your local repository. <strong>Yes this is different from saving the file.</strong> Go to the Git tab in the the top right pane of RStudio. Click <code>Commit</code>.</p></li>
+<li><p>This opens a new window, RStudio’s Git client. Click the checkbox of the <code>README.md</code> file, write a commit message, and click <code>Commit</code>.</p></li>
 </ul>
 </div>
 <div id="step-6-push-your-local-changes-online-to-github" class="section level3">
@@ -192,56 +158,21 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p><strong>Do this a few times a day, but possibly less often than you commit.</strong></p>
 <p>You have new work into your local Git repository, but the changes are not online yet.</p>
 <p><em>Note from the future: although you are not collaborating with anyone yet, that day is coming. Here is where you should get into the habit of pulling changes from GitHub before you attempt to push. This will save you some grief.</em></p>
-<p>To push changes online, hit the green “Push”&quot; button. The three most likely outcomes:</p>
+<p>To push changes online, hit the green <code>Push</code> button. The three most likely outcomes:</p>
 <ol style="list-style-type: decimal">
-<li><p>Your push is accepted and the online GitHub repository is updated. This means that RStudio is successfully using your GitHub username and password. Skip to step 7.</p></li>
-<li><p>RStudio asks for your GitHub username and password, then your push is accepted and the online GitHub repository is updated. Skip to step 7 to avoid having to type username and password every time.</p></li>
-<li><p>RStudio does not ask for your username and password, but it is not sending them. The push fails and the online Github repository is not updated. This is a bug in RStudio and not your fault. Follow the work-around in step 6, plan B, and/or go to step 7 on how to avoid having to give RStudio your username and password manually.</p></li>
+<li><p>Your push is accepted and the online GitHub repository is updated. This means that RStudio is successfully using your GitHub username and password. You are done.</p></li>
+<li><p>RStudio asks for your GitHub username and password, then your push is accepted and the online GitHub repository is updated. Learn <a href="git_credentials.html">how to make git remember your username and password</a> to avoid having to type those every time.</p></li>
+<li><p>RStudio does not ask for your username and password, but it is not sending them. The push fails and the online Github repository is not updated. This is a bug in RStudio and not your fault. Follow the work-around in step 6, plan B, and/or learn <a href="git_credentials.html">how to make git remember your username and password</a>.</p></li>
 </ol>
 </div>
 <div id="step-6-plan-b" class="section level3">
 <h3>Step 6, plan B</h3>
 <p>If the push in step 6 does not work, here is something to try:</p>
 <ul>
-<li><p>Open the shell: Tools &gt; Shell.</p></li>
+<li><p>Open the shell: <em>Tools &gt; Shell</em>.</p></li>
 <li><p>Enter <code>git push -u origin master</code>.</p></li>
 </ul>
-<p>This will certainly ask for your username and password, and update the GitHub repository online.</p>
-</div>
-<div id="step-7-automatic-github-authentication" class="section level3">
-<h3>Step 7: Automatic GitHub authentication</h3>
-<p><strong>You only have to set this up once every couple of months or once per computer.</strong></p>
-<p>You will know you have truly succeeded once you have at least one successful push to GitHub in which you are NOT challenged for your user name and password.</p>
-<div id="linux" class="section level4">
-<h4>Linux</h4>
-<ul>
-<li><p>In the shell (Tools &gt; Shell), enter <code>git --version</code> and verify that you have 1.7.10 or newer. If you don’t, update Git.</p></li>
-<li><p>In the shell, enter <code>git config --global credential.helper 'cache --timeout=10000000'</code> to store your password for ten million seconds (that’s 16 weeks, enough for a full term).</p></li>
-<li><p>In the shell, enter <code>git push -u origin master</code>. One last time you will be asked for your username and password.</p></li>
-<li><p>Enter <code>git push -u origin master</code> again. You should not be asked for your username and password, instead you should see “Everything up-to-date”.</p></li>
-<li><p>Rejoice and close the shell. From now on your “Push” button will just work.</p></li>
-</ul>
-</div>
-<div id="mac" class="section level4">
-<h4>Mac</h4>
-<ul>
-<li><p>In the shell (Tools &gt; Shell), enter <code>git --version</code> and verify that you have 1.7.10 or newer. If you don’t, update Git.</p></li>
-<li><p>In the shell, enter <code>git credential-osxkeychain</code>. If you do <strong>not</strong> get <code>Usage: git credential-osxkeychain &lt;get|store|erase&gt;</code>, follow steps 2 and 3 on <a href="https://help.github.com/articles/caching-your-github-password-in-git#platform-mac">the github help</a>.</p></li>
-<li><p>In the shell, enter <code>git config --global credential.helper 'osxkeychain --timeout=10000000'</code> to store your password for ten million seconds (that’s 16 weeks, enough for a full term).</p></li>
-<li><p>In the shell, enter <code>git push -u origin master</code>. One last time you will be asked for your username and password.</p></li>
-<li><p>Type <code>git push -u origin master</code> again. You should not be asked for your username and password, instead you should see “Everything up-to-date”.</p></li>
-<li><p>Rejoice and close the shell. From now on your “push” button will just work.</p></li>
-</ul>
-</div>
-<div id="windows" class="section level4">
-<h4>Windows</h4>
-<ul>
-<li><p>Install and setup a credential helper, following <a href="http://stat545-ubc.github.io/block003_git-config-credential-cache.html#password-caching-on-windows">these steps</a>.</p></li>
-<li><p>In the shell (Tools &gt; Shell), type <code>git push -u origin master</code>. One last time you will be asked for your username and password.</p></li>
-<li><p>Enter <code>git push -u origin master</code> again. You should not be asked for your username and password, instead you should see “Everything up-to-date”.</p></li>
-<li><p>Rejoice and close the shell. From now on your “push” button will just work.</p></li>
-</ul>
-</div>
+<p>This will certainly ask for your username and password, and update the GitHub repository online. Then, learn <a href="git_credentials.html">how to make git remember your username and password</a> to save you from authenticating every time and so that you can push from RStudio directly.</p>
 </div>
 
 <div class="footer">
