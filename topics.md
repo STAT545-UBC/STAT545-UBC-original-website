@@ -52,6 +52,7 @@ Topics traditionally covered in STAT 545A, with light updating:
   * ~~R objects -- beyond data frames~~ *done*
   * Indexing, subsetting
   * Data aggregation; "apply" functions, [`plyr`](http://plyr.had.co.nz), [`dplyr`](https://github.com/hadley/dplyr)
+  * ~~Making figures with `ggplot2` (was `lattice` in past)~~ *done*
   * How to help yourself, how to ask questions to get useful answers
   * How to get data in and out of R, staying as "open" as possible
   * How to get figures out of R
@@ -71,7 +72,6 @@ New topics for STAT 545A and/or STAT 547M will be selected from here:
   * The tabular data mentality, "tidy" data, data reshaping
   * Regular expressions, programmatic transformation and searching of character data
   * Writing R functions
-  * `ggplot2` will be used instead of `lattice` for visualization
   * Creating interactive pages, apps, and graphics via [Shiny](http://shiny.rstudio.com) and (maybe) [`ggvis`](http://ggvis.rstudio.com)
   * Unit testing, at least as a mentality. Maybe will cover formal unit testing, e.g. `testthat`
   * Stats particularly useful in exploration (and often neglected in standard intro stats courses)
