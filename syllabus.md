@@ -24,7 +24,7 @@ table {
 |sep-10 wed |<a href="cm003_r-objects-git-toe-dip.html">cm003</a>: Basic flavors of R objects; Git(Hub) and (R) Markdown crash course |
 |sep-15 mon |<a href="cm004_care-feeding-data.html">cm004</a>: Care and feeding of data (data.frames                                  |
 |sep-17 wed |<a href="cm005_still-data-ggplot2-rmarkdown.html">cm005</a>: Intro to ggplot2; R Markdown                                |
-|sep-22 mon |                                                                                                                         |
+|sep-22 mon |<a href="cm006_q-and-a-more-ggplot2.html">cm006</a>: More on ggplot2; open Q and A on everything so far                  |
 |sep-24 wed |                                                                                                                         |
 |sep-29 mon |                                                                                                                         |
 |oct-01 wed |                                                                                                                         |

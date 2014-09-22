@@ -27,6 +27,7 @@ Until we get rolling, feel free to look at older material that will appear here 
   * [Class meeting 003](cm003_r-objects-git-toe-dip.html) Started basic flavors of R objects; Git(Hub) and (R) Markdown crash course so first homework can be submitted. All hands-on.
   * [Class meeting 004](cm004_care-feeding-data.html) Data.frames are awesome. Let's explore one (Gapminder).
   * [Class meeting 005](cm005_still-data-ggplot2-rmarkdown.html) Continue exploring data in a data.frame, maybe using `ggplot2` and in an R Markdown document
+  * [Class meeting 006](cm006_q-and-a-more-ggplot2.html) Open Q and A on all content and course mechanics so far, complete introduction to `ggplot2`
   * [General homework guidelines](hw00_homework-guidelines.html)
   * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
   * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
