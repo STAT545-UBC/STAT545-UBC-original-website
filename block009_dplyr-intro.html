@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Introduction to dplyr</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Introduction to dplyr</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#intro">Intro</a><ul>
+<li><a href="#load-dplyr">Load <code>dplyr</code></a></li>
+<li><a href="#load-the-gapminder-data">Load the Gapminder data</a></li>
+</ul></li>
+<li><a href="#meet-tbl_df-an-upgrade-to-data.frame">Meet <code>tbl_df</code>, an upgrade to <code>data.frame</code></a></li>
+<li><a href="#think-before-you-create-excerpts-of-your-data">Think before you create excerpts of your data …</a></li>
+<li><a href="#use-filter-to-subset-data-row-wise.">Use <code>filter()</code> to subset data row-wise.</a></li>
+<li><a href="#meet-the-new-pipe-operator">Meet the new pipe operator</a></li>
+<li><a href="#use-select-to-subset-the-data-on-variables-or-columns.">Use <code>select()</code> to subset the data on variables or columns.</a></li>
+<li><a href="#revel-in-the-convenience">Revel in the convenience</a></li>
+<li><a href="#pause-to-reflect">Pause to reflect</a></li>
+<li><a href="#resources">Resources</a></li>
+</ul>
+</div>
+
+<div id="intro" class="section level3">
+<h3>Intro</h3>
+<p><code>dplyr</code> is a new package for data manipulation. It is built to be fast, highly expressive, and open-minded about how your data is stored. It is developed by Hadley Wickham and Romain Francois.</p>
+<p><code>dplyr</code>’s roots are in an earlier, still-very-useful package called <a href="http://plyr.had.co.nz"><code>plyr</code></a>, which implements the “split-apply-combine” strategy for data analysis. Where <code>plyr</code> covers a diverse set of inputs and outputs (e.g., arrays, data.frames, lists), <code>dplyr</code> has a laser-like focus on data.frames and related structures.</p>
+<p>Have no idea what I’m talking about? Not sure if you care? If you use these base R functions: <code>subset()</code>, <code>apply()</code>, <code>[sl]apply()</code>, <code>tapply()</code>, <code>aggregate()</code>, <code>split()</code>, then you should keep reading.</p>
+<div id="load-dplyr" class="section level4">
+<h4>Load <code>dplyr</code></h4>
+<pre class="r"><code>## install if you do not already have
+
+## from CRAN:
+## install.packages(&#39;dplyr)
+
+## from GitHub using devtools (which you also might need to install!):
+## devtools::install_github(&quot;hadley/lazyeval&quot;)
+## devtools::install_github(&quot;hadley/dplyr&quot;)
+suppressPackageStartupMessages(library(dplyr))</code></pre>
+</div>
+<div id="load-the-gapminder-data" class="section level4">
+<h4>Load the Gapminder data</h4>
+<p>An excerpt of the Gapminder data which we work with alot.</p>
+<pre class="r"><code>gd_url &lt;- &quot;http://tiny.cc/gapminder&quot;
+gdf &lt;- read.delim(file = gd_url)
+str(gdf)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    1704 obs. of  6 variables:
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...</code></pre>
+<pre class="r"><code>head(gdf)</code></pre>
+<pre><code>##       country year      pop continent lifeExp gdpPercap
+## 1 Afghanistan 1952  8425333      Asia   28.80     779.4
+## 2 Afghanistan 1957  9240934      Asia   30.33     820.9
+## 3 Afghanistan 1962 10267083      Asia   32.00     853.1
+## 4 Afghanistan 1967 11537966      Asia   34.02     836.2
+## 5 Afghanistan 1972 13079460      Asia   36.09     740.0
+## 6 Afghanistan 1977 14880372      Asia   38.44     786.1</code></pre>
+</div>
+</div>
+<div id="meet-tbl_df-an-upgrade-to-data.frame" class="section level3">
+<h3>Meet <code>tbl_df</code>, an upgrade to <code>data.frame</code></h3>
+<pre class="r"><code>gtbl &lt;- tbl_df(gdf)
+gtbl</code></pre>
+<pre><code>## Source: local data frame [1,704 x 6]
+## 
+##        country year      pop continent lifeExp gdpPercap
+## 1  Afghanistan 1952  8425333      Asia   28.80     779.4
+## 2  Afghanistan 1957  9240934      Asia   30.33     820.9
+## 3  Afghanistan 1962 10267083      Asia   32.00     853.1
+## 4  Afghanistan 1967 11537966      Asia   34.02     836.2
+## 5  Afghanistan 1972 13079460      Asia   36.09     740.0
+## 6  Afghanistan 1977 14880372      Asia   38.44     786.1
+## 7  Afghanistan 1982 12881816      Asia   39.85     978.0
+## 8  Afghanistan 1987 13867957      Asia   40.82     852.4
+## 9  Afghanistan 1992 16317921      Asia   41.67     649.3
+## 10 Afghanistan 1997 22227415      Asia   41.76     635.3
+## ..         ...  ...      ...       ...     ...       ...</code></pre>
+<pre class="r"><code>glimpse(gtbl)</code></pre>
+<pre><code>## Variables:
+## $ country   (fctr) Afghanistan, Afghanistan, Afghanistan, Afghanistan,...
+## $ year      (int) 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992...
+## $ pop       (dbl) 8425333, 9240934, 10267083, 11537966, 13079460, 1488...
+## $ continent (fctr) Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asi...
+## $ lifeExp   (dbl) 28.80, 30.33, 32.00, 34.02, 36.09, 38.44, 39.85, 40....
+## $ gdpPercap (dbl) 779.4, 820.9, 853.1, 836.2, 740.0, 786.1, 978.0, 852...</code></pre>
+<p>A <code>tbl_df</code> is basically an improved data.frame, where <code>plyr</code> includes some nice methods for high-level inspection. Specifically, these methods do something sensible for datasets with many observations and/or variables. You do <strong>NOT</strong> need to turn your data.frames into <code>tbl_df</code>s to use <code>plyr</code>. I do so here for demonstration purposes only.</p>
+</div>
+<div id="think-before-you-create-excerpts-of-your-data" class="section level3">
+<h3>Think before you create excerpts of your data …</h3>
+<p>If you feel the urge to store a little snippet of your data:</p>
+<pre class="r"><code>(snippet &lt;- subset(gdf, country == &quot;Canada&quot;))</code></pre>
+<pre><code>##     country year      pop continent lifeExp gdpPercap
+## 241  Canada 1952 14785584  Americas   68.75     11367
+## 242  Canada 1957 17010154  Americas   69.96     12490
+## 243  Canada 1962 18985849  Americas   71.30     13462
+## 244  Canada 1967 20819767  Americas   72.13     16077
+## 245  Canada 1972 22284500  Americas   72.88     18971
+## 246  Canada 1977 23796400  Americas   74.21     22091
+## 247  Canada 1982 25201900  Americas   75.76     22899
+## 248  Canada 1987 26549700  Americas   76.86     26627
+## 249  Canada 1992 28523502  Americas   77.95     26343
+## 250  Canada 1997 30305843  Americas   78.61     28955
+## 251  Canada 2002 31902268  Americas   79.77     33329
+## 252  Canada 2007 33390141  Americas   80.65     36319</code></pre>
+<p>Stop and ask yourself …</p>
+<blockquote>
+<p>Do I want to create mini datasets for each level of some factor (or unique combination of several factors) … in order to compute or graph something?</p>
+</blockquote>
+<p>If YES, <strong>use proper data aggregation techniques</strong> or facetting in <code>ggplot2</code> plots or conditioning in <code>lattice</code> – <strong>don’t subset the data</strong>. Or, more realistic, only subset the data as a temporary measure while you develop your elegant code for computing on or visualizing these data subsets.</p>
+<p>If NO, then maybe you really do need to store a copy of a subset of the data. But seriously consider whether you can achieve your goals by simply using the <code>subset =</code> argument of, e.g., the <code>lm()</code> function, to limit computation to your excerpt of choice. Lots of functions offer a <code>subset =</code> argument! Copies and excerpts of your data clutter your workspace, invite mistakes, and sow general confusion. Avoid whenever possible.</p>
+<p>Reality can also lie somewhere in between. You will find the workflows presented below can help you accomplish your goals with minimal creation of temporary, intermediate objects.</p>
+</div>
+<div id="use-filter-to-subset-data-row-wise." class="section level3">
+<h3>Use <code>filter()</code> to subset data row-wise.</h3>
+<p><code>filter()</code> takes logical expressions and returns the rows for which all are <code>TRUE</code>.</p>
+<pre class="r"><code>filter(gtbl, lifeExp &lt; 29)</code></pre>
+<pre><code>## Source: local data frame [2 x 6]
+## 
+##       country year     pop continent lifeExp gdpPercap
+## 1 Afghanistan 1952 8425333      Asia    28.8     779.4
+## 2      Rwanda 1992 7290203    Africa    23.6     737.1</code></pre>
+<pre class="r"><code>filter(gtbl, country == &quot;Rwanda&quot;)</code></pre>
+<pre><code>## Source: local data frame [12 x 6]
+## 
+##    country year     pop continent lifeExp gdpPercap
+## 1   Rwanda 1952 2534927    Africa   40.00     493.3
+## 2   Rwanda 1957 2822082    Africa   41.50     540.3
+## 3   Rwanda 1962 3051242    Africa   43.00     597.5
+## 4   Rwanda 1967 3451079    Africa   44.10     511.0
+## 5   Rwanda 1972 3992121    Africa   44.60     590.6
+## 6   Rwanda 1977 4657072    Africa   45.00     670.1
+## 7   Rwanda 1982 5507565    Africa   46.22     881.6
+## 8   Rwanda 1987 6349365    Africa   44.02     848.0
+## 9   Rwanda 1992 7290203    Africa   23.60     737.1
+## 10  Rwanda 1997 7212583    Africa   36.09     589.9
+## 11  Rwanda 2002 7852401    Africa   43.41     785.7
+## 12  Rwanda 2007 8860588    Africa   46.24     863.1</code></pre>
+<pre class="r"><code>filter(gtbl, country %in% c(&quot;Rwanda&quot;, &quot;Afghanistan&quot;))</code></pre>
+<pre><code>## Source: local data frame [24 x 6]
+## 
+##        country year      pop continent lifeExp gdpPercap
+## 1  Afghanistan 1952  8425333      Asia   28.80     779.4
+## 2  Afghanistan 1957  9240934      Asia   30.33     820.9
+## 3  Afghanistan 1962 10267083      Asia   32.00     853.1
+## 4  Afghanistan 1967 11537966      Asia   34.02     836.2
+## 5  Afghanistan 1972 13079460      Asia   36.09     740.0
+## 6  Afghanistan 1977 14880372      Asia   38.44     786.1
+## 7  Afghanistan 1982 12881816      Asia   39.85     978.0
+## 8  Afghanistan 1987 13867957      Asia   40.82     852.4
+## 9  Afghanistan 1992 16317921      Asia   41.67     649.3
+## 10 Afghanistan 1997 22227415      Asia   41.76     635.3
+## 11 Afghanistan 2002 25268405      Asia   42.13     726.7
+## 12 Afghanistan 2007 31889923      Asia   43.83     974.6
+## 13      Rwanda 1952  2534927    Africa   40.00     493.3
+## 14      Rwanda 1957  2822082    Africa   41.50     540.3
+## 15      Rwanda 1962  3051242    Africa   43.00     597.5
+## 16      Rwanda 1967  3451079    Africa   44.10     511.0
+## 17      Rwanda 1972  3992121    Africa   44.60     590.6
+## 18      Rwanda 1977  4657072    Africa   45.00     670.1
+## 19      Rwanda 1982  5507565    Africa   46.22     881.6
+## 20      Rwanda 1987  6349365    Africa   44.02     848.0
+## 21      Rwanda 1992  7290203    Africa   23.60     737.1
+## 22      Rwanda 1997  7212583    Africa   36.09     589.9
+## 23      Rwanda 2002  7852401    Africa   43.41     785.7
+## 24      Rwanda 2007  8860588    Africa   46.24     863.1</code></pre>
+<p>Compare with some base R code to accomplish the same things</p>
+<pre class="r"><code>gdf[gdf$lifeExp &lt; 29, ] ## repeat `gdf`, [i, j] indexing is distracting
+subset(gdf, country == &quot;Rwanda&quot;) ## almost same as filter ... but wait ...</code></pre>
+</div>
+<div id="meet-the-new-pipe-operator" class="section level3">
+<h3>Meet the new pipe operator</h3>
+<p>Before we go any further, we should exploit the new pipe operator that <code>dplyr</code> imports from the <a href="https://github.com/smbache/magrittr"><code>magrittr</code></a> package. This is going to change your data analytical life. You no longer need to enact multi-operation commands by nesting them inside each other, like so many <a href="http://blogue.us/wp-content/uploads/2009/07/Unknown-21.jpeg">Russian nesting dolls</a>. This new syntax leads to code that is much easier to write and to read.</p>
+<p>Here’s what it looks like: <code>%&gt;%</code>. The RStudio keyboard shortcut: alt-shift-. (Although <a href="https://twitter.com/rstudiotips/status/514094879316525058">this tweet</a> makes me wonder if this is in flux?).</p>
+<p>Let’s demo then I’ll explain:</p>
+<pre class="r"><code>gdf %&gt;% head</code></pre>
+<pre><code>##       country year      pop continent lifeExp gdpPercap
+## 1 Afghanistan 1952  8425333      Asia   28.80     779.4
+## 2 Afghanistan 1957  9240934      Asia   30.33     820.9
+## 3 Afghanistan 1962 10267083      Asia   32.00     853.1
+## 4 Afghanistan 1967 11537966      Asia   34.02     836.2
+## 5 Afghanistan 1972 13079460      Asia   36.09     740.0
+## 6 Afghanistan 1977 14880372      Asia   38.44     786.1</code></pre>
+<p>The above is equivalent to <code>head(gdf)</code>. This pipe operator takes the thing on the left-hand-side and <strong>pipes</strong> it into the function call on the right-hand-side – literally, drops it in as the first argument.</p>
+<p>Never fear, you can still specify other arguments to this function! To see the first 3 rows of Gapminder, we could say <code>head(gdf, 3)</code> or this:</p>
+<pre class="r"><code>gdf %&gt;% head(3)</code></pre>
+<pre><code>##       country year      pop continent lifeExp gdpPercap
+## 1 Afghanistan 1952  8425333      Asia   28.80     779.4
+## 2 Afghanistan 1957  9240934      Asia   30.33     820.9
+## 3 Afghanistan 1962 10267083      Asia   32.00     853.1</code></pre>
+<p>I’ve advised you to think “gets” whenever you see the assignment operator, <code>&lt;-</code>. Similary, you should think “then” whenever you see the pipe operator, <code>%&gt;%</code>.</p>
+<p>You are probably not impressed yet, but the magic will soon happen.</p>
+</div>
+<div id="use-select-to-subset-the-data-on-variables-or-columns." class="section level3">
+<h3>Use <code>select()</code> to subset the data on variables or columns.</h3>
+<p>Back to <code>dplyr</code> …</p>
+<p>Use <code>select()</code> to subset the data on variables or columns. Here’s a conventional call:</p>
+<pre class="r"><code>select(gtbl, year, lifeExp) ## tbl_df prevents TMI from printing</code></pre>
+<pre><code>## Source: local data frame [1,704 x 2]
+## 
+##    year lifeExp
+## 1  1952   28.80
+## 2  1957   30.33
+## 3  1962   32.00
+## 4  1967   34.02
+## 5  1972   36.09
+## 6  1977   38.44
+## 7  1982   39.85
+## 8  1987   40.82
+## 9  1992   41.67
+## 10 1997   41.76
+## ..  ...     ...</code></pre>
+<p>And here’s similar operation, but written with the pipe operator and piped through <code>head</code>:</p>
+<pre class="r"><code>gtbl %&gt;%
+  select(year, lifeExp) %&gt;%
+  head(4)</code></pre>
+<pre><code>## Source: local data frame [4 x 2]
+## 
+##   year lifeExp
+## 1 1952   28.80
+## 2 1957   30.33
+## 3 1962   32.00
+## 4 1967   34.02</code></pre>
+<p>Think: “Take <code>gtbl</code>, then select the variables year and lifeExp, then show the first 4 rows.”</p>
+</div>
+<div id="revel-in-the-convenience" class="section level3">
+<h3>Revel in the convenience</h3>
+<p>Here’s the data for Cambodia, but only certain variables:</p>
+<pre class="r"><code>gtbl %&gt;%
+  filter(country == &quot;Cambodia&quot;) %&gt;%
+  select(year, lifeExp)</code></pre>
+<pre><code>## Source: local data frame [12 x 2]
+## 
+##    year lifeExp
+## 1  1952   39.42
+## 2  1957   41.37
+## 3  1962   43.41
+## 4  1967   45.41
+## 5  1972   40.32
+## 6  1977   31.22
+## 7  1982   50.96
+## 8  1987   53.91
+## 9  1992   55.80
+## 10 1997   56.53
+## 11 2002   56.75
+## 12 2007   59.72</code></pre>
+<p>and what a typical base R call would look like:</p>
+<pre class="r"><code>gdf[gdf$country == &quot;Cambodia&quot;, c(&quot;year&quot;, &quot;lifeExp&quot;)]</code></pre>
+<pre><code>##     year lifeExp
+## 217 1952   39.42
+## 218 1957   41.37
+## 219 1962   43.41
+## 220 1967   45.41
+## 221 1972   40.32
+## 222 1977   31.22
+## 223 1982   50.96
+## 224 1987   53.91
+## 225 1992   55.80
+## 226 1997   56.53
+## 227 2002   56.75
+## 228 2007   59.72</code></pre>
+<p>or, possibly?, a nicer look using base R’s <code>subset()</code> function:</p>
+<pre class="r"><code>subset(gdf, country == &quot;Cambodia&quot;, select = c(year, lifeExp))</code></pre>
+<pre><code>##     year lifeExp
+## 217 1952   39.42
+## 218 1957   41.37
+## 219 1962   43.41
+## 220 1967   45.41
+## 221 1972   40.32
+## 222 1977   31.22
+## 223 1982   50.96
+## 224 1987   53.91
+## 225 1992   55.80
+## 226 1997   56.53
+## 227 2002   56.75
+## 228 2007   59.72</code></pre>
+</div>
+<div id="pause-to-reflect" class="section level3">
+<h3>Pause to reflect</h3>
+<p>We’ve barely scratched the surface of <code>dplyr</code> but I want to point out key principles you may start to appreciate.</p>
+<p><code>dplyr</code>’s verbs, such as <code>filter()</code> and <code>select()</code>, are what’s called <a href="http://en.wikipedia.org/wiki/Pure_function">pure functions</a>. To quote from Wickham’s <a href="http://adv-r.had.co.nz/Functions.html">Advanced R Programming book</a>:</p>
+<blockquote>
+<p>The functions that are the easiest to understand and reason about are pure functions: functions that always map the same input to the same output and have no other impact on the workspace. In other words, pure functions have no side effects: they don’t affect the state of the world in any way apart from the value they return.</p>
+</blockquote>
+<p>In fact, these verbs are a special case of pure functions: they take the same flavor of object as input and output. Namely, a data.frame or one of the other data receptacles <code>dplyr</code> supports. And finally, the data is <strong>always</strong> the very first argument of the verb functions.</p>
+<p>This set of deliberate design choices, together with the new pipe operator, produces a highly effective, low friction <a href="http://adv-r.had.co.nz/dsl.html">domain-specific language</a> for data analysis.</p>
+<p>Go to the next block, <a href="block010_dplyr-end-single-table.html"><code>dplyr</code> functions for a single dataset</a>, for more <code>dplyr</code>!</p>
+</div>
+<div id="resources" class="section level3">
+<h3>Resources</h3>
+<p><code>dplyr</code> official stuff</p>
+<ul>
+<li>package home <a href="http://cran.r-project.org/web/packages/dplyr/index.html">on CRAN</a>
+<ul>
+<li>note there are several vignettes, with the <a href="http://cran.r-project.org/web/packages/dplyr/vignettes/introduction.html">introduction</a> being the most relevant right now</li>
+</ul></li>
+<li>development home <a href="https://github.com/hadley/dplyr">on GitHub</a></li>
+<li><a href="https://www.dropbox.com/sh/i8qnluwmuieicxc/AAAgt9tIKoIm7WZKIyK25lh6a">tutorial HW delivered</a> (note this links to a DropBox folder) at useR! 2014 conference</li>
+</ul>
+<p>Blog post <a href="http://www.dataschool.io/dplyr-tutorial-for-faster-data-manipulation-in-r/">Hands-on dplyr tutorial for faster data manipulation in R</a> by Data School, that includes a link to an R Markdown document and links to videos</p>
+<p><a href="http://stat545-ubc.github.io/bit001_dplyr-cheatsheet.html">Cheatsheet</a> I made for <code>dplyr</code> join functions</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
