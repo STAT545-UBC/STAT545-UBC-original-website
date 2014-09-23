@@ -12,15 +12,15 @@
 
 ## How you will be marked: 
 
-  * It's binary. Each peer review will be deemed "lame" or "good".
+  * It's binary. Each peer review will be deemed "good" or "needs more".
 
-  * Hallmarks of "lame" feedback:
+  * Hallmarks of "needs more" feedback:
 
     - Your review is so generic that it's hard to determine which assignment you're reviewing.
     - Your review is mean.
     - You can't find anything to praise/learn and yet you don't offer any suggestions either.
 
-  * Each review you do will get you 1 point if "good" and 0 points if "lame". Those will be totalled over all assignments to form your peer review mark.
+  * Each review you do will get you 1 point if "good" and 0 points if "needs more". Those will be totalled over all assignments to form your peer review mark.
 
 ## Additional resources:
 
