@@ -220,7 +220,7 @@ gtbl %>%
 ## Variables not shown: canada (dbl), gdp_percap_rel (dbl)
 ```
 
-I did NOT assign the post-rename object back to `gtbl` because that would make the chunks in this tutorial harder to copy/paste and run out of order. In real life, I would probably assign this back to `gtbl`, in a data preparation script, and proceed with the new varaible names.
+I did NOT assign the post-rename object back to `gtbl` because that would make the chunks in this tutorial harder to copy/paste and run out of order. In real life, I would probably assign this back to `gtbl`, in a data preparation script, and proceed with the new variable names.
 
 ### `group_by()` is a mighty weapon
 
