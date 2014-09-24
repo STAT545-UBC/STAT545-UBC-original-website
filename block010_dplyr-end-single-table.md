@@ -256,7 +256,7 @@ gtbl %>%
 ## 5   Oceania    24
 ```
 
-The `tally()` function is a convenience wrapper for this sort of thing.
+The `tally()` function is a convenience function for this sort of thing.
 
 
 ```r
@@ -425,7 +425,7 @@ gtbl %>%
 ## 24 2007       Japan   82.60
 ```
 
-That result should make you impatient for our upcoming work of tidying and reshaping data! Wouldn't it be nice to have one row per year?
+That result should make you impatient for our upcoming work on tidying and reshaping data! Wouldn't it be nice to have one row per year?
 
 #### Grand Finale
 

@@ -122,7 +122,7 @@ gtbl %>%
   summarize(n_obs = n())
 ```
 
-The `tally()` function is a convenience wrapper for this sort of thing.
+The `tally()` function is a convenience function for this sort of thing.
 
 ```{r}
 gtbl %>%
@@ -186,7 +186,7 @@ gtbl %>%
   arrange(year)
 ```
 
-That result should make you impatient for our upcoming work of tidying and reshaping data! Wouldn't it be nice to have one row per year?
+That result should make you impatient for our upcoming work on tidying and reshaping data! Wouldn't it be nice to have one row per year?
 
 #### Grand Finale
 
