@@ -16,7 +16,7 @@ knitr::opts_chunk$set(error = TRUE)
 
 `dplyr`'s roots are in an earlier, still-very-useful package called [`plyr`](http://plyr.had.co.nz), which implements the "split-apply-combine" strategy for data analysis. Where `plyr` covers a diverse set of inputs and outputs (e.g., arrays, data.frames, lists), `dplyr` has a laser-like focus on data.frames and related structures.
 
-Have no idea what I'm talking about? Not sure if you care? If you use these base R functions: `subset()`, `apply()`, `[sl]apply()`, `tapply()`, `aggregate()`, `split()`, then you should keep reading.
+Have no idea what I'm talking about? Not sure if you care? If you use these base R functions: `subset()`, `apply()`, `[sl]apply()`, `tapply()`, `aggregate()`, `split()`, `do.call()`, then you should keep reading.
 
 #### Load `dplyr`
 

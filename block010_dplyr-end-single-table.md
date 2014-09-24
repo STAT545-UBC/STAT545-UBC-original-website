@@ -187,6 +187,8 @@ gtbl %>%
 ## Variables not shown: canada (dbl), gdpPercapRel (dbl)
 ```
 
+I advise that your analyses NEVER rely on rows or variables being in a specific order. But it's still true that human beings write the code and the interactive development process can be much nicer if you reorder the rows of your data as you go along. Also, once you are preparing tables for human eyeballs, it is imperative that you step up and take control of row order.
+
 ### Use `rename()` to rename variables
 
 *NOTE: I am using the development version of `dplyr` which will soon become the official release 0.3. If `rename()` does not work for you, try `rename_vars()`, which is what this function is called in version 0.2 on CRAN. You could also use `plyr::rename()`, but then you have to be careful to always load `plyr` before `dplyr`.*
@@ -422,6 +424,8 @@ gtbl %>%
 ## 23 2007 Afghanistan   43.83
 ## 24 2007       Japan   82.60
 ```
+
+That result should make you impatient for our upcoming work of tidying and reshaping data! Wouldn't it be nice to have one row per year?
 
 #### Grand Finale
 
