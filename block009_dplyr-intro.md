@@ -17,7 +17,7 @@ Have no idea what I'm talking about? Not sure if you care? If you use these base
 ## install if you do not already have
 
 ## from CRAN:
-## install.packages('dplyr)
+## install.packages('dplyr')
 
 ## from GitHub using devtools (which you also might need to install!):
 ## devtools::install_github("hadley/lazyeval")
