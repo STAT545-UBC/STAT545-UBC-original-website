@@ -41,14 +41,18 @@ R Markdown is not the only way to get a pretty report. You can also get one from
   * R script: code is queen, prose is sequestered in special comments
   * You can get virtually same HTML report either way. Which to choose? Depends whether the report is primary goal (choose `.rmd`) or a by-product (choose `.r`).
   
-I circulated 5 books (TO DO: beef up bib and links)
+I passed around hard copies of these 5 books (note: some links to eBooks and repositories are tuned to UBC users):
 
-  * R Graphics Cookbook
-  * Hadley's ggplot2 book
-  * Gandrud repro research
-  * Yihui's knitr book
-  * Murrell R Graphics
+  * [R Graphics Cookbook](http://shop.oreilly.com/product/0636920023135.do) by Winston Chang, O'Reilly (2013). The [graphs section](http://www.cookbook-r.com/Graphs/) of his [Cookbook for R website](http://www.cookbook-r.com) will give you a good sense of the book, which contains more material in greater detail.
 
+  * ggplot2: Elegant Graphics for Data Analysis [available via SpringerLink](http://ezproxy.library.ubc.ca/login?url=http://link.springer.com.ezproxy.library.ubc.ca/book/10.1007/978-0-387-98141-3/page/1) by Hadley Wickham, Springer (2009) | [online docs (nice!)](http://docs.ggplot2.org/current/) | [author's website for the book](http://ggplot2.org/book/), including all the code | [author's landing page for the package](http://ggplot2.org)
+
+  * R Graphics, 2nd edition [available via StatsNetbase](http://ezproxy.library.ubc.ca/login?url=http://www.crcnetbase.com.ezproxy.library.ubc.ca/ISBN/978-1-4398-3176-2) by Paul Murrell, Chapman & Hall/CRC Press (2011) | [author's webpage for the book](http://www.stat.auckland.ac.nz/~paul/RG2e/) | [GoogleBooks search](http://books.google.ca/books?id=uacCQgAACAAJ&source=gbs_book_other_versions) | [companion R package, RGraphics, on CRAN](http://cran.r-project.org/web/packages/RGraphics/index.html)
+
+  * [Dynamic documents with R and `knitr`](http://www.amazon.com/Dynamic-Documents-knitr-Chapman-Series/dp/1482203537) by Yihui Xie, part of the CRC Press / Chapman & Hall R Series (2013). ISBN: 9781482203530. *No online access (yet?).*
+
+  * [Reproducible Research with R & RStudio](http://www.amazon.com/Reproducible-Research-RStudio-Chapman-Series/dp/1466572841) by Christopher Gandrud, part of the CRC Press / Chapman & Hall R Series (2013). ISBN: 978-1466572843. [Book website](http://christophergandrud.github.io/RepResR-RStudio/) | [Examples and code](https://github.com/christophergandrud/Rep-Res-Examples) | [Book source](https://github.com/christophergandrud/Rep-Res-Book). *No online access (yet?).*
+  
 #### `ggplot2` links
 
   * A `ggplot2` [tutorial](https://github.com/jennybc/ggplot2-tutorial) I taught May 2013 contains lots of working code, in source form and compiled to something pretty
