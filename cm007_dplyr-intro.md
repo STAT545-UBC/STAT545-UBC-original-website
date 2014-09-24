@@ -24,6 +24,6 @@ output:
 
 I've written two hands-on guides:
 
-  * [block009_dplyr-intro.html](Introduction to dplyr)
-  * [block010_dplyr-end-single-table.html](`dplyr` functions for a single dataset)
+  * [Introduction to dplyr](block009_dplyr-intro.html)
+  * [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
   * See the resources at the bottom of those two pages for excellent links. There are actually many good introductory tutorials for `dplyr`. I think it inspires people!

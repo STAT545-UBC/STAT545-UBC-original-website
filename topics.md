@@ -19,6 +19,8 @@ Until we get rolling, feel free to look at older material that will appear here 
   * [Introduction to `ggplot2`](https://github.com/jennybc/ggplot2-tutorial) *links to materials from a May 2014 workshop*
   * [Test your ability to author an R Markdown report](block007_first-use-rmarkdown.html)
   * [Git(Hub) usage](block008_git-usage.html)
+  * [Introduction to dplyr](block009_dplyr-intro.html)
+  * [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
   
 ### Course material
 
@@ -28,6 +30,7 @@ Until we get rolling, feel free to look at older material that will appear here 
   * [Class meeting 004](cm004_care-feeding-data.html) Data.frames are awesome. Let's explore one (Gapminder).
   * [Class meeting 005](cm005_still-data-ggplot2-rmarkdown.html) Continue exploring data in a data.frame, maybe using `ggplot2` and in an R Markdown document
   * [Class meeting 006](cm006_q-and-a-more-ggplot2.html) Open Q and A on all content and course mechanics so far, complete introduction to `ggplot2`
+  * [Class meeting 007](cm007_dplyr-intro.html) Introduction to `dplyr`
   * [General homework guidelines](hw00_homework-guidelines.html)
   * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
   * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
@@ -50,8 +53,8 @@ Topics traditionally covered in STAT 545A, with light updating:
   * ~~Deep thoughts about data analytic work~~ *done*
   * ~~Care and feeding of data in R; data frames~~ *done*
   * ~~R objects -- beyond data frames~~ *done*
-  * Indexing, subsetting
-  * Data aggregation; "apply" functions, [`plyr`](http://plyr.had.co.nz), [`dplyr`](https://github.com/hadley/dplyr)
+  * ~~Indexing, subsetting~~ *done*
+  * Data aggregation; "apply" functions, [`plyr`](http://plyr.had.co.nz), ~~[`dplyr`](https://github.com/hadley/dplyr)~~
   * ~~Making figures with `ggplot2` (was `lattice` in past)~~ *done*
   * How to help yourself, how to ask questions to get useful answers
   * How to get data in and out of R, staying as "open" as possible
