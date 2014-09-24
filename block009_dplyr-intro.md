@@ -384,7 +384,7 @@ subset(gdf, country == "Cambodia", select = c(year, lifeExp))
 
 ### Pause to reflect
 
-We've barely scratched the surface of `dplyr` but I want to point out key principles you may start to appreciate.
+We've barely scratched the surface of `dplyr` but I want to point out key principles you may start to appreciate. If you're new to R or "programing with data", feel free skip this section and [move on](block010_dplyr-end-single-table.html).
 
 `dplyr`'s verbs, such as `filter()` and `select()`, are what's called [pure functions](http://en.wikipedia.org/wiki/Pure_function). To quote from Wickham's [Advanced R Programming book](http://adv-r.had.co.nz/Functions.html):
 
