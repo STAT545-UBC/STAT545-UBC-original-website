@@ -402,9 +402,10 @@ Go to the next block, [`dplyr` functions for a single dataset](block010_dplyr-en
 
   * package home [on CRAN](http://cran.r-project.org/web/packages/dplyr/index.html)
     - note there are several vignettes, with the [introduction](http://cran.r-project.org/web/packages/dplyr/vignettes/introduction.html) being the most relevant right now
+    - the [one on window functions](http://cran.rstudio.com/web/packages/dplyr/vignettes/window-functions.html) will also be interesting to you now
   * development home [on GitHub](https://github.com/hadley/dplyr)
   * [tutorial HW delivered](https://www.dropbox.com/sh/i8qnluwmuieicxc/AAAgt9tIKoIm7WZKIyK25lh6a) (note this links to a DropBox folder) at useR! 2014 conference
 
 Blog post [Hands-on dplyr tutorial for faster data manipulation in R](http://www.dataschool.io/dplyr-tutorial-for-faster-data-manipulation-in-r/) by Data School, that includes a link to an R Markdown document and links to videos
 
-[Cheatsheet](http://stat545-ubc.github.io/bit001_dplyr-cheatsheet.html) I made for `dplyr` join functions
+[Cheatsheet](http://stat545-ubc.github.io/bit001_dplyr-cheatsheet.html) I made for `dplyr` join functions (not relevant yet but soon)
