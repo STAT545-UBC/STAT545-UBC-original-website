@@ -18,9 +18,36 @@ output:
     
 #### Slides and links
 
-*Slides will be made available if we use any*
+*there were no slides*
 
-Links and notes related to the slides
+Links about things we talked about during open Q and A
+
+Yes, maybe you will want to make truly interactive, web-native graphs instead of embedding PNGs. Course will probably cover [`ggvis`](http://ggvis.rstudio.com) in second half.
+
+  * [`ggvis`](http://ggvis.rstudio.com): a "pure R/RStudio" solution (though it is most certainly wrapping Javascript; it's just shielding the user from that)
+  * [`rCharts`](http://rcharts.io): a package from Ramnath Vaidyanathan providing access to a much richer set of Javascript visualization libraries from R
+  * [`d3.js`](http://d3js.org): probably the most powerful, most beautiful way to make web native figures
+    - <http://bl.ocks.org/mbostock> just stand back and admire
+
+R Markdown is not the only way to get a pretty report. You can also get one from an __R script__.
+
+  * When editing a `.r` file, RStudio offers a button for this is the spiral bound notebook icon, near where the "Knit HTML" button appears for `.rmd`. Click and you get "Compile Notebook".
+  * Under the hood, you are using a function called `spin()` from the `knitr` package.
+  * Jenny's [`ggplot2` demos from her May 2014 tutorial](https://github.com/jennybc/ggplot2-tutorial) were all made this way
+    - look at source vs. rendered to get a feel for this
+    - download the source and render yourself!
+  * Basically, the special comment prefix `#'` becomes very important
+  * R Markdown: prose is queen, R code is sequestered in special chunks
+  * R script: code is queen, prose is sequestered in special comments
+  * You can get virtually same HTML report either way. Which to choose? Depends whether the report is primary goal (choose `.rmd`) or a by-product (choose `.r`).
+  
+I circulated 5 books (TO DO: beef up bib and links)
+
+  * R Graphics Cookbook
+  * Hadley's ggplot2 book
+  * Gandrud repro research
+  * Yihui's knitr book
+  * Murrell R Graphics
 
 #### `ggplot2` links
 

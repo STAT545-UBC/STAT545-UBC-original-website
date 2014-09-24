@@ -95,8 +95,39 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 <div id="slides-and-links" class="section level4">
 <h4>Slides and links</h4>
-<p><em>Slides will be made available if we use any</em></p>
-<p>Links and notes related to the slides</p>
+<p><em>there were no slides</em></p>
+<p>Links about things we talked about during open Q and A</p>
+<p>Yes, maybe you will want to make truly interactive, web-native graphs instead of embedding PNGs. Course will probably cover <a href="http://ggvis.rstudio.com"><code>ggvis</code></a> in second half.</p>
+<ul>
+<li><a href="http://ggvis.rstudio.com"><code>ggvis</code></a>: a “pure R/RStudio” solution (though it is most certainly wrapping Javascript; it’s just shielding the user from that)</li>
+<li><a href="http://rcharts.io"><code>rCharts</code></a>: a package from Ramnath Vaidyanathan providing access to a much richer set of Javascript visualization libraries from R</li>
+<li><a href="http://d3js.org"><code>d3.js</code></a>: probably the most powerful, most beautiful way to make web native figures
+<ul>
+<li><a href="http://bl.ocks.org/mbostock">http://bl.ocks.org/mbostock</a> just stand back and admire</li>
+</ul></li>
+</ul>
+<p>R Markdown is not the only way to get a pretty report. You can also get one from an <strong>R script</strong>.</p>
+<ul>
+<li>When editing a <code>.r</code> file, RStudio offers a button for this is the spiral bound notebook icon, near where the “Knit HTML” button appears for <code>.rmd</code>. Click and you get “Compile Notebook”.</li>
+<li>Under the hood, you are using a function called <code>spin()</code> from the <code>knitr</code> package.</li>
+<li>Jenny’s <a href="https://github.com/jennybc/ggplot2-tutorial"><code>ggplot2</code> demos from her May 2014 tutorial</a> were all made this way
+<ul>
+<li>look at source vs. rendered to get a feel for this</li>
+<li>download the source and render yourself!</li>
+</ul></li>
+<li>Basically, the special comment prefix <code>#'</code> becomes very important</li>
+<li>R Markdown: prose is queen, R code is sequestered in special chunks</li>
+<li>R script: code is queen, prose is sequestered in special comments</li>
+<li>You can get virtually same HTML report either way. Which to choose? Depends whether the report is primary goal (choose <code>.rmd</code>) or a by-product (choose <code>.r</code>).</li>
+</ul>
+<p>I circulated 5 books (TO DO: beef up bib and links)</p>
+<ul>
+<li>R Graphics Cookbook</li>
+<li>Hadley’s ggplot2 book</li>
+<li>Gandrud repro research</li>
+<li>Yihui’s knitr book</li>
+<li>Murrell R Graphics</li>
+</ul>
 </div>
 <div id="ggplot2-links" class="section level4">
 <h4><code>ggplot2</code> links</h4>
