@@ -223,25 +223,31 @@ gtbl %&gt;%
 </div>
 <div id="use-rename-to-rename-variables" class="section level3">
 <h3>Use <code>rename()</code> to rename variables</h3>
+<p><em>NOTE: I am using the development version of <code>dplyr</code> which will soon become the official release 0.3. If <code>rename()</code> does not work for you, try <code>rename_vars()</code>, which is what this function is called in version 0.2 on CRAN. You could also use <code>plyr::rename()</code>, but then you have to be careful to always load <code>plyr</code> before <code>dplyr</code>.</em></p>
 <p>I am in the awkward life stage of switching from <a href="http://en.wikipedia.org/wiki/CamelCase"><code>camelCase</code></a> to <a href="http://en.wikipedia.org/wiki/Snake_case"><code>snake_case</code></a>, so I am vexed by the variable names I chose when I cleaned this data years ago. Let’s rename some variables!</p>
-<pre class="r"><code>gtbl &lt;- gtbl %&gt;%
+<pre class="r"><code>gtbl %&gt;%
   rename(life_exp = lifeExp, gdp_percap = gdpPercap,
-         gdp_percap_rel = gdpPercapRel)
-gtbl %&gt;% glimpse</code></pre>
-<pre><code>## Variables:
-## $ country        (fctr) Afghanistan, Afghanistan, Afghanistan, Afghani...
-## $ year           (int) 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987,...
-## $ pop            (dbl) 8425333, 9240934, 10267083, 11537966, 13079460,...
-## $ continent      (fctr) Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia...
-## $ life_exp       (dbl) 28.80, 30.33, 32.00, 34.02, 36.09, 38.44, 39.85...
-## $ gdp_percap     (dbl) 779.4, 820.9, 853.1, 836.2, 740.0, 786.1, 978.0...
-## $ gdp            (dbl) 6.567e+09, 7.585e+09, 8.759e+09, 9.648e+09, 9.6...
-## $ canada         (dbl) 11367, 12490, 13462, 16077, 18971, 22091, 22899...
-## $ gdp_percap_rel (dbl) 0.06857, 0.06572, 0.06337, 0.05201, 0.03901, 0....</code></pre>
+         gdp_percap_rel = gdpPercapRel)</code></pre>
+<pre><code>## Source: local data frame [1,704 x 9]
+## 
+##        country year      pop continent life_exp gdp_percap       gdp
+## 1  Afghanistan 1952  8425333      Asia    28.80      779.4 6.567e+09
+## 2  Afghanistan 1957  9240934      Asia    30.33      820.9 7.585e+09
+## 3  Afghanistan 1962 10267083      Asia    32.00      853.1 8.759e+09
+## 4  Afghanistan 1967 11537966      Asia    34.02      836.2 9.648e+09
+## 5  Afghanistan 1972 13079460      Asia    36.09      740.0 9.679e+09
+## 6  Afghanistan 1977 14880372      Asia    38.44      786.1 1.170e+10
+## 7  Afghanistan 1982 12881816      Asia    39.85      978.0 1.260e+10
+## 8  Afghanistan 1987 13867957      Asia    40.82      852.4 1.182e+10
+## 9  Afghanistan 1992 16317921      Asia    41.67      649.3 1.060e+10
+## 10 Afghanistan 1997 22227415      Asia    41.76      635.3 1.412e+10
+## ..         ...  ...      ...       ...      ...        ...       ...
+## Variables not shown: canada (dbl), gdp_percap_rel (dbl)</code></pre>
+<p>I did NOT assign the post-rename object back to <code>gtbl</code> because that would make the chunks in this tutorial harder to copy/paste and run out of order. In real life, I would probably assign this back to <code>gtbl</code>, in a data preparation script, and proceed with the new varaible names.</p>
 </div>
 <div id="group_by-is-a-mighty-weapon" class="section level3">
 <h3><code>group_by()</code> is a mighty weapon</h3>
-<p>I have found friends and family love to ask seemingly innocuous questions like, “which country experienced the sharpest 5-year drop in life expectancy?”. In fact, that is a totally natural question to ask. But if you are using a language that doesn’t know about data, you’re going to break a sweat trying to answer it.</p>
+<p>I have found friends and family love to ask seemingly innocuous questions like, “which country experienced the sharpest 5-year drop in life expectancy?”. In fact, that is a totally natural question to ask. But if you are using a language that doesn’t know about data, it’s an incredibly annoying question to answer.</p>
 <p><code>dplyr</code> offers powerful tools to solve this class of problem.</p>
 <ul>
 <li><code>group_by()</code> adds extra structure to your dataset – grouping information – which lays the groundwork for computations within the groups.</li>
@@ -294,55 +300,56 @@ gtbl %&gt;% glimpse</code></pre>
 <p>Although this may be statistically ill-advised, let’s compute the average life expectancy by continent.</p>
 <pre class="r"><code>gtbl %&gt;%
   group_by(continent) %&gt;%
-  summarize(avg_life_exp = mean(life_exp))</code></pre>
+  summarize(avg_lifeExp = mean(lifeExp))</code></pre>
 <pre><code>## Source: local data frame [5 x 2]
 ## 
-##   continent avg_life_exp
-## 1    Africa        48.87
-## 2  Americas        64.66
-## 3      Asia        60.06
-## 4    Europe        71.90
-## 5   Oceania        74.33</code></pre>
+##   continent avg_lifeExp
+## 1    Africa       48.87
+## 2  Americas       64.66
+## 3      Asia       60.06
+## 4    Europe       71.90
+## 5   Oceania       74.33</code></pre>
 <p><code>summarize_each()</code> applies the same summary function(s) to multiple variables. Let’s compute average and median life expectancy and GDP per capita by continent by year … but only for 1952 and 2007.</p>
+<p><em>NOTE: you won’t have <code>summarize_each()</code> if you’re using <code>dplyr</code> version 0.2. Just wait for it.</em></p>
 <pre class="r"><code>gtbl %&gt;%
   filter(year %in% c(1952, 2007)) %&gt;%
   group_by(continent, year) %&gt;%
-  summarise_each(funs(mean, median), life_exp, gdp_percap)</code></pre>
+  summarise_each(funs(mean, median), lifeExp, gdpPercap)</code></pre>
 <pre><code>## Source: local data frame [10 x 6]
 ## Groups: continent
 ## 
-##    continent year life_exp_mean gdp_percap_mean life_exp_median
-## 1     Africa 1952         39.14            1253           38.83
-## 2     Africa 2007         54.81            3089           52.93
-## 3   Americas 1952         53.28            4079           54.74
-## 4   Americas 2007         73.61           11003           72.90
-## 5       Asia 1952         46.31            5195           44.87
-## 6       Asia 2007         70.73           12473           72.40
-## 7     Europe 1952         64.41            5661           65.90
-## 8     Europe 2007         77.65           25054           78.61
-## 9    Oceania 1952         69.25           10298           69.25
-## 10   Oceania 2007         80.72           29810           80.72
-## Variables not shown: gdp_percap_median (dbl)</code></pre>
+##    continent year lifeExp_mean gdpPercap_mean lifeExp_median
+## 1     Africa 1952        39.14           1253          38.83
+## 2     Africa 2007        54.81           3089          52.93
+## 3   Americas 1952        53.28           4079          54.74
+## 4   Americas 2007        73.61          11003          72.90
+## 5       Asia 1952        46.31           5195          44.87
+## 6       Asia 2007        70.73          12473          72.40
+## 7     Europe 1952        64.41           5661          65.90
+## 8     Europe 2007        77.65          25054          78.61
+## 9    Oceania 1952        69.25          10298          69.25
+## 10   Oceania 2007        80.72          29810          80.72
+## Variables not shown: gdpPercap_median (dbl)</code></pre>
 <p>Let’s focus just on Asia. What are the minimum and maximum life expectancies seen by year?</p>
 <pre class="r"><code>gtbl %&gt;%
   filter(continent == &quot;Asia&quot;) %&gt;%
   group_by(year) %&gt;%
-  summarize(min_life_exp = min(life_exp), max_life_exp = max(life_exp))</code></pre>
+  summarize(min_lifeExp = min(lifeExp), max_lifeExp = max(lifeExp))</code></pre>
 <pre><code>## Source: local data frame [12 x 3]
 ## 
-##    year min_life_exp max_life_exp
-## 1  1952        28.80        65.39
-## 2  1957        30.33        67.84
-## 3  1962        32.00        69.39
-## 4  1967        34.02        71.43
-## 5  1972        36.09        73.42
-## 6  1977        31.22        75.38
-## 7  1982        39.85        77.11
-## 8  1987        40.82        78.67
-## 9  1992        41.67        79.36
-## 10 1997        41.76        80.69
-## 11 2002        42.13        82.00
-## 12 2007        43.83        82.60</code></pre>
+##    year min_lifeExp max_lifeExp
+## 1  1952       28.80       65.39
+## 2  1957       30.33       67.84
+## 3  1962       32.00       69.39
+## 4  1967       34.02       71.43
+## 5  1972       36.09       73.42
+## 6  1977       31.22       75.38
+## 7  1982       39.85       77.11
+## 8  1987       40.82       78.67
+## 9  1992       41.67       79.36
+## 10 1997       41.76       80.69
+## 11 2002       42.13       82.00
+## 12 2007       43.83       82.60</code></pre>
 <p>Of course it would be much more interesting to see <em>which</em> country contributed these extreme observations. Is the minimum (maximum) always coming from the same country? That’s where window functions come in.</p>
 </div>
 <div id="window-functions" class="section level4">
@@ -352,44 +359,45 @@ gtbl %&gt;% glimpse</code></pre>
 <pre class="r"><code>gtbl %&gt;%
   filter(continent == &quot;Asia&quot;) %&gt;%
   group_by(year) %&gt;%
-  select(year, country, life_exp) %&gt;%
-  filter(min_rank(desc(life_exp)) &lt; 2 | min_rank(life_exp) &lt; 2) %&gt;%
+  select(year, country, lifeExp) %&gt;%
+  filter(min_rank(desc(lifeExp)) &lt; 2 | min_rank(lifeExp) &lt; 2) %&gt;%
   arrange(year)</code></pre>
 <pre><code>## Source: local data frame [24 x 3]
 ## 
-##    year     country life_exp
-## 1  1952 Afghanistan    28.80
-## 2  1952      Israel    65.39
-## 3  1957 Afghanistan    30.33
-## 4  1957      Israel    67.84
-## 5  1962 Afghanistan    32.00
-## 6  1962      Israel    69.39
-## 7  1967 Afghanistan    34.02
-## 8  1967       Japan    71.43
-## 9  1972 Afghanistan    36.09
-## 10 1972       Japan    73.42
-## 11 1977    Cambodia    31.22
-## 12 1977       Japan    75.38
-## 13 1982 Afghanistan    39.85
-## 14 1982       Japan    77.11
-## 15 1987 Afghanistan    40.82
-## 16 1987       Japan    78.67
-## 17 1992 Afghanistan    41.67
-## 18 1992       Japan    79.36
-## 19 1997 Afghanistan    41.76
-## 20 1997       Japan    80.69
-## 21 2002 Afghanistan    42.13
-## 22 2002       Japan    82.00
-## 23 2007 Afghanistan    43.83
-## 24 2007       Japan    82.60</code></pre>
+##    year     country lifeExp
+## 1  1952 Afghanistan   28.80
+## 2  1952      Israel   65.39
+## 3  1957 Afghanistan   30.33
+## 4  1957      Israel   67.84
+## 5  1962 Afghanistan   32.00
+## 6  1962      Israel   69.39
+## 7  1967 Afghanistan   34.02
+## 8  1967       Japan   71.43
+## 9  1972 Afghanistan   36.09
+## 10 1972       Japan   73.42
+## 11 1977    Cambodia   31.22
+## 12 1977       Japan   75.38
+## 13 1982 Afghanistan   39.85
+## 14 1982       Japan   77.11
+## 15 1987 Afghanistan   40.82
+## 16 1987       Japan   78.67
+## 17 1992 Afghanistan   41.67
+## 18 1992       Japan   79.36
+## 19 1997 Afghanistan   41.76
+## 20 1997       Japan   80.69
+## 21 2002 Afghanistan   42.13
+## 22 2002       Japan   82.00
+## 23 2007 Afghanistan   43.83
+## 24 2007       Japan   82.60</code></pre>
 </div>
 <div id="grand-finale" class="section level4">
 <h4>Grand Finale</h4>
-<p>So let’s answer that “simple” question: which country experienced the sharpest 5-year drop in life expectancy? At this point, that’s just too easy, so let’s do it by continent while we’re at it.</p>
+<p>So let’s answer that “simple” question: which country experienced the sharpest 5-year drop in life expectancy? Recall that this excerpt of the Gapminder data only has data every five years, e.g. for 1952, 1957, etc. So this really means looking at life expectancy changes between adjacent timepoints.</p>
+<p>At this point, that’s just too easy, so let’s do it by continent while we’re at it.</p>
 <pre class="r"><code>gtbl %&gt;%
   group_by(continent, country) %&gt;%
-  select(country, year, continent, life_exp) %&gt;%
-  mutate(le_delta = life_exp - lag(life_exp)) %&gt;%
+  select(country, year, continent, lifeExp) %&gt;%
+  mutate(le_delta = lifeExp - lag(lifeExp)) %&gt;%
   summarize(worst_le_delta = min(le_delta, na.rm = TRUE)) %&gt;%
   filter(min_rank(worst_le_delta) &lt; 2) %&gt;%
   arrange(worst_le_delta)</code></pre>
@@ -401,6 +409,9 @@ gtbl %&gt;% glimpse</code></pre>
 ## 3      Asia    Cambodia         -9.097
 ## 4    Europe  Montenegro         -1.464
 ## 5   Oceania   Australia          0.170</code></pre>
+<p>Ponder that for a while. The subject matter and the code. Mostly you’re seeing what genocide looks like in dry statistics on average life expectancy.</p>
+<p>Break the code into pieces, starting at the top, and inspect the intermediate results. That’s certainly how I was able to <em>write</em> such a thing. These commands do not <a href="http://tinyurl.com/athenaforehead">leap fully formed out of anyone’s forehead</a> – they are built up gradually, with lots of errors and refinements along the way. I’m not even sure it’s a great idea to do so much manipulation in one fell swoop. Is the statement above really hard for you to read? If yes, then by all means break it into pieces and make some intermediate objects. Your code should be easy to write and read when you’re done.</p>
+<p>In later tutorials, we’ll explore more of <code>dplyr</code>, such as operations based on two datasets.</p>
 </div>
 </div>
 <div id="resources" class="section level3">

@@ -154,7 +154,7 @@ gtbl</code></pre>
 ## $ continent (fctr) Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asi...
 ## $ lifeExp   (dbl) 28.80, 30.33, 32.00, 34.02, 36.09, 38.44, 39.85, 40....
 ## $ gdpPercap (dbl) 779.4, 820.9, 853.1, 836.2, 740.0, 786.1, 978.0, 852...</code></pre>
-<p>A <code>tbl_df</code> is basically an improved data.frame, where <code>plyr</code> includes some nice methods for high-level inspection. Specifically, these methods do something sensible for datasets with many observations and/or variables. You do <strong>NOT</strong> need to turn your data.frames into <code>tbl_df</code>s to use <code>plyr</code>. I do so here for demonstration purposes only.</p>
+<p>A <code>tbl_df</code> is basically an improved data.frame, for which <code>dplyr</code> provides nice methods for high-level inspection. Specifically, these methods do something sensible for datasets with many observations and/or variables. You do <strong>NOT</strong> need to turn your data.frames into <code>tbl_df</code>s to use <code>plyr</code>. I do so here for demonstration purposes only.</p>
 </div>
 <div id="think-before-you-create-excerpts-of-your-data" class="section level3">
 <h3>Think before you create excerpts of your data …</h3>
@@ -178,7 +178,8 @@ gtbl</code></pre>
 <p>Do I want to create mini datasets for each level of some factor (or unique combination of several factors) … in order to compute or graph something?</p>
 </blockquote>
 <p>If YES, <strong>use proper data aggregation techniques</strong> or facetting in <code>ggplot2</code> plots or conditioning in <code>lattice</code> – <strong>don’t subset the data</strong>. Or, more realistic, only subset the data as a temporary measure while you develop your elegant code for computing on or visualizing these data subsets.</p>
-<p>If NO, then maybe you really do need to store a copy of a subset of the data. But seriously consider whether you can achieve your goals by simply using the <code>subset =</code> argument of, e.g., the <code>lm()</code> function, to limit computation to your excerpt of choice. Lots of functions offer a <code>subset =</code> argument! Copies and excerpts of your data clutter your workspace, invite mistakes, and sow general confusion. Avoid whenever possible.</p>
+<p>If NO, then maybe you really do need to store a copy of a subset of the data. But seriously consider whether you can achieve your goals by simply using the <code>subset =</code> argument of, e.g., the <code>lm()</code> function, to limit computation to your excerpt of choice. Lots of functions offer a <code>subset =</code> argument!</p>
+<p>Copies and excerpts of your data clutter your workspace, invite mistakes, and sow general confusion. Avoid whenever possible.</p>
 <p>Reality can also lie somewhere in between. You will find the workflows presented below can help you accomplish your goals with minimal creation of temporary, intermediate objects.</p>
 </div>
 <div id="use-filter-to-subset-data-row-wise." class="section level3">
@@ -241,7 +242,9 @@ subset(gdf, country == &quot;Rwanda&quot;) ## almost same as filter ... but wait
 <div id="meet-the-new-pipe-operator" class="section level3">
 <h3>Meet the new pipe operator</h3>
 <p>Before we go any further, we should exploit the new pipe operator that <code>dplyr</code> imports from the <a href="https://github.com/smbache/magrittr"><code>magrittr</code></a> package. This is going to change your data analytical life. You no longer need to enact multi-operation commands by nesting them inside each other, like so many <a href="http://blogue.us/wp-content/uploads/2009/07/Unknown-21.jpeg">Russian nesting dolls</a>. This new syntax leads to code that is much easier to write and to read.</p>
-<p>Here’s what it looks like: <code>%&gt;%</code>. The RStudio keyboard shortcut: alt-shift-. (Although <a href="https://twitter.com/rstudiotips/status/514094879316525058">this tweet</a> makes me wonder if this is in flux?).</p>
+<p>Here’s what it looks like: <code>%&gt;%</code>. The RStudio keyboard shortcut: Ctrl + Shift + M (Windows), Cmd + Shift + M (Mac), according to <a href="https://twitter.com/rstudiotips/status/514094879316525058">this tweet</a>.</p>
+<!-- alt-shift-. works for me but I'm not running bleeding edge RStudio -->
+
 <p>Let’s demo then I’ll explain:</p>
 <pre class="r"><code>gdf %&gt;% head</code></pre>
 <pre><code>##       country year      pop continent lifeExp gdpPercap
@@ -251,7 +254,7 @@ subset(gdf, country == &quot;Rwanda&quot;) ## almost same as filter ... but wait
 ## 4 Afghanistan 1967 11537966      Asia   34.02     836.2
 ## 5 Afghanistan 1972 13079460      Asia   36.09     740.0
 ## 6 Afghanistan 1977 14880372      Asia   38.44     786.1</code></pre>
-<p>The above is equivalent to <code>head(gdf)</code>. This pipe operator takes the thing on the left-hand-side and <strong>pipes</strong> it into the function call on the right-hand-side – literally, drops it in as the first argument.</p>
+<p>This is equivalent to <code>head(gdf)</code>. This pipe operator takes the thing on the left-hand-side and <strong>pipes</strong> it into the function call on the right-hand-side – literally, drops it in as the first argument.</p>
 <p>Never fear, you can still specify other arguments to this function! To see the first 3 rows of Gapminder, we could say <code>head(gdf, 3)</code> or this:</p>
 <pre class="r"><code>gdf %&gt;% head(3)</code></pre>
 <pre><code>##       country year      pop continent lifeExp gdpPercap

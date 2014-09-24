@@ -86,18 +86,21 @@ gtbl %>%
 
 ### Use `rename()` to rename variables
 
+*NOTE: I am using the development version of `dplyr` which will soon become the official release 0.3. If `rename()` does not work for you, try `rename_vars()`, which is what this function is called in version 0.2 on CRAN. You could also use `plyr::rename()`, but then you have to be careful to always load `plyr` before `dplyr`.*
+
 I am in the awkward life stage of switching from [`camelCase`](http://en.wikipedia.org/wiki/CamelCase) to [`snake_case`](http://en.wikipedia.org/wiki/Snake_case), so I am vexed by the variable names I chose when I cleaned this data years ago. Let's rename some variables!
 
 ```{r}
-gtbl <- gtbl %>%
+gtbl %>%
   rename(life_exp = lifeExp, gdp_percap = gdpPercap,
          gdp_percap_rel = gdpPercapRel)
-gtbl %>% glimpse
 ```
+
+I did NOT assign the post-rename object back to `gtbl` because that would make the chunks in this tutorial harder to copy/paste and run out of order. In real life, I would probably assign this back to `gtbl`, in a data preparation script, and proceed with the new varaible names.
 
 ### `group_by()` is a mighty weapon
 
-I have found friends and family love to ask seemingly innocuous questions like, "which country experienced the sharpest 5-year drop in life expectancy?". In fact, that is a totally natural question to ask. But if you are using a language that doesn't know about data, you're going to break a sweat trying to answer it.
+I have found friends and family love to ask seemingly innocuous questions like, "which country experienced the sharpest 5-year drop in life expectancy?". In fact, that is a totally natural question to ask. But if you are using a language that doesn't know about data, it's an incredibly annoying question to answer.
 
 `dplyr` offers powerful tools to solve this class of problem.
 
@@ -142,16 +145,18 @@ Although this may be statistically ill-advised, let's compute the average life e
 ```{r}
 gtbl %>%
   group_by(continent) %>%
-  summarize(avg_life_exp = mean(life_exp))
+  summarize(avg_lifeExp = mean(lifeExp))
 ```
 
 `summarize_each()` applies the same summary function(s) to multiple variables. Let's compute average and median life expectancy and GDP per capita by continent by year ... but only for 1952 and 2007.
+
+*NOTE: you won't have `summarize_each()` if you're using `dplyr` version 0.2. Just wait for it.*
 
 ```{r}
 gtbl %>%
   filter(year %in% c(1952, 2007)) %>%
   group_by(continent, year) %>%
-  summarise_each(funs(mean, median), life_exp, gdp_percap)
+  summarise_each(funs(mean, median), lifeExp, gdpPercap)
 ```
 
 Let's focus just on Asia. What are the minimum and maximum life expectancies seen by year?
@@ -159,14 +164,14 @@ Let's focus just on Asia. What are the minimum and maximum life expectancies see
 gtbl %>%
   filter(continent == "Asia") %>%
   group_by(year) %>%
-  summarize(min_life_exp = min(life_exp), max_life_exp = max(life_exp))
+  summarize(min_lifeExp = min(lifeExp), max_lifeExp = max(lifeExp))
 ```
 
 Of course it would be much more interesting to see *which* country contributed these extreme observations. Is the minimum (maximum) always coming from the same country? That's where window functions come in.
 
 #### Window functions
 
-Recall that window functions take $n$ inputs and give back $n$ outputs. Here we  use window functions based on ranks and offsets.
+Recall that window functions take $n$ inputs and give back $n$ outputs. Here we use window functions based on ranks and offsets.
 
 Let's revisit the worst and best life expectancies in Asia over time, but with the added info about *which* country contributes these extreme values.
 
@@ -174,24 +179,32 @@ Let's revisit the worst and best life expectancies in Asia over time, but with t
 gtbl %>%
   filter(continent == "Asia") %>%
   group_by(year) %>%
-  select(year, country, life_exp) %>%
-  filter(min_rank(desc(life_exp)) < 2 | min_rank(life_exp) < 2) %>%
+  select(year, country, lifeExp) %>%
+  filter(min_rank(desc(lifeExp)) < 2 | min_rank(lifeExp) < 2) %>%
   arrange(year)
 ```
 
 #### Grand Finale
 
-So let's answer that "simple" question: which country experienced the sharpest 5-year drop in life expectancy? At this point, that's just too easy, so let's do it by continent while we're at it.
+So let's answer that "simple" question: which country experienced the sharpest 5-year drop in life expectancy? Recall that this excerpt of the Gapminder data only has data every five years, e.g. for 1952, 1957, etc. So this really means looking at life expectancy changes between adjacent timepoints.
+
+At this point, that's just too easy, so let's do it by continent while we're at it.
 
 ```{r}
 gtbl %>%
   group_by(continent, country) %>%
-  select(country, year, continent, life_exp) %>%
-  mutate(le_delta = life_exp - lag(life_exp)) %>%
+  select(country, year, continent, lifeExp) %>%
+  mutate(le_delta = lifeExp - lag(lifeExp)) %>%
   summarize(worst_le_delta = min(le_delta, na.rm = TRUE)) %>%
   filter(min_rank(worst_le_delta) < 2) %>%
   arrange(worst_le_delta)
 ```
+
+Ponder that for a while. The subject matter and the code. Mostly you're seeing what genocide looks like in dry statistics on average life expectancy.
+
+Break the code into pieces, starting at the top, and inspect the intermediate results. That's certainly how I was able to *write* such a thing. These commands do not [leap fully formed out of anyone's forehead](http://tinyurl.com/athenaforehead) -- they are built up gradually, with lots of errors and refinements along the way. I'm not even sure it's a great idea to do so much manipulation in one fell swoop. Is the statement above really hard for you to read? If yes, then by all means break it into pieces and make some intermediate objects. Your code should be easy to write and read when you're done.
+
+In later tutorials, we'll explore more of `dplyr`, such as operations based on two datasets.
 
 ### Resources
 

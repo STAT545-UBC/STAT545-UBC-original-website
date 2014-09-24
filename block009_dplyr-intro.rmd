@@ -51,7 +51,7 @@ gtbl
 glimpse(gtbl)
 ```
 
-A `tbl_df` is basically an improved data.frame, where `plyr` includes some nice methods for high-level inspection. Specifically, these methods do something sensible for datasets with many observations and/or variables. You do __NOT__ need to turn your data.frames into `tbl_df`s to use `plyr`. I do so here for demonstration purposes only.
+A `tbl_df` is basically an improved data.frame, for which `dplyr` provides nice methods for high-level inspection. Specifically, these methods do something sensible for datasets with many observations and/or variables. You do __NOT__ need to turn your data.frames into `tbl_df`s to use `plyr`. I do so here for demonstration purposes only.
 
 ### Think before you create excerpts of your data ...
 
@@ -67,7 +67,9 @@ Stop and ask yourself ...
 
 If YES, __use proper data aggregation techniques__ or facetting in `ggplot2` plots or conditioning in `lattice` -- __don’t subset the data__. Or, more realistic, only subset the data as a temporary measure while you develop your elegant code for computing on or visualizing these data subsets.
 
-If NO, then maybe you really do need to store a copy of a subset of the data. But seriously consider whether you can achieve your goals by simply using the `subset =` argument of, e.g., the `lm()` function, to limit computation to your excerpt of choice. Lots of functions offer a `subset =` argument! Copies and excerpts of your data clutter your workspace, invite mistakes, and sow general confusion. Avoid whenever possible.
+If NO, then maybe you really do need to store a copy of a subset of the data. But seriously consider whether you can achieve your goals by simply using the `subset =` argument of, e.g., the `lm()` function, to limit computation to your excerpt of choice. Lots of functions offer a `subset =` argument!
+
+Copies and excerpts of your data clutter your workspace, invite mistakes, and sow general confusion. Avoid whenever possible.
 
 Reality can also lie somewhere in between. You will find the workflows presented below can help you accomplish your goals with minimal creation of temporary, intermediate objects.
 
@@ -91,7 +93,9 @@ subset(gdf, country == "Rwanda") ## almost same as filter ... but wait ...
 
 Before we go any further, we should exploit the new pipe operator that `dplyr` imports from the [`magrittr`](https://github.com/smbache/magrittr) package. This is going to change your data analytical life. You no longer need to enact multi-operation commands by nesting them inside each other, like so many [Russian nesting dolls](http://blogue.us/wp-content/uploads/2009/07/Unknown-21.jpeg). This new syntax leads to code that is much easier to write and to read.
 
-Here's what it looks like: `%>%`. The RStudio keyboard shortcut: alt-shift-. (Although [this tweet](https://twitter.com/rstudiotips/status/514094879316525058) makes me wonder if this is in flux?).
+Here's what it looks like: `%>%`. The RStudio keyboard shortcut: Ctrl + Shift + M (Windows), Cmd + Shift + M (Mac), according to [this tweet](https://twitter.com/rstudiotips/status/514094879316525058).
+
+<!-- alt-shift-. works for me but I'm not running bleeding edge RStudio -->
 
 Let's demo then I'll explain:
 
@@ -99,7 +103,7 @@ Let's demo then I'll explain:
 gdf %>% head
 ```
 
-The above is equivalent to `head(gdf)`. This pipe operator takes the thing on the left-hand-side and __pipes__ it into the function call on the right-hand-side -- literally, drops it in as the first argument.
+This is equivalent to `head(gdf)`. This pipe operator takes the thing on the left-hand-side and __pipes__ it into the function call on the right-hand-side -- literally, drops it in as the first argument.
 
 Never fear, you can still specify other arguments to this function! To see the first 3 rows of Gapminder, we could say `head(gdf, 3)` or this:
 
