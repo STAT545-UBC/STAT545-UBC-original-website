@@ -9,12 +9,12 @@ output:
 
   * HW01 and associated peer review has been processed; you should have gotten an email from us
   * HW02 peer review will be set in motion today; you'll review the work of 2 peers
+  * [HW03](hw03_dplyr-and-more-ggplot2.html) due before class Monday 2014-09-29. 
   * Introduction to `dplyr`
   * What's next? I'll select from these topics
     - Functions
     - Tidy data
     - More data aggregation with, e.g., `plyr`
-    - * [Homework 03](hw03_dplyr-and-more-ggplot2.html) due before class Monday 2014-09-29.    
     
 #### Slides and links
 
