@@ -14,7 +14,7 @@ output:
     - Functions
     - Tidy data
     - More data aggregation with, e.g., `plyr`
-    - [HW 3](hw03_dplyr-and-more.html) (ROUGH DRAFT) due before class Monday 2014-09-29. It will be making more figures, more sophisticated than last week, and more explorations/summaries of data. Probably Gapminder, though you can ask for approval to use something else. Will cover `ggplot2` and `dplyr`.    
+    - * [Homework 03](hw03_dplyr-and-more-ggplot2.html) due before class Monday 2014-09-29.    
     
 #### Slides and links
 

@@ -75,7 +75,10 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <ul>
 <li><a href="#overview">Overview</a><ul>
 <li><a href="#gapminder-data">Gapminder data</a></li>
-<li><a href="#hw-guts">HW Guts</a></li>
+</ul></li>
+<li><a href="#your-mission-high-level">Your mission, high-level</a></li>
+<li><a href="#task-menu">Task menu</a></li>
+<li><a href="#companion-graphs">Companion graphs</a><ul>
 <li><a href="#but-i-want-to-do-more">But I want to do more!</a></li>
 </ul></li>
 <li><a href="#report-your-process">Report your process</a></li>
@@ -94,20 +97,52 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h4>Gapminder data</h4>
 <p>Work with the <a href="http://tiny.cc/gapminder">Gapminder excerpt</a>. <em>If you really, really want to, you can explore a different dataset but get permission from Jenny.</em></p>
 </div>
-<div id="hw-guts" class="section level4">
-<h4>HW Guts</h4>
-<p><strong>THIS IS JUST A DRAFT, FOR ANYONE WHO WANTS TO START EARLY.</strong></p>
-<p><em>I will adapt parts of <a href="http://www.stat.ubc.ca/%7Ejenny/STAT545A/hw03_dataAggregation.html">homework 3</a> and <a href="http://www.stat.ubc.ca/%7Ejenny/STAT545A/hw04_univariateLattice.html">homework 4</a> from 2013. 2013’s Homework 3 relied on the <code>ddply()</code> function from the <code>plyr</code> package, but we have not covered that yet. Plus, <code>dplyr</code> is the nicer way to do such things now. So the adaptation will revolve around that. The idea of creating “graphical companions” to your data aggregation results will be retained.</em></p>
 </div>
+<div id="your-mission-high-level" class="section level3">
+<h3>Your mission, high-level</h3>
+<p>Pick at least three of the tasks below and attack each with a table and figure.</p>
+<ul>
+<li><code>dplyr</code> should be your main data manipulation tool</li>
+<li><code>ggplot2</code> should be your main visualization tool</li>
+</ul>
+<p>Make observations about what your tables/figures show and about the process.</p>
+<p>If you want to do something comparable but different, i.e. swap one quantitative variable for another, be my guest! If you are feeling inspired and curious, then we’re doing this right. Go for it.</p>
+<p>Relax about the following things:</p>
+<ul>
+<li>Tidying/reshaping is NOT your assignment. Many of your tables will be awkwardly shaped in the report. That’s OK.</li>
+<li>Table beauty is not a big deal. Simply printing to “screen” is fine. You could also try the <code>knitr::kable()</code> function. Assuming <code>my_df</code> is a data.frame, here’s an R chunk that should print it as a decent-looking table:</li>
+</ul>
+<pre><code>```{r results = 'asis'}
+knitr::kable(my_df)
+```</code></pre>
+
+<ul>
+<li>For all things, graphical and tabular, if you’re dissatisfied with a result, discuss the problem, what you’ve tried and move on.</li>
+</ul>
+</div>
+<div id="task-menu" class="section level3">
+<h3>Task menu</h3>
+<p>Get the maximum and minimum of GDP per capita for all continents.</p>
+<p>Look at the spread of GDP per capita within the continents.</p>
+<p>Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population. Just try something other than the plain vanilla mean.</p>
+<p>How is life expectancy changing over time on different continents?</p>
+<p>Report the absolute and/or relative abundance of countries with low life expectancy over time by continent: Compute some measure of worldwide life expectancy – you decide – a mean or median or some other quantile or perhaps your current age. The determine how many countries on each continent have a life expectancy less than this benchmark, for each year.</p>
+<p>Find countries with interesting stories. Open-ended and, therefore, hard. Promising but unsuccessful attempts are encouraged. This will generate interesting questions to follow up on in class.</p>
+<p>Make up your own! Between the <code>dplyr</code> coverage in class and the list above, I think you get the idea.</p>
+</div>
+<div id="companion-graphs" class="section level3">
+<h3>Companion graphs</h3>
+<p>For each table, make sure to include a relevant figure.</p>
+<p>Your figure does not have to depict every last number from the data aggregation result. Use your judgement. It just needs to complement the table, add context, and allow for some sanity checking both ways.</p>
+<p>Notice which figures are easy/hard to make, which data formats make better inputs for plotting functions vs. for human-friendly tables.</p>
 <div id="but-i-want-to-do-more" class="section level4">
 <h4>But I want to do more!</h4>
-<p><em>This is just for people who want to take things further! NOT REQUIRED!</em></p>
-<p>Ask and ye shall receive! This will probably just be posing some more complicated <code>dplyr</code>-ish challenges……</p>
+<p>I’ve always wanted to get a two-column layout, but only in certain parts of a document. The idea would be to put a figure and relevant table right next to each other. Anyone who figures that out in our report-making workflow would be a hero. But this is low priority and only for a keener.</p>
 </div>
 </div>
 <div id="report-your-process" class="section level3">
 <h3>Report your process</h3>
-<p>You’re encouraged to reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc.</p>
+<p>You’re encouraged to reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc. Give credit to your sources, whether it’s a blog post, a fellow student, an online tutorial, etc.</p>
 </div>
 <div id="submit-the-assignment" class="section level3">
 <h3>Submit the assignment</h3>
@@ -116,9 +151,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="rubric" class="section level3">
 <h3>Rubric</h3>
 <p><strong>Start using our <a href="peer-review01_marking-rubric.html">general rubric</a> for specifics to evaluate! The form will require you to do so!</strong></p>
-<p>Check minus: Hits the elements listed above in a really minimal or rote way, maybe even with a few mistakes/omissions. And/or it’s hard to figure out which file I’m even supposed to be looking at.</p>
+<p>Check minus: Didn’t tackle at least 3 tasks. Or didn’t make companion graphs. Didn’t interpret anything but left it all to the “reader”. Or more than one technical problem that is relatively easy to fix. It’s hard to find the report in this crazy repo.</p>
 <p>Check: Hits all the elements. No obvious mistakes. Pleasant to read. No heroic detective work required. Solid.</p>
-<p>Check plus: Some “above and beyond”, creativity, etc. You learned something new from reviewing their work and you’re eager to incorporate it into your work now.</p>
+<p>Check plus: Exceeded the requirements in number of tasks. Or developed novel tasks that were indeed interesting and “worked”. Impressive use of <code>dplyr</code> and/or <code>ggplot2</code>. Impeccable organization of repo and report. You learned something new from reviewing their work and you’re eager to incorporate it into your work.</p>
 </div>
 
 <div class="footer">
