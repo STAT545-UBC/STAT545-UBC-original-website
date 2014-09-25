@@ -82,18 +82,18 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="find-git" class="section level3">
 <h3>Find Git</h3>
 <p>Obviously, RStudio can only act as a GUI front-end for Git if Git has been successfully installed (described elsewhere) and RStudio can find it.</p>
-<p>A basic test for successful installation of Git is to simply type <code>git</code> at the shell command line. If you get a complaint about Git not being found it means installation was unsuccessful or that it is not being found, i.e. it is not on your <code>PATH</code>.</p>
-<p>If Git appears to be installed, launch RStudio. Quit and re-launch RStudio if there’s any doubt in your mind about whether you opened RStudio before or after installing Git.</p>
+<p>A basic test for successful installation of Git is to simply enter <code>git</code> in the shell. If you get a complaint about Git not being found, it means installation was unsuccessful or that it is not being found, i.e. it is not on your <code>PATH</code>.</p>
+<p>If Git appears to be installed and findable, launch RStudio. Quit and re-launch RStudio if there’s <strong>any doubt in your mind</strong> about whether you opened RStudio before or after installing Git.</p>
 <p>From RStudio, go to <em>Tools &gt; Global Options &gt; Git</em> and make sure that the box <em>Git executable</em> points to … the Git executable. It should read something like:</p>
 <ul>
 <li><p><code>/usr/bin/git</code> (Mac, Linux)</p></li>
-<li><p><code>C:/Program Files (x86)/Git/bin/git.exe</code> (Windows)</p></li>
-</ul>
+<li><p><code>C:/Program Files (x86)/Git/bin/git.exe</code> (Windows)</p>
 <p>Here is a <a href="http://www.molecularecologist.com/wp-content/uploads/2013/11/Screenshot-2013-11-12-09.53.56-Copy1.png">screenshot</a> of someone doing this on a Windows machine.</p>
 <ul>
 <li><strong>WARNING</strong>: On Windows, do <strong>NOT</strong> use <code>C:/Program Files (x86)/Git/cmd/git.exe</code>. The difference between the good and bad paths is <code>bin</code> vs. <code>cmd</code>.</li>
+</ul></li>
 </ul>
-<p>If you are not sure where the Git exectuable lives, try this in a shell:</p>
+<p>If you are not sure where the Git executable lives, try this in a shell:</p>
 <ul>
 <li><p><code>which git</code> (Mac, Linux)</p></li>
 <li><p><code>where git</code> (most versions of Windows)</p></li>
@@ -109,7 +109,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>Select “New Directory: Start a project in a brand new working directory”.</li>
 <li>Select “Empty Project: Create a new project in an empty directory”.</li>
 <li>Create a new directory for this project anywhere you wish, perhaps with a name like <code>test</code>. You can delete this very soon.</li>
-<li>If you see a checkbox “Create a git repository”, that is a very good sign! Check it. <strong>If you do not see this checkbox, Git was not successfully installed or RStudio still does not find Git. Restart RStudio, if that doesn’t work, reinstall Git and repeat these steps.</strong></li>
+<li>If you see a checkbox “Create a git repository”, that is a very good sign! Check it. <strong>If you do not see this checkbox, Git was not successfully installed or RStudio cannot find Git. Restart RStudio, if that doesn’t work, return to the previous section and, perhaps, reinstall Git using a different method that leaves Git in a conventional location.</strong></li>
 <li>After RStudio opens your test Project, the upper right pane should have a “Git” tab, typically along with “Environment”, “History”, etc. You can see an example <a href="http://www.rstudio.com/images/screenshots/rstudio-vcs.png">in this screenshot</a>.</li>
 <li>If this has gone well, it looks like Git and RStudio are ready to work together! Feel free to quit RStudio and delete the <code>test</code> directory/Project.</li>
 </ul>
