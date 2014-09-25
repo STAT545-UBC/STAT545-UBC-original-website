@@ -1,0 +1,185 @@
+---
+title: "Introduction to dplyr"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+### Intro
+
+`dplyr` is a new package for data manipulation. It is built to be fast, highly expressive, and open-minded about how your data is stored. It is developed by Hadley Wickham and Romain Francois.
+
+`dplyr`'s roots are in an earlier, still-very-useful package called [`plyr`](http://plyr.had.co.nz), which implements the "split-apply-combine" strategy for data analysis. Where `plyr` covers a diverse set of inputs and outputs (e.g., arrays, data.frames, lists), `dplyr` has a laser-like focus on data.frames and related structures.
+
+Have no idea what I'm talking about? Not sure if you care? If you use these base R functions: `subset()`, `apply()`, `[sl]apply()`, `tapply()`, `aggregate()`, `split()`, `do.call()`, then you should keep reading.
+
+#### Load `dplyr`
+
+```{r}
+## install if you do not already have
+
+## from CRAN:
+## install.packages('dplyr')
+
+## from GitHub using devtools (which you also might need to install!):
+## devtools::install_github("hadley/lazyeval")
+## devtools::install_github("hadley/dplyr")
+suppressPackageStartupMessages(library(dplyr))
+```
+
+#### Load the Gapminder data
+
+An excerpt of the Gapminder data which we work with alot.
+
+```{r}
+gd_url <- "http://tiny.cc/gapminder"
+gdf <- read.delim(file = gd_url)
+str(gdf)
+head(gdf)
+```
+
+### Meet `tbl_df`, an upgrade to `data.frame`
+
+```{r}
+gtbl <- tbl_df(gdf)
+gtbl
+glimpse(gtbl)
+```
+
+A `tbl_df` is basically an improved data.frame, for which `dplyr` provides nice methods for high-level inspection. Specifically, these methods do something sensible for datasets with many observations and/or variables. You do __NOT__ need to turn your data.frames into `tbl_df`s to use `plyr`. I do so here for demonstration purposes only.
+
+### Think before you create excerpts of your data ...
+
+If you feel the urge to store a little snippet of your data:
+
+```{r}
+(snippet <- subset(gdf, country == "Canada"))
+```
+
+Stop and ask yourself ...
+
+> Do I want to create mini datasets for each level of some factor (or unique combination of several factors) ... in order to compute or graph something?  
+
+If YES, __use proper data aggregation techniques__ or facetting in `ggplot2` plots or conditioning in `lattice` -- __don’t subset the data__. Or, more realistic, only subset the data as a temporary measure while you develop your elegant code for computing on or visualizing these data subsets.
+
+If NO, then maybe you really do need to store a copy of a subset of the data. But seriously consider whether you can achieve your goals by simply using the `subset =` argument of, e.g., the `lm()` function, to limit computation to your excerpt of choice. Lots of functions offer a `subset =` argument!
+
+Copies and excerpts of your data clutter your workspace, invite mistakes, and sow general confusion. Avoid whenever possible.
+
+Reality can also lie somewhere in between. You will find the workflows presented below can help you accomplish your goals with minimal creation of temporary, intermediate objects.
+
+### Use `filter()` to subset data row-wise.
+
+`filter()` takes logical expressions and returns the rows for which all are `TRUE`.
+
+```{r}
+filter(gtbl, lifeExp < 29)
+filter(gtbl, country == "Rwanda")
+filter(gtbl, country %in% c("Rwanda", "Afghanistan"))
+```
+
+Compare with some base R code to accomplish the same things
+```{r eval = FALSE}
+gdf[gdf$lifeExp < 29, ] ## repeat `gdf`, [i, j] indexing is distracting
+subset(gdf, country == "Rwanda") ## almost same as filter ... but wait ...
+```
+
+### Meet the new pipe operator
+
+Before we go any further, we should exploit the new pipe operator that `dplyr` imports from the [`magrittr`](https://github.com/smbache/magrittr) package. This is going to change your data analytical life. You no longer need to enact multi-operation commands by nesting them inside each other, like so many [Russian nesting dolls](http://blogue.us/wp-content/uploads/2009/07/Unknown-21.jpeg). This new syntax leads to code that is much easier to write and to read.
+
+Here's what it looks like: `%>%`. The RStudio keyboard shortcut: Ctrl + Shift + M (Windows), Cmd + Shift + M (Mac), according to [this tweet](https://twitter.com/rstudiotips/status/514094879316525058).
+
+<!-- alt-shift-. works for me but I'm not running bleeding edge RStudio -->
+
+Let's demo then I'll explain:
+
+```{r}
+gdf %>% head
+```
+
+This is equivalent to `head(gdf)`. This pipe operator takes the thing on the left-hand-side and __pipes__ it into the function call on the right-hand-side -- literally, drops it in as the first argument.
+
+Never fear, you can still specify other arguments to this function! To see the first 3 rows of Gapminder, we could say `head(gdf, 3)` or this:
+
+```{r}
+gdf %>% head(3)
+```
+
+I've advised you to think "gets" whenever you see the assignment operator, `<-`. Similary, you should think "then" whenever you see the pipe operator, `%>%`.
+
+You are probably not impressed yet, but the magic will soon happen.
+
+### Use `select()` to subset the data on variables or columns.
+
+Back to `dplyr` ...
+
+Use `select()` to subset the data on variables or columns. Here's a conventional call:
+
+```{r}
+select(gtbl, year, lifeExp) ## tbl_df prevents TMI from printing
+```
+
+And here's similar operation, but written with the pipe operator and piped through `head`:
+```{r}
+gtbl %>%
+  select(year, lifeExp) %>%
+  head(4)
+```
+
+Think: "Take `gtbl`, then select the variables year and lifeExp, then show the first 4 rows."
+
+### Revel in the convenience
+
+Here's the data for Cambodia, but only certain variables:
+
+```{r}
+gtbl %>%
+  filter(country == "Cambodia") %>%
+  select(year, lifeExp)
+```
+
+and what a typical base R call would look like:
+
+```{r}
+gdf[gdf$country == "Cambodia", c("year", "lifeExp")]
+```
+
+or, possibly?, a nicer look using base R's `subset()` function:
+
+```{r}
+subset(gdf, country == "Cambodia", select = c(year, lifeExp))
+```
+
+### Pause to reflect
+
+We've barely scratched the surface of `dplyr` but I want to point out key principles you may start to appreciate. If you're new to R or "programing with data", feel free skip this section and [move on](block010_dplyr-end-single-table.html).
+
+`dplyr`'s verbs, such as `filter()` and `select()`, are what's called [pure functions](http://en.wikipedia.org/wiki/Pure_function). To quote from Wickham's [Advanced R Programming book](http://adv-r.had.co.nz/Functions.html):
+
+> The functions that are the easiest to understand and reason about are pure functions: functions that always map the same input to the same output and have no other impact on the workspace. In other words, pure functions have no side effects: they don’t affect the state of the world in any way apart from the value they return.
+
+In fact, these verbs are a special case of pure functions: they take the same flavor of object as input and output. Namely, a data.frame or one of the other data receptacles `dplyr` supports. And finally, the data is __always__ the very first argument of the verb functions.
+
+This set of deliberate design choices, together with the new pipe operator, produces a highly effective, low friction [domain-specific language](http://adv-r.had.co.nz/dsl.html) for data analysis.
+
+Go to the next block, [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html), for more `dplyr`!
+
+### Resources
+
+`dplyr` official stuff
+
+  * package home [on CRAN](http://cran.r-project.org/web/packages/dplyr/index.html)
+    - note there are several vignettes, with the [introduction](http://cran.r-project.org/web/packages/dplyr/vignettes/introduction.html) being the most relevant right now
+    - the [one on window functions](http://cran.rstudio.com/web/packages/dplyr/vignettes/window-functions.html) will also be interesting to you now
+  * development home [on GitHub](https://github.com/hadley/dplyr)
+  * [tutorial HW delivered](https://www.dropbox.com/sh/i8qnluwmuieicxc/AAAgt9tIKoIm7WZKIyK25lh6a) (note this links to a DropBox folder) at useR! 2014 conference
+
+Blog post [Hands-on dplyr tutorial for faster data manipulation in R](http://www.dataschool.io/dplyr-tutorial-for-faster-data-manipulation-in-r/) by Data School, that includes a link to an R Markdown document and links to videos
+
+[Cheatsheet](http://stat545-ubc.github.io/bit001_dplyr-cheatsheet.html) I made for `dplyr` join functions (not relevant yet but soon)

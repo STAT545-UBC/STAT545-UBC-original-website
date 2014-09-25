@@ -37,13 +37,10 @@ If your document is describing a data analysis, author it in [R Markdown](http:/
 
 Whenever you are editing R Markdown documents in RStudio, click the question Mark `?` at the top of the editor pane to display a Markdown cheatsheet or visit RStudio's [R Markdown website](http://rmarkdown.rstudio.com).
 
-#### More advanced topics
+Here is our introductory [tutorial on rendering R Markdown](block007_first-use-rmarkdown.html).
 
-We will soon talk about the process of knitting R Markdown to Markdown, which can then be converted to HTML and more.
-
-  * How and when to keep the intermediate `.md` file.
-  * How to use "chunk options" to control aspects of your report.
-  * How to use the source of the homework assignment itself as a skeleton for your homework submission.
+  * Make sure to keep, commit, push the intermediate `.md` file and any figures.
+  * Expose your code, i.e. use chunk option `echo = FALSE` very sparingly.
 
 ### Organization of your coursework repository
 
@@ -74,7 +71,7 @@ You have a top-level `README.md` for your repository. Once you create sub-direct
     - Just above the file list, look for "latest commit" followed by ten numbers and letters (called the revision SHA) and a clipboard icon.
     - Click the clipboard icon to copy the revision SHA to your clipboard.
     - Click on "Issues", then on "New Issue". Name the issue "Mark homework x of *firstname-lastname*", where *x* is, 1, 2, ....
-    - In the issue description, tag the prof/TAs by including the text ` @STAT545-UBC/owners`, and paste the revision SHA.
+    - In the issue description, tag the markers by including the text ` @STAT545-UBC/Markers`, and paste the revision SHA.
      - Click "Submit new issue". You're done! Congratulations!
   
 ### Make your work shine!

@@ -1,0 +1,263 @@
+---
+title: "dplyr functions for a single dataset"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+### Where were we?
+
+In the [introduction to `plyr`](block009_dplyr-intro.html), we used two very important verbs and an operator:
+
+  * `filter()` for subsetting data row-wise
+  * `select()` for subsetting data variable- or column-wise
+  * the pipe operator `%>%`, which feeds the LHS as the first argument to the expression on the RHS
+  
+Here we explore other `dplyr` functions, especially more verbs, for working with a single dataset.
+
+#### Load `dplyr` and the Gapminder data
+
+We use an excerpt of the Gapminder data and store it as a `tbl_df` object, basically an enhanced data.frame. I'll use the pipe operator even here, to demonstrate its utility outside of `dplyr`.
+
+```{r}
+suppressPackageStartupMessages(library(dplyr))
+gd_url <- "http://tiny.cc/gapminder"
+gtbl <- gd_url %>% read.delim %>% tbl_df
+gtbl %>% glimpse
+```
+
+### Use `mutate()` to add new variables
+
+Imagine we wanted to recover each country's GDP. After all, the Gapminder data has a variable for population and GDP per capita. Let's multiply them together.
+
+```{r}
+gtbl <- gtbl %>%
+  mutate(gdp = pop * gdpPercap)
+gtbl %>% glimpse
+```
+
+Hmmmm ... those GDP numbers are almost uselessly large and abstract. Consider the [advice of Randall Munroe of xkcd](http://fivethirtyeight.com/datalab/xkcd-randall-munroe-qanda-what-if/): "One thing that bothers me is large numbers presented without context... 'If I added a zero to this number, would the sentence containing it mean something different to me?' If the answer is 'no,' maybe the number has no business being in the sentence in the first place." Maybe it would be more meaningful to consumers of my tables and figures if I reported GDP per capita, *relative to some benchmark country*. Since Canada is my adopted home, I'll go with that.
+
+```{r}
+just_canada <- gtbl %>% filter(country == "Canada")
+gtbl <- gtbl %>%
+  mutate(canada = just_canada$gdpPercap[match(year, just_canada$year)],
+         gdpPercapRel = gdpPercap / canada)
+gtbl %>%
+  select(country, year, gdpPercap, canada, gdpPercapRel)
+gtbl %>%
+  select(gdpPercapRel) %>%
+  summary
+```
+
+Note that, `mutate()` builds new variables sequentially so you can reference earlier ones (like `canada`) when defining later ones (like `gdpPercapRel`). (I got a little off topic here using `match()` to do table look up, but [you can figure that out](http://www.rdocumentation.org/packages/base/functions/match).)
+
+The relative GDP per capita numbers are, in general, well below 1. We see that most of the countries covered by this dataset have substantially lower GDP per capita, relative to Canada, across the entire time period.
+
+### Use `arrange()` to row-order data in a principled way
+
+Imagine you wanted this data ordered by year then country, as opposed to by country then year.
+
+```{r}
+gtbl %>%
+  arrange(year, country)
+```
+
+Or maybe you want just the data from 2007, sorted on life expectancy?
+
+```{r}
+gtbl %>%
+  filter(year == 2007) %>%
+  arrange(lifeExp)
+```
+
+Oh, you'd like to sort on life expectancy in __desc__ending order? Then use `desc()`.
+
+```{r}
+gtbl %>%
+  filter(year == 2007) %>%
+  arrange(desc(lifeExp))
+```
+
+I advise that your analyses NEVER rely on rows or variables being in a specific order. But it's still true that human beings write the code and the interactive development process can be much nicer if you reorder the rows of your data as you go along. Also, once you are preparing tables for human eyeballs, it is imperative that you step up and take control of row order.
+
+### Use `rename()` to rename variables
+
+*NOTE: I am using the development version of `dplyr` which will soon become the official release 0.3. If `rename()` does not work for you, try `rename_vars()`, which is what this function is called in version 0.2 on CRAN. You could also use `plyr::rename()`, but then you have to be careful to always load `plyr` before `dplyr`.*
+
+I am in the awkward life stage of switching from [`camelCase`](http://en.wikipedia.org/wiki/CamelCase) to [`snake_case`](http://en.wikipedia.org/wiki/Snake_case), so I am vexed by the variable names I chose when I cleaned this data years ago. Let's rename some variables!
+
+```{r}
+gtbl %>%
+  rename(life_exp = lifeExp, gdp_percap = gdpPercap,
+         gdp_percap_rel = gdpPercapRel)
+```
+
+I did NOT assign the post-rename object back to `gtbl` because that would make the chunks in this tutorial harder to copy/paste and run out of order. In real life, I would probably assign this back to `gtbl`, in a data preparation script, and proceed with the new variable names.
+
+### `group_by()` is a mighty weapon
+
+I have found friends and family love to ask seemingly innocuous questions like, "which country experienced the sharpest 5-year drop in life expectancy?". In fact, that is a totally natural question to ask. But if you are using a language that doesn't know about data, it's an incredibly annoying question to answer.
+
+`dplyr` offers powerful tools to solve this class of problem.
+
+  * `group_by()` adds extra structure to your dataset -- grouping information -- which lays the groundwork for computations within the groups.
+  * `summarize()` takes a dataset with $n$ observations, computes requested summaries, and returns a dataset with 1 observation.
+  * window functions take a dataset with $n$ observations and return a dataset with $n$ observations.
+  
+Combined with the verbs you already know, these new tools allow you to solve an extremely diverse set of problems with relative ease.
+
+#### Counting things up
+
+Let's start with simple counting.  How many observations do we have per continent?
+
+```{r}
+gtbl %>%
+  group_by(continent) %>%
+  summarize(n_obs = n())
+```
+
+The `tally()` function is a convenience function for this sort of thing.
+
+```{r}
+gtbl %>%
+  group_by(continent) %>%
+  tally
+```
+
+What if we wanted to add the number of unique countries for each continent?
+
+```{r}
+gtbl %>%
+  group_by(continent) %>%
+  summarize(n_obs = n(), n_countries = n_distinct(country))
+```
+
+#### General summarization
+
+The functions you'll apply within `summarize()` include classical statistical summaries, like `mean()`, `median()`, `sd()`, and `IQR`. Remember they are functions that take $n$ inputs and distill them down into 1 output.
+
+Although this may be statistically ill-advised, let's compute the average life expectancy by continent.
+
+```{r}
+gtbl %>%
+  group_by(continent) %>%
+  summarize(avg_lifeExp = mean(lifeExp))
+```
+
+`summarize_each()` applies the same summary function(s) to multiple variables. Let's compute average and median life expectancy and GDP per capita by continent by year ... but only for 1952 and 2007.
+
+*NOTE: you won't have `summarize_each()` if you're using `dplyr` version 0.2. Just wait for it.*
+
+```{r}
+gtbl %>%
+  filter(year %in% c(1952, 2007)) %>%
+  group_by(continent, year) %>%
+  summarise_each(funs(mean, median), lifeExp, gdpPercap)
+```
+
+Let's focus just on Asia. What are the minimum and maximum life expectancies seen by year?
+```{r}
+gtbl %>%
+  filter(continent == "Asia") %>%
+  group_by(year) %>%
+  summarize(min_lifeExp = min(lifeExp), max_lifeExp = max(lifeExp))
+```
+
+Of course it would be much more interesting to see *which* country contributed these extreme observations. Is the minimum (maximum) always coming from the same country? That's where window functions come in.
+
+#### Window functions
+
+Recall that window functions take $n$ inputs and give back $n$ outputs. Here we use window functions based on ranks and offsets.
+
+Let's revisit the worst and best life expectancies in Asia over time, but retaining info about *which* country contributes these extreme values.
+
+```{r}
+gtbl %>%
+  filter(continent == "Asia") %>%
+  select(year, country, lifeExp) %>%
+  arrange(year) %>%
+  group_by(year) %>%
+  filter(min_rank(desc(lifeExp)) < 2 | min_rank(lifeExp) < 2)
+```
+
+We see that (min = Agfhanistan, max = Japan) is the most frequent result, but Cambodia and Israel pop up at least once each as the min or max, respectively. That table should make you impatient for our upcoming work on tidying and reshaping data! Wouldn't it be nice to have one row per year?
+
+How did that actually work? First, I store and view the result including everything but the last `filter()` statement. All of these operations are familiar.
+
+```{r}
+asia <- gtbl %>%
+  filter(continent == "Asia") %>%
+  select(year, country, lifeExp) %>%
+  arrange(year) %>%
+  group_by(year)
+asia
+```
+
+Now we apply a window function -- `min_rank()`. Since `asia` is grouped by year, `min_rank()` operates within mini-datasets, each for a specific year. Applied to the variable `lifeExp`, `min_rank()` returns the rank of each country's observed life expectancy. FYI, the `min` part just specifies how ties are broken. Here is an explicit peek at these within-year life expectancy ranks, in both the (default) ascending and descending order.
+
+```{r}
+asia %>%
+  mutate(le_rank = min_rank(lifeExp),
+         le_desc_rank = min_rank(desc(lifeExp)))
+```
+
+You can understand the original `filter()` statement now:
+
+```{r eval = FALSE}
+filter(min_rank(desc(lifeExp)) < 2 | min_rank(lifeExp) < 2)
+```
+
+These two sets of ranks are formed, within year group, and `filter()` retains rows with rank less than 2, which means ... the row with rank = 1. Since we do for ascending and descending ranks, we get both the min and the max.
+
+If we had wanted just the min OR the max, an alternative approach using `top_n()` would have worked.
+```{r}
+gtbl %>%
+  filter(continent == "Asia") %>%
+  select(year, country, lifeExp) %>%
+  arrange(year) %>%
+  group_by(year) %>%
+  #top_n(1)               ## gets the min
+  top_n(1, desc(lifeExp)) ## gets the max
+```
+
+#### Grand Finale
+
+So let's answer that "simple" question: which country experienced the sharpest 5-year drop in life expectancy? Recall that this excerpt of the Gapminder data only has data every five years, e.g. for 1952, 1957, etc. So this really means looking at life expectancy changes between adjacent timepoints.
+
+At this point, that's just too easy, so let's do it by continent while we're at it.
+
+```{r}
+gtbl %>%
+  group_by(continent, country) %>%
+  select(country, year, continent, lifeExp) %>%
+  mutate(le_delta = lifeExp - lag(lifeExp)) %>%
+  summarize(worst_le_delta = min(le_delta, na.rm = TRUE)) %>%
+  filter(min_rank(worst_le_delta) < 2) %>%
+  arrange(worst_le_delta)
+```
+
+Ponder that for a while. The subject matter and the code. Mostly you're seeing what genocide looks like in dry statistics on average life expectancy.
+
+Break the code into pieces, starting at the top, and inspect the intermediate results. That's certainly how I was able to *write* such a thing. These commands do not [leap fully formed out of anyone's forehead](http://tinyurl.com/athenaforehead) -- they are built up gradually, with lots of errors and refinements along the way. I'm not even sure it's a great idea to do so much manipulation in one fell swoop. Is the statement above really hard for you to read? If yes, then by all means break it into pieces and make some intermediate objects. Your code should be easy to write and read when you're done.
+
+In later tutorials, we'll explore more of `dplyr`, such as operations based on two datasets.
+
+### Resources
+
+`dplyr` official stuff
+
+  * package home [on CRAN](http://cran.r-project.org/web/packages/dplyr/index.html)
+    - note there are several vignettes, with the [introduction](http://cran.r-project.org/web/packages/dplyr/vignettes/introduction.html) being the most relevant right now
+    - the [one on window functions](http://cran.rstudio.com/web/packages/dplyr/vignettes/window-functions.html) will also be interesting to you now
+  * development home [on GitHub](https://github.com/hadley/dplyr)
+  * [tutorial HW delivered](https://www.dropbox.com/sh/i8qnluwmuieicxc/AAAgt9tIKoIm7WZKIyK25lh6a) (note this links to a DropBox folder) at useR! 2014 conference
+
+Blog post [Hands-on dplyr tutorial for faster data manipulation in R](http://www.dataschool.io/dplyr-tutorial-for-faster-data-manipulation-in-r/) by Data School, that includes a link to an R Markdown document and links to videos
+
+[Cheatsheet](http://stat545-ubc.github.io/bit001_dplyr-cheatsheet.html) I made for `dplyr` join functions (not relevant yet but soon)

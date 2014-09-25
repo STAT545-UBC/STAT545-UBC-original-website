@@ -69,9 +69,13 @@ All of this will be eventually ported over into STAT545 materials but will go ah
 
 This week's goal is for you to report on your data exploration by authoring an R Markdown document.
 
-Here is a write-up of my hands-on demo:
+Here is a write-up of my hands-on demo of R Markdown:
 
   * [Test your ability to author an R Markdown report](block007_first-use-rmarkdown.html)
+  
+Here is a recap on the combined usage of RStudio (and a Project), a Git repo linked to a remote repo on GitHub, and an R Markdown report:
+
+  * [Git(Hub) usage](block008_git-usage.html)
 
 Here is material from a talk and short workshop I gave at SFU in November 2013
 
