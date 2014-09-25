@@ -1,9 +1,6 @@
 ---
 title: Introduce yourself to Git
-output:
-  html_document:
-    toc: true
-    toc_depth: 4
+output: html_document
 ---
 
 **You only have to set this up once per machine.**
@@ -19,7 +16,6 @@ From RStudio, go to *Tools > Shell* and tell `git` your name and **GitHub email*
     - This __must__ be the email that you used to sign up for GitHub.
 
 These commands return nothing. You can check that `git` understood what you typed by looking at the output of `git config --global --list`.
-
 
 Resources:
 
