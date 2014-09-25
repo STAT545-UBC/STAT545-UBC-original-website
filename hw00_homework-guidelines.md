@@ -74,7 +74,7 @@ You have a top-level `README.md` for your repository. Once you create sub-direct
     - Just above the file list, look for "latest commit" followed by ten numbers and letters (called the revision SHA) and a clipboard icon.
     - Click the clipboard icon to copy the revision SHA to your clipboard.
     - Click on "Issues", then on "New Issue". Name the issue "Mark homework x of *firstname-lastname*", where *x* is, 1, 2, ....
-    - In the issue description, tag the prof/TAs by including the text ` @STAT545-UBC/owners`, and paste the revision SHA.
+    - In the issue description, tag the markers by including the text ` @STAT545-UBC/Markers`, and paste the revision SHA.
      - Click "Submit new issue". You're done! Congratulations!
   
 ### Make your work shine!
