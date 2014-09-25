@@ -66,7 +66,7 @@ Your figure does not have to depict every last number from the data aggregation 
 
 Notice which figures are easy/hard to make, which data formats make better inputs for plotting functions vs. for human-friendly tables.
 
-#### But I want to do more!
+### But I want to do more!
 
 I've always wanted to get a two-column layout, but only in certain parts of a document. The idea would be to put a figure and relevant table right next to each other. Anyone who figures that out in our report-making workflow would be a hero. But this is low priority and only for a keener.
   
