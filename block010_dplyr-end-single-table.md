@@ -383,20 +383,21 @@ Of course it would be much more interesting to see *which* country contributed t
 
 Recall that window functions take $n$ inputs and give back $n$ outputs. Here we use window functions based on ranks and offsets.
 
-Let's revisit the worst and best life expectancies in Asia over time, but with the added info about *which* country contributes these extreme values.
+Let's revisit the worst and best life expectancies in Asia over time, but retaining info about *which* country contributes these extreme values.
 
 
 ```r
 gtbl %>%
   filter(continent == "Asia") %>%
-  group_by(year) %>%
   select(year, country, lifeExp) %>%
-  filter(min_rank(desc(lifeExp)) < 2 | min_rank(lifeExp) < 2) %>%
-  arrange(year)
+  arrange(year) %>%
+  group_by(year) %>%
+  filter(min_rank(desc(lifeExp)) < 2 | min_rank(lifeExp) < 2)
 ```
 
 ```
 ## Source: local data frame [24 x 3]
+## Groups: year
 ## 
 ##    year     country lifeExp
 ## 1  1952 Afghanistan   28.80
@@ -425,7 +426,104 @@ gtbl %>%
 ## 24 2007       Japan   82.60
 ```
 
-That result should make you impatient for our upcoming work on tidying and reshaping data! Wouldn't it be nice to have one row per year?
+We see that (min = Agfhanistan, max = Japan) is the most frequent result, but Cambodia and Israel pop up at least once each as the min or max, respectively. That table should make you impatient for our upcoming work on tidying and reshaping data! Wouldn't it be nice to have one row per year?
+
+How did that actually work? First, I store and view the result including everything but the last `filter()` statement. All of these operations are familiar.
+
+
+```r
+asia <- gtbl %>%
+  filter(continent == "Asia") %>%
+  select(year, country, lifeExp) %>%
+  arrange(year) %>%
+  group_by(year)
+asia
+```
+
+```
+## Source: local data frame [396 x 3]
+## Groups: year
+## 
+##    year          country lifeExp
+## 1  1952      Afghanistan   28.80
+## 2  1952          Bahrain   50.94
+## 3  1952       Bangladesh   37.48
+## 4  1952         Cambodia   39.42
+## 5  1952            China   44.00
+## 6  1952 Hong Kong, China   60.96
+## 7  1952            India   37.37
+## 8  1952        Indonesia   37.47
+## 9  1952             Iran   44.87
+## 10 1952             Iraq   45.32
+## ..  ...              ...     ...
+```
+
+Now we apply a window function -- `min_rank()`. Since `asia` is grouped by year, `min_rank()` operates within mini-datasets, each for a specific year. Applied to the variable `lifeExp`, `min_rank()` returns the rank of each country's observed life expectancy. FYI, the `min` part just specifies how ties are broken. Here is an explicit peek at these within-year life expectancy ranks, in both the (default) ascending and descending order.
+
+
+```r
+asia %>%
+  mutate(le_rank = min_rank(lifeExp),
+         le_desc_rank = min_rank(desc(lifeExp)))
+```
+
+```
+## Source: local data frame [396 x 5]
+## Groups: year
+## 
+##    year          country lifeExp le_rank le_desc_rank
+## 1  1952      Afghanistan   28.80       1           33
+## 2  1952          Bahrain   50.94      25            9
+## 3  1952       Bangladesh   37.48       7           27
+## 4  1952         Cambodia   39.42       9           25
+## 5  1952            China   44.00      16           18
+## 6  1952 Hong Kong, China   60.96      31            3
+## 7  1952            India   37.37       5           29
+## 8  1952        Indonesia   37.47       6           28
+## 9  1952             Iran   44.87      17           17
+## 10 1952             Iraq   45.32      18           16
+## ..  ...              ...     ...     ...          ...
+```
+
+You can understand the original `filter()` statement now:
+
+
+```r
+filter(min_rank(desc(lifeExp)) < 2 | min_rank(lifeExp) < 2)
+```
+
+These two sets of ranks are formed, within year group, and `filter()` retains rows with rank less than 2, which means ... the row with rank = 1. Since we do for ascending and descending ranks, we get both the min and the max.
+
+If we had wanted just the min OR the max, an alternative approach using `top_n()` would have worked.
+
+```r
+gtbl %>%
+  filter(continent == "Asia") %>%
+  select(year, country, lifeExp) %>%
+  arrange(year) %>%
+  group_by(year) %>%
+  #top_n(1)               ## gets the min
+  top_n(1, desc(lifeExp)) ## gets the max
+```
+
+```
+## Source: local data frame [12 x 3]
+## Groups: year
+## 
+##    year     country lifeExp
+## 1  1952 Afghanistan   28.80
+## 2  1957 Afghanistan   30.33
+## 3  1962 Afghanistan   32.00
+## 4  1967 Afghanistan   34.02
+## 5  1972 Afghanistan   36.09
+## 6  1977    Cambodia   31.22
+## 7  1982 Afghanistan   39.85
+## 8  1987 Afghanistan   40.82
+## 9  1992 Afghanistan   41.67
+## 10 1997 Afghanistan   41.76
+## 11 2002 Afghanistan   42.13
+## 12 2007 Afghanistan   43.83
+```
 
 #### Grand Finale
 

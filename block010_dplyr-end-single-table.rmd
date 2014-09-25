@@ -175,18 +175,56 @@ Of course it would be much more interesting to see *which* country contributed t
 
 Recall that window functions take $n$ inputs and give back $n$ outputs. Here we use window functions based on ranks and offsets.
 
-Let's revisit the worst and best life expectancies in Asia over time, but with the added info about *which* country contributes these extreme values.
+Let's revisit the worst and best life expectancies in Asia over time, but retaining info about *which* country contributes these extreme values.
 
 ```{r}
 gtbl %>%
   filter(continent == "Asia") %>%
-  group_by(year) %>%
   select(year, country, lifeExp) %>%
-  filter(min_rank(desc(lifeExp)) < 2 | min_rank(lifeExp) < 2) %>%
-  arrange(year)
+  arrange(year) %>%
+  group_by(year) %>%
+  filter(min_rank(desc(lifeExp)) < 2 | min_rank(lifeExp) < 2)
 ```
 
-That result should make you impatient for our upcoming work on tidying and reshaping data! Wouldn't it be nice to have one row per year?
+We see that (min = Agfhanistan, max = Japan) is the most frequent result, but Cambodia and Israel pop up at least once each as the min or max, respectively. That table should make you impatient for our upcoming work on tidying and reshaping data! Wouldn't it be nice to have one row per year?
+
+How did that actually work? First, I store and view the result including everything but the last `filter()` statement. All of these operations are familiar.
+
+```{r}
+asia <- gtbl %>%
+  filter(continent == "Asia") %>%
+  select(year, country, lifeExp) %>%
+  arrange(year) %>%
+  group_by(year)
+asia
+```
+
+Now we apply a window function -- `min_rank()`. Since `asia` is grouped by year, `min_rank()` operates within mini-datasets, each for a specific year. Applied to the variable `lifeExp`, `min_rank()` returns the rank of each country's observed life expectancy. FYI, the `min` part just specifies how ties are broken. Here is an explicit peek at these within-year life expectancy ranks, in both the (default) ascending and descending order.
+
+```{r}
+asia %>%
+  mutate(le_rank = min_rank(lifeExp),
+         le_desc_rank = min_rank(desc(lifeExp)))
+```
+
+You can understand the original `filter()` statement now:
+
+```{r eval = FALSE}
+filter(min_rank(desc(lifeExp)) < 2 | min_rank(lifeExp) < 2)
+```
+
+These two sets of ranks are formed, within year group, and `filter()` retains rows with rank less than 2, which means ... the row with rank = 1. Since we do for ascending and descending ranks, we get both the min and the max.
+
+If we had wanted just the min OR the max, an alternative approach using `top_n()` would have worked.
+```{r}
+gtbl %>%
+  filter(continent == "Asia") %>%
+  select(year, country, lifeExp) %>%
+  arrange(year) %>%
+  group_by(year) %>%
+  #top_n(1)               ## gets the min
+  top_n(1, desc(lifeExp)) ## gets the max
+```
 
 #### Grand Finale
 
