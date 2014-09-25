@@ -116,17 +116,3 @@ That's an example of a successful push.
 ### The end
 
 Now just ... repeat. Do work somewhere. Commit it. Push it or pull it depending on where you did it, but get local and remote "synced up". Repeat.
-
-### Resources
-
-Long-term, you should understand more about what you are doing. Rote clicking in RStudio is a short-term survival method but won't work for long.
-
-[trygit](https://try.github.io/levels/1/challenges/1) is to (command line) Git as [swirl](http://swirlstats.com) is to R. Learn by doing, in small bites.
-
-The book [Pro Git](http://git-scm.com/book) is fantastic and comprehensive.
-
-[GitHub's own training materials](http://training.github.com/kit/) may be helpful.
-
-  * They also point to [many other resources](https://help.github.com/articles/what-are-other-good-resources-for-learning-git-and-github)
-
-[SourceTree](https://help.github.com/articles/what-are-other-good-resources-for-learning-git-and-github) is a much more powerful Git client than RStudio provides. I highly recommend it if you'd like to minimize your usage of Git from the command line.
