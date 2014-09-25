@@ -37,13 +37,10 @@ If your document is describing a data analysis, author it in [R Markdown](http:/
 
 Whenever you are editing R Markdown documents in RStudio, click the question Mark `?` at the top of the editor pane to display a Markdown cheatsheet or visit RStudio's [R Markdown website](http://rmarkdown.rstudio.com).
 
-#### More advanced topics
+Here is our introductory [tutorial on rendering R Markdown](block007_first-use-rmarkdown.html).
 
-We will soon talk about the process of knitting R Markdown to Markdown, which can then be converted to HTML and more.
-
-  * How and when to keep the intermediate `.md` file.
-  * How to use "chunk options" to control aspects of your report.
-  * How to use the source of the homework assignment itself as a skeleton for your homework submission.
+  * Make sure to keep, commit, push the intermediate `.md` file and any figures.
+  * Expose your code, i.e. use chunk option `echo = FALSE` very sparingly.
 
 ### Organization of your coursework repository
 
