@@ -14,7 +14,15 @@ output:
     - RStudio comes with a __text editor__, so there is no immediate need to install a separate stand-alone editor.
     - RStudio can __interface with Git(Hub)__. However, you must do all the Git(Hub) set up described elsewhere before you can take advantage of this.
     
-If you have a pre-existing installation of R and/or RStudio, we highly recommend that you reinstall and upgrade to the most recent version. It is very easy and RStudio, specifically, is changing rapidly and positively (written 2014-09). If you upgrade R, you will need to also update any packages you have installed.
+If you have a pre-existing installation of R and/or RStudio, we highly recommend that you reinstall and upgrade to the most recent version. It is very easy and RStudio, specifically, is changing rapidly and positively (written 2014-09).
+
+  * If you upgrade R, you will need to update any packages you have installed. The command below should get you started, though you may need to specify more arguments if, e.g., you have been using a non-default library for your packages.
+
+```r
+    update.packages(ask = FALSE, checkBuilt = TRUE)
+```
+
+  Also, this will only update packages from CRAN, so you will need to manually update anything you have installed from GitHub, e.g. via `devtools::install_github()`.
 
 ### Testing testing
 
@@ -26,16 +34,15 @@ If you have a pre-existing installation of R and/or RStudio, we highly recommend
 
 R is an extensible system and many people share useful code they have developed as a _package_ via CRAN and GitHub. To install a package from CRAN, for example the [`plyr`](http://plyr.had.co.nz)  package for data aggregation, here is one way to do it in the R console (there are others).
 
-```
-  install.packages("plyr", dependencies = TRUE)
+```r
+install.packages("plyr", dependencies = TRUE)
 ```
 
 By including `dependencies = TRUE`, we are being explicit and extra-careful to install any additional packages the target package, `plyr` in the example above, needs to have around.
 
 You could use the above method to install the following packages, all of which we will use:
 
-  * `plyr`, [package webpage](http://plyr.had.co.nz)
-  * `knitr` [package webpage](http://yihui.name/knitr/)
+  * `dplyr`, [package webpage](http://plyr.had.co.nz)
   * `ggplot2` [package webpage](http://docs.ggplot2.org/)
 
 ### Further resources
