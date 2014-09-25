@@ -8,20 +8,18 @@ output:
 
 ### Overview
 
-### Step 0: Git installation and GitHub account registration
+### Step 0: Git and R/RStudio installation and GitHub account registration
 
 We assume the following
 
   * You've already [installed Git and (probably) a Git client](block001_git-install.html).
   * You've already [registered a free GitHub account](cm001_course-intro-sw-install-account-signup.html#register-a-github-account).
+  * You've already [introduced yourself to Git](git_introduceToGit.html)
   * You've already [installed R and RStudio](block000_r-rstudio-install.html).
-
 
 ### Step 1: [Tell RStudio where to find Git](git_whereToFind.html)
 
-### Step 2: [Introduced yourself to Git](git_introduceToGit)
-
-### Step 3: Create a new repository on GitHub
+### Step 2: Create a new repository on GitHub
 
 **Do this once per new project.** Here we just create a disposable test repository, so don't worry too much about the name.
 
@@ -43,7 +41,7 @@ If this does not work, please make sure you have registered a GitHub account and
 
 Before you leave this page, copy the URL of your repo to the clipboard. In the right sidebar, below settings, you should see something like [this](https://github-images.s3.amazonaws.com/help/repository/https-url-clone.png), where you can click on the clipboard icon.
 
-### Step 4: Clone the new GitHub repository to your computer via RStudio
+### Step 3: Clone the new GitHub repository to your computer via RStudio
 
 **Do this once per new project.** 
 
@@ -55,9 +53,9 @@ This should download the `README.md` file that we created on GitHub in the previ
 
 Awesome, you can now automatically download content from your (or any other public) GitHub repository!
 
-### Step 4, plan B
+### Step 3, plan B
 
-If this Step 4 does not work, here is something to try:
+If Step 3 does not work, here is something to try:
 
   * Create a new Rstudio project: *File > New Project > New Directory > Empty Project*.
   
@@ -73,7 +71,7 @@ Now try this in the shell:
 
 Sometimes this initial usage from the command line is necessary, in order to elicit and remember your GitHub username and password. Best case scenario: you will now be able to pull and push from RStudio.
 
-### Step 5: Make local changes, save then, and commit them
+### Step 4: Make local changes, save then, and commit them
 
 **Do this every time you finish a valuable chunk of work, probably many times a day.**
 
@@ -83,13 +81,13 @@ Sometimes this initial usage from the command line is necessary, in order to eli
 
   * This opens a new window, RStudio's Git client. Click the checkbox of the `README.md` file, write a commit message, and click `Commit`.
   
-### Step 6: Push your local changes online to GitHub
+### Step 5: Push your local changes online to GitHub
 
 **Do this a few times a day, but possibly less often than you commit.**
 
 You have new work into your local Git repository, but the changes are not online yet.
 
-*Note from the future: although you are not collaborating with anyone yet, that day is coming. Here is where you should get into the habit of pulling changes from GitHub before you attempt to push. This will save you some grief.*
+*Note from the future: although you are not collaborating with anyone yet, that day is coming. Here is where you should get into the habit of pulling changes from GitHub before you attempt to push. This will save you some grief. Hit the blue "Pull" button.*
 
 To push changes online, hit the green `Push` button. The three most likely outcomes:
 
@@ -99,9 +97,9 @@ To push changes online, hit the green `Push` button. The three most likely outco
 
   3. RStudio does not ask for your username and password, but it is not sending them. The push fails and the online Github repository is not updated. This is a bug in RStudio and not your fault. Follow the work-around in step 6, plan B, and/or learn [how to make git remember your username and password](git_credentials.html).
 
-### Step 6, plan B
+### Step 5, plan B
 
-If the push in step 6 does not work, here is something to try:
+If the push in step 5 does not work, here is something to try:
 
   * Open the shell: *Tools > Shell*.
 
