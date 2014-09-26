@@ -17,7 +17,7 @@ Until we get rolling, feel free to look at older material that will appear here 
     - [Introduce yourself to Git](git04_introduce-self-to-git.html)
     - [Test connection between RStudio and GitHub](git05_first-use-git-rstudio.html)
     - [GitHub credential caching](git06_credential-caching.html)
-    - [STAT545 RStudio and GitHub workflow](block008_git-usage.md)
+    - [STAT545 RStudio and GitHub workflow](git07_git-usage.html)
 * [Basic R and RStudio, workspace, working directory, RStudio Project](block002_hello-r-workspace-wd-project.html)
   * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
   * [Basic care and feeding of data in R](block006_care-feeding-data.html) *DRAFT; porting from 2013 not complete yet*
