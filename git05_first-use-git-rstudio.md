@@ -12,7 +12,7 @@ output:
 
 We assume the following
 
-  * You've already [installed Git and (probably) a Git client](block001_git-install.html).
+  * You've already [installed Git](git01_git-install.html) and (probably) [a Git client](git02_git-clients.html).
   * You've already [registered a free GitHub account](cm001_course-intro-sw-install-account-signup.html#register-a-github-account).
   * You've already [introduced yourself to Git](git_introduceToGit.html)
   * You've already [installed R and RStudio](block000_r-rstudio-install.html).

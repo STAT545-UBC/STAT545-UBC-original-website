@@ -18,7 +18,7 @@ Full participation in the "data community" these days practically requires famil
 
 ### Preliminary about Git clients
 
-Learning how and why to use version control can be rough at first. I found the use of a GUI – as opposed to the command line – extremely helpful when I was getting started. I call this sort of helper application a Git client. We have some strong recommendations about Git clients, which you can [read here](git_clients.html).
+Learning how and why to use version control can be rough at first. I found the use of a GUI – as opposed to the command line – extremely helpful when I was getting started. I call this sort of helper application a Git client. We have some strong recommendations about Git clients, which you can [read here](git02_git-clients.html).
 
 Why think about your Git client before you install Git itself? Because some Git clients will install Git for you. These are the Git clients aimed at novices, which prioritize ease of use over power. Other Git clients, aimed at intermediate/advanced users, assume you will install Git yourself. So it's best to have a coordinated plan with respect to installing Git and a Git client.
 
@@ -30,7 +30,7 @@ Our recommendations vary by operating system, so read the section that applies t
 
   * Install [Git for Windows](http://msysgit.github.io), previously known as `mysysgit`, to get Git in addition to some other useful tools, such as the Bash shell.
   * This approach leaves the Git executable in a conventional location, which will help you and other programs, e.g. RStudio, find it and use it. This also supports a transition to more expert use, because `mysysgit` installs the Bash shell, which will be useful as you venture outside of R/RStudio.
-  * This also leaves you with a Git client, though not a very good one. So check out [Git clients we recommend](git_clients.html).
+  * This also leaves you with a Git client, though not a very good one. So check out [Git clients we recommend](git02_git-clients.html).
   
 **Option 2** (*we do not recommend this as of 2014-09-14*): The GitHub hosting site offers [GitHub for Windows](https://windows.github.com) that provides Git itself, a client, and smooth integration with GitHub.
 
@@ -47,7 +47,7 @@ After installation, you still need to [introduce yourself to Git](git_introduceT
   * For older versions of OS X (10.5-10.7) use the most recent available installer available [here](https://code.google.com/p/git-osx-installer/downloads/list). Use the Leopard installer for 10.5 and the Snow Leopard installer for 10.6-10.7.
   * This arguably sets you up the best for the future and should "just work" for most people. It will certainly get you the latest version of Git of all approaches described here. It is the most widely recommended installation method.
   * Let us know if you get errors about having "no developer tools" or Xcode and we can link to some solutions.
-  * This leaves you with NO Git client! So check out [Git clients we recommend](git_clients.html).
+  * This leaves you with NO Git client! So check out [Git clients we recommend](git02_git-clients.html).
 
 **Option 2**: You can also get Git from Apple's developer tools. *Exactly how to do this varies quite a bit across different OS X versions, plus it seems to be inferior to the other approaches I present. Will not flesh out unless this changes.*
 

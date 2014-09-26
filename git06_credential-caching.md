@@ -16,7 +16,7 @@ You will know you have truly succeeded once you have at least one successful pus
 
 #### Windows
 
-**Option 1** (*recommended*): Assumes the Git executable is available at the command line; see the [git install instructions](block001_git-install.html).
+**Option 1** (*recommended*): Assumes the Git executable is available at the command line; see the [git install instructions](git01_git-install.html).
 
   * In the shell (RStudio Tools > Shell), enter `git --version` and verify that you have 1.7.10 or newer. If you don't, update Git.
   

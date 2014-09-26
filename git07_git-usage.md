@@ -8,16 +8,16 @@ output:
 
 ### Overview
 
-This describes the process of working with a Git(Hub) repository. It is highly specific to STAT545 and to using Git(Hub) with R stuff, so don't expect a general tutorial.
+This describes the process of working with a Git(Hub) repository. It is fairly specific to STAT545 and to using Git(Hub) with R stuff, so don't expect a general tutorial.
 
 ### Step 0: Software installation and configuration
 
 We assume the following
 
-  * You've already [installed Git and (probably) a Git client](block001_git-install.html).
+  * You've already [installed Git](git01_git-install.html) and (probably) [a Git client](git02_git-clients.html).
   * You've already [registered a free GitHub account](cm001_course-intro-sw-install-account-signup.html#register-a-github-account).
   * You've already [installed R and RStudio](block000_r-rstudio-install.html).
-  * You've [tested your installation and configuration of Git, GitHub, and RStudio](block005_first-use-git-rstudio.html)
+  * You've [tested your installation and configuration of Git, GitHub, and RStudio](git05_first-use-git-rstudio.html)
   * You've completed [Homework 01](hw01_edit-README.html) or an equivalent exercise __to truly test__ all of the above.
   
 We do not cover software installation and set-up here! This is just about __usage__.
@@ -32,7 +32,7 @@ I assume we are talking about the private GitHub repository that STAT545 has gra
 
 **You only do this once! If you've already set this up, read and confirm but don't redo this. See Plan B.**
 
-Go through the process described in Step 4 of [Test drive RStudio and Github](http://stat545-ubc.github.io/block005_first-use-git-rstudio.html#step-4-clone-the-new-github-repository-to-your-computer-via-rstudio) to establish a new connection between an existing remote GitHub repository and a new local repository.
+Go through the process described in Step 4 of [Test drive RStudio and Github](http://stat545-ubc.github.io/git05_first-use-git-rstudio.html#step-3-clone-the-new-github-repository-to-your-computer-via-rstudio) to establish a new connection between an existing remote GitHub repository and a new local repository.
 
 When you __first__ do this, you accomplish two things:
 
