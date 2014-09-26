@@ -10,9 +10,9 @@ output:
 
 We assume the following
 
-  * You've already [installed Git and (probably) a Git client](block001_git-install.html).
+  * You've already [installed Git](git01_git-install.html) and (probably) [a Git client](git02_git-clients.html).
   * You've already [registered a free GitHub account](cm001_course-intro-sw-install-account-signup.html#register-a-github-account). And provided your username to us.
-  * You've confirmed that you can use command line Git and/or your Git client -- perhaps even RStudio! -- to [push, pull, etc. to/from GitHub](block003_git-config-credential-cache.html). Recall our [in-class hands on activity](block005_first-use-git-rstudio.html) where we tested all this.
+  * You've confirmed that you can use command line Git and/or your Git client -- perhaps even RStudio! -- to [push, pull, etc. to/from GitHub](git06_credential-caching.html). Recall our [in-class hands on activity](git05_first-use-git-rstudio.html) where we tested all this.
   * You've logged in to [GitHub](https://github.com) ...
     - [switched over to the STAT545 Organization](https://help.github.com/articles/how-do-i-access-my-organization-account) ...
     - and confirmed that you can access a repository with your name on it. Example: a student named Jennifer Bryan should be able to access a repository named `zz_jennifer_bryan-coursework`.

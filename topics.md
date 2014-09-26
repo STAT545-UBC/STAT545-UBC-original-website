@@ -9,16 +9,20 @@ Until we get rolling, feel free to look at older material that will appear here 
   
 ### Updated topics
 
-  * [Install Git and more](block001_git-install.html)
   * [Install R and Rstudio](block000_r-rstudio-install.html)
-  * [Git configuration and credential caching](block003_git-config-credential-cache.html)
-  * [Test your installation and configuration of Git, GitHub, and RStudio](block005_first-use-git-rstudio.html)
-  * [Basic R and RStudio, workspace, working directory, RStudio Project](block002_hello-r-workspace-wd-project.html)
+  * [All the Git and GitHub (and RStudio) things](git00_index.html)
+    - [Install Git](git01_git-install.html)
+    - Optional but recommended: [Install a Git client](git02_git-clients.html)
+    - [Tell RStudio where to find Git](git03_rstudio-meet-git.html)
+    - [Introduce yourself to Git](git04_introduce-self-to-git.html)
+    - [Test connection between RStudio and GitHub](git05_first-use-git-rstudio.html)
+    - [GitHub credential caching](git06_credential-caching.html)
+    - [STAT545 RStudio and GitHub workflow](block008_git-usage.md)
+* [Basic R and RStudio, workspace, working directory, RStudio Project](block002_hello-r-workspace-wd-project.html)
   * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
   * [Basic care and feeding of data in R](block006_care-feeding-data.html) *DRAFT; porting from 2013 not complete yet*
   * [Introduction to `ggplot2`](https://github.com/jennybc/ggplot2-tutorial) *links to materials from a May 2014 workshop*
   * [Test your ability to author an R Markdown report](block007_first-use-rmarkdown.html)
-  * [Git(Hub) usage](block008_git-usage.html)
   * [Introduction to dplyr](block009_dplyr-intro.html)
   * [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
   

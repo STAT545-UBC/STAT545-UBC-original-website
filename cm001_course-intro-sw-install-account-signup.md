@@ -63,7 +63,8 @@ __Do this first!__
 
 #### Git(Hub) and Git client
 
-Follow [these instructions](block001_git-install.html).
+  * [Install Git](git01_git-install.html)
+  * Optional but recommended: [Install a Git client](git02_git-clients.html)
 
 #### R and RStudio
 

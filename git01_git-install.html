@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Install Git</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Install Git</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#but-first-why">But first, why?</a></li>
+<li><a href="#preliminary-about-git-clients">Preliminary about Git clients</a></li>
+<li><a href="#git-installation-windows">Git installation: Windows</a></li>
+<li><a href="#git-installation-mac">Git installation: Mac</a></li>
+<li><a href="#git-installation-linux">Git installation: Linux</a></li>
+</ul>
+</div>
+
+<div id="but-first-why" class="section level3">
+<h3>But first, why?</h3>
+<p><a href="http://git-scm.com">Git</a> is a <strong>version control system</strong>. It’s original purpose was to help groups of developers work collaboratively on big software projects. Git manages the evolution of a set of files – called a <strong>repository</strong> – in a sane, highly structured way. If you have no idea what I’m talking about, think of it as the “Track Changes” features from Microsoft Word but much, much better.</p>
+<p>Git has been re-purposed by the data science community. In addition to using it for source code, we use it to manage the motley collection of files that make up typical data analytical projects, which often consist of data, reports, and, yes, source code.</p>
+<p>When you want to make your work visible to other people, either in a read-only way or for genuine collaboration, you can make the associated Git repository available on the web. <a href="https://github.com">GitHub</a> is a very popular hosting site that provides this service (and more). If you have no idea what I’m talking about, think of it as DropBox but much better (at least for our purposes).</p>
+<p>Full participation in the “data community” these days practically requires familiarity with Git and GitHub. These tools are also helpful to us for course logistics, such as sharing code between instructor and student. For both reasons, we will be using Git and GitHub. Below we explain how to install the Git software locally on your computer.</p>
+</div>
+<div id="preliminary-about-git-clients" class="section level3">
+<h3>Preliminary about Git clients</h3>
+<p>Learning how and why to use version control can be rough at first. I found the use of a GUI – as opposed to the command line – extremely helpful when I was getting started. I call this sort of helper application a Git client. We have some strong recommendations about Git clients, which you can <a href="git02_git-clients.html">read here</a>.</p>
+<p>Why think about your Git client before you install Git itself? Because some Git clients will install Git for you. These are the Git clients aimed at novices, which prioritize ease of use over power. Other Git clients, aimed at intermediate/advanced users, assume you will install Git yourself. So it’s best to have a coordinated plan with respect to installing Git and a Git client.</p>
+<p>Our recommendations vary by operating system, so read the section that applies to you below.</p>
+</div>
+<div id="git-installation-windows" class="section level3">
+<h3>Git installation: Windows</h3>
+<p><strong>Option 1</strong> (<em>recommended</em>): We concur with <a href="http://software-carpentry.org">Software Carpentry</a>, an organization that “teaches lab skills for scientific computing”, and paraphrase their installation instructions:</p>
+<ul>
+<li>Install <a href="http://msysgit.github.io">Git for Windows</a>, previously known as <code>mysysgit</code>, to get Git in addition to some other useful tools, such as the Bash shell.</li>
+<li>This approach leaves the Git executable in a conventional location, which will help you and other programs, e.g. RStudio, find it and use it. This also supports a transition to more expert use, because <code>mysysgit</code> installs the Bash shell, which will be useful as you venture outside of R/RStudio.</li>
+<li>This also leaves you with a Git client, though not a very good one. So check out <a href="git02_git-clients.html">Git clients we recommend</a>.</li>
+</ul>
+<p><strong>Option 2</strong> (<em>we do not recommend this as of 2014-09-14</em>): The GitHub hosting site offers <a href="https://windows.github.com">GitHub for Windows</a> that provides Git itself, a client, and smooth integration with GitHub.</p>
+<ul>
+<li><a href="https://help.github.com/articles/set-up-git#platform-windows">Their Windows set-up instructions</a> recommend this method of Git installation.</li>
+<li>Things we’ve learned: We had several instances of GitHub for Windows installing Git in suboptimal locations, such as <code>~/AppData/Local</code>, and in other places we could never find. If you were <strong>only</strong> going to interact with GitHub via this app, maybe that’s OK, but that’s not the case for us. Therefore, we recommend option 1 instead.</li>
+</ul>
+<p>After installation, you still need to <a href="git04_introduce-self-to-git.html">introduce yourself to Git</a> and <a href="git06_credential-caching.html">get it to remember your GitHub username and password</a>. If your Git client guides you through this, seize that opportunity! Otherwise follow the links for some assistance.</p>
+</div>
+<div id="git-installation-mac" class="section level3">
+<h3>Git installation: Mac</h3>
+<p><strong>Option 1</strong> (<em>recommended</em>): Install Git from here: <a href="http://git-scm.com/downloads">http://git-scm.com/downloads</a>.</p>
+<ul>
+<li>Should work for OS X 10.8 and higher.</li>
+<li>For older versions of OS X (10.5-10.7) use the most recent available installer available <a href="https://code.google.com/p/git-osx-installer/downloads/list">here</a>. Use the Leopard installer for 10.5 and the Snow Leopard installer for 10.6-10.7.</li>
+<li>This arguably sets you up the best for the future and should “just work” for most people. It will certainly get you the latest version of Git of all approaches described here. It is the most widely recommended installation method.</li>
+<li>Let us know if you get errors about having “no developer tools” or Xcode and we can link to some solutions.</li>
+<li>This leaves you with NO Git client! So check out <a href="git02_git-clients.html">Git clients we recommend</a>.</li>
+</ul>
+<p><strong>Option 2</strong>: You can also get Git from Apple’s developer tools. <em>Exactly how to do this varies quite a bit across different OS X versions, plus it seems to be inferior to the other approaches I present. Will not flesh out unless this changes.</em></p>
+<p><strong>Option 3</strong>: The GitHub hosting site offers <a href="https://mac.github.com">GitHub for Mac</a> that provides <em>the option</em> to install Git itself, a client, and smooth integration with GitHub..</p>
+<ul>
+<li>This blog post <a href="https://github.com/blog/1510-installing-git-from-github-for-mac">Installing Git from GitHub for Mac</a> explains how to trigger the option to install Git, which I recommend.</li>
+<li>This is a good choice for novices in scientific computing, because it’s more likely to “just work”. You may eventually outgrow it, but you can cross that bridge when you come to it.</li>
+<li>We are more keen on GitHub’s client for Mac than for Windows.</li>
+</ul>
+<p><strong>Option 4</strong>: If you anticipate getting heavily into scientific computing, you’re going to be installing lots of software. You should check out <a href="http://brew.sh">homebrew</a>, “the missing package manager for OS X”. Among many other things, it can install Git for you. Our own TA <a href="https://github.com/sjackman">Shaun Jackman</a> works on <a href="https://github.com/Homebrew/homebrew-science">homebrew-science</a>, so he’s the local expert.</p>
+<p>After installation, you still need to <a href="git04_introduce-self-to-git.html">introduce yourself to Git</a> and <a href="git06_credential-caching.html">get it to remember your GitHub username and password</a>. If your Git client guides you through this, seize that opportunity! Otherwise follow the links for some assistance.</p>
+</div>
+<div id="git-installation-linux" class="section level3">
+<h3>Git installation: Linux</h3>
+<p>If Git is not already available on your machine you can try to install it via your distro’s package manager (e.g. apt-get or yum).</p>
+<p>Ubuntu or Debian Linux</p>
+<pre class="sh"><code>sudo apt-get install git</code></pre>
+<p>Fedora or RedHat Linux</p>
+<pre class="sh"><code>sudo yum install git</code></pre>
+<p>After installation, you still need to <a href="git04_introduce-self-to-git.html">introduce yourself to Git</a> and <a href="git06_credential-caching.html">get it to remember your GitHub username and password</a>.</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

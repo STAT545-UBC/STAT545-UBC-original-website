@@ -10,8 +10,7 @@ output:
 
 Consult the [general homework guidelines](hw00_homework-guidelines.html), although much does not to apply to this simple assignment.
 
-Recall the [in-class hands on activity](block005_first-use-git-rstudio.html) where 
-we test drive your software installation and account configuration.
+Recall the [in-class hands on activity](git05_first-use-git-rstudio.html) where we test drive your software installation and account configuration.
 
 Due before class Monday 2014-09-15. Or later that day, if terrible things happen, and you need a consultation during class or office hours. This is the last time we'll flex on due date because of software and configuration issues. SORT THIS OUT ASAP.
 
@@ -44,7 +43,7 @@ You're encouraged to reflect on what was hard/easy, problems you solved, helpful
 
 ### Submit the assignment
 
-Follow instructions on [How to submit homework](http://stat545-ubc.github.io/hw00_homework-guidelines.html#how-to-submit-homework)
+Follow instructions on [How to submit homework](hw00_homework-guidelines.html#how-to-submit-homework)
 
 ### Rubric
 

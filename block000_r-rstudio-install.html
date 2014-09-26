@@ -10,7 +10,7 @@
 
 
 
-<title>R and RStudio Set Up</title>
+<title>Installing R and RStudio</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -68,7 +68,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </header>
 
 <div id="header">
-<h1 class="title">R and RStudio Set Up</h1>
+<h1 class="title">Installing R and RStudio</h1>
 </div>
 
 <div id="TOC">
@@ -76,7 +76,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#r-and-rstudio">R and RStudio</a></li>
 <li><a href="#testing-testing">Testing testing</a></li>
 <li><a href="#add-on-packages">Add-on packages</a></li>
-<li><a href="#communication-between-rstudio-and-git">Communication between RStudio and Git</a></li>
 <li><a href="#further-resources">Further resources</a></li>
 </ul>
 </div>
@@ -91,7 +90,12 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>RStudio can <strong>interface with Git(Hub)</strong>. However, you must do all the Git(Hub) set up described elsewhere before you can take advantage of this.</li>
 </ul></li>
 </ul>
-<p>If you have a pre-existing installation of R and/or RStudio, we highly recommend that you reinstall and upgrade to the most recent version. It is very easy and RStudio, specifically, is changing rapidly and positively (written 2014-09). If you upgrade R, you will need to also update any packages you have installed.</p>
+<p>If you have a pre-existing installation of R and/or RStudio, we highly recommend that you reinstall and upgrade to the most recent version. It is very easy and RStudio, specifically, is changing rapidly and positively (written 2014-09).</p>
+<ul>
+<li>If you upgrade R, you will need to update any packages you have installed. The command below should get you started, though you may need to specify more arguments if, e.g., you have been using a non-default library for your packages.</li>
+</ul>
+<pre class="r"><code>    update.packages(ask = FALSE, checkBuilt = TRUE)</code></pre>
+<p>Also, this will only update packages from CRAN, so you will need to manually update anything you have installed from GitHub, e.g. via <code>devtools::install_github()</code>.</p>
 </div>
 <div id="testing-testing" class="section level3">
 <h3>Testing testing</h3>
@@ -103,43 +107,13 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="add-on-packages" class="section level3">
 <h3>Add-on packages</h3>
 <p>R is an extensible system and many people share useful code they have developed as a <em>package</em> via CRAN and GitHub. To install a package from CRAN, for example the <a href="http://plyr.had.co.nz"><code>plyr</code></a> package for data aggregation, here is one way to do it in the R console (there are others).</p>
-<pre><code>  install.packages(&quot;plyr&quot;, dependencies = TRUE)</code></pre>
+<pre class="r"><code>install.packages(&quot;plyr&quot;, dependencies = TRUE)</code></pre>
 <p>By including <code>dependencies = TRUE</code>, we are being explicit and extra-careful to install any additional packages the target package, <code>plyr</code> in the example above, needs to have around.</p>
 <p>You could use the above method to install the following packages, all of which we will use:</p>
 <ul>
-<li><code>plyr</code>, <a href="http://plyr.had.co.nz">package webpage</a></li>
-<li><code>knitr</code> <a href="http://yihui.name/knitr/">package webpage</a></li>
+<li><code>dplyr</code>, <a href="http://plyr.had.co.nz">package webpage</a></li>
 <li><code>ggplot2</code> <a href="http://docs.ggplot2.org/">package webpage</a></li>
 </ul>
-</div>
-<div id="communication-between-rstudio-and-git" class="section level3">
-<h3>Communication between RStudio and Git</h3>
-<p>Obviously, RStudio can only act as a GUI front-end for Git if Git has been successfully installed (described elsewhere) and RStudio can find it.</p>
-<p>A basic test for successful installation of Git is to simply type <code>git</code> at the shell command line. If you get a complaint about Git not being found it means installation was unsuccessful or that it is not being found, i.e. it is not on your <code>PATH</code>.</p>
-<p>If Git appears to be installed, launch RStudio. Quit and re-launch RStudio if there’s any doubt in your mind about whether you opened RStudio before or after installing Git.</p>
-<p>We will create a new dummy “Project” and direct RStudio to put it under version control</p>
-<ul>
-<li>Do <code>File &gt; New Project...</code>. You should see a pop up <a href="http://www.rstudio.com/images/screenshots/rstudio-projects_new.png">like this</a>.</li>
-<li>Select “New Directory: Start a project in a brand new working directory”.</li>
-<li>Select “Empty Project: Create a new project in an empty directory”.</li>
-<li>Create a new directory for this project anywhere you wish, perhaps with a name like <code>test</code>. You can delete this very soon.</li>
-<li>If you see a checkbox “Create a git repository”, that is a very good sign! Check it.</li>
-<li>After RStudio opens your test Project, the upper right pane should have a “Git” tab, typically along with “Environment”, “History”, etc. You can see an example <a href="http://www.rstudio.com/images/screenshots/rstudio-vcs.png">in this screenshot</a>.</li>
-<li>If this has gone well, it looks like Git and RStudio are ready to work together! Feel free to quit RStudio and delete the <code>test</code> directory/Project.</li>
-</ul>
-<p>If this has not gone well, here is another thing to try:</p>
-<ul>
-<li>With your Project open, go to <code>Tools &gt; Project Options...</code>. If available, click on “Git/SVN” and select “Git” in the Version control system dropdown menu. Answer “yes” to the “Confirm New Git Repository” pop up. Answer “yes” to the “Confirm Restart RStudio” pop up.</li>
-</ul>
-<p>If you’re still reading, it may be necessary to explicitly tell RStudio where to find the Git executable.</p>
-<ul>
-<li>Do <code>RStudio &gt; Preferences</code> or, alternatively, do <code>Tools &gt; Global Options...</code>.</li>
-<li>Click on “Git/SVN”.</li>
-<li>Fill in the Git executable field correctly. Here is a <a href="http://www.molecularecologist.com/wp-content/uploads/2013/11/Screenshot-2013-11-12-09.53.56-Copy1.png">screenshot</a> of someone doing this on a Windows machine.</li>
-<li>If you think Git has been installed but you’re not sure where it is, entering <code>which git</code> at the shell command line should reveal the path to the Git executable.</li>
-</ul>
-<p>It is <strong>very important</strong> to restart RStudio after installing Git or after telling RStudio where to find Git. Even if it feels like you have done this, do it again just to be safe!</p>
-<p>If none of this works, get help from us.</p>
 </div>
 <div id="further-resources" class="section level3">
 <h3>Further resources</h3>

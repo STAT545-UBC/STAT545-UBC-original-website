@@ -36,3 +36,8 @@ Links collected when writing Git installation instructions. Most of these may no
   
 <http://joshldavis.com/2014/06/30/github-university-follow-up/> Good write up of using GitHub in a course
 
+When preparing to merge PR from Bernhard re: reorg of all Git(Hub) + RStudio materials, I had to do massive file renaming and relinking. This was helpful in rooting out old filenames in links:
+
+```sh
+grep -r "string-to-root-out" --exclude-dir="\.git" --exclude-dir="\.Rproj.user" --exclude-dir="libs" --exclude="*\.html" ./
+```

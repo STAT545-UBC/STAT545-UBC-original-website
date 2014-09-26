@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Working with RStudio, Git, GitHub</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Working with RStudio, Git, GitHub</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#level-1-installation">Level 1: Installation</a></li>
+<li><a href="#level-2-setup">Level 2: Setup</a></li>
+<li><a href="#level-3-burn-in">Level 3: Burn in</a></li>
+<li><a href="#level-4-daily-workflow">Level 4: Daily workflow</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a><ul>
+<li><a href="#pushpull-buttons-greyed-out">Push/Pull buttons greyed out</a></li>
+<li><a href="#push-rejected">Push rejected</a></li>
+<li><a href="#file-disappears-after-adding">File disappears after adding</a></li>
+</ul></li>
+<li><a href="#resources">Resources</a></li>
+</ul>
+</div>
+
+<div id="level-1-installation" class="section level3">
+<h3>Level 1: Installation</h3>
+<ul>
+<li><a href="block000_r-rstudio-install.html">Install R and RStudio</a></li>
+<li><a href="git01_git-install.html">Install Git</a></li>
+<li>Optional but recommended: <a href="git02_git-clients.html">Install a Git client</a></li>
+</ul>
+</div>
+<div id="level-2-setup" class="section level3">
+<h3>Level 2: Setup</h3>
+<ul>
+<li><a href="git03_rstudio-meet-git.html">Tell RStudio where to find Git</a></li>
+<li><a href="git04_introduce-self-to-git.html">Introduce yourself to Git</a></li>
+</ul>
+</div>
+<div id="level-3-burn-in" class="section level3">
+<h3>Level 3: Burn in</h3>
+<ul>
+<li><a href="git05_first-use-git-rstudio.html">Test connection between RStudio and GitHub</a></li>
+<li><a href="git06_credential-caching.html">GitHub credential caching</a></li>
+</ul>
+</div>
+<div id="level-4-daily-workflow" class="section level3">
+<h3>Level 4: Daily workflow</h3>
+<ul>
+<li><a href="git07_git-usage.html">STAT545 RStudio and GitHub workflow</a></li>
+</ul>
+</div>
+<div id="troubleshooting" class="section level3">
+<h3>Troubleshooting</h3>
+<div id="pushpull-buttons-greyed-out" class="section level4">
+<h4>Push/Pull buttons greyed out</h4>
+<p>check remote, push -u</p>
+</div>
+<div id="push-rejected" class="section level4">
+<h4>Push rejected</h4>
+<p>pull first, resolve conflict, psuh</p>
+</div>
+<div id="file-disappears-after-adding" class="section level4">
+<h4>File disappears after adding</h4>
+<p>space in filename?</p>
+</div>
+</div>
+<div id="resources" class="section level3">
+<h3>Resources</h3>
+<p>Long-term, you should understand more about what you are doing. Rote clicking in RStudio may be a short-term survival method but won’t work for long.</p>
+<p><a href="https://try.github.io/levels/1/challenges/1">trygit</a> is to (command line) Git as <a href="http://swirlstats.com">swirl</a> is to R. Learn by doing, in small bites.</p>
+<p>The book <a href="http://git-scm.com/book">Pro Git</a> is fantastic and comprehensive.</p>
+<p><a href="http://training.github.com/kit/">GitHub’s own training materials</a> may be helpful.</p>
+<ul>
+<li>They also point to <a href="https://help.github.com/articles/what-are-other-good-resources-for-learning-git-and-github">many other resources</a></li>
+</ul>
+<p>Find a <a href="git02_git-clients.html">powerful Git client</a> if you’d like to minimize your usage of Git from the command line.</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
