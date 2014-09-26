@@ -43,7 +43,7 @@ You're encouraged to reflect on what was hard/easy, problems you solved, helpful
 
 ### Submit the assignment
 
-Follow instructions on [How to submit homework](http://stat545-ubc.github.io/hw00_homework-guidelines.html#how-to-submit-homework)
+Follow instructions on [How to submit homework](hw00_homework-guidelines.html#how-to-submit-homework)
 
 ### Rubric
 
