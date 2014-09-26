@@ -10,6 +10,7 @@ This set of instructions was used successfully September 2014, with a group of 4
 
 ### Level 1: Installation
 
+  * [Register a free GitHub account](https://github.com) *request an [educational discount](https://github.com/blog/1775-github-goes-to-school) if you are eligible*
   * [Install R and RStudio](block000_r-rstudio-install.html)
   * [Install Git](git01_git-install.html)
   * [Install a Git client](git02_git-clients.html) *optional but recommended*
@@ -44,14 +45,16 @@ space in filename?
 
 ### Resources
 
+We are practicing what we preach! This entire website is created with the tools and workflows described abvoe. Go ahead and [watch us work](https://github.com/STAT545-UBC/STAT545-UBC.github.io).
+
 Long-term, you should understand more about what you are doing. Rote clicking in RStudio may be a short-term survival method but won't work for long.
 
-[trygit](https://try.github.io/levels/1/challenges/1) is to (command line) Git as [swirl](http://swirlstats.com) is to R. Learn by doing, in small bites.
+  * [trygit](https://try.github.io/levels/1/challenges/1) is to (command line) Git as [swirl](http://swirlstats.com) is to R. Learn by doing, in small bites.
 
-The book [Pro Git](http://git-scm.com/book) is fantastic and comprehensive.
+  * The book [Pro Git](http://git-scm.com/book) is fantastic and comprehensive.
 
-[GitHub's own training materials](http://training.github.com/kit/) may be helpful.
+  * [GitHub's own training materials](http://training.github.com/kit/) may be helpful.
 
-  * They also point to [many other resources](https://help.github.com/articles/what-are-other-good-resources-for-learning-git-and-github)
+    - They also point to [many other resources](https://help.github.com/articles/what-are-other-good-resources-for-learning-git-and-github)
 
-Find a [powerful Git client](git02_git-clients.html) if you'd like to minimize your usage of Git from the command line.
+  * Find a [powerful Git client](git02_git-clients.html) if you'd like to minimize your usage of Git from the command line.
