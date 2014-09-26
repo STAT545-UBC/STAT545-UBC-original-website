@@ -12,7 +12,7 @@ output:
 
 Git has been re-purposed by the data science community. In addition to using it for source code, we use it to manage the motley collection of files that make up typical data analytical projects, which often consist of data, reports, and, yes, source code.
 
-When you want to make your work visible to other people, either in a read-only way or for genuine collaboration, you can make the associated Git repository available on the web. [GitHub](https://github.com) is a very popular hosting site that provides this service (and more). If you have no idea what I'm talking about, think of it as DropBox but much better (at least for our purposes).
+When you want to make your work visible to other people, either in a read-only way or for genuine collaboration, you can make the associated Git repository available on the web. This can be totally public or private to your closest friends. Regardless, this reduces the extra work associated with sharing and collaboration almost to zero, which has huge benefits. [GitHub](https://github.com) is a very popular hosting site that provides this service (and more). If you have no idea what I'm talking about, think of it as DropBox but much better (at least for our purposes).
 
 Full participation in the "data community" these days practically requires familiarity with Git and GitHub. These tools are also helpful to us for course logistics, such as sharing code between instructor and student. For both reasons, we will be using Git and GitHub. Below we explain how to install the Git software locally on your computer.
 

@@ -35,7 +35,7 @@ From RStudio, go to *Tools > Global Options > Git* and make sure that the box *G
 
     - __WARNING__: On Windows, do __NOT__ use `C:/Program Files (x86)/Git/cmd/git.exe`. The difference between the good and bad paths is `bin` vs. `cmd`.
 
-__Restart__ RStudio if you made any changes. THIS IS VERY IMPORTANT. DO IT.
+__Restart__ RStudio if you made any changes. Don't make me stop this car and restart R and RStudio for you in office hours. DO IT.
 
 ### Test the communication between RStudio and Git
 
