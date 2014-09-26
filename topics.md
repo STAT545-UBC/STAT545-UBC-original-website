@@ -12,7 +12,7 @@ Until we get rolling, feel free to look at older material that will appear here 
   * [Install R and Rstudio](block000_r-rstudio-install.html)
   * [All the Git and GitHub (and RStudio) things](git00_index.html)
     - [Install Git](git01_git-install.html)
-    - Optional but recommended: [Install a Git client](git02_git-clients.html)
+    - [Install a Git client](git02_git-clients.html) *optional but recommended*
     - [Tell RStudio where to find Git](git03_rstudio-meet-git.html)
     - [Introduce yourself to Git](git04_introduce-self-to-git.html)
     - [Test connection between RStudio and GitHub](git05_first-use-git-rstudio.html)

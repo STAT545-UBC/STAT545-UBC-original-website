@@ -6,11 +6,13 @@ output:
     toc_depth: 4
 ---
 
+This set of instructions was used successfully September 2014, with a group of 40+ students. We knew the OS for 35 of them, split evenly between Windows and \*nix. Specifically, Mac (n = 16; 45%), Windows 8 (n = 12; 34%), Windows 7 (n = 6; 17%), Linux (n =1; 3%).
+
 ### Level 1: Installation
 
   * [Install R and RStudio](block000_r-rstudio-install.html)
   * [Install Git](git01_git-install.html)
-  * Optional but recommended: [Install a Git client](git02_git-clients.html)
+  * [Install a Git client](git02_git-clients.html) *optional but recommended*
 
 ### Level 2: Setup
 
