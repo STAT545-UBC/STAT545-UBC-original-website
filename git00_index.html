@@ -78,9 +78,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#level-3-burn-in">Level 3: Burn in</a></li>
 <li><a href="#level-4-daily-workflow">Level 4: Daily workflow</a></li>
 <li><a href="#troubleshooting">Troubleshooting</a><ul>
-<li><a href="#pushpull-buttons-greyed-out">Push/Pull buttons greyed out</a></li>
+<li><a href="#pushpull-buttons-greyed-out-in-rstudio">Push/Pull buttons greyed out in RStudio</a></li>
 <li><a href="#push-rejected">Push rejected</a></li>
-<li><a href="#file-disappears-after-adding">File disappears after adding</a></li>
+<li><a href="#rstudio-is-not-making-certain-files-available-for-stagingcommiting">RStudio is not making certain files available for staging/commiting</a></li>
 </ul></li>
 <li><a href="#resources">Resources</a></li>
 </ul>
@@ -118,22 +118,23 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="troubleshooting" class="section level3">
 <h3>Troubleshooting</h3>
-<div id="pushpull-buttons-greyed-out" class="section level4">
-<h4>Push/Pull buttons greyed out</h4>
-<p>check remote, push -u</p>
+<div id="pushpull-buttons-greyed-out-in-rstudio" class="section level4">
+<h4>Push/Pull buttons greyed out in RStudio</h4>
+<p>Are you sure your local repository is tracking a remote repository, e.g. a GitHub repo? Go <a href="git07_git-usage.html#step-2-plan-b">here</a> for instructions on how to check.</p>
 </div>
 <div id="push-rejected" class="section level4">
 <h4>Push rejected</h4>
-<p>pull first, resolve conflict, psuh</p>
+<p>You might have changes on the remote AND on your local repo. Just because you don’t remember making any edits in the browser doesn’t mean you didn’t. Humor me.</p>
+<p>Pull first. Resolve any conflicts. Then try your push again.</p>
 </div>
-<div id="file-disappears-after-adding" class="section level4">
-<h4>File disappears after adding</h4>
-<p>space in filename?</p>
+<div id="rstudio-is-not-making-certain-files-available-for-stagingcommiting" class="section level4">
+<h4>RStudio is not making certain files available for staging/commiting</h4>
+<p>Do you have spaces in your directory or file names? I told you that was a terrible idea. Get rid of them. If that doesn’t fix it, I also highly recommend you have a <a href="git02_git-clients.html">more powerful Git(Hub) client</a> installed for these situations.</p>
 </div>
 </div>
 <div id="resources" class="section level3">
 <h3>Resources</h3>
-<p>We are practicing what we preach! This entire website is created with the tools and workflows described abvoe. Go ahead and <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io">watch us work</a>.</p>
+<p>We are practicing what we preach! This entire website is created with the tools and workflows described above. Go ahead and <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io">watch us work</a>.</p>
 <p>Long-term, you should understand more about what you are doing. Rote clicking in RStudio may be a short-term survival method but won’t work for long.</p>
 <ul>
 <li><p><a href="https://try.github.io/levels/1/challenges/1">trygit</a> is to (command line) Git as <a href="http://swirlstats.com">swirl</a> is to R. Learn by doing, in small bites.</p></li>

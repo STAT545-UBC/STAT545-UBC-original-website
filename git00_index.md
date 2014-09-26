@@ -29,23 +29,26 @@ This set of instructions was used successfully September 2014, with a group of 4
 
   * [STAT545 RStudio and GitHub workflow](git07_git-usage.html)
 
+
 ### Troubleshooting
 
-#### Push/Pull buttons greyed out
+#### Push/Pull buttons greyed out in RStudio
 
-check remote, push -u
+Are you sure your local repository is tracking a remote repository, e.g. a GitHub repo? Go [here](git07_git-usage.html#step-2-plan-b) for instructions on how to check.
 
 #### Push rejected
 
-pull first, resolve conflict, psuh
+You might have changes on the remote AND on your local repo. Just because you don't remember making any edits in the browser doesn't mean you didn't. Humor me.
 
-#### File disappears after adding
+Pull first. Resolve any conflicts. Then try your push again.
 
-space in filename?
+#### RStudio is not making certain files available for staging/commiting
+
+Do you have spaces in your directory or file names? I told you that was a terrible idea. Get rid of them. If that doesn't fix it, I also highly recommend you have a [more powerful Git(Hub) client](git02_git-clients.html) installed for these situations.
 
 ### Resources
 
-We are practicing what we preach! This entire website is created with the tools and workflows described abvoe. Go ahead and [watch us work](https://github.com/STAT545-UBC/STAT545-UBC.github.io).
+We are practicing what we preach! This entire website is created with the tools and workflows described above. Go ahead and [watch us work](https://github.com/STAT545-UBC/STAT545-UBC.github.io).
 
 Long-term, you should understand more about what you are doing. Rote clicking in RStudio may be a short-term survival method but won't work for long.
 
