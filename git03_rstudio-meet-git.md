@@ -11,9 +11,17 @@ output:
 ### Find Git
 
 
-Obviously, RStudio can only act as a GUI front-end for Git if Git has been successfully installed (described elsewhere) and RStudio can find it.
+RStudio can only act as a GUI front-end for Git if [Git has been successfully installed](git01_git-install.html) AND RStudio can find it.
 
 A basic test for successful installation of Git is to simply enter `git` in the shell. If you get a complaint about Git not being found, it means installation was unsuccessful or that it is not being found, i.e. it is not on your `PATH`.
+
+If you are not sure where the Git executable lives, try this in a shell:
+  
+* `which git` (Mac, Linux)
+
+* `where git` (most versions of Windows)
+
+* `whereis git.exe` (some other versions of Windows)
 
 If Git appears to be installed and findable, launch RStudio. Quit and re-launch RStudio if there's __any doubt in your mind__ about whether you opened RStudio before or after installing Git.
 
@@ -26,14 +34,6 @@ From RStudio, go to *Tools > Global Options > Git* and make sure that the box *G
     Here is a [screenshot](http://www.molecularecologist.com/wp-content/uploads/2013/11/Screenshot-2013-11-12-09.53.56-Copy1.png) of someone doing this on a Windows machine.
 
     - __WARNING__: On Windows, do __NOT__ use `C:/Program Files (x86)/Git/cmd/git.exe`. The difference between the good and bad paths is `bin` vs. `cmd`.
-
-If you are not sure where the Git executable lives, try this in a shell:
-  
-* `which git` (Mac, Linux)
-
-* `where git` (most versions of Windows)
-
-* `whereis git.exe` (some other versions of Windows)
 
 __Restart__ RStudio if you made any changes. THIS IS VERY IMPORTANT. DO IT.
 

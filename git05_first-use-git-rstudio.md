@@ -14,10 +14,10 @@ We assume the following
 
   * You've already [installed Git](git01_git-install.html) and (probably) [a Git client](git02_git-clients.html).
   * You've already [registered a free GitHub account](cm001_course-intro-sw-install-account-signup.html#register-a-github-account).
-  * You've already [introduced yourself to Git](git_introduceToGit.html)
+  * You've already [introduced yourself to Git](git04_introduce-self-to-git.html)
   * You've already [installed R and RStudio](block000_r-rstudio-install.html).
 
-### Step 1: [Tell RStudio where to find Git](git_whereToFind.html)
+### Step 1: [Tell RStudio where to find Git](git03_rstudio-meet-git.html)
 
 ### Step 2: Create a new repository on GitHub
 
@@ -93,9 +93,9 @@ To push changes online, hit the green `Push` button. The three most likely outco
 
   1. Your push is accepted and the online GitHub repository is updated. This means that RStudio is successfully using your GitHub username and password. You are done.
 
-  2. RStudio asks for your GitHub username and password, then your push is accepted and the online GitHub repository is updated. Learn [how to make git remember your username and password](git_credentials.html) to avoid having to type those every time.
+  2. RStudio asks for your GitHub username and password, then your push is accepted and the online GitHub repository is updated. Learn [how to make git remember your username and password](git06_credential-caching.html) to avoid having to type those every time.
 
-  3. RStudio does not ask for your username and password, but it is not sending them. The push fails and the online Github repository is not updated. This is a bug in RStudio and not your fault. Follow the work-around in step 6, plan B, and/or learn [how to make git remember your username and password](git_credentials.html).
+  3. RStudio does not ask for your username and password, but it is not sending them. The push fails and the online Github repository is not updated. This is a bug in RStudio and not your fault. Follow the work-around in step 5, plan B, and/or learn [how to make git remember your username and password](git06_credential-caching.html).
 
 ### Step 5, plan B
 
@@ -105,4 +105,4 @@ If the push in step 5 does not work, here is something to try:
 
   * Enter `git push -u origin master`.
 
-This will certainly ask for your username and password, and update the GitHub repository online. Then, learn [how to make git remember your username and password](git_credentials.html) to save you from authenticating every time and so that you can push from RStudio directly.
+This will certainly ask for your username and password, and update the GitHub repository online. Then, learn [how to make git remember your username and password](git06_credential-caching.html) to save you from authenticating every time and so that you can push from RStudio directly.

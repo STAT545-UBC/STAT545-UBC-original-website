@@ -32,7 +32,7 @@ I assume we are talking about the private GitHub repository that STAT545 has gra
 
 **You only do this once! If you've already set this up, read and confirm but don't redo this. See Plan B.**
 
-Go through the process described in Step 4 of [Test drive RStudio and Github](http://stat545-ubc.github.io/git05_first-use-git-rstudio.html#step-3-clone-the-new-github-repository-to-your-computer-via-rstudio) to establish a new connection between an existing remote GitHub repository and a new local repository.
+Go through the process described in Step 3 of [Test drive RStudio and Github](git05_first-use-git-rstudio.html#step-3-clone-the-new-github-repository-to-your-computer-via-rstudio) to establish a new connection between an existing remote GitHub repository and a new local repository.
 
 When you __first__ do this, you accomplish two things:
 

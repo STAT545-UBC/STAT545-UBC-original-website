@@ -75,7 +75,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <ul>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#step-0-git-and-rrstudio-installation-and-github-account-registration">Step 0: Git and R/RStudio installation and GitHub account registration</a></li>
-<li><a href="#step-1-tell-rstudio-where-to-find-git">Step 1: <a href="git_whereToFind.html">Tell RStudio where to find Git</a></a></li>
+<li><a href="#step-1-tell-rstudio-where-to-find-git">Step 1: <a href="git03_rstudio-meet-git.html">Tell RStudio where to find Git</a></a></li>
 <li><a href="#step-2-create-a-new-repository-on-github">Step 2: Create a new repository on GitHub</a></li>
 <li><a href="#step-3-clone-the-new-github-repository-to-your-computer-via-rstudio">Step 3: Clone the new GitHub repository to your computer via RStudio</a></li>
 <li><a href="#step-3-plan-b">Step 3, plan B</a></li>
@@ -94,12 +94,12 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <ul>
 <li>You’ve already <a href="git01_git-install.html">installed Git</a> and (probably) <a href="git02_git-clients.html">a Git client</a>.</li>
 <li>You’ve already <a href="cm001_course-intro-sw-install-account-signup.html#register-a-github-account">registered a free GitHub account</a>.</li>
-<li>You’ve already <a href="git_introduceToGit.html">introduced yourself to Git</a></li>
+<li>You’ve already <a href="git04_introduce-self-to-git.html">introduced yourself to Git</a></li>
 <li>You’ve already <a href="block000_r-rstudio-install.html">installed R and RStudio</a>.</li>
 </ul>
 </div>
 <div id="step-1-tell-rstudio-where-to-find-git" class="section level3">
-<h3>Step 1: <a href="git_whereToFind.html">Tell RStudio where to find Git</a></h3>
+<h3>Step 1: <a href="git03_rstudio-meet-git.html">Tell RStudio where to find Git</a></h3>
 </div>
 <div id="step-2-create-a-new-repository-on-github" class="section level3">
 <h3>Step 2: Create a new repository on GitHub</h3>
@@ -158,8 +158,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>To push changes online, hit the green <code>Push</code> button. The three most likely outcomes:</p>
 <ol style="list-style-type: decimal">
 <li><p>Your push is accepted and the online GitHub repository is updated. This means that RStudio is successfully using your GitHub username and password. You are done.</p></li>
-<li><p>RStudio asks for your GitHub username and password, then your push is accepted and the online GitHub repository is updated. Learn <a href="git_credentials.html">how to make git remember your username and password</a> to avoid having to type those every time.</p></li>
-<li><p>RStudio does not ask for your username and password, but it is not sending them. The push fails and the online Github repository is not updated. This is a bug in RStudio and not your fault. Follow the work-around in step 6, plan B, and/or learn <a href="git_credentials.html">how to make git remember your username and password</a>.</p></li>
+<li><p>RStudio asks for your GitHub username and password, then your push is accepted and the online GitHub repository is updated. Learn <a href="git06_credential-caching.html">how to make git remember your username and password</a> to avoid having to type those every time.</p></li>
+<li><p>RStudio does not ask for your username and password, but it is not sending them. The push fails and the online Github repository is not updated. This is a bug in RStudio and not your fault. Follow the work-around in step 5, plan B, and/or learn <a href="git06_credential-caching.html">how to make git remember your username and password</a>.</p></li>
 </ol>
 </div>
 <div id="step-5-plan-b" class="section level3">
@@ -169,7 +169,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><p>Open the shell: <em>Tools &gt; Shell</em>.</p></li>
 <li><p>Enter <code>git push -u origin master</code>.</p></li>
 </ul>
-<p>This will certainly ask for your username and password, and update the GitHub repository online. Then, learn <a href="git_credentials.html">how to make git remember your username and password</a> to save you from authenticating every time and so that you can push from RStudio directly.</p>
+<p>This will certainly ask for your username and password, and update the GitHub repository online. Then, learn <a href="git06_credential-caching.html">how to make git remember your username and password</a> to save you from authenticating every time and so that you can push from RStudio directly.</p>
 </div>
 
 <div class="footer">

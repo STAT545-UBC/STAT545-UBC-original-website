@@ -84,7 +84,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="but-first-why" class="section level3">
 <h3>But first, why?</h3>
 <p><a href="http://git-scm.com">Git</a> is a <strong>version control system</strong>. It’s original purpose was to help groups of developers work collaboratively on big software projects. Git manages the evolution of a set of files – called a <strong>repository</strong> – in a sane, highly structured way. If you have no idea what I’m talking about, think of it as the “Track Changes” features from Microsoft Word but much, much better.</p>
-<p>Git has been re-purposed by the data science community. Instead of using it to manage the source files for software, we use it to manage the motley collection of files that make up typical data analytical projects, which often consist of data, reports, and, yes, source code.</p>
+<p>Git has been re-purposed by the data science community. In addition to using it for source code, we use it to manage the motley collection of files that make up typical data analytical projects, which often consist of data, reports, and, yes, source code.</p>
 <p>When you want to make your work visible to other people, either in a read-only way or for genuine collaboration, you can make the associated Git repository available on the web. <a href="https://github.com">GitHub</a> is a very popular hosting site that provides this service (and more). If you have no idea what I’m talking about, think of it as DropBox but much better (at least for our purposes).</p>
 <p>Full participation in the “data community” these days practically requires familiarity with Git and GitHub. These tools are also helpful to us for course logistics, such as sharing code between instructor and student. For both reasons, we will be using Git and GitHub. Below we explain how to install the Git software locally on your computer.</p>
 </div>
@@ -105,9 +105,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p><strong>Option 2</strong> (<em>we do not recommend this as of 2014-09-14</em>): The GitHub hosting site offers <a href="https://windows.github.com">GitHub for Windows</a> that provides Git itself, a client, and smooth integration with GitHub.</p>
 <ul>
 <li><a href="https://help.github.com/articles/set-up-git#platform-windows">Their Windows set-up instructions</a> recommend this method of Git installation.</li>
-<li><em>Update from the future</em>: We had several instances of GitHub for Windows installing Git in suboptimal locations, such as <code>~/AppData/Local</code>, and in other places we could never find. If you were <strong>only</strong> going to interact with GitHub via this app, maybe that’s OK, but that’s not the case for us. Therefore, we recommend option 1 instead.</li>
+<li>Things we’ve learned: We had several instances of GitHub for Windows installing Git in suboptimal locations, such as <code>~/AppData/Local</code>, and in other places we could never find. If you were <strong>only</strong> going to interact with GitHub via this app, maybe that’s OK, but that’s not the case for us. Therefore, we recommend option 1 instead.</li>
 </ul>
-<p>After installation, you still need to <a href="git_introduceToGit.html">introduce yourself to Git</a> and <a href="git_credentials.html">get it to remember your GitHub username and password</a>. If your Git client guides you through this, seize that opportunity! Otherwise follow the links for some assistance.</p>
+<p>After installation, you still need to <a href="git04_introduce-self-to-git.html">introduce yourself to Git</a> and <a href="git06_credential-caching.html">get it to remember your GitHub username and password</a>. If your Git client guides you through this, seize that opportunity! Otherwise follow the links for some assistance.</p>
 </div>
 <div id="git-installation-mac" class="section level3">
 <h3>Git installation: Mac</h3>
@@ -120,14 +120,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>This leaves you with NO Git client! So check out <a href="git02_git-clients.html">Git clients we recommend</a>.</li>
 </ul>
 <p><strong>Option 2</strong>: You can also get Git from Apple’s developer tools. <em>Exactly how to do this varies quite a bit across different OS X versions, plus it seems to be inferior to the other approaches I present. Will not flesh out unless this changes.</em></p>
-<p><strong>Option 3</strong>: The GitHub hosting site offers <a href="https://windows.github.com">GitHub for Mac</a> that provides <em>the option</em> to install Git itself, a client, and smooth integration with GitHub..</p>
+<p><strong>Option 3</strong>: The GitHub hosting site offers <a href="https://mac.github.com">GitHub for Mac</a> that provides <em>the option</em> to install Git itself, a client, and smooth integration with GitHub..</p>
 <ul>
 <li>This blog post <a href="https://github.com/blog/1510-installing-git-from-github-for-mac">Installing Git from GitHub for Mac</a> explains how to trigger the option to install Git, which I recommend.</li>
 <li>This is a good choice for novices in scientific computing, because it’s more likely to “just work”. You may eventually outgrow it, but you can cross that bridge when you come to it.</li>
 <li>We are more keen on GitHub’s client for Mac than for Windows.</li>
 </ul>
 <p><strong>Option 4</strong>: If you anticipate getting heavily into scientific computing, you’re going to be installing lots of software. You should check out <a href="http://brew.sh">homebrew</a>, “the missing package manager for OS X”. Among many other things, it can install Git for you. Our own TA <a href="https://github.com/sjackman">Shaun Jackman</a> works on <a href="https://github.com/Homebrew/homebrew-science">homebrew-science</a>, so he’s the local expert.</p>
-<p>After installation, you still need to <a href="git_introduceToGit.html">introduce yourself to Git</a> and <a href="git_credentials.html">get it to remember your GitHub username and password</a>. If your Git client guides you through this, seize that opportunity! Otherwise follow the links for some assistance.</p>
+<p>After installation, you still need to <a href="git04_introduce-self-to-git.html">introduce yourself to Git</a> and <a href="git06_credential-caching.html">get it to remember your GitHub username and password</a>. If your Git client guides you through this, seize that opportunity! Otherwise follow the links for some assistance.</p>
 </div>
 <div id="git-installation-linux" class="section level3">
 <h3>Git installation: Linux</h3>
@@ -136,7 +136,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <pre class="sh"><code>sudo apt-get install git</code></pre>
 <p>Fedora or RedHat Linux</p>
 <pre class="sh"><code>sudo yum install git</code></pre>
-<p>After installation, you still need to <a href="git_introduceToGit.html">introduce yourself to Git</a> and <a href="git_credentials.html">get it to remember your GitHub username and password</a>.</p>
+<p>After installation, you still need to <a href="git04_introduce-self-to-git.html">introduce yourself to Git</a> and <a href="git06_credential-caching.html">get it to remember your GitHub username and password</a>.</p>
 </div>
 
 <div class="footer">

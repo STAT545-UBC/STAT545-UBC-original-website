@@ -24,7 +24,7 @@ output:
 
 ### Level 4: Daily workflow
 
-  * [STAT545 RStudio and GitHub workflow](block008_git-usage.md)
+  * [STAT545 RStudio and GitHub workflow](git07_git-usage.html)
 
 ### Troubleshooting
 
