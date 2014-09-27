@@ -8,7 +8,9 @@ output:
       before_body: include/clean-slate.html
 ---
 
-__NOTE: ROUGH DRAFT AFTER BRINGING CONTENT OVER FROM 2013. I still need to modernize some things (e.g. the transition to `ggplot2` from `lattice`), so look for an update soon.__
+```{r, echo = FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+```
 
 ### Buckle your seatbelt
 
@@ -96,15 +98,17 @@ A statistical overview can be obtained with `summary()`
 summary(gDat)
 ```
 
-Although we haven't begun our formal coverage of visualization yet, it's so important for smell-testing dataset that we will make a few figures anyway. The mysteries of these commands are revealed elsewhere.
+Although we haven't begun our formal coverage of visualization yet, it's so important for smell-testing dataset that we will make a few figures anyway. Here we use only base R graphics, which are very basic.
 
-```{r eval = FALSE}
+```{r first-plots-base-R}
 plot(lifeExp ~ year, gDat)
 plot(lifeExp ~ gdpPercap, gDat)
 plot(lifeExp ~ log(gdpPercap), gDat)
 ```
 
+<!-- This is a non-sequitur here ... where came from originally?
 > Sidebar on equals: A single equal sign `=` is most commonly used to specify values of arguments when calling functions in R, e.g. `group = continent`. It can be used for assignment but we advise against that, in favor of `<-`. A double equal sign `==` is a binary comparison operator, akin to less than `<` or greater than `>`, returning the logical value `TRUE` in the case of equality and `FALSE` otherwise. Although you may not yet understand exactly why, `subset = country == "Colombia"` restricts operation -- scatterplotting, in above examples -- to observations where the country is Colombia.
+-->
 
 Let's go back to the result of `str()` to talk about data.frames and vectors in R
 ```{r}
@@ -112,8 +116,10 @@ str(gDat)
 ```
 A data.frame is a special case of a *list*, which is used in R to hold just about anything. data.frames are the special case where the length of each list component is the same. data.frames are superior to matrices in R because they can hold vectors of different flavors (heuristic term explained below), e.g. numeric, character, and categorical data can be stored together. This comes up alot.
 
+### Look at the variables inside a data.frame
+
 To specify a single variable from a data.frame, use the dollar sign `$`. Let's explore the numeric variable for life expectancy.
-```{r}
+```{r histogram-lifeExp}
 head(gDat$lifeExp)
 summary(gDat$lifeExp)
 hist(gDat$lifeExp)
@@ -131,32 +137,40 @@ class(gDat$continent)
 summary(gDat$continent)
 levels(gDat$continent)
 nlevels(gDat$continent)
-table(gDat$continent)
-barplot(table(gDat$continent))
-dotchart(table(gDat$continent))
-#dotplot(table(gDat$continent), type = "h", col.line = NA)
-#dotplot(table(gDat$continent), type = c("p", "h"), col.line = NA)
-str(gDat$continent)
 ```
-The __levels__ of the factor `continent` are "Africa", "Americas", etc. and this is what's usually presented to your eyeballs by R. In general, the levels are friendly human-readable character strings, like "male/female" and "control/treated". But never ever ever forget that, under the hood, R is really storing integer codes 1, 2, 3, etc. Look at the result from `str(gDat$continent)` if you are skeptical. This [Janus](http://en.wikipedia.org/wiki/Janus)-like nature of factors means they are rich with booby traps for the unsuspecting but they are a necessary evil. I recommend you resolve to learn how to properly care and feed for factors. The pros far outweigh the cons. Specifically in modelling and figure-making, factors are anticipated and accomodated by the functions and packages you will want to exploit. ~~In the figures below, the continent factor is easily mapped into panels or colors and a legend by `xyplot()` from the `lattice` package (and you will find factors equally powerful within `ggplot2`)~~.
+
+The __levels__ of the factor `continent` are "Africa", "Americas", etc. and this is what's usually presented to your eyeballs by R. In general, the levels are friendly human-readable character strings, like "male/female" and "control/treated". But never ever ever forget that, under the hood, R is really storing integer codes 1, 2, 3, etc. Look at the result from `str(gDat$continent)` if you are skeptical.
 
 ```{r}
+str(gDat$continent)
+```
+
+This [Janus](http://en.wikipedia.org/wiki/Janus)-like nature of factors means they are rich with booby traps for the unsuspecting but they are a necessary evil. I recommend you resolve to learn how to properly care and feed for factors. The pros far outweigh the cons. Specifically in modelling and figure-making, factors are anticipated and accomodated by the functions and packages you will want to exploit.
+
+Here we count how many observations are associated with each continent and, as usual, try to portray that info visually. This makes it much easier to quickly see that African countries are well represented in this dataset.
+```{r tabulate-continent}
+table(gDat$continent)
+barplot(table(gDat$continent))
+```
+
+In the figures below, we see how factors can be put to work in figures. The `continent` factor is easily mapped into "facets" or colors and a legend by the `ggplot2` package. *Making figures with `ggplot2` is covered elsewhere so feel free to just sit back and enjoy these plots or blindly copy/paste.*
+
+```{r factors-nice-for-plots, fig.show = 'hold', out.width = '49%'}
+## install ggplot2 if you don't have it!
+## install.packages(ggplot2)
 library(ggplot2)
-p <- ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) # just initializes
-p <- ggplot(subset(gDat, year == 2007),
+p <- ggplot(subset(gDat, continent != "Oceania"),
             aes(x = gdpPercap, y = lifeExp)) # just initializes
 p <- p + scale_x_log10() # log the x axis the right way
 p + geom_point() # scatterplot
 p + geom_point(aes(color = continent)) # map continent to color
-p + geom_point(alpha = (1/3), size = 3)
-p + geom_point() + geom_smooth(lwd = 3, se = FALSE)
-p + aes(color = continent) + geom_point() + geom_smooth(lwd = 3, se = FALSE)
+p + geom_point(alpha = (1/3), size = 3) + geom_smooth(lwd = 3, se = FALSE)
 p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent)
 ```
 
-### `subset()` is the nicest way to isolate bits of data.frames (and other things)
+### `subset()` is a nice way to isolate bits of data.frames (and other things)
 
-Logical little pieces of data.frames are useful for sanity checking, prototyping visualizations or computations for later scale-up, etc. Many functions are happy to restrict their operations to a subset of observations via a formal `subset =` argument. In fact, you've already seen that in many of the examples above. There is a stand-alone function, also confusingly called `subset()`, that can isolate pieces of an object for inspection or assignment. Although `subset()` can work on objects other than data.frames, we focus on that usage here.
+Logical little pieces of data.frames are useful for sanity checking, prototyping visualizations or computations for later scale-up, etc. Many functions are happy to restrict their operations to a subset of observations via a formal `subset =` argument. There is a stand-alone function, also confusingly called `subset()`, that can isolate pieces of an object for inspection or assignment. Although `subset()` can work on objects other than data.frames, we focus on that usage here.
 
 The `subset()` function has a `subset =` argument (sorry, not my fault it's so confusing) for specifying which observations to keep. This expression will be evaluated within the specified data.frame, which is non-standard but convenient.
 ```{r}
@@ -182,6 +196,7 @@ subset(gDat, subset = country == "Mexico",
 ```
 
 <!---
+TO DO: CLEAN UP AND UN-COMMENT THESE EXERCISES FOR THE STUDENT
 Let's get the data for just 2007.
 How many rows?
 How many observations per continent?
@@ -195,10 +210,24 @@ table(hDat$continent)
 #xyplot(lifeExp ~ gdpPercap, hDat, group = continent, auto.key = TRUE)
 #xyplot(lifeExp ~ gdpPercap | continent, hDat)
 ```
+## if you want just some rows and/or just some variables, for inspection or to
+## assign as a new object, use subset()
+subset(gDat, subset = country == "Cambodia")
+subset(gDat, subset = country %in% c("Japan", "Belgium"))
+subset(gDat, subset = year == 1952)
+subset(gDat, subset = country == "Uruguay", select = c(country, year, lifeExp))
+
+plot(lifeExp ~ year, gDat, subset = country == "Zimbabwe")
+plot(lifeExp ~ log(gdpPercap), gDat, subset = year == 2007)
+
+## exercise:
+## get data for which life expectancy is less than 32 years
+## assign to an object
+## how many rows? how many observations per continent?
 --->
 
-Many of the functions for inference, modelling, and graphics that permit you to specify a data.frame via`data = ` also offer a `subset =` argument that limits the computation to certain observations. You've seen this in various graphing commands above. Here's an example when fitting a linear model:
-```{r}
+Many of the functions for inference, modelling, and graphics that permit you to specify a data.frame via`data = ` also offer a `subset =` argument that limits the computation to certain observations. Here's an example of subsetting the data to make a plot just for Colombia and a similar call to `lm` for fitting a linear model to just the data from Colombia.
+```{r just-colombia}
 p <- ggplot(subset(gDat, country == "Colombia"), aes(x = year, y = lifeExp))
 p + geom_point() + geom_smooth(lwd = 1, se = FALSE, method = "lm")
 (minYear <- min(gDat$year))
@@ -208,7 +237,12 @@ summary(myFit)
 
 ### Review of data.frames and the best ways to exploit them
 
-Use data.frames
+Use data.frames!!!
+
+The most modern, slick way to work with data.frame is with `dplyr`. Two later tutorials introduce this exciting new (2014) package:
+
+  * [Introduction to dplyr](block009_dplyr-intro.html)
+  * [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
 
 Work within your data.frames by passing them to the `data =` argument of functions that offer that. If you need to restrict operations, use the `subset =` argument. Do computations or make figures *in situ* -- don't create little copies and excerpts of your data. This will leave a cleaner workspace and cleaner code.
 

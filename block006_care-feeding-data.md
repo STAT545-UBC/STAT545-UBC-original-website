@@ -1,6 +1,6 @@
 # Basic care and feeding of data in R
 
-__NOTE: ROUGH DRAFT AFTER BRINGING CONTENT OVER FROM 2013. I still need to modernize some things (e.g. the transition to `ggplot2` from `lattice`), so look for an update soon.__
+
 
 ### Buckle your seatbelt
 
@@ -66,9 +66,6 @@ Get an overview of the object we just created with `str()` which displays the st
 
 ```r
 str(gDat)
-```
-
-```
 ## 'data.frame':	1704 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
@@ -81,33 +78,21 @@ We could print the whole thing to screen (not so useful with datasets of any siz
 
 ```r
 head(gDat)
-```
-
-```
 ##       country year      pop continent lifeExp gdpPercap
-## 1 Afghanistan 1952  8425333      Asia   28.80     779.4
-## 2 Afghanistan 1957  9240934      Asia   30.33     820.9
-## 3 Afghanistan 1962 10267083      Asia   32.00     853.1
-## 4 Afghanistan 1967 11537966      Asia   34.02     836.2
-## 5 Afghanistan 1972 13079460      Asia   36.09     740.0
-## 6 Afghanistan 1977 14880372      Asia   38.44     786.1
-```
-
-```r
+## 1 Afghanistan 1952  8425333      Asia  28.801  779.4453
+## 2 Afghanistan 1957  9240934      Asia  30.332  820.8530
+## 3 Afghanistan 1962 10267083      Asia  31.997  853.1007
+## 4 Afghanistan 1967 11537966      Asia  34.020  836.1971
+## 5 Afghanistan 1972 13079460      Asia  36.088  739.9811
+## 6 Afghanistan 1977 14880372      Asia  38.438  786.1134
 tail(gDat)
-```
-
-```
 ##       country year      pop continent lifeExp gdpPercap
-## 1699 Zimbabwe 1982  7636524    Africa   60.36     788.9
-## 1700 Zimbabwe 1987  9216418    Africa   62.35     706.2
-## 1701 Zimbabwe 1992 10704340    Africa   60.38     693.4
-## 1702 Zimbabwe 1997 11404948    Africa   46.81     792.4
-## 1703 Zimbabwe 2002 11926563    Africa   39.99     672.0
-## 1704 Zimbabwe 2007 12311143    Africa   43.49     469.7
-```
-
-```r
+## 1699 Zimbabwe 1982  7636524    Africa  60.363  788.8550
+## 1700 Zimbabwe 1987  9216418    Africa  62.351  706.1573
+## 1701 Zimbabwe 1992 10704340    Africa  60.377  693.4208
+## 1702 Zimbabwe 1997 11404948    Africa  46.809  792.4500
+## 1703 Zimbabwe 2002 11926563    Africa  39.989  672.0386
+## 1704 Zimbabwe 2007 12311143    Africa  43.487  469.7093
 #peek(gDat) # you won't have this function!
 ```
 
@@ -117,53 +102,17 @@ More ways to query basic info on a data.frame. Note: with some of the commands b
 
 ```r
 names(gDat)# variable or column names
-```
-
-```
 ## [1] "country"   "year"      "pop"       "continent" "lifeExp"   "gdpPercap"
-```
-
-```r
 ncol(gDat)
-```
-
-```
 ## [1] 6
-```
-
-```r
 length(gDat)
-```
-
-```
 ## [1] 6
-```
-
-```r
 head(rownames(gDat)) # boring, in this case
-```
-
-```
 ## [1] "1" "2" "3" "4" "5" "6"
-```
-
-```r
 dim(gDat)
-```
-
-```
 ## [1] 1704    6
-```
-
-```r
 nrow(gDat)
-```
-
-```
 ## [1] 1704
-```
-
-```r
 #dimnames(gDat) # ill-advised here ... too many rows
 ```
 
@@ -171,45 +120,53 @@ A statistical overview can be obtained with `summary()`
 
 ```r
 summary(gDat)
-```
-
-```
-##         country          year           pop              continent  
-##  Afghanistan:  12   Min.   :1952   Min.   :6.00e+04   Africa  :624  
-##  Albania    :  12   1st Qu.:1966   1st Qu.:2.79e+06   Americas:300  
-##  Algeria    :  12   Median :1980   Median :7.02e+06   Asia    :396  
-##  Angola     :  12   Mean   :1980   Mean   :2.96e+07   Europe  :360  
-##  Argentina  :  12   3rd Qu.:1993   3rd Qu.:1.96e+07   Oceania : 24  
-##  Australia  :  12   Max.   :2007   Max.   :1.32e+09                 
-##  (Other)    :1632                                                   
-##     lifeExp       gdpPercap     
-##  Min.   :23.6   Min.   :   241  
-##  1st Qu.:48.2   1st Qu.:  1202  
-##  Median :60.7   Median :  3532  
-##  Mean   :59.5   Mean   :  7215  
-##  3rd Qu.:70.8   3rd Qu.:  9325  
-##  Max.   :82.6   Max.   :113523  
+##         country          year           pop               continent  
+##  Afghanistan:  12   Min.   :1952   Min.   :6.001e+04   Africa  :624  
+##  Albania    :  12   1st Qu.:1966   1st Qu.:2.794e+06   Americas:300  
+##  Algeria    :  12   Median :1980   Median :7.024e+06   Asia    :396  
+##  Angola     :  12   Mean   :1980   Mean   :2.960e+07   Europe  :360  
+##  Argentina  :  12   3rd Qu.:1993   3rd Qu.:1.959e+07   Oceania : 24  
+##  Australia  :  12   Max.   :2007   Max.   :1.319e+09                 
+##  (Other)    :1632                                                    
+##     lifeExp        gdpPercap       
+##  Min.   :23.60   Min.   :   241.2  
+##  1st Qu.:48.20   1st Qu.:  1202.1  
+##  Median :60.71   Median :  3531.8  
+##  Mean   :59.47   Mean   :  7215.3  
+##  3rd Qu.:70.85   3rd Qu.:  9325.5  
+##  Max.   :82.60   Max.   :113523.1  
 ## 
 ```
 
-Although we haven't begun our formal coverage of visualization yet, it's so important for smell-testing dataset that we will make a few figures anyway. The mysteries of these commands are revealed elsewhere.
+Although we haven't begun our formal coverage of visualization yet, it's so important for smell-testing dataset that we will make a few figures anyway. Here we use only base R graphics, which are very basic.
 
 
 ```r
 plot(lifeExp ~ year, gDat)
+```
+
+![](./block006_care-feeding-data_files/figure-html/first-plots-base-R1.png) 
+
+```r
 plot(lifeExp ~ gdpPercap, gDat)
+```
+
+![](./block006_care-feeding-data_files/figure-html/first-plots-base-R2.png) 
+
+```r
 plot(lifeExp ~ log(gdpPercap), gDat)
 ```
 
+![](./block006_care-feeding-data_files/figure-html/first-plots-base-R3.png) 
+
+<!-- This is a non-sequitur here ... where came from originally?
 > Sidebar on equals: A single equal sign `=` is most commonly used to specify values of arguments when calling functions in R, e.g. `group = continent`. It can be used for assignment but we advise against that, in favor of `<-`. A double equal sign `==` is a binary comparison operator, akin to less than `<` or greater than `>`, returning the logical value `TRUE` in the case of equality and `FALSE` otherwise. Although you may not yet understand exactly why, `subset = country == "Colombia"` restricts operation -- scatterplotting, in above examples -- to observations where the country is Colombia.
+-->
 
 Let's go back to the result of `str()` to talk about data.frames and vectors in R
 
 ```r
 str(gDat)
-```
-
-```
 ## 'data.frame':	1704 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
@@ -220,47 +177,28 @@ str(gDat)
 ```
 A data.frame is a special case of a *list*, which is used in R to hold just about anything. data.frames are the special case where the length of each list component is the same. data.frames are superior to matrices in R because they can hold vectors of different flavors (heuristic term explained below), e.g. numeric, character, and categorical data can be stored together. This comes up alot.
 
+### Look at the variables inside a data.frame
+
 To specify a single variable from a data.frame, use the dollar sign `$`. Let's explore the numeric variable for life expectancy.
 
 ```r
 head(gDat$lifeExp)
-```
-
-```
-## [1] 28.80 30.33 32.00 34.02 36.09 38.44
-```
-
-```r
+## [1] 28.801 30.332 31.997 34.020 36.088 38.438
 summary(gDat$lifeExp)
-```
-
-```
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    23.6    48.2    60.7    59.5    70.8    82.6
-```
-
-```r
+##   23.60   48.20   60.71   59.47   70.85   82.60
 hist(gDat$lifeExp)
 ```
 
-![plot of chunk unnamed-chunk-10](./block006_care-feeding-data_files/figure-html/unnamed-chunk-10.png) 
+![](./block006_care-feeding-data_files/figure-html/histogram-lifeExp.png) 
 
 The year variable is a numeric integer variable, but since there are so few unique values it also functions a bit like a categorical variable.
 
 ```r
 summary(gDat$year)
-```
-
-```
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    1950    1970    1980    1980    1990    2010
-```
-
-```r
+##    1952    1966    1980    1980    1993    2007
 table(gDat$year)
-```
-
-```
 ## 
 ## 1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 2002 2007 
 ##  142  142  142  142  142  142  142  142  142  142  142  142
@@ -270,185 +208,96 @@ The variables for country and continent hold truly categorical information, whic
 
 ```r
 class(gDat$continent)
-```
-
-```
 ## [1] "factor"
-```
-
-```r
 summary(gDat$continent)
-```
-
-```
 ##   Africa Americas     Asia   Europe  Oceania 
 ##      624      300      396      360       24
-```
-
-```r
 levels(gDat$continent)
-```
-
-```
 ## [1] "Africa"   "Americas" "Asia"     "Europe"   "Oceania"
-```
-
-```r
 nlevels(gDat$continent)
-```
-
-```
 ## [1] 5
 ```
 
+The __levels__ of the factor `continent` are "Africa", "Americas", etc. and this is what's usually presented to your eyeballs by R. In general, the levels are friendly human-readable character strings, like "male/female" and "control/treated". But never ever ever forget that, under the hood, R is really storing integer codes 1, 2, 3, etc. Look at the result from `str(gDat$continent)` if you are skeptical.
+
+
 ```r
-table(gDat$continent)
+str(gDat$continent)
+##  Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
 ```
 
-```
+This [Janus](http://en.wikipedia.org/wiki/Janus)-like nature of factors means they are rich with booby traps for the unsuspecting but they are a necessary evil. I recommend you resolve to learn how to properly care and feed for factors. The pros far outweigh the cons. Specifically in modelling and figure-making, factors are anticipated and accomodated by the functions and packages you will want to exploit.
+
+Here we count how many observations are associated with each continent and, as usual, try to portray that info visually. This makes it much easier to quickly see that African countries are well represented in this dataset.
+
+```r
+table(gDat$continent)
 ## 
 ##   Africa Americas     Asia   Europe  Oceania 
 ##      624      300      396      360       24
-```
-
-```r
 barplot(table(gDat$continent))
 ```
 
-![plot of chunk unnamed-chunk-12](./block006_care-feeding-data_files/figure-html/unnamed-chunk-121.png) 
+![](./block006_care-feeding-data_files/figure-html/tabulate-continent.png) 
 
-```r
-dotchart(table(gDat$continent))
-```
-
-```
-## Warning: 'x' is neither a vector nor a matrix: using as.numeric(x)
-```
-
-![plot of chunk unnamed-chunk-12](./block006_care-feeding-data_files/figure-html/unnamed-chunk-122.png) 
-
-```r
-#dotplot(table(gDat$continent), type = "h", col.line = NA)
-#dotplot(table(gDat$continent), type = c("p", "h"), col.line = NA)
-str(gDat$continent)
-```
-
-```
-##  Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
-```
-The __levels__ of the factor `continent` are "Africa", "Americas", etc. and this is what's usually presented to your eyeballs by R. In general, the levels are friendly human-readable character strings, like "male/female" and "control/treated". But never ever ever forget that, under the hood, R is really storing integer codes 1, 2, 3, etc. Look at the result from `str(gDat$continent)` if you are skeptical. This [Janus](http://en.wikipedia.org/wiki/Janus)-like nature of factors means they are rich with booby traps for the unsuspecting but they are a necessary evil. I recommend you resolve to learn how to properly care and feed for factors. The pros far outweigh the cons. Specifically in modelling and figure-making, factors are anticipated and accomodated by the functions and packages you will want to exploit. ~~In the figures below, the continent factor is easily mapped into panels or colors and a legend by `xyplot()` from the `lattice` package (and you will find factors equally powerful within `ggplot2`)~~.
+In the figures below, we see how factors can be put to work in figures. The `continent` factor is easily mapped into "facets" or colors and a legend by the `ggplot2` package. *Making figures with `ggplot2` is covered elsewhere so feel free to just sit back and enjoy these plots or blindly copy/paste.*
 
 
 ```r
+## install ggplot2 if you don't have it!
+## install.packages(ggplot2)
 library(ggplot2)
-p <- ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) # just initializes
-p <- ggplot(subset(gDat, year == 2007),
+p <- ggplot(subset(gDat, continent != "Oceania"),
             aes(x = gdpPercap, y = lifeExp)) # just initializes
 p <- p + scale_x_log10() # log the x axis the right way
 p + geom_point() # scatterplot
-```
-
-![plot of chunk unnamed-chunk-13](./block006_care-feeding-data_files/figure-html/unnamed-chunk-131.png) 
-
-```r
 p + geom_point(aes(color = continent)) # map continent to color
-```
-
-![plot of chunk unnamed-chunk-13](./block006_care-feeding-data_files/figure-html/unnamed-chunk-132.png) 
-
-```r
-p + geom_point(alpha = (1/3), size = 3)
-```
-
-![plot of chunk unnamed-chunk-13](./block006_care-feeding-data_files/figure-html/unnamed-chunk-133.png) 
-
-```r
-p + geom_point() + geom_smooth(lwd = 3, se = FALSE)
-```
-
-```
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-```
-
-![plot of chunk unnamed-chunk-13](./block006_care-feeding-data_files/figure-html/unnamed-chunk-134.png) 
-
-```r
-p + aes(color = continent) + geom_point() + geom_smooth(lwd = 3, se = FALSE)
-```
-
-```
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-```
-
-```
-## Warning: span too small.   fewer data values than degrees of freedom.
-## Warning: at  4.4005
-## Warning: radius  4.6147e-07
-## Warning: all data on boundary of neighborhood. make span bigger
-## Warning: pseudoinverse used at 4.4005
-## Warning: neighborhood radius 0.00067931
-## Warning: reciprocal condition number  1
-## Warning: at  4.5377
-## Warning: radius  4.6147e-07
-## Warning: all data on boundary of neighborhood. make span bigger
-## Warning: There are other near singularities as well. 4.6147e-07
-## Warning: zero-width neighborhood. make span bigger
-## Warning: zero-width neighborhood. make span bigger
-```
-
-![plot of chunk unnamed-chunk-13](./block006_care-feeding-data_files/figure-html/unnamed-chunk-135.png) 
-
-```r
+p + geom_point(alpha = (1/3), size = 3) + geom_smooth(lwd = 3, se = FALSE)
+## geom_smooth: method="auto" and size of largest group is >=1000, so using gam with formula: y ~ s(x, bs = "cs"). Use 'method = x' to change the smoothing method.
 p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent)
 ```
 
-![plot of chunk unnamed-chunk-13](./block006_care-feeding-data_files/figure-html/unnamed-chunk-136.png) 
+<img src="./block006_care-feeding-data_files/figure-html/factors-nice-for-plots1.png" title="" alt="" width="49%" /><img src="./block006_care-feeding-data_files/figure-html/factors-nice-for-plots2.png" title="" alt="" width="49%" /><img src="./block006_care-feeding-data_files/figure-html/factors-nice-for-plots3.png" title="" alt="" width="49%" /><img src="./block006_care-feeding-data_files/figure-html/factors-nice-for-plots4.png" title="" alt="" width="49%" />
 
-### `subset()` is the nicest way to isolate bits of data.frames (and other things)
+### `subset()` is a nice way to isolate bits of data.frames (and other things)
 
-Logical little pieces of data.frames are useful for sanity checking, prototyping visualizations or computations for later scale-up, etc. Many functions are happy to restrict their operations to a subset of observations via a formal `subset =` argument. In fact, you've already seen that in many of the examples above. There is a stand-alone function, also confusingly called `subset()`, that can isolate pieces of an object for inspection or assignment. Although `subset()` can work on objects other than data.frames, we focus on that usage here.
+Logical little pieces of data.frames are useful for sanity checking, prototyping visualizations or computations for later scale-up, etc. Many functions are happy to restrict their operations to a subset of observations via a formal `subset =` argument. There is a stand-alone function, also confusingly called `subset()`, that can isolate pieces of an object for inspection or assignment. Although `subset()` can work on objects other than data.frames, we focus on that usage here.
 
 The `subset()` function has a `subset =` argument (sorry, not my fault it's so confusing) for specifying which observations to keep. This expression will be evaluated within the specified data.frame, which is non-standard but convenient.
 
 ```r
 subset(gDat, subset = country == "Uruguay")
-```
-
-```
 ##      country year     pop continent lifeExp gdpPercap
-## 1621 Uruguay 1952 2252965  Americas   66.07      5717
-## 1622 Uruguay 1957 2424959  Americas   67.04      6151
-## 1623 Uruguay 1962 2598466  Americas   68.25      5603
-## 1624 Uruguay 1967 2748579  Americas   68.47      5445
-## 1625 Uruguay 1972 2829526  Americas   68.67      5703
-## 1626 Uruguay 1977 2873520  Americas   69.48      6504
-## 1627 Uruguay 1982 2953997  Americas   70.81      6920
-## 1628 Uruguay 1987 3045153  Americas   71.92      7452
-## 1629 Uruguay 1992 3149262  Americas   72.75      8137
-## 1630 Uruguay 1997 3262838  Americas   74.22      9230
-## 1631 Uruguay 2002 3363085  Americas   75.31      7727
-## 1632 Uruguay 2007 3447496  Americas   76.38     10611
+## 1621 Uruguay 1952 2252965  Americas  66.071  5716.767
+## 1622 Uruguay 1957 2424959  Americas  67.044  6150.773
+## 1623 Uruguay 1962 2598466  Americas  68.253  5603.358
+## 1624 Uruguay 1967 2748579  Americas  68.468  5444.620
+## 1625 Uruguay 1972 2829526  Americas  68.673  5703.409
+## 1626 Uruguay 1977 2873520  Americas  69.481  6504.340
+## 1627 Uruguay 1982 2953997  Americas  70.805  6920.223
+## 1628 Uruguay 1987 3045153  Americas  71.918  7452.399
+## 1629 Uruguay 1992 3149262  Americas  72.752  8137.005
+## 1630 Uruguay 1997 3262838  Americas  74.223  9230.241
+## 1631 Uruguay 2002 3363085  Americas  75.307  7727.002
+## 1632 Uruguay 2007 3447496  Americas  76.384 10611.463
 ```
 Contrast the above command with this one accomplishing the same thing:
 
 ```r
 gDat[1621:1632, ]
-```
-
-```
 ##      country year     pop continent lifeExp gdpPercap
-## 1621 Uruguay 1952 2252965  Americas   66.07      5717
-## 1622 Uruguay 1957 2424959  Americas   67.04      6151
-## 1623 Uruguay 1962 2598466  Americas   68.25      5603
-## 1624 Uruguay 1967 2748579  Americas   68.47      5445
-## 1625 Uruguay 1972 2829526  Americas   68.67      5703
-## 1626 Uruguay 1977 2873520  Americas   69.48      6504
-## 1627 Uruguay 1982 2953997  Americas   70.81      6920
-## 1628 Uruguay 1987 3045153  Americas   71.92      7452
-## 1629 Uruguay 1992 3149262  Americas   72.75      8137
-## 1630 Uruguay 1997 3262838  Americas   74.22      9230
-## 1631 Uruguay 2002 3363085  Americas   75.31      7727
-## 1632 Uruguay 2007 3447496  Americas   76.38     10611
+## 1621 Uruguay 1952 2252965  Americas  66.071  5716.767
+## 1622 Uruguay 1957 2424959  Americas  67.044  6150.773
+## 1623 Uruguay 1962 2598466  Americas  68.253  5603.358
+## 1624 Uruguay 1967 2748579  Americas  68.468  5444.620
+## 1625 Uruguay 1972 2829526  Americas  68.673  5703.409
+## 1626 Uruguay 1977 2873520  Americas  69.481  6504.340
+## 1627 Uruguay 1982 2953997  Americas  70.805  6920.223
+## 1628 Uruguay 1987 3045153  Americas  71.918  7452.399
+## 1629 Uruguay 1992 3149262  Americas  72.752  8137.005
+## 1630 Uruguay 1997 3262838  Americas  74.223  9230.241
+## 1631 Uruguay 2002 3363085  Americas  75.307  7727.002
+## 1632 Uruguay 2007 3447496  Americas  76.384 10611.463
 ```
 Yes, these both return the same result. But the second command is horrible for these reasons:
 
@@ -464,25 +313,23 @@ You can use `subset =` and `select =` together to simultaneously filter rows and
 ```r
 subset(gDat, subset = country == "Mexico",
        select = c(country, year, lifeExp))
-```
-
-```
 ##     country year lifeExp
-## 985  Mexico 1952   50.79
-## 986  Mexico 1957   55.19
-## 987  Mexico 1962   58.30
-## 988  Mexico 1967   60.11
-## 989  Mexico 1972   62.36
-## 990  Mexico 1977   65.03
-## 991  Mexico 1982   67.41
-## 992  Mexico 1987   69.50
-## 993  Mexico 1992   71.45
-## 994  Mexico 1997   73.67
-## 995  Mexico 2002   74.90
-## 996  Mexico 2007   76.19
+## 985  Mexico 1952  50.789
+## 986  Mexico 1957  55.190
+## 987  Mexico 1962  58.299
+## 988  Mexico 1967  60.110
+## 989  Mexico 1972  62.361
+## 990  Mexico 1977  65.032
+## 991  Mexico 1982  67.405
+## 992  Mexico 1987  69.498
+## 993  Mexico 1992  71.455
+## 994  Mexico 1997  73.670
+## 995  Mexico 2002  74.902
+## 996  Mexico 2007  76.195
 ```
 
 <!---
+TO DO: CLEAN UP AND UN-COMMENT THESE EXERCISES FOR THE STUDENT
 Let's get the data for just 2007.
 How many rows?
 How many observations per continent?
@@ -492,9 +339,6 @@ Variants of that: indicate continent by color, do for just one continent, do for
 ```r
 hDat <- subset(gDat, subset = year == 2007)
 str(hDat)
-```
-
-```
 ## 'data.frame':	142 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 2 3 4 5 6 7 8 9 10 ...
 ##  $ year     : int  2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...
@@ -502,72 +346,73 @@ str(hDat)
 ##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 4 1 1 2 5 4 3 3 4 ...
 ##  $ lifeExp  : num  43.8 76.4 72.3 42.7 75.3 ...
 ##  $ gdpPercap: num  975 5937 6223 4797 12779 ...
-```
-
-```r
 table(hDat$continent)
-```
-
-```
 ## 
 ##   Africa Americas     Asia   Europe  Oceania 
 ##       52       25       33       30        2
-```
-
-```r
 #xyplot(lifeExp ~ gdpPercap, hDat)
 #xyplot(lifeExp ~ gdpPercap, hDat, group = continent, auto.key = TRUE)
 #xyplot(lifeExp ~ gdpPercap | continent, hDat)
 ```
+## if you want just some rows and/or just some variables, for inspection or to
+## assign as a new object, use subset()
+subset(gDat, subset = country == "Cambodia")
+subset(gDat, subset = country %in% c("Japan", "Belgium"))
+subset(gDat, subset = year == 1952)
+subset(gDat, subset = country == "Uruguay", select = c(country, year, lifeExp))
+
+plot(lifeExp ~ year, gDat, subset = country == "Zimbabwe")
+plot(lifeExp ~ log(gdpPercap), gDat, subset = year == 2007)
+
+## exercise:
+## get data for which life expectancy is less than 32 years
+## assign to an object
+## how many rows? how many observations per continent?
 --->
 
-Many of the functions for inference, modelling, and graphics that permit you to specify a data.frame via`data = ` also offer a `subset =` argument that limits the computation to certain observations. You've seen this in various graphing commands above. Here's an example when fitting a linear model:
+Many of the functions for inference, modelling, and graphics that permit you to specify a data.frame via`data = ` also offer a `subset =` argument that limits the computation to certain observations. Here's an example of subsetting the data to make a plot just for Colombia and a similar call to `lm` for fitting a linear model to just the data from Colombia.
 
 ```r
 p <- ggplot(subset(gDat, country == "Colombia"), aes(x = year, y = lifeExp))
 p + geom_point() + geom_smooth(lwd = 1, se = FALSE, method = "lm")
 ```
 
-![plot of chunk unnamed-chunk-18](./block006_care-feeding-data_files/figure-html/unnamed-chunk-18.png) 
+![](./block006_care-feeding-data_files/figure-html/just-colombia.png) 
 
 ```r
 (minYear <- min(gDat$year))
-```
-
-```
 ## [1] 1952
-```
-
-```r
 myFit <- lm(lifeExp ~ I(year - minYear), gDat, subset = country == "Colombia")
 summary(myFit)
-```
-
-```
 ## 
 ## Call:
 ## lm(formula = lifeExp ~ I(year - minYear), data = gDat, subset = country == 
 ##     "Colombia")
 ## 
 ## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -2.784 -0.382  0.184  0.841  1.803 
+##     Min      1Q  Median      3Q     Max 
+## -2.7841 -0.3816  0.1840  0.8413  1.8034 
 ## 
 ## Coefficients:
 ##                   Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)        53.4271     0.7122    75.0  4.3e-15 ***
-## I(year - minYear)   0.3808     0.0219    17.4  8.5e-09 ***
+## (Intercept)       53.42712    0.71223   75.01 4.33e-15 ***
+## I(year - minYear)  0.38075    0.02194   17.36 8.54e-09 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 1.31 on 10 degrees of freedom
-## Multiple R-squared:  0.968,	Adjusted R-squared:  0.965 
-## F-statistic:  301 on 1 and 10 DF,  p-value: 8.54e-09
+## Residual standard error: 1.312 on 10 degrees of freedom
+## Multiple R-squared:  0.9679,	Adjusted R-squared:  0.9647 
+## F-statistic: 301.3 on 1 and 10 DF,  p-value: 8.537e-09
 ```
 
 ### Review of data.frames and the best ways to exploit them
 
-Use data.frames
+Use data.frames!!!
+
+The most modern, slick way to work with data.frame is with `dplyr`. Two later tutorials introduce this exciting new (2014) package:
+
+  * [Introduction to dplyr](block009_dplyr-intro.html)
+  * [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
 
 Work within your data.frames by passing them to the `data =` argument of functions that offer that. If you need to restrict operations, use the `subset =` argument. Do computations or make figures *in situ* -- don't create little copies and excerpts of your data. This will leave a cleaner workspace and cleaner code.
 
@@ -594,8 +439,5 @@ Example: How would you compute the correlation of life expectancy and GDP per ca
 ```r
 with(subset(gDat, subset = country == "Colombia"),
      cor(lifeExp, gdpPercap))
-```
-
-```
-## [1] 0.9515
+## [1] 0.9514699
 ```

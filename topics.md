@@ -18,9 +18,9 @@ Until we get rolling, feel free to look at older material that will appear here 
     - [Test connection between RStudio and GitHub](git05_first-use-git-rstudio.html)
     - [GitHub credential caching](git06_credential-caching.html)
     - [STAT545 RStudio and GitHub workflow](git07_git-usage.html)
-* [Basic R and RStudio, workspace, working directory, RStudio Project](block002_hello-r-workspace-wd-project.html)
+  * [Basic R and RStudio, workspace, working directory, RStudio Project](block002_hello-r-workspace-wd-project.html)
+  * [Basic care and feeding of data in R](block006_care-feeding-data.html)
   * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
-  * [Basic care and feeding of data in R](block006_care-feeding-data.html) *DRAFT; porting from 2013 not complete yet*
   * [Introduction to `ggplot2`](https://github.com/jennybc/ggplot2-tutorial) *links to materials from a May 2014 workshop*
   * [Test your ability to author an R Markdown report](block007_first-use-rmarkdown.html)
   * [Introduction to dplyr](block009_dplyr-intro.html)
