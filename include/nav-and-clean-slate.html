@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple Navigation</title>
+  <link rel="stylesheet" href="../libs/local/nav.css">
+  <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+
+</head>
+<body class="news">
+  <header>
+    <div class="nav">
+      <ul>
+        <li class="home"><a href="index.html">Home</a></li>
+        <li class="faq"><a href="faq.html">FAQ</a></li>
+        <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+        <li class="topics"><a class="active" href="topics.html">Topics</a></li>
+        <li class="people"><a href="people.html">People</a></li>
+      </ul>
+    </div>
+  </header>
+</body>
+</html>
+
+<html lang="en">
+<div id="buckle-your-seatbelt" class="section level3">
+<h3>Buckle your seatbelt</h3>
+<p><em>Ignore if you don’t need this bit of support.</em></p>
+<p>Now is the time to make sure you are working in an appropriate directory on your computer, probably through the use of an <a href="block002_hello-r-workspace-wd-project.html">RStudio Project</a>. Enter <code>getwd()</code> in the Console to see current working directory or, in RStudio, this is displayed in the bar at the top of Console.</p>
+<p>You should clean out your workspace. In RStudio, click on the “Clear” broom icon from the Environment tab or use Session &gt; Clear Workspace. You can also enter <code>rm(list = ls())</code> in the Console to accomplish same.</p>
+<p>Now restart R. This will ensure you don’t have any packages loaded from previous calls to <code>library()</code>. In RStudio, use Session &gt; Restart R. Otherwise, quit R with <code>q()</code> and re-launch it.</p>
+<p>Why do we do this? So that the code you write is complete and re-runnable. If you return to a clean slate often, you will root out hidden dependencies where one snippet of code only works because it relies on objects created by code saved elsewhere or, much worse, never saved at all. Similary, an aggressive clean slate approach will expose any usage of packages that have not been explicitly loaded.</p>
+<p>Finally, open a new R script and develop and run your code from there. In RStudio, use File &gt; New File &gt; R Script. Save this script with a name ending in <code>.r</code> or <code>.R</code>, containing no spaces or other funny stuff, and that evokes whatever it is we’re doing today. Example: <code>session03_data-aggregation.r</code>.</p>
+</div>
+</html>
