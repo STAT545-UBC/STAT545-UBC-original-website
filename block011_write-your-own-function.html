@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Write your own R functions</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Write your own R functions</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#what-and-why">What and why?</a></li>
+<li><a href="#load-the-gapminder-data">Load the Gapminder data</a></li>
+<li><a href="#task-we-aim-to-function-ize">Task we aim to function-ize</a></li>
+<li><a href="#get-something-that-works">Get something that works</a></li>
+<li><a href="#turn-the-working-interactive-code-into-a-function-and-re-test">Turn the working interactive code into a function and re-test</a></li>
+<li><a href="#test-your-function">Test your function</a></li>
+<li><a href="#check-the-validity-of-arguments">Check the validity of arguments</a></li>
+<li><a href="#packages-for-formal-checks-at-run-time">Packages for formal checks at run time</a></li>
+<li><a href="#generalize-our-function-to-other-quantiles">Generalize our function to other quantiles</a></li>
+<li><a href="#argument-names-freedom-and-conventions">Argument names: freedom and conventions</a></li>
+<li><a href="#default-values-freedom-to-not-specify-the-arguments">Default values: freedom to NOT specify the arguments</a></li>
+<li><a href="#check-the-validity-of-arguments-again">Check the validity of arguments, again</a></li>
+</ul>
+</div>
+
+<div id="what-and-why" class="section level3">
+<h3>What and why?</h3>
+<p>My goal here is to reveal the <strong>process</strong> many long-time useRs employ for writing functions. I also want to illustrate why we work the way we do. Merely looking at the finished product, e.g. source code for R packages, can be extremely deceiving. Reality is generally much uglier … but more interesting!</p>
+<p>Why are we covering this now, in the midst of our data aggregation work? Powerful machines like <code>dplyr</code>, <code>plyr</code>, and even the built-in <code>apply</code> family of functions are ready and waiting to apply your purpose-built functions to various bits of your data. If you can express your analytical wishes in a function, these tools will make you extremely powerful with data.</p>
+</div>
+<div id="load-the-gapminder-data" class="section level3">
+<h3>Load the Gapminder data</h3>
+<p>As usual, load the Gapminer excerpt.</p>
+<pre class="r"><code>gDat &lt;- read.delim(&quot;gapminderDataFiveYear.txt&quot;)
+str(gDat)
+## &#39;data.frame&#39;:    1704 obs. of  6 variables:
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...
+## or do this if the file isn&#39;t lying around already
+## gd_url &lt;- &quot;http://tiny.cc/gapminder&quot;
+## gDat &lt;- read.delim(gd_url)</code></pre>
+</div>
+<div id="task-we-aim-to-function-ize" class="section level3">
+<h3>Task we aim to function-ize</h3>
+<p>Say you’ve got a numeric vector. Compute the difference between its min and max. <code>lifeExp</code> or <code>pop</code> or <code>gdpPercap</code> are great examples of a typical input. You can imagine wanting to get this statistic after we slice up the Gapminder data by year, country, continent, or combinations thereof.</p>
+</div>
+<div id="get-something-that-works" class="section level3">
+<h3>Get something that works</h3>
+<p>First, develop some working code for interactive use, using a representative input. I’m going to use Gapminder’s life expectancy variable.</p>
+<p>R functions that will be useful: <code>min()</code>, <code>max()</code>, <code>range()</code>. <strong>Read their documentation.</strong></p>
+<pre class="r"><code>## get to know the functions mentioned above
+min(gDat$lifeExp)
+## [1] 23.599
+max(gDat$lifeExp)
+## [1] 82.603
+range(gDat$lifeExp)
+## [1] 23.599 82.603
+
+## some natural solutions
+max(gDat$lifeExp) - min(gDat$lifeExp)
+## [1] 59.004
+with(gDat, max(lifeExp) - min(lifeExp))
+## [1] 59.004
+range(gDat$lifeExp)[2] - range(gDat$lifeExp)[1]
+## [1] 59.004
+with(gDat, range(lifeExp)[2] - range(lifeExp)[1])
+## [1] 59.004
+diff(range(gDat$lifeExp))
+## [1] 59.004</code></pre>
+<p>Internalize this “answer” because our informal testing relies on you noticing departures from this.</p>
+<div id="skateboard-perfectly-formed-rear-view-mirror" class="section level4">
+<h4>Skateboard &gt;&gt; perfectly formed rear-view mirror</h4>
+<p>This image <a href="http://blog.fastmonkeys.com/?utm_content=bufferc2d6e&amp;utm_medium=social&amp;utm_source=twitter.com&amp;utm_campaign=buffer">widely attributed to the Spotify development team</a> conveys an important point.</p>
+<p><img src="img/spotify-howtobuildmvp.gif" alt="alt text" /></p>
+<p>Build that skateboard before you build the car or some fancy car part. A limited-but-functioning thing is very useful. It also keeps the spirits high.</p>
+<p>This is related to the valuable <a href="http://c2.com/cgi/wiki?TelescopeRule">Telescope Rule</a>:</p>
+<blockquote>
+<p>It is faster to make a four-inch mirror then a six-inch mirror than to make a six-inch mirror.</p>
+</blockquote>
+</div>
+</div>
+<div id="turn-the-working-interactive-code-into-a-function-and-re-test" class="section level3">
+<h3>Turn the working interactive code into a function and re-test</h3>
+<p>Add NO new functionality! Just write your very first R function.</p>
+<pre class="r"><code>max_minus_min &lt;- function(x) max(x) - min(x)
+max_minus_min(gDat$lifeExp)
+## [1] 59.004</code></pre>
+<p>Check that you’re getting the same answer as you did with your interactive code. Test it eyeball-o-metrically at this point.</p>
+</div>
+<div id="test-your-function" class="section level3">
+<h3>Test your function</h3>
+<div id="test-on-new-inputs" class="section level4">
+<h4>Test on new inputs</h4>
+<p>Pick some new articial inputs where you know (at least approximately) what your function should return.</p>
+<pre class="r"><code>max_minus_min(1:10)
+## [1] 9
+max_minus_min(runif(1000))
+## [1] 0.9947266</code></pre>
+<p>I know that 10 minus 1 is 9. I know that random uniform [0, 1] variates will be between 0 and 1. Therefore max - min should be less than 1. If I take LOTS of them, max - min should be pretty close to 1.</p>
+<p>It is intentional that I tested on integer input as well as floating point. Likewise, I like to use valid-but-random data for this sort of check.</p>
+</div>
+<div id="test-on-real-data-but-different-real-data" class="section level4">
+<h4>Test on real data but <em>different</em> real data</h4>
+<p>Back to the real world now. Two other quantitative variables are lying around: <code>gdpPercap</code> and <code>pop</code>. Let’s have a go.</p>
+<pre class="r"><code>max_minus_min(gDat$gdpPercap)
+## [1] 113282
+max_minus_min(gDat$pop)
+## [1] 1318623085</code></pre>
+<p>Either check these results “by hand” or apply the “does that even make sense?” test.</p>
+</div>
+<div id="test-on-weird-stuff" class="section level4">
+<h4>Test on weird stuff</h4>
+<p>Now we are going to try to break our function. Don’t get truly diabolical (yet). Just make the kind of mistakes you can imagine yourself making at 2am when you rediscover this useful function you wrote 3 years ago.</p>
+<pre class="r"><code>max_minus_min(gDat) ## hey sometimes things &quot;just work&quot; on data.frames!
+## Error: only defined on a data frame with all numeric variables
+max_minus_min(gDat$country) ## factors are kind of like integer vectors, no?
+## Error: max not meaningful for factors
+max_minus_min(&quot;eggplants are purple&quot;) ## i have no excuse for this one
+## Error: non-numeric argument to binary operator</code></pre>
+<p>How happy are you with those error messages? You must imagine that some entire <strong>script</strong> has failed because the user was hoping to just source it without re-reading it. If a colleague or future you encountered that, how hard is it to pinpoint the usage problem? Will you just give up and say “this script/function doesn’t work”?</p>
+</div>
+<div id="i-will-scare-you-now" class="section level4">
+<h4>I will scare you now</h4>
+<p>Here are some great examples STAT545 students devised during class where the function <strong>should break but it does not.</strong></p>
+<pre class="r"><code>max_minus_min(gDat[c(&#39;lifeExp&#39;, &#39;gdpPercap&#39;, &#39;pop&#39;)])
+## [1] 1318683072
+max_minus_min(c(TRUE, TRUE, FALSE, TRUE, TRUE))
+## [1] 1</code></pre>
+<p>In both cases, R’s eagerness to make sense of our requests is unfortunately successful. In the first case, a data.frame containing just the quantitative variables is eventually coerced into numeric vector. We can compute max minus min, even though it makes absolutely no sense at all. In the second case, a logical vector is converted to zeroes and ones, which might merit an error or at least a warning.</p>
+</div>
+</div>
+<div id="check-the-validity-of-arguments" class="section level3">
+<h3>Check the validity of arguments</h3>
+<div id="stopifnot" class="section level4">
+<h4>stopifnot</h4>
+<p>For functions that will be used again – which is not all of them! – it is good to check the validity of arguments.</p>
+<p><code>stopifnot()</code> is the entry level solution. I use it here to make sure the input <code>x</code> is a numeric vector.</p>
+<pre class="r"><code>mmm &lt;- function(x) {
+  stopifnot(is.numeric(x))
+  max(x) - min(x)
+  }
+mmm(gDat)
+## Error: is.numeric(x) is not TRUE
+mmm(gDat$country)
+## Error: is.numeric(x) is not TRUE
+mmm(&quot;eggplants are purple&quot;)
+## Error: is.numeric(x) is not TRUE
+mmm(gDat[c(&#39;lifeExp&#39;, &#39;gdpPercap&#39;, &#39;pop&#39;)])
+## Error: is.numeric(x) is not TRUE
+mmm(c(TRUE, TRUE, FALSE, TRUE, TRUE))
+## Error: is.numeric(x) is not TRUE</code></pre>
+<p>And we see that it catches all of the mistakes we’re trying to guard against (so far).</p>
+</div>
+<div id="if-then-stop" class="section level4">
+<h4>if then stop</h4>
+<p><code>stopifnot()</code> doesn’t provide a very good error message. The next approach is very widely used. Put your validity check inside an <code>if()</code> statement and call <code>stop()</code> yourself, with a custom error message, in the body.</p>
+<pre class="r"><code>mmm2 &lt;- function(x) {
+  if(!is.numeric(x)) {
+    stop(&#39;I am so sorry, but this function only works for numeric input!&#39;)
+  }
+  max(x) - min(x)
+  }
+mmm2(gDat)
+## Error: I am so sorry, but this function only works for numeric input!</code></pre>
+<p>In addition to offering an apology, note the error raised also contains helpful info on <em>which</em> function threw the error. Nice touch.</p>
+<p><em>Note: the above is true when run interactively but not true in the rendered document. I am getting to the bottom of that.</em></p>
+</div>
+</div>
+<div id="packages-for-formal-checks-at-run-time" class="section level3">
+<h3>Packages for formal checks at run time</h3>
+<p>The <a href="https://github.com/hadley/assertthat"><code>assertthat</code> package</a> “provides a drop in replacement for <code>stopifnot()</code>.” That is quite literally true. The function <code>mmm3</code> differs from <code>mmm2</code> only in the replacement of <code>stopifnot()</code> by <code>assert_that()</code>.</p>
+<pre class="r"><code>## install if you do not already have!
+## install.packages(assertthat)
+library(assertthat)
+mmm3 &lt;- function(x) {
+  assert_that(is.numeric(x))
+  max(x) - min(x)
+  }
+mmm3(gDat)
+## Error: x is not a numeric or integer vector</code></pre>
+<p>The <a href="https://github.com/smbache/ensurer"><code>ensurer</code> package</a> is another, newer package with some similar goals, so you may want to check that out as well.</p>
+<div id="sidebar-other-uses-for-assertthat-or-ensurer" class="section level4">
+<h4>Sidebar: other uses for <code>assertthat</code> or <code>ensurer</code></h4>
+<p>Another good use of these packages is to leave checks behind in data analytical scripts . Consider our repetitive use of Gapminder. Every time we load this data, we inspect it, e.g., with <code>str()</code>. Informally, we’re checking that is still has 1704 rows. But we could, and probably should, formalize that with a call like <code>assert_that(nrow(gDat) == 1704)</code>. This would tell us if the data suddenly changed, alerting us to a problem with the data file or the import.</p>
+</div>
+</div>
+<div id="generalize-our-function-to-other-quantiles" class="section level3">
+<h3>Generalize our function to other quantiles</h3>
+<p>The max and the min are special cases of a <strong>quantile</strong>. Here are other special cases you may have heard of:</p>
+<ul>
+<li>median = 0.5 quantile</li>
+<li>1st quartile = 0.25 quantile</li>
+<li>3rd quartile = 0.75 quantile</li>
+</ul>
+<p>If you’re familiar with <a href="http://en.wikipedia.org/wiki/Box_plot">box plots</a>, the rectangle typically runs from the 1st quartile to the 3rd quartile, with a line at the median.</p>
+<p>If <span class="math">\(q\)</span> is the <span class="math">\(p\)</span>-th quantile of a set of <span class="math">\(n\)</span> observations, what does that mean? Approximately <span class="math">\(pn\)</span> of the observations are less than <span class="math">\(q\)</span> and <span class="math">\((1 - p)n\)</span> are greater than <span class="math">\(q\)</span>. Yeah, you need to worry about rounding to an integer and less/greater than or equal to, but these details aren’t critical here.</p>
+<p>Let’s generalize our function to take the difference between any two quantiles. We can still consider the max and min, if we like, but we’re not limited to that.</p>
+<div id="get-something-that-works-again" class="section level4">
+<h4>Get something that works, again</h4>
+<p>The eventual inputs to our new function will be the data <code>x</code> and two probabilities.</p>
+<p>First, play around with the <code>quantile()</code> function. Convince yourself you know how to use it.</p>
+<pre class="r"><code>quantile(gDat$lifeExp)
+##      0%     25%     50%     75%    100% 
+## 23.5990 48.1980 60.7125 70.8455 82.6030
+quantile(gDat$lifeExp, probs = 0.5)
+##     50% 
+## 60.7125
+median(gDat$lifeExp)
+## [1] 60.7125
+quantile(gDat$lifeExp, probs = c(0.25, 0.75))
+##     25%     75% 
+## 48.1980 70.8455
+boxplot(gDat$lifeExp, plot = FALSE)$stats
+##         [,1]
+## [1,] 23.5990
+## [2,] 48.1850
+## [3,] 60.7125
+## [4,] 70.8460
+## [5,] 82.6030</code></pre>
+<p>Now write a code snippet that takes the difference between two quantiles.</p>
+<pre class="r"><code>the_probs &lt;- c(0.25, 0.75)
+the_quantiles &lt;- quantile(gDat$lifeExp, probs = the_probs)
+max(the_quantiles) - min(the_quantiles)
+## [1] 22.6475
+IQR(gDat$lifeExp) # hey, we&#39;ve reinvented IQR
+## [1] 22.6475</code></pre>
+<p>Since I knew the difference between the 1st and 3rd quartiles is the interquartile range, I used this opportunity to informally check myself against a built-in function, <code>IQR()</code>.</p>
+</div>
+<div id="turn-the-working-interactive-code-into-a-function-and-re-test-1" class="section level4">
+<h4>Turn the working interactive code into a function and re-test</h4>
+<p>I’ll use <code>qdiff</code> as the base of our function’s name. I copy the overall structure from our previous <code>mmm</code> attempts but replace the “guts” of it with the more general code we just developed.</p>
+<pre class="r"><code>qdiff1 &lt;- function(x, probs) {
+  assert_that(is.numeric(x))
+  the_quantiles &lt;- quantile(x = x, probs = probs)
+  max(the_quantiles) - min(the_quantiles)
+}
+qdiff1(gDat$lifeExp, probs = c(0.25, 0.75))
+## [1] 22.6475
+qdiff1(gDat$lifeExp, probs = c(0, 1))
+## [1] 59.004
+max_minus_min(gDat$lifeExp)
+## [1] 59.004</code></pre>
+<p>Again we do some informal tests against familiar results.</p>
+</div>
+</div>
+<div id="argument-names-freedom-and-conventions" class="section level3">
+<h3>Argument names: freedom and conventions</h3>
+<p>I can name my arguments anything I like. Proof:</p>
+<pre class="r"><code>qdiff2 &lt;- function(zeus, hera) {
+  assert_that(is.numeric(zeus))
+  the_quantiles &lt;- quantile(x = zeus, probs = hera)
+  return(max(the_quantiles) - min(the_quantiles))
+}
+qdiff2(zeus = gDat$lifeExp, hera = 0:1)
+## [1] 59.004</code></pre>
+<p>While I can name my arguments after Greek gods, it’s usually a bad idea. Take all opportunities to make things more self-explanatory via meaningful names.</p>
+<p>This is better:</p>
+<pre class="r"><code>qdiff3 &lt;- function(my_x, my_probs) {
+  assert_that(is.numeric(my_x))
+  the_quantiles &lt;- quantile(x = my_x, probs = my_probs)
+  return(max(the_quantiles) - min(the_quantiles))
+}
+qdiff3(my_x = gDat$lifeExp, my_probs = 0:1)
+## [1] 59.004</code></pre>
+<p>If you are going to pass the arguments of your function as arguments of a built-in function, consider copying the argument names. Again, the reason is to reduce your cognitive load. This is what I did in our first iteration of <code>qdiff</code>:</p>
+<pre class="r"><code>qdiff1
+## function(x, probs) {
+##   assert_that(is.numeric(x))
+##   the_quantiles &lt;- quantile(x = x, probs = probs)
+##   max(the_quantiles) - min(the_quantiles)
+## }</code></pre>
+<p>We took this detour so you could see there is no <em>structural</em> relationship between my arguments (<code>x</code> and <code>probs</code>) and those of <code>quantile()</code> (also <code>x</code> and <code>probs</code>). The similarity or equivalence of the names <strong>accomplishes nothing</strong> as far as R is concerned; it is solely for the benefit of humans reading, writing, and using the code. Which actually matters.</p>
+</div>
+<div id="default-values-freedom-to-not-specify-the-arguments" class="section level3">
+<h3>Default values: freedom to NOT specify the arguments</h3>
+<p>What happens if we call our function but neglect to specify the probabilities?</p>
+<pre class="r"><code>qdiff1(gDat$lifeExp) ## oops! must specify probs argument
+## Error: argument &quot;probs&quot; is missing, with no default</code></pre>
+<p>It is often nice to provide some reasonable default values, so users don’t have to specify everything, all the time.</p>
+<p>We started by focusing on the max and the min, so I think those make reasonable defaults. Here’s how to specify that in a function definition.</p>
+<pre class="r"><code>qdiff4 &lt;- function(x, probs = c(0, 1)) {
+  assert_that(is.numeric(x))
+  the_quantiles &lt;- quantile(x, probs)
+  return(max(the_quantiles) - min(the_quantiles))
+}</code></pre>
+<p>Again we check how the function works, in old examples and new.</p>
+<pre class="r"><code>qdiff4(gDat$lifeExp)
+## [1] 59.004
+max_minus_min(gDat$lifeExp)
+## [1] 59.004
+qdiff4(gDat$lifeExp, c(0.1, 0.9))
+## [1] 33.5862</code></pre>
+</div>
+<div id="check-the-validity-of-arguments-again" class="section level3">
+<h3>Check the validity of arguments, again</h3>
+<p>EXERCISE: upgrade our arguement validity checks in light of the new argument <code>probs</code></p>
+<pre class="r"><code>## we&#39;re not checking that probs is numeric
+## we&#39;re not checking that probs is length 2
+## we&#39;re not checking that probs are in [0,1]</code></pre>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
