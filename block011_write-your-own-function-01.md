@@ -245,3 +245,19 @@ What we've accomplished:
   * we've done a good amount of informal testing
   
 Where to next? We will generalize this function to take differences in other quantiles and learn how to set default values for arguments.
+
+### Resources
+
+Packages
+
+  * [`assertthat` package](https://github.com/hadley/assertthat)
+  * [`ensurer` package](https://github.com/smbache/ensurer)
+  * [`testthat` package](https://github.com/hadley/testthat)
+
+Hadley Wickham's forthcoming book [Advanced R]((http://adv-r.had.co.nz)
+
+  * Section on [defensive programming](http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming)
+  
+Hadley Wickham's forthcoming book [R packages](http://r-pkgs.had.co.nz)
+
+  * [Testing chapter](http://r-pkgs.had.co.nz/tests.html)

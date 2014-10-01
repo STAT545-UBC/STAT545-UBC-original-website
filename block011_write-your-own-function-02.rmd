@@ -196,3 +196,18 @@ What we've accomplished:
   
 Where to next? We will tackle `NA`s, the special `...` argument, and formal testing.
 
+### Resources
+
+Packages
+
+  * [`assertthat` package](https://github.com/hadley/assertthat)
+  * [`ensurer` package](https://github.com/smbache/ensurer)
+  * [`testthat` package](https://github.com/hadley/testthat)
+
+Hadley Wickham's forthcoming book [Advanced R]((http://adv-r.had.co.nz)
+
+  * Section on [defensive programming](http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming)
+  
+Hadley Wickham's forthcoming book [R packages](http://r-pkgs.had.co.nz)
+
+  * [Testing chapter](http://r-pkgs.had.co.nz/tests.html)

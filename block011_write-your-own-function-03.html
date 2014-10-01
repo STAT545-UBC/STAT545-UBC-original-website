@@ -79,6 +79,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#be-proactive-about-nas">Be proactive about <code>NA</code>s</a></li>
 <li><a href="#the-useful-but-mysterious-...-argument">The useful but mysterious <code>...</code> argument</a></li>
 <li><a href="#use-testthat-for-formal-unit-tests">Use <code>testthat</code> for formal unit tests</a></li>
+<li><a href="#return-to-dplyr-skip-this-in-favor-of-plyr">Return to <code>dplyr</code> SKIP THIS IN FAVOR OF PLYR</a></li>
+<li><a href="#resources">Resources</a></li>
 </ul>
 </div>
 
@@ -219,6 +221,50 @@ test_that(&#39;NA handling works&#39;, {
 ## 14: quantile.default(x = x, probs = probs)
 ## 15: stop(&quot;missing values and NaN&#39;s not allowed if &#39;na.rm&#39; is FALSE&quot;).</code></pre>
 <p>Similar to the advice to use <code>assertthat</code> in data analytical scripts, I recommend you use <code>testthat</code> to monitor the behavior of functions you (or others) will use often. If your tests cover the function’s important behavior, then you can edit the internals freely. You’ll rest easy in the knowledge that, if you broke anything important, the tests will fail and alert you to the problem.</p>
+</div>
+<div id="return-to-dplyr-skip-this-in-favor-of-plyr" class="section level3">
+<h3>Return to <code>dplyr</code> SKIP THIS IN FAVOR OF PLYR</h3>
+<pre class="r"><code>library(dplyr)
+## 
+## Attaching package: &#39;dplyr&#39;
+## 
+## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter
+## 
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union
+gtbl &lt;- gDat %&gt;% tbl_df
+by_continent &lt;- gtbl %&gt;%
+  group_by(continent)
+by_continent %&gt;% do(data.frame(max(.$lifeExp)))
+## Source: local data frame [5 x 2]
+## Groups: continent
+## 
+##   continent max...lifeExp.
+## 1    Africa         76.442
+## 2  Americas         80.653
+## 3      Asia         82.603
+## 4    Europe         81.757
+## 5   Oceania         81.235</code></pre>
+</div>
+<div id="resources" class="section level3">
+<h3>Resources</h3>
+<p>Packages</p>
+<ul>
+<li><a href="https://github.com/hadley/assertthat"><code>assertthat</code> package</a></li>
+<li><a href="https://github.com/smbache/ensurer"><code>ensurer</code> package</a></li>
+<li><a href="https://github.com/hadley/testthat"><code>testthat</code> package</a></li>
+</ul>
+<p>Hadley Wickham’s forthcoming book [Advanced R]((<a href="http://adv-r.had.co.nz">http://adv-r.had.co.nz</a>)</p>
+<ul>
+<li>Section on <a href="http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming">defensive programming</a></li>
+</ul>
+<p>Hadley Wickham’s forthcoming book <a href="http://r-pkgs.had.co.nz">R packages</a></p>
+<ul>
+<li><a href="http://r-pkgs.had.co.nz/tests.html">Testing chapter</a></li>
+</ul>
 </div>
 
 <div class="footer">

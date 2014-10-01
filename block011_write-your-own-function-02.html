@@ -83,7 +83,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#what-a-function-returns">What a function returns</a></li>
 <li><a href="#default-values-freedom-to-not-specify-the-arguments">Default values: freedom to NOT specify the arguments</a></li>
 <li><a href="#check-the-validity-of-arguments-again">Check the validity of arguments, again</a></li>
-<li><a href="#be-proactive-about-nas">Be proactive about <code>NA</code>s</a></li>
+<li><a href="#wrap-up-and-whats-next">Wrap-up and what’s next?</a></li>
+<li><a href="#resources">Resources</a></li>
 </ul>
 </div>
 
@@ -239,43 +240,38 @@ qdiff4(gDat$lifeExp, c(0.1, 0.9))
 ## we&#39;re not checking that probs is length 2
 ## we&#39;re not checking that probs are in [0,1]</code></pre>
 </div>
-<div id="be-proactive-about-nas" class="section level3">
-<h3>Be proactive about <code>NA</code>s</h3>
-<p>I am being gentle by letting you practice with the Gapminder data. In real life, you will be plagued by missing data. If you are lucky, it will be properly indicated by the special value <code>NA</code>. Many built-in R functions have an <code>na.rm =</code> argument through which you can specify how you want to handle <code>NA</code>s. Typically the default value is <code>na.rm = FALSE</code> and typical default behavior is to either let <code>NA</code>s propagate or to raise an error. Let’s see how <code>quantile()</code> handles <code>NA</code>s:</p>
-<pre class="r"><code>z &lt;- gDat$lifeExp
-z[3] &lt;- NA
-quantile(gDat$lifeExp)
-##      0%     25%     50%     75%    100% 
-## 23.5990 48.1980 60.7125 70.8455 82.6030
-quantile(z)
-## Error: missing values and NaN&#39;s not allowed if &#39;na.rm&#39; is FALSE
-quantile(z, na.rm = TRUE)
-##     0%    25%    50%    75%   100% 
-## 23.599 48.228 60.765 70.846 82.603</code></pre>
-<p>So <code>quantile()</code> simply will not operate in the presence of <code>NA</code>s unless <code>na.rm = TRUE</code>. How shall we modify our function?</p>
-<p>If we wanted to hardwire <code>na.rm = TRUE</code>, we could. Focus on our call to <code>quantile()</code> inside our function definition.</p>
-<pre class="r"><code>qdiff5 &lt;- function(x, probs = c(0, 1)) {
-  assert_that(is.numeric(x))
-  the_quantiles &lt;- quantile(x, probs, na.rm = TRUE)
-  return(max(the_quantiles) - min(the_quantiles))
-}
-qdiff5(gDat$lifeExp)
-## [1] 59.004
-qdiff5(z)
-## [1] 59.004</code></pre>
-<p>This works but it is dangerous to invert the default behavior of a well-known built-in function and to provide the user with no way to override this.</p>
-<p>We could add an <code>na.rm =</code> argument to our own function. We might even enforce our preferred default – but at least we’re giving the user a way to control the behavior around <code>NA</code>s.</p>
-<pre class="r"><code>qdiff6 &lt;- function(x, probs = c(0, 1), na.rm = TRUE) {
-  assert_that(is.numeric(x))
-  the_quantiles &lt;- quantile(x, probs, na.rm = na.rm)
-  return(max(the_quantiles) - min(the_quantiles))
-}
-qdiff6(gDat$lifeExp)
-## [1] 59.004
-qdiff6(z)
-## [1] 59.004
-qdiff6(z, na.rm = FALSE)
-## Error: missing values and NaN&#39;s not allowed if &#39;na.rm&#39; is FALSE</code></pre>
+<div id="wrap-up-and-whats-next" class="section level3">
+<h3>Wrap-up and what’s next?</h3>
+<p>Here’s the function we’ve written so far:</p>
+<pre class="r"><code>qdiff4
+## function(x, probs = c(0, 1)) {
+##   assert_that(is.numeric(x))
+##   the_quantiles &lt;- quantile(x, probs)
+##   return(max(the_quantiles) - min(the_quantiles))
+## }</code></pre>
+<p>What we’ve accomplished:</p>
+<ul>
+<li>we’ve generalized our first function to take a difference between arbitrary quantiles</li>
+<li>we’ve specifyied default values for the probabilities that set the quantiles</li>
+</ul>
+<p>Where to next? We will tackle <code>NA</code>s, the special <code>...</code> argument, and formal testing.</p>
+</div>
+<div id="resources" class="section level3">
+<h3>Resources</h3>
+<p>Packages</p>
+<ul>
+<li><a href="https://github.com/hadley/assertthat"><code>assertthat</code> package</a></li>
+<li><a href="https://github.com/smbache/ensurer"><code>ensurer</code> package</a></li>
+<li><a href="https://github.com/hadley/testthat"><code>testthat</code> package</a></li>
+</ul>
+<p>Hadley Wickham’s forthcoming book [Advanced R]((<a href="http://adv-r.had.co.nz">http://adv-r.had.co.nz</a>)</p>
+<ul>
+<li>Section on <a href="http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming">defensive programming</a></li>
+</ul>
+<p>Hadley Wickham’s forthcoming book <a href="http://r-pkgs.had.co.nz">R packages</a></p>
+<ul>
+<li><a href="http://r-pkgs.had.co.nz/tests.html">Testing chapter</a></li>
+</ul>
 </div>
 
 <div class="footer">

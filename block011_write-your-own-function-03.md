@@ -194,3 +194,51 @@ test_that('NA handling works', {
 ```
 
 Similar to the advice to use `assertthat` in data analytical scripts, I recommend you use `testthat` to monitor the behavior of functions you (or others) will use often. If your tests cover the function's important behavior, then you can edit the internals freely. You'll rest easy in the knowledge that, if you broke anything important, the tests will fail and alert you to the problem.
+
+### Return to `dplyr` SKIP THIS IN FAVOR OF PLYR
+
+
+```r
+library(dplyr)
+## 
+## Attaching package: 'dplyr'
+## 
+## The following object is masked from 'package:stats':
+## 
+##     filter
+## 
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+gtbl <- gDat %>% tbl_df
+by_continent <- gtbl %>%
+  group_by(continent)
+by_continent %>% do(data.frame(max(.$lifeExp)))
+## Source: local data frame [5 x 2]
+## Groups: continent
+## 
+##   continent max...lifeExp.
+## 1    Africa         76.442
+## 2  Americas         80.653
+## 3      Asia         82.603
+## 4    Europe         81.757
+## 5   Oceania         81.235
+```
+
+### Resources
+
+Packages
+
+  * [`assertthat` package](https://github.com/hadley/assertthat)
+  * [`ensurer` package](https://github.com/smbache/ensurer)
+  * [`testthat` package](https://github.com/hadley/testthat)
+
+Hadley Wickham's forthcoming book [Advanced R]((http://adv-r.had.co.nz)
+
+  * Section on [defensive programming](http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming)
+  
+Hadley Wickham's forthcoming book [R packages](http://r-pkgs.had.co.nz)
+
+  * [Testing chapter](http://r-pkgs.had.co.nz/tests.html)
+
+  

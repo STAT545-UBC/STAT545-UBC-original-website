@@ -222,56 +222,39 @@ EXERCISE FOR THE READER: upgrade our argument validity checks in light of the ne
 ## we're not checking that probs are in [0,1]
 ```
 
-### Be proactive about `NA`s
+### Wrap-up and what's next?
 
-I am being gentle by letting you practice with the Gapminder data. In real life, you will be plagued by missing data. If you are lucky, it will be properly indicated by the special value `NA`. Many built-in R functions have an `na.rm =` argument through which you can specify how you want to handle `NA`s. Typically the default value is `na.rm = FALSE` and typical default behavior is to either let `NA`s propagate or to raise an error. Let's see how `quantile()` handles `NA`s:
-
-
-```r
-z <- gDat$lifeExp
-z[3] <- NA
-quantile(gDat$lifeExp)
-##      0%     25%     50%     75%    100% 
-## 23.5990 48.1980 60.7125 70.8455 82.6030
-quantile(z)
-## Error: missing values and NaN's not allowed if 'na.rm' is FALSE
-quantile(z, na.rm = TRUE)
-##     0%    25%    50%    75%   100% 
-## 23.599 48.228 60.765 70.846 82.603
-```
-
-So `quantile()` simply will not operate in the presence of `NA`s unless `na.rm = TRUE`. How shall we modify our function?
-
-If we wanted to hardwire `na.rm = TRUE`, we could. Focus on our call to `quantile()` inside our function definition.
+Here's the function we've written so far:
 
 
 ```r
-qdiff5 <- function(x, probs = c(0, 1)) {
-  assert_that(is.numeric(x))
-  the_quantiles <- quantile(x, probs, na.rm = TRUE)
-  return(max(the_quantiles) - min(the_quantiles))
-}
-qdiff5(gDat$lifeExp)
-## [1] 59.004
-qdiff5(z)
-## [1] 59.004
+qdiff4
+## function(x, probs = c(0, 1)) {
+##   assert_that(is.numeric(x))
+##   the_quantiles <- quantile(x, probs)
+##   return(max(the_quantiles) - min(the_quantiles))
+## }
 ```
 
-This works but it is dangerous to invert the default behavior of a well-known built-in function and to provide the user with no way to override this.
+What we've accomplished:
 
-We could add an `na.rm =` argument to our own function. We might even enforce our preferred default -- but at least we're giving the user a way to control the behavior around `NA`s.
+  * we've generalized our first function to take a difference between arbitrary quantiles
+  * we've specifyied default values for the probabilities that set the quantiles
+  
+Where to next? We will tackle `NA`s, the special `...` argument, and formal testing.
 
+### Resources
 
-```r
-qdiff6 <- function(x, probs = c(0, 1), na.rm = TRUE) {
-  assert_that(is.numeric(x))
-  the_quantiles <- quantile(x, probs, na.rm = na.rm)
-  return(max(the_quantiles) - min(the_quantiles))
-}
-qdiff6(gDat$lifeExp)
-## [1] 59.004
-qdiff6(z)
-## [1] 59.004
-qdiff6(z, na.rm = FALSE)
-## Error: missing values and NaN's not allowed if 'na.rm' is FALSE
-```
+Packages
+
+  * [`assertthat` package](https://github.com/hadley/assertthat)
+  * [`ensurer` package](https://github.com/smbache/ensurer)
+  * [`testthat` package](https://github.com/hadley/testthat)
+
+Hadley Wickham's forthcoming book [Advanced R]((http://adv-r.had.co.nz)
+
+  * Section on [defensive programming](http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming)
+  
+Hadley Wickham's forthcoming book [R packages](http://r-pkgs.had.co.nz)
+
+  * [Testing chapter](http://r-pkgs.had.co.nz/tests.html)
