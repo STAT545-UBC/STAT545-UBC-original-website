@@ -34,7 +34,7 @@ This set of instructions was used successfully September 2014, with a group of 4
 
 #### Push/Pull buttons greyed out in RStudio
 
-Are you sure your local repository is tracking a remote repository, e.g. a GitHub repo? Go [here](git07_git-usage.html#step-2-plan-b) for instructions on how to check.
+Are you sure your local repository is tracking a remote repository, e.g. a GitHub repo? Go [here](git07_git-usage.html#step-2-plan-b) for instructions on how to check. There is more discussion of this on an [RStudio Support thread](https://support.rstudio.com/hc/communities/public/questions/200640128-It-seems-that-if-git-remote-was-specified-at-the-command-line-that-it-s-not-reflected-in-the-RStudio-UI).
 
 #### Push rejected
 

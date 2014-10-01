@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Write your own R functions, part 2</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Write your own R functions, part 2</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#where-were-we-where-are-we-going">Where were we? Where are we going?</a></li>
+<li><a href="#load-the-gapminder-data">Load the Gapminder data</a></li>
+<li><a href="#load-assertthat-and-our-max-minus-min-function">Load assertthat and our max minus min function</a></li>
+<li><a href="#generalize-our-function-to-other-quantiles">Generalize our function to other quantiles</a></li>
+<li><a href="#get-something-that-works-again">Get something that works, again</a></li>
+<li><a href="#turn-the-working-interactive-code-into-a-function-again">Turn the working interactive code into a function, again</a></li>
+<li><a href="#argument-names-freedom-and-conventions">Argument names: freedom and conventions</a></li>
+<li><a href="#what-a-function-returns">What a function returns</a></li>
+<li><a href="#default-values-freedom-to-not-specify-the-arguments">Default values: freedom to NOT specify the arguments</a></li>
+<li><a href="#check-the-validity-of-arguments-again">Check the validity of arguments, again</a></li>
+<li><a href="#be-proactive-about-nas">Be proactive about <code>NA</code>s</a></li>
+</ul>
+</div>
+
+<div id="where-were-we-where-are-we-going" class="section level3">
+<h3>Where were we? Where are we going?</h3>
+<p>In <a href="">part 1</a> we wrote our first R function to take the difference between the max and min of a numeric vector. We checked the validity of the function’s only argument and, informally, we verified that it worked pretty well.</p>
+<p>In this part, we generalize this function and gain more advanced knowledge of R functions along the way.</p>
+</div>
+<div id="load-the-gapminder-data" class="section level3">
+<h3>Load the Gapminder data</h3>
+<p>As usual, load the Gapminder excerpt.</p>
+<pre class="r"><code>gDat &lt;- read.delim(&quot;gapminderDataFiveYear.txt&quot;)
+str(gDat)
+## &#39;data.frame&#39;:    1704 obs. of  6 variables:
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...
+## or do this if the file isn&#39;t lying around already
+## gd_url &lt;- &quot;http://tiny.cc/gapminder&quot;
+## gDat &lt;- read.delim(gd_url)</code></pre>
+</div>
+<div id="load-assertthat-and-our-max-minus-min-function" class="section level3">
+<h3>Load assertthat and our max minus min function</h3>
+<p>We’ll keep using <code>assert_that()</code> to check that <code>x</code> is numeric and we’ll want our previous function around as a baseline.</p>
+<pre class="r"><code>library(assertthat)
+mmm &lt;- function(x) {
+  assert_that(is.numeric(x))
+  max(x) - min(x)
+  }</code></pre>
+</div>
+<div id="generalize-our-function-to-other-quantiles" class="section level3">
+<h3>Generalize our function to other quantiles</h3>
+<p>The max and the min are special cases of a <strong>quantile</strong>. Here are other special cases you may have heard of:</p>
+<ul>
+<li>median = 0.5 quantile</li>
+<li>1st quartile = 0.25 quantile</li>
+<li>3rd quartile = 0.75 quantile</li>
+</ul>
+<p>If you’re familiar with <a href="http://en.wikipedia.org/wiki/Box_plot">box plots</a>, the rectangle typically runs from the 1st quartile to the 3rd quartile, with a line at the median.</p>
+<p>If <span class="math">\(q\)</span> is the <span class="math">\(p\)</span>-th quantile of a set of <span class="math">\(n\)</span> observations, what does that mean? Approximately <span class="math">\(pn\)</span> of the observations are less than <span class="math">\(q\)</span> and <span class="math">\((1 - p)n\)</span> are greater than <span class="math">\(q\)</span>. Yeah, you need to worry about rounding to an integer and less/greater than or equal to, but these details aren’t critical here.</p>
+<p>Let’s generalize our function to take the difference between any two quantiles. We can still consider the max and min, if we like, but we’re not limited to that.</p>
+</div>
+<div id="get-something-that-works-again" class="section level3">
+<h3>Get something that works, again</h3>
+<p>The eventual inputs to our new function will be the data <code>x</code> and two probabilities.</p>
+<p>First, play around with the <code>quantile()</code> function. Convince yourself you know how to use it, for example, by cross-checking your results with other built-in functions.</p>
+<pre class="r"><code>quantile(gDat$lifeExp)
+##      0%     25%     50%     75%    100% 
+## 23.5990 48.1980 60.7125 70.8455 82.6030
+quantile(gDat$lifeExp, probs = 0.5)
+##     50% 
+## 60.7125
+median(gDat$lifeExp)
+## [1] 60.7125
+quantile(gDat$lifeExp, probs = c(0.25, 0.75))
+##     25%     75% 
+## 48.1980 70.8455
+boxplot(gDat$lifeExp, plot = FALSE)$stats
+##         [,1]
+## [1,] 23.5990
+## [2,] 48.1850
+## [3,] 60.7125
+## [4,] 70.8460
+## [5,] 82.6030</code></pre>
+<p>Now write a code snippet that takes the difference between two quantiles.</p>
+<pre class="r"><code>the_probs &lt;- c(0.25, 0.75)
+the_quantiles &lt;- quantile(gDat$lifeExp, probs = the_probs)
+max(the_quantiles) - min(the_quantiles)
+## [1] 22.6475
+IQR(gDat$lifeExp) # hey, we&#39;ve reinvented IQR
+## [1] 22.6475</code></pre>
+</div>
+<div id="turn-the-working-interactive-code-into-a-function-again" class="section level3">
+<h3>Turn the working interactive code into a function, again</h3>
+<p>I’ll use <code>qdiff</code> as the base of our function’s name. I copy the overall structure from our previous “max minus min” work but replace the guts of the function with the more general code we just developed.</p>
+<pre class="r"><code>library(assertthat)
+qdiff1 &lt;- function(x, probs) {
+  assert_that(is.numeric(x))
+  the_quantiles &lt;- quantile(x = x, probs = probs)
+  max(the_quantiles) - min(the_quantiles)
+}
+qdiff1(gDat$lifeExp, probs = c(0.25, 0.75))
+## [1] 22.6475
+qdiff1(gDat$lifeExp, probs = c(0, 1))
+## [1] 59.004
+mmm(gDat$lifeExp)
+## [1] 59.004</code></pre>
+<p>Again we do some informal tests against familiar results.</p>
+</div>
+<div id="argument-names-freedom-and-conventions" class="section level3">
+<h3>Argument names: freedom and conventions</h3>
+<p>I want you to understand the import of argument names.</p>
+<p>I can name my arguments almost anything I like. Proof:</p>
+<pre class="r"><code>qdiff2 &lt;- function(zeus, hera) {
+  assert_that(is.numeric(zeus))
+  the_quantiles &lt;- quantile(x = zeus, probs = hera)
+  return(max(the_quantiles) - min(the_quantiles))
+}
+qdiff2(zeus = gDat$lifeExp, hera = 0:1)
+## [1] 59.004</code></pre>
+<p>While I can name my arguments after Greek gods, it’s usually a bad idea. Take all opportunities to make things more self-explanatory via meaningful names.</p>
+<p>This is better:</p>
+<pre class="r"><code>qdiff3 &lt;- function(my_x, my_probs) {
+  assert_that(is.numeric(my_x))
+  the_quantiles &lt;- quantile(x = my_x, probs = my_probs)
+  return(max(the_quantiles) - min(the_quantiles))
+}
+qdiff3(my_x = gDat$lifeExp, my_probs = 0:1)
+## [1] 59.004</code></pre>
+<p>If you are going to pass the arguments of your function as arguments of a built-in function, consider copying the argument names. Again, the reason is to reduce your cognitive load. This is what I’ve doing all along and now you now why:</p>
+<pre class="r"><code>qdiff1
+## function(x, probs) {
+##   assert_that(is.numeric(x))
+##   the_quantiles &lt;- quantile(x = x, probs = probs)
+##   max(the_quantiles) - min(the_quantiles)
+## }</code></pre>
+<p>We took this detour so you could see there is no <em>structural</em> relationship between my arguments (<code>x</code> and <code>probs</code>) and those of <code>quantile()</code> (also <code>x</code> and <code>probs</code>). The similarity or equivalence of the names <strong>accomplishes nothing</strong> as far as R is concerned; it is solely for the benefit of humans reading, writing, and using the code. Which is very important!</p>
+</div>
+<div id="what-a-function-returns" class="section level3">
+<h3>What a function returns</h3>
+<p>By this point, I expect someone will have asked about the last line in my function’s body. Look above for a reminder of the function’s definition.</p>
+<p>By default, a function returns the result of the last line of the body. I am just letting that happen with the line <code>max(the_quantiles) - min(the_quantiles)</code>. However, there is an explicit function for this: <code>return()</code>. I could just as easily make this the last line of my function’s body:</p>
+<pre class="r"><code>return(max(the_quantiles) - min(the_quantiles))</code></pre>
+<p>You absolutely must use <code>return()</code> if you want to return early based on some condition, i.e. before execution gets to the last line of the body. Otherwise, you can decide your own conventions about when you use <code>return()</code> and when you don’t.</p>
+</div>
+<div id="default-values-freedom-to-not-specify-the-arguments" class="section level3">
+<h3>Default values: freedom to NOT specify the arguments</h3>
+<p>What happens if we call our function but neglect to specify the probabilities?</p>
+<pre class="r"><code>qdiff1(gDat$lifeExp)
+## Error: argument &quot;probs&quot; is missing, with no default</code></pre>
+<p>Oops! At the moment, this causes a fatal error. It can be nice to provide some reasonable default values, for certain arguments. In our case, it would be crazy to specify a default value for the primary input <code>x</code> but very kind to specify a default for <code>probs</code>.</p>
+<p>We started by focusing on the max and the min, so I think those make reasonable defaults. Here’s how to specify that in a function definition.</p>
+<pre class="r"><code>qdiff4 &lt;- function(x, probs = c(0, 1)) {
+  assert_that(is.numeric(x))
+  the_quantiles &lt;- quantile(x, probs)
+  return(max(the_quantiles) - min(the_quantiles))
+}</code></pre>
+<p>Again we check how the function works, in old examples and new, specifying the <code>probs</code> argument and not.</p>
+<pre class="r"><code>qdiff4(gDat$lifeExp)
+## [1] 59.004
+mmm(gDat$lifeExp)
+## [1] 59.004
+qdiff4(gDat$lifeExp, c(0.1, 0.9))
+## [1] 33.5862</code></pre>
+</div>
+<div id="check-the-validity-of-arguments-again" class="section level3">
+<h3>Check the validity of arguments, again</h3>
+<p>EXERCISE FOR THE READER: upgrade our argument validity checks in light of the new argument <code>probs</code></p>
+<pre class="r"><code>## we&#39;re not checking that probs is numeric
+## we&#39;re not checking that probs is length 2
+## we&#39;re not checking that probs are in [0,1]</code></pre>
+</div>
+<div id="be-proactive-about-nas" class="section level3">
+<h3>Be proactive about <code>NA</code>s</h3>
+<p>I am being gentle by letting you practice with the Gapminder data. In real life, you will be plagued by missing data. If you are lucky, it will be properly indicated by the special value <code>NA</code>. Many built-in R functions have an <code>na.rm =</code> argument through which you can specify how you want to handle <code>NA</code>s. Typically the default value is <code>na.rm = FALSE</code> and typical default behavior is to either let <code>NA</code>s propagate or to raise an error. Let’s see how <code>quantile()</code> handles <code>NA</code>s:</p>
+<pre class="r"><code>z &lt;- gDat$lifeExp
+z[3] &lt;- NA
+quantile(gDat$lifeExp)
+##      0%     25%     50%     75%    100% 
+## 23.5990 48.1980 60.7125 70.8455 82.6030
+quantile(z)
+## Error: missing values and NaN&#39;s not allowed if &#39;na.rm&#39; is FALSE
+quantile(z, na.rm = TRUE)
+##     0%    25%    50%    75%   100% 
+## 23.599 48.228 60.765 70.846 82.603</code></pre>
+<p>So <code>quantile()</code> simply will not operate in the presence of <code>NA</code>s unless <code>na.rm = TRUE</code>. How shall we modify our function?</p>
+<p>If we wanted to hardwire <code>na.rm = TRUE</code>, we could. Focus on our call to <code>quantile()</code> inside our function definition.</p>
+<pre class="r"><code>qdiff5 &lt;- function(x, probs = c(0, 1)) {
+  assert_that(is.numeric(x))
+  the_quantiles &lt;- quantile(x, probs, na.rm = TRUE)
+  return(max(the_quantiles) - min(the_quantiles))
+}
+qdiff5(gDat$lifeExp)
+## [1] 59.004
+qdiff5(z)
+## [1] 59.004</code></pre>
+<p>This works but it is dangerous to invert the default behavior of a well-known built-in function and to provide the user with no way to override this.</p>
+<p>We could add an <code>na.rm =</code> argument to our own function. We might even enforce our preferred default – but at least we’re giving the user a way to control the behavior around <code>NA</code>s.</p>
+<pre class="r"><code>qdiff6 &lt;- function(x, probs = c(0, 1), na.rm = TRUE) {
+  assert_that(is.numeric(x))
+  the_quantiles &lt;- quantile(x, probs, na.rm = na.rm)
+  return(max(the_quantiles) - min(the_quantiles))
+}
+qdiff6(gDat$lifeExp)
+## [1] 59.004
+qdiff6(z)
+## [1] 59.004
+qdiff6(z, na.rm = FALSE)
+## Error: missing values and NaN&#39;s not allowed if &#39;na.rm&#39; is FALSE</code></pre>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

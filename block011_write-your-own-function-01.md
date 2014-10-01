@@ -1,0 +1,247 @@
+# Write your own R functions, part 1
+
+
+
+### What and why?
+
+My goal here is to reveal the __process__ one long-time useR employs for writing functions. I also want to illustrate why the process is the way it is. Merely looking at the finished product, e.g. source code for R packages, can be extremely deceiving. Reality is generally much uglier ... but more interesting!
+
+Why are we covering this now, smack in the middle of data aggregation? Powerful machines like `dplyr`, `plyr`, and even the built-in `apply` family of functions, are ready and waiting to apply your purpose-built functions to various bits of your data. If you can express your analytical wishes in a function, these tools will give you great power.
+
+### Load the Gapminder data
+
+As usual, load the Gapminder excerpt.
+
+
+```r
+gDat <- read.delim("gapminderDataFiveYear.txt")
+str(gDat)
+## 'data.frame':	1704 obs. of  6 variables:
+##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...
+## or do this if the file isn't lying around already
+## gd_url <- "http://tiny.cc/gapminder"
+## gDat <- read.delim(gd_url)
+```
+
+### Max - min
+
+Say you've got a numeric vector. Compute the difference between its max and min. `lifeExp` or `pop` or `gdpPercap` are great examples of a typical input. You can imagine wanting to get this statistic after we slice up the Gapminder data by year, country, continent, or combinations thereof.
+
+### Get something that works
+
+First, develop some working code for interactive use, using a representative input. I'll use Gapminder's life expectancy variable.
+
+R functions that will be useful: `min()`, `max()`, `range()`. __Read their documentation.__
+
+
+```r
+## get to know the functions mentioned above
+min(gDat$lifeExp)
+## [1] 23.599
+max(gDat$lifeExp)
+## [1] 82.603
+range(gDat$lifeExp)
+## [1] 23.599 82.603
+
+## some natural solutions
+max(gDat$lifeExp) - min(gDat$lifeExp)
+## [1] 59.004
+with(gDat, max(lifeExp) - min(lifeExp))
+## [1] 59.004
+range(gDat$lifeExp)[2] - range(gDat$lifeExp)[1]
+## [1] 59.004
+with(gDat, range(lifeExp)[2] - range(lifeExp)[1])
+## [1] 59.004
+diff(range(gDat$lifeExp))
+## [1] 59.004
+```
+
+Internalize this "answer" because our informal testing relies on you noticing departures from this.
+
+#### Skateboard >> perfectly formed rear-view mirror
+
+This image [widely attributed to the Spotify development team](http://blog.fastmonkeys.com/?utm_content=bufferc2d6e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer) conveys an important point.
+
+![alt text](img/spotify-howtobuildmvp.gif)
+
+Build that skateboard before you build the car or some fancy car part. A limited-but-functioning thing is very useful. It also keeps the spirits high.
+
+This is related to the valuable [Telescope Rule](http://c2.com/cgi/wiki?TelescopeRule):
+
+> It is faster to make a four-inch mirror then a six-inch mirror than to make a six-inch mirror.
+
+### Turn the working interactive code into a function
+
+Add NO new functionality! Just write your very first R function.
+
+
+```r
+max_minus_min <- function(x) max(x) - min(x)
+max_minus_min(gDat$lifeExp)
+## [1] 59.004
+```
+
+Check that you're getting the same answer as you did with your interactive code. Test it eyeball-o-metrically at this point.
+
+### Test your function
+
+#### Test on new inputs
+
+Pick some new articial inputs where you know (at least approximately) what your function should return.
+
+
+```r
+max_minus_min(1:10)
+## [1] 9
+max_minus_min(runif(1000))
+## [1] 0.9947266
+```
+
+I know that 10 minus 1 is 9. I know that random uniform [0, 1] variates will be between 0 and 1. Therefore max - min should be less than 1. If I take LOTS of them, max - min should be pretty close to 1.
+
+It is intentional that I tested on integer input as well as floating point. Likewise, I like to use valid-but-random data for this sort of check.
+
+#### Test on real data but *different* real data
+
+Back to the real world now. Two other quantitative variables are lying around: `gdpPercap` and `pop`. Let's have a go.
+
+
+```r
+max_minus_min(gDat$gdpPercap)
+## [1] 113282
+max_minus_min(gDat$pop)
+## [1] 1318623085
+```
+
+Either check these results "by hand" or apply the "does that even make sense?" test.
+
+#### Test on weird stuff
+
+Now we try to break our function. Don't get truly diabolical (yet). Just make the kind of mistakes you can imagine making at 2am when, 3 years from now, you rediscover this useful function you wrote. Give you function inputs it's not expecting.
+
+
+```r
+max_minus_min(gDat) ## hey sometimes things "just work" on data.frames!
+## Error: only defined on a data frame with all numeric variables
+max_minus_min(gDat$country) ## factors are kind of like integer vectors, no?
+## Error: max not meaningful for factors
+max_minus_min("eggplants are purple") ## i have no excuse for this one
+## Error: non-numeric argument to binary operator
+```
+
+How happy are you with those error messages? You must imagine that some entire __script__ has failed and that you were hoping to just source it without re-reading it. If a colleague or future you encountered these errors, do you run screaming from the room? How hard is it to pinpoint the usage problem?
+
+#### I will scare you now
+
+Here are some great examples STAT545 students devised during class where the function __should break but it does not.__
+
+
+```r
+max_minus_min(gDat[c('lifeExp', 'gdpPercap', 'pop')])
+## [1] 1318683072
+max_minus_min(c(TRUE, TRUE, FALSE, TRUE, TRUE))
+## [1] 1
+```
+
+In both cases, R's eagerness to make sense of our requests is unfortunately successful. In the first case, a data.frame containing just the quantitative variables is eventually coerced into numeric vector. We can compute max minus min, even though it makes absolutely no sense at all. In the second case, a logical vector is converted to zeroes and ones, which might merit an error or at least a warning.
+
+### Check the validity of arguments
+
+For functions that will be used again -- which is not all of them! -- it is good to check the validity of arguments. This implements a rule from [the Unix philosophy](http://www.faqs.org/docs/artu/ch01s06.html):
+
+> Rule of Repair: When you must fail, fail noisily and as soon as possible.
+
+#### stopifnot
+
+`stopifnot()` is the entry level solution. I use it here to make sure the input `x` is a numeric vector.
+
+
+```r
+mmm <- function(x) {
+  stopifnot(is.numeric(x))
+  max(x) - min(x)
+  }
+mmm(gDat)
+## Error: is.numeric(x) is not TRUE
+mmm(gDat$country)
+## Error: is.numeric(x) is not TRUE
+mmm("eggplants are purple")
+## Error: is.numeric(x) is not TRUE
+mmm(gDat[c('lifeExp', 'gdpPercap', 'pop')])
+## Error: is.numeric(x) is not TRUE
+mmm(c(TRUE, TRUE, FALSE, TRUE, TRUE))
+## Error: is.numeric(x) is not TRUE
+```
+
+And we see that it catches all of the self-inflicted damage we would like to avoid.
+
+#### if then stop
+
+`stopifnot()` doesn't provide a very good error message. The next approach is very widely used. Put your validity check inside an `if()` statement and call `stop()` yourself, with a custom error message, in the body.
+
+
+```r
+mmm2 <- function(x) {
+  if(!is.numeric(x)) {
+    stop('I am so sorry, but this function only works for numeric input!')
+  }
+  max(x) - min(x)
+  }
+mmm2(gDat)
+## Error: I am so sorry, but this function only works for numeric input!
+```
+
+In addition to offering an apology, note the error raised also contains helpful info on *which* function threw the error. Nice touch.
+
+*Note: the above is true when run interactively but currently not true in the rendered document. That is a glitch in `knitr` that is getting straightened out.*
+
+### Packages for formal checks at run time
+
+The [`assertthat` package](https://github.com/hadley/assertthat) "provides a drop in replacement for `stopifnot()`." That is quite literally true. The function `mmm3` differs from `mmm2` only in the replacement of `stopifnot()` by `assert_that()`.
+
+
+```r
+## install if you do not already have!
+## install.packages(assertthat)
+library(assertthat)
+mmm3 <- function(x) {
+  assert_that(is.numeric(x))
+  max(x) - min(x)
+  }
+mmm3(gDat)
+## Error: x is not a numeric or integer vector
+```
+
+The [`ensurer` package](https://github.com/smbache/ensurer) is another, newer package with some similar goals, so you may want to check that out as well.
+
+
+
+#### Sidebar: other uses for `assertthat` or `ensurer`
+
+Another good use of these packages is to leave checks behind in data analytical scripts. Consider our repetitive use of Gapminder. Every time we load this data, we inspect it, e.g., with `str()`. Informally, we're checking that is still has 1704 rows. But we could, and probably should, formalize that with a call like `assert_that(nrow(gDat) == 1704)`. This would tell us if the data suddenly changed, alerting us to a problem with the data file or the import. This can be a useful wake-up call in scripts that you re-run alot as you build a pipeline, where it's easy to zone out and stop paying attention.
+
+### Wrap-up and what's next?
+
+Here's the function we've written so far:
+
+
+```r
+mmm3
+## function(x) {
+##   assert_that(is.numeric(x))
+##   max(x) - min(x)
+##   }
+```
+
+What we've accomplished:
+
+  * we're written our first function
+  * we are checking the validity of its input, argument `x`
+  * we've done a good amount of informal testing
+  
+Where to next? We will generalize this function to take differences in other quantiles and learn how to set default values for arguments.
