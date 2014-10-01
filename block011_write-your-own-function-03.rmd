@@ -163,7 +163,12 @@ by_continent <- gtbl %>%
 by_continent %>% do(data.frame(max(.$lifeExp)))
 ```
 
-### match.arg()
+### other content
+
+match.arg()
+
+defaulting to NULL then checking is.null() and take it from there
+
 -->
 
 ### Resources

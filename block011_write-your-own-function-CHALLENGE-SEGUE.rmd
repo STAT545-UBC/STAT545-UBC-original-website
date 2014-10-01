@@ -1,0 +1,103 @@
+### challenge
+
+```{r}
+gDat <- read.delim("gapminderDataFiveYear.txt")
+str(gDat)
+## or do this if the file isn't lying around already
+## gd_url <- "http://tiny.cc/gapminder"
+## gDat <- read.delim(gd_url)
+
+## let's write a function that takes a data.frame
+## like the Gapminder data
+## or just the data for one country or continent or ...
+## fits a linear model of lifeExp on year
+## and returns the estimated intercept and slope
+
+fit <- lm(lifeExp ~ year, data = gDat)
+summary(fit)
+
+## what's up with that crazy intercept?
+## good time for a figure
+
+library(ggplot2)
+ggplot(gDat, aes(x = year, y = lifeExp)) + geom_point()
+ggplot(gDat, aes(x = year, y = lifeExp)) + geom_point() +
+  geom_smooth(method = "lm")
+
+## intercept = estimate life exp in year 0
+## let's re-fit so intercept = est life exp in 1952 = earliest year in dataset
+fit <- lm( lifeExp ~ I(year - 1952), data=gDat)
+summary(fit) # much better
+
+class(fit) ## read up on `lm` ... learn about coef()
+(fit.coef <- coef(fit))
+names(fit.coef) <- c("intercept","slope")
+fit.coef 
+
+## package that into a function
+## input: a data.frame
+## output: a numeric vector of length two
+##        first element = estimated intercept
+##        second element = estimate slope
+##        names are "intercept" and "slope"
+## GO!
+
+jFun <- function(x) {
+  fit <- lm( lifeExp ~ I(year - 1952), data = x)
+  fit.coef <- coef(fit)
+  names(fit.coef) <- c("intercept","slope")
+  return(fit.coef)
+}
+
+jFun(gDat)
+
+## depending on time and interest, we could talk about better approaches to the
+## "subtract 1952 from the year" problem
+
+## what if we flexibility re: the shift?
+## create a formal argument for the shift, but give it default value of 1952
+jFun <- function(x, shift = 1952) {
+  fit <- lm( lifeExp ~ I(year - shift), data = x)
+  fit.coef <- coef(fit)
+  names(fit.coef) <- c("intercept","slope")
+  return(fit.coef)
+}
+
+jFun(gDat)
+jFun(gDat, shift = 0) ## can still get this if you really want
+jFun(gDat, shift = 2007) ## check against fitted line at 2007
+
+## what if we don't want to hard-wire 1952? another approach
+jFun <- function(x, shift = NULL) {
+  if(is.null(shift)){
+    shift <- min(x$year)
+  }
+  fit <- lm( lifeExp ~ I(year - shift), data = x)
+  fit.coef <- coef(fit)
+  names(fit.coef) <- c("intercept","slope")
+  return(fit.coef)
+}
+
+jFun(gDat)
+jFun(gDat, shift = 0)
+jFun(gDat, shift = 2007)
+
+## exercise:
+
+## create a subset of the data
+## eg just one continent or one country
+
+## plot the lifeExp against year and superpose a line
+## use jFun() to get intercept and slope
+## sanity check numbers against plot
+
+x <- subset(gDat, continent == "Asia")
+jFun(x)
+ggplot(x, aes(x = year, y = lifeExp)) +
+  geom_point() + geom_smooth(method = "lm")
+
+x <- subset(gDat, country == "Rwanda")
+jFun(x)
+ggplot(x, aes(x = year, y = lifeExp)) +
+  geom_point() + geom_smooth(method = "lm")
+```
