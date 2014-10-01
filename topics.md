@@ -25,6 +25,10 @@ Until we get rolling, feel free to look at older material that will appear here 
   * [Test your ability to author an R Markdown report](block007_first-use-rmarkdown.html)
   * [Introduction to dplyr](block009_dplyr-intro.html)
   * [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
+  * Writing your own R functions
+    - [Part 1](block011_write-your-own-function-01.html): get something that works, check arguments
+    - [Part 2](block011_write-your-own-function-02.html): generalize, set default argument values
+    - [Part 3](block011_write-your-own-function-03.html):`NA` handling, `...`, unit test
   
 ### Course material
 
@@ -35,6 +39,8 @@ Until we get rolling, feel free to look at older material that will appear here 
   * [Class meeting 005](cm005_still-data-ggplot2-rmarkdown.html) Continue exploring data in a data.frame, maybe using `ggplot2` and in an R Markdown document
   * [Class meeting 006](cm006_q-and-a-more-ggplot2.html) Open Q and A on all content and course mechanics so far, complete introduction to `ggplot2`
   * [Class meeting 007](cm007_dplyr-intro.html) Introduction to `dplyr`
+  * [Class meeting 008](cm008_write-function-day1.html) Writing your own R functions, day 1
+  * [Class meeting 009](cm009_write-function-day2.html) Writing your own R functions, day 2
   * [General homework guidelines](hw00_homework-guidelines.html)
   * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
   * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
@@ -75,12 +81,12 @@ Topics traditionally covered in STAT 545A, with light updating:
 New topics for STAT 545A and/or STAT 547M will be selected from here:
 
   * Bash shell / unix basics, personal system administration.
-  * Version control with Git, collaboration via [GitHub](https://github.com)
+  * ~~Version control with Git, collaboration via [GitHub](https://github.com)~~ *done*
   * The tabular data mentality, "tidy" data, data reshaping
   * Regular expressions, programmatic transformation and searching of character data
-  * Writing R functions
+  * ~~Writing R functions~~ done
   * Creating interactive pages, apps, and graphics via [Shiny](http://shiny.rstudio.com) and (maybe) [`ggvis`](http://ggvis.rstudio.com)
-  * Unit testing, at least as a mentality. Maybe will cover formal unit testing, e.g. `testthat`
+  * ~~Unit testing, at least as a mentality. Maybe will cover formal unit testing, e.g. `testthat`~~ *done*
   * Stats particularly useful in exploration (and often neglected in standard intro stats courses)
     - robust summary statistics
     - robust regression

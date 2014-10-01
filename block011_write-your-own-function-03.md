@@ -226,7 +226,12 @@ by_continent %>% do(data.frame(max(.$lifeExp)))
 ## 5   Oceania         81.235
 ```
 
-### match.arg()
+### other content
+
+match.arg()
+
+defaulting to NULL then checking is.null() and take it from there
+
 -->
 
 ### Resources

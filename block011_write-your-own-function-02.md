@@ -4,9 +4,9 @@
 
 ### Where were we? Where are we going?
 
-In [part 1]() we wrote our first R function to take the difference between the max and min of a numeric vector. We checked the validity of the function's only argument and, informally, we verified that it worked pretty well.
+In [part 1](block011_write-your-own-function-01.html) we wrote our first R function to take the difference between the max and min of a numeric vector. We checked the validity of the function's only argument and, informally, we verified that it worked pretty well.
 
-In this part, we generalize this function and gain more advanced knowledge of R functions along the way.
+In this part, we generalize this function, learn more technical details about R functions, and set default values for some arguments.
 
 ### Load the Gapminder data
 
@@ -217,6 +217,7 @@ EXERCISE FOR THE READER: upgrade our argument validity checks in light of the ne
 
 
 ```r
+## problems identified during class
 ## we're not checking that probs is numeric
 ## we're not checking that probs is length 2
 ## we're not checking that probs are in [0,1]
@@ -241,7 +242,7 @@ What we've accomplished:
   * we've generalized our first function to take a difference between arbitrary quantiles
   * we've specifyied default values for the probabilities that set the quantiles
   
-Where to next? We will tackle `NA`s, the special `...` argument, and formal testing.
+Where to next? In [Part 3](block011_write-your-own-function-03.html), we tackle `NA`s, the special `...` argument, and formal testing.
 
 ### Resources
 

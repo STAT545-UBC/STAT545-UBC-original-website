@@ -90,8 +90,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="where-were-we-where-are-we-going" class="section level3">
 <h3>Where were we? Where are we going?</h3>
-<p>In <a href="">part 1</a> we wrote our first R function to take the difference between the max and min of a numeric vector. We checked the validity of the function’s only argument and, informally, we verified that it worked pretty well.</p>
-<p>In this part, we generalize this function and gain more advanced knowledge of R functions along the way.</p>
+<p>In <a href="block011_write-your-own-function-01.html">part 1</a> we wrote our first R function to take the difference between the max and min of a numeric vector. We checked the validity of the function’s only argument and, informally, we verified that it worked pretty well.</p>
+<p>In this part, we generalize this function, learn more technical details about R functions, and set default values for some arguments.</p>
 </div>
 <div id="load-the-gapminder-data" class="section level3">
 <h3>Load the Gapminder data</h3>
@@ -236,7 +236,8 @@ qdiff4(gDat$lifeExp, c(0.1, 0.9))
 <div id="check-the-validity-of-arguments-again" class="section level3">
 <h3>Check the validity of arguments, again</h3>
 <p>EXERCISE FOR THE READER: upgrade our argument validity checks in light of the new argument <code>probs</code></p>
-<pre class="r"><code>## we&#39;re not checking that probs is numeric
+<pre class="r"><code>## problems identified during class
+## we&#39;re not checking that probs is numeric
 ## we&#39;re not checking that probs is length 2
 ## we&#39;re not checking that probs are in [0,1]</code></pre>
 </div>
@@ -254,7 +255,7 @@ qdiff4(gDat$lifeExp, c(0.1, 0.9))
 <li>we’ve generalized our first function to take a difference between arbitrary quantiles</li>
 <li>we’ve specifyied default values for the probabilities that set the quantiles</li>
 </ul>
-<p>Where to next? We will tackle <code>NA</code>s, the special <code>...</code> argument, and formal testing.</p>
+<p>Where to next? In <a href="block011_write-your-own-function-03.html">Part 3</a>, we tackle <code>NA</code>s, the special <code>...</code> argument, and formal testing.</p>
 </div>
 <div id="resources" class="section level3">
 <h3>Resources</h3>
