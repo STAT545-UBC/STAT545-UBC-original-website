@@ -12,9 +12,8 @@ output:
     - [Write your own R functions, part 1](block011_write-your-own-function-01.html) *done Monday*
     - [Write your own R functions, part 2](block011_write-your-own-function-02.html) *done Monday*
     - [Write your own R functions, part 3](block011_write-your-own-function-03.html) *TODAY*
-    - reminder: dustin quantile names thing
   * Data aggregation
-    - [Slides](http://jennybc.github.io/2014-05-12-ubc/ubc-r/slides/session07_dataAggregation.pdf)
+    - [Big picture slides](http://jennybc.github.io/2014-05-12-ubc/ubc-r/slides/session07_dataAggregation.pdf)
     - Guided challenge: write function to regress life expectancy on year and return the estimate intercept and slope
     - Use `plyr::ddply()` to apply this function to all countries in Gapminder
     - Indicative content: [R markdown source](https://github.com/jennybc/STAT545A_2013/blob/master/block04_dataAggregation.rmd) | [Pretty HTML](http://www.stat.ubc.ca/~jenny/STAT545A/block04_dataAggregation.html)
