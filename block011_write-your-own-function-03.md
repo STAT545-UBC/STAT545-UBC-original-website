@@ -4,7 +4,7 @@
 
 ### Where were we? Where are we going?
 
-In [part 2]() we generalized our first R function so it could take the difference between any two quantiles of a numeric vector. We also set default values for the underlying probabilities, so that, by default, we compute the max minus the min.
+In [part 2](block011_write-your-own-function-02.html) we generalized our first R function so it could take the difference between any two quantiles of a numeric vector. We also set default values for the underlying probabilities, so that, by default, we compute the max minus the min.
 
 In this part, we tackle `NA`s, the special argument `...` and formal testing.
 
