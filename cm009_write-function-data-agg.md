@@ -12,9 +12,10 @@ output:
     - [Write your own R functions, part 1](block011_write-your-own-function-01.html) *done Monday*
     - [Write your own R functions, part 2](block011_write-your-own-function-02.html) *done Monday*
     - [Write your own R functions, part 3](block011_write-your-own-function-03.html) *TODAY*
+    - [Function-writing Practicum](block012_function-regress-lifeexp-on-year.html)  *TODAY*
   * Data aggregation
     - Big picture slides linked and embedded below
-    - Guided challenge: write function to regress life expectancy on year and return the estimated intercept and slope
+    - [Guided challenge](block012_function-regress-lifeexp-on-year.html): write function to regress life expectancy on year and return the estimated intercept and slope
     - Use `plyr::ddply()` to apply this function to each country in Gapminder
     - Indicative content: [R markdown source](https://github.com/jennybc/STAT545A_2013/blob/master/block04_dataAggregation.rmd) | [Pretty HTML](http://www.stat.ubc.ca/~jenny/STAT545A/block04_dataAggregation.html)
   * What's left for 545? these topics are on the horizon

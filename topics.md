@@ -29,6 +29,7 @@ Until we get rolling, feel free to look at older material that will appear here 
     - [Part 1](block011_write-your-own-function-01.html): get something that works, check arguments
     - [Part 2](block011_write-your-own-function-02.html): generalize, set default argument values
     - [Part 3](block011_write-your-own-function-03.html):`NA` handling, `...`, unit test
+    - [Function-writing Practicum](block012_function-regress-lifeexp-on-year.html): fit a linear model and return estimate coefficients
   
 ### Course material
 
@@ -84,7 +85,7 @@ New topics for STAT 545A and/or STAT 547M will be selected from here:
   * ~~Version control with Git, collaboration via [GitHub](https://github.com)~~ *done*
   * The tabular data mentality, "tidy" data, data reshaping
   * Regular expressions, programmatic transformation and searching of character data
-  * ~~Writing R functions~~ done
+  * ~~Writing R functions~~ *done*
   * Creating interactive pages, apps, and graphics via [Shiny](http://shiny.rstudio.com) and (maybe) [`ggvis`](http://ggvis.rstudio.com)
   * ~~Unit testing, at least as a mentality. Maybe will cover formal unit testing, e.g. `testthat`~~ *done*
   * Stats particularly useful in exploration (and often neglected in standard intro stats courses)
