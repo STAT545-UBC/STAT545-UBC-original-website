@@ -30,6 +30,7 @@ Until we get rolling, feel free to look at older material that will appear here 
     - [Part 2](block011_write-your-own-function-02.html): generalize, set default argument values
     - [Part 3](block011_write-your-own-function-03.html):`NA` handling, `...`, unit test
     - [Function-writing Practicum](block012_function-regress-lifeexp-on-year.html): fit a linear model and return estimate coefficients
+  * [Using `plyr` with a data.frame](block013_plyr-ddply.html)
   
 ### Course material
 

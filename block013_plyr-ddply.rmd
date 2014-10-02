@@ -1,0 +1,263 @@
+---
+title: "Computing by groups within data.frames with plyr"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
+```
+
+### Think before you create excerpts of your data ...
+
+If you feel the urge to store a little snippet of your data:
+
+```{r eval = FALSE}
+snippet <- subset(my_big_dataset, some_variable == some_value)
+```
+
+Stop and ask yourself ...
+
+> Do I want to create mini datasets for each level of some factor (or unique combination of several factors) ... in order to compute or graph something?  
+
+If YES, __use proper data aggregation techniques__ or facetting in `ggplot2` plots or conditioning in `lattice` -- __don’t subset the data__. Or, more realistic, only subset the data as a temporary measure while you develop your elegant code for computing on or visualizing these data subsets.
+
+If NO, then maybe you really do need to store a copy of a subset of the data. But seriously consider whether you can achieve your goals by simply using the `subset =` argument of, e.g., the `lm()` function, to limit computation to your excerpt of choice. Lots of functions offer a `subset =` argument!
+
+### Data aggregation landscape
+
+*Note: [these slides](https://www.slideshare.net/jenniferbryan5811/cm009-data-aggregation)  cover this material in a more visual way.*
+
+There are three main options for data aggregation:
+
+  * base R functions, often referred to as the `apply` family of functions
+  * the [`plyr`](http://plyr.had.co.nz) add-on package
+  * the [`dplyr`](http://cran.r-project.org/web/packages/dplyr/index.html) add-on package
+
+I have a strong recommendation for `plyr` (and `dplyr`) over the base R functions, with some qualifications. Both of these packages are aimed squarely at __data analysis__, which they greatly accelerate. But even I do not use them exclusively when I am in more of a "programming mode", where I often revert to base R. Also, even a pure data analyst will benefit from a deeper understanding of the language. I present `plyr` here because I think it is more immediately usable and useful for novices than the `apply` functions. But eventually you'll need to learn those as well.
+
+The main strengths of `plyr` over the `apply` functions are:
+
+  * consistent interface across the all combinations of type of input and output
+  * return values are predictable and immediately useful for next steps
+  
+You'll notice I do not even mention another option that may occur to some: hand-coding `for` loops, perhaps, even (shudder) nested `for` loops! Don't do it. By the end of this tutorial you'll see things that are much faster and more fun. Yes, of course, tedious loops are required for data aggregation but when you can, let other developers write them for you, in efficient low level code. This is more about saving programmer time than compute time, BTW.
+
+#### Sidebar: `dplyr`
+
+This tutorial is about `plyr`. The `dplyr` package is [introduced elsewhere](block009_dplyr-intro.html). Although `dplyr` is extremely useful, it does not meet all of our data aggregation needs. What are the gaps that `plyr` still fills?
+
+  * Data aggregation for arrays and lists, which `dplyr` does not provide.
+  * Alternative to `group_by() + do()`
+    - If you can achieve your goals with `dplyr`'s main verbs, `group_by()`, and `summarize(...)` and/or window functions, by all means do so! But some tasks can't be done that way and require the `do()` function. At this point, in those cases, I still prefer `plyr`s functions. I think the syntax is less demanding for novices.
+
+### Install and load `plyr`
+
+If you have not already done so, you'll need to install `plyr`.
+
+```{r eval = FALSE}
+install.packages("plyr", dependencies = TRUE)
+```
+
+We also need to load it.
+
+```{r}
+library(plyr)
+```
+
+*Note: if you are using both `plyr` and `dplyr` in a script, you should always load `plyr` first, then `dplyr`.*
+
+#### `plyr` Big Ideas
+
+The `plyr` functions will not make much sense viewed individually, e.g. simply reading the help for `ddply()` is not the fast track to competence. There is a very important over-arching logic for the package and it is well worth reading the article [The split-apply-combine strategy for data analysis](http://www.jstatsoft.org/v40/i01/paper). Though it is no substitute for reading the above, here is the most critical information:
+
+  * __split-apply-combine__: A common analytical pattern is to split data into pieces, apply some function to each pieces, and combine the results back together again. Recognize when you're solving such a problem and exploit the right tools.
+  * The computations on these pieces must be truly independent, i.e. the problem must be [embarrassingly or pleasingly parallel](http://en.wikipedia.org/wiki/Embarrassingly_parallel), in order to use `plyr`.
+  * The heart of `plyr` is a set a functions with names like this: `XYply` where `X` specifies what sort of input you're giving and `Y` specifies the sort of output you want.
+    - `a` = array, where matrices and vectors are important special cases
+    - `d` = data.frame
+    - `l` = list
+    - `_` = no output; only valid for `Y`, obviously; useful when you're operating on a list purely for the side effects, e.g., making a plot or sending output to screen/file
+  * The usage is very similar across these functions. Here are the main arguments:
+    - `.data` is the first argument = the input
+    - the next argument specifies how to split up the input into pieces; it does not exist when the input is a list, because the pieces must be the list components
+    - then comes the function and further arguments needed to describe the computation to be applied to the pieces
+   
+Today we emphasize `ddply()` which accepts a data.frame, splits it into pieces based on one or more factors, computes on the pieces, then returns the results as a data.frame. For the record, the base R functions most relevant to `ddply()` are `tapply()` and friends.
+
+### Load the Gapminder data
+
+As usual, load the Gapminder excerpt.
+
+```{r}
+gDat <- read.delim("gapminderDataFiveYear.txt")
+str(gDat)
+## or do this if the file isn't lying around already
+## gd_url <- "http://tiny.cc/gapminder"
+## gDat <- read.delim(gd_url)
+```
+
+### Introduction to `ddply()`
+
+Let's say we want the maximum life expectancy for each continent. We're providing a data.frame as input and we want a data.frame as output. Therefore this is a job for `ddply()`. We want to divide the data.frame into pieces based on `continent`. Here's the call
+
+```{r}
+(max_le_by_cont <- ddply(gDat, ~ continent, summarize, max_le = max(lifeExp)))
+```
+
+Let's study the return value.
+
+```{r}
+str(max_le_by_cont)
+levels(max_le_by_cont$continent)
+```
+
+We got a data.frame back, with one observation per continent, and two variables: the maximum life expectancies and the continent, as a factor, with the same levels in the same order, as for the input data.frame `gDat`. If you have sweated to do such things with base R, this minor miracle might make you cry tears of joy (or anguish over all the hours you have wasted.)
+
+`summarize()` or its synonym `summarise()` is a function provided by `plyr` that creates a new data.frame from an old one. It is related to the built-in function `transform()` that transforms variables in a data.frame or adds new ones. Feel free to play with it a bit in some top-level commands; you will use it alot inside `plyr` calls.
+
+The two variables in `max_le_by_cont` come from two sources. The `continent` factor is provided by `ddply()` and represents the labelling of the life expectancies with their associated continent. This is the book-keeping associated with dividing the input into little bits, computing on them, and gluing the results together again in an orderly, labelled fashion. We can take more credit for the other variable `max_le`, which has a name we chose and arises from applying a function we specified (`max()`) to a variable of our choice (`lifeExp`).
+
+**You try:** compute the minimum GDP per capita by continent. Here's what I get:
+
+```{r echo = FALSE}
+ddply(gDat, ~ continent, summarize, min_gdppc = min(gdpPercap))
+```
+
+You might have chosen a different name for the minimum GDP/capita's, but your numerical results should match.
+
+The function you want to apply to the continent-specific data.frames can be built-in, like `max()` above, or a custom function you've written. This custom function can be written in advance or specified 'on the fly'. Here's one way to count the number of countries in this dataset for each continent.
+
+```{r}
+ddply(gDat, ~ continent, summarize, n_uniq_countries = length(unique(country)))
+```
+
+Here is another way to do the same thing that doesn't use `summarize()` at all:
+
+```{r}
+ddply(gDat, ~ continent,
+      function(x) c(n_uniq_countries = length(unique(x$country))))
+```
+
+In pseudo pseudo-code, here's what's happening above:
+
+```{r eval = FALSE, results = 'asis', tidy = FALSE}
+returnValue <- an empty receptacle with one "slot" per country
+for each possible country i {
+    x  <- subset(gDat, subset = country == i)
+    returnValue[i] <- length(unique(x$country))
+    name or label for returnValue[i] is set to country i
+}
+ddply packages returnValue and associated names/labels as a nice data.frame
+```
+
+You don't have to compute just one thing for each sub-data.frame, nor are you limited to computing on just one variable. Check this out.
+
+```{r}
+ddply(gDat, ~ continent, summarize,
+      min_le = min(lifeExp), max_le = max(lifeExp),
+      med_gdppc = median(gdpPercap))
+```
+
+### Recall the function we wrote to fit a linear model
+
+We recently learned how to write our own R functions ([Part 1](block011_write-your-own-function-01.html), [Part 2](block011_write-your-own-function-02.html), [Part 3](block011_write-your-own-function-03.html)). We then [wrote a function](block012_function-regress-lifeexp-on-year.html) to use on the Gapminder dataset. This function `le_lin_fit()` takes a data.frame and expects to find variables for life expectancy and year. It returns the estimated coefficients from a simple linear regression. We wrote it with the goal of applying it to the data from each country in Gapminder. That's what we do here.
+
+### Make the function available in the workspace
+
+Define the function [developed elsewhere](block012_function-regress-lifeexp-on-year.html):
+
+```{r}
+le_lin_fit <- function(dat, offset = 1952) {
+  the_fit <- lm(lifeExp ~ I(year - offset), dat)
+  setNames(coef(the_fit), c("intercept", "slope"))
+}
+```
+
+Let's try it out on the data for one country, just to reacquaint ourselves with it.
+
+```{r}
+le_lin_fit(subset(gDat, country == "Canada"))
+```
+
+### Apply our function inside ddply
+
+We are ready to scale up to __all countries__ by placing this function inside a `ddply()` call.
+
+```{r}
+j_coefs <- ddply(gDat, ~ country, le_lin_fit)
+str(j_coefs)
+tail(j_coefs)
+```
+
+We did it! By the time we've packaged the computation in a function, the call itself is deceptively simple. To review, here's the script I would save from our work in this tutorial:
+
+```{r}
+library(plyr)
+gDat <- read.delim("gapminderDataFiveYear.txt")
+le_lin_fit <- function(dat, offset = 1952) {
+  the_fit <- lm(lifeExp ~ I(year - offset), dat)
+  setNames(coef(the_fit), c("intercept", "slope"))
+}
+j_coefs <- ddply(gDat, ~ country, le_lin_fit)
+```
+
+That's all. After we've developed the `le_lin_fit()` function and gotten to know `ddply()`, this task requires about 5 lines of R code.
+
+Reflect on how incredibly convenient this is. If you're coming from another analytical environment, how easy would this task have been? If you had been asked to do this with R a week ago, would you have written a `for` loop or given up? The take away message is this: if you are able to write custom functions, the `plyr` package can make you extremely effective at computing on pieces of a data structure and reassembling the results.
+
+### References
+
+`plyr` paper: [The split-apply-combine strategy for data analysis](http://www.jstatsoft.org/v40/i01/paper), Hadley Wickham, Journal of Statistical Software, vol. 40, no. 1, pp. 1–29, 2011. Go [here](http://www.jstatsoft.org/v40/i01/) for supplements, such as example code from the paper.
+
+<!-- not refreshed in 2014
+### Q & A
+
+Student: How do you pass more than one argument for a function into `ddply()`? The main example that we used in class was this:
+
+```{r}
+(yearMin <- min(gDat$year))
+jFun <- function(x) {
+    estCoefs <- coef(lm(lifeExp ~ I(year - yearMin), x))
+    names(estCoefs) <- c("intercept", "slope")
+    return(estCoefs)
+}
+j_coefs <- ddply(gDat, ~country, jFun)
+head(j_coefs)
+```
+
+and `jFun` only requires one argument, `x`. What if it had more than one argument?
+
+Answer: Let's imagine that the shift for the year covariate is an argument instead of a previously-assigned variable `yearMin`. Here's how it would work.
+
+```{r}
+jFunTwoArgs <- function(x, cvShift = 0) {
+  estCoefs <- coef(lm(lifeExp ~ I(year - cvShift), x))
+  names(estCoefs) <- c("intercept", "slope")
+  return(estCoefs)
+  }
+```
+
+Since I've assigned `cvShift =` a default value of zero, we can get coefficients where the intercept corresponds to the year A.D. 0 with this simple call:
+
+```{r}
+j_coefsSilly <- ddply(gDat, ~ country, jFunTwoArgs)
+head(j_coefsSilly)
+```
+
+We are getting the same estimated slopes but the silly year 0 intercepts we've seen before. Let's use the `cvShift =` argument to resolve this.
+
+```{r}
+j_coefsSane <- ddply(gDat, ~ country, jFunTwoArgs, cvShift = 1952)
+head(j_coefsSane)
+```
+
+We're back to our usual estimated intercepts, which reflect life expectancy in 1952. Of course hard-wiring 1952 is not a great idea, so here's probably our best code yet:
+
+```{r}
+j_coefsBest <- ddply(gDat, ~ country, jFunTwoArgs, cvShift = min(gDat$year))
+head(j_coefsBest)
+```
+-->

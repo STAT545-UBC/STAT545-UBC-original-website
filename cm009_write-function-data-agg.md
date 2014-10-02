@@ -16,8 +16,7 @@ output:
   * Data aggregation
     - Big picture slides linked and embedded below
     - [Guided challenge](block012_function-regress-lifeexp-on-year.html): write function to regress life expectancy on year and return the estimated intercept and slope
-    - Use `plyr::ddply()` to apply this function to each country in Gapminder
-    - Indicative content: [R markdown source](https://github.com/jennybc/STAT545A_2013/blob/master/block04_dataAggregation.rmd) | [Pretty HTML](http://www.stat.ubc.ca/~jenny/STAT545A/block04_dataAggregation.html)
+    - [Use `plyr::ddplyr()`](block013_plyr-ddply.html) to apply this function to each country in Gapminder
   * What's left for 545? these topics are on the horizon
     - More data aggregation
     - Tidy data

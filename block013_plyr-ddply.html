@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Computing by groups within data.frames with plyr</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Computing by groups within data.frames with plyr</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#think-before-you-create-excerpts-of-your-data">Think before you create excerpts of your data …</a></li>
+<li><a href="#data-aggregation-landscape">Data aggregation landscape</a></li>
+<li><a href="#install-and-load-plyr">Install and load <code>plyr</code></a></li>
+<li><a href="#load-the-gapminder-data">Load the Gapminder data</a></li>
+<li><a href="#introduction-to-ddply">Introduction to <code>ddply()</code></a></li>
+<li><a href="#recall-the-function-we-wrote-to-fit-a-linear-model">Recall the function we wrote to fit a linear model</a></li>
+<li><a href="#make-the-function-available-in-the-workspace">Make the function available in the workspace</a></li>
+<li><a href="#apply-our-function-inside-ddply">Apply our function inside ddply</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<div id="think-before-you-create-excerpts-of-your-data" class="section level3">
+<h3>Think before you create excerpts of your data …</h3>
+<p>If you feel the urge to store a little snippet of your data:</p>
+<pre class="r"><code>snippet &lt;- subset(my_big_dataset, some_variable == some_value)</code></pre>
+<p>Stop and ask yourself …</p>
+<blockquote>
+<p>Do I want to create mini datasets for each level of some factor (or unique combination of several factors) … in order to compute or graph something?</p>
+</blockquote>
+<p>If YES, <strong>use proper data aggregation techniques</strong> or facetting in <code>ggplot2</code> plots or conditioning in <code>lattice</code> – <strong>don’t subset the data</strong>. Or, more realistic, only subset the data as a temporary measure while you develop your elegant code for computing on or visualizing these data subsets.</p>
+<p>If NO, then maybe you really do need to store a copy of a subset of the data. But seriously consider whether you can achieve your goals by simply using the <code>subset =</code> argument of, e.g., the <code>lm()</code> function, to limit computation to your excerpt of choice. Lots of functions offer a <code>subset =</code> argument!</p>
+</div>
+<div id="data-aggregation-landscape" class="section level3">
+<h3>Data aggregation landscape</h3>
+<p><em>Note: <a href="https://www.slideshare.net/jenniferbryan5811/cm009-data-aggregation">these slides</a> cover this material in a more visual way.</em></p>
+<p>There are three main options for data aggregation:</p>
+<ul>
+<li>base R functions, often referred to as the <code>apply</code> family of functions</li>
+<li>the <a href="http://plyr.had.co.nz"><code>plyr</code></a> add-on package</li>
+<li>the <a href="http://cran.r-project.org/web/packages/dplyr/index.html"><code>dplyr</code></a> add-on package</li>
+</ul>
+<p>I have a strong recommendation for <code>plyr</code> (and <code>dplyr</code>) over the base R functions, with some qualifications. Both of these packages are aimed squarely at <strong>data analysis</strong>, which they greatly accelerate. But even I do not use them exclusively when I am in more of a “programming mode”, where I often revert to base R. Also, even a pure data analyst will benefit from a deeper understanding of the language. I present <code>plyr</code> here because I think it is more immediately usable and useful for novices than the <code>apply</code> functions. But eventually you’ll need to learn those as well.</p>
+<p>The main strengths of <code>plyr</code> over the <code>apply</code> functions are:</p>
+<ul>
+<li>consistent interface across the all combinations of type of input and output</li>
+<li>return values are predictable and immediately useful for next steps</li>
+</ul>
+<p>You’ll notice I do not even mention another option that may occur to some: hand-coding <code>for</code> loops, perhaps, even (shudder) nested <code>for</code> loops! Don’t do it. By the end of this tutorial you’ll see things that are much faster and more fun. Yes, of course, tedious loops are required for data aggregation but when you can, let other developers write them for you, in efficient low level code. This is more about saving programmer time than compute time, BTW.</p>
+<div id="sidebar-dplyr" class="section level4">
+<h4>Sidebar: <code>dplyr</code></h4>
+<p>This tutorial is about <code>plyr</code>. The <code>dplyr</code> package is <a href="block009_dplyr-intro.html">introduced elsewhere</a>. Although <code>dplyr</code> is extremely useful, it does not meet all of our data aggregation needs. What are the gaps that <code>plyr</code> still fills?</p>
+<ul>
+<li>Data aggregation for arrays and lists, which <code>dplyr</code> does not provide.</li>
+<li>Alternative to <code>group_by() + do()</code>
+<ul>
+<li>If you can achieve your goals with <code>dplyr</code>’s main verbs, <code>group_by()</code>, and <code>summarize(...)</code> and/or window functions, by all means do so! But some tasks can’t be done that way and require the <code>do()</code> function. At this point, in those cases, I still prefer <code>plyr</code>s functions. I think the syntax is less demanding for novices.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="install-and-load-plyr" class="section level3">
+<h3>Install and load <code>plyr</code></h3>
+<p>If you have not already done so, you’ll need to install <code>plyr</code>.</p>
+<pre class="r"><code>install.packages(&quot;plyr&quot;, dependencies = TRUE)</code></pre>
+<p>We also need to load it.</p>
+<pre class="r"><code>library(plyr)</code></pre>
+<p><em>Note: if you are using both <code>plyr</code> and <code>dplyr</code> in a script, you should always load <code>plyr</code> first, then <code>dplyr</code>.</em></p>
+<div id="plyr-big-ideas" class="section level4">
+<h4><code>plyr</code> Big Ideas</h4>
+<p>The <code>plyr</code> functions will not make much sense viewed individually, e.g. simply reading the help for <code>ddply()</code> is not the fast track to competence. There is a very important over-arching logic for the package and it is well worth reading the article <a href="http://www.jstatsoft.org/v40/i01/paper">The split-apply-combine strategy for data analysis</a>. Though it is no substitute for reading the above, here is the most critical information:</p>
+<ul>
+<li><strong>split-apply-combine</strong>: A common analytical pattern is to split data into pieces, apply some function to each pieces, and combine the results back together again. Recognize when you’re solving such a problem and exploit the right tools.</li>
+<li>The computations on these pieces must be truly independent, i.e. the problem must be <a href="http://en.wikipedia.org/wiki/Embarrassingly_parallel">embarrassingly or pleasingly parallel</a>, in order to use <code>plyr</code>.</li>
+<li>The heart of <code>plyr</code> is a set a functions with names like this: <code>XYply</code> where <code>X</code> specifies what sort of input you’re giving and <code>Y</code> specifies the sort of output you want.
+<ul>
+<li><code>a</code> = array, where matrices and vectors are important special cases</li>
+<li><code>d</code> = data.frame</li>
+<li><code>l</code> = list</li>
+<li><code>_</code> = no output; only valid for <code>Y</code>, obviously; useful when you’re operating on a list purely for the side effects, e.g., making a plot or sending output to screen/file</li>
+</ul></li>
+<li>The usage is very similar across these functions. Here are the main arguments:
+<ul>
+<li><code>.data</code> is the first argument = the input</li>
+<li>the next argument specifies how to split up the input into pieces; it does not exist when the input is a list, because the pieces must be the list components</li>
+<li>then comes the function and further arguments needed to describe the computation to be applied to the pieces</li>
+</ul></li>
+</ul>
+<p>Today we emphasize <code>ddply()</code> which accepts a data.frame, splits it into pieces based on one or more factors, computes on the pieces, then returns the results as a data.frame. For the record, the base R functions most relevant to <code>ddply()</code> are <code>tapply()</code> and friends.</p>
+</div>
+</div>
+<div id="load-the-gapminder-data" class="section level3">
+<h3>Load the Gapminder data</h3>
+<p>As usual, load the Gapminder excerpt.</p>
+<pre class="r"><code>gDat &lt;- read.delim(&quot;gapminderDataFiveYear.txt&quot;)
+str(gDat)
+## &#39;data.frame&#39;:    1704 obs. of  6 variables:
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...
+## or do this if the file isn&#39;t lying around already
+## gd_url &lt;- &quot;http://tiny.cc/gapminder&quot;
+## gDat &lt;- read.delim(gd_url)</code></pre>
+</div>
+<div id="introduction-to-ddply" class="section level3">
+<h3>Introduction to <code>ddply()</code></h3>
+<p>Let’s say we want the maximum life expectancy for each continent. We’re providing a data.frame as input and we want a data.frame as output. Therefore this is a job for <code>ddply()</code>. We want to divide the data.frame into pieces based on <code>continent</code>. Here’s the call</p>
+<pre class="r"><code>(max_le_by_cont &lt;- ddply(gDat, ~ continent, summarize, max_le = max(lifeExp)))
+##   continent max_le
+## 1    Africa 76.442
+## 2  Americas 80.653
+## 3      Asia 82.603
+## 4    Europe 81.757
+## 5   Oceania 81.235</code></pre>
+<p>Let’s study the return value.</p>
+<pre class="r"><code>str(max_le_by_cont)
+## &#39;data.frame&#39;:    5 obs. of  2 variables:
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 1 2 3 4 5
+##  $ max_le   : num  76.4 80.7 82.6 81.8 81.2
+levels(max_le_by_cont$continent)
+## [1] &quot;Africa&quot;   &quot;Americas&quot; &quot;Asia&quot;     &quot;Europe&quot;   &quot;Oceania&quot;</code></pre>
+<p>We got a data.frame back, with one observation per continent, and two variables: the maximum life expectancies and the continent, as a factor, with the same levels in the same order, as for the input data.frame <code>gDat</code>. If you have sweated to do such things with base R, this minor miracle might make you cry tears of joy (or anguish over all the hours you have wasted.)</p>
+<p><code>summarize()</code> or its synonym <code>summarise()</code> is a function provided by <code>plyr</code> that creates a new data.frame from an old one. It is related to the built-in function <code>transform()</code> that transforms variables in a data.frame or adds new ones. Feel free to play with it a bit in some top-level commands; you will use it alot inside <code>plyr</code> calls.</p>
+<p>The two variables in <code>max_le_by_cont</code> come from two sources. The <code>continent</code> factor is provided by <code>ddply()</code> and represents the labelling of the life expectancies with their associated continent. This is the book-keeping associated with dividing the input into little bits, computing on them, and gluing the results together again in an orderly, labelled fashion. We can take more credit for the other variable <code>max_le</code>, which has a name we chose and arises from applying a function we specified (<code>max()</code>) to a variable of our choice (<code>lifeExp</code>).</p>
+<p><strong>You try:</strong> compute the minimum GDP per capita by continent. Here’s what I get:</p>
+<pre><code>##   continent  min_gdppc
+## 1    Africa   241.1659
+## 2  Americas  1201.6372
+## 3      Asia   331.0000
+## 4    Europe   973.5332
+## 5   Oceania 10039.5956</code></pre>
+<p>You might have chosen a different name for the minimum GDP/capita’s, but your numerical results should match.</p>
+<p>The function you want to apply to the continent-specific data.frames can be built-in, like <code>max()</code> above, or a custom function you’ve written. This custom function can be written in advance or specified ‘on the fly’. Here’s one way to count the number of countries in this dataset for each continent.</p>
+<pre class="r"><code>ddply(gDat, ~ continent, summarize, n_uniq_countries = length(unique(country)))
+##   continent n_uniq_countries
+## 1    Africa               52
+## 2  Americas               25
+## 3      Asia               33
+## 4    Europe               30
+## 5   Oceania                2</code></pre>
+<p>Here is another way to do the same thing that doesn’t use <code>summarize()</code> at all:</p>
+<pre class="r"><code>ddply(gDat, ~ continent,
+      function(x) c(n_uniq_countries = length(unique(x$country))))
+##   continent n_uniq_countries
+## 1    Africa               52
+## 2  Americas               25
+## 3      Asia               33
+## 4    Europe               30
+## 5   Oceania                2</code></pre>
+<p>In pseudo pseudo-code, here’s what’s happening above:</p>
+<pre class="r"><code>returnValue &lt;- an empty receptacle with one &quot;slot&quot; per country
+for each possible country i {
+    x  &lt;- subset(gDat, subset = country == i)
+    returnValue[i] &lt;- length(unique(x$country))
+    name or label for returnValue[i] is set to country i
+}
+ddply packages returnValue and associated names/labels as a nice data.frame</code></pre>
+<p>You don’t have to compute just one thing for each sub-data.frame, nor are you limited to computing on just one variable. Check this out.</p>
+<pre class="r"><code>ddply(gDat, ~ continent, summarize,
+      min_le = min(lifeExp), max_le = max(lifeExp),
+      med_gdppc = median(gdpPercap))
+##   continent min_le max_le med_gdppc
+## 1    Africa 23.599 76.442  1192.138
+## 2  Americas 37.579 80.653  5465.510
+## 3      Asia 28.801 82.603  2646.787
+## 4    Europe 43.585 81.757 12081.749
+## 5   Oceania 69.120 81.235 17983.304</code></pre>
+</div>
+<div id="recall-the-function-we-wrote-to-fit-a-linear-model" class="section level3">
+<h3>Recall the function we wrote to fit a linear model</h3>
+<p>We recently learned how to write our own R functions (<a href="block011_write-your-own-function-01.html">Part 1</a>, <a href="block011_write-your-own-function-02.html">Part 2</a>, <a href="block011_write-your-own-function-03.html">Part 3</a>). We then <a href="block012_function-regress-lifeexp-on-year.html">wrote a function</a> to use on the Gapminder dataset. This function <code>le_lin_fit()</code> takes a data.frame and expects to find variables for life expectancy and year. It returns the estimated coefficients from a simple linear regression. We wrote it with the goal of applying it to the data from each country in Gapminder. That’s what we do here.</p>
+</div>
+<div id="make-the-function-available-in-the-workspace" class="section level3">
+<h3>Make the function available in the workspace</h3>
+<p>Define the function <a href="block012_function-regress-lifeexp-on-year.html">developed elsewhere</a>:</p>
+<pre class="r"><code>le_lin_fit &lt;- function(dat, offset = 1952) {
+  the_fit &lt;- lm(lifeExp ~ I(year - offset), dat)
+  setNames(coef(the_fit), c(&quot;intercept&quot;, &quot;slope&quot;))
+}</code></pre>
+<p>Let’s try it out on the data for one country, just to reacquaint ourselves with it.</p>
+<pre class="r"><code>le_lin_fit(subset(gDat, country == &quot;Canada&quot;))
+##  intercept      slope 
+## 68.8838462  0.2188692</code></pre>
+</div>
+<div id="apply-our-function-inside-ddply" class="section level3">
+<h3>Apply our function inside ddply</h3>
+<p>We are ready to scale up to <strong>all countries</strong> by placing this function inside a <code>ddply()</code> call.</p>
+<pre class="r"><code>j_coefs &lt;- ddply(gDat, ~ country, le_lin_fit)
+str(j_coefs)
+## &#39;data.frame&#39;:    142 obs. of  3 variables:
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
+##  $ intercept: num  29.9 59.2 43.4 32.1 62.7 ...
+##  $ slope    : num  0.275 0.335 0.569 0.209 0.232 ...
+tail(j_coefs)
+##                country intercept       slope
+## 137          Venezuela  57.51332  0.32972168
+## 138            Vietnam  39.01008  0.67161538
+## 139 West Bank and Gaza  43.79840  0.60110070
+## 140        Yemen, Rep.  30.13028  0.60545944
+## 141             Zambia  47.65803 -0.06042517
+## 142           Zimbabwe  55.22124 -0.09302098</code></pre>
+<p>We did it! By the time we’ve packaged the computation in a function, the call itself is deceptively simple. To review, here’s the script I would save from our work in this tutorial:</p>
+<pre class="r"><code>library(plyr)
+gDat &lt;- read.delim(&quot;gapminderDataFiveYear.txt&quot;)
+le_lin_fit &lt;- function(dat, offset = 1952) {
+  the_fit &lt;- lm(lifeExp ~ I(year - offset), dat)
+  setNames(coef(the_fit), c(&quot;intercept&quot;, &quot;slope&quot;))
+}
+j_coefs &lt;- ddply(gDat, ~ country, le_lin_fit)</code></pre>
+<p>That’s all. After we’ve developed the <code>le_lin_fit()</code> function and gotten to know <code>ddply()</code>, this task requires about 5 lines of R code.</p>
+<p>Reflect on how incredibly convenient this is. If you’re coming from another analytical environment, how easy would this task have been? If you had been asked to do this with R a week ago, would you have written a <code>for</code> loop or given up? The take away message is this: if you are able to write custom functions, the <code>plyr</code> package can make you extremely effective at computing on pieces of a data structure and reassembling the results.</p>
+</div>
+<div id="references" class="section level3">
+<h3>References</h3>
+<p><code>plyr</code> paper: <a href="http://www.jstatsoft.org/v40/i01/paper">The split-apply-combine strategy for data analysis</a>, Hadley Wickham, Journal of Statistical Software, vol. 40, no. 1, pp. 1–29, 2011. Go <a href="http://www.jstatsoft.org/v40/i01/">here</a> for supplements, such as example code from the paper.</p>
+<!-- not refreshed in 2014
+### Q & A
+
+Student: How do you pass more than one argument for a function into `ddply()`? The main example that we used in class was this:
+
+
+```r
+(yearMin <- min(gDat$year))
+## [1] 1952
+jFun <- function(x) {
+    estCoefs <- coef(lm(lifeExp ~ I(year - yearMin), x))
+    names(estCoefs) <- c("intercept", "slope")
+    return(estCoefs)
+}
+j_coefs <- ddply(gDat, ~country, jFun)
+head(j_coefs)
+##       country intercept     slope
+## 1 Afghanistan  29.90729 0.2753287
+## 2     Albania  59.22913 0.3346832
+## 3     Algeria  43.37497 0.5692797
+## 4      Angola  32.12665 0.2093399
+## 5   Argentina  62.68844 0.2317084
+## 6   Australia  68.40051 0.2277238
+```
+
+and `jFun` only requires one argument, `x`. What if it had more than one argument?
+
+Answer: Let's imagine that the shift for the year covariate is an argument instead of a previously-assigned variable `yearMin`. Here's how it would work.
+
+
+```r
+jFunTwoArgs <- function(x, cvShift = 0) {
+  estCoefs <- coef(lm(lifeExp ~ I(year - cvShift), x))
+  names(estCoefs) <- c("intercept", "slope")
+  return(estCoefs)
+  }
+```
+
+Since I've assigned `cvShift =` a default value of zero, we can get coefficients where the intercept corresponds to the year A.D. 0 with this simple call:
+
+
+```r
+j_coefsSilly <- ddply(gDat, ~ country, jFunTwoArgs)
+head(j_coefsSilly)
+##       country  intercept     slope
+## 1 Afghanistan  -507.5343 0.2753287
+## 2     Albania  -594.0725 0.3346832
+## 3     Algeria -1067.8590 0.5692797
+## 4      Angola  -376.5048 0.2093399
+## 5   Argentina  -389.6063 0.2317084
+## 6   Australia  -376.1163 0.2277238
+```
+
+We are getting the same estimated slopes but the silly year 0 intercepts we've seen before. Let's use the `cvShift =` argument to resolve this.
+
+
+```r
+j_coefsSane <- ddply(gDat, ~ country, jFunTwoArgs, cvShift = 1952)
+head(j_coefsSane)
+##       country intercept     slope
+## 1 Afghanistan  29.90729 0.2753287
+## 2     Albania  59.22913 0.3346832
+## 3     Algeria  43.37497 0.5692797
+## 4      Angola  32.12665 0.2093399
+## 5   Argentina  62.68844 0.2317084
+## 6   Australia  68.40051 0.2277238
+```
+
+We're back to our usual estimated intercepts, which reflect life expectancy in 1952. Of course hard-wiring 1952 is not a great idea, so here's probably our best code yet:
+
+
+```r
+j_coefsBest <- ddply(gDat, ~ country, jFunTwoArgs, cvShift = min(gDat$year))
+head(j_coefsBest)
+##       country intercept     slope
+## 1 Afghanistan  29.90729 0.2753287
+## 2     Albania  59.22913 0.3346832
+## 3     Algeria  43.37497 0.5692797
+## 4      Angola  32.12665 0.2093399
+## 5   Argentina  62.68844 0.2317084
+## 6   Australia  68.40051 0.2277238
+```
+-->
+
+
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
