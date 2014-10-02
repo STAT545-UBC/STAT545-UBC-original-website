@@ -244,7 +244,7 @@ What we've accomplished:
   * we are checking the validity of its input, argument `x`
   * we've done a good amount of informal testing
   
-Where to next? In [part 2](block001_write-your-own-function-02.html), we generalize this function to take differences in other quantiles and learn how to set default values for arguments.
+Where to next? In [part 2](block011_write-your-own-function-02.html), we generalize this function to take differences in other quantiles and learn how to set default values for arguments.
 
 ### Resources
 
@@ -254,7 +254,7 @@ Packages
   * [`ensurer` package](https://github.com/smbache/ensurer)
   * [`testthat` package](https://github.com/hadley/testthat)
 
-Hadley Wickham's forthcoming book [Advanced R]((http://adv-r.had.co.nz)
+Hadley Wickham's forthcoming book [Advanced R](http://adv-r.had.co.nz)
 
   * Section on [defensive programming](http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming)
   

@@ -80,7 +80,7 @@ Create the basic definition of a function and drop your working code inside. Add
 ```{r}
 le_lin_fit <- function(dat, offset = 1952) {
   the_fit <- lm(lifeExp ~ I(year - offset), dat)
-  coef(j_fit)
+  coef(the_fit)
 }
 le_lin_fit(j_dat)
 ```
@@ -129,4 +129,4 @@ le_lin_fit(subset(gDat, country == "Zimbabwe"))
 
 Yes.
 
-Given how I plan to use this function, I don't feel the need to put it under formal unit tests or put in argument validity checks. Let's move on to the exciting part, which is scaling this up to __all__ countries.
+Given how I plan to use this function, I don't feel the need to put it under formal unit tests or put in argument validity checks. Let's move on to [the exciting part](http://stat545-ubc.github.io/block013_plyr-ddply.html), which is scaling this up to __all__ countries.

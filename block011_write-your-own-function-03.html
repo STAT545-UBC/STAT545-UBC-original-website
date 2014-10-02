@@ -160,25 +160,25 @@ qdiff6(z, na.rm = FALSE)
   the_quantiles &lt;- quantile(x = x, probs = probs, na.rm = na.rm, ...)
   return(max(the_quantiles) - min(the_quantiles))
 }</code></pre>
-<p>The practical significance of the <code>type =</code> argument is vanishly small, so I have to cook up a specific example so you can even detect a difference due to different settings.</p>
+<p>The practical significance of the <code>type =</code> argument is virtually nonexistent, so we can’t demo with the Gapminder data. Thanks to <a href="https://twitter.com/wrathematics">@wrathematics</a>, here’s a small example where we can (barely) detect a difference due to <code>type</code>.</p>
 <pre class="r"><code>set.seed(1234)
 z &lt;- rnorm(10)
-quantile(z, type=1)
+quantile(z, type = 1)
 ##         0%        25%        50%        75%       100% 
 ## -2.3456977 -0.8900378 -0.5644520  0.4291247  1.0844412
-quantile(z, type=4)
+quantile(z, type = 4)
 ##        0%       25%       50%       75%      100% 
 ## -2.345698 -1.048552 -0.564452  0.353277  1.084441
-all.equal(quantile(z, type=1), quantile(z, type=4))
+all.equal(quantile(z, type = 1), quantile(z, type = 4))
 ## [1] &quot;Mean relative difference: 0.1776594&quot;</code></pre>
 <p>Now we can call our function, requesting that quantiles be computed in different ways.</p>
 <pre class="r"><code>qdiff7(z, probs = c(0.25, 0.75), type = 1)
 ## [1] 1.319163
 qdiff7(z, probs = c(0.25, 0.75), type = 4)
 ## [1] 1.401829</code></pre>
-<p>Don’t fret about the subtle difference in result. The point here is to marvel at the fact that we have passed <code>type = 1</code> through to <code>quantile()</code> <em>even though it was not a formal argument of our own function</em>.</p>
-<p>The special argument <code>...</code> is very useful when you want the ability to pass arbitrary arguments down to another function, but without making them formal arguments to your function. This leaves you with a less cluttered function definition and give you great flexibility in the future to specify these arguments or not, depending on context.</p>
-<p>You will also encounter the <code>...</code> argument in many built-in functions – read up <a href="http://www.rdocumentation.org/packages/base/functions/c">on <code>c()</code></a> or <a href="http://www.rdocumentation.org/packages/base/functions/list"><code>list()</code></a> – and now you have a better sense of what it does.</p>
+<p>While the difference may be subtle, <strong>it’s there</strong>. Marvel at the fact that we have passed <code>type = 1</code> through to <code>quantile()</code> <em>even though it was not a formal argument of our own function</em>.</p>
+<p>The special argument <code>...</code> is very useful when you want the ability to pass arbitrary arguments down to another function, but without constantly expanding the formal arguments to your function. This leaves you with a less cluttered function definition and gives you future flexibility to specify these arguments only when you need to.</p>
+<p>You will also encounter the <code>...</code> argument in many built-in functions – read up <a href="http://www.rdocumentation.org/packages/base/functions/c">on <code>c()</code></a> or <a href="http://www.rdocumentation.org/packages/base/functions/list"><code>list()</code></a> – and now you have a better sense of what it means. It is not a breezy “and so on and so forth.”</p>
 </div>
 <div id="use-testthat-for-formal-unit-tests" class="section level3">
 <h3>Use <code>testthat</code> for formal unit tests</h3>
@@ -268,7 +268,7 @@ defaulting to NULL then checking is.null() and take it from there
 <li><a href="https://github.com/smbache/ensurer"><code>ensurer</code> package</a></li>
 <li><a href="https://github.com/hadley/testthat"><code>testthat</code> package</a></li>
 </ul>
-<p>Hadley Wickham’s forthcoming book [Advanced R]((<a href="http://adv-r.had.co.nz">http://adv-r.had.co.nz</a>)</p>
+<p>Hadley Wickham’s forthcoming book <a href="http://adv-r.had.co.nz">Advanced R</a></p>
 <ul>
 <li>Section on <a href="http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming">defensive programming</a></li>
 </ul>

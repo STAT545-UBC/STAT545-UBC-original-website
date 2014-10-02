@@ -110,19 +110,19 @@ qdiff7 <- function(x, probs = c(0, 1), na.rm = TRUE, ...) {
 }
 ```
 
-The practical significance of the `type =` argument is vanishly small, so I have to cook up a specific example so you can even detect a difference due to different settings.
+The practical significance of the `type =` argument is virtually nonexistent, so we can't demo with the Gapminder data. Thanks to [\@wrathematics](https://twitter.com/wrathematics), here's a small example where we can (barely) detect a difference due to `type`.
 
 
 ```r
 set.seed(1234)
 z <- rnorm(10)
-quantile(z, type=1)
+quantile(z, type = 1)
 ##         0%        25%        50%        75%       100% 
 ## -2.3456977 -0.8900378 -0.5644520  0.4291247  1.0844412
-quantile(z, type=4)
+quantile(z, type = 4)
 ##        0%       25%       50%       75%      100% 
 ## -2.345698 -1.048552 -0.564452  0.353277  1.084441
-all.equal(quantile(z, type=1), quantile(z, type=4))
+all.equal(quantile(z, type = 1), quantile(z, type = 4))
 ## [1] "Mean relative difference: 0.1776594"
 ```
 
@@ -136,11 +136,11 @@ qdiff7(z, probs = c(0.25, 0.75), type = 4)
 ## [1] 1.401829
 ```
 
-Don't fret about the subtle difference in result. The point here is to marvel at the fact that we have passed `type = 1` through to `quantile()` *even though it was not a formal argument of our own function*.
+While the difference may be subtle, __it's there__. Marvel at the fact that we have passed `type = 1` through to `quantile()` *even though it was not a formal argument of our own function*.
 
-The special argument `...` is very useful when you want the ability to pass arbitrary arguments down to another function, but without making them formal arguments to your function. This leaves you with a less cluttered function definition and give you great flexibility in the future to specify these arguments or not, depending on context.
+The special argument `...` is very useful when you want the ability to pass arbitrary arguments down to another function, but without constantly expanding the formal arguments to your function. This leaves you with a less cluttered function definition and gives you future flexibility to specify these arguments only when you need to.
 
-You will also encounter the `...` argument in many built-in functions -- read up [on `c()`](http://www.rdocumentation.org/packages/base/functions/c) or [`list()`](http://www.rdocumentation.org/packages/base/functions/list) -- and now you have a better sense of what it does.
+You will also encounter the `...` argument in many built-in functions -- read up [on `c()`](http://www.rdocumentation.org/packages/base/functions/c) or [`list()`](http://www.rdocumentation.org/packages/base/functions/list) -- and now you have a better sense of what it means. It is not a breezy "and so on and so forth."
 
 ### Use `testthat` for formal unit tests
 
@@ -242,7 +242,7 @@ Packages
   * [`ensurer` package](https://github.com/smbache/ensurer)
   * [`testthat` package](https://github.com/hadley/testthat)
 
-Hadley Wickham's forthcoming book [Advanced R]((http://adv-r.had.co.nz)
+Hadley Wickham's forthcoming book [Advanced R](http://adv-r.had.co.nz)
 
   * Section on [defensive programming](http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming)
   

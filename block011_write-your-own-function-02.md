@@ -149,7 +149,7 @@ qdiff3(my_x = gDat$lifeExp, my_probs = 0:1)
 ## [1] 59.004
 ```
 
-If you are going to pass the arguments of your function as arguments of a built-in function, consider copying the argument names. Again, the reason is to reduce your cognitive load. This is what I've doing all along and now you now why:
+If you are going to pass the arguments of your function as arguments of a built-in function, consider copying the argument names. Again, the reason is to reduce your cognitive load. This is what I've been doing all along and now you now why:
 
 
 ```r
@@ -240,7 +240,7 @@ qdiff4
 What we've accomplished:
 
   * we've generalized our first function to take a difference between arbitrary quantiles
-  * we've specifyied default values for the probabilities that set the quantiles
+  * we've specified default values for the probabilities that set the quantiles
   
 Where to next? In [Part 3](block011_write-your-own-function-03.html), we tackle `NA`s, the special `...` argument, and formal testing.
 
@@ -252,7 +252,7 @@ Packages
   * [`ensurer` package](https://github.com/smbache/ensurer)
   * [`testthat` package](https://github.com/hadley/testthat)
 
-Hadley Wickham's forthcoming book [Advanced R]((http://adv-r.had.co.nz)
+Hadley Wickham's forthcoming book [Advanced R](http://adv-r.had.co.nz)
 
   * Section on [defensive programming](http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming)
   

@@ -104,11 +104,11 @@ Create the basic definition of a function and drop your working code inside. Add
 ```r
 le_lin_fit <- function(dat, offset = 1952) {
   the_fit <- lm(lifeExp ~ I(year - offset), dat)
-  coef(j_fit)
+  coef(the_fit)
 }
 le_lin_fit(j_dat)
-##    (Intercept) I(year - 1952) 
-##     67.7901282      0.2385014
+##      (Intercept) I(year - offset) 
+##       67.7901282        0.2385014
 ```
 
 I had to decide how to handle the offset. Given that I will scale this up to many countries, which, in theory, might have data for different dates, I chose to set a default of 1952. Strategies that compute the offset from data, either the main Gapminder dataset or the excerpt passed to this function, are also reasonable to consider.
@@ -182,4 +182,4 @@ le_lin_fit(subset(gDat, country == "Zimbabwe"))
 
 Yes.
 
-Given how I plan to use this function, I don't feel the need to put it under formal unit tests or put in argument validity checks. Let's move on to the exciting part, which is scaling this up to __all__ countries.
+Given how I plan to use this function, I don't feel the need to put it under formal unit tests or put in argument validity checks. Let's move on to [the exciting part](http://stat545-ubc.github.io/block013_plyr-ddply.html), which is scaling this up to __all__ countries.

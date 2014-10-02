@@ -22,15 +22,16 @@ Until we get rolling, feel free to look at older material that will appear here 
   * [Basic care and feeding of data in R](block006_care-feeding-data.html)
   * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
   * [Introduction to `ggplot2`](https://github.com/jennybc/ggplot2-tutorial) *links to materials from a May 2014 workshop*
-  * [Test your ability to author an R Markdown report](block007_first-use-rmarkdown.html)
-  * [Introduction to dplyr](block009_dplyr-intro.html)
-  * [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
+  * [Test drive R Markdown](block007_first-use-rmarkdown.html)
+  * The `dplyr` package for data manipulation
+    - [Introduction to dplyr](block009_dplyr-intro.html)
+    - [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
   * Writing your own R functions
     - [Part 1](block011_write-your-own-function-01.html): get something that works, check arguments
     - [Part 2](block011_write-your-own-function-02.html): generalize, set default argument values
     - [Part 3](block011_write-your-own-function-03.html):`NA` handling, `...`, unit test
-    - [Function-writing Practicum](block012_function-regress-lifeexp-on-year.html): fit a linear model and return estimate coefficients
-  * [Using `plyr` with a data.frame](block013_plyr-ddply.html)
+    - [Function-writing Practicum](block012_function-regress-lifeexp-on-year.html): fit a linear model and return estimated coefficients
+  * [Using `plyr` for data.frames](block013_plyr-ddply.html)
   
 ### Course material
 

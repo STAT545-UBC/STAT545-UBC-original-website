@@ -197,7 +197,7 @@ qdiff2(zeus = gDat$lifeExp, hera = 0:1)
 }
 qdiff3(my_x = gDat$lifeExp, my_probs = 0:1)
 ## [1] 59.004</code></pre>
-<p>If you are going to pass the arguments of your function as arguments of a built-in function, consider copying the argument names. Again, the reason is to reduce your cognitive load. This is what I’ve doing all along and now you now why:</p>
+<p>If you are going to pass the arguments of your function as arguments of a built-in function, consider copying the argument names. Again, the reason is to reduce your cognitive load. This is what I’ve been doing all along and now you now why:</p>
 <pre class="r"><code>qdiff1
 ## function(x, probs) {
 ##   assert_that(is.numeric(x))
@@ -253,7 +253,7 @@ qdiff4(gDat$lifeExp, c(0.1, 0.9))
 <p>What we’ve accomplished:</p>
 <ul>
 <li>we’ve generalized our first function to take a difference between arbitrary quantiles</li>
-<li>we’ve specifyied default values for the probabilities that set the quantiles</li>
+<li>we’ve specified default values for the probabilities that set the quantiles</li>
 </ul>
 <p>Where to next? In <a href="block011_write-your-own-function-03.html">Part 3</a>, we tackle <code>NA</code>s, the special <code>...</code> argument, and formal testing.</p>
 </div>
@@ -265,7 +265,7 @@ qdiff4(gDat$lifeExp, c(0.1, 0.9))
 <li><a href="https://github.com/smbache/ensurer"><code>ensurer</code> package</a></li>
 <li><a href="https://github.com/hadley/testthat"><code>testthat</code> package</a></li>
 </ul>
-<p>Hadley Wickham’s forthcoming book [Advanced R]((<a href="http://adv-r.had.co.nz">http://adv-r.had.co.nz</a>)</p>
+<p>Hadley Wickham’s forthcoming book <a href="http://adv-r.had.co.nz">Advanced R</a></p>
 <ul>
 <li>Section on <a href="http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming">defensive programming</a></li>
 </ul>

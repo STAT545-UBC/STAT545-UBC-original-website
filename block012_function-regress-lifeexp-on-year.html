@@ -157,11 +157,11 @@ coef(j_fit)
 <p>Create the basic definition of a function and drop your working code inside. Add arguments and edit the inner code to match. Apply it to the practice data. Do you get the same result as before?</p>
 <pre class="r"><code>le_lin_fit &lt;- function(dat, offset = 1952) {
   the_fit &lt;- lm(lifeExp ~ I(year - offset), dat)
-  coef(j_fit)
+  coef(the_fit)
 }
 le_lin_fit(j_dat)
-##    (Intercept) I(year - 1952) 
-##     67.7901282      0.2385014</code></pre>
+##      (Intercept) I(year - offset) 
+##       67.7901282        0.2385014</code></pre>
 <p>I had to decide how to handle the offset. Given that I will scale this up to many countries, which, in theory, might have data for different dates, I chose to set a default of 1952. Strategies that compute the offset from data, either the main Gapminder dataset or the excerpt passed to this function, are also reasonable to consider.</p>
 <p>I loathe the names on this return value. This is not my first rodeo and I know that, downstream, these will contaminate variable names and factor levels and show up in public places like plots and tables. Fix names early!</p>
 <pre class="r"><code>le_lin_fit &lt;- function(dat, offset = 1952) {
@@ -212,7 +212,7 @@ le_lin_fit(subset(gDat, country == &quot;Zimbabwe&quot;))
 <div id="are-we-there-yet" class="section level3">
 <h3>Are we there yet?</h3>
 <p>Yes.</p>
-<p>Given how I plan to use this function, I don’t feel the need to put it under formal unit tests or put in argument validity checks. Let’s move on to the exciting part, which is scaling this up to <strong>all</strong> countries.</p>
+<p>Given how I plan to use this function, I don’t feel the need to put it under formal unit tests or put in argument validity checks. Let’s move on to <a href="http://stat545-ubc.github.io/block013_plyr-ddply.html">the exciting part</a>, which is scaling this up to <strong>all</strong> countries.</p>
 </div>
 
 <div class="footer">
