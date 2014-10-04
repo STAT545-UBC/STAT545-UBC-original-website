@@ -6,7 +6,7 @@ output:
 
 ### cm008 2014-10-01 Wednesday overview
 
-  * HW04 will be due before class Monday 2014-10-06. Will be to write a function, documenting process from interactive pilot to formal tests. Polishing today's last example will be the easiest option, but you could do something else. Apply function to Gapminder using `plyr`. ~~Watch Twitter.~~ Now posted [here](http://stat545-ubc.github.io/hw04_write-function-use-plyr.html).
+  * HW04 will be due before class ~~Monday 2014-10-06~~ Wednesday 2014-10-08. Will be to write a function, documenting process from interactive pilot to formal tests. Polishing today's last example will be the easiest option, but you could do something else. Apply function to Gapminder using `plyr`. ~~Watch Twitter.~~ Now posted [here](http://stat545-ubc.github.io/hw04_write-function-use-plyr.html).
   * Writing your own functions! The exciting conclusion
     - [Write your own R functions, part 1](block011_write-your-own-function-01.html) *done Monday*
     - [Write your own R functions, part 2](block011_write-your-own-function-02.html) *done Monday*

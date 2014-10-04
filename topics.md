@@ -68,7 +68,7 @@ Topics traditionally covered in STAT 545A, with light updating:
   * ~~Care and feeding of data in R; data frames~~ *done*
   * ~~R objects -- beyond data frames~~ *done*
   * ~~Indexing, subsetting~~ *done*
-  * Data aggregation; "apply" functions, [`plyr`](http://plyr.had.co.nz), ~~[`dplyr`](https://github.com/hadley/dplyr)~~
+  * Data aggregation; "apply" functions, ~~[`plyr`](http://plyr.had.co.nz)~~, ~~[`dplyr`](https://github.com/hadley/dplyr)~~
   * ~~Making figures with `ggplot2` (was `lattice` in past)~~ *done*
   * How to help yourself, how to ask questions to get useful answers
   * How to get data in and out of R, staying as "open" as possible
@@ -79,7 +79,7 @@ Topics traditionally covered in STAT 545A, with light updating:
   * Two quantitative variables: visualizations and descriptive statistics
   * Categorical variables: visualizations and descriptive statistics
   * Multivariate visualizations
-  * Visualizing and summarizing data when "grouped"
+  * Visualizing and ~~summarizing data when "grouped"~~
   * Coding style and project organization
   
 New topics for STAT 545A and/or STAT 547M will be selected from here:

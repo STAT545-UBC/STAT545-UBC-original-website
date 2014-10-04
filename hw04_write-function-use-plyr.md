@@ -6,6 +6,8 @@ output:
     toc_depth: 4
 ---
 
+__THE RUMORS ARE TRUE. Extension has been granted. Due, at the latest, before class Wednesday October 8.__
+
 ### Overview
 
 Consult the [general homework guidelines](hw00_homework-guidelines.html).
