@@ -2,7 +2,7 @@
 
 
 
-*UNDER CONSTRUCTION*
+*UNDER CONSTRUCTION. [link to some 2013 content](http://stat545-ubc.github.io/block014_factors.html)*
 
 ### Load the Gapminder data
 
@@ -147,10 +147,9 @@ The levels are in alphabetical order. Why? Because. Just because. Do you have a 
 
 
 ```r
-p <- ggplot(j_coefs, aes(x = slope, y = country))
-p + geom_point(size = 3)
-q <- ggplot(j_coefs, aes(x = slope, y = reorder(country, slope)))
-q + geom_point(size = 3)
+ggplot(j_coefs, aes(x = slope, y = country)) + geom_point(size = 3)
+ggplot(j_coefs, aes(x = slope, y = reorder(country, slope))) +
+  geom_point(size = 3)
 ```
 
 <img src="./block014_factors_files/figure-html/alpha-order-silly1.png" title="" alt="" width="49%" /><img src="./block014_factors_files/figure-html/alpha-order-silly2.png" title="" alt="" width="49%" />

@@ -10,7 +10,7 @@ output:
 knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
 ```
 
-*UNDER CONSTRUCTION*
+*UNDER CONSTRUCTION. [link to some 2013 content](http://stat545-ubc.github.io/block014_factors.html)*
 
 ### Load the Gapminder data
 
@@ -51,10 +51,9 @@ The levels are in alphabetical order. Why? Because. Just because. Do you have a 
 ### Why the order of factor levels matters
 
 ```{r alpha-order-silly, fig.show = 'hold', fig.height=16, out.width = '49%'}
-p <- ggplot(j_coefs, aes(x = slope, y = country))
-p + geom_point(size = 3)
-q <- ggplot(j_coefs, aes(x = slope, y = reorder(country, slope)))
-q + geom_point(size = 3)
+ggplot(j_coefs, aes(x = slope, y = country)) + geom_point(size = 3)
+ggplot(j_coefs, aes(x = slope, y = reorder(country, slope))) +
+  geom_point(size = 3)
 ```
 
 Which figure do you find easier to navigate? Which is more interesting? The unsorted, i.e. alphabetical, is an example of visual [data puke](http://junkcharts.typepad.com/numbersruleyourworld/2014/09/dont-data-puke-says-avinash-kaushik.html), because there is no effort to help the viewer learn anything from the plot, even though it is really easy to do so. At the very least, always consider sorting your factor levels in some principled way.

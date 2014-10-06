@@ -85,7 +85,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 </div>
 
-<p><em>UNDER CONSTRUCTION</em></p>
+<p><em>UNDER CONSTRUCTION. <a href="http://stat545-ubc.github.io/block014_factors.html">link to some 2013 content</a></em></p>
 <div id="load-the-gapminder-data" class="section level3">
 <h3>Load the Gapminder data</h3>
 <p>As usual, load the Gapminder excerpt. Load the <code>plyr</code>, <code>dplyr</code> (<strong>in that order</strong>), and <code>ggplot2</code> packages.</p>
@@ -215,10 +215,9 @@ head(j_coefs$country)
 </div>
 <div id="why-the-order-of-factor-levels-matters" class="section level3">
 <h3>Why the order of factor levels matters</h3>
-<pre class="r"><code>p &lt;- ggplot(j_coefs, aes(x = slope, y = country))
-p + geom_point(size = 3)
-q &lt;- ggplot(j_coefs, aes(x = slope, y = reorder(country, slope)))
-q + geom_point(size = 3)</code></pre>
+<pre class="r"><code>ggplot(j_coefs, aes(x = slope, y = country)) + geom_point(size = 3)
+ggplot(j_coefs, aes(x = slope, y = reorder(country, slope))) +
+  geom_point(size = 3)</code></pre>
 <p><img src="block014_factors_files/figure-html/alpha-order-silly1.png" title="" alt="" width="49%" /><img src="block014_factors_files/figure-html/alpha-order-silly2.png" title="" alt="" width="49%" /></p>
 <p>Which figure do you find easier to navigate? Which is more interesting? The unsorted, i.e. alphabetical, is an example of visual <a href="http://junkcharts.typepad.com/numbersruleyourworld/2014/09/dont-data-puke-says-avinash-kaushik.html">data puke</a>, because there is no effort to help the viewer learn anything from the plot, even though it is really easy to do so. At the very least, always consider sorting your factor levels in some principled way.</p>
 <p>The same point generally applies to tables as well.</p>
