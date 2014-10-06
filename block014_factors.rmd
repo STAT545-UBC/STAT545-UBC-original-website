@@ -1,0 +1,247 @@
+---
+title: "Be the boss of your factors"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
+```
+
+*UNDER CONSTRUCTION*
+
+### Load the Gapminder data
+
+As usual, load the Gapminder excerpt. Load the `plyr`, `dplyr` (__in that order__), and `ggplot2` packages.
+
+```{r}
+library(plyr)
+library(dplyr)
+library(ggplot2)
+gDat <- read.delim("gapminderDataFiveYear.txt")
+str(gDat)
+## or do this if the file isn't lying around already
+## gd_url <- "http://tiny.cc/gapminder"
+## gDat <- read.delim(gd_url)
+```
+
+### Model life expectancy as a function of year
+
+For each country, retain estimated intercept and slope from a linear fit -- regressing life expectancy on year. I include `country` AND `continent` in the factors on which to split, so that the `continent` factor appears in my result.
+
+```{r}
+j_coefs <- ddply(gDat, ~ country + continent, function(dat, offset = 1952) {
+  the_fit <- lm(lifeExp ~ I(year - offset), dat)
+  setNames(coef(the_fit), c("intercept", "slope"))
+})
+```
+
+### Get to know the country factor
+
+```{r}
+str(j_coefs)
+levels(j_coefs$country)
+head(j_coefs$country)
+```
+
+The levels are in alphabetical order. Why? Because. Just because. Do you have a better idea? THEN STEP UP AND DO SOMETHING ABOUT IT.
+
+### Why the order of factor levels matters
+
+```{r alpha-order-silly, fig.show = 'hold', fig.height=16, out.width = '49%'}
+p <- ggplot(j_coefs, aes(x = slope, y = country))
+p + geom_point(size = 3)
+q <- ggplot(j_coefs, aes(x = slope, y = reorder(country, slope)))
+q + geom_point(size = 3)
+```
+
+Which figure do you find easier to navigate? Which is more interesting? The unsorted, i.e. alphabetical, is an example of visual [data puke](http://junkcharts.typepad.com/numbersruleyourworld/2014/09/dont-data-puke-says-avinash-kaushik.html), because there is no effort to help the viewer learn anything from the plot, even though it is really easy to do so. At the very least, always consider sorting your factor levels in some principled way.
+
+The same point generally applies to tables as well.
+
+Exercise (will probably make its way into homework): Consider `post_arrange`, `post_reorder`, and `post_both` as defined below. State how the objects differ and discuss the differences in terms of utility within an exploratory analysis. If I swapped out `arrange(country)` for `arrange(slope)`, would we get the same result? Do you have any preference for one arrange statement over the other?
+
+```{r eval = FALSE}
+post_arrange <- j_coefs %>% arrange(slope)
+post_reorder <- j_coefs %>%
+  mutate(country = reorder(country, slope))
+post_both <- j_coefs %>%
+  mutate(country = reorder(country, slope)) %>%
+  arrange(country)
+```
+
+### `droplevels()` to drop unused factor levels
+
+Many demos will be clearer if we create a smaller dataset with just a few countries.
+
+```{r include = FALSE, eval = FALSE}
+## used interactively to find a set of 5 countries to make my point
+hDat <- gDat %>%
+  group_by(country) %>%
+  summarize(max_le = max(lifeExp)) %>%
+  mutate(max_le_rk = min_rank(max_le))
+x <- sample(nrow(hDat), 5)
+ggplot(hDat[x, ], aes(x = country, y = max_le_rk, group = 1)) + geom_line()
+hDat$country[x]
+# Egypt     Venezuela Romania   Thailand  Haiti
+```
+
+Let's look at these five countries: Egypt, Haiti, Romania, Thailand, Venezuela. 
+
+```{r}
+h_countries <- c("Egypt", "Haiti", "Romania", "Thailand", "Venezuela")
+hDat <- gDat %>%
+  filter(country %in% h_countries)
+hDat %>% str
+```
+
+Look at the `country` factor. Look at it hard.
+
+```{r}
+#table(hDat$country)
+#levels(hDat$country)
+nlevels(hDat$country)
+```
+
+Even though `hDat` contains data for only 5 countries, the other 137 countries remain as possible levels of the `country` factor. Sometimes this is exactly what you want but sometimes it's not.
+
+When you want to drop unused factor levels, use `droplevels()`.
+
+```{r}
+iDat  <- hDat %>% droplevels ## of droplevels(hDat)
+iDat %>% str
+table(iDat$country)
+levels(iDat$country)
+nlevels(iDat$country)
+```
+
+### `reorder()` to reorder factor levels
+
+Now that we have a more manageable set of 5 countries, let's compute their max life expectancies, view them, and view life expectancy vs. year.
+
+```{r}
+i_le_max <- iDat %>%
+  group_by(country) %>%
+  summarize(max_le = max(lifeExp))
+i_le_max
+```
+
+```{r factor-order-example-before, fig.show = 'hold', out.width = '49%'}
+ggplot(i_le_max, aes(x = country, y = max_le, group = 1)) +
+  geom_path() + geom_point(size = 3)
+ggplot(iDat, aes(x = year, y = lifeExp, group = country)) +
+  geom_line(aes(color = country))
+```
+
+Here's a plot of the max life expectancies and a spaghetti plot of life expectancy over time. Notice how the first plot jumps around? Notice how the legend of the second plot is completely out of order with the data?
+
+Use the function `reorder()` to change the order of factor levels. Read [its documentation](http://www.rdocumentation.org/packages/stats/functions/reorder.factor).
+
+```{r eval = FALSE}
+reorder(your_factor, your_quant_var, your_summarization_function)
+```
+
+Let's reorder the country factor __logically__, in this case by maximum life expectancy. Even though `i_le_max` already holds these numbers, I'm going to enact the reordering with the "raw" data to illustrate more about the `reorder()` function.
+
+```{r}
+jDat <- iDat %>%
+  mutate(country = reorder(country, lifeExp, max))
+data.frame(before = levels(iDat$country), after = levels(jDat$country))
+j_le_max <- i_le_max %>%
+  mutate(country = reorder(country, max_le))
+j_le_max <- i_le_max %>%
+  mutate(country = factor(country, levels = levels(jDat$country)))
+```
+
+Let's revisit the two figures to see how much more natural they are.
+
+```{r factor-order-example-after, fig.show = 'hold', out.width = '49%'}
+ggplot(j_le_max, aes(x = country, y = max_le, group = 1)) +
+  geom_line() + geom_point(size = 3)
+ggplot(jDat, aes(x = year, y = lifeExp)) +
+  geom_line(aes(color = country)) +
+  guides(color = guide_legend(reverse = TRUE))
+```
+
+Conclusion: Use `reorder()` to reorder a factor according to a quantitative variable. A simple call like this:
+
+```{r eval = FALSE}
+reorder(your_factor, your_quant_var)
+```
+
+implies that the summarization function will default to `mean()`. If that's not what you want, specify your own summarization function. It could be built-in, such as `max()`, or could be written by you on-the-fly or in advance.
+
+You can do this and alter your actual data (or a new copy thereof). Or you can do this reordering on-the-fly, i.e. in an actual plotting or tabulation call, leaving the underlying data untouched.
+
+### `reorder()` exercise
+
+Reorder the `continent` factor, according to the estimated intercepts.
+
+To review, here's where to pick up the story:
+
+```{r}
+j_coefs <- ddply(gDat, ~ country + continent, function(dat, offset = 1952) {
+  the_fit <- lm(lifeExp ~ I(year - offset), dat)
+  setNames(coef(the_fit), c("intercept", "slope"))
+})
+head(j_coefs)
+```
+
+The figure on the left gives a stripplot of estimate intecepts, by continent, with continent in alpabetical order. The line connects continent-specific averages of the intercepts (approx. equal to life expectancy in 1952). The figure on the right gives same plot after the continents have been reordered by average estimated intercept.
+
+```{r continent-reorder-exercise, fig.show = 'hold', out.width = '49%', echo = FALSE}
+p <- ggplot(j_coefs, aes(x = continent, y = intercept, group = 1))
+p + geom_jitter(size = 3, position = position_jitter(width = .1)) +
+  stat_summary(fun.y = mean, geom = "path")
+q <- ggplot(j_coefs, aes(x = reorder(continent, intercept),
+                         y = intercept, group = 1))
+q + geom_jitter(size = 3, position = position_jitter(width = .1)) +
+  stat_summary(fun.y = mean, geom = "path")
+```
+
+Write the `reorder()` statement to do this.
+
+### Revaluing factor levels
+
+What if you want to recode factor levels? I usually use the `revalue()` function from `plyr`. In the past I have also used the `recode()` function from the `car` package.
+
+```{r}
+k_countries <- c("Australia", "Korea, Dem. Rep.", "Korea, Rep.")
+kDat <- gDat %>%
+  filter(country %in% k_countries & year > 2000) %>%
+  droplevels
+kDat
+levels(kDat$country)
+kDat <- kDat %>%
+  mutate(new_country = revalue(country,
+                               c("Australia" = "Oz",
+                                 "Korea, Dem. Rep." = "North Korea",
+                                 "Korea, Rep." = "South Korea")))
+data.frame(levels(kDat$country), levels(kDat$new_country))
+kDat
+```
+
+### Grow a factor object
+
+Try to avoid this. If you must `rbind()`ing data.frames works much better than `c()`ing vectors.
+
+```{r}
+usa <- gDat %>%
+  filter(country == "United States" & year > 2000) %>%
+  droplevels
+mex <- gDat %>%
+  filter(country == "Mexico" & year > 2000) %>%
+  droplevels
+str(usa)
+str(mex)
+usa_mex <- rbind(usa, mex)
+str(usa_mex)
+
+(oops <- c(usa$country, mex$country))
+(yeah <- factor(c(levels(usa$country)[usa$country],
+                  levels(mex$country)[mex$country])))
+```
+
+If you really want to catenate factors with different levels, you must first convert to their levels as character data, combine, then re-convert to factor.

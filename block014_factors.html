@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Be the boss of your factors</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Be the boss of your factors</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#load-the-gapminder-data">Load the Gapminder data</a></li>
+<li><a href="#model-life-expectancy-as-a-function-of-year">Model life expectancy as a function of year</a></li>
+<li><a href="#get-to-know-the-country-factor">Get to know the country factor</a></li>
+<li><a href="#why-the-order-of-factor-levels-matters">Why the order of factor levels matters</a></li>
+<li><a href="#droplevels-to-drop-unused-factor-levels"><code>droplevels()</code> to drop unused factor levels</a></li>
+<li><a href="#reorder-to-reorder-factor-levels"><code>reorder()</code> to reorder factor levels</a></li>
+<li><a href="#reorder-exercise"><code>reorder()</code> exercise</a></li>
+<li><a href="#revaluing-factor-levels">Revaluing factor levels</a></li>
+<li><a href="#grow-a-factor-object">Grow a factor object</a></li>
+</ul>
+</div>
+
+<p><em>UNDER CONSTRUCTION</em></p>
+<div id="load-the-gapminder-data" class="section level3">
+<h3>Load the Gapminder data</h3>
+<p>As usual, load the Gapminder excerpt. Load the <code>plyr</code>, <code>dplyr</code> (<strong>in that order</strong>), and <code>ggplot2</code> packages.</p>
+<pre class="r"><code>library(plyr)
+library(dplyr)
+## 
+## Attaching package: &#39;dplyr&#39;
+## 
+## The following objects are masked from &#39;package:plyr&#39;:
+## 
+##     arrange, count, desc, failwith, id, mutate, rename, summarise,
+##     summarize
+## 
+## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter
+## 
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union
+library(ggplot2)
+gDat &lt;- read.delim(&quot;gapminderDataFiveYear.txt&quot;)
+str(gDat)
+## &#39;data.frame&#39;:    1704 obs. of  6 variables:
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...
+## or do this if the file isn&#39;t lying around already
+## gd_url &lt;- &quot;http://tiny.cc/gapminder&quot;
+## gDat &lt;- read.delim(gd_url)</code></pre>
+</div>
+<div id="model-life-expectancy-as-a-function-of-year" class="section level3">
+<h3>Model life expectancy as a function of year</h3>
+<p>For each country, retain estimated intercept and slope from a linear fit – regressing life expectancy on year. I include <code>country</code> AND <code>continent</code> in the factors on which to split, so that the <code>continent</code> factor appears in my result.</p>
+<pre class="r"><code>j_coefs &lt;- ddply(gDat, ~ country + continent, function(dat, offset = 1952) {
+  the_fit &lt;- lm(lifeExp ~ I(year - offset), dat)
+  setNames(coef(the_fit), c(&quot;intercept&quot;, &quot;slope&quot;))
+})</code></pre>
+</div>
+<div id="get-to-know-the-country-factor" class="section level3">
+<h3>Get to know the country factor</h3>
+<pre class="r"><code>str(j_coefs)
+## &#39;data.frame&#39;:    142 obs. of  4 variables:
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 4 1 1 2 5 4 3 3 4 ...
+##  $ intercept: num  29.9 59.2 43.4 32.1 62.7 ...
+##  $ slope    : num  0.275 0.335 0.569 0.209 0.232 ...
+levels(j_coefs$country)
+##   [1] &quot;Afghanistan&quot;              &quot;Albania&quot;                 
+##   [3] &quot;Algeria&quot;                  &quot;Angola&quot;                  
+##   [5] &quot;Argentina&quot;                &quot;Australia&quot;               
+##   [7] &quot;Austria&quot;                  &quot;Bahrain&quot;                 
+##   [9] &quot;Bangladesh&quot;               &quot;Belgium&quot;                 
+##  [11] &quot;Benin&quot;                    &quot;Bolivia&quot;                 
+##  [13] &quot;Bosnia and Herzegovina&quot;   &quot;Botswana&quot;                
+##  [15] &quot;Brazil&quot;                   &quot;Bulgaria&quot;                
+##  [17] &quot;Burkina Faso&quot;             &quot;Burundi&quot;                 
+##  [19] &quot;Cambodia&quot;                 &quot;Cameroon&quot;                
+##  [21] &quot;Canada&quot;                   &quot;Central African Republic&quot;
+##  [23] &quot;Chad&quot;                     &quot;Chile&quot;                   
+##  [25] &quot;China&quot;                    &quot;Colombia&quot;                
+##  [27] &quot;Comoros&quot;                  &quot;Congo, Dem. Rep.&quot;        
+##  [29] &quot;Congo, Rep.&quot;              &quot;Costa Rica&quot;              
+##  [31] &quot;Cote d&#39;Ivoire&quot;            &quot;Croatia&quot;                 
+##  [33] &quot;Cuba&quot;                     &quot;Czech Republic&quot;          
+##  [35] &quot;Denmark&quot;                  &quot;Djibouti&quot;                
+##  [37] &quot;Dominican Republic&quot;       &quot;Ecuador&quot;                 
+##  [39] &quot;Egypt&quot;                    &quot;El Salvador&quot;             
+##  [41] &quot;Equatorial Guinea&quot;        &quot;Eritrea&quot;                 
+##  [43] &quot;Ethiopia&quot;                 &quot;Finland&quot;                 
+##  [45] &quot;France&quot;                   &quot;Gabon&quot;                   
+##  [47] &quot;Gambia&quot;                   &quot;Germany&quot;                 
+##  [49] &quot;Ghana&quot;                    &quot;Greece&quot;                  
+##  [51] &quot;Guatemala&quot;                &quot;Guinea&quot;                  
+##  [53] &quot;Guinea-Bissau&quot;            &quot;Haiti&quot;                   
+##  [55] &quot;Honduras&quot;                 &quot;Hong Kong, China&quot;        
+##  [57] &quot;Hungary&quot;                  &quot;Iceland&quot;                 
+##  [59] &quot;India&quot;                    &quot;Indonesia&quot;               
+##  [61] &quot;Iran&quot;                     &quot;Iraq&quot;                    
+##  [63] &quot;Ireland&quot;                  &quot;Israel&quot;                  
+##  [65] &quot;Italy&quot;                    &quot;Jamaica&quot;                 
+##  [67] &quot;Japan&quot;                    &quot;Jordan&quot;                  
+##  [69] &quot;Kenya&quot;                    &quot;Korea, Dem. Rep.&quot;        
+##  [71] &quot;Korea, Rep.&quot;              &quot;Kuwait&quot;                  
+##  [73] &quot;Lebanon&quot;                  &quot;Lesotho&quot;                 
+##  [75] &quot;Liberia&quot;                  &quot;Libya&quot;                   
+##  [77] &quot;Madagascar&quot;               &quot;Malawi&quot;                  
+##  [79] &quot;Malaysia&quot;                 &quot;Mali&quot;                    
+##  [81] &quot;Mauritania&quot;               &quot;Mauritius&quot;               
+##  [83] &quot;Mexico&quot;                   &quot;Mongolia&quot;                
+##  [85] &quot;Montenegro&quot;               &quot;Morocco&quot;                 
+##  [87] &quot;Mozambique&quot;               &quot;Myanmar&quot;                 
+##  [89] &quot;Namibia&quot;                  &quot;Nepal&quot;                   
+##  [91] &quot;Netherlands&quot;              &quot;New Zealand&quot;             
+##  [93] &quot;Nicaragua&quot;                &quot;Niger&quot;                   
+##  [95] &quot;Nigeria&quot;                  &quot;Norway&quot;                  
+##  [97] &quot;Oman&quot;                     &quot;Pakistan&quot;                
+##  [99] &quot;Panama&quot;                   &quot;Paraguay&quot;                
+## [101] &quot;Peru&quot;                     &quot;Philippines&quot;             
+## [103] &quot;Poland&quot;                   &quot;Portugal&quot;                
+## [105] &quot;Puerto Rico&quot;              &quot;Reunion&quot;                 
+## [107] &quot;Romania&quot;                  &quot;Rwanda&quot;                  
+## [109] &quot;Sao Tome and Principe&quot;    &quot;Saudi Arabia&quot;            
+## [111] &quot;Senegal&quot;                  &quot;Serbia&quot;                  
+## [113] &quot;Sierra Leone&quot;             &quot;Singapore&quot;               
+## [115] &quot;Slovak Republic&quot;          &quot;Slovenia&quot;                
+## [117] &quot;Somalia&quot;                  &quot;South Africa&quot;            
+## [119] &quot;Spain&quot;                    &quot;Sri Lanka&quot;               
+## [121] &quot;Sudan&quot;                    &quot;Swaziland&quot;               
+## [123] &quot;Sweden&quot;                   &quot;Switzerland&quot;             
+## [125] &quot;Syria&quot;                    &quot;Taiwan&quot;                  
+## [127] &quot;Tanzania&quot;                 &quot;Thailand&quot;                
+## [129] &quot;Togo&quot;                     &quot;Trinidad and Tobago&quot;     
+## [131] &quot;Tunisia&quot;                  &quot;Turkey&quot;                  
+## [133] &quot;Uganda&quot;                   &quot;United Kingdom&quot;          
+## [135] &quot;United States&quot;            &quot;Uruguay&quot;                 
+## [137] &quot;Venezuela&quot;                &quot;Vietnam&quot;                 
+## [139] &quot;West Bank and Gaza&quot;       &quot;Yemen, Rep.&quot;             
+## [141] &quot;Zambia&quot;                   &quot;Zimbabwe&quot;
+head(j_coefs$country)
+## [1] Afghanistan Albania     Algeria     Angola      Argentina   Australia  
+## 142 Levels: Afghanistan Albania Algeria Angola Argentina ... Zimbabwe</code></pre>
+<p>The levels are in alphabetical order. Why? Because. Just because. Do you have a better idea? THEN STEP UP AND DO SOMETHING ABOUT IT.</p>
+</div>
+<div id="why-the-order-of-factor-levels-matters" class="section level3">
+<h3>Why the order of factor levels matters</h3>
+<pre class="r"><code>p &lt;- ggplot(j_coefs, aes(x = slope, y = country))
+p + geom_point(size = 3)
+q &lt;- ggplot(j_coefs, aes(x = slope, y = reorder(country, slope)))
+q + geom_point(size = 3)</code></pre>
+<p><img src="block014_factors_files/figure-html/alpha-order-silly1.png" title="" alt="" width="49%" /><img src="block014_factors_files/figure-html/alpha-order-silly2.png" title="" alt="" width="49%" /></p>
+<p>Which figure do you find easier to navigate? Which is more interesting? The unsorted, i.e. alphabetical, is an example of visual <a href="http://junkcharts.typepad.com/numbersruleyourworld/2014/09/dont-data-puke-says-avinash-kaushik.html">data puke</a>, because there is no effort to help the viewer learn anything from the plot, even though it is really easy to do so. At the very least, always consider sorting your factor levels in some principled way.</p>
+<p>The same point generally applies to tables as well.</p>
+<p>Exercise (will probably make its way into homework): Consider <code>post_arrange</code>, <code>post_reorder</code>, and <code>post_both</code> as defined below. State how the objects differ and discuss the differences in terms of utility within an exploratory analysis. If I swapped out <code>arrange(country)</code> for <code>arrange(slope)</code>, would we get the same result? Do you have any preference for one arrange statement over the other?</p>
+<pre class="r"><code>post_arrange &lt;- j_coefs %&gt;% arrange(slope)
+post_reorder &lt;- j_coefs %&gt;%
+  mutate(country = reorder(country, slope))
+post_both &lt;- j_coefs %&gt;%
+  mutate(country = reorder(country, slope)) %&gt;%
+  arrange(country)</code></pre>
+</div>
+<div id="droplevels-to-drop-unused-factor-levels" class="section level3">
+<h3><code>droplevels()</code> to drop unused factor levels</h3>
+<p>Many demos will be clearer if we create a smaller dataset with just a few countries.</p>
+<p>Let’s look at these five countries: Egypt, Haiti, Romania, Thailand, Venezuela.</p>
+<pre class="r"><code>h_countries &lt;- c(&quot;Egypt&quot;, &quot;Haiti&quot;, &quot;Romania&quot;, &quot;Thailand&quot;, &quot;Venezuela&quot;)
+hDat &lt;- gDat %&gt;%
+  filter(country %in% h_countries)
+hDat %&gt;% str
+## &#39;data.frame&#39;:    60 obs. of  6 variables:
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 39 39 39 39 39 39 39 39 39 39 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ pop      : num  22223309 25009741 28173309 31681188 34807417 ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ lifeExp  : num  41.9 44.4 47 49.3 51.1 ...
+##  $ gdpPercap: num  1419 1459 1693 1815 2024 ...</code></pre>
+<p>Look at the <code>country</code> factor. Look at it hard.</p>
+<pre class="r"><code>#table(hDat$country)
+#levels(hDat$country)
+nlevels(hDat$country)
+## [1] 142</code></pre>
+<p>Even though <code>hDat</code> contains data for only 5 countries, the other 137 countries remain as possible levels of the <code>country</code> factor. Sometimes this is exactly what you want but sometimes it’s not.</p>
+<p>When you want to drop unused factor levels, use <code>droplevels()</code>.</p>
+<pre class="r"><code>iDat  &lt;- hDat %&gt;% droplevels ## of droplevels(hDat)
+iDat %&gt;% str
+## &#39;data.frame&#39;:    60 obs. of  6 variables:
+##  $ country  : Factor w/ 5 levels &quot;Egypt&quot;,&quot;Haiti&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ pop      : num  22223309 25009741 28173309 31681188 34807417 ...
+##  $ continent: Factor w/ 4 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ lifeExp  : num  41.9 44.4 47 49.3 51.1 ...
+##  $ gdpPercap: num  1419 1459 1693 1815 2024 ...
+table(iDat$country)
+## 
+##     Egypt     Haiti   Romania  Thailand Venezuela 
+##        12        12        12        12        12
+levels(iDat$country)
+## [1] &quot;Egypt&quot;     &quot;Haiti&quot;     &quot;Romania&quot;   &quot;Thailand&quot;  &quot;Venezuela&quot;
+nlevels(iDat$country)
+## [1] 5</code></pre>
+</div>
+<div id="reorder-to-reorder-factor-levels" class="section level3">
+<h3><code>reorder()</code> to reorder factor levels</h3>
+<p>Now that we have a more manageable set of 5 countries, let’s compute their max life expectancies, view them, and view life expectancy vs. year.</p>
+<pre class="r"><code>i_le_max &lt;- iDat %&gt;%
+  group_by(country) %&gt;%
+  summarize(max_le = max(lifeExp))
+i_le_max
+## Source: local data frame [5 x 2]
+## 
+##     country max_le
+## 1     Egypt 71.338
+## 2     Haiti 60.916
+## 3   Romania 72.476
+## 4  Thailand 70.616
+## 5 Venezuela 73.747</code></pre>
+<pre class="r"><code>ggplot(i_le_max, aes(x = country, y = max_le, group = 1)) +
+  geom_path() + geom_point(size = 3)
+ggplot(iDat, aes(x = year, y = lifeExp, group = country)) +
+  geom_line(aes(color = country))</code></pre>
+<p><img src="block014_factors_files/figure-html/factor-order-example-before1.png" title="" alt="" width="49%" /><img src="block014_factors_files/figure-html/factor-order-example-before2.png" title="" alt="" width="49%" /></p>
+<p>Here’s a plot of the max life expectancies and a spaghetti plot of life expectancy over time. Notice how the first plot jumps around? Notice how the legend of the second plot is completely out of order with the data?</p>
+<p>Use the function <code>reorder()</code> to change the order of factor levels. Read <a href="http://www.rdocumentation.org/packages/stats/functions/reorder.factor">its documentation</a>.</p>
+<pre class="r"><code>reorder(your_factor, your_quant_var, your_summarization_function)</code></pre>
+<p>Let’s reorder the country factor <strong>logically</strong>, in this case by maximum life expectancy. Even though <code>i_le_max</code> already holds these numbers, I’m going to enact the reordering with the “raw” data to illustrate more about the <code>reorder()</code> function.</p>
+<pre class="r"><code>jDat &lt;- iDat %&gt;%
+  mutate(country = reorder(country, lifeExp, max))
+data.frame(before = levels(iDat$country), after = levels(jDat$country))
+##      before     after
+## 1     Egypt     Haiti
+## 2     Haiti  Thailand
+## 3   Romania     Egypt
+## 4  Thailand   Romania
+## 5 Venezuela Venezuela
+j_le_max &lt;- i_le_max %&gt;%
+  mutate(country = reorder(country, max_le))
+j_le_max &lt;- i_le_max %&gt;%
+  mutate(country = factor(country, levels = levels(jDat$country)))</code></pre>
+<p>Let’s revisit the two figures to see how much more natural they are.</p>
+<pre class="r"><code>ggplot(j_le_max, aes(x = country, y = max_le, group = 1)) +
+  geom_line() + geom_point(size = 3)
+ggplot(jDat, aes(x = year, y = lifeExp)) +
+  geom_line(aes(color = country)) +
+  guides(color = guide_legend(reverse = TRUE))</code></pre>
+<p><img src="block014_factors_files/figure-html/factor-order-example-after1.png" title="" alt="" width="49%" /><img src="block014_factors_files/figure-html/factor-order-example-after2.png" title="" alt="" width="49%" /></p>
+<p>Conclusion: Use <code>reorder()</code> to reorder a factor according to a quantitative variable. A simple call like this:</p>
+<pre class="r"><code>reorder(your_factor, your_quant_var)</code></pre>
+<p>implies that the summarization function will default to <code>mean()</code>. If that’s not what you want, specify your own summarization function. It could be built-in, such as <code>max()</code>, or could be written by you on-the-fly or in advance.</p>
+<p>You can do this and alter your actual data (or a new copy thereof). Or you can do this reordering on-the-fly, i.e. in an actual plotting or tabulation call, leaving the underlying data untouched.</p>
+</div>
+<div id="reorder-exercise" class="section level3">
+<h3><code>reorder()</code> exercise</h3>
+<p>Reorder the <code>continent</code> factor, according to the estimated intercepts.</p>
+<p>To review, here’s where to pick up the story:</p>
+<pre class="r"><code>j_coefs &lt;- ddply(gDat, ~ country + continent, function(dat, offset = 1952) {
+  the_fit &lt;- lm(lifeExp ~ I(year - offset), dat)
+  setNames(coef(the_fit), c(&quot;intercept&quot;, &quot;slope&quot;))
+})
+head(j_coefs)
+##       country continent intercept     slope
+## 1 Afghanistan      Asia  29.90729 0.2753287
+## 2     Albania    Europe  59.22913 0.3346832
+## 3     Algeria    Africa  43.37497 0.5692797
+## 4      Angola    Africa  32.12665 0.2093399
+## 5   Argentina  Americas  62.68844 0.2317084
+## 6   Australia   Oceania  68.40051 0.2277238</code></pre>
+<p>The figure on the left gives a stripplot of estimate intecepts, by continent, with continent in alpabetical order. The line connects continent-specific averages of the intercepts (approx. equal to life expectancy in 1952). The figure on the right gives same plot after the continents have been reordered by average estimated intercept.</p>
+<p><img src="block014_factors_files/figure-html/continent-reorder-exercise1.png" title="" alt="" width="49%" /><img src="block014_factors_files/figure-html/continent-reorder-exercise2.png" title="" alt="" width="49%" /></p>
+<p>Write the <code>reorder()</code> statement to do this.</p>
+</div>
+<div id="revaluing-factor-levels" class="section level3">
+<h3>Revaluing factor levels</h3>
+<p>What if you want to recode factor levels? I usually use the <code>revalue()</code> function from <code>plyr</code>. In the past I have also used the <code>recode()</code> function from the <code>car</code> package.</p>
+<pre class="r"><code>k_countries &lt;- c(&quot;Australia&quot;, &quot;Korea, Dem. Rep.&quot;, &quot;Korea, Rep.&quot;)
+kDat &lt;- gDat %&gt;%
+  filter(country %in% k_countries &amp; year &gt; 2000) %&gt;%
+  droplevels
+kDat
+##            country year      pop continent lifeExp gdpPercap
+## 1        Australia 2002 19546792   Oceania  80.370 30687.755
+## 2        Australia 2007 20434176   Oceania  81.235 34435.367
+## 3 Korea, Dem. Rep. 2002 22215365      Asia  66.662  1646.758
+## 4 Korea, Dem. Rep. 2007 23301725      Asia  67.297  1593.065
+## 5      Korea, Rep. 2002 47969150      Asia  77.045 19233.988
+## 6      Korea, Rep. 2007 49044790      Asia  78.623 23348.140
+levels(kDat$country)
+## [1] &quot;Australia&quot;        &quot;Korea, Dem. Rep.&quot; &quot;Korea, Rep.&quot;
+kDat &lt;- kDat %&gt;%
+  mutate(new_country = revalue(country,
+                               c(&quot;Australia&quot; = &quot;Oz&quot;,
+                                 &quot;Korea, Dem. Rep.&quot; = &quot;North Korea&quot;,
+                                 &quot;Korea, Rep.&quot; = &quot;South Korea&quot;)))
+data.frame(levels(kDat$country), levels(kDat$new_country))
+##   levels.kDat.country. levels.kDat.new_country.
+## 1            Australia                       Oz
+## 2     Korea, Dem. Rep.              North Korea
+## 3          Korea, Rep.              South Korea
+kDat
+##            country year      pop continent lifeExp gdpPercap new_country
+## 1        Australia 2002 19546792   Oceania  80.370 30687.755          Oz
+## 2        Australia 2007 20434176   Oceania  81.235 34435.367          Oz
+## 3 Korea, Dem. Rep. 2002 22215365      Asia  66.662  1646.758 North Korea
+## 4 Korea, Dem. Rep. 2007 23301725      Asia  67.297  1593.065 North Korea
+## 5      Korea, Rep. 2002 47969150      Asia  77.045 19233.988 South Korea
+## 6      Korea, Rep. 2007 49044790      Asia  78.623 23348.140 South Korea</code></pre>
+</div>
+<div id="grow-a-factor-object" class="section level3">
+<h3>Grow a factor object</h3>
+<p>Try to avoid this. If you must <code>rbind()</code>ing data.frames works much better than <code>c()</code>ing vectors.</p>
+<pre class="r"><code>usa &lt;- gDat %&gt;%
+  filter(country == &quot;United States&quot; &amp; year &gt; 2000) %&gt;%
+  droplevels
+mex &lt;- gDat %&gt;%
+  filter(country == &quot;Mexico&quot; &amp; year &gt; 2000) %&gt;%
+  droplevels
+str(usa)
+## &#39;data.frame&#39;:    2 obs. of  6 variables:
+##  $ country  : Factor w/ 1 level &quot;United States&quot;: 1 1
+##  $ year     : int  2002 2007
+##  $ pop      : num  2.88e+08 3.01e+08
+##  $ continent: Factor w/ 1 level &quot;Americas&quot;: 1 1
+##  $ lifeExp  : num  77.3 78.2
+##  $ gdpPercap: num  39097 42952
+str(mex)
+## &#39;data.frame&#39;:    2 obs. of  6 variables:
+##  $ country  : Factor w/ 1 level &quot;Mexico&quot;: 1 1
+##  $ year     : int  2002 2007
+##  $ pop      : num  1.02e+08 1.09e+08
+##  $ continent: Factor w/ 1 level &quot;Americas&quot;: 1 1
+##  $ lifeExp  : num  74.9 76.2
+##  $ gdpPercap: num  10742 11978
+usa_mex &lt;- rbind(usa, mex)
+str(usa_mex)
+## &#39;data.frame&#39;:    4 obs. of  6 variables:
+##  $ country  : Factor w/ 2 levels &quot;United States&quot;,..: 1 1 2 2
+##  $ year     : int  2002 2007 2002 2007
+##  $ pop      : num  2.88e+08 3.01e+08 1.02e+08 1.09e+08
+##  $ continent: Factor w/ 1 level &quot;Americas&quot;: 1 1 1 1
+##  $ lifeExp  : num  77.3 78.2 74.9 76.2
+##  $ gdpPercap: num  39097 42952 10742 11978
+
+(oops &lt;- c(usa$country, mex$country))
+## [1] 1 1 1 1
+(yeah &lt;- factor(c(levels(usa$country)[usa$country],
+                  levels(mex$country)[mex$country])))
+## [1] United States United States Mexico        Mexico       
+## Levels: Mexico United States</code></pre>
+<p>If you really want to catenate factors with different levels, you must first convert to their levels as character data, combine, then re-convert to factor.</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
