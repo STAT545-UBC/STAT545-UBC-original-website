@@ -2,7 +2,7 @@
 
 
 
-*UNDER CONSTRUCTION. [link to some 2013 content](http://stat545-ubc.github.io/block014_factors.html)*
+*WARNING: STILL UNDER CONSTRUCTION. Here's a [link to some 2013 content](http://stat545-ubc.github.io/block014_factors.html) which has been partially ported. So far, it has more big picture and this has more Gapminder examples. Sort of.*
 
 ### Load the Gapminder data
 
@@ -11,22 +11,7 @@ As usual, load the Gapminder excerpt. Load the `plyr`, `dplyr` (__in that order_
 
 ```r
 library(plyr)
-library(dplyr)
-## 
-## Attaching package: 'dplyr'
-## 
-## The following objects are masked from 'package:plyr':
-## 
-##     arrange, count, desc, failwith, id, mutate, rename, summarise,
-##     summarize
-## 
-## The following object is masked from 'package:stats':
-## 
-##     filter
-## 
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
+suppressPackageStartupMessages(library(dplyr))
 library(ggplot2)
 gDat <- read.delim("gapminderDataFiveYear.txt")
 str(gDat)

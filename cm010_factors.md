@@ -13,7 +13,7 @@ output:
     - [Use `plyr::ddplyr()`](block013_plyr-ddply.html) to apply this function to each country in Gapminder
   * Today
     - Data aggregation, lingering questions
-    - Be the boss of your factors
+    - [Be the boss of your factors](block014_factors.html) *still needs work but go ahead and enjoy!*
   * Wednesday (tentative) 2014-10-08
     - File I/O
     - ?Tidy data? regardless, this topic will appear in STAT 547

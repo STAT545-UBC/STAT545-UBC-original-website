@@ -85,27 +85,12 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 </div>
 
-<p><em>UNDER CONSTRUCTION. <a href="http://stat545-ubc.github.io/block014_factors.html">link to some 2013 content</a></em></p>
+<p><em>WARNING: STILL UNDER CONSTRUCTION. Here’s a <a href="http://stat545-ubc.github.io/block014_factors.html">link to some 2013 content</a> which has been partially ported. So far, it has more big picture and this has more Gapminder examples. Sort of.</em></p>
 <div id="load-the-gapminder-data" class="section level3">
 <h3>Load the Gapminder data</h3>
 <p>As usual, load the Gapminder excerpt. Load the <code>plyr</code>, <code>dplyr</code> (<strong>in that order</strong>), and <code>ggplot2</code> packages.</p>
 <pre class="r"><code>library(plyr)
-library(dplyr)
-## 
-## Attaching package: &#39;dplyr&#39;
-## 
-## The following objects are masked from &#39;package:plyr&#39;:
-## 
-##     arrange, count, desc, failwith, id, mutate, rename, summarise,
-##     summarize
-## 
-## The following object is masked from &#39;package:stats&#39;:
-## 
-##     filter
-## 
-## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union
+suppressPackageStartupMessages(library(dplyr))
 library(ggplot2)
 gDat &lt;- read.delim(&quot;gapminderDataFiveYear.txt&quot;)
 str(gDat)
