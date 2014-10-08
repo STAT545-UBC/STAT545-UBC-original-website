@@ -14,6 +14,7 @@ output:
   * Today
     - Data aggregation, lingering questions?
     - [Be the boss of your factors](block014_factors.html) *still needs work but go ahead and enjoy!*
+    - [Indicative code from our hands on activities](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm010_factors.r)
   * Wednesday (tentative) 2014-10-08
     - File I/O
     - ?Tidy data? regardless, this topic will appear in STAT 547
