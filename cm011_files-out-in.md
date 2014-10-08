@@ -7,10 +7,15 @@ output:
 ### cm011 2014-10-08 Wednesday overview
 
   * HW05 will be due Thursday 2014-10-16. Will cover reordering factors and data; verifying differences in tables/figs before vs after, and how such things interact with different methods of storing data to file.
+  * Expect an optional, non-marked homework around the STAT545 --> STAT547 transition
+    - clean up your `README.md`
+    - create a useful index into your homework / entire repo
+    - identify some non-Gapminder data that interests you and might interest others
   * I'm still thinking about Wednesday vs Thursday vs Friday as HW submission day for next half of term....
   * Today
     - HW02 observations
     - Writing (derived) data to file: when to do it which way
+    - [2013 lesson](http://www.stat.ubc.ca/~jenny/STAT545A/block05_getNumbersOut.html) *will be brought into 2014 repo; no major content change but will, e.g., switch over to `dplyr`*
   * Monday 2014-10-13
     - NO CLASS. THANKSGIVING HOLIDAY.
   * Wednesday 2014-10-15 
