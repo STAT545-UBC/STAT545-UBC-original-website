@@ -12,12 +12,10 @@ output:
     - [Guided challenge](block012_function-regress-lifeexp-on-year.html): write function to regress life expectancy on year and return the estimated intercept and slope
     - [Use `plyr::ddplyr()`](block013_plyr-ddply.html) to apply this function to each country in Gapminder
   * Today
-    - Data aggregation, lingering questions
+    - Data aggregation, lingering questions?
     - [Be the boss of your factors](block014_factors.html) *still needs work but go ahead and enjoy!*
   * Wednesday (tentative) 2014-10-08
     - File I/O
     - ?Tidy data? regardless, this topic will appear in STAT 547
   * Wednesday (tentative) 2014-10-15 
     - Back to figs: effective graphs, be the boss of colors
-    
-*stuff below here will be populated after class*

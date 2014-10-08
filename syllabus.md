@@ -29,7 +29,7 @@ sep-24 wed   <a href="cm007_dplyr-intro.html">cm007</a>: Intro to dplyr
 sep-29 mon   <a href="cm008_write-function-day1.html">cm008</a>: Writing your own R functions, beginning                                  
 oct-01 wed   <a href="cm009_write-function-data-agg.html">cm009</a>: Writing your own R functions, conclusion; data aggregation with plyr 
 oct-06 mon   <a href="cm010_factors.html">cm010</a>: Be the boss of your factors                                                          
-oct-08 wed                                                                                                                                
+oct-08 wed   <a href="cm011_files-out-in.html">cm011</a>: Getting data out of R (and back in)                                             
 oct-13 mon   no class; Thanksgiving                                                                                                       
 oct-15 wed                                                                                                                                
 
