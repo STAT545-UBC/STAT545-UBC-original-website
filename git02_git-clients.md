@@ -22,7 +22,7 @@ Fantastic news: because all of the clients are just forming and exectuing Git co
 
 * [SourceTree](http://www.sourcetreeapp.com) is a free, powerful Git(Hub) client that I highly recommend. It was my first Git client and is still my favorite for nontrivial Git tasks. Available for Mac and Windows.
 
-* GitHub also offers free Git(Hub) clients for [Windows](https://windows.github.com/) or [Mac](https://mac.github.com/). We [do not recommend the Windows client](git01_git-install.html#git-installation-windows) for use in the class. We [recommend the Mac client with reservations](git01_git-install.html#git-installation-mac). What do we object to? The degree of hand-holding offered by these two clients borders can remind you of hand-*cuffs*.
+* GitHub also offers free Git(Hub) clients for [Windows](https://windows.github.com/) or [Mac](https://mac.github.com/). We [do not recommend the Windows client](git01_git-install.html#git-installation-windows) for use in the class. We [recommend the Mac client with reservations](git01_git-install.html#git-installation-mac). What do we object to? The degree of hand-holding offered by these two clients borders on hand-*cuffs*.
 
 * A free multi-platform Git(Hub) client is [SmartGit](http://www.syntevo.com/smartgit/).
 
