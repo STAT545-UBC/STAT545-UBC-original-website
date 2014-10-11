@@ -85,7 +85,7 @@ Make a figure (and table?) that shows (summarized?) data before and after the re
 
 ### Write and read data to file
 
-As we did [in class](cm011_files-out-in.html), write data to file, remove the associated object from the workspace, read the data back in. Compare the object before and after this "round trip". Practice using functions like `all.equal()`, `identical()`, and/or functions from `assertthat` or `ensurer` to confirm sameness or detect difference.
+Riffing on what we did [in class](cm011_files-out-in.html), write data to file and read the data back in to a new object with a new name. Compare the object before and after this "round trip". Practice using functions like `all.equal()`, `identical()`, and/or functions from `assertthat` or `ensurer` to confirm sameness or detect difference.
 
 Show clearly if object survives unscathed. If not, what has changed?
 
