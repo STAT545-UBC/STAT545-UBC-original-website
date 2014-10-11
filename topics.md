@@ -1,13 +1,4 @@
-# Topics
-
-All course content will be indexed here, with course-related logistics de-emphasized.
-
-Until we get rolling, feel free to look at older material that will appear here in updated form:
-
-  * [Clean index](http://www.stat.ubc.ca/~jenny/STAT545A/quick-index.html) into topics covered in 2013
-  * [GitHub repository](https://github.com/jennybc/STAT545A_2013) for 2013 course materials
-  
-### Updated topics
+## Topic list
 
   * [Install R and Rstudio](block000_r-rstudio-install.html)
   * [All the Git and GitHub (and RStudio) things](git00_index.html)
@@ -32,8 +23,12 @@ Until we get rolling, feel free to look at older material that will appear here 
     - [Part 3](block011_write-your-own-function-03.html):`NA` handling, `...`, unit test
     - [Function-writing Practicum](block012_function-regress-lifeexp-on-year.html): fit a linear model and return estimated coefficients
   * [Using `plyr` for data.frames](block013_plyr-ddply.html)
+  * [Be the boss of your factors](block014_factors.html)
+  * Writing and reading files
+    - [Indicative code from hands on activities](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm011_files-out-in-script.r)
+    - [2013 lesson](http://www.stat.ubc.ca/~jenny/STAT545A/block05_getNumbersOut.html) *2014 update will data manipulation with `dplyr`*
   
-### Course material
+## Course-specific material
 
   * [Class meeting 001](cm001_course-intro-sw-install-account-signup.html) deals with "What is data science? What is data carpentry?" and includes links re: use of Twitter in academia.
   * [Class meeting 002](cm002_r-rstudio-intro.html) provides some Deep Thoughts about data analytic work, then shifts into a hands-on intro to R and RStudio.
@@ -43,21 +38,24 @@ Until we get rolling, feel free to look at older material that will appear here 
   * [Class meeting 006](cm006_q-and-a-more-ggplot2.html) Open Q and A on all content and course mechanics so far, complete introduction to `ggplot2`
   * [Class meeting 007](cm007_dplyr-intro.html) Introduction to `dplyr`
   * [Class meeting 008](cm008_write-function-day1.html) Writing your own R functions, beginning
-  * [Class meeting 009](cm009_write-function-data-agg.html) Writing your own R functions, conclusion; data aggregation with plyr
+  * [Class meeting 009](cm009_write-function-data-agg.html) Writing your own R functions, conclusion; data aggregation with `plyr`
+  * [Class meeting 010](cm010_factors.html) Be the boss of your factors
+  * [Class meeting 011](cm011_files-out-in.html) Writing to file, reading from file
   * [General homework guidelines](hw00_homework-guidelines.html)
   * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
   * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
   * [Homework 01](hw01_edit-README.html) Edit `README.md`
   * [Homework 02](hw02_explore-gapminder-use-rmarkdown.html) Explore Gapminder and use R markdown
   * [Homework 03](hw03_dplyr-and-more-ggplot2.html) Manipulate and summarize the Gapminder data with `dplyr`; make companion figs with `ggplot2`
-  * [Homework 04](http://stat545-ubc.github.io/hw04_write-function-use-plyr.html) Manipulate and summarize the Gapminder data with custom functions and `plyr`  
+  * [Homework 04](http://stat545-ubc.github.io/hw04_write-function-use-plyr.html) Manipulate and summarize the Gapminder data with custom functions and `plyr` 
+  * [Homework 05](hw05_factor-boss-files-out-in.html) Prove you are in control of factors by writing and reading files
 
-### Short random things
+## Short random things
 
   * [Lesson I contributed](bit002_tidying-lotr-data.html) to [Data Carpentry](http://software-carpentry.org/blog/2014/05/our-first-data-carpentry-workshop.html) on tidying data
   * [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
 
-### What's coming
+## What's coming
 
 Topics traditionally covered in STAT 545A, with light updating:
 
@@ -68,12 +66,12 @@ Topics traditionally covered in STAT 545A, with light updating:
   * ~~Care and feeding of data in R; data frames~~ *done*
   * ~~R objects -- beyond data frames~~ *done*
   * ~~Indexing, subsetting~~ *done*
-  * Data aggregation; "apply" functions, ~~[`plyr`](http://plyr.had.co.nz)~~, ~~[`dplyr`](https://github.com/hadley/dplyr)~~
+  * Data aggregation; "apply" functions, ~~[`plyr`](http://plyr.had.co.nz)~~, ~~[`dplyr`](https://github.com/hadley/dplyr)~~ *done*
   * ~~Making figures with `ggplot2` (was `lattice` in past)~~ *done*
   * How to help yourself, how to ask questions to get useful answers
-  * How to get data in and out of R, staying as "open" as possible
+  * ~~How to get data in and out of R, staying as "open" as possible~~ *done*
   * How to get figures out of R
-  * Be the boss of your factors, i.e. categorical variables
+  * ~~Be the boss of your factors, i.e. categorical variables~~ *done*
   * Use of color in R
   * Single quantitative variable: visualizations and descriptive statistics
   * Two quantitative variables: visualizations and descriptive statistics

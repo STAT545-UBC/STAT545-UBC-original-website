@@ -6,7 +6,7 @@ output:
 
 ### cm011 2014-10-08 Wednesday overview
 
-  * HW05 will be due Thursday 2014-10-16. Will cover reordering factors and data; verifying differences in tables/figs before vs after, and how such things interact with different methods of storing data to file.
+  * [HW05](hw05_factor-boss-files-out-in.html) will be due Thursday 2014-10-16. Will cover reordering factors and data; verifying differences in tables/figs before vs after, and how such things interact with different methods of storing data to file.
   * Expect an optional, non-marked homework around the STAT545 --> STAT547 transition
     - clean up your `README.md`
     - create a useful index into your homework / entire repo
