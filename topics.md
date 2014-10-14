@@ -41,6 +41,7 @@
   * [Class meeting 009](cm009_write-function-data-agg.html) Writing your own R functions, conclusion; data aggregation with `plyr`
   * [Class meeting 010](cm010_factors.html) Be the boss of your factors
   * [Class meeting 011](cm011_files-out-in.html) Writing to file, reading from file
+  * [Class meeting 012](cm012_effective-graphs-and-practical-tips.html) Effective graphs and practical tips re: making figures
   * [General homework guidelines](hw00_homework-guidelines.html)
   * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
   * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
@@ -49,6 +50,7 @@
   * [Homework 03](hw03_dplyr-and-more-ggplot2.html) Manipulate and summarize the Gapminder data with `dplyr`; make companion figs with `ggplot2`
   * [Homework 04](http://stat545-ubc.github.io/hw04_write-function-use-plyr.html) Manipulate and summarize the Gapminder data with custom functions and `plyr` 
   * [Homework 05](hw05_factor-boss-files-out-in.html) Prove you are in control of factors by writing and reading files
+  * [Homework 06](hw06_repo-hygiene-figure-boss.html) *Optional, unmarked* activities for the STAT 545A / STAT 547M transition
 
 ## Short random things
 
