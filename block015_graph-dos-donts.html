@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Do’s and Don’ts for Effective Graphs</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Do’s and Don’ts for Effective Graphs</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#goal-create-more-effective-graphs">Goal: create more effective graphs</a></li>
+<li><a href="#no-nos">No no’s</a></li>
+<li><a href="#do-make-the-data-stand-out">Do: make the data stand out</a></li>
+<li><a href="#do-spare-your-reader-from-mental-gymnastics">Do: spare your reader from mental gymnastics</a></li>
+<li><a href="#do-use-position-along-a-common-scale">Do: use position along a common scale</a></li>
+<li><a href="#do-take-control-of-aspect-ratio">Do: take control of aspect ratio</a></li>
+<li><a href="#do-think-about-including-zero">Do: think about including zero</a></li>
+<li><a href="#do-choose-the-scale-with-intention">Do: choose the scale with intention</a></li>
+<li><a href="#do-connect-the-dots-with-care">Do: connect the dots with care</a></li>
+<li><a href="#do-convey-groups-clearly">Do: convey groups clearly</a></li>
+<li><a href="#resources">Resources</a></li>
+</ul>
+</div>
+
+<div id="goal-create-more-effective-graphs" class="section level3">
+<h3>Goal: create more effective graphs</h3>
+<p>According to Naomi Robbins, effective graphs “improve understanding of data”. They do not confuse or mislead.</p>
+<p>To paraphrase: Most of us use a computer to write but we would never characterize a Nobel prize winning writer as being highly skilled with Microsoft Word. Similarly, advanced <code>ggplot2</code> skills won’t necessarily lead to effective communication of numerical data. You have to master the <strong>principles of effective graphs</strong> in addition to the mechanics.</p>
+<blockquote>
+<p>One graph is more effective than another if its quantitative information can be decoded more quickly or more easily by most observers.</p>
+</blockquote>
+<p>When I’m lost in data and struggling to make a figure, I repeat this mantra distilled from Gelman, et al:</p>
+<ul>
+<li>Facilitate comparisons</li>
+<li>Reveal trends</li>
+</ul>
+<p><em>CMEG = Naomi Robbins’ book <a href="http://www.amazon.com/Creating-Effective-Graphs-Naomi-Robbins/dp/0985911123">“Creating More Effective Graphs”</a>; visual catalog of figures via the <a href="http://shinyapps.stat.ubc.ca/r-graph-catalog/">R Graph Catalog</a></em></p>
+</div>
+<div id="no-nos" class="section level3">
+<h3>No no’s</h3>
+<div id="pie-charts" class="section level4">
+<h4>Pie charts</h4>
+<p>The <a href="http://www.google.com/search?q=pie+charts+suck">most loathed graph of all</a> and yet surprisingly common. Give your average person a bunch of numbers that add up to one and they want to make a pie chart. Why? My hypothesis is it goes back to all the pies and pizzas referenced when kids learn to work with fractions.</p>
+<p>Why do the pros hate pie charts? They are awful because they encode quantitative information in angles and areas, which are very hard for humans to judge. Skeptical? Read on.</p>
+<p>Examples from CMEG and the <a href="http://shinyapps.stat.ubc.ca/r-graph-catalog/">R Graph Catalog</a>:</p>
+<ul>
+<li>Try to place the wedges in order from largest to smallest based on the pie chart in Fig 1.1. Now do same using the dot plot in Fig 1.2. Which figure made this task easier? Which presentation of this data improves your understanding of the data? Reflect on the same info presented as a table, Fig 1.3.</li>
+<li>Try to decode the data from the pie chart in Fig 2.2. Now do the same using the dot plot in Fig 2.3.</li>
+</ul>
+<p>We are best able to make comparisons via position of objects along a common scale, which is why these simple dot plots are so much more effective than the pie charts.</p>
+</div>
+<div id="more-pie-charts" class="section level4">
+<h4>More pie charts</h4>
+<p>Tufte, as quoted by Robbins: “the only worse design than a pie chart is several of them.”</p>
+<ul>
+<li>“Problem 2: pie charts are worse at showing trends” from <a href="http://www.richardhollins.com/blog/why-pie-charts-suck/">Three reasons that pie charts suck</a> shows a series of 3 pie charts versus a line chart.</li>
+<li>Rob Hyndman nominated a 3 pie chart series as <a href="http://robjhyndman.com/hyndsight/worst-figure/">the worst figure</a>, which has the added horror of cross-hatching. Sorry, no before and after here. Do for <a href="hw06_repo-hygiene-figure-boss.html">Homework 06</a> anyone?</li>
+</ul>
+</div>
+<div id="stacked-and-group-bar-charts" class="section level4">
+<h4>Stacked and group bar charts</h4>
+<p>The average person, if told they should not make a pie chart, might then take that bunch of numbers for different categories and make a stacked bar chart. Especially if they have a a series of such numbers. But this is also a very difficult graph to decode.</p>
+<ul>
+<li>Fig 8.11 from CMEG (not in the Catalog) presents a series of 4 pie charts, showing various nations’ share of world car production from 1977 to 1980. The same data is presented as a stacked bar chart in Fig 8.12. How easy is it to figure out which countries are gaining and losing share? Now take a look at the facetted line chart in Fig 8.13. BOOM!</li>
+</ul>
+<p>Stacked bar charts are difficult to decode because we need a common baseline to judge changes in length. So the trend for the category on the “ground floor” is easy to see but trends for those stuck in the middle are hard to see.</p>
+<ul>
+<li>Fig 5.1 shows petroleum stocks held by various countries over time as a stacked bar chart. Again it’s easy to see the trend for the US, which sits on the “ground floor,” but who knows what’s going on with other countries. Fig 5.2 and 5.3 show alternative presentations that are much more effective.</li>
+</ul>
+<p>Grouped bar charts also make it hard to see trends.</p>
+<ul>
+<li>Fig 8.1 shows high, average, and low prices for gold over time as a stacked bar chart. The same info is presented differently in Fig 8.2, to much better effect.</li>
+</ul>
+<p>Grouped bar charts are difficult because it’s hard to make comparisons between things that aren’t adjacent or at least very near each other.</p>
+</div>
+<div id="self-contradiction" class="section level4">
+<h4>Self-contradiction</h4>
+<p>When your text (especially the caption!) and the figure contradict each other, it undermines the reader’s trust in everything you present. You can dramatically reduce your ability to shoot yourself in the foot this way by using an integrated reporting approach, such as R Markdown. If figures are made from live R code in chunks and numbers are inserted via live inline R code, the two cannot diverge.</p>
+<p>Barring that, my advice is to proofread like a maniac.</p>
+</div>
+<div id="using-microsoft-excel-to-obscure-your-data-and-annoy-your-readers" class="section level4">
+<h4>Using Microsoft Excel to obscure your data and annoy your readers</h4>
+<p>We will look through this section (slides 1 - 36) of Karl Broman’s excellent talk How to Display Data Badly (see References for links).</p>
+</div>
+</div>
+<div id="do-make-the-data-stand-out" class="section level3">
+<h3>Do: make the data stand out</h3>
+<p>This animation created by Darkhorse Analytics illustrates how communication can be greatly enhanced by eliminating clutter and de-emphasizing supporting elements. Every aspect of a figure should be there on a “need to have it” basis.</p>
+<p><img src="img/less-is-more-darkhorse-analytics.gif" /> <!--http://i.imgur.com/WntrM6p.gif--></p>
+<p>In CMEG, Figs 6.2 vs 6.3 make much the same point, i.e. stripping the figure way down is a huge improvement. Figs 5.4 and 5.5 are both decent graphs but using dots (Fig 5.5) instead of bars (Fig 5.4) improves the <a href="data:ink">data:ink</a> ratio.</p>
+</div>
+<div id="do-spare-your-reader-from-mental-gymnastics" class="section level3">
+<h3>Do: spare your reader from mental gymnastics</h3>
+<p>If you’re going to talk about the difference between this and that, then please go ahead a plot the difference between this and that! Sure, it might be nice to plot this and that, on their own, but don’t stop there. <em>You’ve got a computer. And software.</em> Use them to do annoying arithmetic for your reader.</p>
+<ul>
+<li>Figs 2.14 and 2.15 show imports to England and exports from England from long ago. But if you are interested in the balance of trade, imports - exports, then plot that! It’s very hard to do this well in your head.</li>
+<li>Fig 2.16 show the function <span class="math">\(y = 1/x^2\)</span> and the same function shifted vertically by a constant. But the figure is incredibly deceptive, underscoring how bad we are at taking differences.</li>
+<li>Figs 8.3, 8.4, 8.5, 8.6 show the time taken for subjects to do annoying things, like set the clock on their VCR, with two different sets of instructions. The original graph spread this out over 10 small bar charts, but the next 3 graphs present more direct looks at the improvement offered by revised instructions.</li>
+</ul>
+</div>
+<div id="do-use-position-along-a-common-scale" class="section level3">
+<h3>Do: use position along a common scale</h3>
+<p>We are best able to make comparisons if items are positioned along a common scale. Design your graphs to take advantage of this.</p>
+<p>We have a harder time with area, volume, length of non-adjacent things, length without a common baseline, angle, color, and shape.</p>
+<ul>
+<li>Fig 2.18 shows a poorly ordered bubble plot that depicts population of various cities. It’s really hard to order the cities by population, until you look at the clean dot plot in Fig 2.19.</li>
+<li>Figs 6.24 and 6.25 encode numbers in the area of rectangles and triangles, respectively, when a simple bar chart or dotplot would have been better.</li>
+</ul>
+</div>
+<div id="do-take-control-of-aspect-ratio" class="section level3">
+<h3>Do: take control of aspect ratio</h3>
+<p>We can see differences in angles when they’re around 45 degrees. But as they get steeper, our ability to compare goes down quickly. You control the angles of line segments in your graphs by controlling the <em>aspect ratio</em>. Pick the ratio so that the “average line segment” is around 45 degrees, a.k.a. banking to 45.</p>
+<ul>
+<li>Fig 7.1 shows how a proper aspect ratio makes it easier to see that the sunspot data rises much faster than it falls.</li>
+</ul>
+</div>
+<div id="do-think-about-including-zero" class="section level3">
+<h3>Do: think about including zero</h3>
+<p>There is no global rule about whether axis limits must be chosen to include zero. It depends.</p>
+<p>Robbins proposes you always include it in bar charts, but use your judgement with, e.g., line charts or dot plots.</p>
+<p>Figs 7.3, 7.4, and 7.5 explore aspect ratio.</p>
+</div>
+<div id="do-choose-the-scale-with-intention" class="section level3">
+<h3>Do: choose the scale with intention</h3>
+<p>Logarithically transformed scales are useful when</p>
+<ul>
+<li>it makes sense to think of changes on a multiplicative scale, instead of additive.
+<ul>
+<li>example: gene expression ratios are naturally viewed on the log 2 scale, where 0 represents a ratio of 1 and equal expression and -1 and 1 represent ratios of 1/2 and 2, respectively</li>
+</ul></li>
+<li>the data are skewed</li>
+</ul>
+<p>Figs 7.7 and 7.8 show a skewed dataset before and after log transformation. We are also used to logging the <code>gdpPercap</code> variable in the Gapminder data, for the same reasons.</p>
+<p>How about presenting two scales for the same axis?</p>
+<ul>
+<li>It is OK to present tick marks in different “units,” i.e. temperature in Fahrenheit vs. Celsius (Fig 7.16) or GDP per capita in raw dollars versus on the log 10 scale. However, this is not easy to do in <code>ggplot2</code>!</li>
+<li>It is NOT OK to present two entirely different scales, just so you can squeeze two different variables onto the same plot.
+<ul>
+<li>Figs 7.17 and 7.18 explore how deceptive this can be.</li>
+</ul></li>
+<li>Even if variables are technically reported in the same units, it might make a better graph to use facets and choose axis limits accordingly.
+<ul>
+<li>Figs 7.19 and 7.21 show the importance of facetting when looking at levels of blood lipids.</li>
+</ul></li>
+</ul>
+</div>
+<div id="do-connect-the-dots-with-care" class="section level3">
+<h3>Do: connect the dots with care</h3>
+<p>Consider two quantitative variables, where the x-axis is time or something similar. There are many legitimate ways to present such data. In <code>ggplot2</code> jargon, there are many relevant geoms.</p>
+<ul>
+<li>Fig 4.17 shows a single time series presented 4 different ways, each serving a different purpose.</li>
+<li>Fig 4.21 presents another line graph, showing used car price against mileage of car. Connecting these dots allows buyers and sellers to determine fair value, even if a specific car’s mileage is not in the dataset.</li>
+</ul>
+<p>Beware connecting the dots when the x axis represents an unordered categorical variable.</p>
+<ul>
+<li>Figs 4.22, 4.23, and 4.24 depict mountain heights for different continents. The connecting line can be misleading here. What it the graph were targetted at an audience that speaks a different language? Even alphabetical is not a well-defined ordering. Unless sorting on size, best to avoid connecting these dots (and even then one must be careful).</li>
+</ul>
+</div>
+<div id="do-convey-groups-clearly" class="section level3">
+<h3>Do: convey groups clearly</h3>
+<p>Consider two quantitative variables, plus a third categorical variable. How to encode the factor?</p>
+<p>If superposing, you have shape, filled-ness, and color at your disposal.</p>
+<ul>
+<li>Figs 6.6 and 6.7 explore using these singly or, often better, in combination.</li>
+</ul>
+<p>It is often better to avoid superposition and, instead, to put the groups into different facets.</p>
+<ul>
+<li>Fig 6.8 revisits the data from Figs 6.6 and 6.7, but using facetting. Gridlines can be very helpful to faciliate comparisons across facets.</li>
+<li>Figs 6.9 and 6.10 make this point for line charts.</li>
+</ul>
+<div id="a-tour-of-the-dos" class="section level4">
+<h4>A tour of the Do’s</h4>
+<p>We will look through another section (slides 48 - 62) of Karl Broman’s excellent talk How to Display Data Badly (see References for links).</p>
+</div>
+</div>
+<div id="resources" class="section level3">
+<h3>Resources</h3>
+<p><a href="http://www.amazon.com/Creating-Effective-Graphs-Naomi-Robbins/dp/0985911123">“Creating More Effective Graphs”</a> by <a href="http://www.nbr-graphs.com">Naomi Robbins</a></p>
+<p>The <a href="http://shinyapps.stat.ubc.ca/r-graph-catalog/">R Graph Catalog</a> presents the figures from <a href="http://www.amazon.com/Creating-Effective-Graphs-Naomi-Robbins/dp/0985911123">“Creating More Effective Graphs”</a> as a visual quilt. Click on a figure to see the <code>ggplot2</code> code that makes it.</p>
+<p>Karl Broman’s talk “How to display data badly”</p>
+<ul>
+<li>Home on GitHub: <a href="https://github.com/kbroman/Talk_Graphs">https://github.com/kbroman/Talk_Graphs</a></li>
+<li>The version I showed is the <a href="https://www.biostat.wisc.edu/~kbroman/presentations/IowaState2013/graphs_combined.pdf">combined PDF from the iowastate2013 branch</a></li>
+</ul>
+<p><a href="http://ggplot2.org"><code>ggplot2</code></a> written by <a href="http://hadley.github.io">Hadley Wickham</a></p>
+<p><a href="https://github.com/wch">Winston Chang’s</a> book <a href="http://shop.oreilly.com/product/0636920023135.do">“R Graphics Cookbook”</a> and the <a href="http://www.cookbook-r.com/Graphs/">Graphs section</a> of his <a href="http://www.cookbook-r.com/">Cookbook for R website</a></p>
+<p><a href="https://github.com/jennybc/ggplot2-tutorial"><code>ggplot2</code> tutorial</a> from May 2014, Vancouver R Users Group</p>
+<p>“Let’s Practice What We Preach: Turning Tables into Graphs” by Gelman A, Pasarica C, Dodhia R. <em>The American Statistician</em>, Volume 56, Number 2, 1 May 2002 , pp. 121-130(10). via <a href="http://www.jstor.org/discover/10.2307/3087382?uid=2&amp;uid=4&amp;sid=21104340349921">JSTOR</a></p>
+<!--
+#### Distribution one quantitative variable
+
+stripplot (+ summary stats, jittering) Fig 4.1, 4.8
+histogram Fig 4.6
+densityplot
+boxplot
+combinations of the above
+
+#### Two quantitative variables
+
+scatterplot + regression line / smooth
+high volume scatterplots
+-->
+
+
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
