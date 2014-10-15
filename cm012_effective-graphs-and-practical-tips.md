@@ -8,7 +8,12 @@ output:
 
   * [HW05](hw05_factor-boss-files-out-in.html) due anytime Thursday 2014-10-16. Last official homework of STAT545A. For those going on to STAT547M, this means a one week break in *marked* homework.
   * [HW06](hw06_repo-hygiene-figure-boss.html) *Optional, unmarked* activities for the STAT 545A / STAT 547M transition
-  * More about making graphs!
+  * What's coming?
+    - Week of Oct 20: Tidy data, data reshaping, `plyr` beyond `ddply()`, joins and merges
+    - Week of Oct 27: Data cleaning, regular expressions, wrangling character data (Gloria Li)
+    - Week of Nov 03: Task automation and building pipelines (Shaun Jackman)
+    - Weeks of Nov 10, 17, 24, order TBD: building an R package, building a Shiny app, getting data off the web
+  * TODAY: More about making graphs!
     - [Do's and Don'ts of effective graphs](block015_graph-dos-donts.html)
     - Practical Pro Tips *there's no way we'll get to all this today*
       - tidy data! data.frames! factors! see [tutorial slides](https://github.com/jennybc/ggplot2-tutorial/blob/master/ggplot2-tutorial-slides.pdf)
