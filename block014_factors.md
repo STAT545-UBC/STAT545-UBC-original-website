@@ -143,7 +143,7 @@ Which figure do you find easier to navigate? Which is more interesting? The unso
 
 The same point generally applies to tables as well.
 
-Exercise (will probably make its way into homework): Consider `post_arrange`, `post_reorder`, and `post_both` as defined below. State how the objects differ and discuss the differences in terms of utility within an exploratory analysis. If I swapped out `arrange(country)` for `arrange(slope)`, would we get the same result? Do you have any preference for one arrange statement over the other?
+Exercise (part of [HW05](hw05_factor-boss-files-out-in.html)): Consider `post_arrange`, `post_reorder`, and `post_both` as defined below. State how the objects differ and discuss the differences in terms of utility within an exploratory analysis. If I swapped out `arrange(country)` for `arrange(slope)`, would we get the same result? Do you have any preference for one arrange statement over the other?
 
 
 ```r
@@ -325,7 +325,7 @@ Write the `reorder()` statement to do this.
 
 ### Revaluing factor levels
 
-What if you want to recode factor levels? I usually use the `revalue()` function from `plyr`. In the past I have also used the `recode()` function from the `car` package.
+What if you want to recode factor levels? I usually use the `revalue()` function from `plyr`; sometime I use `plyr::mapvalues()` which is a bit more general. In the past I have also used the `recode()` function from the `car` package.
 
 
 ```r
@@ -410,3 +410,7 @@ str(usa_mex)
 ```
 
 If you really want to catenate factors with different levels, you must first convert to their levels as character data, combine, then re-convert to factor.
+
+### TO ADD
+
+Here or in a separate document based on porting the [2013 material](http://stat545-ubc.github.io/block014_factors.html), discuss the explicit creation of a factor via `factor()`.

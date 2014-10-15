@@ -82,6 +82,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#reorder-exercise"><code>reorder()</code> exercise</a></li>
 <li><a href="#revaluing-factor-levels">Revaluing factor levels</a></li>
 <li><a href="#grow-a-factor-object">Grow a factor object</a></li>
+<li><a href="#to-add">TO ADD</a></li>
 </ul>
 </div>
 
@@ -206,7 +207,7 @@ ggplot(j_coefs, aes(x = slope, y = reorder(country, slope))) +
 <p><img src="block014_factors_files/figure-html/alpha-order-silly1.png" title="" alt="" width="49%" /><img src="block014_factors_files/figure-html/alpha-order-silly2.png" title="" alt="" width="49%" /></p>
 <p>Which figure do you find easier to navigate? Which is more interesting? The unsorted, i.e. alphabetical, is an example of visual <a href="http://junkcharts.typepad.com/numbersruleyourworld/2014/09/dont-data-puke-says-avinash-kaushik.html">data puke</a>, because there is no effort to help the viewer learn anything from the plot, even though it is really easy to do so. At the very least, always consider sorting your factor levels in some principled way.</p>
 <p>The same point generally applies to tables as well.</p>
-<p>Exercise (will probably make its way into homework): Consider <code>post_arrange</code>, <code>post_reorder</code>, and <code>post_both</code> as defined below. State how the objects differ and discuss the differences in terms of utility within an exploratory analysis. If I swapped out <code>arrange(country)</code> for <code>arrange(slope)</code>, would we get the same result? Do you have any preference for one arrange statement over the other?</p>
+<p>Exercise (part of <a href="hw05_factor-boss-files-out-in.html">HW05</a>): Consider <code>post_arrange</code>, <code>post_reorder</code>, and <code>post_both</code> as defined below. State how the objects differ and discuss the differences in terms of utility within an exploratory analysis. If I swapped out <code>arrange(country)</code> for <code>arrange(slope)</code>, would we get the same result? Do you have any preference for one arrange statement over the other?</p>
 <pre class="r"><code>post_arrange &lt;- j_coefs %&gt;% arrange(slope)
 post_reorder &lt;- j_coefs %&gt;%
   mutate(country = reorder(country, slope))
@@ -325,7 +326,7 @@ head(j_coefs)
 </div>
 <div id="revaluing-factor-levels" class="section level3">
 <h3>Revaluing factor levels</h3>
-<p>What if you want to recode factor levels? I usually use the <code>revalue()</code> function from <code>plyr</code>. In the past I have also used the <code>recode()</code> function from the <code>car</code> package.</p>
+<p>What if you want to recode factor levels? I usually use the <code>revalue()</code> function from <code>plyr</code>; sometime I use <code>plyr::mapvalues()</code> which is a bit more general. In the past I have also used the <code>recode()</code> function from the <code>car</code> package.</p>
 <pre class="r"><code>k_countries &lt;- c(&quot;Australia&quot;, &quot;Korea, Dem. Rep.&quot;, &quot;Korea, Rep.&quot;)
 kDat &lt;- gDat %&gt;%
   filter(country %in% k_countries &amp; year &gt; 2000) %&gt;%
@@ -401,6 +402,10 @@ str(usa_mex)
 ## [1] United States United States Mexico        Mexico       
 ## Levels: Mexico United States</code></pre>
 <p>If you really want to catenate factors with different levels, you must first convert to their levels as character data, combine, then re-convert to factor.</p>
+</div>
+<div id="to-add" class="section level3">
+<h3>TO ADD</h3>
+<p>Here or in a separate document based on porting the <a href="http://stat545-ubc.github.io/block014_factors.html">2013 material</a>, discuss the explicit creation of a factor via <code>factor()</code>.</p>
 </div>
 
 <div class="footer">
