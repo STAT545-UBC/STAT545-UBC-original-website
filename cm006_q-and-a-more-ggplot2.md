@@ -55,7 +55,7 @@ I passed around hard copies of these 5 books (note: some links to eBooks and rep
   
 #### `ggplot2` links
 
-  * A `ggplot2` [tutorial](https://github.com/jennybc/ggplot2-tutorial) I taught May 2013 contains lots of working code, in source form and compiled to something pretty
+  * A `ggplot2` [tutorial](https://github.com/jennybc/ggplot2-tutorial) I taught May 2014 contains lots of working code, in source form and compiled to something pretty
     - [ggplot2 online docs](http://docs.ggplot2.org/current/)
     - [ggplot2 "homepage"](http://ggplot2.org)
     - [ggplot2 development on github](https://github.com/hadley/ggplot2) 
