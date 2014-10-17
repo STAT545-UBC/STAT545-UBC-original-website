@@ -12,11 +12,18 @@
   * [Basic R and RStudio, workspace, working directory, RStudio Project](block002_hello-r-workspace-wd-project.html)
   * [Basic care and feeding of data in R](block006_care-feeding-data.html)
   * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
-  * [Introduction to `ggplot2`](https://github.com/jennybc/ggplot2-tutorial) *links to materials from a May 2014 workshop*
   * [Test drive R Markdown](block007_first-use-rmarkdown.html)
+  * [All the graph things](graph00_index.html), an annotated index
+    - R graphics landscape *[slides](http://www.slideshare.net/jenniferbryan5811/cm005-intro-ggplot2)*
+    - [`ggplot2` tutorial](https://github.com/jennybc/ggplot2-tutorial), heavy on code and examples
+    - [Do's and don'ts of making effective graphs](block015_graph-dos-donts.html)
+    - [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/), a visual, clickable index of 100+ figures + `ggplot2` code to make them
+    - Colors
+    - Practical pro tips
   * The `dplyr` package for data manipulation
     - [Introduction to dplyr](block009_dplyr-intro.html)
     - [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
+    - [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
   * Writing your own R functions
     - [Part 1](block011_write-your-own-function-01.html): get something that works, check arguments
     - [Part 2](block011_write-your-own-function-02.html): generalize, set default argument values
