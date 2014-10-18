@@ -20,7 +20,7 @@ We work on visualiation throughout the course. Here are the bits roughly in orde
     - How to think about color and get good palettes in R *[2013 materials](http://www.stat.ubc.ca/~jenny/STAT545A/block14_colors.html)*
     - How to make `ggplot2` use your color palette *[2013 materials](http://www.stat.ubc.ca/~jenny/STAT545A/block17_colorsGgplot2Qualitative.html)*
   * Practical pro tips, i.e. a return to mechanics
-    - data.frames! tidy data! factors!
+    - [Secrets of a happy graphing life](block016_secrets-happy-graphing.html): data.frames! tidy data! factors!
     - writing figures to file, explicitly and implicitly, e.g. `ggsave()` & friends and chunk name --> figure name
     - multiple plots on a "page"; many examples in [R graph catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/) and [`multiplot()` from Cookbook for R](http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/)
     - underappreciated basics: density plots, high-volume scatterplots

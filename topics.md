@@ -19,6 +19,7 @@
     - [Do's and don'ts of making effective graphs](block015_graph-dos-donts.html)
     - [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/), a visual, clickable index of 100+ figures + `ggplot2` code to make them
     - Colors
+    - [Secrets of a happy graphing life](block016_secrets-happy-graphing.html)
     - Practical pro tips
   * The `dplyr` package for data manipulation
     - [Introduction to dplyr](block009_dplyr-intro.html)
