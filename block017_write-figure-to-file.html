@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Writing figures to file</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Writing figures to file</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#step-away-from-the-mouse">Step away from the mouse</a></li>
+<li><a href="#good-names-are-like-breadcrumbs">Good names are like breadcrumbs</a></li>
+<li><a href="#graphics-devices">Graphics devices</a></li>
+<li><a href="#write-figures-to-file-with-ggsave">Write figures to file with <code>ggsave()</code></a><ul>
+<li><a href="#passing-a-plot-object-to-ggsave">Passing a plot object to <code>ggsave()</code></a></li>
+<li><a href="#scaling-with-ggsave">Scaling with <code>ggsave()</code></a></li>
+</ul></li>
+<li><a href="#write-non-ggplot2-figures-to-file">Write non-<code>ggplot2</code> figures to file</a></li>
+<li><a href="#pre-emptive-answers-to-some-faqs">Pre-emptive answers to some FAQs</a><ul>
+<li><a href="#despair-over-non-existent-or-empty-figures">Despair over non-existent or empty figures</a></li>
+<li><a href="#mysterious-empty-rplots.pdf-file">Mysterious empty <code>Rplots.pdf</code> file</a></li>
+</ul></li>
+<li><a href="#chunk-name-determines-figure-file-name">Chunk name determines figure file name</a></li>
+<li><a href="#clean-up">Clean up</a></li>
+</ul>
+</div>
+
+<p>It is not always appropriate or sufficient for figures to exist <em>only</em> inside a dynamic report, such as an R Markdown document. You should know how to write key figures to file for downstream use in a variety of settings.</p>
+<p>During development, you need the immediate feedback from seeing your figures appear in a screen device, such as the RStudio Plots pane. Once you’re satisfied, make sure you have saved in an R script all of the commands to produce the figure. You want <em>everything</em>, nachos to cheesecake: data import, any manipulation that necessary, then plotting.</p>
+<p>Now what? How to preserve the figure in a file?</p>
+<div id="step-away-from-the-mouse" class="section level3">
+<h3>Step away from the mouse</h3>
+<p><img src="img/evil-mouse.jpg" width="300px"></p>
+<p><em>Do not</em> succumb to the temptation of a mouse-based process. If might feel handy at the time, but you will regret it. This establishes no link between the source code and the figure product. So when – not if – you need to remake the figure with a different color scheme or aspect ratio or graphics device, you will struggle to dig up the proper source code. Use one of the methods below to avoid this predicament.</p>
+</div>
+<div id="good-names-are-like-breadcrumbs" class="section level3">
+<h3>Good names are like breadcrumbs</h3>
+<p>If you save figure-making code in a source file and you give figure files machine-readable, self-documenting names, your future self will be able to find its way back to this code.</p>
+<p>Hypothetical: a <a href="http://imgur.com/ewmBeQG">zombie project</a> comes back to life and your collaborator presents you with <a href="https://twitter.com/JohnDCook/status/522377493417033728">a figure you made 18 months ago</a>. Can you remake <code>fig08_scatterplot-lifeExp-vs-year.pdf</code> as a TIFF and with smooth regression? Fun times!</p>
+<p>This filename offers several properties to help you find the code that produced it:</p>
+<ul>
+<li><p>Human-readability: It’s helpful to know you’re searching for a scatterplot and maybe which variables are important. It gives important context for your personal archaeological dig.</p></li>
+<li><p>Specificity: Note how specific and descriptive the name of this figure file is; we didn’t settle for the generic <code>fig08.pdf</code> or <code>scatterplot.pdf</code>. This makes the name at least somewhat unique, which will help you search your home directory for files containing part or all of this filename.</p></li>
+<li><p>Machine-readability: Every modern OS provide a way to search your hard drive for a file with a specific name or containing a specific string. This will be easier if the name contains no spaces, punctuation, or other funny stuff. If you use conventional extensions, you can even narrow the search to files ending in <code>.R</code> or <code>.Rmd</code>.</p></li>
+</ul>
+<p>All of these human practices will help you zero in on the R code you need, so you can modify, re-run, and reuse.</p>
+</div>
+<div id="graphics-devices" class="section level3">
+<h3>Graphics devices</h3>
+<p>Read the <a href="http://www.rdocumentation.org/packages/grDevices/functions/Devices">R help for <code>Devices</code></a> to learn about graphics devices in general and which are available on your system (<em>obviously requires you read your local help</em>).</p>
+<p>It is very important to understand the difference between <a href="http://en.wikipedia.org/wiki/Vector_graphics">vector graphics</a> and <a href="http://en.wikipedia.org/wiki/Raster_graphics">raster</a>. Vector graphics are represented in terms of shapes and lines, whereas raster graphics are pixel-based.</p>
+<ul>
+<li><strong>vector</strong> examples: PDF, postscript, SVG
+<ul>
+<li>Pros: re-size gracefully, good for print.</li>
+</ul></li>
+<li><strong>raster</strong> examples: PNG, JPEG, BMP, GIF
+<ul>
+<li>Cons: look awful “blown up” … in fact, look awful quite frequently</li>
+<li>Pros: play very nicely with Microsoft Office products and the web</li>
+</ul></li>
+</ul>
+<p>Tough love: you will not be able to pick vector or raster or a single device and use it all the time. You must think about your downstream use cases and plan accordingly. It is entirely possible that you should save key figures <strong>in more than one format</strong> for maximum flexibility in the future. Worst case, if you obey the rules given here, you can always remake the figure to save in a new format.</p>
+<p>FWIW most of my figures exist as <code>pdf()</code>, <code>png()</code>, or both.</p>
+<p>Here are two good posts from the Revolutions Analytics blog with tips for saving figures to file:</p>
+<ul>
+<li><a href="http://blog.revolutionanalytics.com/2009/01/10-tips-for-making-your-r-graphics-look-their-best.html">10 tips for making your R graphics look their best</a></li>
+<li><a href="http://blog.revolutionanalytics.com/2011/07/r-svg-graphics.html">High-quality R graphics on the Web with SVG</a></li>
+</ul>
+</div>
+<div id="write-figures-to-file-with-ggsave" class="section level3">
+<h3>Write figures to file with <code>ggsave()</code></h3>
+<p>If you are using <code>ggplot2</code>, write figures to file with <a href="http://www.rdocumentation.org/packages/ggplot2/functions/ggsave"><code>ggsave()</code></a>.</p>
+<p>If you are staring at a plot you just made on your screen, you can call <code>ggsave()</code>, specifying only a filename:</p>
+<pre class="r"><code>ggsave(&quot;my-awesome-graph.png&quot;)</code></pre>
+<p>It makes a sensible decision about everything else. In particular, as long as you use a conventional extension, it will guess what type of graphics file you want. If you need control over, e.g., width, height, or dpi, roll up your sleeves and <a href="http://www.rdocumentation.org/packages/ggplot2/functions/ggsave">use the arguments</a>.</p>
+<div id="passing-a-plot-object-to-ggsave" class="section level4">
+<h4>Passing a plot object to <code>ggsave()</code></h4>
+<p>After the filename, the most common argument you will provide is <code>plot =</code>, which is the second argument by position. If you’ve been building up a plot with the typical <code>ggplot2</code> workflow, you will pass the resulting object to <code>ggsave()</code>. Example:</p>
+<pre class="r"><code>p &lt;- ggplot(gDat, aes(x = year, y = lifeExp)) + geom_jitter()
+# during development, you will uncomment next line to print p to screen
+# p
+ggsave(&quot;imp/fig-io-practice.png&quot;, p)</code></pre>
+<p>See below for gotchas and FAQs when making figures in a non-interactive setting!</p>
+</div>
+<div id="scaling-with-ggsave" class="section level4">
+<h4>Scaling with <code>ggsave()</code></h4>
+<p>The last argument I want to feature is <code>scale =</code>. This actually changes the physical size of the plot, but more importantly, it changes the size of the title and axis labels, relative to the entire plot area. Therefore, tweaking this can be a quick-and-dirty way to get different versions of a figure appropriate for a presentation versus a poster versus a manuscript. You can still insert the figure downstream with a different physical size, though you may need to adjust the dpi accordingly on the front end. When <code>scale &lt; 1</code>, various plot elements will be bigger relative to the plotting area; when <code>scale &gt; 1</code>, these elements will be smaller. YMMV but <code>scale = 0.8</code> often works well for posters and slides. Here are two versions of a figure, with grossly exaggerated values of <code>scale</code>, to illustrate its effect.</p>
+<pre class="r"><code>suppressPackageStartupMessages(library(ggplot2))
+gDat &lt;- read.delim(&quot;gapminderDataFiveYear.tsv&quot;)
+p &lt;- ggplot(gDat, aes(x = year, y = lifeExp)) + geom_jitter()
+p1 &lt;- p + ggtitle(&quot;scale = 0.3&quot;)
+p2 &lt;- p + ggtitle(&quot;scale = 2&quot;)
+ggsave(&quot;img/fig-io-practice-scale-0.3.png&quot;, p1, scale = 0.3)
+## Saving 2.1 x 1.5 in image
+ggsave(&quot;img/fig-io-practice-scale-2.png&quot;, p2, scale = 2)
+## Saving 14 x 10 in image</code></pre>
+<table width="800px" height="100%" border="1">
+<tr><td>
+<img src="img/fig-io-practice-scale-0.3.png">
+</td>
+<td>
+<img src="img/fig-io-practice-scale-2.png">
+</td></tr>
+</table>
+
+<p><em>Thanks to <a href="https://twitter.com/ephonious">Casey Shannon</a> for introducing me to <code>scale =</code>.</em></p>
+</div>
+</div>
+<div id="write-non-ggplot2-figures-to-file" class="section level3">
+<h3>Write non-<code>ggplot2</code> figures to file</h3>
+<p>Recall that <code>ggsave()</code> is recommended if you’re using <code>ggplot2</code>. But if you’re using base graphics or <code>lattice</code>, here’s generic advice for writing figures to file. To be clear, this <em>also</em> works for <code>ggplot2</code> graphs, but I can’t think of any good reasons to NOT use <code>ggsave()</code>.</p>
+<p>Edit your source code in the following way: Precede the figure-making code by opening a graphics device and follow it with a command that closes the device. Here’s an example:</p>
+<pre class="r"><code>pdf(&quot;test-fig-proper.pdf&quot;) # starts writing a PDF to file
+plot(1:10)                    # makes the actual plot
+dev.off()                     # closes the PDF file
+## pdf 
+##   2</code></pre>
+<p>You will see there’s a new file in the working directory:</p>
+<pre class="r"><code>list.files(pattern = &quot;^test-fig*&quot;)
+## [1] &quot;test-fig-proper.pdf&quot;</code></pre>
+<p>If you run this code interactively, don’t be surprised when you don’t see the figure appear in your screen device. While you’re sending graphics output to, e.g., the <code>pdf()</code> device, you’ll be “flying blind”, which is why it’s important to work out the graphics commands in advance. This is like using <code>sink()</code>, which diverts the output you’d normally see in R Console.</p>
+<p>Read the <a href="http://www.rdocumentation.org/packages/grDevices/functions/Devices">R help for <code>Devices</code></a> to learn about graphics devices in general and which are available on your system (<em>obviously requires you read your local help</em>). If you need control over, e.g., width, height, or dpi, roll up your sleeves and use the arguments to the graphics device function you are using. There are many.</p>
+<p>If you are staring at a plot you just made on your screen, here’s a handy short cut for writing a figure to file:</p>
+<pre class="r"><code>plot(1:10)            # makes the actual plot</code></pre>
+<p><img src="block017_write-figure-to-file_files/figure-html/dev-print-demo.png" /></p>
+<pre class="r"><code>dev.print(pdf,        # copies the plot to a the PDF file
+          &quot;test-fig-quick-dirty.pdf&quot;)             
+## pdf 
+##   2</code></pre>
+<p>You will see there’s now another new file in the working directory:</p>
+<pre class="r"><code>list.files(pattern = &quot;^test-fig*&quot;)
+## [1] &quot;test-fig-proper.pdf&quot;      &quot;test-fig-quick-dirty.pdf&quot;</code></pre>
+<p>The appeal of this method is that you will literally copy the figure in front of your eyeballs to file, which is pleasingly immediate. There’s also less code to repeatedly (de-)comment as you run and re-run the script during development.</p>
+<p>Why is this method improper? Various aspects of a figure – such as font size – are determined by the target graphics device and its physical size. Therefore, it is best practice to open your desired graphics device explicitly, using any necessary arguments to control height, width, fonts, etc. Make your plot. And close the device. But for lots of everyday plots the <code>dev.print()</code> method works just fine.</p>
+<p>If you call up the help file for <a href="http://www.rdocumentation.org/packages/grDevices/functions/dev"><code>dev.off()</code>, <code>dev.print()</code>, and friends</a>, you can learn about many other functions for controlling graphics devices.</p>
+</div>
+<div id="pre-emptive-answers-to-some-faqs" class="section level3">
+<h3>Pre-emptive answers to some FAQs</h3>
+<div id="despair-over-non-existent-or-empty-figures" class="section level4">
+<h4>Despair over non-existent or empty figures</h4>
+<p>Certain workflows are suited to interactive development and will break when played back non-interactively or at arm’s length. Wake up and pay attention when you cross these lines:</p>
+<ul>
+<li>You package graph-producing code into a function or put it inside a loop or other iterative machine.</li>
+<li>You run an R script non-interactively, e.g. via <code>source()</code>, <code>Rscript</code>, or <code>R CMD batch</code>.</li>
+</ul>
+<p><strong>Basic issue</strong>: When working interactively, if you inspect the plot object <code>p</code> by entering <code>p</code> at the command line, the plot gets printed to screen. You’re actually enjoying the result of <code>print(p)</code>, but it’s easy to not realize this. To get the same result from code run non-interactively, you will need to call <code>print()</code> explicitly yourself.</p>
+<p>Here I wrap plotting commands inside a function. The function on the left will fail to produce a PNG, whereas the function on the right will produce a good PNG. Both assume the Gapminder data is present as <code>gDat</code> and that <code>ggplot2</code> has been loaded.</p>
+<table border = 1>
+<tr>
+<td valign="top">
+<pre class="r"><code>## implicit print --&gt; no PNG
+f_despair &lt;- function() {
+  png(&quot;test-fig-despair.png&quot;)
+  p &lt;- ggplot(gDat, aes(x = year, y = lifeExp))
+  p + geom_jitter()
+  dev.off()    
+}
+f_despair()</code></pre>
+</td>
+<td valign="top">
+<pre class="r"><code>## explicit print --&gt; good PNG
+f_joy &lt;- function() {
+  png(&quot;test-fig-joy.png&quot;)
+  p &lt;- ggplot(gDat, aes(x = year, y = lifeExp))
+  p &lt;- p + geom_jitter()
+  print(p)
+  dev.off()    
+}
+f_joy() </code></pre>
+</td>
+</tr>
+</table>
+
+<p>Other versions of this fiasco result in a figure file that is, frustratingly, empty. If you expect a figure, but it’s missing or empty, <strong>remember to print the plot explicitly.</strong></p>
+<p>It is worth noting here that the <code>ggsave()</code> workflow is not vulnerable to this gotcha, which is yet another reason to prefer it when using <code>ggplot2</code>.</p>
+<p>Some relevant threads on stackoverflow:</p>
+<ul>
+<li><p><a href="http://stackoverflow.com/questions/9206110/using-png-not-working-when-called-within-a-function">Using png not working when called within a function</a></p></li>
+<li><p><a href="http://stackoverflow.com/questions/6675066/ggplots-qplot-does-not-execute-on-sourcing">ggplot’s qplot does not execute on sourcing</a></p></li>
+<li><p><a href="http://stackoverflow.com/questions/7034647/save-ggplot-within-a-function">Save ggplot within a function</a></p></li>
+</ul>
+</div>
+<div id="mysterious-empty-rplots.pdf-file" class="section level4">
+<h4>Mysterious empty <code>Rplots.pdf</code> file</h4>
+<p>When creating and writing figures from R running non-interactively, you can inadvertently trigger a request to query the active graphics device. For example, <code>ggsave()</code> might try to ascertain the physical size of the current device. But when running non-interactively there is often no such device available, which can lead to the unexpected creation of <code>Rplots.pdf</code> so this request can be fulfilled.</p>
+<p>I don’t know of a reliable way to suppress this behavior uniformly and I just peacefully coexist with <code>Rplots.pdf</code> when this happens. That is, I just delete it.</p>
+<p>Some relevant threads on stackoverflow:</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/17348359/how-to-stop-r-from-creating-empty-rplots-pdf-file-when-using-ggsave-and-rscript">How to stop R from creating empty Rplots.pdf file when using ggsave and Rscript</a></li>
+</ul>
+</div>
+</div>
+<div id="chunk-name-determines-figure-file-name" class="section level3">
+<h3>Chunk name determines figure file name</h3>
+<p>Coming full circle, we return to the topic of figures produced via an R chunk in an R Markdown file. If you are <a href="http://stat545-ubc.github.io/block007_first-use-rmarkdown.html#step-3-save-the-intermediate-markdown">keeping the intermediate markdown</a>, via <code>keep.md: true</code> in the YAML frontmatter, your figures will also be saved to file. Rendering <code>foo.Rmd</code> will leave behind <code>foo.md</code>, <code>foo.html</code>, and a directory <code>foo_files</code>, containing any figures created in the document. By default, they will have meaningless names, like <code>unnamed-chunk-7.png</code>. This makes it difficult to find specific figures, i.e. for unplanned use in another setting. However, if you name an R chunk, this name will be baked into the figure file name.</p>
+<!-- the "live" version of the chunk I include verbatim below -->
+
+
+<p>Example: here’s an R chunk called <code>scatterplot-lifeExp-vs-year</code></p>
+<pre><code>```{r scatterplot-lifeExp-vs-year}
+p &lt;- ggplot(gDat, aes(x = year, y = lifeExp)) + geom_jitter()
+p
+```</code></pre>
+<p>And it will lead to the creation of a suitably named figure file (you may see other figures produced in the document as well):</p>
+<pre class="r"><code>list.files(&quot;block017_write-figure-to-file_files/&quot;, recursive = TRUE)
+## [1] &quot;figure-html/dev-print-demo.png&quot;             
+## [2] &quot;figure-html/scatterplot-lifeExp-vs-year.png&quot;</code></pre>
+<p>If you have concrete plans to use a figure elsewhere, you should probably write it to file using an explicit method described above. But the chunk-naming trick is a nice way to avoid that work, while maintaining flexibility for the future.</p>
+</div>
+<div id="clean-up" class="section level3">
+<h3>Clean up</h3>
+<p>Let’s delete the temp files we’ve created.</p>
+<pre class="r"><code>file.remove(list.files(pattern = &quot;^test-fig*&quot;))
+## [1] TRUE TRUE</code></pre>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
