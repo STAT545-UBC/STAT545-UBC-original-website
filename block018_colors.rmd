@@ -241,23 +241,122 @@ Here's what I can tell you about the HCL model's three dimensions:
   * Chroma refers to colorfullness, i.e. how pure or vivid a color is. The more something seems mixed with gray, the lower its chromaticity. The lowest possible value is 0, which corresponds to actual gray. The maximum value varies with luminance.
   * Luminance is related to brightness, lightness, intensity, and value. Low luminance means dark and indeed black has luminance 0. High luminance means light and white has luminance 1.
   
-> Full disclosure: I have a hard time really grasping and distinguishing chroma and luminance. As we point out above, they are not entirely independent, which speaks to the weird shape of the 3 dimensional HCL space.
+Full disclosure: I have a hard time really grasping and distinguishing chroma and luminance. As we point out above, they are not entirely independent, which speaks to the weird shape of the 3 dimensional HCL space.
   
 Figure 6.6 in Wickham's `ggplot2` book is helpful for understanding the HCL color space.
 
 ![Figure 6.6 of Wickham's ggplot2 book](img/ggplot2book-fig6.6.png)
 
-> JB re-phrasing and combining Wickham's description and caption for this figure: Each facet or panel depicts a slice through HCL space for a specific luminance, going from low to high. The extreme luminance values of 0 and 100 are omitted because they would, respectively, be a single black point and a single white point. Within a slice, the centre has chroma 0, which corresponds to a shade of grey. As you move toward the slice's edge, chroma increases and the color gets more pure and intense. Hue is mapped to angle.
+Paraphrasing Wickham: Each facet or panel depicts a slice through HCL space for a specific luminance, going from low to high. The extreme luminance values of 0 and 100 are omitted because they would, respectively, be a single black point and a single white point. Within a slice, the centre has chroma 0, which corresponds to a shade of grey. As you move toward the slice's edge, chroma increases and the color gets more pure and intense. Hue is mapped to angle.
   
 A valuable contribution of the `colorspace` package is that it provides functions to create color palettes traversing color space in a rational way. In contrast, the palettes offered by `RColorBrewer`, though well-crafted, are unfortunately fixed.
 
-> Here I plan to insert/recreate some visuals from the Zeileis et al paper or from the `colorspace` vignette. For the moment, that stuff is sitting in the PDF slides. So go there!
+Here is an article that uses compelling examples to advocate for perceptually based color systems and to demonstrate the importance of signalling where zero is in colorspace:
+
+  * ["Why Should Engineers and Scientists Be Worried About Color?"](http://www.research.ibm.com/people/l/lloydt/color/color.HTM)
+
+<!-- TO DO: Insert/recreate some visuals from the Zeileis et al paper or from the `colorspace` vignette. Show actual usage! -->
 
 ### Accomodating color blindness
 
-the `dichromat` package ([on CRAN](http://cran.r-project.org/web/packages/dichromat/))
+The `dichromat` package ([on CRAN](http://cran.r-project.org/web/packages/dichromat/)) will help you select a color scheme that will be effective for color blind readers.
 
-> obviously need to do some writing here!
+```{r}
+# install.packages("dichromat")
+library(dichromat)
+```
+
+This `colorschemes` list contains `r length(colorschemes)` color schemes "suitable for people with deficient or anomalous red-green vision".
+
+```{r dichromat-colorschemes, echo = FALSE}
+library(ggplot2)
+x_boundaries <-
+  lapply(colorschemes,
+         function(x) seq(from = 0, to = 1, length = length(x) + 1))
+df <- data.frame(
+  xmin = unlist(lapply(x_boundaries, function(x) rev(rev(x)[-1]))),
+  xmax = unlist(lapply(x_boundaries, function(x) x[-1])),
+  ymax = rep(seq_along(colorschemes), sapply(colorschemes, length)))
+anno_df <- data.frame(
+  scheme = names(colorschemes),
+  num = seq_along(colorschemes))
+ggplot(df, aes(xmin = xmin, xmax = xmax, ymin = ymax - 0.85, ymax = ymax)) +
+  geom_rect(fill = unlist(colorschemes)) + xlim(c(-0.6, 1)) + 
+  annotate("text", x = -0.05, y = anno_df$num - 0.5, label = anno_df$scheme,
+           hjust = 1) + 
+  theme_bw() +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        axis.title = element_blank())
+
+## the example also turns some schemes into continuous ones like so:
+## colorRampPalette(colorschemes$BrowntoBlue.10, space = "Lab")(100)
+## it would be nice to demonstrate how to base a continuous color scale on a
+## discrete palette
+```
+
+What else does the `dichromat` package offer? The `dichromat()` function transforms colors to approximate the effect of different forms of color blindness, allowing you to assess the performance of a candidate scheme. The command `data("dalton")` will make two objects available which represent a 256-color palette as it would appear with normal vision, with two types of red-green color blindness, and with green-blue color blindness. 
+
+```{r eval = FALSE, include = FALSE}
+## I could add more on dichromat() function and the dalton stuff?
+
+## copied from official examples
+data("dalton", package = "dichromat")
+opar <- par(mfrow = c(4, 1))
+image(matrix(1:256, 128), col = dalton.colors$normal)
+image(matrix(1:256, 128), col = dalton.colors$deutan)
+image(matrix(1:256, 128), col = dalton.colors$protan)
+image(matrix(1:256, 128), col = dalton.colors$tritan)
+par(opar)
+
+opar <- par(mfrow = c(2, 2))
+pie.sales <- c(0.12, 0.3, 0.26, 0.16, 0.04, 0.12)
+names(pie.sales) <- c("Blueberry", "Cherry",
+                      "Apple", "Boston Cream", "Other", "Vanilla Cream")
+pie(pie.sales, # default colors
+    col = c("white", "lightblue", "mistyrose", "lightcyan", "lavender", "cornsilk"))
+pie(pie.sales,
+    col = c("purple", "violetred1", "green3", "cornsilk", "cyan", "white"))
+pie(pie.sales, col = dichromat(
+  c("white", "lightblue", "mistyrose", "lightcyan", "lavender", "cornsilk")))
+pie(pie.sales, col = dichromat(
+  c("purple", "violetred1", "green3", "cornsilk", "cyan", "white")))
+
+## standard color schemes
+pie(rep(1,10), col = heat.colors(10))
+pie(rep(1,10), col = dichromat(heat.colors(10)))
+pie(rep(1,8),  col = palette())
+pie(rep(1,8),  col = dichromat(palette()))
+pie(rep(1,15), col = topo.colors(15))
+pie(rep(1,15), col = dichromat(topo.colors(15)))
+pie(rep(1,15), col = terrain.colors(15))
+pie(rep(1,15), col = dichromat(terrain.colors(15)))
+pie(rep(1,15), col = cm.colors(15))
+pie(rep(1,15), col = dichromat(cm.colors(15)))
+
+## color ramp schemes
+bluescale <- colorRampPalette(c("#FFFFCC", "#C7E9B4", "#7FCDBB",
+  "#40B6C4", "#2C7FB8" , "#253494"))
+redgreen <- colorRampPalette(c("red", "green3"))
+pie(rep(1,15), col = bluescale(15))
+pie(rep(1,15), col = dichromat(bluescale(15)))
+par(opar)
+
+opar <- par(mfrow = c(2, 4))
+x <- matrix(rnorm(10 * 10), 10)
+image(1:10, 1:10, x, col = bluescale(10), main = "blue-yellow scale")
+image(1:10, 1:10, x, col = dichromat(bluescale(10), "deutan"), main = "deutan")
+image(1:10, 1:10, x, col = dichromat(bluescale(10), "protan"), main = "protan")
+image(1:10, 1:10, x, col = dichromat(bluescale(10), "tritan"), main = "tritan")
+image(1:10, 1:10, x, col = redgreen(10), main = "red-green scale")
+image(1:10, 1:10, x, col = dichromat(redgreen(10), "deutan"), main = "deutan")
+image(1:10, 1:10, x, col = dichromat(redgreen(10), "protan"), main = "protan")
+image(1:10, 1:10, x, col = dichromat(redgreen(10), "tritan"), main = "tritan")
+par(opar)
+```
 
 ### Clean up
 
@@ -268,7 +367,6 @@ the `dichromat` package ([on CRAN](http://cran.r-project.org/web/packages/dichro
 ## reversing the effects of this: opar <- par(pch = 19)
 par(opar)
 ```
-
 
 ### References
 
@@ -286,9 +384,5 @@ Blog post [My favorite RGB color](http://manyworldstheory.com/2013/01/15/my-favo
 ggplot2: Elegant Graphics for Data Analysis [available via SpringerLink](http://ezproxy.library.ubc.ca/login?url=http://link.springer.com.ezproxy.library.ubc.ca/book/10.1007/978-0-387-98141-3/page/1) by Hadley Wickham, Springer (2009) | [online docs (nice!)](http://docs.ggplot2.org/current/) | [author's website for the book](http://ggplot2.org/book/), including all the code | [author's landing page for the package](http://ggplot2.org)
 
   * Section 6.4.3 Colour
-  
-### Notes from the future
 
-Consider incorporating in future version of this material:
-
-  * Example-laden article by Bernice E. Rogowitz and Lloyd A. Treinish of IBM Research ["Why Should Engineers and Scientists Be Worried About Color?"](http://www.research.ibm.com/people/l/lloydt/color/color.HTM), h/t [\@EdwardTufte](https://twitter.com/EdwardTufte). Importance of signalling where zero is in colorspace, perceptually based color systems (they talk about hue, saturation, and luminance), when the heck was this written?
+["Why Should Engineers and Scientists Be Worried About Color?"](http://www.research.ibm.com/people/l/lloydt/color/color.HTM) by Bernice E. Rogowitz and Lloyd A. Treinish of IBM Research , h/t [\@EdwardTufte](https://twitter.com/EdwardTufte).

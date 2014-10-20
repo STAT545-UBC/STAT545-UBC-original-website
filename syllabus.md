@@ -2,7 +2,9 @@
 
 
 
+<!--
 Until we truly get rolling, you can also see a chronology of the course [from 2013](http://www.stat.ubc.ca/~jenny/STAT545A/current.html).
+-->
 
 
 

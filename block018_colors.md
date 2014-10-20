@@ -199,7 +199,7 @@ The leading `#` is just there by convention. Parse the hexadecimal string like s
 
 
 <!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
-<!-- Sun Oct 19 17:40:55 2014 -->
+<!-- Sun Oct 19 20:55:05 2014 -->
 <table border=1>
 <tr> <th>  </th> <th> 1 </th> <th> 2 </th> <th> 3 </th> <th> 4 </th> <th> 5 </th> <th> 6 </th> <th> 7 </th> <th> 8 </th> <th> 9 </th> <th> 10 </th> <th> 11 </th> <th> 12 </th> <th> 13 </th> <th> 14 </th> <th> 15 </th> <th> 16 </th>  </tr>
   <tr> <td align="right"> hex </td> <td> 0 </td> <td> 1 </td> <td> 2 </td> <td> 3 </td> <td> 4 </td> <td> 5 </td> <td> 6 </td> <td> 7 </td> <td> 8 </td> <td> 9 </td> <td> A </td> <td> B </td> <td> C </td> <td> D </td> <td> E </td> <td> F </td> </tr>
@@ -217,7 +217,7 @@ Important special cases that help you stay oriented. Here are the saturated RGB 
 
 
 <!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
-<!-- Sun Oct 19 17:40:55 2014 -->
+<!-- Sun Oct 19 20:55:05 2014 -->
 <table border=1>
 <tr> <th> colorName </th> <th> hex </th> <th> red </th> <th> green </th> <th> blue </th>  </tr>
   <tr> <td> blue </td> <td> #0000FF </td> <td align="right"> 0 </td> <td align="right"> 0 </td> <td align="right"> 255 </td> </tr>
@@ -230,7 +230,7 @@ Here are shades of gray:
 
 
 <!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
-<!-- Sun Oct 19 17:40:55 2014 -->
+<!-- Sun Oct 19 20:55:05 2014 -->
 <table border=1>
 <tr> <th> colorName </th> <th> hex </th> <th> red </th> <th> green </th> <th> blue </th>  </tr>
   <tr> <td> white, gray100 </td> <td> #FFFFFF </td> <td align="right"> 255 </td> <td align="right"> 255 </td> <td align="right"> 255 </td> </tr>
@@ -263,23 +263,39 @@ Here's what I can tell you about the HCL model's three dimensions:
   * Chroma refers to colorfullness, i.e. how pure or vivid a color is. The more something seems mixed with gray, the lower its chromaticity. The lowest possible value is 0, which corresponds to actual gray. The maximum value varies with luminance.
   * Luminance is related to brightness, lightness, intensity, and value. Low luminance means dark and indeed black has luminance 0. High luminance means light and white has luminance 1.
   
-> Full disclosure: I have a hard time really grasping and distinguishing chroma and luminance. As we point out above, they are not entirely independent, which speaks to the weird shape of the 3 dimensional HCL space.
+Full disclosure: I have a hard time really grasping and distinguishing chroma and luminance. As we point out above, they are not entirely independent, which speaks to the weird shape of the 3 dimensional HCL space.
   
 Figure 6.6 in Wickham's `ggplot2` book is helpful for understanding the HCL color space.
 
 ![Figure 6.6 of Wickham's ggplot2 book](img/ggplot2book-fig6.6.png)
 
-> JB re-phrasing and combining Wickham's description and caption for this figure: Each facet or panel depicts a slice through HCL space for a specific luminance, going from low to high. The extreme luminance values of 0 and 100 are omitted because they would, respectively, be a single black point and a single white point. Within a slice, the centre has chroma 0, which corresponds to a shade of grey. As you move toward the slice's edge, chroma increases and the color gets more pure and intense. Hue is mapped to angle.
+Paraphrasing Wickham: Each facet or panel depicts a slice through HCL space for a specific luminance, going from low to high. The extreme luminance values of 0 and 100 are omitted because they would, respectively, be a single black point and a single white point. Within a slice, the centre has chroma 0, which corresponds to a shade of grey. As you move toward the slice's edge, chroma increases and the color gets more pure and intense. Hue is mapped to angle.
   
 A valuable contribution of the `colorspace` package is that it provides functions to create color palettes traversing color space in a rational way. In contrast, the palettes offered by `RColorBrewer`, though well-crafted, are unfortunately fixed.
 
-> Here I plan to insert/recreate some visuals from the Zeileis et al paper or from the `colorspace` vignette. For the moment, that stuff is sitting in the PDF slides. So go there!
+Here is an article that uses compelling examples to advocate for perceptually based color systems and to demonstrate the importance of signalling where zero is in colorspace:
+
+  * ["Why Should Engineers and Scientists Be Worried About Color?"](http://www.research.ibm.com/people/l/lloydt/color/color.HTM)
+
+<!-- TO DO: Insert/recreate some visuals from the Zeileis et al paper or from the `colorspace` vignette. Show actual usage! -->
 
 ### Accomodating color blindness
 
-the `dichromat` package ([on CRAN](http://cran.r-project.org/web/packages/dichromat/))
+The `dichromat` package ([on CRAN](http://cran.r-project.org/web/packages/dichromat/)) will help you select a color scheme that will be effective for color blind readers.
 
-> obviously need to do some writing here!
+
+```r
+# install.packages("dichromat")
+library(dichromat)
+```
+
+This `colorschemes` list contains 17 color schemes "suitable for people with deficient or anomalous red-green vision".
+
+![](./block018_colors_files/figure-html/dichromat-colorschemes.png) 
+
+What else does the `dichromat` package offer? The `dichromat()` function transforms colors to approximate the effect of different forms of color blindness, allowing you to assess the performance of a candidate scheme. The command `data("dalton")` will make two objects available which represent a 256-color palette as it would appear with normal vision, with two types of red-green color blindness, and with green-blue color blindness. 
+
+
 
 ### Clean up
 
@@ -291,7 +307,6 @@ the `dichromat` package ([on CRAN](http://cran.r-project.org/web/packages/dichro
 ## reversing the effects of this: opar <- par(pch = 19)
 par(opar)
 ```
-
 
 ### References
 
@@ -309,9 +324,5 @@ Blog post [My favorite RGB color](http://manyworldstheory.com/2013/01/15/my-favo
 ggplot2: Elegant Graphics for Data Analysis [available via SpringerLink](http://ezproxy.library.ubc.ca/login?url=http://link.springer.com.ezproxy.library.ubc.ca/book/10.1007/978-0-387-98141-3/page/1) by Hadley Wickham, Springer (2009) | [online docs (nice!)](http://docs.ggplot2.org/current/) | [author's website for the book](http://ggplot2.org/book/), including all the code | [author's landing page for the package](http://ggplot2.org)
 
   * Section 6.4.3 Colour
-  
-### Notes from the future
 
-Consider incorporating in future version of this material:
-
-  * Example-laden article by Bernice E. Rogowitz and Lloyd A. Treinish of IBM Research ["Why Should Engineers and Scientists Be Worried About Color?"](http://www.research.ibm.com/people/l/lloydt/color/color.HTM), h/t [\@EdwardTufte](https://twitter.com/EdwardTufte). Importance of signalling where zero is in colorspace, perceptually based color systems (they talk about hue, saturation, and luminance), when the heck was this written?
+["Why Should Engineers and Scientists Be Worried About Color?"](http://www.research.ibm.com/people/l/lloydt/color/color.HTM) by Bernice E. Rogowitz and Lloyd A. Treinish of IBM Research , h/t [\@EdwardTufte](https://twitter.com/EdwardTufte).

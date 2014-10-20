@@ -83,7 +83,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#accomodating-color-blindness">Accomodating color blindness</a></li>
 <li><a href="#clean-up">Clean up</a></li>
 <li><a href="#references">References</a></li>
-<li><a href="#notes-from-the-future">Notes from the future</a></li>
 </ul>
 </div>
 
@@ -207,7 +206,7 @@ with(jDat, text(x = gdpPercap, y = lifeExp, labels = jBrewColors,
 ## [8] &quot;#666666&quot;</code></pre>
 <p>The leading <code>#</code> is just there by convention. Parse the hexadecimal string like so: <code>#rrggbb</code>, where <code>rr</code>, <code>gg</code>, and <code>bb</code> refer to color intensity in the red, green, and blue channels, respectively. Each is specified as a two-digit base 16 number, which is the meaning of “hexadecimal” (or “hex” for short). Here’s a table relating base 16 numbers to the beloved base 10 system.</p>
 <!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
-<!-- Sun Oct 19 17:40:55 2014 -->
+<!-- Sun Oct 19 20:55:05 2014 -->
 <table border=1>
 <tr> <th>  </th> <th> 
 1
@@ -319,7 +318,7 @@ decimal
 \]</span> Note that the lowest possible channel intensity is <code>00</code> = 0 and the highest is <code>FF</code> = 255.</p>
 <p>Important special cases that help you stay oriented. Here are the saturated RGB colors, red, blue, and green:</p>
 <!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
-<!-- Sun Oct 19 17:40:55 2014 -->
+<!-- Sun Oct 19 20:55:05 2014 -->
 <table border=1>
 <tr> <th> 
 colorName
@@ -369,7 +368,7 @@ red
 
 <p>Here are shades of gray:</p>
 <!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
-<!-- Sun Oct 19 17:40:55 2014 -->
+<!-- Sun Oct 19 20:55:05 2014 -->
 <table border=1>
 <tr> <th> 
 colorName
@@ -448,25 +447,26 @@ black, gray0
 <li>Chroma refers to colorfullness, i.e. how pure or vivid a color is. The more something seems mixed with gray, the lower its chromaticity. The lowest possible value is 0, which corresponds to actual gray. The maximum value varies with luminance.</li>
 <li>Luminance is related to brightness, lightness, intensity, and value. Low luminance means dark and indeed black has luminance 0. High luminance means light and white has luminance 1.</li>
 </ul>
-<blockquote>
 <p>Full disclosure: I have a hard time really grasping and distinguishing chroma and luminance. As we point out above, they are not entirely independent, which speaks to the weird shape of the 3 dimensional HCL space.</p>
-</blockquote>
 <p>Figure 6.6 in Wickham’s <code>ggplot2</code> book is helpful for understanding the HCL color space.</p>
 <p><img src="img/ggplot2book-fig6.6.png" alt="Figure 6.6 of Wickham’s ggplot2 book" /></p>
-<blockquote>
-<p>JB re-phrasing and combining Wickham’s description and caption for this figure: Each facet or panel depicts a slice through HCL space for a specific luminance, going from low to high. The extreme luminance values of 0 and 100 are omitted because they would, respectively, be a single black point and a single white point. Within a slice, the centre has chroma 0, which corresponds to a shade of grey. As you move toward the slice’s edge, chroma increases and the color gets more pure and intense. Hue is mapped to angle.</p>
-</blockquote>
+<p>Paraphrasing Wickham: Each facet or panel depicts a slice through HCL space for a specific luminance, going from low to high. The extreme luminance values of 0 and 100 are omitted because they would, respectively, be a single black point and a single white point. Within a slice, the centre has chroma 0, which corresponds to a shade of grey. As you move toward the slice’s edge, chroma increases and the color gets more pure and intense. Hue is mapped to angle.</p>
 <p>A valuable contribution of the <code>colorspace</code> package is that it provides functions to create color palettes traversing color space in a rational way. In contrast, the palettes offered by <code>RColorBrewer</code>, though well-crafted, are unfortunately fixed.</p>
-<blockquote>
-<p>Here I plan to insert/recreate some visuals from the Zeileis et al paper or from the <code>colorspace</code> vignette. For the moment, that stuff is sitting in the PDF slides. So go there!</p>
-</blockquote>
+<p>Here is an article that uses compelling examples to advocate for perceptually based color systems and to demonstrate the importance of signalling where zero is in colorspace:</p>
+<ul>
+<li><a href="http://www.research.ibm.com/people/l/lloydt/color/color.HTM">“Why Should Engineers and Scientists Be Worried About Color?”</a></li>
+</ul>
+<!-- TO DO: Insert/recreate some visuals from the Zeileis et al paper or from the `colorspace` vignette. Show actual usage! -->
+
 </div>
 <div id="accomodating-color-blindness" class="section level3">
 <h3>Accomodating color blindness</h3>
-<p>the <code>dichromat</code> package (<a href="http://cran.r-project.org/web/packages/dichromat/">on CRAN</a>)</p>
-<blockquote>
-<p>obviously need to do some writing here!</p>
-</blockquote>
+<p>The <code>dichromat</code> package (<a href="http://cran.r-project.org/web/packages/dichromat/">on CRAN</a>) will help you select a color scheme that will be effective for color blind readers.</p>
+<pre class="r"><code># install.packages(&quot;dichromat&quot;)
+library(dichromat)</code></pre>
+<p>This <code>colorschemes</code> list contains 17 color schemes “suitable for people with deficient or anomalous red-green vision”.</p>
+<p><img src="block018_colors_files/figure-html/dichromat-colorschemes.png" /></p>
+<p>What else does the <code>dichromat</code> package offer? The <code>dichromat()</code> function transforms colors to approximate the effect of different forms of color blindness, allowing you to assess the performance of a candidate scheme. The command <code>data(&quot;dalton&quot;)</code> will make two objects available which represent a 256-color palette as it would appear with normal vision, with two types of red-green color blindness, and with green-blue color blindness.</p>
 </div>
 <div id="clean-up" class="section level3">
 <h3>Clean up</h3>
@@ -490,13 +490,7 @@ par(opar)</code></pre>
 <ul>
 <li>Section 6.4.3 Colour</li>
 </ul>
-</div>
-<div id="notes-from-the-future" class="section level3">
-<h3>Notes from the future</h3>
-<p>Consider incorporating in future version of this material:</p>
-<ul>
-<li>Example-laden article by Bernice E. Rogowitz and Lloyd A. Treinish of IBM Research <a href="http://www.research.ibm.com/people/l/lloydt/color/color.HTM">“Why Should Engineers and Scientists Be Worried About Color?”</a>, h/t <a href="https://twitter.com/EdwardTufte">@EdwardTufte</a>. Importance of signalling where zero is in colorspace, perceptually based color systems (they talk about hue, saturation, and luminance), when the heck was this written?</li>
-</ul>
+<p><a href="http://www.research.ibm.com/people/l/lloydt/color/color.HTM">“Why Should Engineers and Scientists Be Worried About Color?”</a> by Bernice E. Rogowitz and Lloyd A. Treinish of IBM Research , h/t <a href="https://twitter.com/EdwardTufte">@EdwardTufte</a>.</p>
 </div>
 
 <div class="footer">

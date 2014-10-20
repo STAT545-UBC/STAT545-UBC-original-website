@@ -18,7 +18,7 @@
     - [`ggplot2` tutorial](https://github.com/jennybc/ggplot2-tutorial), heavy on code and examples
     - [Do's and don'ts of making effective graphs](block015_graph-dos-donts.html)
     - [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/), a visual, clickable index of 100+ figures + `ggplot2` code to make them
-    - Colors
+    - [Using colors in R](block018_colors.html)
     - [Secrets of a happy graphing life](block016_secrets-happy-graphing.html)
     - [Writing figures to file](block017_write-figure-to-file.html)
   * The `dplyr` package for data manipulation
