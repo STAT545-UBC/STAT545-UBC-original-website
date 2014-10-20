@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Taking control of qualitative colors in ggplot2</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Taking control of qualitative colors in ggplot2</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#load-ggplot2-and-prepare-the-gapminder-data">Load <code>ggplot2</code> and prepare the Gapminder data</a></li>
+<li><a href="#take-control-of-the-size-and-color-of-points">Take control of the size and color of points</a></li>
+<li><a href="#circle-area-population">Circle area = population</a></li>
+<li><a href="#circle-fill-color-determined-by-a-factor">Circle fill color determined by a factor</a></li>
+<li><a href="#get-the-color-scheme-for-the-countries">Get the color scheme for the countries</a></li>
+<li><a href="#prepare-the-color-scheme-for-use-with-ggplot2">Prepare the color scheme for use with <code>ggplot2</code></a></li>
+<li><a href="#make-the-ggplot2-bubble-chart">Make the <code>ggplot2</code> bubble chart</a></li>
+<li><a href="#epilogue-re-make-the-plot-to-reveal-small-countries">Epilogue: re-make the plot to reveal small countries</a></li>
+</ul>
+</div>
+
+<div id="load-ggplot2-and-prepare-the-gapminder-data" class="section level3">
+<h3>Load <code>ggplot2</code> and prepare the Gapminder data</h3>
+<p>Bring in the usual Gapminder data but drop Oceania, which only has two countries.</p>
+<pre class="r"><code>library(ggplot2)
+gDat &lt;- read.delim(&quot;gapminderDataFiveYear.txt&quot;)
+jDat &lt;- droplevels(subset(gDat, continent != &quot;Oceania&quot;))
+str(jDat)
+## &#39;data.frame&#39;:    1680 obs. of  6 variables:
+##  $ country  : Factor w/ 140 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ continent: Factor w/ 4 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...</code></pre>
+</div>
+<div id="take-control-of-the-size-and-color-of-points" class="section level3">
+<h3>Take control of the size and color of points</h3>
+<p>Let’s use <code>ggplot2</code> to move towards the classic Gapminder bubble chart. Crawl then walk then run.</p>
+<p>First, make a simple scatterplot for a single year.</p>
+<pre class="r"><code>jYear &lt;- 2007
+q &lt;-
+  ggplot(subset(jDat, year == jYear), aes(x = gdpPercap, y = lifeExp)) +
+  scale_x_log10(limits = c(230, 63000))
+q + geom_point()</code></pre>
+<p><img src="block019_enforce-color-scheme_files/figure-html/scatterplot.png" /></p>
+<p>Take control of the plotting symbol, its size, and its color. Use obnoxious settings so that success versus failure is completely obvious. Now is not the time for the delicate operation of inserting your fancy color scheme. Be bold!</p>
+<pre class="r"><code>## do I have control of size and fill color? YES!
+q + geom_point(pch = 21, size = 8, fill = I(&quot;darkorchid1&quot;))</code></pre>
+<p><img src="block019_enforce-color-scheme_files/figure-html/scatterplot-obnoxious-points.png" /></p>
+</div>
+<div id="circle-area-population" class="section level3">
+<h3>Circle area = population</h3>
+<p>We want the size of the circle to reflect population. Since we have direct control of the radius, we invert the relation <span class="math">\(area = \pi r^2\)</span> to determine the point size from the country’s population. I have two complaints with my first attempt: the circles are still too small for my taste and I don’t want the size legend. So in my second attempt, I suppress the legend with <code>show_guide = FALSE</code> and I increase the range of sizes by explicitly setting the range for the scale that maps <span class="math">\(\sqrt(pop / \pi)\)</span> into circle size.</p>
+<pre class="r"><code>q + geom_point(aes(size = sqrt(pop/pi)), pch = 21)
+(r &lt;- q +
+   geom_point(aes(size = sqrt(pop/pi)), pch = 21, show_guide = FALSE) +
+   scale_size_continuous(range=c(1,40)))</code></pre>
+<p><img src="block019_enforce-color-scheme_files/figure-html/scatterplot-population-area1.png" title="" alt="" width="50%" /><img src="block019_enforce-color-scheme_files/figure-html/scatterplot-population-area2.png" title="" alt="" width="50%" /></p>
+</div>
+<div id="circle-fill-color-determined-by-a-factor" class="section level3">
+<h3>Circle fill color determined by a factor</h3>
+<p>Now I use <code>aes()</code> to map a factor to color. For the moment, I settle for the <code>continent</code> factor and for the automatic color scheme. I also facet by continent. Why? Because it will be helpful below for checking my progress on using my custom color scheme. Since all the countries, say, in Europe, are some shade of green, if the continent facets have circles of many colors, I’ll know something’s wrong.</p>
+<pre class="r"><code>(r &lt;- r + facet_wrap(~ continent) + ylim(c(39, 87)))
+r + aes(fill = continent)</code></pre>
+<p><img src="block019_enforce-color-scheme_files/figure-html/scatterplot-continent-fill1.png" title="" alt="" width="50%" /><img src="block019_enforce-color-scheme_files/figure-html/scatterplot-continent-fill2.png" title="" alt="" width="50%" /></p>
+</div>
+<div id="get-the-color-scheme-for-the-countries" class="section level3">
+<h3>Get the color scheme for the countries</h3>
+<p>Elsewhere, I devised a color scheme for the Gapminder countries. We will not discuss it’s construction here, but will merely pull it off the web. You can view it in PDF form <a href="http://www.stat.ubc.ca/~jenny/notOcto/STAT545A/examples/gapminder/figs/bryan-a01-colorScheme.pdf">here</a>.</p>
+<pre class="r"><code>## get the country color scheme
+gdURL &lt;- &quot;http://www.stat.ubc.ca/~jenny/notOcto/STAT545A/examples/gapminder/data/gapminderCountryColors.txt&quot;
+countryColors &lt;- read.delim(file = gdURL, as.is = 3) # protect color
+str(countryColors)
+## &#39;data.frame&#39;:    142 obs. of  3 variables:
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 95 39 43 28 118 121 127 69 86 3 ...
+##  $ color    : chr  &quot;#7F3B08&quot; &quot;#833D07&quot; &quot;#873F07&quot; &quot;#8B4107&quot; ...
+head(countryColors)
+##   continent          country   color
+## 1    Africa          Nigeria #7F3B08
+## 2    Africa            Egypt #833D07
+## 3    Africa         Ethiopia #873F07
+## 4    Africa Congo, Dem. Rep. #8B4107
+## 5    Africa     South Africa #8F4407
+## 6    Africa            Sudan #934607</code></pre>
+<p>The data.frame <code>countryColors</code> has one row per country and three variables: country, continent, and color. The color variable holds the RGB hex strings encoding the color scheme.</p>
+<p><strong>Note:</strong> The row order of <code>countryColors</code> is not alphabetical. The countries are actually sorted by size (in which particular year, I don’t recall) within continent, reflecting the logic by which the scheme was created. No problem. Ideally, nothing in your analysis should depend on row order, although that’s not always possible in reality.</p>
+</div>
+<div id="prepare-the-color-scheme-for-use-with-ggplot2" class="section level3">
+<h3>Prepare the color scheme for use with <code>ggplot2</code></h3>
+<p>In the Grammar of Graphics, a <strong>scale</strong> controls the mapping from a variable in the data to an aesthetic. So far we’ve let the coloring / filling scale be determined automatically by <code>ggplot2</code>. But to use our custom color scheme, we need to take control of the mapping of the <code>country</code> factor into fill color in <code>geom_point()</code>.</p>
+<p>We will use <code>scale_fill_manual</code>, a member of a family of functions for customization of the discrete scales. The main argument is <code>values =</code>, which is a vector of aesthetic values – fill colors, in our case. If this vector has names, they will be consulted during the mapping. This is incredibly useful! Below, we isolate the vector of hex strings providing the country colors and give this vector the country names as names. This saves us from any worry about the order of levels of the <code>country</code> factor, the row order of the data, or exactly which countries are being plotted.</p>
+<pre class="r"><code>jColors &lt;- countryColors$color
+names(jColors) &lt;- countryColors$country
+head(jColors)
+##          Nigeria            Egypt         Ethiopia Congo, Dem. Rep. 
+##        &quot;#7F3B08&quot;        &quot;#833D07&quot;        &quot;#873F07&quot;        &quot;#8B4107&quot; 
+##     South Africa            Sudan 
+##        &quot;#8F4407&quot;        &quot;#934607&quot;</code></pre>
+</div>
+<div id="make-the-ggplot2-bubble-chart" class="section level3">
+<h3>Make the <code>ggplot2</code> bubble chart</h3>
+<p>This is deceptively simple at this point. Like many things, it looks really easy, once we figure everything out! The last two bits we add are to use <code>aes()</code> to specify that the country should be mapped to color and to use <code>scale_fill_manual()</code> to specify our custom color scheme.</p>
+<pre class="r"><code>r + aes(fill = country) + scale_fill_manual(values = jColors)</code></pre>
+<p><img src="block019_enforce-color-scheme_files/figure-html/scatterplot-country-fill.png" /></p>
+</div>
+<div id="epilogue-re-make-the-plot-to-reveal-small-countries" class="section level3">
+<h3>Epilogue: re-make the plot to reveal small countries</h3>
+<p>We know from earlier work that large countries can effectively hide the data from small countries, by covering them up. This is a case where, sadly, the row order of the data truly affects the visual output. <code>ggplot2</code> is no less vulnerable to this than <code>lattice</code> or base graphics. So, to get closure, we sort the data on year and then on population and remake the plot, revealing all the code.</p>
+<pre class="r"><code>jDat &lt;- jDat[with(jDat, order(year, -1 * pop)), ]
+ggplot(subset(jDat, year == jYear),
+       aes(x = gdpPercap, y = lifeExp)) +
+  scale_x_log10(limits = c(230, 63000)) +
+  geom_point(aes(size = sqrt(pop/pi)), pch = 21, show_guide = FALSE) +
+  scale_size_continuous(range=c(1,40)) + ylim(c(39, 87)) +
+  facet_wrap(~ continent) +
+  aes(fill = country) + scale_fill_manual(values = jColors)</code></pre>
+<p><img src="block019_enforce-color-scheme_files/figure-html/scatterplot-country-fill-final.png" /></p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

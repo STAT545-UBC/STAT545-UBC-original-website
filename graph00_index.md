@@ -24,7 +24,7 @@ We work on visualiation throughout the course. Here are the bits in rough order 
     - code for all figures and app itself is on [GitHub](https://github.com/jennybc/r-graph-catalog)
   * Colors
     - [Using colors in R](block018_colors.html)
-    - How to make `ggplot2` use your color palette *[2013 materials](http://www.stat.ubc.ca/~jenny/STAT545A/block17_colorsGgplot2Qualitative.html)*
+    - [Taking control of qualitative colors in `ggplot2`](block019_enforce-color-scheme.html)
   * Practical pro tips, i.e. a return to mechanics
     - [Secrets of a happy graphing life](block016_secrets-happy-graphing.html): data.frames! tidy data! factors!
     - [Writing figures to file](block017_write-figure-to-file.html)
