@@ -9,19 +9,12 @@ output:
   * [HW05](hw05_factor-boss-files-out-in.html) due anytime Thursday 2014-10-16. Last official homework of STAT545A. For those going on to STAT547M, this means a one week break in *marked* homework.
   * [HW06](hw06_repo-hygiene-figure-boss.html) *Optional, unmarked* activities for the STAT 545A / STAT 547M transition
   * What's coming?
-    - Week of Oct 20: Tidy data, data reshaping, `plyr` beyond `ddply()`, joins and merges
+    - Week of Oct 20: Practical graphing tips, tidy data, data reshaping, `plyr` beyond `ddply()`, joins and merges
     - Week of Oct 27: Data cleaning, regular expressions, wrangling character data (Gloria Li)
     - Week of Nov 03: Task automation and building pipelines (Shaun Jackman)
     - Weeks of Nov 10, 17, 24, order TBD: building an R package, building a Shiny app, getting data off the web
   * TODAY: More about making graphs!
     - [Do's and Don'ts of effective graphs](block015_graph-dos-donts.html)
-    - Practical Pro Tips *there's no way we'll get to all this today*
-      - tidy data! data.frames! factors! see [tutorial slides](https://github.com/jennybc/ggplot2-tutorial/blob/master/ggplot2-tutorial-slides.pdf)
-      - writing figures to file, explicitly; see [2013 topic](http://www.stat.ubc.ca/~jenny/STAT545A/topic12_writeFigureToFile.html) and [tutorial slides](https://github.com/jennybc/ggplot2-tutorial/blob/master/ggplot2-tutorial-slides.pdf) (vector vs. raster, `ggsave()`, open device + plot + close device, `dev.print()`) 
-      - chunk names --> figure names 
-      - taking control of colors; see [2013 guidance on general colors](http://www.stat.ubc.ca/~jenny/STAT545A/block14_colors.html) and [2013 taking control of qualitative colors in `ggplot2`](http://www.stat.ubc.ca/~jenny/STAT545A/block17_colorsGgplot2Qualitative.html)
-      - multiple plots on a "page"; many examples in [R graph catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/) and [`multiplot()` from Cookbook for R](http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/)
-      - density plots, high-volume scatterplotting, fancy plots (see [some from 2013](http://www.stat.ubc.ca/~jenny/STAT545A/block18_gapminderGgplot2VsLattice.html)) 
 
 Interesting links that aren't included in the pages referenced above
 
