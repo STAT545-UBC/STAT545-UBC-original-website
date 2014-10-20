@@ -36,7 +36,7 @@ When you change a graphical parameter via `par()`, the original values are retur
 
 Big picture, it is best practice to restore the original, default state of hidden things that affect an R session. This is polite if you plan to inflict your code on others. Even if you live on an R desert island, this practice will prevent you from creating maddening little puzzles for yourself to solve in the middle of the night before a deadline.
 
-Because of the way figures are handled by `knitr`, it is more complicated to change the default plotting symbol throughout, e.g., an R Markdown document. To see how I've done it, check out a hidden chunk around here in the [source of this page FIX THIS!](https://github.com/STAT545-UBC/STAT545-UBC.github.io).
+Because of the way figures are handled by `knitr`, it is more complicated to change the default plotting symbol throughout an R Markdown document. To see how I've done it, check out a hidden chunk around here in the [source of this page](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/block018_colors.rmd).
 
 ```{r include = FALSE}
 ## see ch. 10 Hooks of Xie's knitr book
@@ -118,16 +118,14 @@ tail(colors())
 
 But it's much more exciting to see the colors displayed! Lots of people have tackled this -- for colors, plotting symbols, line types -- and put their work on the internet. Some examples:
 
-TO DO: FIX THESE INTERNAL LINKS!
-
-  * JB printed color names [on a white background](r.col.white.bkgd.pdf) and [on black](r.col.black.bkgd.pdf)
-  * JB printed [the first 30 plotting symbols](r.pch.pdf) (presumably using code found elsewhere or in documentation? can't remember whom to credit).
+  * I put color names [on a white background](img/r.col.white.bkgd.pdf) and [on black](img/r.col.black.bkgd.pdf) *(sorry, these are PDFs)*
+  * I printed [the first 30 plotting symbols](img/r.pch.pdf) (presumably using code found elsewhere or in documentation? can't remember whom to credit) *(sorry, it's a PDF)*
   * In [Chapter 3 of R Graphics 1st edition](https://www.stat.auckland.ac.nz/~paul/RGraphics/chapter3.html), Paul Murrell shows predefined and custom line types in Figure 3.6 and plotting symbols in Figure 3.10.
   * Earl F. Glynn offers [an excellent resource](http://research.stowers-institute.org/efg/R/Color/Chart/) on R's built-in named colors.
   
 ### RColorBrewer
 
-Most of us are pretty lousy at choosing colors and it's easy to spend too much time fiddling with them. [Cynthia Brewer](http://en.wikipedia.org/wiki/Cynthia_Brewer), a geographer and color specialist, has created sets of colors for print and the web and they are available in the add-on package `RColorBrewer`. You will need to install and load this package to use.
+Most of us are pretty lousy at choosing colors and it's easy to spend too much time fiddling with them. [Cynthia Brewer](http://en.wikipedia.org/wiki/Cynthia_Brewer), a geographer and color specialist, has created sets of colors for print and the web and they are available in the add-on package [`RColorBrewer`](http://cran.r-project.org/web/packages/RColorBrewer/index.html). You will need to install and load this package to use.
 
 ```{r}
 #install.packages("RColorBrewer")
@@ -233,7 +231,7 @@ Here are some functions to read up on if you want to learn more -- don't forget 
 
 The RGB color space or model is by no means the only or best one. It's natural for describing colors for display on a computer screen but some really important color picking tasks are hard to execute in this model. For example, it's not obvious how to construct a qualitative palette where the colors are easy for humans to distinguish, but are also perceptually comparable to one other. Appreciate this: we can use RGB to describe colors to the computer __but we don't have to use it as the space where we construct color systems__.
 
-Color models generally have three dimensions, as RGB does, due to the physiological reality that humans have three different receptors in the retina. ([Here is an informative blog post](http://manyworldstheory.com/2013/01/15/my-favorite-rgb-color/) on RGB and the human visual system.) The closer a color model's dimensions correspond to distinct qualities people can perceive, the more useful it is. This correspondence facilitates the deliberate construction of palettes and paths through color space with specific properties. RGB lacks this concordance with human perception. Just because you have photoreceptors that detect red, green, and blue light, it doesn't mean that your *perceptual experience* of color breaks down that way. Do experience the color yellow as a mix of red and green light? No, of course not, but that's the physiological reality. An RGB alternative you may have encountered is the Hue-Saturation-Value (HSV) model. Unfortunately, it is also quite problematic for color picking, due to its dimensions being confounded with each other.
+Color models generally have three dimensions, as RGB does, due to the physiological reality that humans have three different receptors in the retina. ([Here is an informative blog post](http://manyworldstheory.com/2013/01/15/my-favorite-rgb-color/) on RGB and the human visual system.) The closer a color model's dimensions correspond to distinct qualities people can perceive, the more useful it is. This correspondence facilitates the deliberate construction of palettes and paths through color space with specific properties. RGB lacks this concordance with human perception. Just because you have photoreceptors that detect red, green, and blue light, it doesn't mean that your *perceptual experience* of color breaks down that way. Do you experience the color yellow as a mix of red and green light? No, of course not, but that's the physiological reality. An RGB alternative you may have encountered is the Hue-Saturation-Value (HSV) model. Unfortunately, it is also quite problematic for color picking, due to its dimensions being confounded with each other.
 
 What are the good perceptually-based color models? CIELUV and CIELAB are two well-known examples. We will focus on a variant of CIELUV, namely the Hue-Chroma-Luminance (HCL) model. It is written up nicely for an R audience in Zeileis, et al (see References for citation and link). There is a companion R package `colorspace`, which will help you to explore and exploit the HCL color model. Finally, this color model is fully embraced in `ggplot2` (as are the `RColorBrewer` palettes).
 
@@ -247,9 +245,7 @@ Here's what I can tell you about the HCL model's three dimensions:
   
 Figure 6.6 in Wickham's `ggplot2` book is helpful for understanding the HCL color space.
 
-TO DO: BRING THIS FIGURE INTO THIS REPO
-
-![Figure 6.6 of Wickham's ggplot2 book](http://www.stat.ubc.ca/~jenny/notOcto/STAT545A/examples/gapminder/figs/ggplot2book-fig6.6.png)
+![Figure 6.6 of Wickham's ggplot2 book](img/ggplot2book-fig6.6.png)
 
 > JB re-phrasing and combining Wickham's description and caption for this figure: Each facet or panel depicts a slice through HCL space for a specific luminance, going from low to high. The extreme luminance values of 0 and 100 are omitted because they would, respectively, be a single black point and a single white point. Within a slice, the centre has chroma 0, which corresponds to a shade of grey. As you move toward the slice's edge, chroma increases and the color gets more pure and intense. Hue is mapped to angle.
   
@@ -295,4 +291,4 @@ ggplot2: Elegant Graphics for Data Analysis [available via SpringerLink](http://
 
 Consider incorporating in future version of this material:
 
-  * Example-laden article by Bernice E. Rogowitz and Lloyd A. Treinish of IBM Research ["Why Should Engineers and Scientists Be Worried About Color?"](http://www.research.ibm.com/people/l/lloydt/color/color.HTM), h/t [@EdwardTufte](https://twitter.com/EdwardTufte). Importance of signalling where zero is in colorspace, perceptually based color systems (they talk about hue, saturation, and luminance), when the heck was this written?
+  * Example-laden article by Bernice E. Rogowitz and Lloyd A. Treinish of IBM Research ["Why Should Engineers and Scientists Be Worried About Color?"](http://www.research.ibm.com/people/l/lloydt/color/color.HTM), h/t [\@EdwardTufte](https://twitter.com/EdwardTufte). Importance of signalling where zero is in colorspace, perceptually based color systems (they talk about hue, saturation, and luminance), when the heck was this written?

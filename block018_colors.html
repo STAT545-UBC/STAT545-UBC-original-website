@@ -111,7 +111,7 @@ opar &lt;- par(pch = 19)</code></pre>
 </ol>
 <p>When you change a graphical parameter via <code>par()</code>, the original values are returned and we’re capturing them via assignment to <code>opar</code>. At the very bottom of this tutorial, we use <code>opar</code> to restore the original state.</p>
 <p>Big picture, it is best practice to restore the original, default state of hidden things that affect an R session. This is polite if you plan to inflict your code on others. Even if you live on an R desert island, this practice will prevent you from creating maddening little puzzles for yourself to solve in the middle of the night before a deadline.</p>
-<p>Because of the way figures are handled by <code>knitr</code>, it is more complicated to change the default plotting symbol throughout, e.g., an R Markdown document. To see how I’ve done it, check out a hidden chunk around here in the <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io">source of this page FIX THIS!</a>.</p>
+<p>Because of the way figures are handled by <code>knitr</code>, it is more complicated to change the default plotting symbol throughout an R Markdown document. To see how I’ve done it, check out a hidden chunk around here in the <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/block018_colors.rmd">source of this page</a>.</p>
 </div>
 <div id="basic-color-specification-and-the-default-palette" class="section level3">
 <h3>Basic color specification and the default palette</h3>
@@ -166,17 +166,16 @@ tail(colors())
 ## [1] &quot;yellow&quot;      &quot;yellow1&quot;     &quot;yellow2&quot;     &quot;yellow3&quot;     &quot;yellow4&quot;    
 ## [6] &quot;yellowgreen&quot;</code></pre>
 <p>But it’s much more exciting to see the colors displayed! Lots of people have tackled this – for colors, plotting symbols, line types – and put their work on the internet. Some examples:</p>
-<p>TO DO: FIX THESE INTERNAL LINKS!</p>
 <ul>
-<li>JB printed color names <a href="r.col.white.bkgd.pdf">on a white background</a> and <a href="r.col.black.bkgd.pdf">on black</a></li>
-<li>JB printed <a href="r.pch.pdf">the first 30 plotting symbols</a> (presumably using code found elsewhere or in documentation? can’t remember whom to credit).</li>
+<li>I put color names <a href="img/r.col.white.bkgd.pdf">on a white background</a> and <a href="img/r.col.black.bkgd.pdf">on black</a> <em>(sorry, these are PDFs)</em></li>
+<li>I printed <a href="img/r.pch.pdf">the first 30 plotting symbols</a> (presumably using code found elsewhere or in documentation? can’t remember whom to credit) <em>(sorry, it’s a PDF)</em></li>
 <li>In <a href="https://www.stat.auckland.ac.nz/~paul/RGraphics/chapter3.html">Chapter 3 of R Graphics 1st edition</a>, Paul Murrell shows predefined and custom line types in Figure 3.6 and plotting symbols in Figure 3.10.</li>
 <li>Earl F. Glynn offers <a href="http://research.stowers-institute.org/efg/R/Color/Chart/">an excellent resource</a> on R’s built-in named colors.</li>
 </ul>
 </div>
 <div id="rcolorbrewer" class="section level3">
 <h3>RColorBrewer</h3>
-<p>Most of us are pretty lousy at choosing colors and it’s easy to spend too much time fiddling with them. <a href="http://en.wikipedia.org/wiki/Cynthia_Brewer">Cynthia Brewer</a>, a geographer and color specialist, has created sets of colors for print and the web and they are available in the add-on package <code>RColorBrewer</code>. You will need to install and load this package to use.</p>
+<p>Most of us are pretty lousy at choosing colors and it’s easy to spend too much time fiddling with them. <a href="http://en.wikipedia.org/wiki/Cynthia_Brewer">Cynthia Brewer</a>, a geographer and color specialist, has created sets of colors for print and the web and they are available in the add-on package <a href="http://cran.r-project.org/web/packages/RColorBrewer/index.html"><code>RColorBrewer</code></a>. You will need to install and load this package to use.</p>
 <pre class="r"><code>#install.packages(&quot;RColorBrewer&quot;)
 library(RColorBrewer)</code></pre>
 <p>Let’s look at all the associated palettes.</p>
@@ -208,7 +207,7 @@ with(jDat, text(x = gdpPercap, y = lifeExp, labels = jBrewColors,
 ## [8] &quot;#666666&quot;</code></pre>
 <p>The leading <code>#</code> is just there by convention. Parse the hexadecimal string like so: <code>#rrggbb</code>, where <code>rr</code>, <code>gg</code>, and <code>bb</code> refer to color intensity in the red, green, and blue channels, respectively. Each is specified as a two-digit base 16 number, which is the meaning of “hexadecimal” (or “hex” for short). Here’s a table relating base 16 numbers to the beloved base 10 system.</p>
 <!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
-<!-- Sun Oct 19 17:17:34 2014 -->
+<!-- Sun Oct 19 17:40:55 2014 -->
 <table border=1>
 <tr> <th>  </th> <th> 
 1
@@ -320,7 +319,7 @@ decimal
 \]</span> Note that the lowest possible channel intensity is <code>00</code> = 0 and the highest is <code>FF</code> = 255.</p>
 <p>Important special cases that help you stay oriented. Here are the saturated RGB colors, red, blue, and green:</p>
 <!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
-<!-- Sun Oct 19 17:17:34 2014 -->
+<!-- Sun Oct 19 17:40:55 2014 -->
 <table border=1>
 <tr> <th> 
 colorName
@@ -370,7 +369,7 @@ red
 
 <p>Here are shades of gray:</p>
 <!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
-<!-- Sun Oct 19 17:17:34 2014 -->
+<!-- Sun Oct 19 17:40:55 2014 -->
 <table border=1>
 <tr> <th> 
 colorName
@@ -441,7 +440,7 @@ black, gray0
 <div id="alternatives-to-the-rgb-color-model-especially-hcl" class="section level3">
 <h3>Alternatives to the RGB color model, especially HCL</h3>
 <p>The RGB color space or model is by no means the only or best one. It’s natural for describing colors for display on a computer screen but some really important color picking tasks are hard to execute in this model. For example, it’s not obvious how to construct a qualitative palette where the colors are easy for humans to distinguish, but are also perceptually comparable to one other. Appreciate this: we can use RGB to describe colors to the computer <strong>but we don’t have to use it as the space where we construct color systems</strong>.</p>
-<p>Color models generally have three dimensions, as RGB does, due to the physiological reality that humans have three different receptors in the retina. (<a href="http://manyworldstheory.com/2013/01/15/my-favorite-rgb-color/">Here is an informative blog post</a> on RGB and the human visual system.) The closer a color model’s dimensions correspond to distinct qualities people can perceive, the more useful it is. This correspondence facilitates the deliberate construction of palettes and paths through color space with specific properties. RGB lacks this concordance with human perception. Just because you have photoreceptors that detect red, green, and blue light, it doesn’t mean that your <em>perceptual experience</em> of color breaks down that way. Do experience the color yellow as a mix of red and green light? No, of course not, but that’s the physiological reality. An RGB alternative you may have encountered is the Hue-Saturation-Value (HSV) model. Unfortunately, it is also quite problematic for color picking, due to its dimensions being confounded with each other.</p>
+<p>Color models generally have three dimensions, as RGB does, due to the physiological reality that humans have three different receptors in the retina. (<a href="http://manyworldstheory.com/2013/01/15/my-favorite-rgb-color/">Here is an informative blog post</a> on RGB and the human visual system.) The closer a color model’s dimensions correspond to distinct qualities people can perceive, the more useful it is. This correspondence facilitates the deliberate construction of palettes and paths through color space with specific properties. RGB lacks this concordance with human perception. Just because you have photoreceptors that detect red, green, and blue light, it doesn’t mean that your <em>perceptual experience</em> of color breaks down that way. Do you experience the color yellow as a mix of red and green light? No, of course not, but that’s the physiological reality. An RGB alternative you may have encountered is the Hue-Saturation-Value (HSV) model. Unfortunately, it is also quite problematic for color picking, due to its dimensions being confounded with each other.</p>
 <p>What are the good perceptually-based color models? CIELUV and CIELAB are two well-known examples. We will focus on a variant of CIELUV, namely the Hue-Chroma-Luminance (HCL) model. It is written up nicely for an R audience in Zeileis, et al (see References for citation and link). There is a companion R package <code>colorspace</code>, which will help you to explore and exploit the HCL color model. Finally, this color model is fully embraced in <code>ggplot2</code> (as are the <code>RColorBrewer</code> palettes).</p>
 <p>Here’s what I can tell you about the HCL model’s three dimensions:</p>
 <ul>
@@ -453,8 +452,7 @@ black, gray0
 <p>Full disclosure: I have a hard time really grasping and distinguishing chroma and luminance. As we point out above, they are not entirely independent, which speaks to the weird shape of the 3 dimensional HCL space.</p>
 </blockquote>
 <p>Figure 6.6 in Wickham’s <code>ggplot2</code> book is helpful for understanding the HCL color space.</p>
-<p>TO DO: BRING THIS FIGURE INTO THIS REPO</p>
-<p><img src="http://www.stat.ubc.ca/~jenny/notOcto/STAT545A/examples/gapminder/figs/ggplot2book-fig6.6.png" alt="Figure 6.6 of Wickham’s ggplot2 book" /></p>
+<p><img src="img/ggplot2book-fig6.6.png" alt="Figure 6.6 of Wickham’s ggplot2 book" /></p>
 <blockquote>
 <p>JB re-phrasing and combining Wickham’s description and caption for this figure: Each facet or panel depicts a slice through HCL space for a specific luminance, going from low to high. The extreme luminance values of 0 and 100 are omitted because they would, respectively, be a single black point and a single white point. Within a slice, the centre has chroma 0, which corresponds to a shade of grey. As you move toward the slice’s edge, chroma increases and the color gets more pure and intense. Hue is mapped to angle.</p>
 </blockquote>
@@ -497,7 +495,7 @@ par(opar)</code></pre>
 <h3>Notes from the future</h3>
 <p>Consider incorporating in future version of this material:</p>
 <ul>
-<li>Example-laden article by Bernice E. Rogowitz and Lloyd A. Treinish of IBM Research <a href="http://www.research.ibm.com/people/l/lloydt/color/color.HTM">“Why Should Engineers and Scientists Be Worried About Color?”</a>, h/t <span class="citation">[@EdwardTufte]</span>(<a href="https://twitter.com/EdwardTufte">https://twitter.com/EdwardTufte</a>). Importance of signalling where zero is in colorspace, perceptually based color systems (they talk about hue, saturation, and luminance), when the heck was this written?</li>
+<li>Example-laden article by Bernice E. Rogowitz and Lloyd A. Treinish of IBM Research <a href="http://www.research.ibm.com/people/l/lloydt/color/color.HTM">“Why Should Engineers and Scientists Be Worried About Color?”</a>, h/t <a href="https://twitter.com/EdwardTufte">@EdwardTufte</a>. Importance of signalling where zero is in colorspace, perceptually based color systems (they talk about hue, saturation, and luminance), when the heck was this written?</li>
 </ul>
 </div>
 
