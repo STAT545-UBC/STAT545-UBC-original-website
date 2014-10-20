@@ -38,17 +38,17 @@ oct-15 wed   <a href="cm012_effective-graphs.html">cm012</a>: Effective graphs
 #### STAT 547M
 
 
-date         notes                                                                                      
------------  -------------------------------------------------------------------------------------------
-oct-20 mon   <a href="cm101_practical-graph-tips.html">cm101</a>: Practical graphing tips and tidy data 
-oct-22 wed                                                                                              
-oct-27 mon                                                                                              
-oct-29 wed                                                                                              
-nov-03 mon                                                                                              
-nov-05 wed                                                                                              
-nov-10 mon                                                                                              
-nov-12 wed                                                                                              
-nov-17 mon                                                                                              
-nov-19 wed                                                                                              
-nov-24 mon                                                                                              
-nov-26 wed                                                                                              
+date         notes                                                                                                
+-----------  -----------------------------------------------------------------------------------------------------
+oct-20 mon   <a href="cm101_practical-graph-tips-tidy-data.html">cm101</a>: Practical graphing tips and tidy data 
+oct-22 wed                                                                                                        
+oct-27 mon                                                                                                        
+oct-29 wed                                                                                                        
+nov-03 mon                                                                                                        
+nov-05 wed                                                                                                        
+nov-10 mon                                                                                                        
+nov-12 wed                                                                                                        
+nov-17 mon                                                                                                        
+nov-19 wed                                                                                                        
+nov-24 mon                                                                                                        
+nov-26 wed                                                                                                        
