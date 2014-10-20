@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Using colors in R</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Using colors in R</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#load-the-gapminder-data">Load the Gapminder data</a></li>
+<li><a href="#change-the-default-plotting-symbol-to-a-solid-circle">Change the default plotting symbol to a solid circle</a></li>
+<li><a href="#basic-color-specification-and-the-default-palette">Basic color specification and the default palette</a></li>
+<li><a href="#what-colors-are-available-ditto-for-symbols-and-line-types">What colors are available? Ditto for symbols and line types</a></li>
+<li><a href="#rcolorbrewer">RColorBrewer</a></li>
+<li><a href="#hexadecimal-rgb-color-specification">Hexadecimal RGB color specification</a></li>
+<li><a href="#alternatives-to-the-rgb-color-model-especially-hcl">Alternatives to the RGB color model, especially HCL</a></li>
+<li><a href="#accomodating-color-blindness">Accomodating color blindness</a></li>
+<li><a href="#clean-up">Clean up</a></li>
+<li><a href="#references">References</a></li>
+<li><a href="#notes-from-the-future">Notes from the future</a></li>
+</ul>
+</div>
+
+<div id="load-the-gapminder-data" class="section level3">
+<h3>Load the Gapminder data</h3>
+<pre class="r"><code>gDat &lt;- read.delim(&quot;gapminderDataFiveYear.txt&quot;)
+str(gDat)
+## &#39;data.frame&#39;:    1704 obs. of  6 variables:
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...</code></pre>
+</div>
+<div id="change-the-default-plotting-symbol-to-a-solid-circle" class="section level3">
+<h3>Change the default plotting symbol to a solid circle</h3>
+<p>The color demos below will be more effective if the default plotting symbol is a solid circle. We limit ourselves to base R graphics in this tutorial, therefore we use <code>par()</code>, the function that queries and sets base R graphical parameters. In an interactive session or in a plain R script, do this:</p>
+<pre class="r"><code>## how to change the plot symbol in a simple, non-knitr setting
+opar &lt;- par(pch = 19)</code></pre>
+<p>Technically, you don’t need to make the assignment, but it’s a good practice. We’re killing two birds with one stone:</p>
+<ol style="list-style-type: decimal">
+<li>Changing the default plotting symbol to a filled circle, which has code 19 in R. (Below I link to some samplers showing all the plotting symbols, FYI.)</li>
+<li>Storing the pre-existing and, in this case, default graphical parameters in <code>opar</code>.</li>
+</ol>
+<p>When you change a graphical parameter via <code>par()</code>, the original values are returned and we’re capturing them via assignment to <code>opar</code>. At the very bottom of this tutorial, we use <code>opar</code> to restore the original state.</p>
+<p>Big picture, it is best practice to restore the original, default state of hidden things that affect an R session. This is polite if you plan to inflict your code on others. Even if you live on an R desert island, this practice will prevent you from creating maddening little puzzles for yourself to solve in the middle of the night before a deadline.</p>
+<p>Because of the way figures are handled by <code>knitr</code>, it is more complicated to change the default plotting symbol throughout, e.g., an R Markdown document. To see how I’ve done it, check out a hidden chunk around here in the <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io">source of this page FIX THIS!</a>.</p>
+</div>
+<div id="basic-color-specification-and-the-default-palette" class="section level3">
+<h3>Basic color specification and the default palette</h3>
+<p>I need a small well-behaved excerpt from the Gapminder data for demonstration purposes. I randomly draw 8 countries, keep their data from 2007, and sort the rows based on GDP per capita. Meet <code>jDat</code>.</p>
+<pre class="r"><code>jDat
+##         country year      pop continent lifeExp  gdpPercap
+## 504     Eritrea 2007  4906585    Africa  58.040   641.3695
+## 1080      Nepal 2007 28901790      Asia  63.785  1091.3598
+## 276        Chad 2007 10238807    Africa  50.651  1704.0637
+## 792     Jamaica 2007  2780132  Americas  72.567  7320.8803
+## 396        Cuba 2007 11416987  Americas  78.273  8948.1029
+## 360  Costa Rica 2007  4133884  Americas  78.782  9645.0614
+## 576     Germany 2007 82400996    Europe  79.406 32170.3744
+## 1152     Norway 2007  4627926    Europe  80.196 49357.1902</code></pre>
+<p>A simple scatterplot, using <code>plot()</code> from the base package <code>graphics</code>.</p>
+<pre class="r"><code>jXlim &lt;- c(460, 60000)
+jYlim &lt;- c(47, 82)
+plot(lifeExp ~ gdpPercap, jDat, log = &#39;x&#39;, xlim = jXlim, ylim = jYlim,
+     main = &quot;Start your engines ...&quot;)</code></pre>
+<p><img src="block018_colors_files/figure-html/unnamed-chunk-6.png" /></p>
+<p>You can specify color explicitly by name by supplying a character vector with one or more color names (more on those soon). If you need a color for 8 points and you input fewer, recycling will kick in. Here’s what happens when you specify one or two colors via the <code>col =</code> argument of <code>plot()</code>.</p>
+<pre class="r"><code>plot(lifeExp ~ gdpPercap, jDat, log = &#39;x&#39;, xlim = jXlim, ylim = jYlim,
+     col = &quot;red&quot;, main = &#39;col = &quot;red&quot;&#39;)
+plot(lifeExp ~ gdpPercap, jDat, log = &#39;x&#39;, xlim = jXlim, ylim = jYlim,
+     col = c(&quot;blue&quot;, &quot;orange&quot;), main = &#39;col = c(&quot;blue&quot;, &quot;orange&quot;)&#39;)</code></pre>
+<p><img src="block018_colors_files/figure-html/unnamed-chunk-71.png" title="" alt="" width="50%" /><img src="block018_colors_files/figure-html/unnamed-chunk-72.png" title="" alt="" width="50%" /></p>
+<p>You can specify color explicitly with a small positive integer, which is interpreted as indexing into the current palette, which can be inspected via <code>palette()</code>. I’ve added these integers and the color names as labels to the figures below. The default palette contains 8 colors, which is why we’re looking at data from eight countries. The default palette is ugly.</p>
+<pre class="r"><code>plot(lifeExp ~ gdpPercap, jDat, log = &#39;x&#39;, xlim = jXlim, ylim = jYlim,
+     col = 1:nC, main = paste0(&#39;col = 1:&#39;, nC))
+with(jDat, text(x = gdpPercap, y = lifeExp, pos = 1))
+plot(lifeExp ~ gdpPercap, jDat, log = &#39;x&#39;, xlim = jXlim, ylim = jYlim,
+     col = 1:nC, main = &#39;the default palette()&#39;)
+with(jDat, text(x = gdpPercap, y = lifeExp, labels = palette(),
+                pos = rep(c(1, 3, 1), c(5, 1, 2))))     </code></pre>
+<p><img src="block018_colors_files/figure-html/unnamed-chunk-81.png" title="" alt="" width="50%" /><img src="block018_colors_files/figure-html/unnamed-chunk-82.png" title="" alt="" width="50%" /></p>
+<p>You can provide your own vector of colors instead. I am intentionally modelling best practice here too: if you’re going to use custom colors, store them as an object in exactly one place, and use that object in plot calls, legend-making, etc. This makes it much easier to fiddle with your custom colors, which few of us can resist.</p>
+<pre class="r"><code>jColors &lt;- c(&#39;chartreuse3&#39;, &#39;cornflowerblue&#39;, &#39;darkgoldenrod1&#39;, &#39;peachpuff3&#39;,
+             &#39;mediumorchid2&#39;, &#39;turquoise3&#39;, &#39;wheat4&#39;, &#39;slategray2&#39;)
+plot(lifeExp ~ gdpPercap, jDat, log = &#39;x&#39;, xlim = jXlim, ylim = jYlim,
+     col = jColors, main = &#39;custom colors!&#39;)
+with(jDat, text(x = gdpPercap, y = lifeExp, labels = jColors,
+                pos = rep(c(1, 3, 1), c(5, 1, 2)))) </code></pre>
+<p><img src="block018_colors_files/figure-html/unnamed-chunk-9.png" /></p>
+</div>
+<div id="what-colors-are-available-ditto-for-symbols-and-line-types" class="section level3">
+<h3>What colors are available? Ditto for symbols and line types</h3>
+<p>Who would have guessed that R knows about “peachpuff3”? To see the names of all 657 the built-in colors, use <code>colors()</code>.</p>
+<pre class="r"><code>head(colors())
+## [1] &quot;white&quot;         &quot;aliceblue&quot;     &quot;antiquewhite&quot;  &quot;antiquewhite1&quot;
+## [5] &quot;antiquewhite2&quot; &quot;antiquewhite3&quot;
+tail(colors())
+## [1] &quot;yellow&quot;      &quot;yellow1&quot;     &quot;yellow2&quot;     &quot;yellow3&quot;     &quot;yellow4&quot;    
+## [6] &quot;yellowgreen&quot;</code></pre>
+<p>But it’s much more exciting to see the colors displayed! Lots of people have tackled this – for colors, plotting symbols, line types – and put their work on the internet. Some examples:</p>
+<p>TO DO: FIX THESE INTERNAL LINKS!</p>
+<ul>
+<li>JB printed color names <a href="r.col.white.bkgd.pdf">on a white background</a> and <a href="r.col.black.bkgd.pdf">on black</a></li>
+<li>JB printed <a href="r.pch.pdf">the first 30 plotting symbols</a> (presumably using code found elsewhere or in documentation? can’t remember whom to credit).</li>
+<li>In <a href="https://www.stat.auckland.ac.nz/~paul/RGraphics/chapter3.html">Chapter 3 of R Graphics 1st edition</a>, Paul Murrell shows predefined and custom line types in Figure 3.6 and plotting symbols in Figure 3.10.</li>
+<li>Earl F. Glynn offers <a href="http://research.stowers-institute.org/efg/R/Color/Chart/">an excellent resource</a> on R’s built-in named colors.</li>
+</ul>
+</div>
+<div id="rcolorbrewer" class="section level3">
+<h3>RColorBrewer</h3>
+<p>Most of us are pretty lousy at choosing colors and it’s easy to spend too much time fiddling with them. <a href="http://en.wikipedia.org/wiki/Cynthia_Brewer">Cynthia Brewer</a>, a geographer and color specialist, has created sets of colors for print and the web and they are available in the add-on package <code>RColorBrewer</code>. You will need to install and load this package to use.</p>
+<pre class="r"><code>#install.packages(&quot;RColorBrewer&quot;)
+library(RColorBrewer)</code></pre>
+<p>Let’s look at all the associated palettes.</p>
+<pre class="r"><code>display.brewer.all()</code></pre>
+<p><img src="block018_colors_files/figure-html/unnamed-chunk-12.png" /></p>
+<p>They fall into three classes. From top to bottom, they are</p>
+<ul>
+<li>sequential: great for low-to-high things where one extreme is exciting and the other is boring, like (transformations of) p-values and correlations (caveat: here I’m assuming the only exciting correlations you’re likely to see are positive, i.e. near 1)</li>
+<li>qualitative: great for non-ordered categorical things – such as your typical factor, like country or continent. Note the special case “Paired” palette; example where that’s useful: a non-experimental factor (e.g. type of wheat) and a binary experimental factor (e.g. untreated vs. treated).</li>
+<li>diverging: great for things that range from “extreme and negative” to “extreme and positive”, going through “non extreme and boring” along the way, such as t statistics and z scores and signed correlations</li>
+</ul>
+<p>You can view a single RColorBrewer palette by specifying its name:</p>
+<pre class="r"><code>display.brewer.pal(n = 8, name = &#39;Dark2&#39;)</code></pre>
+<p><img src="block018_colors_files/figure-html/unnamed-chunk-13.png" /></p>
+<p>The package is, frankly, rather clunky, as evidenced by the requirement to specify <code>n</code> above. Sorry folks, you’ll just have to cope.</p>
+<p>Here we revisit specifying custom colors as we did above, but using a palette from RColorBrewer instead of our artisanal “peachpuff3” work of art. As before, I display the colors themselves but you’ll see we’re not getting the friendly names you’ve seen before, which brings us to our next topic.</p>
+<pre class="r"><code>jBrewColors &lt;- brewer.pal(n = 8, name = &quot;Dark2&quot;)
+plot(lifeExp ~ gdpPercap, jDat, log = &#39;x&#39;, xlim = jXlim, ylim = jYlim,
+     col = jBrewColors, main = &#39;Dark2 qualitative palette from RColorBrewer&#39;)
+with(jDat, text(x = gdpPercap, y = lifeExp, labels = jBrewColors,
+                pos = rep(c(1, 3, 1), c(5, 1, 2)))) </code></pre>
+<p><img src="block018_colors_files/figure-html/unnamed-chunk-14.png" /></p>
+</div>
+<div id="hexadecimal-rgb-color-specification" class="section level3">
+<h3>Hexadecimal RGB color specification</h3>
+<p>Instead of small positive integers and Crayola-style names, a more general and machine-readable approach to color specification is as hexadecimal triplets. Here is how the RColorBrewer Dark2 palette is actually stored:</p>
+<pre class="r"><code>brewer.pal(n = 8, name = &quot;Dark2&quot;)
+## [1] &quot;#1B9E77&quot; &quot;#D95F02&quot; &quot;#7570B3&quot; &quot;#E7298A&quot; &quot;#66A61E&quot; &quot;#E6AB02&quot; &quot;#A6761D&quot;
+## [8] &quot;#666666&quot;</code></pre>
+<p>The leading <code>#</code> is just there by convention. Parse the hexadecimal string like so: <code>#rrggbb</code>, where <code>rr</code>, <code>gg</code>, and <code>bb</code> refer to color intensity in the red, green, and blue channels, respectively. Each is specified as a two-digit base 16 number, which is the meaning of “hexadecimal” (or “hex” for short). Here’s a table relating base 16 numbers to the beloved base 10 system.</p>
+<!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
+<!-- Sun Oct 19 17:17:34 2014 -->
+<table border=1>
+<tr> <th>  </th> <th> 
+1
+</th> <th> 
+2
+</th> <th> 
+3
+</th> <th> 
+4
+</th> <th> 
+5
+</th> <th> 
+6
+</th> <th> 
+7
+</th> <th> 
+8
+</th> <th> 
+9
+</th> <th> 
+10
+</th> <th> 
+11
+</th> <th> 
+12
+</th> <th> 
+13
+</th> <th> 
+14
+</th> <th> 
+15
+</th> <th> 
+16
+</th>  </tr>
+  <tr> <td align="right"> 
+hex
+</td> <td> 
+0
+</td> <td> 
+1
+</td> <td> 
+2
+</td> <td> 
+3
+</td> <td> 
+4
+</td> <td> 
+5
+</td> <td> 
+6
+</td> <td> 
+7
+</td> <td> 
+8
+</td> <td> 
+9
+</td> <td> 
+A
+</td> <td> 
+B
+</td> <td> 
+C
+</td> <td> 
+D
+</td> <td> 
+E
+</td> <td> 
+F
+</td> </tr>
+  <tr> <td align="right"> 
+decimal
+</td> <td> 
+0
+</td> <td> 
+1
+</td> <td> 
+2
+</td> <td> 
+3
+</td> <td> 
+4
+</td> <td> 
+5
+</td> <td> 
+6
+</td> <td> 
+7
+</td> <td> 
+8
+</td> <td> 
+9
+</td> <td> 
+10
+</td> <td> 
+11
+</td> <td> 
+12
+</td> <td> 
+13
+</td> <td> 
+14
+</td> <td> 
+15
+</td> </tr>
+   </table>
+
+<p>Example: the first color in the palette is specified as “#1B9E77”, so the intensity in the green channel is 9E. What does that mean? <span class="math">\[
+9E = 9 * 16^1 + 14 * 16^0 = 9 * 16 + 14 = 158
+\]</span> Note that the lowest possible channel intensity is <code>00</code> = 0 and the highest is <code>FF</code> = 255.</p>
+<p>Important special cases that help you stay oriented. Here are the saturated RGB colors, red, blue, and green:</p>
+<!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
+<!-- Sun Oct 19 17:17:34 2014 -->
+<table border=1>
+<tr> <th> 
+colorName
+</th> <th> 
+hex
+</th> <th> 
+red
+</th> <th> 
+green
+</th> <th> 
+blue
+</th>  </tr>
+  <tr> <td> 
+blue
+</td> <td> 
+#0000FF
+</td> <td align="right"> 
+0
+</td> <td align="right"> 
+0
+</td> <td align="right"> 
+255
+</td> </tr>
+  <tr> <td> 
+green
+</td> <td> 
+#00FF00
+</td> <td align="right"> 
+0
+</td> <td align="right"> 
+255
+</td> <td align="right"> 
+0
+</td> </tr>
+  <tr> <td> 
+red
+</td> <td> 
+#FF0000
+</td> <td align="right"> 
+255
+</td> <td align="right"> 
+0
+</td> <td align="right"> 
+0
+</td> </tr>
+   </table>
+
+<p>Here are shades of gray:</p>
+<!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
+<!-- Sun Oct 19 17:17:34 2014 -->
+<table border=1>
+<tr> <th> 
+colorName
+</th> <th> 
+hex
+</th> <th> 
+red
+</th> <th> 
+green
+</th> <th> 
+blue
+</th>  </tr>
+  <tr> <td> 
+white, gray100
+</td> <td> 
+#FFFFFF
+</td> <td align="right"> 
+255
+</td> <td align="right"> 
+255
+</td> <td align="right"> 
+255
+</td> </tr>
+  <tr> <td> 
+gray67
+</td> <td> 
+#ABABAB
+</td> <td align="right"> 
+171
+</td> <td align="right"> 
+171
+</td> <td align="right"> 
+171
+</td> </tr>
+  <tr> <td> 
+gray33
+</td> <td> 
+#545454
+</td> <td align="right"> 
+84
+</td> <td align="right"> 
+84
+</td> <td align="right"> 
+84
+</td> </tr>
+  <tr> <td> 
+black, gray0
+</td> <td> 
+#000000
+</td> <td align="right"> 
+0
+</td> <td align="right"> 
+0
+</td> <td align="right"> 
+0
+</td> </tr>
+   </table>
+
+<p>Note that everywhere you see “gray” above, you will get the same results if you substitute “grey”. We see that white corresponds to maximum intensity in all channels and black to the minimum.</p>
+<p>To review, here are the ways to specify colors in R:</p>
+<ul>
+<li>a positive integer, used to index into the current color palette (queried or manipulated via <code>palette()</code>)</li>
+<li>a color name among those found in <code>colors()</code></li>
+<li>a hexadecimal string; in addition to a hexadecimal triple, in some contexts this can be extended to a hexadecimal quadruple with the fourth channel referring to alpha transparency</li>
+</ul>
+<p>Here are some functions to read up on if you want to learn more – don’t forget to mine the “See Also” section of the help to expand your horizons: <code>rgb()</code>, <code>col2rgb()</code>, <code>convertColor()</code>.</p>
+</div>
+<div id="alternatives-to-the-rgb-color-model-especially-hcl" class="section level3">
+<h3>Alternatives to the RGB color model, especially HCL</h3>
+<p>The RGB color space or model is by no means the only or best one. It’s natural for describing colors for display on a computer screen but some really important color picking tasks are hard to execute in this model. For example, it’s not obvious how to construct a qualitative palette where the colors are easy for humans to distinguish, but are also perceptually comparable to one other. Appreciate this: we can use RGB to describe colors to the computer <strong>but we don’t have to use it as the space where we construct color systems</strong>.</p>
+<p>Color models generally have three dimensions, as RGB does, due to the physiological reality that humans have three different receptors in the retina. (<a href="http://manyworldstheory.com/2013/01/15/my-favorite-rgb-color/">Here is an informative blog post</a> on RGB and the human visual system.) The closer a color model’s dimensions correspond to distinct qualities people can perceive, the more useful it is. This correspondence facilitates the deliberate construction of palettes and paths through color space with specific properties. RGB lacks this concordance with human perception. Just because you have photoreceptors that detect red, green, and blue light, it doesn’t mean that your <em>perceptual experience</em> of color breaks down that way. Do experience the color yellow as a mix of red and green light? No, of course not, but that’s the physiological reality. An RGB alternative you may have encountered is the Hue-Saturation-Value (HSV) model. Unfortunately, it is also quite problematic for color picking, due to its dimensions being confounded with each other.</p>
+<p>What are the good perceptually-based color models? CIELUV and CIELAB are two well-known examples. We will focus on a variant of CIELUV, namely the Hue-Chroma-Luminance (HCL) model. It is written up nicely for an R audience in Zeileis, et al (see References for citation and link). There is a companion R package <code>colorspace</code>, which will help you to explore and exploit the HCL color model. Finally, this color model is fully embraced in <code>ggplot2</code> (as are the <code>RColorBrewer</code> palettes).</p>
+<p>Here’s what I can tell you about the HCL model’s three dimensions:</p>
+<ul>
+<li>Hue is what you usually think of when you think “what color is that?” It’s the easy one! It is given as an angle, going from 0 to 360, so imagine a rainbow donut.</li>
+<li>Chroma refers to colorfullness, i.e. how pure or vivid a color is. The more something seems mixed with gray, the lower its chromaticity. The lowest possible value is 0, which corresponds to actual gray. The maximum value varies with luminance.</li>
+<li>Luminance is related to brightness, lightness, intensity, and value. Low luminance means dark and indeed black has luminance 0. High luminance means light and white has luminance 1.</li>
+</ul>
+<blockquote>
+<p>Full disclosure: I have a hard time really grasping and distinguishing chroma and luminance. As we point out above, they are not entirely independent, which speaks to the weird shape of the 3 dimensional HCL space.</p>
+</blockquote>
+<p>Figure 6.6 in Wickham’s <code>ggplot2</code> book is helpful for understanding the HCL color space.</p>
+<p>TO DO: BRING THIS FIGURE INTO THIS REPO</p>
+<p><img src="http://www.stat.ubc.ca/~jenny/notOcto/STAT545A/examples/gapminder/figs/ggplot2book-fig6.6.png" alt="Figure 6.6 of Wickham’s ggplot2 book" /></p>
+<blockquote>
+<p>JB re-phrasing and combining Wickham’s description and caption for this figure: Each facet or panel depicts a slice through HCL space for a specific luminance, going from low to high. The extreme luminance values of 0 and 100 are omitted because they would, respectively, be a single black point and a single white point. Within a slice, the centre has chroma 0, which corresponds to a shade of grey. As you move toward the slice’s edge, chroma increases and the color gets more pure and intense. Hue is mapped to angle.</p>
+</blockquote>
+<p>A valuable contribution of the <code>colorspace</code> package is that it provides functions to create color palettes traversing color space in a rational way. In contrast, the palettes offered by <code>RColorBrewer</code>, though well-crafted, are unfortunately fixed.</p>
+<blockquote>
+<p>Here I plan to insert/recreate some visuals from the Zeileis et al paper or from the <code>colorspace</code> vignette. For the moment, that stuff is sitting in the PDF slides. So go there!</p>
+</blockquote>
+</div>
+<div id="accomodating-color-blindness" class="section level3">
+<h3>Accomodating color blindness</h3>
+<p>the <code>dichromat</code> package (<a href="http://cran.r-project.org/web/packages/dichromat/">on CRAN</a>)</p>
+<blockquote>
+<p>obviously need to do some writing here!</p>
+</blockquote>
+</div>
+<div id="clean-up" class="section level3">
+<h3>Clean up</h3>
+<pre class="r"><code>## NOT RUN
+## execute this if you followed my code for
+## changing the default plot symbol in a simple, non-knitr setting
+## reversing the effects of this: opar &lt;- par(pch = 19)
+par(opar)</code></pre>
+</div>
+<div id="references" class="section level3">
+<h3>References</h3>
+<p>Achim Zeileis, Kurt Hornik, Paul Murrell (2009). Escaping RGBland: Selecting Colors for Statistical Graphics. Computational Statistics &amp; Data Analysis, 53(9), 3259-3270. <a href="http://dx.doi.org/10.1016/j.csda.2008.11.033">DOI</a> | <a href="http://eeecon.uibk.ac.at/~zeileis/papers/Zeileis+Hornik+Murrell-2009.pdf">PDF</a></p>
+<p><a href="http://cran.r-project.org/web/packages/colorspace/vignettes/hcl-colors.pdf">Vignette</a> for the <code>colorspace</code> package</p>
+<p>Earl F. Glynn (Stowers Institute for Medical Research)</p>
+<ul>
+<li><a href="http://research.stowers-institute.org/efg/R/Color/Chart/">excellent resources</a> for named colors, i.e. the ones available via <code>colors()</code></li>
+<li>informative talk <a href="http://research.stowers-institute.org/efg/Report/UsingColorInR.pdf">“Using Color in R”</a>, though features some questionable <em>use</em> of color itself</li>
+</ul>
+<p>Blog post <a href="http://manyworldstheory.com/2013/01/15/my-favorite-rgb-color/">My favorite RGB color</a> on the Many World Theory blog</p>
+<p>ggplot2: Elegant Graphics for Data Analysis <a href="http://ezproxy.library.ubc.ca/login?url=http://link.springer.com.ezproxy.library.ubc.ca/book/10.1007/978-0-387-98141-3/page/1">available via SpringerLink</a> by Hadley Wickham, Springer (2009) | <a href="http://docs.ggplot2.org/current/">online docs (nice!)</a> | <a href="http://ggplot2.org/book/">author’s website for the book</a>, including all the code | <a href="http://ggplot2.org">author’s landing page for the package</a></p>
+<ul>
+<li>Section 6.4.3 Colour</li>
+</ul>
+</div>
+<div id="notes-from-the-future" class="section level3">
+<h3>Notes from the future</h3>
+<p>Consider incorporating in future version of this material:</p>
+<ul>
+<li>Example-laden article by Bernice E. Rogowitz and Lloyd A. Treinish of IBM Research <a href="http://www.research.ibm.com/people/l/lloydt/color/color.HTM">“Why Should Engineers and Scientists Be Worried About Color?”</a>, h/t <span class="citation">[@EdwardTufte]</span>(<a href="https://twitter.com/EdwardTufte">https://twitter.com/EdwardTufte</a>). Importance of signalling where zero is in colorspace, perceptually based color systems (they talk about hue, saturation, and luminance), when the heck was this written?</li>
+</ul>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
