@@ -72,7 +72,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 
 
-<p>We work on visualiation throughout the course. Here are the bits roughly in order of presentation.</p>
+<p>We work on visualiation throughout the course. Here are the bits in rough order of presentation.</p>
 <ul>
 <li>R graphics landscape <em><a href="http://www.slideshare.net/jenniferbryan5811/cm005-intro-ggplot2">slides</a></em>
 <ul>
@@ -80,17 +80,22 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>the underappreciated importance of data.frames, tidy data, and factor management to graphics</li>
 <li>basic jargon of <code>ggplot2</code></li>
 </ul></li>
-<li>Lots of hands-on work; indicative code and resulting figures can be found in my <a href="https://github.com/jennybc/ggplot2-tutorial"><code>ggplot2</code> tutorial</a>
+<li>Learning <code>ggplot2</code> by using it
 <ul>
+<li>my <a href="https://github.com/jennybc/ggplot2-tutorial"><code>ggplot2</code> tutorial</a> gives indicative code and all resulting figures</li>
 <li>scatterplots, stripplots, distributions, bars, themes, managing a color scheme, bubble and line plots</li>
 </ul></li>
 <li><a href="block015_graph-dos-donts.html">Do’s and don’ts of making effective graphs</a>
 <ul>
 <li>Effective = easy for audience to decode numerical info</li>
 <li>Our ability to decode position along common axis &gt;&gt; area, angle, color, etc.</li>
-<li>There are better alternatives for pie charts and stacked bar charts</li>
 </ul></li>
-<li>The <a href="http://shinyapps.stat.ubc.ca/r-graph-catalog/">R Graph Catalog</a> presents a visual, clickable index of 100+ figures, mostly from Naomi Robbins’ book <a href="http://www.amazon.com/Creating-Effective-Graphs-Naomi-Robbins/dp/0985911123">“Creating More Effective Graphs”</a>. For each figure, you can juxtapose the figure and the exact <code>ggplot2</code> code to produce it. Code for all the figures and the app itself is on <a href="https://github.com/jennybc/r-graph-catalog">GitHub</a></li>
+<li>The <a href="http://shinyapps.stat.ubc.ca/r-graph-catalog/">R Graph Catalog</a> presents a visual, clickable index of 100+ figures
+<ul>
+<li>mostly from Naomi Robbins’ book <a href="http://www.amazon.com/Creating-Effective-Graphs-Naomi-Robbins/dp/0985911123">“Creating More Effective Graphs”</a></li>
+<li>see figure and the exact <code>ggplot2</code> code to produce it, side-by-side</li>
+<li>code for all figures and app itself is on <a href="https://github.com/jennybc/r-graph-catalog">GitHub</a></li>
+</ul></li>
 <li>Colors
 <ul>
 <li>How to think about color and get good palettes in R <em><a href="http://www.stat.ubc.ca/~jenny/STAT545A/block14_colors.html">2013 materials</a></em></li>
@@ -99,7 +104,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>Practical pro tips, i.e. a return to mechanics
 <ul>
 <li><a href="block016_secrets-happy-graphing.html">Secrets of a happy graphing life</a>: data.frames! tidy data! factors!</li>
-<li>writing figures to file, explicitly and implicitly, e.g. <code>ggsave()</code> &amp; friends and chunk name –&gt; figure name</li>
+<li><a href="block017_write-figure-to-file.html">Writing figures to file</a></li>
 <li>multiple plots on a “page”; many examples in <a href="http://shinyapps.stat.ubc.ca/r-graph-catalog/">R graph catalog</a> and <a href="http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/"><code>multiplot()</code> from Cookbook for R</a></li>
 <li>underappreciated basics: density plots, high-volume scatterplots</li>
 </ul></li>

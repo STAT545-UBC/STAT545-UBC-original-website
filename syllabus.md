@@ -31,22 +31,22 @@ oct-01 wed   <a href="cm009_write-function-data-agg.html">cm009</a>: Writing you
 oct-06 mon   <a href="cm010_factors.html">cm010</a>: Be the boss of your factors                                                          
 oct-08 wed   <a href="cm011_files-out-in.html">cm011</a>: Getting data out of R (and back in)                                             
 oct-13 mon   no class; Thanksgiving                                                                                                       
-oct-15 wed   <a href="cm012_effective-graphs-and-practical-tips.html">cm012</a>: Effective graphs and practical tips                      
+oct-15 wed   <a href="cm012_effective-graphs.html">cm012</a>: Effective graphs                                                            
 
 #### STAT 547M
 
 
-date         notes 
------------  ------
-oct-20 mon         
-oct-22 wed         
-oct-27 mon         
-oct-29 wed         
-nov-03 mon         
-nov-05 wed         
-nov-10 mon         
-nov-12 wed         
-nov-17 mon         
-nov-19 wed         
-nov-24 mon         
-nov-26 wed         
+date         notes                                                                                      
+-----------  -------------------------------------------------------------------------------------------
+oct-20 mon   <a href="cm101_practical-graph-tips.html">cm101</a>: Practical graphing tips and tidy data 
+oct-22 wed                                                                                              
+oct-27 mon                                                                                              
+oct-29 wed                                                                                              
+nov-03 mon                                                                                              
+nov-05 wed                                                                                              
+nov-10 mon                                                                                              
+nov-12 wed                                                                                              
+nov-17 mon                                                                                              
+nov-19 wed                                                                                              
+nov-24 mon                                                                                              
+nov-26 wed                                                                                              

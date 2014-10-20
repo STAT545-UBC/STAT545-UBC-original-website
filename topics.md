@@ -20,7 +20,7 @@
     - [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/), a visual, clickable index of 100+ figures + `ggplot2` code to make them
     - Colors
     - [Secrets of a happy graphing life](block016_secrets-happy-graphing.html)
-    - Practical pro tips
+    - [Writing figures to file](block017_write-figure-to-file.html)
   * The `dplyr` package for data manipulation
     - [Introduction to dplyr](block009_dplyr-intro.html)
     - [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
@@ -49,7 +49,8 @@
   * [Class meeting 009](cm009_write-function-data-agg.html) Writing your own R functions, conclusion; data aggregation with `plyr`
   * [Class meeting 010](cm010_factors.html) Be the boss of your factors
   * [Class meeting 011](cm011_files-out-in.html) Writing to file, reading from file
-  * [Class meeting 012](cm012_effective-graphs-and-practical-tips.html) Effective graphs and practical tips re: making figures
+  * [Class meeting 012](cm012_effective-graphs.html) Effective graphs
+  * [Class meeting 101](cm101_practical-graph-tips.html) Practical graphing
   * [General homework guidelines](hw00_homework-guidelines.html)
   * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
   * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
@@ -80,7 +81,7 @@ Topics traditionally covered in STAT 545A, with light updating:
   * ~~Making figures with `ggplot2` (was `lattice` in past)~~ *done*
   * How to help yourself, how to ask questions to get useful answers
   * ~~How to get data in and out of R, staying as "open" as possible~~ *done*
-  * How to get figures out of R
+  * ~~How to get figures out of R~~ *done*
   * ~~Be the boss of your factors, i.e. categorical variables~~ *done*
   * Use of color in R
   * Single quantitative variable: visualizations and descriptive statistics
