@@ -14,8 +14,10 @@ output:
     - Week of Nov 03: Task automation and building pipelines (Shaun Jackman)
     - Weeks of Nov 10, 17, 24, order TBD: building an R package, building a Shiny app, getting data off the web
   * Practical graphing
+    - [Using colors in R](block018_colors.html)
+    - [Taking control of qualitative colors in `ggplot2`](block019_enforce-color-scheme.html)
     - [Secrets of a happy graphing life](block016_secrets-happy-graphing.html)
     - [Writing figures to file](block017_write-figure-to-file.html)
-      - taking control of colors; see [2013 guidance on general colors](http://www.stat.ubc.ca/~jenny/STAT545A/block14_colors.html) and [2013 taking control of qualitative colors in `ggplot2`](http://www.stat.ubc.ca/~jenny/STAT545A/block17_colorsGgplot2Qualitative.html)
-      - multiple plots on a "page"; many examples in [R graph catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/) and [`multiplot()` from Cookbook for R](http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/)
-      - density plots, high-volume scatterplotting, fancy plots (see [some from 2013](http://www.stat.ubc.ca/~jenny/STAT545A/block18_gapminderGgplot2VsLattice.html)) 
+    - [Multiple plots on a page](block020_multiple-plots-on-a-page.html)
+  * Tidy data
+    - [Tidy data lesson](bit002_tidying-lotr-data.html) for Data Carpentry
