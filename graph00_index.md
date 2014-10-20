@@ -28,5 +28,9 @@ We work on visualiation throughout the course. Here are the bits in rough order 
   * Practical pro tips, i.e. a return to mechanics
     - [Secrets of a happy graphing life](block016_secrets-happy-graphing.html): data.frames! tidy data! factors!
     - [Writing figures to file](block017_write-figure-to-file.html)
-    - multiple plots on a "page"; many examples in [R graph catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/) and [`multiplot()` from Cookbook for R](http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/)
+    - [Multiple plots on a page](block020_multiple-plots-on-a-page.html)
+    <!--
     - underappreciated basics: density plots, high-volume scatterplots
+    good stuff here:
+    http://www.ugrad.stat.ubc.ca/~stat540/seminars/seminar03_graphics-ggplot2.html
+    -->

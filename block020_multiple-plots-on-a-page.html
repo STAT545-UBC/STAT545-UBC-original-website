@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Multiple plots on a page</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Multiple plots on a page</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#facetting-is-not-a-panacea">Facetting is not a panacea</a></li>
+<li><a href="#meet-the-gridextra-package">Meet the gridExtra package</a></li>
+<li><a href="#load-the-gapminder-data-and-ggplot2">Load the Gapminder data and ggplot2</a></li>
+<li><a href="#use-the-arrangegrob-function">Use the <code>arrangeGrob()</code> function</a></li>
+<li><a href="#use-the-multiplot-function">Use the <code>multiplot()</code> function</a></li>
+</ul>
+</div>
+
+<div id="facetting-is-not-a-panacea" class="section level3">
+<h3>Facetting is not a panacea</h3>
+<p>Facetting is useful for constructing an array of similar plots where each panel corresponds to a level of a factor or a combination of levels from multiple factors. Pragmatic reshaping can make lots of graphing problems have this “look”. But this does not cover the entire spectrum of multi-plot needs in the real world. Sometimes you need to get more than one plot on a virtual page and the plots are rather disconnected. How do you do that?</p>
+</div>
+<div id="meet-the-gridextra-package" class="section level3">
+<h3>Meet the gridExtra package</h3>
+<p>Under the hood, <code>ggplot2</code> uses the <code>grid</code> package to create figures. The <code>gridExtra</code> packages provides some extra goodies and we will draw on them to place multiple <code>ggplot2</code> plots on a single virtual page.</p>
+<p>You may need to install <code>gridExtra</code> and you will certainly need to load it.</p>
+<pre class="r"><code># install.packages(&quot;gridExtra&quot;)
+library(gridExtra)
+## Loading required package: grid</code></pre>
+</div>
+<div id="load-the-gapminder-data-and-ggplot2" class="section level3">
+<h3>Load the Gapminder data and ggplot2</h3>
+<pre class="r"><code>library(ggplot2)
+gDat &lt;- read.delim(&quot;gapminderDataFiveYear.tsv&quot;)
+str(gDat)
+## &#39;data.frame&#39;:    1704 obs. of  6 variables:
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...</code></pre>
+</div>
+<div id="use-the-arrangegrob-function" class="section level3">
+<h3>Use the <code>arrangeGrob()</code> function</h3>
+<p>Store the constituent plots to plot objects and then pass them to <code>arrangeGrob()</code>.</p>
+<pre class="r"><code>p_dens &lt;- ggplot(gDat, aes(x = gdpPercap)) + geom_density() + scale_x_log10() +
+  theme(axis.text.x = element_blank(),
+        axis.ticks = element_blank(),
+        axis.title.x = element_blank())
+p_scatter &lt;- ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point() + scale_x_log10()
+p_both &lt;- arrangeGrob(
+  p_dens, p_scatter, nrow = 2, heights = c(0.35, 0.65))
+p_both</code></pre>
+<p><img src="block020_multiple-plots-on-a-page_files/figure-html/arrangeGrob-demo.png" /></p>
+<p>You can find many examples of <code>arrangeGrob()</code> usage in the <a href="http://shinyapps.stat.ubc.ca/r-graph-catalog/">R Graph Catalog</a>.</p>
+</div>
+<div id="use-the-multiplot-function" class="section level3">
+<h3>Use the <code>multiplot()</code> function</h3>
+<p>In his <a href="http://www.cookbook-r.com">Cookbook for R</a>, Winston Chang uses the <code>grid</code> package to define the <code>multiplot()</code> function:</p>
+<pre class="r"><code># Multiple plot function
+#
+# ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
+# - cols:   Number of columns in layout
+# - layout: A matrix specifying the layout. If present, &#39;cols&#39; is ignored.
+#
+# If the layout is something like matrix(c(1,2,3,3), nrow=2, byrow=TRUE),
+# then plot 1 will go in the upper left, 2 will go in the upper right, and
+# 3 will go all the way across the bottom.
+#
+multiplot &lt;- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  require(grid)
+
+  # Make a list from the ... arguments and plotlist
+  plots &lt;- c(list(...), plotlist)
+
+  numPlots = length(plots)
+
+  # If layout is NULL, then use &#39;cols&#39; to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout &lt;- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                    ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+
+ if (numPlots==1) {
+    print(plots[[1]])
+
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx &lt;- as.data.frame(which(layout == i, arr.ind = TRUE))
+
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}</code></pre>
+<p>Assuming that the plot objects <code>p1</code>, <code>p2</code>, <code>p3</code>, and <code>p4</code> are pre-defined, call the function like this:</p>
+<pre class="r"><code>multiplot(p1, p2, p3, p4, cols = 2)</code></pre>
+<p>Visit <a href="http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/">Multiple graphs on one page (ggplot2)</a> to see a complete worked example.</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

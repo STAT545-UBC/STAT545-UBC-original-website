@@ -22,6 +22,7 @@
     - [Taking control of qualitative colors in `ggplot2`](block019_enforce-color-scheme.html)
     - [Secrets of a happy graphing life](block016_secrets-happy-graphing.html)
     - [Writing figures to file](block017_write-figure-to-file.html)
+    - [Multiple plots on a page](block020_multiple-plots-on-a-page.html)
   * The `dplyr` package for data manipulation
     - [Introduction to dplyr](block009_dplyr-intro.html)
     - [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
