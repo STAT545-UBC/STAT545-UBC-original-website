@@ -1,0 +1,106 @@
+---
+title: "STAT 545 enrollment over time"
+author: "Jenny Bryan"
+date: "21 October, 2014"
+output:
+  html_document:
+    keep_md: yes
+---
+
+STAT 545 Exploratory Data Analysis can be offered from 1 to 3 credits. From 2008 to 2013, I know we have offered it as a 1.5 credit course from start of class in September until mid-October with 3 contact hours per week. In 2014 we are piloting an expansion to a 3 credit course, structured as the usual 1.5 credit STAT545A followed by 1.5 credits of a topics course STAT547M, occupying the same time slot and classroom.
+
+I (Jenny Bryan) have taught STAT 545 every year since 2008, at least.
+
+Here is some information on enrollment -- numbers and students' degree programs.
+
+```{r import-data, include = FALSE}
+library(ggplot2)
+library(plyr)
+library(dplyr)
+sdat <- read.csv("~/teaching/STAT545A/2014_STAT545A-jennyLocal/InstructorsOnly/course-admin/history/STAT545-registered-students-all-time.csv",
+                 strip.white = TRUE)
+sdat %>% str
+```
+
+```{r fix-gender, include = FALSE}
+summary(sdat$Gender)
+sdat <- sdat %>%
+  mutate(Gender = revalue(Gender, c("F" = "Female", "M" = "Male"))) %>%
+  droplevels
+summary(sdat$Gender)
+```
+
+From 2008 to September 2014, cumulative enrollment is `r nrow(sdat)`. This counts a small handful of unofficial auditors, typically post-docs and staff.
+
+Enrollment has been growing over time. Enrollment in 2014 is more than twice that of 2008.
+
+```{r enrollment-over-time, echo = FALSE}
+tdat <- sdat %>%
+  group_by(year) %>%
+  tally
+p <- ggplot(tdat, aes(x = as.factor(year), y = n)) +
+  geom_bar(stat = "identity")
+p + geom_text(aes(label = n), col = "white", vjust = 1.3)
+```
+
+```{r explore-specialization-subject, include = FALSE}
+nlevels(sdat$Specialization.Subject)
+summary(sdat$Specialization.Subject)
+sdat <- sdat %>%
+  mutate(Specialization.Subject = reorder(Specialization.Subject,
+                                          Specialization.Subject, length),
+         STAT = Specialization.Subject == "Statistics") %>%
+  arrange(desc(Specialization.Subject))
+sdat$Specialization.Subject %>% table %>% table
+spdat <- sdat %>%
+  group_by(Specialization.Subject) %>%
+  tally %>%
+  mutate(STAT = Specialization.Subject == "Statistics")
+```
+
+It is a very diverse group of students, with STAT being the most frequent specialization yet accounting for less than half of cumulative enrollments.
+
+```{r pie-and-barchart, echo = FALSE, fig.show = 'hold', out.width = '49%'}
+stat_dat <- sdat %>%
+  group_by(STAT) %>%
+  tally
+pie_labels <-
+  data_frame(freq = as.vector(table(sdat$STAT)),
+             rel_freq = freq / sum(freq),
+             pos = (cumsum(c(0, freq)) + c(freq, 0)/2)[1:2],
+             label = paste(c("Other", "Statistics"),
+                           round(rel_freq, 2), sep = "\n"))
+p <- ggplot(stat_dat, aes(x = factor(1), y = n, fill = STAT)) +
+  geom_bar(width = 1, stat = "identity") +
+  annotate("text", x = 1, y = pie_labels$pos,
+           label = pie_labels$label) +
+  coord_polar(theta = "y") +
+  theme_bw() + guides(fill = FALSE) +
+  theme(panel.grid.major = element_blank(),
+        panel.border = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+p
+
+spdat_filt <- spdat %>%
+  filter(n > 1, Specialization.Subject != "")
+p <- ggplot(spdat_filt, aes(x = Specialization.Subject, y = n)) +
+  geom_bar(stat = "identity") + coord_flip() + ylim(c(0, max(spdat_filt$n) + 5))
+p + geom_text(aes(label = n), hjust = -0.2)
+```
+
+We've had students from at least `r nlevels(sdat$Specialization.Subject)` different specializations, with `r nrow(spdat_filt)` represented by at least two students (see barchart above). Here are the remaining specializations, from which we've had exactly one student each:
+
+```{r include = FALSE}
+singletons <- spdat %>%
+  filter(n == 1) %>%
+  select(Specialization.Subject) %>%
+  droplevels
+singletons <- levels(singletons$Specialization.Subject)
+singletons <- matrix(singletons, ncol = 2)
+```
+
+```{r results = 'asis', echo = FALSE}
+knitr::kable(singletons)
+```
