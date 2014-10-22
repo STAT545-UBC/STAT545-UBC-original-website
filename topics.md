@@ -32,11 +32,13 @@
     - [Part 2](block011_write-your-own-function-02.html): generalize, set default argument values
     - [Part 3](block011_write-your-own-function-03.html):`NA` handling, `...`, unit test
     - [Function-writing Practicum](block012_function-regress-lifeexp-on-year.html): fit a linear model and return estimated coefficients
-  * [Using `plyr` for data.frames](block013_plyr-ddply.html)
+  * The `plyr` package for split-apply-combine
+    - Data aggregation overview [*slides*](http://www.slideshare.net/jenniferbryan5811/cm009-data-aggregation) 
+    - [Using `plyr` with data.frames](block013_plyr-ddply.html)
   * [Be the boss of your factors](block014_factors.html)
   * Writing and reading files
     - [Indicative code from hands on activities](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm011_files-out-in-script.r)
-    - [2013 lesson](http://www.stat.ubc.ca/~jenny/STAT545A/block05_getNumbersOut.html) *2014 update will data manipulation with `dplyr`*
+    - [2013 lesson](http://www.stat.ubc.ca/~jenny/STAT545A/block05_getNumbersOut.html) *2014 update will do data manipulation with `dplyr`*
   
 ## Course-specific material
 
