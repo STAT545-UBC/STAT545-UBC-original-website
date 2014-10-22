@@ -71,6 +71,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="TOC">
 <ul>
 <li><a href="#cm102-2014-10-22-wednesday-overview">cm102 2014-10-22 Wednesday overview</a></li>
+<li><a href="#advanced-data-wrangling">Advanced data wrangling</a></li>
 </ul>
 </div>
 
@@ -78,24 +79,115 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h3>cm102 2014-10-22 Wednesday overview</h3>
 <ul>
 <li>STAT 545A <a href="hw06_repo-hygiene-figure-boss.html">HW06</a> <em>Optional, unmarked</em> activities for the STAT 545A / STAT 547M transition. Submit the usual way, so we know you’ve done it.</li>
+<li>New schedule for homework: Due the Thursday 8 days after a topic is covered on Mon + Wed.
+<ul>
+<li>HW07 due Thursday October 29; will cover this weeks material.</li>
+</ul></li>
 <li>What’s coming?
 <ul>
-<li>Today: conclude main coverage of data manipulation. Mostly hands-on exercises, get help with a new dataset?, start on homework.</li>
+<li>Today: conclude main coverage of data manipulation. Mostly hands-on exercises. Free time to get help with a new dataset or start on exercises that will become the homework.</li>
 <li>Week of Oct 27: Data cleaning, regular expressions, wrangling character data (Gloria Li)</li>
 <li>Week of Nov 03: Task automation and building pipelines (Shaun Jackman)</li>
 <li>Week of Nov 10: Build your first R package (Bernhard Konrad)</li>
 <li>Week of Nov 17: Build your first Shiny app (Julia Gustavsen)</li>
 <li>Week of Nov 24: Get data off the web (Andrew MacDonald)</li>
 </ul></li>
-<li>Tidy data
+<li>TODAY:
 <ul>
-<li><a href="bit002_tidying-lotr-data.html">Tidy data lesson</a> for Data Carpentry</li>
-<li><code>reshape2</code> package</li>
-<li>relationship between data aggregation and reshaping</li>
-<li>use of <code>plyr</code> with arrays and lists, i.e. beyond <code>ddply()</code></li>
-<li>joins and merges</li>
+<li>Complete <a href="bit002_tidying-lotr-data.html">tidy data lesson</a></li>
+<li>Prompts for student’s choice exercises on more advanced data wrangling tasks</li>
 </ul></li>
 </ul>
+</div>
+<div id="advanced-data-wrangling" class="section level3">
+<h3>Advanced data wrangling</h3>
+<div id="join-and-merges" class="section level4">
+<h4>Join and merges</h4>
+<p>When do you need to join or merge or “look up”? When you have two data sources and you need info from both. Examples:</p>
+<ul>
+<li>You want to bring info into the Gapminder data.frame on … language spoken, NATO membership, number of medals won at recent Olympics, latitude + longitude or capitol city, etc.</li>
+<li>The second data source would have one row per country, a country variable, and one or more variables with this extra information.</li>
+</ul>
+<p>Explore joins and merges with this <a href="bit001_dplyr-cheatsheet.html"><code>dplyr</code> join cheatsheet</a>.</p>
+<p>Inspiration for an activity:</p>
+<ul>
+<li>Set up two data.frames based on the Gapminder data.</li>
+<li>Example: a country-focused table (more rows, in a relative sense) and a continent-focused table (fewer rows).</li>
+<li>Analogy with the cheatsheet: countries = superheros, continents = publishers.</li>
+<li>Continent-focused table should contain a novel variable, such as northern vs southern hemisphere. Analogy with the cheatsheet: hemisphere = year publisher founded.</li>
+<li>Explore the various joining operations.</li>
+<li>You will likely need to iterate between your data prep and your joining to make your explorations comprehensive and interesting. For example, you will want a specific amount (or lack) of overlap between the two data.frames, in order to demonstrate all the different joins. You will want both the data.frames to be as small as possible, while still retaining the expository value.</li>
+</ul>
+<p>Further ideas:</p>
+<p>If you just need to add one piece of information, such as “year founded” or “hemisphere”, you could do that using the base R function <code>match()</code>. Do that. Which join(s) can be emulated with a <code>match()</code>-based approach and how?</p>
+</div>
+<div id="use-of-plyr-with-arrays-and-lists" class="section level4">
+<h4>Use of <code>plyr</code> with arrays and lists</h4>
+<p>We <a href="http://stat545-ubc.github.io/block013_plyr-ddply.html">worked with <code>plyr::ddply()</code></a> for an important special case in data aggregation:</p>
+<ul>
+<li>input is a data.frame</li>
+<li>it is split up into sub-data.frames based on one or more factors</li>
+<li>a non-trivial computation is applied to each sub-data.frame</li>
+<li>the results are re-assembled and the ultimate output is a data.frame</li>
+</ul>
+<p>In this special case, there are competing <code>dplyr</code> workflows, namely using <code>group_by()</code> and <code>do()</code> available, but I chose to show <code>ddply()</code> due to its approachable syntax for very general problems.</p>
+<p>But what if you need to do this sort of operation on something other than a data.frame? Like a vector or matrix or array or list? And what if you need something other than a data.frame back? That is an area covered by <code>plyr</code> (and not covered by <code>dplyr</code>).</p>
+<p>Refresh your understanding of the data aggregation and <code>plyr</code> basics:</p>
+<ul>
+<li>Intro to the <a href="http://stat545-ubc.github.io/block013_plyr-ddply.html"><code>plyr::ddply()</code> lesson</a></li>
+<li>Big picture <a href="http://www.slideshare.net/jenniferbryan5811/cm009-data-aggregation">slides about data aggregation on slideshare</a></li>
+</ul>
+<p>Inspiration for an activity:</p>
+<ul>
+<li><p>Use <code>dlply()</code> to enact linear regression on each Gapminder country:</p>
+<ul>
+<li>input = Gapminder data as a data.frame</li>
+<li>split on country</li>
+<li>apply computation = fit our usual linear model of life expectancy on year</li>
+<li>combine those fitted models into a list; not some clean little extract like the estimated coefficients, but the actual <code>lm</code> object</li>
+</ul></li>
+<li><p>Explore that list until you feel comfortable with it</p>
+<ul>
+<li><code>str()</code>, <code>length()</code>, <code>names()</code>, etc.</li>
+<li><code>foo[[i]]</code>, <code>foo[[&quot;Canada&quot;]]</code>, <code>str(foo[[i]])</code>, etc.</li>
+</ul></li>
+<li><p>Use <code>ldply()</code> to pull information out of the fitted models. Examples:</p>
+<ul>
+<li>pull out the estimated coefficients; output = a data.frame with one row per country and variables <code>country</code>, <code>intercept</code>, <code>slope</code></li>
+<li>pull out the estimated coefficients; output = a data.frame with two rows per country and variables <code>country</code>, factor <code>coefficient</code> with levels intercept and slope, numeric variable <code>value</code> with estimated coefficient</li>
+<li>pull out the fitted values and residuals; output a data.frame with 12 rows per country and variables <code>country</code>, <code>year</code>, <code>lifeExp</code>, <code>fitted</code>, <code>resid</code></li>
+<li>use the <code>tidy()</code> function from the <a href="https://github.com/dgrtwo/broom"><code>broom</code> package</a> to get a full inferential table on the regression coefficients; output = a data.frame with two rows per country and variables <code>country</code>, variable identifying which coefficient, plus variables for the estimate, estimated std error, <span class="math">\(t\)</span> statistic, and p-value (Getting Genetics Done has a nice <a href="http://gettinggeneticsdone.blogspot.ca/2014/09/r-package-convert-statistical-analysis-object-tidy-data-frame.html">blog post on <code>broom</code></a>)</li>
+</ul></li>
+</ul>
+<p>What are some reasons why you’d use the <code>ldply()</code> + more wrangling approach over <code>ddply()</code> like we did originally? Hint: Think about this in terms of the <a href="http://code.tutsplus.com/tutorials/3-key-software-principles-you-must-understand--net-25161">DRY principle (“don’t repeat yourself”)</a>: “Every piece of knowledge must have a single, unambiguous, authoritative representation within a system.”</p>
+<p>Can you see more than one way to accomplish these sorts of tasks? Pick one (input, output) pair and describe at least two ways to convert the input to the output. These will come from different combinations of choices of:</p>
+<ul>
+<li>how to split up the data</li>
+<li>what computation to apply</li>
+<li>the “shape” or form of the outputs</li>
+<li>how the outputs are combined into one object</li>
+<li>reshaping</li>
+</ul>
+<p>If you can cultivate an attitude of “to any problem, there are multiple solutions,” you will spend less time banging your head against the wall in data analysis. If something’s really hard, sneak up on it from a different angle.</p>
+</div>
+<div id="general-data-reshaping-and-relationship-to-aggregation" class="section level4">
+<h4>General data reshaping and relationship to aggregation</h4>
+<p>We have talked about <a href="bit002_tidying-lotr-data.html">tidy data</a> and have used the <code>gather()</code> function from the <code>tidyr</code> package. The converse function is <code>tidyr::spread()</code>, which is also important but comes up less often.</p>
+<p>The powerful package under the hood of <code>tidyr</code> is <a href="https://github.com/hadley/reshape"><code>reshape2</code></a>. The functions <code>gather()</code> and <code>spread()</code> are friendlier but less powerful versions of the true workhorses in <code>reshape2</code>: <code>melt()</code> and <code>dcast()/acast()</code>.</p>
+<p>There is a strong inter-relationship between data aggregation and reshaping. Usually there are multiple solutions to a data wrangling problem: you can perform the data aggregation one way, then follow with some reshaping or you could aggregate another way and eliminate the need for reshaping.</p>
+<p>Ideas for activities:</p>
+<ul>
+<li>Pick from this <a href="http://www.stat.ubc.ca/~jenny/STAT545A/hw03_dataAggregation.html">2013 challenge list on data aggregation</a>.</li>
+<li>2013 <a href="http://www.stat.ubc.ca/~jenny/STAT545A/hw03_dataAggregation.html">HW03</a> and <a href="http://www.stat.ubc.ca/~jenny/STAT545A/hw04_univariateLattice.html">HW04</a> have good data aggregation/reshaping tasks and companion figures.</li>
+<li>Solve these challenges in different ways.
+<ul>
+<li><code>dplyr</code> wasn’t on my radar last year but you know how to use it.</li>
+<li><code>tidyr</code> didn’t even exist yet. Use it.</li>
+<li>We aren’t really covering <code>reshape2</code>, but many of you are ready to read up on <code>melt()</code> and <code>dcast()/acast()</code> and try them out.</li>
+</ul></li>
+<li>TA Andrew MacDonald has a nice <a href="https://gist.github.com/aammd/11386424">data manipulation sampler</a>. Make up a similar set of exercises for yourself, in the abstract or (even better) using Gapminder or other data, and solve them.</li>
+</ul>
+</div>
 </div>
 
 <div class="footer">
