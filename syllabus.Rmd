@@ -28,7 +28,7 @@ cdat <- rawdat %>%
                         sprintf("%s: %s", cm, raw_notes), raw_notes))
 cdat %>% head(3)
 
-## link to the README of any class meetings where such exists
+## link to the class page of any class meetings where such exists
 cmdat <-
   data.frame(html = list.files(pattern = '^cm.*html$'),
              stringsAsFactors = FALSE)
@@ -36,7 +36,10 @@ cmdat <- cmdat %>% mutate(cm = str_extract(html, "cm[0-9]+"))
 cdat <- cdat %>% left_join(cmdat)
 
 cdat <- cdat %>%
-  mutate(notes = str_replace(notes, "(cm[0-9]{3})", '<a href="LINK">\\1</a>'))
+  mutate(html_exists = Negate(is.na)(html))
+cdat$notes[cdat$html_exists] <-
+  str_replace(cdat$notes[cdat$html_exists],
+              "(cm[0-9]{3})", '<a href="LINK">\\1</a>')
 cdat <- cdat %>% mutate(notes = str_replace(notes, "LINK", html))
 dat <- cdat %>% split(cdat$course)
 dat <- lapply(dat, 'rownames<-', NULL)
