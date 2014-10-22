@@ -41,7 +41,7 @@ oct-15 wed   <a href="cm012_effective-graphs.html">cm012</a>: Effective graphs
 date         notes                                                                                                
 -----------  -----------------------------------------------------------------------------------------------------
 oct-20 mon   <a href="cm101_practical-graph-tips-tidy-data.html">cm101</a>: Practical graphing tips and tidy data 
-oct-22 wed                                                                                                        
+oct-22 wed   <a href="cm102_data-manipulation-finale.html">cm102</a>: Tidy data                                   
 oct-27 mon                                                                                                        
 oct-29 wed                                                                                                        
 nov-03 mon                                                                                                        
