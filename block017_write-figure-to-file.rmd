@@ -86,6 +86,8 @@ See below for gotchas and FAQs when making figures in a non-interactive setting!
 
 #### Scaling with `ggsave()`
 
+*TO DO: look into `theme_set(theme_gray(base_size = 30))`; learned about from [this tutorial](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/)*
+
 The last argument I want to feature is `scale =`. This actually changes the physical size of the plot, but more importantly, it changes the size of the title and axis labels, relative to the entire plot area. Therefore, tweaking this can be a quick-and-dirty way to get different versions of a figure appropriate for a presentation versus a poster versus a manuscript. You can still insert the figure downstream with a different physical size, though you may need to adjust the dpi accordingly on the front end. When `scale < 1`, various plot elements will be bigger relative to the plotting area; when `scale > 1`, these elements will be smaller. YMMV but `scale = 0.8` often works well for posters and slides. Here are two versions of a figure, with grossly exaggerated values of `scale`, to illustrate its effect.
 
 ```{r}

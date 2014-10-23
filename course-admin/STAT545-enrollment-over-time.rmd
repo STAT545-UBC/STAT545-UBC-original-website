@@ -7,22 +7,26 @@ output:
     keep_md: yes
 ---
 
-STAT 545 Exploratory Data Analysis can be offered from 1 to 3 credits. From 2008 to 2013, I know we have offered it as a 1.5 credit course from start of class in September until mid-October with 3 contact hours per week. In 2014 we are piloting an expansion to a 3 credit course, structured as the usual 1.5 credit STAT545A followed by 1.5 credits of a topics course STAT547M, occupying the same time slot and classroom.
+STAT 545 Exploratory Data Analysis can be offered from 1 to 3 credits. From 2008 to 2013, I know we have offered it as a 1.5 credit course from start of class in September until mid-October with 3 contact hours per week. In 2014 we are piloting an expansion to a 3 credit course, structured as the usual 1.5 credit STAT545A followed by 1.5 credits of a topics course STAT547M, occupying the same time slot and classroom. It my personal hope that this is a transitional measure towards offering STAT 545A as a full 3 credit course. Full stop.
 
-I (Jenny Bryan) have taught STAT 545 every year since 2008, at least.
+Here is the webpage for the current run of the course:
 
-Here is some information on enrollment -- numbers and students' degree programs.
+<http://stat545-ubc.github.io>
+
+I have taught STAT 545 every year since 2008, at least.
 
 ```{r import-data, include = FALSE}
 library(ggplot2)
 library(plyr)
 library(dplyr)
+## this file must be hard-wired and stored elsewhere for privacy reasons
 sdat <- read.csv("~/teaching/STAT545A/2014_STAT545A-jennyLocal/InstructorsOnly/course-admin/history/STAT545-registered-students-all-time.csv",
                  strip.white = TRUE)
 sdat %>% str
 ```
 
 ```{r fix-gender, include = FALSE}
+## UBC systems have changed how they encode gender over the years
 summary(sdat$Gender)
 sdat <- sdat %>%
   mutate(Gender = revalue(Gender, c("F" = "Female", "M" = "Male"))) %>%
@@ -30,11 +34,36 @@ sdat <- sdat %>%
 summary(sdat$Gender)
 ```
 
-From 2008 to September 2014, cumulative enrollment is `r nrow(sdat)`. This counts a small handful of unofficial auditors, typically post-docs and staff.
+```{r auditors, include = FALSE}
+summary(sdat$off_reg)
+```
+
+From 2008 to September 2014, cumulative enrollment is `r nrow(sdat)`. This includes a small cohort of `r sum(!(sdat$off_reg))` unofficial auditors, typically post-docs and staff. I include them because we treat them just the same as registered students, in terms of course communication and assessment.
+
+```{r explore-specialization-subject, include = FALSE}
+nlevels(sdat$Specialization.Subject)
+summary(sdat$Specialization.Subject)
+sdat <- sdat %>%
+  mutate(Specialization.Subject = reorder(Specialization.Subject,
+                                          Specialization.Subject, length),
+         STAT = factor(ifelse(Specialization.Subject == "Statistics",
+                              "Statistics", "Other"),
+                       levels = c("Statistics", "Other"))) %>%
+  arrange(desc(Specialization.Subject))
+sdat$Specialization.Subject %>% table %>% table
+spdat <- sdat %>%
+  group_by(Specialization.Subject) %>%
+  tally %>%
+  mutate(STAT = factor(ifelse(Specialization.Subject == "Statistics",
+                              "Statistics", "Other"),
+                       levels = c("Statistics", "Other")))
+```
 
 Enrollment has been growing over time. Enrollment in 2014 is more than twice that of 2008.
 
-```{r enrollment-over-time, echo = FALSE}
+```{r enrollment-over-time-simple, echo = FALSE, include = FALSE}
+## I suppressed this barchart once I created the one below, that breaks
+## frequency out for Statistics vs Other
 tdat <- sdat %>%
   group_by(year) %>%
   tally
@@ -43,22 +72,30 @@ p <- ggplot(tdat, aes(x = as.factor(year), y = n)) +
 p + geom_text(aes(label = n), col = "white", vjust = 1.3)
 ```
 
-```{r explore-specialization-subject, include = FALSE}
-nlevels(sdat$Specialization.Subject)
-summary(sdat$Specialization.Subject)
-sdat <- sdat %>%
-  mutate(Specialization.Subject = reorder(Specialization.Subject,
-                                          Specialization.Subject, length),
-         STAT = Specialization.Subject == "Statistics") %>%
-  arrange(desc(Specialization.Subject))
-sdat$Specialization.Subject %>% table %>% table
-spdat <- sdat %>%
-  group_by(Specialization.Subject) %>%
-  tally %>%
-  mutate(STAT = Specialization.Subject == "Statistics")
+```{r enrollment-over-time, echo = FALSE}
+tdat <- sdat %>%
+  group_by(year, STAT) %>%
+  tally
+year_dat <- tdat %>%
+  group_by(year) %>%
+  summarize(n = sum(n))
+jColors <- c(Statistics = "grey33", Other = "grey67")
+p <- ggplot(tdat, aes(x = as.factor(year), y = n, fill = STAT)) +
+  geom_bar(stat = "identity", width = 0.8) +
+  ylim(c(0, max(year_dat$n) + 3)) +
+  scale_fill_manual(values = jColors) +
+  guides(fill = guide_legend(reverse = TRUE, title = NULL)) +
+  labs(x = "year", y = "") +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        legend.position = c(0, 1),
+        legend.justification = c(0, 1),
+        legend.background = element_blank())
+p + with(year_dat, annotate("text", x = as.factor(year), y = n, label = n,
+         vjust = -1))
 ```
 
-It is a very diverse group of students, with STAT being the most frequent specialization yet accounting for less than half of cumulative enrollments.
+It is a very diverse group of students, with Statistics being the most frequent specialization yet accounting for less than half of cumulative enrollments. Note also that the dominance of Statistics students is declining, both in an absolute and relative sense. I believe this reflects the growing importance of data skills in all disciplines and the increasing quality and relevance of STAT 545 content.
 
 ```{r pie-and-barchart, echo = FALSE, fig.show = 'hold', out.width = '49%'}
 stat_dat <- sdat %>%
@@ -104,3 +141,5 @@ singletons <- matrix(singletons, ncol = 2)
 ```{r results = 'asis', echo = FALSE}
 knitr::kable(singletons)
 ```
+
+__TA support__: As a very large graduate course, STAT 545 absolutely needs substantial TA support. Also the unusual nature of the course means that students submit work that must be evaluated for technical accomplishment (does the code work? does it embody sound programming practices) and for content (does the analysis make sense? is it communicated in an accurate and compelling way?). It is quite challenging to get enough TA support and to get qualified TA support. For example in 2014, I cannot find anyone qualified and willing to be a full TA for the course all semester. Luckily I've been able to assemble a [group of excellent TAs](http://stat545-ubc.github.io/people.html) willing to contribute a certain number of hours, but I am very concerned that TA support will be a limiting factor for STAT 545's sustainability and future growth. It is interesting to look at the graduate programs of this year's TAs: MSc in Bioinformatics, PhD in Earth and Ocean Sciences, PhD in Bioinformatics, PhD in Applied Mathematics, PhD in Genome Science and Technology, PhD Zoology. The lack of Statistics students, in the TA and student pool, raises issues of who the course is serving and how compatible developing this sort of expertise is with traditional graduate work in Statistics.
