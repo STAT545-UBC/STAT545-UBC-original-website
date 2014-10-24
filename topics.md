@@ -39,6 +39,7 @@
   * Writing and reading files
     - [Indicative code from hands on activities](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm011_files-out-in-script.r)
     - [2013 lesson](http://www.stat.ubc.ca/~jenny/STAT545A/block05_getNumbersOut.html) *2014 update will do data manipulation with `dplyr`*
+  * [Why and how to tidy data](bit002_tidying-lotr-data.html)
   
 ## Course-specific material
 
@@ -64,6 +65,7 @@
   * [Homework 04](http://stat545-ubc.github.io/hw04_write-function-use-plyr.html) Manipulate and summarize the Gapminder data with custom functions and `plyr` 
   * [Homework 05](hw05_factor-boss-files-out-in.html) Prove you are in control of factors by writing and reading files
   * [Homework 06](hw06_repo-hygiene-figure-boss.html) *Optional, unmarked* activities for the STAT 545A / STAT 547M transition
+  * [Homework 07](hw07_data-wrangling-grand-finale.html) Data wrangling Grand Finale
 
 ## Short random things
 
