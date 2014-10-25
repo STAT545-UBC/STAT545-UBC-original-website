@@ -2,6 +2,8 @@
 output:
   html_document:
     toc: true
+    includes:
+      after_body: include/nothing.html
 ---
 
 ### cm102 2014-10-22 Wednesday overview
