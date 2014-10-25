@@ -84,28 +84,45 @@ ggsave("imp/fig-io-practice.png", p)
 
 See below for gotchas and FAQs when making figures in a non-interactive setting!
 
-#### Scaling with `ggsave()`
+#### Scaling
 
-*TO DO: look into `theme_set(theme_gray(base_size = 30))`; learned about from [this tutorial](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/)*
+Figures need to be prepared differently for a presentation versus a poster versus a manuscript. You need to fiddle with the size of text, such as the title and axis labels, relative to the entire plot area. There are at least two ways to do this, with slightly different effects and workflows.
 
-The last argument I want to feature is `scale =`. This actually changes the physical size of the plot, but more importantly, it changes the size of the title and axis labels, relative to the entire plot area. Therefore, tweaking this can be a quick-and-dirty way to get different versions of a figure appropriate for a presentation versus a poster versus a manuscript. You can still insert the figure downstream with a different physical size, though you may need to adjust the dpi accordingly on the front end. When `scale < 1`, various plot elements will be bigger relative to the plotting area; when `scale > 1`, these elements will be smaller. YMMV but `scale = 0.8` often works well for posters and slides. Here are two versions of a figure, with grossly exaggerated values of `scale`, to illustrate its effect.
+__Via the `scale =` argument to `ggsave()`__: This actually changes the physical size of the plot, but as an interesting side effect, it changes the relative size of the title and axis labels. Therefore, tweaking this can be a quick-and-dirty way to get different versions of a figure appropriate for a presentation versus a poster versus a manuscript. You can still insert the figure downstream with a different physical size, though you may need to adjust the dpi accordingly on the front end. When `scale < 1`, various plot elements will be bigger relative to the plotting area; when `scale > 1`, these elements will be smaller. YMMV but `scale = 0.8` often works well for posters and slides. Below are two versions of a figure, with exaggerated values of `scale`, to illustrate its effect.
+
+__Via the `base_size` of the active theme__: The `base_size` of the [theme](http://docs.ggplot2.org/dev/vignettes/themes.html) refers to the base font size. This is NOT a theme element that can be modified via `ggplot(...) + theme(...)`. Rather, it's an argument to various functions that set theme elements. Therefore, to get the desired effect you need to create a complete theme, specifying the desired `base_size`. By setting `base size < 12`, the default value, you shrink text elements and by setting `base_size > 12`, you make them larger. Below are two versions of a figure, with exaggerated values of `base_size`, to illustrate its effect. 
 
 ```{r}
 suppressPackageStartupMessages(library(ggplot2))
 gDat <- read.delim("gapminderDataFiveYear.tsv")
 p <- ggplot(gDat, aes(x = year, y = lifeExp)) + geom_jitter()
-p1 <- p + ggtitle("scale = 0.3")
+p1 <- p + ggtitle("scale = 0.6")
 p2 <- p + ggtitle("scale = 2")
-ggsave("img/fig-io-practice-scale-0.3.png", p1, scale = 0.3)
+p3 <- p + ggtitle("base_size = 20") + theme_grey(base_size = 20)
+p4 <- p + ggtitle("base_size = 3") + theme_grey(base_size = 3)
+ggsave("img/fig-io-practice-scale-0.3.png", p1, scale = 0.6)
 ggsave("img/fig-io-practice-scale-2.png", p2, scale = 2)
+ggsave("img/fig-io-practice-base-size-20.png", p3)
+ggsave("img/fig-io-practice-base-size-3.png", p4)
 ```
 
 <table width="800px" height="100%" border="1">
 <tr><td><img src="img/fig-io-practice-scale-0.3.png"></td>
 <td><img src="img/fig-io-practice-scale-2.png"></td></tr>
+<tr><td><img src="img/fig-io-practice-base-size-20.png"></td>
+<td><img src="img/fig-io-practice-base-size-3.png"></td></tr>
 </table>
 
-*Thanks to [Casey Shannon](https://twitter.com/ephonious) for introducing me to `scale =`.*
+*Thanks to [Casey Shannon](https://twitter.com/ephonious) for tips about `scale =` and this [cheatsheet from Zev Ross](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/) for tips about `base_size`.*
+
+```{r eval = FALSE, include = FALSE}
+## here's how you to change base_size for an entire session (or at least until
+## you restore otheme)
+otheme <- theme_set(theme_gray(base_size = 3))
+p3 <- p + ggtitle("base_size = 3")
+ggsave("img/fig-io-practice-base-size-3.png", p3)
+theme_set(otheme)
+```
 
 ### Write non-`ggplot2` figures to file
 
