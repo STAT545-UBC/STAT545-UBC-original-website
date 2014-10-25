@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Exercises to test and solidy your data manipulation skills</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Exercises to test and solidy your data manipulation skills</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#aggregate-or-summarize">Aggregate or summarize</a></li>
+<li><a href="#cross-tabulate-with-holes">Cross-tabulate with holes</a></li>
+</ul>
+</div>
+
+<p><em>NOTE: Not completed or used. It is a start on a set of data manipulation challenges, but I lost too much time tracking down a puzzle in the <code>spread()</code> example. It turned out to be a bug in <code>dplyr</code>. See <a href="https://github.com/hadley/tidyr/issues/32">this issue</a> or <a href="https://github.com/hadley/tidyr/issues/42">the one I opened and closed</a>.</em></p>
+<pre class="r"><code>library(dplyr)
+## 
+## Attaching package: &#39;dplyr&#39;
+## 
+## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter
+## 
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union
+library(reshape2)
+library(tidyr)
+gdat &lt;- read.delim(&quot;gapminderDataFiveYear.tsv&quot;)</code></pre>
+<div id="aggregate-or-summarize" class="section level3">
+<h3>Aggregate or summarize</h3>
+<p>From this input:</p>
+<pre class="r"><code>(hdat &lt;- gdat %&gt;%
+   filter(country %in% c(&#39;France&#39;, &#39;Belgium&#39;, &#39;Nigeria&#39;, &#39;Japan&#39;),
+          year &gt; 1996) %&gt;%
+   select(country, year, continent, lifeExp) %&gt;%
+   filter( (country == &#39;Japan&#39;) |
+             (country == &#39;Belgium&#39; &amp; year == 2002) |
+             (country == &#39;France&#39; &amp; year &lt; 2005) |
+             (country == &#39;Nigeria&#39; &amp; year &gt; 2002)))
+##   country year continent lifeExp
+## 1 Belgium 2002    Europe  78.320
+## 2  France 1997    Europe  78.640
+## 3  France 2002    Europe  79.590
+## 4   Japan 1997      Asia  80.690
+## 5   Japan 2002      Asia  82.000
+## 6   Japan 2007      Asia  82.603
+## 7 Nigeria 2007    Africa  46.859</code></pre>
+<p>Make this output:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">country</th>
+<th align="left">continent</th>
+<th align="right">nrows</th>
+<th align="right">max_year</th>
+<th align="right">min_lifeExp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Belgium</td>
+<td align="left">Europe</td>
+<td align="right">1</td>
+<td align="right">2002</td>
+<td align="right">78.320</td>
+</tr>
+<tr class="even">
+<td align="left">France</td>
+<td align="left">Europe</td>
+<td align="right">2</td>
+<td align="right">2002</td>
+<td align="right">78.640</td>
+</tr>
+<tr class="odd">
+<td align="left">Japan</td>
+<td align="left">Asia</td>
+<td align="right">3</td>
+<td align="right">2007</td>
+<td align="right">80.690</td>
+</tr>
+<tr class="even">
+<td align="left">Nigeria</td>
+<td align="left">Africa</td>
+<td align="right">1</td>
+<td align="right">2007</td>
+<td align="right">46.859</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="cross-tabulate-with-holes" class="section level3">
+<h3>Cross-tabulate with holes</h3>
+<p>From <code>hdat</code> (code to produce given above)</p>
+<pre class="r"><code>hdat
+##   country year continent lifeExp
+## 1 Belgium 2002    Europe  78.320
+## 2  France 1997    Europe  78.640
+## 3  France 2002    Europe  79.590
+## 4   Japan 1997      Asia  80.690
+## 5   Japan 2002      Asia  82.000
+## 6   Japan 2007      Asia  82.603
+## 7 Nigeria 2007    Africa  46.859</code></pre>
+<p>Make this output (it should be a data.frame):</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">continent</th>
+<th align="right">1997</th>
+<th align="right">2002</th>
+<th align="right">2007</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Africa</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Asia</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Europe</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
