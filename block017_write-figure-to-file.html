@@ -78,7 +78,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#graphics-devices">Graphics devices</a></li>
 <li><a href="#write-figures-to-file-with-ggsave">Write figures to file with <code>ggsave()</code></a><ul>
 <li><a href="#passing-a-plot-object-to-ggsave">Passing a plot object to <code>ggsave()</code></a></li>
-<li><a href="#scaling-with-ggsave">Scaling with <code>ggsave()</code></a></li>
+<li><a href="#scaling">Scaling</a></li>
 </ul></li>
 <li><a href="#write-non-ggplot2-figures-to-file">Write non-<code>ggplot2</code> figures to file</a></li>
 <li><a href="#pre-emptive-answers-to-some-faqs">Pre-emptive answers to some FAQs</a><ul>
@@ -148,18 +148,26 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 ggsave(&quot;imp/fig-io-practice.png&quot;, p)</code></pre>
 <p>See below for gotchas and FAQs when making figures in a non-interactive setting!</p>
 </div>
-<div id="scaling-with-ggsave" class="section level4">
-<h4>Scaling with <code>ggsave()</code></h4>
-<p>The last argument I want to feature is <code>scale =</code>. This actually changes the physical size of the plot, but more importantly, it changes the size of the title and axis labels, relative to the entire plot area. Therefore, tweaking this can be a quick-and-dirty way to get different versions of a figure appropriate for a presentation versus a poster versus a manuscript. You can still insert the figure downstream with a different physical size, though you may need to adjust the dpi accordingly on the front end. When <code>scale &lt; 1</code>, various plot elements will be bigger relative to the plotting area; when <code>scale &gt; 1</code>, these elements will be smaller. YMMV but <code>scale = 0.8</code> often works well for posters and slides. Here are two versions of a figure, with grossly exaggerated values of <code>scale</code>, to illustrate its effect.</p>
+<div id="scaling" class="section level4">
+<h4>Scaling</h4>
+<p>Figures need to be prepared differently for a presentation versus a poster versus a manuscript. You need to fiddle with the size of text, such as the title and axis labels, relative to the entire plot area. There are at least two ways to do this, with slightly different effects and workflows.</p>
+<p><strong>Via the <code>scale =</code> argument to <code>ggsave()</code></strong>: This actually changes the physical size of the plot, but as an interesting side effect, it changes the relative size of the title and axis labels. Therefore, tweaking this can be a quick-and-dirty way to get different versions of a figure appropriate for a presentation versus a poster versus a manuscript. You can still insert the figure downstream with a different physical size, though you may need to adjust the dpi accordingly on the front end. When <code>scale &lt; 1</code>, various plot elements will be bigger relative to the plotting area; when <code>scale &gt; 1</code>, these elements will be smaller. YMMV but <code>scale = 0.8</code> often works well for posters and slides. Below are two versions of a figure, with exaggerated values of <code>scale</code>, to illustrate its effect.</p>
+<p><strong>Via the <code>base_size</code> of the active theme</strong>: The <code>base_size</code> of the <a href="http://docs.ggplot2.org/dev/vignettes/themes.html">theme</a> refers to the base font size. This is NOT a theme element that can be modified via <code>ggplot(...) + theme(...)</code>. Rather, it’s an argument to various functions that set theme elements. Therefore, to get the desired effect you need to create a complete theme, specifying the desired <code>base_size</code>. By setting <code>base size &lt; 12</code>, the default value, you shrink text elements and by setting <code>base_size &gt; 12</code>, you make them larger. Below are two versions of a figure, with exaggerated values of <code>base_size</code>, to illustrate its effect.</p>
 <pre class="r"><code>suppressPackageStartupMessages(library(ggplot2))
 gDat &lt;- read.delim(&quot;gapminderDataFiveYear.tsv&quot;)
 p &lt;- ggplot(gDat, aes(x = year, y = lifeExp)) + geom_jitter()
-p1 &lt;- p + ggtitle(&quot;scale = 0.3&quot;)
+p1 &lt;- p + ggtitle(&quot;scale = 0.6&quot;)
 p2 &lt;- p + ggtitle(&quot;scale = 2&quot;)
-ggsave(&quot;img/fig-io-practice-scale-0.3.png&quot;, p1, scale = 0.3)
-## Saving 2.1 x 1.5 in image
+p3 &lt;- p + ggtitle(&quot;base_size = 20&quot;) + theme_grey(base_size = 20)
+p4 &lt;- p + ggtitle(&quot;base_size = 3&quot;) + theme_grey(base_size = 3)
+ggsave(&quot;img/fig-io-practice-scale-0.3.png&quot;, p1, scale = 0.6)
+## Saving 4.2 x 3 in image
 ggsave(&quot;img/fig-io-practice-scale-2.png&quot;, p2, scale = 2)
-## Saving 14 x 10 in image</code></pre>
+## Saving 14 x 10 in image
+ggsave(&quot;img/fig-io-practice-base-size-20.png&quot;, p3)
+## Saving 7 x 5 in image
+ggsave(&quot;img/fig-io-practice-base-size-3.png&quot;, p4)
+## Saving 7 x 5 in image</code></pre>
 <table width="800px" height="100%" border="1">
 <tr><td>
 <img src="img/fig-io-practice-scale-0.3.png">
@@ -167,9 +175,15 @@ ggsave(&quot;img/fig-io-practice-scale-2.png&quot;, p2, scale = 2)
 <td>
 <img src="img/fig-io-practice-scale-2.png">
 </td></tr>
+<tr><td>
+<img src="img/fig-io-practice-base-size-20.png">
+</td>
+<td>
+<img src="img/fig-io-practice-base-size-3.png">
+</td></tr>
 </table>
 
-<p><em>Thanks to <a href="https://twitter.com/ephonious">Casey Shannon</a> for introducing me to <code>scale =</code>.</em></p>
+<p><em>Thanks to <a href="https://twitter.com/ephonious">Casey Shannon</a> for tips about <code>scale =</code> and this <a href="http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/">cheatsheet from Zev Ross</a> for tips about <code>base_size</code>.</em></p>
 </div>
 </div>
 <div id="write-non-ggplot2-figures-to-file" class="section level3">

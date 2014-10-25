@@ -1,0 +1,77 @@
+---
+title: Exercises to test and solidy your data manipulation skills
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+---
+
+*NOTE: Not completed or used. It is a start on a set of data manipulation challenges, but I lost too much time tracking down a puzzle in the `spread()` example. It turned out to be a bug in `dplyr`. See [this issue](https://github.com/hadley/tidyr/issues/32) or [the one I opened and closed](https://github.com/hadley/tidyr/issues/42).*
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
+```
+
+```{r}
+library(dplyr)
+library(reshape2)
+library(tidyr)
+gdat <- read.delim("gapminderDataFiveYear.tsv")
+```
+
+
+### Aggregate or summarize
+
+From this input:
+
+```{r}
+(hdat <- gdat %>%
+   filter(country %in% c('France', 'Belgium', 'Nigeria', 'Japan'),
+          year > 1996) %>%
+   select(country, year, continent, lifeExp) %>%
+   filter( (country == 'Japan') |
+             (country == 'Belgium' & year == 2002) |
+             (country == 'France' & year < 2005) |
+             (country == 'Nigeria' & year > 2002)))
+```
+
+Make this output:
+
+```{r include = FALSE}
+idat <- hdat %>%
+  group_by(country, continent) %>%
+  summarize(nrows = n(),
+            max_year = max(year),
+            min_lifeExp = min(lifeExp))
+```
+
+```{r echo = FALSE}
+knitr::kable(as.data.frame(idat))
+```
+
+### Cross-tabulate with holes
+
+From `hdat` (code to produce given above)
+```{r}
+hdat
+```
+
+Make this output (it should be a data.frame):
+
+```{r include = FALSE}
+(jdat <- hdat %>%
+   group_by(continent, year) %>%
+   tally)
+
+## tidyr::spread()
+kdat <- jdat %>%
+  ungroup %>% # necessary temporarily; fix coming to dplyr!
+  spread(year, n)
+
+## reshape2::dcast()
+#dcast(jdat,continent ~ year, value.var = "n")
+```
+
+```{r echo = FALSE}
+knitr::kable(as.data.frame(kdat))
+```
