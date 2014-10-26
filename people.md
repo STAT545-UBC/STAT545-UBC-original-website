@@ -12,7 +12,7 @@ output:
   * [\@JennyBryan](https://twitter.com/JennyBryan)
   * [GitHub](https://github.com/jennybc)
 
-Dean Attali, TA for STAT 545A but not STAT 547M
+Dean Attali, TA for STAT 545A *(but not STAT 547M)*
 
   * <daattali@gmail.com>
   * [\@daattali](http://twitter.com/daattali)
