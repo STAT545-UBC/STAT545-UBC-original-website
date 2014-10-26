@@ -140,6 +140,7 @@ __Background reading__:
 
   * Tidy data by Hadley Wickham. Journal of Statistical Software. Vol. 59, Issue 10, Sep 2014. <http://www.jstatsoft.org/v59/i10>
   * `tidyr` package on [GitHub](https://github.com/hadley/tidyr) and [CRAN](http://cran.r-project.org/web/packages/tidyr/index.html) (read the vignette!)
+  * Tyler Rinker's [minimal guide to `tidyr`](https://github.com/trinker/tidyr_in_a_nutshell)
   * We used the `gather()` function from the `tidyr` package to reshape the [Lord of the Rings wordcount data](https://github.com/jennybc/lotr) in [this lesson](http://stat545-ubc.github.io/bit002_tidying-lotr-data.html).
   - [`reshape2`](https://github.com/hadley/reshape) package
 
