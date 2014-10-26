@@ -25,6 +25,8 @@ output:
 [SSC 545A]: https://courses.students.ubc.ca/cs/main?pname=subjarea&tname=subjareas&req=5&dept=STAT&course=545A&section=101
 [SSC 547M]: https://courses.students.ubc.ca/cs/main?pname=subjarea&tname=subjareas&req=5&dept=STAT&course=547M&section=101
 
+Up-to-date info on [office hours](https://github.com/STAT545-UBC/Discussion/issues/47)
+
 ### What's up with the two half courses?
 
 For several years, I have taught STAT 545A as a 1.5 credit course. I -- and many students -- have felt there was alot of great, relevant content that could go into an additional 1.5 credits.
