@@ -12,9 +12,8 @@ output:
   * [\@JennyBryan](https://twitter.com/JennyBryan)
   * [GitHub](https://github.com/jennybc)
 
-Dean Attali, TA for STAT 545A
+Dean Attali, TA for STAT 545A but not STAT 547M
 
-  * Office Hours: Mon 11:00am - 1:00pm and Wed 11:00am - 12:00pm (__note__ shorter hours on Wed!) in [ESB](http://www.maps.ubc.ca/PROD/index_detail.php?show=y,n,n,n,n,y&bldg2Search=n&locat1=225) 3174, across from main STAT office
   * <daattali@gmail.com>
   * [\@daattali](http://twitter.com/daattali)
   * [GitHub](https://github.com/daattali)
