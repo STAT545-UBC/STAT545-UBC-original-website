@@ -42,7 +42,7 @@ What if we wanted to extract all homework files on `dplyr`? We would need a way 
 Regular expression is a pattern that describes a specific set of strings with a common structure. It is heavily used for string matching / replacing in all programming languages, although specific syntax may differ a bit. It is truly the heart and soul for string operations. In R, many string functions in `base` R as well as in `stringr` package use regular expressions, even Rstudio's search and replace allows regular expression, we will go into more details about these functions later this week:       
 
   * identify match to a pattern: `grep(..., value = FALSE)`, `grepl()`, `stringr::str_detect()`
-  * extract match to a pattern: `grep(..., value = TRUE)`, `stringr::str_extract()`, `str_extract_all()`     
+  * extract match to a pattern: `grep(..., value = TRUE)`, `stringr::str_extract()`, `stringr::str_extract_all()`     
   * locate pattern within a string, i.e. give the start position of matched patterns. `regexpr()`, `gregexpr()`, `stringr::str_locate()`, `string::str_locate_all()`     
   * replace a pattern: `sub()`, `gsub()`, `stringr::str_replace()`, `stringr::str_replace_all()`     
   * split a string using a pattern: `strsplit()`, `stringr::str_split()`     
@@ -146,10 +146,10 @@ gsub("(ab) 12", "\\1 34", strings)
 
 #### Excercise
 
-Find countries in Gapminder with `land`, and replace `land` with `LAND`.  
+Find countries in Gapminder with letter `i` or `t`, and ends with `land`, and replace `land` with `LAND` using backreference.  
 
 ```{r ex_operator, echo = F}
-countries <- gsub("land", "LAND", levels(gDat$country))
+countries <- gsub("(.*[it].*)land$", "\\1LAND", levels(gDat$country), ignore.case = T)
 grep("LAND", countries, value = TRUE)
 ```
 

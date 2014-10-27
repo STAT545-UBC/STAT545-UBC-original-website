@@ -159,7 +159,7 @@ str(gDat)</code></pre>
 <p>Regular expression is a pattern that describes a specific set of strings with a common structure. It is heavily used for string matching / replacing in all programming languages, although specific syntax may differ a bit. It is truly the heart and soul for string operations. In R, many string functions in <code>base</code> R as well as in <code>stringr</code> package use regular expressions, even Rstudio’s search and replace allows regular expression, we will go into more details about these functions later this week:</p>
 <ul>
 <li>identify match to a pattern: <code>grep(..., value = FALSE)</code>, <code>grepl()</code>, <code>stringr::str_detect()</code></li>
-<li>extract match to a pattern: <code>grep(..., value = TRUE)</code>, <code>stringr::str_extract()</code>, <code>str_extract_all()</code><br /></li>
+<li>extract match to a pattern: <code>grep(..., value = TRUE)</code>, <code>stringr::str_extract()</code>, <code>stringr::str_extract_all()</code><br /></li>
 <li>locate pattern within a string, i.e. give the start position of matched patterns. <code>regexpr()</code>, <code>gregexpr()</code>, <code>stringr::str_locate()</code>, <code>string::str_locate_all()</code><br /></li>
 <li>replace a pattern: <code>sub()</code>, <code>gsub()</code>, <code>stringr::str_replace()</code>, <code>stringr::str_replace_all()</code><br /></li>
 <li>split a string using a pattern: <code>strsplit()</code>, <code>stringr::str_split()</code></li>
@@ -274,9 +274,9 @@ str(gDat)</code></pre>
 <pre><code>## [1] &quot;^ab&quot;   &quot;ab&quot;    &quot;abc&quot;   &quot;abd&quot;   &quot;abe&quot;   &quot;ab 34&quot;</code></pre>
 <div id="excercise" class="section level4">
 <h4>Excercise</h4>
-<p>Find countries in Gapminder with <code>land</code>, and replace <code>land</code> with <code>LAND</code>.</p>
-<pre><code>## [1] &quot;FinLAND&quot;     &quot;IceLAND&quot;     &quot;IreLAND&quot;     &quot;NetherLANDs&quot; &quot;New ZeaLAND&quot;
-## [6] &quot;PoLAND&quot;      &quot;SwaziLAND&quot;   &quot;SwitzerLAND&quot; &quot;ThaiLAND&quot;</code></pre>
+<p>Find countries in Gapminder with letter <code>i</code> or <code>t</code>, and ends with <code>land</code>, and replace <code>land</code> with <code>LAND</code> using backreference.</p>
+<pre><code>## [1] &quot;FinLAND&quot;     &quot;IceLAND&quot;     &quot;IreLAND&quot;     &quot;SwaziLAND&quot;   &quot;SwitzerLAND&quot;
+## [6] &quot;ThaiLAND&quot;</code></pre>
 </div>
 </div>
 <div id="character-classes" class="section level3">
