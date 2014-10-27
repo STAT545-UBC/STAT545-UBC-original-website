@@ -15,8 +15,8 @@ cm011,STAT545A,wed,october,8,Getting data out of R (and back in)
 cm012,STAT545A,wed,october,15,Effective graphs
 cm101,STAT547M,mon,october,20,Practical graphing tips and tidy data
 cm102,STAT547M,wed,october,22,Tidy data, more advanced data manipulation and aggregation
-cm103,STAT547M,mon,october,27,Regular expressions and character data, cleaning the Gapminder data
-cm104,STAT547M,wed,october,29,ditto
+cm103,STAT547M,mon,october,27,Regular expressions and character data
+cm104,STAT547M,wed,october,29,Data cleaning: the Gapminder example
 cm105,STAT547M,mon,november,3,"Task automation and pipelines, GNU Make"
 cm106,STAT547M,wed,november,5,ditto
 cm107,STAT547M,mon,november,10,Build your first R package
