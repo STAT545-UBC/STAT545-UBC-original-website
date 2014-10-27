@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Gloria Li and Jenny Bryan" />
+
+<meta name="date" content="2014-10-19" />
+
+<title>Regular Expression in R</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Regular Expression in R</h1>
+<h4 class="author"><em>Gloria Li and Jenny Bryan</em></h4>
+<h4 class="date"><em>October 19, 2014</em></h4>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#string-functions-related-to-regular-expression">String functions related to regular expression</a></li>
+<li><a href="#regular-expression-syntax">Regular expression syntax</a><ul>
+<li><a href="#escape-sequences">Escape sequences</a></li>
+<li><a href="#quantifiers">Quantifiers</a></li>
+<li><a href="#position-of-pattern-within-the-string">Position of pattern within the string</a></li>
+<li><a href="#operators">Operators</a></li>
+<li><a href="#character-classes">Character classes</a></li>
+</ul></li>
+<li><a href="#general-modes-for-patterns">General modes for patterns</a><ul>
+<li><a href="#exercise-2">Exercise</a></li>
+</ul></li>
+<li><a href="#examples">Examples</a><ul>
+<li><a href="#some-more-advanced-string-functions">Some more advanced string functions</a></li>
+<li><a href="#exercise-3">Exercise</a></li>
+</ul></li>
+<li><a href="#regular-expression-vs-shell-globbing">Regular expression vs shell globbing</a></li>
+<li><a href="#resources">Resources</a></li>
+</ul>
+</div>
+
+<p>In this tutorial, we will use the Gapminder data and file names in our <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io">class repository</a> as examples to demonstrate using regular expression in R. First, let’s start off by cloning the class repository, getting the list of file names with <code>list.files()</code>, and load the Gapminder dataset into R.</p>
+<p>We will also need to use some functions from the <a href="https://github.com/hadley/stringr">stringr</a> package. It provids a clean, modern alternative to common string operations, and is sometimes easier to remember and use than R basic string functions. If you have not done so yet, install the package.</p>
+<pre class="r"><code>install.packages(&quot;stringr&quot;)</code></pre>
+<pre class="r"><code>library(stringr)
+files &lt;- list.files()
+head(files)</code></pre>
+<pre><code>## [1] &quot;_output.yaml&quot;                  &quot;bit001_dplyr-cheatsheet.html&quot; 
+## [3] &quot;bit001_dplyr-cheatsheet.md&quot;    &quot;bit001_dplyr-cheatsheet.rmd&quot;  
+## [5] &quot;bit002_tidying-lotr-data.html&quot; &quot;bit002_tidying-lotr-data.md&quot;</code></pre>
+<pre class="r"><code>gDat &lt;- read.delim(&quot;gapminderDataFiveYear.txt&quot;)
+str(gDat)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    1704 obs. of  6 variables:
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...</code></pre>
+<p>Now we can use some string functions to extract certain filenames, say all documents on <code>dplyr</code>. We can use <code>grep()</code> function to identify filenames including the string <code>dplyr</code>. If we set the argument <code>value = TRUE</code>, <code>grep()</code> returns the matches, while <code>value = FALSE</code> returns their indices. The <code>invert</code> argument let’s you get everything BUT the pattern you specify. <code>grepl()</code> is a similar function but returns a logical vector. See <a href="http://www.rdocumentation.org/packages/base/functions/grep">here</a> for more information.</p>
+<pre class="r"><code>grep(&quot;dplyr&quot;, files, value = TRUE)</code></pre>
+<pre><code>##  [1] &quot;bit001_dplyr-cheatsheet.html&quot;        
+##  [2] &quot;bit001_dplyr-cheatsheet.md&quot;          
+##  [3] &quot;bit001_dplyr-cheatsheet.rmd&quot;         
+##  [4] &quot;block0_dplyr-fake.rmd&quot;               
+##  [5] &quot;block000_dplyr-fake.rmd.txt&quot;         
+##  [6] &quot;block009_dplyr-intro.html&quot;           
+##  [7] &quot;block009_dplyr-intro.md&quot;             
+##  [8] &quot;block009_dplyr-intro.rmd&quot;            
+##  [9] &quot;block010_dplyr-end-single-table.html&quot;
+## [10] &quot;block010_dplyr-end-single-table.md&quot;  
+## [11] &quot;block010_dplyr-end-single-table.rmd&quot; 
+## [12] &quot;cm007_dplyr-intro.html&quot;              
+## [13] &quot;cm007_dplyr-intro.md&quot;                
+## [14] &quot;hw03_dplyr-and-more-ggplot2.html&quot;    
+## [15] &quot;hw03_dplyr-and-more-ggplot2.md&quot;      
+## [16] &quot;xblock000_dplyr-fake.rmd&quot;</code></pre>
+<pre class="r"><code>grep(&quot;dplyr&quot;, files, value = FALSE)</code></pre>
+<pre><code>##  [1]   2   3   4   7   8  27  28  29  30  31  32  98  99 150 151 184</code></pre>
+<pre class="r"><code>grepl(&quot;dplyr&quot;, files)</code></pre>
+<pre><code>##   [1] FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE
+##  [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [23] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
+##  [34] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [45] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [56] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [67] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [78] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [89] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE
+## [100] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [111] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [122] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [144] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE
+## [155] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [166] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [177] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</code></pre>
+<p>What if we wanted to extract all homework files on <code>dplyr</code>? We would need a way to specify matching a string containing <code>hw</code> and then something and then <code>dplyr</code>. This is where regular expressions come in handy.</p>
+<div id="string-functions-related-to-regular-expression" class="section level2">
+<h2>String functions related to regular expression</h2>
+<p>Regular expression is a pattern that describes a specific set of strings with a common structure. It is heavily used for string matching / replacing in all programming languages, although specific syntax may differ a bit. It is truly the heart and soul for string operations. In R, many string functions in <code>base</code> R as well as in <code>stringr</code> package use regular expressions, even Rstudio’s search and replace allows regular expression, we will go into more details about these functions later this week:</p>
+<ul>
+<li>identify match to a pattern: <code>grep(..., value = FALSE)</code>, <code>grepl()</code>, <code>stringr::str_detect()</code></li>
+<li>extract match to a pattern: <code>grep(..., value = TRUE)</code>, <code>stringr::str_extract()</code>, <code>str_extract_all()</code><br /></li>
+<li>locate pattern within a string, i.e. give the start position of matched patterns. <code>regexpr()</code>, <code>gregexpr()</code>, <code>stringr::str_locate()</code>, <code>string::str_locate_all()</code><br /></li>
+<li>replace a pattern: <code>sub()</code>, <code>gsub()</code>, <code>stringr::str_replace()</code>, <code>stringr::str_replace_all()</code><br /></li>
+<li>split a string using a pattern: <code>strsplit()</code>, <code>stringr::str_split()</code></li>
+</ul>
+</div>
+<div id="regular-expression-syntax" class="section level2">
+<h2>Regular expression syntax</h2>
+<p>Regular expressions typically specify characters (or character classes) to seek out, possibly with information about repeats and location within the string. This is accomplished with the help of metacharacters that have specific meaning: <code>$ * + . ? [ ] ^ { } | ( ) \</code>. We will use some small examples to introduce regular expression syntax and what these metacharacters mean.</p>
+<div id="escape-sequences" class="section level3">
+<h3>Escape sequences</h3>
+<p>There are some special characters in R that cannot be directly coded in a string. For example, let’s say you specify your pattern with single quotes and you want to find countries with the single quote <code>'</code>. You would have to “escape” the single quote in the pattern, by preceding it with <code>\</code>, so it’s clear it is not part of the string-specifying machinery:</p>
+<pre class="r"><code>grep(&#39;\&#39;&#39;, levels(gDat$country), value = TRUE)</code></pre>
+<pre><code>## [1] &quot;Cote d&#39;Ivoire&quot;</code></pre>
+<p>There are other characters in R that require escaping, and this rule applies to all string functions in R, including regular expressions. See <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Quotes.html">here</a> for a complete list of R esacpe sequences.</p>
+<ul>
+<li><code>\'</code>: single quote. You don’t need to escape single quote inside a double-quoted string, so we can also use <code>&quot;'&quot;</code> in the previous example.<br /></li>
+<li><code>\&quot;</code>: double quote. Similarly, double quotes can be used inside a single-quoted string, i.e. <code>'&quot;'</code>.<br /></li>
+<li><code>\n</code>: newline.<br /></li>
+<li><code>\r</code>: carriage return.<br /></li>
+<li><code>\t</code>: tab character.</li>
+</ul>
+<blockquote>
+<p>Note: <code>cat()</code> and <code>print()</code> to handle escape sequences differently, if you want to print a string out with these sequences interpreted, use <code>cat()</code>.</p>
+</blockquote>
+<pre class="r"><code>print(&quot;a\nb&quot;)</code></pre>
+<pre><code>## [1] &quot;a\nb&quot;</code></pre>
+<pre class="r"><code>cat(&quot;a\nb&quot;)</code></pre>
+<pre><code>## a
+## b</code></pre>
+</div>
+<div id="quantifiers" class="section level3">
+<h3>Quantifiers</h3>
+<p>Quantifiers specify how many repetitions of the pattern.</p>
+<ul>
+<li><code>*</code>: matches at least 0 times.<br /></li>
+<li><code>+</code>: matches at least 1 times.<br /></li>
+<li><code>?</code>: matches at most 1 times.<br /></li>
+<li><code>{n}</code>: matches exactly n times.<br /></li>
+<li><code>{n,}</code>: matches at least n times.<br /></li>
+<li><code>{n,m}</code>: matches between n and m times.</li>
+</ul>
+<pre class="r"><code>(strings &lt;- c(&quot;a&quot;, &quot;ab&quot;, &quot;acb&quot;, &quot;accb&quot;, &quot;acccb&quot;, &quot;accccb&quot;))</code></pre>
+<pre><code>## [1] &quot;a&quot;      &quot;ab&quot;     &quot;acb&quot;    &quot;accb&quot;   &quot;acccb&quot;  &quot;accccb&quot;</code></pre>
+<pre class="r"><code>grep(&quot;ac*b&quot;, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;ab&quot;     &quot;acb&quot;    &quot;accb&quot;   &quot;acccb&quot;  &quot;accccb&quot;</code></pre>
+<pre class="r"><code>grep(&quot;ac+b&quot;, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;acb&quot;    &quot;accb&quot;   &quot;acccb&quot;  &quot;accccb&quot;</code></pre>
+<pre class="r"><code>grep(&quot;ac?b&quot;, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;ab&quot;  &quot;acb&quot;</code></pre>
+<pre class="r"><code>grep(&quot;ac{2}b&quot;, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;accb&quot;</code></pre>
+<pre class="r"><code>grep(&quot;ac{2,}b&quot;, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;accb&quot;   &quot;acccb&quot;  &quot;accccb&quot;</code></pre>
+<pre class="r"><code>grep(&quot;ac{2,3}b&quot;, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;accb&quot;  &quot;acccb&quot;</code></pre>
+<div id="exercise" class="section level4">
+<h4>Exercise</h4>
+<p>Find all countries with <code>ee</code> in Gapminder using quantifiers.</p>
+<pre><code>## [1] &quot;Greece&quot;</code></pre>
+</div>
+</div>
+<div id="position-of-pattern-within-the-string" class="section level3">
+<h3>Position of pattern within the string</h3>
+<ul>
+<li><code>^</code>: matches the start of the string.<br /></li>
+<li><code>$</code>: matches the end of the string.<br /></li>
+<li><code>\b</code>: matches the empty string at either edge of a <em>word</em>. Don’t confuse it with <code>^ $</code> which marks the edge of a <em>string</em>.<br /></li>
+<li><code>\B</code>: matches the empty string provided it is not at an edge of a word.</li>
+</ul>
+<pre class="r"><code>(strings &lt;- c(&quot;abcd&quot;, &quot;cdab&quot;, &quot;cabd&quot;, &quot;c abd&quot;))</code></pre>
+<pre><code>## [1] &quot;abcd&quot;  &quot;cdab&quot;  &quot;cabd&quot;  &quot;c abd&quot;</code></pre>
+<pre class="r"><code>grep(&quot;ab&quot;, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;abcd&quot;  &quot;cdab&quot;  &quot;cabd&quot;  &quot;c abd&quot;</code></pre>
+<pre class="r"><code>grep(&quot;^ab&quot;, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;abcd&quot;</code></pre>
+<pre class="r"><code>grep(&quot;ab$&quot;, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;cdab&quot;</code></pre>
+<pre class="r"><code>grep(&quot;\\bab&quot;, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;abcd&quot;  &quot;c abd&quot;</code></pre>
+<div id="exercise-1" class="section level4">
+<h4>Exercise</h4>
+<p>Find all <code>.txt</code> files in the repository.</p>
+<pre><code>## [1] &quot;block000_dplyr-fake.rmd.txt&quot;     &quot;gapminderDataFiveYear_dirty.txt&quot;
+## [3] &quot;gapminderDataFiveYear.txt&quot;       &quot;note-to-alums.txt&quot;</code></pre>
+</div>
+</div>
+<div id="operators" class="section level3">
+<h3>Operators</h3>
+<ul>
+<li><code>.</code>: matches any single character, as shown in the first example.</li>
+<li><code>[...]</code>: a character list, matches any one of the characters inside the square brackets. We can also use <code>-</code> inside the brackets to specify a range of characters.<br /></li>
+<li><code>[^...]</code>: an inverted character list, similar to <code>[...]</code>, but matches any characters <strong>except</strong> those inside the square brackets.<br /></li>
+<li><code>\</code>: suppress the special meaning of metacharacters in regular expression, i.e. <code>$ * + . ? [ ] ^ { } | ( ) \</code>, similar to its usage in escape sequences. Since <code>\</code> itself needs to be escaped in R, we need to escape these metacharacters with double backslash like <code>\\$</code>.<br /></li>
+<li><code>|</code>: an “or” operator, matches patterns on either side of the <code>|</code>.<br /></li>
+<li><code>(...)</code>: grouping in regular expressions. This allows you to retrieve the bits that matched various parts of your regular expression so you can alter them or use them for building up a new string. Each group can than be refer using <code>\\N</code>, with N being the No. of <code>(...)</code> used. This is called <strong>backreference</strong>.</li>
+</ul>
+<pre class="r"><code>(strings &lt;- c(&quot;^ab&quot;, &quot;ab&quot;, &quot;abc&quot;, &quot;abd&quot;, &quot;abe&quot;, &quot;ab 12&quot;))</code></pre>
+<pre><code>## [1] &quot;^ab&quot;   &quot;ab&quot;    &quot;abc&quot;   &quot;abd&quot;   &quot;abe&quot;   &quot;ab 12&quot;</code></pre>
+<pre class="r"><code>grep(&quot;ab.&quot;, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;abc&quot;   &quot;abd&quot;   &quot;abe&quot;   &quot;ab 12&quot;</code></pre>
+<pre class="r"><code>grep(&quot;ab[c-e]&quot;, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;abc&quot; &quot;abd&quot; &quot;abe&quot;</code></pre>
+<pre class="r"><code>grep(&quot;ab[^c]&quot;, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;abd&quot;   &quot;abe&quot;   &quot;ab 12&quot;</code></pre>
+<pre class="r"><code>grep(&quot;^ab&quot;, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;ab&quot;    &quot;abc&quot;   &quot;abd&quot;   &quot;abe&quot;   &quot;ab 12&quot;</code></pre>
+<pre class="r"><code>grep(&quot;\\^ab&quot;, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;^ab&quot;</code></pre>
+<pre class="r"><code>grep(&quot;abc|abd&quot;, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;abc&quot; &quot;abd&quot;</code></pre>
+<pre class="r"><code>gsub(&quot;(ab) 12&quot;, &quot;\\1 34&quot;, strings)</code></pre>
+<pre><code>## [1] &quot;^ab&quot;   &quot;ab&quot;    &quot;abc&quot;   &quot;abd&quot;   &quot;abe&quot;   &quot;ab 34&quot;</code></pre>
+<div id="excercise" class="section level4">
+<h4>Excercise</h4>
+<p>Find countries in Gapminder with <code>land</code>, and replace <code>land</code> with <code>LAND</code>.</p>
+<pre><code>## [1] &quot;FinLAND&quot;     &quot;IceLAND&quot;     &quot;IreLAND&quot;     &quot;NetherLANDs&quot; &quot;New ZeaLAND&quot;
+## [6] &quot;PoLAND&quot;      &quot;SwaziLAND&quot;   &quot;SwitzerLAND&quot; &quot;ThaiLAND&quot;</code></pre>
+</div>
+</div>
+<div id="character-classes" class="section level3">
+<h3>Character classes</h3>
+<p>Character classes allows to – surprise! – specify entire classes of characters, such as numbers, letters, etc. There are two flavors of character classes, one uses <code>[:</code> and <code>:]</code> around a predefined name inside square brackets and the other uses <code>\</code> and a special character. They are sometimes interchangeable.</p>
+<ul>
+<li><code>[:digit:]</code> or <code>\d</code>: digits, 0 1 2 3 4 5 6 7 8 9, equivalent to <code>[0-9]</code>.<br /></li>
+<li><code>\D</code>: non-digits, equivalent to <code>[^0-9]</code>.<br /></li>
+<li><code>[:lower:]</code>: lower-case letters, equivalent to <code>[a-z]</code>.<br /></li>
+<li><code>[:upper:]</code>: upper-case letters, equivalent to <code>[A-Z]</code>.<br /></li>
+<li><code>[:alpha:]</code>: alphabetic characters, equivalent to <code>[[:lower:][:upper:]]</code> or <code>[A-z]</code>.<br /></li>
+<li><code>[:alnum:]</code>: alphanumeric characters, equivalent to <code>[[:alpha:][:digit:]]</code> or <code>[A-z0-9]</code>.<br /></li>
+<li><code>\w</code>: word characters, equivalent to <code>[[:alnum:]_]</code> or <code>[A-z0-9_]</code>.<br /></li>
+<li><code>\W</code>: not word, equivalent to <code>[^A-z0-9_]</code>.<br /></li>
+<li><code>[:xdigit:]</code>: hexadecimal digits (base 16), 0 1 2 3 4 5 6 7 8 9 A B C D E F a b c d e f, equivalent to <code>[0-9A-Fa-f]</code>.</li>
+<li><code>[:blank:]</code>: blank characters, i.e. space and tab.<br /></li>
+<li><code>[:space:]</code>: space characters: tab, newline, vertical tab, form feed, carriage return, space.</li>
+<li><code>\s</code>: space, ` `.<br /></li>
+<li><code>\S</code>: not space.<br /></li>
+<li><code>[:punct:]</code>: punctuation characters, ! &quot; # $ % &amp; ’ ( ) * + , - . / : ; &lt; = &gt; ? @ [  ] ^ _ ` { | } ~.</li>
+<li><code>[:graph:]</code>: graphical (human readable) characters: equivalent to <code>[[:alnum:][:punct:]]</code>.</li>
+<li><code>[:print:]</code>: printable characters, equivalent to <code>[[:alnum:][:punct:]\\s]</code>.</li>
+<li><code>[:cntrl:]</code>: control characters, like <code>\n</code> or <code>\r</code>, <code>[\x00-\x1F\x7F]</code>.</li>
+</ul>
+<p>Note:</p>
+<ul>
+<li><code>[:...:]</code> has to be used inside square brackets, e.g. <code>[[:digit:]]</code>.<br /></li>
+<li><code>\</code> itself is a special character that needs escape, e.g. <code>\\d</code>. Do not confuse these regular expressions with R escape sequences such as <code>\t</code>.</li>
+</ul>
+</div>
+</div>
+<div id="general-modes-for-patterns" class="section level2">
+<h2>General modes for patterns</h2>
+<p>There are different <a href="http://en.wikipedia.org/wiki/Regular_expression#Standards">syntax standards</a> for regular expressions, and R offers two:</p>
+<ul>
+<li>POSIX extended regular expressions (default)</li>
+<li>Perl-like regular expressions.</li>
+</ul>
+<p>You can easily switch between by specifying <code>perl = FALSE/TRUE</code> in <code>base</code> R functions, such as <code>grep()</code> and <code>sub()</code>. For functions in the <code>stringr</code> package, wrap the pattern with <code>perl()</code>. The syntax between these two standards are a bit different sometimes, see an example <a href="http://www.inside-r.org/packages/cran/stringr/docs/perl">here</a>. If you had previous experience with Python or Java, you are probably more familiar with the Perl-like mode. But for this tutorial, we will only use R’s default POSIX standard.</p>
+<p>There’s one last type of regular expression – “fixed”, meaning that the pattern should be taken literally. Specify this via <code>fixed = TRUE</code> (base R functions) or wrapping with <code>fixed()</code> (<code>stringr</code> functions). For example, <code>&quot;A.b&quot;</code> as a regular expression will match a string with “A” followed by any single character followed by “b”, but as a fixed pattern, it will only match a literal “A.b”.</p>
+<pre class="r"><code>(strings &lt;- c(&quot;Axbc&quot;, &quot;A.bc&quot;))</code></pre>
+<pre><code>## [1] &quot;Axbc&quot; &quot;A.bc&quot;</code></pre>
+<pre class="r"><code>pattern &lt;- &quot;A.b&quot;
+grep(pattern, strings, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;Axbc&quot; &quot;A.bc&quot;</code></pre>
+<pre class="r"><code>grep(pattern, strings, value = TRUE, fixed = TRUE)</code></pre>
+<pre><code>## [1] &quot;A.bc&quot;</code></pre>
+<p>By default, pattern matching is case sensitive in R, but you can turn it off with <code>ignore.case = TRUE</code> (base R functions) or wrapping with <code>ignore.case()</code> (<code>stringr</code> functions). Alternatively, you can use <code>tolower()</code> and <code>toupper()</code> functions to convert everything to lower or upper case. Take the same example above:</p>
+<pre class="r"><code>pattern &lt;- &quot;a.b&quot;
+grep(pattern, strings, value = TRUE)</code></pre>
+<pre><code>## character(0)</code></pre>
+<pre class="r"><code>grep(pattern, strings, value = TRUE, ignore.case = TRUE)</code></pre>
+<pre><code>## [1] &quot;Axbc&quot; &quot;A.bc&quot;</code></pre>
+<div id="exercise-2" class="section level3">
+<h3>Exercise</h3>
+<p>Find continents in Gapminder with letter <code>o</code> in it.</p>
+<pre><code>## [1] &quot;Europe&quot;  &quot;Oceania&quot;</code></pre>
+</div>
+</div>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
+<p>As an example, let’s try to integrate everything together, and find all course materials on <code>dplyr</code> and extract the topics we have covered. These files all follow our naming strategy: <code>block</code> followed by 3 digits, then <code>_</code>, then topic. As you can see from the <a href="http://stat545-ubc.github.io/topics.html">topic index</a>, we had two blocks on <code>dplyr</code>: the <a href="http://stat545-ubc.github.io/block009_dplyr-intro.html">intro</a>, and <a href="http://stat545-ubc.github.io/block010_dplyr-end-single-table.html">verbs for a single dataset</a>. We’ll try to extract the <code>.rmd</code> filenames for these blocks. To make the task a bit harder, I also put a few fake files inside the repository that don’t quite match our naming strategy!</p>
+<p>We know that the filename should have <code>block</code> and <code>dplyr</code> in it, and is a Rmd file, so what if we just put these three parts together?</p>
+<pre class="r"><code>pattern &lt;- &quot;block.*dplyr.*rmd&quot;
+grep(pattern, files, value = TRUE)</code></pre>
+<pre><code>## [1] &quot;block0_dplyr-fake.rmd&quot;              
+## [2] &quot;block000_dplyr-fake.rmd.txt&quot;        
+## [3] &quot;block009_dplyr-intro.rmd&quot;           
+## [4] &quot;block010_dplyr-end-single-table.rmd&quot;
+## [5] &quot;xblock000_dplyr-fake.rmd&quot;</code></pre>
+<p>Apart from the two files we wanted, we also got three fake ones: <code>block0_dplyr-fake.rmd</code>, <code>xblock000_dplyr-fake.rmd</code>, and <code>block000_dplyr-fake.rmd.txt</code>. Looks like our pattern is not stringent enough. The first fake file does not have 3 digits after <code>block</code>, second one does not start with <code>block</code>, and last one has <code>.txt</code> after <code>rmd</code>. So let’s try to fix that:</p>
+<pre class="r"><code>pattern &lt;- &quot;^block\\d{3}_.*dplyr.*rmd$&quot;
+(dplyr_file &lt;- grep(pattern, files, value = TRUE))</code></pre>
+<pre><code>## [1] &quot;block009_dplyr-intro.rmd&quot;           
+## [2] &quot;block010_dplyr-end-single-table.rmd&quot;</code></pre>
+<p>Now we have the two file names stored in <code>dplyr_file</code>, let’s try to extract the topics out.</p>
+<p>One way to do that is to use a substitution function like <code>sub()</code>, <code>gsub()</code>, or <code>str_sub()</code> to replace anything before and after the topic with empty strings:</p>
+<pre class="r"><code>(dplyr_topic &lt;- gsub(&quot;^block\\d{3}_.*dplyr-&quot;, &quot;&quot;, dplyr_file))</code></pre>
+<pre><code>## [1] &quot;intro.rmd&quot;            &quot;end-single-table.rmd&quot;</code></pre>
+<pre class="r"><code>(dplyr_topic &lt;- gsub(&quot;\\.rmd&quot;, &quot;&quot;, dplyr_topic))</code></pre>
+<pre><code>## [1] &quot;intro&quot;            &quot;end-single-table&quot;</code></pre>
+<p>Alternatively, instead of using <code>grep()</code> + <code>gsub()</code>, we can use <code>str_match()</code>. As mentioned above, this function will give specific matches for patterns enclosed with <code>()</code> operator. We just need to reconstruct our regular expression to specify the topic part:</p>
+<pre class="r"><code>pattern &lt;- &quot;^block\\d{3}_.*dplyr-(.*)\\.rmd$&quot;
+(na.omit(str_match(files, pattern)))</code></pre>
+<pre><code>##      [,1]                                  [,2]              
+## [1,] &quot;block009_dplyr-intro.rmd&quot;            &quot;intro&quot;           
+## [2,] &quot;block010_dplyr-end-single-table.rmd&quot; &quot;end-single-table&quot;
+## attr(,&quot;na.action&quot;)
+##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17
+##  [18]  18  19  20  21  22  23  24  25  26  27  28  30  31  33  34  35  36
+##  [35]  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53
+##  [52]  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70
+##  [69]  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87
+##  [86]  88  89  90  91  92  93  94  95  96  97  98  99 100 101 102 103 104
+## [103] 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121
+## [120] 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138
+## [137] 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155
+## [154] 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172
+## [171] 173 174 175 176 177 178 179 180 181 182 183 184
+## attr(,&quot;class&quot;)
+## [1] &quot;omit&quot;</code></pre>
+<p>The second column of the result data frame gives the topic we needed.</p>
+<div id="some-more-advanced-string-functions" class="section level3">
+<h3>Some more advanced string functions</h3>
+<p>There are some more advanced string functions that are somewhat related to regular expression, like splitting a string, get a subset of a string, pasting strings together etc. These functions are very useful for data cleaning, and we will get into more details about them later this week. Here is a short introduction with above example.</p>
+<p>From above example, we got two topics on <code>dplyr</code>: . We can use <code>strsplit()</code> function to split the second one, , into words. The second argument <code>split</code> is a regular expression used for splitting, and the function will return a list. We can use <code>unlist()</code> function to convert the list into a character vector. Or an alternative function <code>str_split_fixed()</code> will return a data frame.</p>
+<!-- *JB: what about something based on `strsplit(dplyr_file, "_")`?* -->
+
+
+<pre class="r"><code>(topic_split &lt;- unlist(strsplit(dplyr_topic[2], &quot;-&quot;)))</code></pre>
+<pre><code>## [1] &quot;end&quot;    &quot;single&quot; &quot;table&quot;</code></pre>
+<pre class="r"><code>(topic_split &lt;- str_split_fixed(dplyr_topic[2], &quot;-&quot;, 3)[1, ])</code></pre>
+<pre><code>## [1] &quot;end&quot;    &quot;single&quot; &quot;table&quot;</code></pre>
+<p>We can also use <code>paste()</code> or <code>paste0()</code> functions to put them back together. <code>paste0()</code> function is equivalent to <code>paste()</code> with <code>sep = &quot;&quot;</code>. We can use <code>collapse = &quot;-&quot;</code> argument to concatenate a character vector into a string:</p>
+<pre class="r"><code>paste(topic_split, collapse = &quot;-&quot;)</code></pre>
+<pre><code>## [1] &quot;end-single-table&quot;</code></pre>
+<p>Another useful function is <code>substr()</code>. It can be used to extract a part of a string with start and end positions. For example, to extract the first three letters in <code>dplyr_topic</code>:</p>
+<pre class="r"><code>substr(dplyr_topic, 1, 3)</code></pre>
+<pre><code>## [1] &quot;int&quot; &quot;end&quot;</code></pre>
+</div>
+<div id="exercise-3" class="section level3">
+<h3>Exercise</h3>
+<p>Get all markdown documents on peer review and extract the specific topics.</p>
+<blockquote>
+<p>Hint: file names should start with <code>peer-review</code>.</p>
+</blockquote>
+<pre><code>## marking-rubric,  peer-evaluation-guidelines</code></pre>
+</div>
+</div>
+<div id="regular-expression-vs-shell-globbing" class="section level2">
+<h2>Regular expression vs shell globbing</h2>
+<p>The term globbing in shell or Unix-like environment refers to pattern matching based on wildcard characters. A wildcard character can be used to substitute for any other character or characters in a string. Globbing is commonly used for matching file names or paths, and has a much simpler syntax. It is somewhat similar to regular expressions, and that’s why people are often confused between them. Here is a list of globbing syntax and their comparisons to regular expression:</p>
+<ul>
+<li><code>*</code>: matches any number of unknown characters, same as <code>.*</code> in regular expression.<br /></li>
+<li><code>?</code>: matches one unknown character, same as <code>.</code> in regular expression.<br /></li>
+<li><code>\</code>: same as regular expression.<br /></li>
+<li><code>[...]</code>: same as regular expression.<br /></li>
+<li><code>[!...]</code>: same as <code>[^...]</code> in regular expression.</li>
+</ul>
+<!-- *JB: I know that I've been burned by confusing regular expressions and globbing. Can you recall where this can hurt you? I can't right now! But we included this to alert them to something and I wish we could clarify what to watch out for.*  -->
+
+</div>
+<div id="resources" class="section level2">
+<h2>Resources</h2>
+<ul>
+<li>Regular expression in R <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html">official document</a>.<br /></li>
+<li>Perl-like regular expression: regular expression in perl <a href="http://perldoc.perl.org/perlre.html#Regular-Expressions">manual</a>.<br /></li>
+<li><a href="http://trinkerrstuff.wordpress.com/2014/09/27/canned-regular-expressions-qdapregex-0-1-2-on-cran/"><code>qdapRegex</code> package</a>: a collection of handy regular expression tools, including handling abbreviations, dates, email addresses, hash tags, phone numbers, times, emoticons, and URL etc.<br /></li>
+<li>Recently, there are some attemps to create human readable regular expression packages, <a href="https://github.com/andrewberls/regularity">Regularity</a> in Ruby is a very successful one. Unfortunately, its implementation in R is still quite beta at this stage, not as friendly as Regularity yet. But keep an eye out, better packages may become available in the near future!<br /></li>
+<li>There are some online tools to help learn, build and test regular expressions. On these websites, you can simply paste your test data and write regular expression, and matches will be highlighted.<br /></li>
+<li><a href="http://regexpal.com/">regexpal</a><br /></li>
+<li><a href="http://www.regexr.com/">RegExr</a></li>
+</ul>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
