@@ -38,8 +38,9 @@
   * [Be the boss of your factors](block014_factors.html)
   * Writing and reading files
     - [Indicative code from hands on activities](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm011_files-out-in-script.r)
-    - [2013 lesson](http://www.stat.ubc.ca/~jenny/STAT545A/block05_getNumbersOut.html) *2014 update will do data manipulation with `dplyr`*
+    - [2013 lesson](http://www.stat.ubc.ca/~jenny/STAT545A/block05_getNumbersOut.html) *2014 update: do data manipulation with `dplyr`*
   * [Why and how to tidy data](bit002_tidying-lotr-data.html)
+  * [Regular expressions](block022_regular-expression.html) and more about character data
   
 ## Course-specific material
 
@@ -56,6 +57,9 @@
   * [Class meeting 011](cm011_files-out-in.html) Writing to file, reading from file
   * [Class meeting 012](cm012_effective-graphs.html) Effective graphs
   * [Class meeting 101](cm101_practical-graph-tips.html) Practical graphing
+  * [Class meeting 102](cm102_data-manipulation-finale.html) Tidy data
+  * [Class meeting 103](cm103_regular-expressions.html) Regular expressions
+  * [Class meeting 104](cm104_data-cleaning.html) Data cleaning
   * [General homework guidelines](hw00_homework-guidelines.html)
   * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
   * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
@@ -101,8 +105,8 @@ New topics for STAT 545A and/or STAT 547M will be selected from here:
 
   * Bash shell / unix basics, personal system administration.
   * ~~Version control with Git, collaboration via [GitHub](https://github.com)~~ *done*
-  * The tabular data mentality, "tidy" data, data reshaping
-  * Regular expressions, programmatic transformation and searching of character data
+  * ~~The tabular data mentality, "tidy" data, data reshaping~~ *done*
+  * ~~Regular expressions, programmatic transformation and searching of character data~~ *done*
   * ~~Writing R functions~~ *done*
   * Creating interactive pages, apps, and graphics via [Shiny](http://shiny.rstudio.com) and (maybe) [`ggvis`](http://ggvis.rstudio.com)
   * ~~Unit testing, at least as a mentality. Maybe will cover formal unit testing, e.g. `testthat`~~ *done*
