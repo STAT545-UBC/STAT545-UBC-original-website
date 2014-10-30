@@ -78,8 +78,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#loading-dirty-gapminder">Loading dirty Gapminder</a></li>
 <li><a href="#splitting-or-merging">Splitting or merging</a></li>
 <li><a href="#missing-values">Missing values</a></li>
-<li><a href="#inconsistent-capitalization">Inconsistent capitalization</a></li>
-<li><a href="#spelling">Spelling</a></li>
+<li><a href="#inconsistent-capitalization-and-spelling">Inconsistent capitalization and spelling</a></li>
 <li><a href="#final-check">Final check</a></li>
 </ul></li>
 <li><a href="#other-problems-in-data-cleaning">Other problems in data cleaning</a></li>
@@ -97,7 +96,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 <p>Now you are ready to apply them to the real world of data cleaning!</p>
 <p><a href="http://biomickwatson.wordpress.com/2014/03/25/biologists-this-is-why-bioinformaticians-hate-you/">Here</a> is an interesting link on why data cleaning is important and how extremely frustrating it can be.</p>
-<p>In this homework, you will start with the dirty version of <code>Gapminder</code> in our course repository, <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/gapminderDataFiveYear_dirty.txt">gapminderDataFiveYear_dirty.txt</a> into R, and clean it up with all the string functions you’ve learned. Make sure your local copy of the <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io">course repository</a> is up-to-date before you begin.</p>
+<p>In this homework, you will start with the dirty version of <code>Gapminder</code> in our course repository, <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/gapminderDataFiveYear_dirty.txt">gapminderDataFiveYear_dirty.txt</a>, and clean it up with all the string functions you’ve learned. Before you begin, copy this file into your own homework repository.</p>
 <p>Due anytime Thursday November 6th 2014.</p>
 </div>
 <div id="your-mission" class="section level3">
@@ -108,31 +107,27 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="splitting-or-merging" class="section level4">
 <h4>Splitting or merging</h4>
-<p>Now look at the columns of this data frame. You need to decide how much information each column should hold. Are there two pieces of information in one field? Or one piece of information splitted over two columns? Use string splitting or pasting where necessary.</p>
+<p>Now look at the columns of this data frame. You need to decide how much information each column should hold. Are there two pieces of information in one field? Or one piece of information splitted over two columns? Use string splitting or pasting so that each column only contains one conceptual variable.</p>
 </div>
 <div id="missing-values" class="section level4">
 <h4>Missing values</h4>
-<p>Missing values often comes as fields with <code>NA</code> or empty strings. Are there any missing fields in this data frame? If so, you need to figure out:</p>
+<p>Missing values often comes as fields with <code>NA</code> or empty strings. Is there any missing data in this dataset? Identify missing fields, and try to fill them yourself.</p>
+</div>
+<div id="inconsistent-capitalization-and-spelling" class="section level4">
+<h4>Inconsistent capitalization and spelling</h4>
+<p>Many times you will come across difference versions of the exact same record with different capitalization or spelling. Are there any in our dataset? There are several different ways to go about this:</p>
 <ul>
-<li>Can the information be found? Sometimes it’s obvious, sometimes you can contact your collabrators who provided the data, and sometimes you need to search it up on the internet.<br /></li>
-<li>If the information cannot be found, should you discard the particular record?</li>
+<li>You can make a dictionary for all the correct spelling and capitalization, and map the inconsistent ones to the dictionary using <code>gsub()</code>.<br /></li>
+<li>You may need to combine a programmatic approach with regular expression and human eyeballs to identify all the inconsistent records.<br /></li>
+<li>In our dataset, most countries/continents are capitalized for the first letter of every word, with few execptions like “and” is not capitalized. Make use of word boundaries in regular expression to help you find potential problematic records quickly, for example, <code>\\b[a-z]</code> will match all cases where the first letter of the word is not capitalized.</li>
 </ul>
-</div>
-<div id="inconsistent-capitalization" class="section level4">
-<h4>Inconsistent capitalization</h4>
-<p>Many times you will come across exact same record with different capitalization rules. Are there any in our dataset?</p>
-<p>In our dataset, most countries/continents are capitalized for the first letter of every word, with few execptions like “and” is not capitalized. Make use of word boundaries in regular expression to help you find potential problematic records quickly.</p>
 <blockquote>
-<p>For advanced users, check out the <code>replacement</code> argument in <code>?gsub</code> for the use of <code>\U</code> together with <code>perl = T</code>. It might make your code extremely simple and efficient sometimes.</p>
+<p>For advanced users, check out the <code>replacement</code> argument in <code>?gsub</code> for the use of <code>\U</code> together with <code>perl = TRUE</code>. For example, <code>gsub(&quot;\\b([a-z])&quot;, &quot;\\U\\1&quot;, strings, perl = TRUE)</code> will capitalize the first letter of every word. But it is not required in this homework.</p>
 </blockquote>
-</div>
-<div id="spelling" class="section level4">
-<h4>Spelling</h4>
-<p>There might be spelling mistakes and different ways of indicating the same country/continent. Correct them in our dataset.</p>
 </div>
 <div id="final-check" class="section level4">
 <h4>Final check</h4>
-<p>Finally, load the clean <code>Gapminder</code>, <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/gapminderDataFiveYear.txt">gapminderDataFiveYear.txt</a>, and use <code>identical()</code> to check your cleaned version with ours. If identical, congratulations! You’ve successfully cleaned this dataset!</p>
+<p>Finally, load the clean <code>Gapminder</code>, <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/gapminderDataFiveYear.txt">gapminderDataFiveYear.txt</a>, and use <code>identical()</code> to compare your cleaned data frame with ours. If <code>TRUE</code>, congratulations! You’ve successfully cleaned this dataset!</p>
 </div>
 </div>
 <div id="other-problems-in-data-cleaning" class="section level3">
