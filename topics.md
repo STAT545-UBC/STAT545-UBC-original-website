@@ -70,6 +70,7 @@
   * [Homework 05](hw05_factor-boss-files-out-in.html) Prove you are in control of factors by writing and reading files
   * [Homework 06](hw06_repo-hygiene-figure-boss.html) *Optional, unmarked* activities for the STAT 545A / STAT 547M transition
   * [Homework 07](hw07_data-wrangling-grand-finale.html) Data wrangling Grand Finale
+  * [Homework 08](hw08_data-cleaning.html) re: handling character data and data cleaning
 
 ## Short random things
 
