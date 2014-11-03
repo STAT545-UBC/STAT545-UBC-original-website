@@ -22,7 +22,6 @@ Use RStudio to run `make`
 
 + Create an RStudio project: *File -> New Project*
 + Create a new text file: *File -> New File -> Text File*
-+ Save it, and name it `Makefile`
 + Start editing your first `Makefile`!
 	```makefile
 	all:
@@ -31,8 +30,10 @@ Use RStudio to run `make`
 	clean:
 		echo Clean all
 	```
++ Save it, and name it `Makefile`
++ Select *Build -> Configure Build Tools -> Build Tools -> Project build tools -> Makefile*
 + Select *Build -> Build All*
-+ The result will appear under the *Build* tab, usually found in the top-right corner of RStudio
++ The result and any error messages will appear under the *Build* tab, usually found in the top-right corner of RStudio
 
 ### *Build* menu items
 
