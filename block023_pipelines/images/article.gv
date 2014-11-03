@@ -1,0 +1,30 @@
+digraph article {
+
+node [style = "filled"]
+
+node [shape = "ellipse" fillcolor="pink"]
+
+"dot"
+"knitr::knit"
+"pandoc"
+"rmarkdown::render"
+
+node [shape = "note" fillcolor="white"]
+
+"article.Rmd"
+"figure.gv"
+
+node [shape = "note" fillcolor="lightgray"]
+
+"article.md"
+"figure.png"
+
+node [shape = "note" fillcolor="lightblue"]
+
+"article.html"
+
+"article.Rmd" -> "rmarkdown::render" -> "article.html"
+"article.Rmd" -> "knitr::knit" -> "article.md" -> "pandoc" -> "article.html"
+"figure.gv" -> "dot" -> "figure.png"
+"figure.png" -> "article.html"
+}

@@ -1,0 +1,29 @@
+digraph "activity" {
+
+node [style = "filled"]
+
+node [shape = "note" fillcolor="white"]
+
+"report.Rmd"
+"/usr/share/dict/words"
+
+node [shape = "note" fillcolor="lightgray"]
+
+"words.tsv"
+"histogram.tsv"
+"report.md"
+
+node [shape = "note" fillcolor="lightblue"]
+
+"histogram.png"
+"report.pdf"
+"report.html"
+
+"/usr/share/dict/words" -> "words.tsv" [label="cp"]
+"words.tsv" -> "histogram.tsv" [label="R or awk"]
+"histogram.tsv" -> "histogram.png" [label="ggplot2"]
+"histogram.png" -> "report.md"
+"report.Rmd" -> "report.md" [label="knitr::knit"]
+"report.md" -> "report.html" [label="rmarkdown::render"]
+"report.md" -> "report.pdf" [label="rmarkdown::render"]
+}

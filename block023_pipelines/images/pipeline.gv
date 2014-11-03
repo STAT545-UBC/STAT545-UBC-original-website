@@ -1,0 +1,38 @@
+digraph "01_justR" {
+
+node [style = "filled"]
+
+node [shape = "ellipse" fillcolor="pink"]
+
+"00_downloadData.R"
+"01_filterReorder.R"
+"02_aggregatePlot.R"
+
+node [shape = "note" fillcolor="orange"]
+
+"lotr_raw.tsv"
+"lotr_clean.tsv"
+"totalWordsByFilmRace.tsv"
+
+node [shape = "note" fillcolor="lightblue"]
+
+"barchart_totalWords.png"
+"barchart_totalWordsFilmDodge.png"
+"stripplot_wordsByRace_The_Fellowship_Of_The_Ring.png"
+"stripplot_wordsByRace_The_Return_Of_The_King.png"
+"stripplot_wordsByRace_The_Two_Towers.png"
+
+"00_downloadData.R" -> "lotr_raw.tsv"
+
+"lotr_raw.tsv" -> "01_filterReorder.R"
+"01_filterReorder.R" -> "lotr_clean.tsv"
+"01_filterReorder.R" -> "barchart_totalWords.png"
+"01_filterReorder.R" -> "barchart_totalWordsFilmDodge.png"
+
+"lotr_clean.tsv" -> "02_aggregatePlot.R"
+"02_aggregatePlot.R" -> "totalWordsByFilmRace.tsv"
+"02_aggregatePlot.R" -> "stripplot_wordsByRace_The_Fellowship_Of_The_Ring.png"
+"02_aggregatePlot.R" -> "stripplot_wordsByRace_The_Return_Of_The_King.png"
+"02_aggregatePlot.R" -> "stripplot_wordsByRace_The_Two_Towers.png"
+
+}

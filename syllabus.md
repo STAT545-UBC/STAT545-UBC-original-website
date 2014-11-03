@@ -44,7 +44,7 @@ oct-20 mon   <a href="cm101_practical-graph-tips-tidy-data.html">cm101</a>: Prac
 oct-22 wed   <a href="cm102_data-manipulation-finale.html">cm102</a>: Tidy data                                   
 oct-27 mon   <a href="cm103_regular-expressions.html">cm103</a>: Regular expressions and character data           
 oct-29 wed   <a href="cm104_data-cleaning.html">cm104</a>: Data cleaning: the Gapminder example                   
-nov-03 mon   cm105: Task automation and pipelines, GNU Make                                                       
+nov-03 mon   <a href="cm105_pipelines.html">cm105</a>: Task automation and pipelines, GNU Make                    
 nov-05 wed   cm106: ditto                                                                                         
 nov-10 mon   cm107: Build your first R package                                                                    
 nov-12 wed   cm108: ditto                                                                                         

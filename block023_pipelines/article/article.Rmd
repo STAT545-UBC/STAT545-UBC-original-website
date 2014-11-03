@@ -1,0 +1,10 @@
+The Sum of 1 + 1
+================
+
+The sum of 1 + 1 is calculated as follows.
+
+```{r}
+1 + 1
+```
+
+![Fig. 1: A graphical view of 1 + 1](figure.png)

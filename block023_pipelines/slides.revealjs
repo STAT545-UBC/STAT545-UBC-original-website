@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html$if(lang)$ lang="$lang$"$endif$>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+$for(author-meta)$
+  <meta name="author" content="$author-meta$" />
+$endfor$
+$if(date-meta)$
+  <meta name="dcterms.date" content="$date-meta$" />
+$endif$
+  <title>$if(title-prefix)$$title-prefix$ - $endif$$pagetitle$</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="$revealjs-url$/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+$if(highlighting-css)$
+    <style type="text/css">
+$highlighting-css$
+    </style>
+$endif$
+$if(css)$
+$for(css)$
+    <link rel="stylesheet" href="$css$"/>
+$endfor$
+$else$
+    <link rel="stylesheet" href="$revealjs-url$/css/theme/simple.css" id="theme">
+$endif$
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '$revealjs-url$/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="$revealjs-url$/lib/js/html5shiv.js"></script>
+    <![endif]-->
+$if(math)$
+    $math$
+$endif$
+$for(header-includes)$
+    $header-includes$
+$endfor$
+</head>
+<body>
+$for(include-before)$
+$include-before$
+$endfor$
+  <div class="reveal">
+    <div class="slides">
+
+$if(toc)$
+<section id="$idprefix$TOC">
+$toc$
+</section>
+$endif$
+
+$body$
+    </div>
+  </div>
+
+
+  <script src="$revealjs-url$/lib/js/head.min.js"></script>
+  <script src="$revealjs-url$/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        slideNumber: true,
+        theme: $if(theme)$'$theme$'$else$Reveal.getQueryHash().theme$endif$, // available themes are in /css/theme
+        transition: $if(transition)$'$transition$'$else$Reveal.getQueryHash().transition || 'default'$endif$, // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '$revealjs-url$/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '$revealjs-url$/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '$revealjs-url$/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: '$revealjs-url$/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: '$revealjs-url$/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+  $for(include-after)$
+  $include-after$
+  $endfor$
+  </body>
+</html>
