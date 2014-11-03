@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+</head>
+<body>
+<h1 id="automating-data-analysis-pipelines">Automating Data-analysis Pipelines</h1>
+<p>The goal of this activity is to create a pipeline that will</p>
+<ul>
+<li>calculate a histogram of English word lengths</li>
+<li>determine the most common word length</li>
+<li>generate a figure of this histogram</li>
+<li>render a RMarkdown report in HTML and PDF</li>
+</ul>
+<p>You will automate this pipeline using <code>make</code>!</p>
+<h1 id="dependency-graph-of-the-pipeline">Dependency graph of the pipeline</h1>
+<p><a href="images/activity.gv"><img src="images/activity.png" alt="images/activity.png" /></a></p>
+<h1 id="use-rstudio-to-run-make">Use RStudio to run <code>make</code></h1>
+<p><strong><em>Important</em></strong> First select <em>Tools -&gt; Global Options -&gt; Code Editing</em> and make sure that <em>Insert spaces for tabs</em> is <em>not</em> checked. Make requires that lines be indented with tabs and not spaces.</p>
+<ul>
+<li>Create an RStudio project: <em>File -&gt; New Project</em></li>
+<li>Create a new text file: <em>File -&gt; New File -&gt; Text File</em></li>
+<li>Save it, and name it <code>Makefile</code></li>
+<li><p>Start editing your first <code>Makefile</code>!</p>
+<pre class="sourceCode makefile"><code class="sourceCode makefile"><span class="dv">all:</span>
+    echo Build all
+
+<span class="dv">clean:</span>
+    echo Clean all</code></pre></li>
+<li>Select <em>Build -&gt; Build All</em></li>
+<li><p>The result will appear under the <em>Build</em> tab, usually found in the top-right corner of RStudio</p></li>
+</ul>
+<h3 id="build-menu-items"><em>Build</em> menu items</h3>
+<ul>
+<li><em>Build All</em> runs <code>make all</code></li>
+<li><em>Clean and Rebuild</em> runs <code>make clean all</code></li>
+<li><em>Clean All</em> runs <code>make clean</code></li>
+</ul>
+<p>For these menu items to work your <code>Makefile</code> needs to have phony targets named <code>all</code> and <code>clean</code>.</p>
+<h1 id="run-make-from-the-command-line">Run <code>make</code> from the command line</h1>
+<ul>
+<li>Open a terminal</li>
+<li><p>Change your working directory to that of your <code>Makefile</code></p>
+<pre class="sh"><code>cd your-project</code></pre></li>
+<li><p>Run</p>
+<pre class="sh"><code>make all
+make clean all
+make clean</code></pre></li>
+</ul>
+</body>
+</html>
