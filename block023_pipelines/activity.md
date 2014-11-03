@@ -82,17 +82,11 @@ For these menu items to work your `Makefile` needs to have phony targets named `
 Run `make` from the command line
 ================================================================================
 
-+ Open a terminal
-+ Change your working directory to that of your `Makefile`
-
-	```sh
-	cd your-project
-	```
-
++ Select *Tools -> Shell*
 + Run
 
 	```sh
+	make clean
 	make all
 	make clean all
-	make clean
 	```
