@@ -1,3 +1,13 @@
+---
+title: "Automating Data-analysis Pipelines"
+author: "Shaun Jackman"
+date: "2014-11-03"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+---
+
 Automating Data-analysis Pipelines
 ================================================================================
 
