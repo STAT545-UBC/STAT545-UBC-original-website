@@ -64,7 +64,7 @@ Dependency graph of the pipeline
 
 [![block023_pipelines/images/activity.png](block023_pipelines/images/activity.png)](block023_pipelines/images/activity.gv)
 
-Use RStudio to run `make`
+Use RStudio to run make
 ================================================================================
 
 + Create an RStudio project: *File -> New Project*
@@ -88,9 +88,9 @@ Use RStudio to run `make`
 + *Clean and Rebuild* runs `make clean all`
 + *Clean All* runs `make clean`
 
-For these menu items to work your `Makefile` needs to have phony targets named `all` and `clean`.
+For these menu items to work your `Makefile` needs to have targets named `all` and `clean`. These non-file targets are called phony targets.
 
-Run `make` from the command line
+Run make from the command line
 ================================================================================
 
 + Select *Tools -> Shell*
@@ -101,6 +101,113 @@ Run `make` from the command line
 	make all
 	make clean all
 	```
+
+Download or copy the dictionary
+================================================================================
+
+Download the dictionary
+------------------------------------------------------------
+
+Our first `Makefile` rule will download the dictionary `words.tsv`. The command of this rule is a one-line R script, so instead of putting the R script in a separate file, we'll include the command directly in the Makefile, since it's so short.
+
+```makefile
+words.tsv:
+	Rscript -e 'cat(file="words.tsv", RCurl::getURL("https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt"))'
+```
+
+Copy the dictionary
+------------------------------------------------------------
+
+On Mac or Linux systems, rather than download the dictionary, we can simply copy the file `/usr/share/dict/words` that comes with the operating system. Windows machines do not have `/usr/share/dict/words`, and so there we'll have to download the dictionary. 
+
+```makefile
+words.tsv: /usr/share/dict/words
+	cp /usr/share/dict/words words.tsv
+```
+
+This rule copies the input file `/usr/share/dict/words` to create the output file `words.tsv`. We then repeat these file names in the command rule, which seems rather redundant. We can use the oddly-named variables `$<` and `$@`, which represent the input file and output file respectively to save us from this redundancy.
+
+```makefile
+words.tsv: /usr/share/dict/words
+	cp $< $@
+```
+
+Create a table of word lengths
+================================================================================
+
+This rule will read the list of words and generate a table of word length frequency, stored in a tab-separated-values (TSV) file. This R script is a little longer, so we'll put it in its own file, named `histogram.r`. If either the script `histogram.r` or the data file `words.tsv` were to change, we'd need to rerun this command to get up-to-date results, so both files are dependencies of this rule. The input-file variable `$<` refers to the *first* dependency, `histogram.r`.
+
+```makefile
+histogram.tsv: histogram.r words.tsv
+	Rscript $<
+```
+
+### histogram.r
+
+```r
+words <- read.delim("words.tsv", stringsAsFactors = FALSE)[[1]]
+Length <- nchar(words)
+counts <- table(Length)
+write.table(counts, "histogram.tsv",
+	sep = "\t", row.names = FALSE, quote = FALSE)
+```
+
+Plot a histogram of word lengths
+================================================================================
+
+This rule will read the table of word lengths and plot a histogram using qplot. It's three lines long, but we'll still include the script in the `Makefile` directly, and use semicolons `;` to separate the R commands. The variable `$@` refers to the output file, `histogram.png`.
+
+```makefile
+histogram.png: histogram.tsv
+	Rscript -e 'library(ggplot2); qplot(Length, Freq, data=read.delim("$<")); ggsave("$@")'
+```
+
+Render a HTML report
+================================================================================
+
+Finally, we'll use `rmarkdown::render` to generate the HTML report.
+
+```makefile
+report.html: report.md
+	Rscript -e 'rmarkdown::render("$<")'
+```
+
+If the table of word lengths or figure were to change, `make` wouldn't know that it needs to regenerate the report. We can add additional dependencies to the rule so that `make` will regenerate the report if any of its three dependencies changes.
+
+```makefile
+report.html: report.rmd histogram.tsv histogram.png
+	Rscript -e 'rmarkdown::render("$<")'
+```
+
+Create the RMarkdown file `report.rmd` that reads the table of words lengths `histogram.tsv`, reports the most common word length and displays the histogram `histogram.png`. Here's [one solution](block023_pipelines/activity/report.rmd), but try not to peek until you've attempted this task yourself.
+
+Render a PDF report
+================================================================================
+
+Can you modify the `rmarkdown::render` command to generate a PDF report instead of an HTML report? Hint: look at the optional second argument of `rmarkdown::render`. Alternatively, click the *Knit* dropdown box and select *Knit PDF*, and look at how RStudio modifies the header of your RMarkdown script.
+
+Add a default target to the Makefile
+================================================================================
+
+The *Build -> Build All* menu item of RStudio runs the `Makefile` target named `all`. To make this default target generate our report, add the report as a dependency of the target named `all`. Note that unlike other rules, this rule has no commands associated with it.
+
+```makefile
+all: report.html
+```
+
+Select *Build -> Build All*.
+
+Add a clean target to the Makefile
+================================================================================
+
+The *Build -> Clean All* menu item of RStudio runs the `Makefile` target named `clean`. By convention this target removes all files that can be regenerated by the Makefile.
+
+```makefile
+clean:
+	rm -f words.tsv histogram.tsv histogram.png report.html
+```
+
+Select *Build -> Clean All* and then *Build -> Build All*.
 
 Troubleshooting
 ================================================================================

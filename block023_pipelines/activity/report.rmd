@@ -11,7 +11,7 @@ data <- read.delim("histogram.tsv")
 ```
 
 ```{r analyze-data}
-most.common.length <- data$length[which.max(data$count)]
+most.common.length <- data$Length[which.max(data$Freq)]
 ```
 
 The most common English word length is `r most.common.length`.
