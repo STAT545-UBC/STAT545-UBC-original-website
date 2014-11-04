@@ -41,6 +41,9 @@
     - [2013 lesson](http://www.stat.ubc.ca/~jenny/STAT545A/block05_getNumbersOut.html) *2014 update: do data manipulation with `dplyr`*
   * [Why and how to tidy data](bit002_tidying-lotr-data.html)
   * [Regular expressions](block022_regular-expression.html) and more about character data
+  * Automating Data-analysis Pipelines
+    - [Slides](block023_pipelines/slides.html)
+    - [Hands-on lesson](block023_pipelines.html)
   
 ## Course-specific material
 
@@ -60,6 +63,7 @@
   * [Class meeting 102](cm102_data-manipulation-finale.html) Tidy data
   * [Class meeting 103](cm103_regular-expressions.html) Regular expressions
   * [Class meeting 104](cm104_data-cleaning.html) Data cleaning
+  * [Class meeting 105](cm105_pipelines.html) Automating Data-analysis Pipelines
   * [General homework guidelines](hw00_homework-guidelines.html)
   * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
   * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
@@ -121,5 +125,5 @@ New topics for STAT 545A and/or STAT 547M will be selected from here:
     - getting data from the web, e.g. using an API or via scraping
     - exposing your hard work on the web (data, code, results)
   * Distributing data and code to the world via an R package
-  * Automating an analytical pipeline, e.g. via `Make`.
+  * ~~Automating an analytical pipeline, e.g. via `Make`.~~ *done*
   
