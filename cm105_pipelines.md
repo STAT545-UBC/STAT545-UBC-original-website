@@ -18,4 +18,4 @@ output:
 
 + led by [Shaun Jackman](http://sjackman.ca)
 + [Slides](block023_pipelines/slides.html)
-+ [Activity](block023_pipelines/activity.html)
++ [Activity](block023_pipelines.html)

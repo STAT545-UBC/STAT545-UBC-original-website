@@ -49,7 +49,7 @@ Mac OS and Linux machines come with `make` installed. You do not need to follow 
 Dependency graph of the pipeline
 ================================================================================
 
-[![images/activity.png](images/activity.png)](images/activity.gv)
+[![block023_pipelines/images/activity.png](block023_pipelines/images/activity.png)](block023_pipelines/images/activity.gv)
 
 Use RStudio to run `make`
 ================================================================================
@@ -62,7 +62,7 @@ Use RStudio to run `make`
 	```makefile
 	all:
 		echo Build all
-	
+
 	clean:
 		echo Clean all
 	```

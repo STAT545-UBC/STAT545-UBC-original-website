@@ -1,7 +1,7 @@
-all: activity.html slides.html homework.html
+all: slides.html
 
 clean:
-	rm -f activity.html slides.html homework.html
+	rm -f slides.html
 
 install-deps:
 	brew install pandoc
@@ -12,9 +12,6 @@ install-deps:
 
 revealjs-2.6.2.tar.gz:
 	curl -L https://github.com/hakimel/reveal.js/archive/2.6.2.tar.gz >$@
-
-activity.html homework.html: %.html: %.md
-	pandoc -s -f markdown_github -o $@ $<
 
 slides.html: %.html: %.md %.revealjs
 	pandoc -st revealjs --template $* -V theme:sky -o $@ $<
