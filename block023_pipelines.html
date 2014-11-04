@@ -85,6 +85,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#dependency-graph-of-the-pipeline">Dependency graph of the pipeline</a></li>
 <li><a href="#use-rstudio-to-run-make">Use RStudio to run <code>make</code></a></li>
 <li><a href="#run-make-from-the-command-line">Run <code>make</code> from the command line</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a><ul>
+<li><a href="#missing-separator">Missing separator</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -180,6 +183,16 @@ clean:
 make all
 make clean all</code></pre></li>
 </ul>
+</div>
+<div id="troubleshooting" class="section level1">
+<h1>Troubleshooting</h1>
+<div id="missing-separator" class="section level2">
+<h2>Missing separator</h2>
+<p>Error: <code>makefile:2: *** missing separator. Stop.</code></p>
+<p>Use tabs instead of spaces to indent command lines.</p>
+<p>See <a href="#configure-rstudio">Configure RStudio</a></p>
+<hr />
+</div>
 </div>
 
 <div class="footer">

@@ -101,3 +101,17 @@ Run `make` from the command line
 	make all
 	make clean all
 	```
+
+Troubleshooting
+================================================================================
+
+Missing separator
+------------------------------------------------------------
+
+Error: `makefile:2: *** missing separator. Stop.`
+
+Use tabs instead of spaces to indent command lines.
+
+See [Configure RStudio](#configure-rstudio)
+
+------------------------------------------------------------
