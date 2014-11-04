@@ -3,7 +3,7 @@ all: report.html
 clean:
 	rm -f words.tsv histogram.tsv histogram.png report.html
 
-.PHONY: all
+.PHONY: all clean
 .DELETE_ON_ERROR:
 .SECONDARY:
 
