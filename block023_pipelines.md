@@ -52,9 +52,12 @@ Mac OS and Linux machines come with `make` installed. You do not need to follow 
 + Close RStudio and open it again.
 + RStudio and your command line will now know where to find `make`
 
-### Configure your RStudio project
+Configure RStudio
+------------------------------------------------------------
 
-+ Select *Build -> Configure Build Tools -> Build Tools -> Project build tools -> Makefile*
++ `make` is rather picky and requires that lines be indented with tabs and not spaces
++ Select *Tools -> Global Options -> Code Editing* and make sure that *Insert spaces for tabs* is *not* checked
++ If *Tools -> Project Options* is not greyed out, select *Tools -> Project Options -> Code Editing* and make sure that *Insert spaces for tabs* is *not* checked
 
 Dependency graph of the pipeline
 ================================================================================
@@ -63,8 +66,6 @@ Dependency graph of the pipeline
 
 Use RStudio to run `make`
 ================================================================================
-
-***Important*** First select *Tools -> Global Options -> Code Editing* and make sure that *Insert spaces for tabs* is *not* checked. Make requires that lines be indented with tabs and not spaces.
 
 + Create an RStudio project: *File -> New Project*
 + Create a new text file: *File -> New File -> Text File*

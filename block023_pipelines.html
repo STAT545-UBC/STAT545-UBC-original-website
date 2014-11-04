@@ -80,6 +80,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#automating-data-analysis-pipelines">Automating Data-analysis Pipelines</a></li>
 <li><a href="#getting-started">Getting Started</a><ul>
 <li><a href="#install-make-on-microsoft-windows">Install <code>make</code> on Microsoft Windows</a></li>
+<li><a href="#configure-rstudio">Configure RStudio</a></li>
 </ul></li>
 <li><a href="#dependency-graph-of-the-pipeline">Dependency graph of the pipeline</a></li>
 <li><a href="#use-rstudio-to-run-make">Use RStudio to run <code>make</code></a></li>
@@ -130,12 +131,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>RStudio and your command line will now know where to find <code>make</code></li>
 </ul>
 </div>
-<div id="configure-your-rstudio-project" class="section level3">
-<h3>Configure your RStudio project</h3>
-<ul>
-<li>Select <em>Build -&gt; Configure Build Tools -&gt; Build Tools -&gt; Project build tools -&gt; Makefile</em></li>
-</ul>
 </div>
+<div id="configure-rstudio" class="section level2">
+<h2>Configure RStudio</h2>
+<ul>
+<li><code>make</code> is rather picky and requires that lines be indented with tabs and not spaces</li>
+<li>Select <em>Tools -&gt; Global Options -&gt; Code Editing</em> and make sure that <em>Insert spaces for tabs</em> is <em>not</em> checked</li>
+<li>If <em>Tools -&gt; Project Options</em> is not greyed out, select <em>Tools -&gt; Project Options -&gt; Code Editing</em> and make sure that <em>Insert spaces for tabs</em> is <em>not</em> checked</li>
+</ul>
 </div>
 </div>
 <div id="dependency-graph-of-the-pipeline" class="section level1">
@@ -144,7 +147,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="use-rstudio-to-run-make" class="section level1">
 <h1>Use RStudio to run <code>make</code></h1>
-<p><strong><em>Important</em></strong> First select <em>Tools -&gt; Global Options -&gt; Code Editing</em> and make sure that <em>Insert spaces for tabs</em> is <em>not</em> checked. Make requires that lines be indented with tabs and not spaces.</p>
 <ul>
 <li>Create an RStudio project: <em>File -&gt; New Project</em></li>
 <li>Create a new text file: <em>File -&gt; New File -&gt; Text File</em></li>
