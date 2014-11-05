@@ -97,6 +97,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#add-a-clean-target-to-the-makefile">Add a clean target to the Makefile</a></li>
 <li><a href="#troubleshooting">Troubleshooting</a><ul>
 <li><a href="#missing-separator">Missing separator</a></li>
+<li><a href="#rcurlgeturl-get_server_certificate-certificate-verify-failed">RCurl::getURL: GET_SERVER_CERTIFICATE: certificate verify failed</a></li>
 </ul></li>
 </ul>
 </div>
@@ -266,6 +267,11 @@ write.table(counts, &quot;histogram.tsv&quot;,
 <p>Error: <code>makefile:2: *** missing separator. Stop.</code></p>
 <p>Use tabs instead of spaces to indent command lines.</p>
 <p>See <a href="#configure-rstudio">Configure RStudio</a></p>
+</div>
+<div id="rcurlgeturl-get_server_certificate-certificate-verify-failed" class="section level2">
+<h2>RCurl::getURL: GET_SERVER_CERTIFICATE: certificate verify failed</h2>
+<p>The secure socket layer (SSL) was unable to make a secure <code>https</code> connection to the remote web site. A work around is to set the <code>ssl.verifypeer=FALSE</code> option of <code>RCurl::getURL</code>. There’s more discussion of this issue on the <a href="http://www.omegahat.org/RCurl/FAQ.html">FAQ for RCurl</a>.</p>
+<pre class="r"><code>RCurl::getURL(..., ssl.verifypeer=FALSE)&#39;</code></pre>
 <hr />
 </div>
 </div>

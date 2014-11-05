@@ -221,4 +221,13 @@ Use tabs instead of spaces to indent command lines.
 
 See [Configure RStudio](#configure-rstudio)
 
+RCurl::getURL: GET_SERVER_CERTIFICATE: certificate verify failed
+------------------------------------------------------------
+
+The secure socket layer (SSL) was unable to make a secure `https` connection to the remote web site. A work around is to set the `ssl.verifypeer=FALSE` option of `RCurl::getURL`. There's more discussion of this issue on the [FAQ for RCurl](http://www.omegahat.org/RCurl/FAQ.html).
+
+```r
+RCurl::getURL(..., ssl.verifypeer=FALSE)'
+```
+
 ------------------------------------------------------------
