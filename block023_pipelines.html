@@ -240,7 +240,7 @@ write.table(counts, &quot;histogram.tsv&quot;,
 <p>If the table of word lengths or figure were to change, <code>make</code> wouldn’t know that it needs to regenerate the report. We can add additional dependencies to the rule so that <code>make</code> will regenerate the report if any of its three dependencies changes.</p>
 <pre class="makefile"><code>report.html: report.rmd histogram.tsv histogram.png
     Rscript -e &#39;rmarkdown::render(&quot;$&lt;&quot;)&#39;</code></pre>
-<p>Create the RMarkdown file <code>report.rmd</code> that reads the table of words lengths <code>histogram.tsv</code>, reports the most common word length and displays the histogram <code>histogram.png</code>. Here’s <a href="block023_pipelines/activity/report.rmd">one solution</a>, but try not to peek until you’ve attempted this task yourself.</p>
+<p>Create the RMarkdown file <code>report.rmd</code> that reads the table of words lengths <code>histogram.tsv</code>, reports the most common word length and displays the histogram <code>histogram.png</code>. Here’s <a href="https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/block023_pipelines/activity/report.rmd">one solution</a>, but try not to peek until you’ve attempted this task yourself.</p>
 </div>
 <div id="render-a-pdf-report" class="section level1">
 <h1>Render a PDF report</h1>

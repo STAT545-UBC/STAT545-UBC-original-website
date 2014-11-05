@@ -179,7 +179,7 @@ report.html: report.rmd histogram.tsv histogram.png
 	Rscript -e 'rmarkdown::render("$<")'
 ```
 
-Create the RMarkdown file `report.rmd` that reads the table of words lengths `histogram.tsv`, reports the most common word length and displays the histogram `histogram.png`. Here's [one solution](block023_pipelines/activity/report.rmd), but try not to peek until you've attempted this task yourself.
+Create the RMarkdown file `report.rmd` that reads the table of words lengths `histogram.tsv`, reports the most common word length and displays the histogram `histogram.png`. Here's [one solution](https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/block023_pipelines/activity/report.rmd), but try not to peek until you've attempted this task yourself.
 
 Render a PDF report
 ================================================================================
