@@ -142,15 +142,7 @@ histogram.tsv: histogram.r words.tsv
 	Rscript $<
 ```
 
-### histogram.r
-
-```r
-words <- read.delim("words.tsv", stringsAsFactors = FALSE)[[1]]
-Length <- nchar(words)
-counts <- table(Length)
-write.table(counts, "histogram.tsv",
-	sep = "\t", row.names = FALSE, quote = FALSE)
-```
+Create the R script `histogram.r` that reads the list of words from `words.tsv` and writes the table of word length frequency to `histogram.tsv`. It should be a tab-delimited TSV file with a header and two columns, named `Length` and `Freq`. Hint: you can accomplish this task using four functions: `read.delim`, `nchar`, `table` and `write.table`. Here's [one solution](block023_pipelines/activity/histogram.r), but try not to peek until you've attempted this task yourself.
 
 Plot a histogram of word lengths
 ================================================================================

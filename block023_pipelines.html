@@ -218,14 +218,7 @@ make clean all</code></pre></li>
 <p>This rule will read the list of words and generate a table of word length frequency, stored in a tab-separated-values (TSV) file. This R script is a little longer, so we’ll put it in its own file, named <code>histogram.r</code>. If either the script <code>histogram.r</code> or the data file <code>words.tsv</code> were to change, we’d need to rerun this command to get up-to-date results, so both files are dependencies of this rule. The input-file variable <code>$&lt;</code> refers to the <em>first</em> dependency, <code>histogram.r</code>.</p>
 <pre class="makefile"><code>histogram.tsv: histogram.r words.tsv
     Rscript $&lt;</code></pre>
-<div id="histogram.r" class="section level3">
-<h3>histogram.r</h3>
-<pre class="r"><code>words &lt;- read.delim(&quot;words.tsv&quot;, stringsAsFactors = FALSE)[[1]]
-Length &lt;- nchar(words)
-counts &lt;- table(Length)
-write.table(counts, &quot;histogram.tsv&quot;,
-    sep = &quot;\t&quot;, row.names = FALSE, quote = FALSE)</code></pre>
-</div>
+<p>Create the R script <code>histogram.r</code> that reads the list of words from <code>words.tsv</code> and writes the table of word length frequency to <code>histogram.tsv</code>. It should be a tab-delimited TSV file with a header and two columns, named <code>Length</code> and <code>Freq</code>. Hint: you can accomplish this task using four functions: <code>read.delim</code>, <code>nchar</code>, <code>table</code> and <code>write.table</code>. Here’s <a href="block023_pipelines/activity/histogram.r">one solution</a>, but try not to peek until you’ve attempted this task yourself.</p>
 </div>
 <div id="plot-a-histogram-of-word-lengths" class="section level1">
 <h1>Plot a histogram of word lengths</h1>
