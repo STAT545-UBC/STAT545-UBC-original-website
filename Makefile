@@ -1,5 +1,6 @@
 all: syllabus.html \
 	cm105_pipelines.html \
+	cm106_pipelines.html \
 	block023_pipelines.html
 
 install-deps:
