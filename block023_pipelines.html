@@ -200,7 +200,7 @@ make clean all</code></pre></li>
 <h2>Download the dictionary</h2>
 <p>Our first <code>Makefile</code> rule will download the dictionary <code>words.tsv</code>. The command of this rule is a one-line R script, so instead of putting the R script in a separate file, we’ll include the command directly in the Makefile, since it’s so short.</p>
 <pre class="makefile"><code>words.tsv:
-    Rscript -e &#39;cat(file=&quot;words.tsv&quot;, RCurl::getURL(&quot;https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt&quot;))&#39;</code></pre>
+    Rscript -e &#39;cat(file=&quot;words.tsv&quot;, RCurl::getURL(&quot;https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt&quot;, ssl.verifypeer=FALSE))&#39;</code></pre>
 </div>
 <div id="copy-the-dictionary" class="section level2">
 <h2>Copy the dictionary</h2>

@@ -112,7 +112,7 @@ Our first `Makefile` rule will download the dictionary `words.tsv`. The command 
 
 ```makefile
 words.tsv:
-	Rscript -e 'cat(file="words.tsv", RCurl::getURL("https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt"))'
+	Rscript -e 'cat(file="words.tsv", RCurl::getURL("https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt", ssl.verifypeer=FALSE))'
 ```
 
 Copy the dictionary
