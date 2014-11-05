@@ -1,3 +1,5 @@
+#!/usr/bin/make -f
+
 all: article.html
 
 clean:
@@ -7,16 +9,17 @@ clean:
 .DELETE_ON_ERROR:
 .SECONDARY:
 
+# Render a GraphViz file
+%.png: %.gv
+	dot -Tpng -o $@ $<
+
+# Knit a RMarkdown document
 %.md: %.Rmd
 	Rscript -e 'knitr::knit("$<", "$@")'
 
+# Render a Markdown document to HTML
 %.html: %.md
 	pandoc -s -o $@ $<
 
-%.html: %.Rmd
-	Rscript -e 'rmarkdown::render("$<")'
-
+# Dependencies on figures
 article.html: figure.png
-
-%.png: %.gv
-	dot -Tpng $< >$@

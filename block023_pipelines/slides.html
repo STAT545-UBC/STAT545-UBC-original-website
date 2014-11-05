@@ -31,6 +31,7 @@ code > span.fu { color: #06287e; }
 code > span.er { color: #ff0000; font-weight: bold; }
     </style>
     <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <style type="text/css">.reveal pre{font-size: 0.7em;}</style>
     <!-- If the query includes 'print-pdf', include the PDF print sheet -->
     <script>
       if( window.location.search.match( /print-pdf/gi ) ) {
@@ -331,6 +332,159 @@ The sum of 1 + 1 is calculated as follows.
 <li>PDF</li>
 <li>ODT and docx (yes, really)</li>
 </ul>
+</section></section>
+<section><section id="evolving-a-makefile" class="titleslide slide level1"><h1>Evolving a Makefile</h1></section><section class="slide level2">
+
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/sh</span>
+<span class="kw">set</span> <span class="kw">-eux</span>
+<span class="kw">dot</span> -Tpng -o figure.png figure.gv
+<span class="kw">Rscript</span> -e <span class="st">&#39;knitr::knit(&quot;article.Rmd&quot;)&#39;</span>
+<span class="kw">pandoc</span> -s -o article.html article.md</code></pre>
+<p>Shell script</p>
+</section><section class="slide level2">
+
+<pre class="sourceCode makefile"><code class="sourceCode makefile"><span class="dv">all:</span>
+    dot -Tpng -o figure.png figure.gv
+    Rscript -e <span class="st">&#39;knitr::knit(&quot;article.Rmd&quot;)&#39;</span>
+    pandoc -s -o article.html article.md</code></pre>
+<p>First Makefile</p>
+</section><section class="slide level2">
+
+<pre class="sourceCode makefile"><code class="sourceCode makefile"><span class="dv">all:</span><span class="dt"> article.html</span>
+
+<span class="dv">article.html:</span>
+    dot -Tpng -o figure.png figure.gv
+    Rscript -e <span class="st">&#39;knitr::knit(&quot;article.Rmd&quot;)&#39;</span>
+    pandoc -s -o article.html article.md</code></pre>
+<p>Add a rule to build <code>article.html</code></p>
+</section><section class="slide level2">
+
+<pre class="sourceCode makefile"><code class="sourceCode makefile"><span class="dv">all:</span><span class="dt"> article.html</span>
+
+<span class="dv">article.html:</span><span class="dt"> article.Rmd</span>
+    dot -Tpng -o figure.png figure.gv
+    Rscript -e <span class="st">&#39;knitr::knit(&quot;article.Rmd&quot;)&#39;</span>
+    pandoc -s -o article.html article.md</code></pre>
+<p><code>article.html</code> depends on <code>article.Rmd</code></p>
+</section><section class="slide level2">
+
+<pre class="sourceCode makefile"><code class="sourceCode makefile"><span class="dv">all:</span><span class="dt"> article.html</span>
+
+<span class="dv">figure.png:</span><span class="dt"> figure.gv</span>
+    dot -Tpng -o figure.png figure.gv
+
+<span class="dv">article.md:</span><span class="dt"> article.Rmd</span>
+    Rscript -e <span class="st">&#39;knitr::knit(&quot;article.Rmd&quot;)&#39;</span>
+
+<span class="dv">article.html:</span><span class="dt"> article.md figure.png</span>
+    pandoc -s -o article.html article.md</code></pre>
+<p>Split one rule into three</p>
+</section><section class="slide level2">
+
+<pre class="sourceCode makefile"><code class="sourceCode makefile"><span class="dv">all:</span><span class="dt"> article.html</span>
+
+<span class="dv">figure.png:</span><span class="dt"> figure.gv</span>
+    dot -Tpng -o <span class="ch">$@</span> <span class="ch">$&lt;</span>
+
+<span class="dv">article.md:</span><span class="dt"> article.Rmd</span>
+    Rscript -e <span class="st">&#39;knitr::knit(&quot;</span><span class="ch">$&lt;</span><span class="st">&quot;, &quot;</span><span class="ch">$@</span><span class="st">&quot;)&#39;</span>
+
+<span class="dv">article.html:</span><span class="dt"> article.md figure.png</span>
+    pandoc -s -o <span class="ch">$@</span> <span class="ch">$&lt;</span></code></pre>
+<p>Use the variables <code>$&lt;</code> and <code>$@</code> for the input and output file</p>
+</section><section class="slide level2">
+
+<pre class="sourceCode makefile"><code class="sourceCode makefile"><span class="dv">all:</span><span class="dt"> article.html</span>
+
+<span class="dv">%.png:</span><span class="dt"> %.gv</span>
+    dot -Tpng -o <span class="ch">$@</span> <span class="ch">$&lt;</span>
+
+<span class="dv">%.md:</span><span class="dt"> %.Rmd</span>
+    Rscript -e <span class="st">&#39;knitr::knit(&quot;</span><span class="ch">$&lt;</span><span class="st">&quot;, &quot;</span><span class="ch">$@</span><span class="st">&quot;)&#39;</span>
+
+<span class="dv">article.html:</span><span class="dt"> article.md figure.png</span>
+    pandoc -s -o <span class="ch">$@</span> <span class="ch">$&lt;</span></code></pre>
+<p>Use pattern rules. The <code>%</code> matches any string</p>
+</section><section class="slide level2">
+
+<pre class="sourceCode makefile"><code class="sourceCode makefile"><span class="dv">all:</span><span class="dt"> article.html</span>
+
+<span class="dv">%.png:</span><span class="dt"> %.gv</span>
+    dot -Tpng -o <span class="ch">$@</span> <span class="ch">$&lt;</span>
+
+<span class="dv">%.md:</span><span class="dt"> %.Rmd</span>
+    Rscript -e <span class="st">&#39;knitr::knit(&quot;</span><span class="ch">$&lt;</span><span class="st">&quot;, &quot;</span><span class="ch">$@</span><span class="st">&quot;)&#39;</span>
+
+<span class="dv">%.html:</span><span class="dt"> %.md</span>
+    pandoc -s -o <span class="ch">$@</span> <span class="ch">$&lt;</span>
+
+<span class="dv">article.html:</span><span class="dt"> figure.png</span></code></pre>
+<p><code>article.html</code> also depends on <code>figure.png</code></p>
+</section><section class="slide level2">
+
+<pre class="sourceCode makefile"><code class="sourceCode makefile"><span class="dv">all:</span><span class="dt"> article.html</span>
+
+<span class="dv">clean:</span>
+    rm -f article.md article.html figure.png
+
+<span class="dv">%.png:</span><span class="dt"> %.gv</span>
+    dot -Tpng -o <span class="ch">$@</span> <span class="ch">$&lt;</span>
+
+<span class="dv">%.md:</span><span class="dt"> %.Rmd</span>
+    Rscript -e <span class="st">&#39;knitr::knit(&quot;</span><span class="ch">$&lt;</span><span class="st">&quot;, &quot;</span><span class="ch">$@</span><span class="st">&quot;)&#39;</span>
+
+<span class="dv">%.html:</span><span class="dt"> %.md</span>
+    pandoc -s -o <span class="ch">$@</span> <span class="ch">$&lt;</span>
+
+<span class="dv">article.html:</span><span class="dt"> figure.png</span></code></pre>
+<p>Add the target named <code>clean</code></p>
+</section><section class="slide level2">
+
+<pre class="sourceCode makefile"><code class="sourceCode makefile"><span class="dv">all:</span><span class="dt"> article.html</span>
+
+<span class="dv">clean:</span>
+    rm -f article.md article.html figure.png
+
+<span class="ot">.PHONY:</span><span class="dt"> all clean</span>
+<span class="ot">.DELETE_ON_ERROR:</span>
+<span class="ot">.SECONDARY:</span>
+
+<span class="dv">%.png:</span><span class="dt"> %.gv</span>
+    dot -Tpng -o <span class="ch">$@</span> <span class="ch">$&lt;</span>
+
+<span class="dv">%.md:</span><span class="dt"> %.Rmd</span>
+    Rscript -e <span class="st">&#39;knitr::knit(&quot;</span><span class="ch">$&lt;</span><span class="st">&quot;, &quot;</span><span class="ch">$@</span><span class="st">&quot;)&#39;</span>
+
+<span class="dv">%.html:</span><span class="dt"> %.md</span>
+    pandoc -s -o <span class="ch">$@</span> <span class="ch">$&lt;</span>
+
+<span class="dv">article.html:</span><span class="dt"> figure.png</span></code></pre>
+<p>Add <code>.PHONY</code>, <code>.DELETE_ON_ERROR</code> and <code>.SECONDARY</code></p>
+</section><section class="slide level2">
+
+<pre class="sourceCode makefile"><code class="sourceCode makefile"><span class="dv">all:</span><span class="dt"> article.html</span>
+
+<span class="dv">clean:</span>
+    rm -f article.md article.html figure.png
+
+<span class="ot">.PHONY:</span><span class="dt"> all clean</span>
+<span class="ot">.DELETE_ON_ERROR:</span>
+<span class="ot">.SECONDARY:</span>
+
+<span class="co"># Render a GraphViz file</span>
+<span class="dv">%.png:</span><span class="dt"> %.gv</span>
+    dot -Tpng -o <span class="ch">$@</span> <span class="ch">$&lt;</span>
+
+<span class="co"># Knit a RMarkdown document</span>
+<span class="dv">%.md:</span><span class="dt"> %.Rmd</span>
+    Rscript -e <span class="st">&#39;knitr::knit(&quot;</span><span class="ch">$&lt;</span><span class="st">&quot;, &quot;</span><span class="ch">$@</span><span class="st">&quot;)&#39;</span>
+
+<span class="co"># Render a Markdown document to HTML</span>
+<span class="dv">%.html:</span><span class="dt"> %.md</span>
+    pandoc -s -o <span class="ch">$@</span> <span class="ch">$&lt;</span>
+
+<span class="co"># Dependencies on figures</span>
+<span class="dv">article.html:</span><span class="dt"> figure.png</span></code></pre>
 </section></section>
 <section><section id="fin" class="titleslide slide level1"><h1>fin</h1></section><section id="links" class="slide level2">
 <h1>Links</h1>

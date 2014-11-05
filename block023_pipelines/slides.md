@@ -414,6 +414,204 @@ It converts between every format known (just about)
 + PDF
 + ODT and docx (yes, really)
 
+Evolving a Makefile
+================================================================================
+
+------------------------------------------------------------
+
+```bash
+#!/bin/sh
+set -eux
+dot -Tpng -o figure.png figure.gv
+Rscript -e 'knitr::knit("article.Rmd")'
+pandoc -s -o article.html article.md
+```
+
+Shell script
+
+------------------------------------------------------------
+
+```makefile
+all:
+	dot -Tpng -o figure.png figure.gv
+	Rscript -e 'knitr::knit("article.Rmd")'
+	pandoc -s -o article.html article.md
+```
+
+First Makefile
+
+------------------------------------------------------------
+
+```makefile
+all: article.html
+
+article.html:
+	dot -Tpng -o figure.png figure.gv
+	Rscript -e 'knitr::knit("article.Rmd")'
+	pandoc -s -o article.html article.md
+```
+
+Add a rule to build `article.html`
+
+------------------------------------------------------------
+
+```makefile
+all: article.html
+
+article.html: article.Rmd
+	dot -Tpng -o figure.png figure.gv
+	Rscript -e 'knitr::knit("article.Rmd")'
+	pandoc -s -o article.html article.md
+```
+
+`article.html` depends on `article.Rmd`
+
+------------------------------------------------------------
+
+```makefile
+all: article.html
+
+figure.png: figure.gv
+	dot -Tpng -o figure.png figure.gv
+
+article.md: article.Rmd
+	Rscript -e 'knitr::knit("article.Rmd")'
+
+article.html: article.md figure.png
+	pandoc -s -o article.html article.md
+```
+
+Split one rule into three
+
+------------------------------------------------------------
+
+```makefile
+all: article.html
+
+figure.png: figure.gv
+	dot -Tpng -o $@ $<
+
+article.md: article.Rmd
+	Rscript -e 'knitr::knit("$<", "$@")'
+
+article.html: article.md figure.png
+	pandoc -s -o $@ $<
+```
+
+Use the variables `$<` and `$@` for the input and output file
+
+------------------------------------------------------------
+
+```makefile
+all: article.html
+
+%.png: %.gv
+	dot -Tpng -o $@ $<
+
+%.md: %.Rmd
+	Rscript -e 'knitr::knit("$<", "$@")'
+
+article.html: article.md figure.png
+	pandoc -s -o $@ $<
+```
+
+Use pattern rules. The `%` matches any string
+
+------------------------------------------------------------
+
+```makefile
+all: article.html
+
+%.png: %.gv
+	dot -Tpng -o $@ $<
+
+%.md: %.Rmd
+	Rscript -e 'knitr::knit("$<", "$@")'
+
+%.html: %.md
+	pandoc -s -o $@ $<
+
+article.html: figure.png
+```
+
+`article.html` also depends on `figure.png`
+
+------------------------------------------------------------
+
+```makefile
+all: article.html
+
+clean:
+	rm -f article.md article.html figure.png
+
+%.png: %.gv
+	dot -Tpng -o $@ $<
+
+%.md: %.Rmd
+	Rscript -e 'knitr::knit("$<", "$@")'
+
+%.html: %.md
+	pandoc -s -o $@ $<
+
+article.html: figure.png
+```
+
+Add the target named `clean`
+
+------------------------------------------------------------
+
+```makefile
+all: article.html
+
+clean:
+	rm -f article.md article.html figure.png
+
+.PHONY: all clean
+.DELETE_ON_ERROR:
+.SECONDARY:
+
+%.png: %.gv
+	dot -Tpng -o $@ $<
+
+%.md: %.Rmd
+	Rscript -e 'knitr::knit("$<", "$@")'
+
+%.html: %.md
+	pandoc -s -o $@ $<
+
+article.html: figure.png
+```
+
+Add `.PHONY`, `.DELETE_ON_ERROR` and `.SECONDARY`
+
+------------------------------------------------------------
+
+```makefile
+all: article.html
+
+clean:
+	rm -f article.md article.html figure.png
+
+.PHONY: all clean
+.DELETE_ON_ERROR:
+.SECONDARY:
+
+# Render a GraphViz file
+%.png: %.gv
+	dot -Tpng -o $@ $<
+
+# Knit a RMarkdown document
+%.md: %.Rmd
+	Rscript -e 'knitr::knit("$<", "$@")'
+
+# Render a Markdown document to HTML
+%.html: %.md
+	pandoc -s -o $@ $<
+
+# Dependencies on figures
+article.html: figure.png
+```
+
 fin
 ================================================================================
 
