@@ -18,4 +18,5 @@ output:
 
 + led by [Shaun Jackman](http://sjackman.ca)
 + [Slides](block023_pipelines/slides.html)
+	- [Evolving a Makefile](http://stat545-ubc.github.io/block023_pipelines/slides.html#/evolving-a-makefile)
 + [Activity](block023_pipelines.html)
