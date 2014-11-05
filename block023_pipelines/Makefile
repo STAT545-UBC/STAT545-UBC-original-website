@@ -14,7 +14,7 @@ revealjs-2.6.2.tar.gz:
 	curl -L https://github.com/hakimel/reveal.js/archive/2.6.2.tar.gz >$@
 
 slides.html: %.html: %.md %.revealjs
-	pandoc -st revealjs --template $* -V theme:sky -o $@ $<
+	pandoc -pst revealjs --template $* -V theme:sky -o $@ $<
 
 slides.html: images/article.png images/pipeline.png
 
