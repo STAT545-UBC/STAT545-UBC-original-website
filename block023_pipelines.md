@@ -73,10 +73,10 @@ Use RStudio to run make
 + Start editing your first `Makefile`!
 	```makefile
 	all:
-		echo Build all
+		@echo Build all
 
 	clean:
-		echo Clean all
+		@echo Clean all
 	```
 + Save it, and name it `Makefile`
 + Select *Build -> Configure Build Tools -> Build Tools -> Project build tools -> Makefile*
