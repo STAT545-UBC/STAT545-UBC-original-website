@@ -22,7 +22,8 @@ histogram.tsv: histogram.r words.tsv
 
 # Plot a histogram of word lengths
 histogram.png: histogram.tsv
-	Rscript -e 'library(ggplot2);qplot(Length,Freq,data=read.delim("$<"));ggsave("$@")'
+	Rscript -e 'library(ggplot2); qplot(Length, Freq, data = read.delim("$<")); ggsave("$@")'
+	rm Rplots.pdf
 
 # Render the report
 report.html: report.rmd histogram.tsv histogram.png
