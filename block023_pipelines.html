@@ -166,10 +166,10 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>Create a new text file: <em>File -&gt; New File -&gt; Text File</em></li>
 <li><p>Start editing your first <code>Makefile</code>!</p>
 <pre class="makefile"><code>all:
-    echo Build all
+	echo Build all
 
 clean:
-    echo Clean all</code></pre></li>
+	echo Clean all</code></pre></li>
 <li>Save it, and name it <code>Makefile</code></li>
 <li>Select <em>Build -&gt; Configure Build Tools -&gt; Build Tools -&gt; Project build tools -&gt; Makefile</em></li>
 <li>Select <em>Build -&gt; Build All</em></li>
@@ -201,39 +201,39 @@ make clean all</code></pre></li>
 <h2>Download the dictionary</h2>
 <p>Our first <code>Makefile</code> rule will download the dictionary <code>words.tsv</code>. The command of this rule is a one-line R script, so instead of putting the R script in a separate file, we’ll include the command directly in the Makefile, since it’s so short.</p>
 <pre class="makefile"><code>words.tsv:
-    Rscript -e &#39;cat(file=&quot;words.tsv&quot;, RCurl::getURL(&quot;https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt&quot;, ssl.verifypeer=FALSE))&#39;</code></pre>
+	Rscript -e &#39;cat(file=&quot;words.tsv&quot;, RCurl::getURL(&quot;https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt&quot;, ssl.verifypeer=FALSE))&#39;</code></pre>
 </div>
 <div id="copy-the-dictionary" class="section level2">
 <h2>Copy the dictionary</h2>
 <p>On Mac or Linux systems, rather than download the dictionary, we can simply copy the file <code>/usr/share/dict/words</code> that comes with the operating system. Windows machines do not have <code>/usr/share/dict/words</code>, and so there we’ll have to download the dictionary.</p>
 <pre class="makefile"><code>words.tsv: /usr/share/dict/words
-    cp /usr/share/dict/words words.tsv</code></pre>
+	cp /usr/share/dict/words words.tsv</code></pre>
 <p>This rule copies the input file <code>/usr/share/dict/words</code> to create the output file <code>words.tsv</code>. We then repeat these file names in the command rule, which seems rather redundant. We can use the oddly-named variables <code>$&lt;</code> and <code>$@</code>, which represent the input file and output file respectively to save us from this redundancy.</p>
 <pre class="makefile"><code>words.tsv: /usr/share/dict/words
-    cp $&lt; $@</code></pre>
+	cp $&lt; $@</code></pre>
 </div>
 </div>
 <div id="create-a-table-of-word-lengths" class="section level1">
 <h1>Create a table of word lengths</h1>
 <p>This rule will read the list of words and generate a table of word length frequency, stored in a tab-separated-values (TSV) file. This R script is a little longer, so we’ll put it in its own file, named <code>histogram.r</code>. If either the script <code>histogram.r</code> or the data file <code>words.tsv</code> were to change, we’d need to rerun this command to get up-to-date results, so both files are dependencies of this rule. The input-file variable <code>$&lt;</code> refers to the <em>first</em> dependency, <code>histogram.r</code>.</p>
 <pre class="makefile"><code>histogram.tsv: histogram.r words.tsv
-    Rscript $&lt;</code></pre>
+	Rscript $&lt;</code></pre>
 <p>Create the R script <code>histogram.r</code> that reads the list of words from <code>words.tsv</code> and writes the table of word length frequency to <code>histogram.tsv</code>. It should be a tab-delimited TSV file with a header and two columns, named <code>Length</code> and <code>Freq</code>. Hint: you can accomplish this task using four functions: <code>read.delim</code>, <code>nchar</code>, <code>table</code> and <code>write.table</code>. Here’s <a href="block023_pipelines/activity/histogram.r">one solution</a>, but try not to peek until you’ve attempted this task yourself.</p>
 </div>
 <div id="plot-a-histogram-of-word-lengths" class="section level1">
 <h1>Plot a histogram of word lengths</h1>
 <p>This rule will read the table of word lengths and plot a histogram using qplot. It’s three lines long, but we’ll still include the script in the <code>Makefile</code> directly, and use semicolons <code>;</code> to separate the R commands. The variable <code>$@</code> refers to the output file, <code>histogram.png</code>.</p>
 <pre class="makefile"><code>histogram.png: histogram.tsv
-    Rscript -e &#39;library(ggplot2); qplot(Length, Freq, data=read.delim(&quot;$&lt;&quot;)); ggsave(&quot;$@&quot;)&#39;</code></pre>
+	Rscript -e &#39;library(ggplot2); qplot(Length, Freq, data=read.delim(&quot;$&lt;&quot;)); ggsave(&quot;$@&quot;)&#39;</code></pre>
 </div>
 <div id="render-a-html-report" class="section level1">
 <h1>Render a HTML report</h1>
 <p>Finally, we’ll use <code>rmarkdown::render</code> to generate the HTML report.</p>
 <pre class="makefile"><code>report.html: report.md
-    Rscript -e &#39;rmarkdown::render(&quot;$&lt;&quot;)&#39;</code></pre>
+	Rscript -e &#39;rmarkdown::render(&quot;$&lt;&quot;)&#39;</code></pre>
 <p>If the table of word lengths or figure were to change, <code>make</code> wouldn’t know that it needs to regenerate the report. We can add additional dependencies to the rule so that <code>make</code> will regenerate the report if any of its three dependencies changes.</p>
 <pre class="makefile"><code>report.html: report.rmd histogram.tsv histogram.png
-    Rscript -e &#39;rmarkdown::render(&quot;$&lt;&quot;)&#39;</code></pre>
+	Rscript -e &#39;rmarkdown::render(&quot;$&lt;&quot;)&#39;</code></pre>
 <p>Create the RMarkdown file <code>report.rmd</code> that reads the table of words lengths <code>histogram.tsv</code>, reports the most common word length and displays the histogram <code>histogram.png</code>. Here’s <a href="https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/block023_pipelines/activity/report.rmd">one solution</a>, but try not to peek until you’ve attempted this task yourself.</p>
 </div>
 <div id="render-a-pdf-report" class="section level1">
@@ -250,7 +250,7 @@ make clean all</code></pre></li>
 <h1>Add a clean target to the Makefile</h1>
 <p>The <em>Build -&gt; Clean All</em> menu item of RStudio runs the <code>Makefile</code> target named <code>clean</code>. By convention this target removes all files that can be regenerated by the Makefile.</p>
 <pre class="makefile"><code>clean:
-    rm -f words.tsv histogram.tsv histogram.png report.html</code></pre>
+	rm -f words.tsv histogram.tsv histogram.png report.html</code></pre>
 <p>Select <em>Build -&gt; Clean All</em> and then <em>Build -&gt; Build All</em>.</p>
 </div>
 <div id="troubleshooting" class="section level1">
