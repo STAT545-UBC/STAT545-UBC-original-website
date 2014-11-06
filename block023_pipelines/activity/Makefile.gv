@@ -1,0 +1,20 @@
+digraph G {
+n1[label="<ROOT>", color="green"];
+n2[label="Makefile", color="green"];
+n3[label="all", color="red"];
+n9[label="histogram.png", color="red"];
+n7[label="histogram.r", color="green"];
+n6[label="histogram.tsv", color="red"];
+n4[label="report.html", color="red"];
+n5[label="report.rmd", color="green"];
+n8[label="words.tsv", color="red"];
+n2 -> n1 ; 
+n3 -> n1 ; 
+n4 -> n3 ; 
+n6 -> n9 ; 
+n7 -> n6 ; 
+n8 -> n6 ; 
+n9 -> n4 ; 
+n6 -> n4 ; 
+n5 -> n4 ; 
+}

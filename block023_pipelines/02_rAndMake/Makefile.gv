@@ -1,0 +1,17 @@
+digraph G {
+n7[label="01_filterReorder.R", color="green"];
+n8[label="02_aggregatePlot.R", color="green"];
+n1[label="<ROOT>", color="green"];
+n2[label="Makefile", color="green"];
+n3[label="all", color="red"];
+n5[label="lotr_clean.tsv", color="red"];
+n6[label="lotr_raw.tsv", color="red"];
+n4[label="totalWordsByFilmRace.tsv", color="red"];
+n2 -> n1 ; 
+n3 -> n1 ; 
+n4 -> n3 ; 
+n7 -> n5 ; 
+n6 -> n5 ; 
+n8 -> n4 ; 
+n5 -> n4 ; 
+}
