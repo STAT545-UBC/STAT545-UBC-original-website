@@ -109,11 +109,11 @@ Download or copy the dictionary
 Download the dictionary
 ------------------------------------------------------------
 
-Our first `Makefile` rule will download the dictionary `words.tsv`. The command of this rule is a one-line R script, so instead of putting the R script in a separate file, we'll include the command directly in the Makefile, since it's so short.
+Our first `Makefile` rule will download the dictionary `words.txt`. The command of this rule is a one-line R script, so instead of putting the R script in a separate file, we'll include the command directly in the Makefile, since it's so short.
 
 ```makefile
-words.tsv:
-	Rscript -e 'cat(file="words.tsv", RCurl::getURL("https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt", ssl.verifypeer=FALSE))'
+words.txt:
+	Rscript -e 'cat(file="words.txt", RCurl::getURL("https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt", ssl.verifypeer=FALSE))'
 ```
 
 Copy the dictionary
@@ -122,28 +122,28 @@ Copy the dictionary
 On Mac or Linux systems, rather than download the dictionary, we can simply copy the file `/usr/share/dict/words` that comes with the operating system. Windows machines do not have `/usr/share/dict/words`, and so there we'll have to download the dictionary. 
 
 ```makefile
-words.tsv: /usr/share/dict/words
-	cp /usr/share/dict/words words.tsv
+words.txt: /usr/share/dict/words
+	cp /usr/share/dict/words words.txt
 ```
 
-This rule copies the input file `/usr/share/dict/words` to create the output file `words.tsv`. We then repeat these file names in the command rule, which seems rather redundant. We can use the oddly-named variables `$<` and `$@`, which represent the input file and output file respectively to save us from this redundancy.
+This rule copies the input file `/usr/share/dict/words` to create the output file `words.txt`. We then repeat these file names in the command rule, which seems rather redundant. We can use the oddly-named variables `$<` and `$@`, which represent the input file and output file respectively to save us from this redundancy.
 
 ```makefile
-words.tsv: /usr/share/dict/words
+words.txt: /usr/share/dict/words
 	cp $< $@
 ```
 
 Create a table of word lengths
 ================================================================================
 
-This rule will read the list of words and generate a table of word length frequency, stored in a tab-separated-values (TSV) file. This R script is a little longer, so we'll put it in its own file, named `histogram.r`. If either the script `histogram.r` or the data file `words.tsv` were to change, we'd need to rerun this command to get up-to-date results, so both files are dependencies of this rule. The input-file variable `$<` refers to the *first* dependency, `histogram.r`.
+This rule will read the list of words and generate a table of word length frequency, stored in a tab-separated-values (TSV) file. This R script is a little longer, so we'll put it in its own file, named `histogram.r`. If either the script `histogram.r` or the data file `words.txt` were to change, we'd need to rerun this command to get up-to-date results, so both files are dependencies of this rule. The input-file variable `$<` refers to the *first* dependency, `histogram.r`.
 
 ```makefile
-histogram.tsv: histogram.r words.tsv
+histogram.tsv: histogram.r words.txt
 	Rscript $<
 ```
 
-Create the R script `histogram.r` that reads the list of words from `words.tsv` and writes the table of word length frequency to `histogram.tsv`. It should be a tab-delimited TSV file with a header and two columns, named `Length` and `Freq`. Hint: you can accomplish this task using four functions: `read.delim`, `nchar`, `table` and `write.table`. Here's [one solution](block023_pipelines/activity/histogram.r), but try not to peek until you've attempted this task yourself.
+Create the R script `histogram.r` that reads the list of words from `words.txt` and writes the table of word length frequency to `histogram.tsv`. It should be a tab-delimited TSV file with a header and two columns, named `Length` and `Freq`. Hint: you can accomplish this task using four functions: `readLines`, `nchar`, `table` and `write.table`. Here's [one solution](block023_pipelines/activity/histogram.r), but try not to peek until you've attempted this task yourself.
 
 Plot a histogram of word lengths
 ================================================================================
@@ -197,7 +197,7 @@ The *Build -> Clean All* menu item of RStudio runs the `Makefile` target named `
 
 ```makefile
 clean:
-	rm -f words.tsv histogram.tsv histogram.png report.html
+	rm -f words.txt histogram.tsv histogram.png report.html
 ```
 
 Select *Build -> Clean All* and then *Build -> Build All*.
