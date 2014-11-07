@@ -17,8 +17,8 @@ Jenny's proposed re-org and some insertions:
   * ~~create all and clean targets at this point and play with them~~
   * ~~R script to compute table of word lengths~~
   * ~~rule to run word length script~~
-  * R snippet to create visual histogram
-  * rule to create histogram
+  * ~~R snippet to create visual histogram~~
+  * ~~rule to create histogram~~
   * R Markdown file to generate a report
   * rule to render the Markdown file
 
@@ -175,15 +175,48 @@ Suggested workflow:
     - Git folks: does the restoration of the files cause them to drop off your radar as changed/deleted files?
   * Git folks: Commit.
   
-Plot a histogram of word lengths
-================================================================================
+### Plot a histogram of word lengths, update all and clean
 
-This rule will read the table of word lengths and plot a histogram using qplot. It's three lines long, but we'll still include the script in the `Makefile` directly, and use semicolons `;` to separate the R commands. The variable `$@` refers to the output file, `histogram.png`.
+This rule will read the table of word lengths and plot a histogram using `ggplot2::qplot()`. The R snippet is three lines long, but we'll still include the script in the `Makefile` directly, and use semicolons `;` to separate the R commands. The variable `$@` refers to the output file, `histogram.png`.
 
 ```makefile
 histogram.png: histogram.tsv
 	Rscript -e 'library(ggplot2); qplot(Length, Freq, data=read.delim("$<")); ggsave("$@")'
 ```
+
+Suggested workflow:
+
+  * Test the histogram-drawing code in the R Console to make sure it works.
+  * Inpsect the resulting PNG to make sure it's good.
+  * Clean up after yourself.
+  * Add the above rule to your `Makefile`.
+  * Test that new rule works.
+  * If you get an unexpected empty plot `Rplots.pdf`, don't worry about it yet.
+  * Update the `all` and `clean` targets in light of this addition to the pipeline.
+  * Test the new definitions of `all` and `clean`.
+  * Git folks: commit.
+
+### Use `make` to deal with an annoyance
+
+The code used above to create `histogram.png` usually leaves an empty `Rplots.pdf` file behind. You can read [this thread on stackoverflow](http://stackoverflow.com/questions/17348359/how-to-stop-r-from-creating-empty-rplots-pdf-file-when-using-ggsave-and-rscript) if you'd like to know more.
+
+We'll just use this as a teachable moment to demonstrate how handy an automated pipeline is for dealing with such annoyances and to show a multi-line `make` rule.
+
+Update the `histogram.png` rule like so:
+
+```makefile
+histogram.png: histogram.tsv
+	Rscript -e 'library(ggplot2); qplot(Length, Freq, data=read.delim("$<")); ggsave("$@")'
+	rm Rplots.pdf
+```
+
+Suggested workflow:
+
+  * Remove `Rplots.pdf` manually
+  * Add the `rm Rplots.pdf` command to the `histogram.png` rule.
+  * Test that new rule works.
+  * Test that behavior of `all` and `clean` still good.
+  * Git folks: commit.
 
 Render a HTML report
 ================================================================================

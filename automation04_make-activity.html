@@ -84,7 +84,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#create-rules-for-all-and-clean">Create rules for all and clean</a></li>
 <li><a href="#create-a-table-of-word-lengths">Create a table of word lengths</a></li>
 <li><a href="#update-rules-for-all-and-clean">Update rules for all and clean</a></li>
-<li><a href="#plot-a-histogram-of-word-lengths">Plot a histogram of word lengths</a></li>
+<li><a href="#plot-a-histogram-of-word-lengths-update-all-and-clean">Plot a histogram of word lengths, update all and clean</a></li>
+<li><a href="#use-make-to-deal-with-an-annoyance">Use <code>make</code> to deal with an annoyance</a></li>
 <li><a href="#render-a-html-report">Render a HTML report</a></li>
 <li><a href="#render-a-pdf-report">Render a PDF report</a></li>
 <li><a href="#add-a-default-target-to-the-makefile">Add a default target to the Makefile</a></li>
@@ -100,8 +101,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><del>create all and clean targets at this point and play with them</del></li>
 <li><del>R script to compute table of word lengths</del></li>
 <li><del>rule to run word length script</del></li>
-<li>R snippet to create visual histogram</li>
-<li>rule to create histogram</li>
+<li><del>R snippet to create visual histogram</del></li>
+<li><del>rule to create histogram</del></li>
 <li>R Markdown file to generate a report</li>
 <li>rule to render the Markdown file</li>
 </ul>
@@ -239,11 +240,40 @@ clean:
 <li>Git folks: Commit.</li>
 </ul>
 </div>
-<div id="plot-a-histogram-of-word-lengths" class="section level1">
-<h1>Plot a histogram of word lengths</h1>
-<p>This rule will read the table of word lengths and plot a histogram using qplot. It’s three lines long, but we’ll still include the script in the <code>Makefile</code> directly, and use semicolons <code>;</code> to separate the R commands. The variable <code>$@</code> refers to the output file, <code>histogram.png</code>.</p>
+<div id="plot-a-histogram-of-word-lengths-update-all-and-clean" class="section level3">
+<h3>Plot a histogram of word lengths, update all and clean</h3>
+<p>This rule will read the table of word lengths and plot a histogram using <code>ggplot2::qplot()</code>. The R snippet is three lines long, but we’ll still include the script in the <code>Makefile</code> directly, and use semicolons <code>;</code> to separate the R commands. The variable <code>$@</code> refers to the output file, <code>histogram.png</code>.</p>
 <pre class="makefile"><code>histogram.png: histogram.tsv
 	Rscript -e &#39;library(ggplot2); qplot(Length, Freq, data=read.delim(&quot;$&lt;&quot;)); ggsave(&quot;$@&quot;)&#39;</code></pre>
+<p>Suggested workflow:</p>
+<ul>
+<li>Test the histogram-drawing code in the R Console to make sure it works.</li>
+<li>Inpsect the resulting PNG to make sure it’s good.</li>
+<li>Clean up after yourself.</li>
+<li>Add the above rule to your <code>Makefile</code>.</li>
+<li>Test that new rule works.</li>
+<li>If you get an unexpected empty plot <code>Rplots.pdf</code>, don’t worry about it yet.</li>
+<li>Update the <code>all</code> and <code>clean</code> targets in light of this addition to the pipeline.</li>
+<li>Test the new definitions of <code>all</code> and <code>clean</code>.</li>
+<li>Git folks: commit.</li>
+</ul>
+</div>
+<div id="use-make-to-deal-with-an-annoyance" class="section level3">
+<h3>Use <code>make</code> to deal with an annoyance</h3>
+<p>The code used above to create <code>histogram.png</code> usually leaves an empty <code>Rplots.pdf</code> file behind. You can read <a href="http://stackoverflow.com/questions/17348359/how-to-stop-r-from-creating-empty-rplots-pdf-file-when-using-ggsave-and-rscript">this thread on stackoverflow</a> if you’d like to know more.</p>
+<p>We’ll just use this as a teachable moment to demonstrate how handy an automated pipeline is for dealing with such annoyances and to show a multi-line <code>make</code> rule.</p>
+<p>Update the <code>histogram.png</code> rule like so:</p>
+<pre class="makefile"><code>histogram.png: histogram.tsv
+	Rscript -e &#39;library(ggplot2); qplot(Length, Freq, data=read.delim(&quot;$&lt;&quot;)); ggsave(&quot;$@&quot;)&#39;
+	rm Rplots.pdf</code></pre>
+<p>Suggested workflow:</p>
+<ul>
+<li>Remove <code>Rplots.pdf</code> manually</li>
+<li>Add the <code>rm Rplots.pdf</code> command to the <code>histogram.png</code> rule.</li>
+<li>Test that new rule works.</li>
+<li>Test that behavior of <code>all</code> and <code>clean</code> still good.</li>
+<li>Git folks: commit.</li>
+</ul>
 </div>
 <div id="render-a-html-report" class="section level1">
 <h1>Render a HTML report</h1>
