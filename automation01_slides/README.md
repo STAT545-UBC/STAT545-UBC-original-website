@@ -1,6 +1,6 @@
 Automating Data-analysis Pipelines
 ================================================================================
 
-[Activity](../block023_pipelines.md) | [Slides](slides.md)
+[Activity](../automation04_make-activity.md) | [Slides](slides.md)
 
-This lesson teach how to automate an R analysis.
+This lesson teaches how to automate an R analysis.

@@ -10,7 +10,7 @@
 
 
 
-<title>Automation</title>
+<title>Automating data analysis pipelines</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -68,71 +68,50 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </header>
 
 <div id="header">
-<h1 class="title">Automation</h1>
+<h1 class="title">Automating data analysis pipelines</h1>
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#installation">Installation</a></li>
-<li><a href="#test-drive">Test drive</a></li>
-<li><a href="#tab-gotcha">TAB gotcha</a></li>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#install-make">Install Make</a></li>
+<li><a href="#test-drive-make-and-rstudio">Test drive Make and RStudio</a></li>
+<li><a href="#tab-gotcha">Tab gotcha</a></li>
 <li><a href="#hands-on-activity">Hands-on activity</a></li>
 <li><a href="#resources">Resources</a></li>
 </ul>
 </div>
 
+<p><strong>TO DO</strong> Turn this into a proper introduction.</p>
 <p>Running R scripts at arm’s length vs. interactively.</p>
 <p>Using <code>Make</code> to record which files are inputs vs. outputs and how to use scripts and commands to make the outputs from the inputs.</p>
 <p>The intersection of R and <code>Make</code>: running R code snippets, running an entire R script, and rendering an R Markdown document.</p>
 <p>The intersection of RStudio and <code>Make</code>: running the most important <code>Make</code> rules from the Build tab.</p>
 <p>Using <code>Make</code> in the shell.</p>
-<p>Check out the slides!</p>
-<div id="installation" class="section level3">
-<h3>Installation</h3>
-<ul>
-<li>Mac and Linux folks are already set</li>
-<li>Link to page on Windows installation
-<ul>
-<li>installing Make</li>
-<li>issue about Make on PATH</li>
-<li>issue about which shell Make is using</li>
-</ul></li>
-</ul>
+<div id="overview" class="section level3">
+<h3>Overview</h3>
+<p>Check out the <a href="automation01_slides/slides.html">slides</a>!</p>
 </div>
-<div id="test-drive" class="section level3">
-<h3>Test drive</h3>
-<ul>
-<li>Prove <code>Make</code> is working from the shell and RStudio
-<ul>
-<li>Bring the dummy Makefile forward out of activity with the echo commands</li>
-</ul></li>
-</ul>
+<div id="install-make" class="section level3">
+<h3>Install Make</h3>
+<p>If you are running Mac OS or Linux, Make should already be installed. Skip to the next step.</p>
+<p>If you are running Windows, see our <a href="automation02_windows.html">page on Windows installation</a>.</p>
+</div>
+<div id="test-drive-make-and-rstudio" class="section level3">
+<h3>Test drive Make and RStudio</h3>
+<p>Walk before you run! Prove that Make is actually installed and that is can be found and executed from the shell and from RStudio. There is also some set-up you may want to do in order to use RStudio to edit Makefiles</p>
+<p>Do not go any further until you have had a successful <a href="automation03_make-test-drive.html">test drive of Make</a>.</p>
 </div>
 <div id="tab-gotcha" class="section level3">
-<h3>TAB gotcha</h3>
-<ul>
-<li>definitive coverage here, link back here from other places</li>
-</ul>
+<h3>Tab gotcha</h3>
+<p>Make is rather picky and <strong>requires that lines be indented with tabs and not spaces</strong>. In the <a href="automation03_make-test-drive.html">test drive</a> we explained how to globally ask RStudio to NOT replace tabs with spaces. Below in the hands-on activity, we explain how to incorporate this request into the settings for a specific RStudio Project.</p>
+<p>Please pause here and take a moment for this to truly sink in. <strong>When writing a Makefile, it is very important to indent with tabs.</strong></p>
+<p>If you mess up, here’s the type of error you might see:</p>
+<pre class="sh"><code>Error: `makefile:2: *** missing separator. Stop.`</code></pre>
 </div>
 <div id="hands-on-activity" class="section level3">
 <h3>Hands-on activity</h3>
-<ul>
-<li>Separate page
-<ul>
-<li>dependency graph of the pipeline</li>
-<li>new RStudio project and Git repo</li>
-<li>rule to copy and/or download words.txt</li>
-<li>R script to compute table of word lengths</li>
-<li>rule to run word length script</li>
-<li>?create all and clean targets at this point and play with them?</li>
-<li>R snippet to create visual histogram</li>
-<li>rule to create histogram</li>
-<li>update all and clean targets; use them</li>
-<li>R Markdown file to generate a report</li>
-<li>rule to render the Markdown file</li>
-<li>update all and clean targets; use them</li>
-</ul></li>
-</ul>
+<p>Go to <a href="automation04_make-activity.html">this page</a></p>
 </div>
 <div id="resources" class="section level3">
 <h3>Resources</h3>

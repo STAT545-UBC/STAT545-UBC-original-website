@@ -9,6 +9,21 @@ output:
     pandoc_args: "--preserve-tabs"
 ---
 
+Jenny's proposed re-org and some insertions:
+
+  * dependency graph of the pipeline
+  * new RStudio project and Git repo
+  * rule to copy and/or download words.txt
+  * R script to compute table of word lengths
+  * rule to run word length script
+  * ?create all and clean targets at this point and play with them?
+  * R snippet to create visual histogram
+  * rule to create histogram
+  * update all and clean targets; use them
+  * R Markdown file to generate a report
+  * rule to render the Markdown file
+  * update all and clean targets; use them
+
 Automating Data-analysis Pipelines
 ================================================================================
 
@@ -21,87 +36,11 @@ The goal of this activity is to create a pipeline that will
 
 You will automate this pipeline using `make`!
 
-Getting Started
-================================================================================
-
-Install `make` on Microsoft Windows
-------------------------------------------------------------
-
-These instructions are courtesy of [Dean Attali](https://github.com/daattali).
-
-Mac OS and Linux machines come with `make` installed. You do not need to follow these instructions.
-
-### Install Make for Windows
-
-+ Go to the [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm) web site
-+ Download the [Setup program](http://gnuwin32.sourceforge.net/downlinks/make.php)
-+ Install the file you just downloaded and copy to your clipboard the directory in which it is being installed
-+ The default directory is `C:\Program Files (x86)\GnuWin32\`
-+ You now have `make` installed, but you need to tell Windows where to find the program. This is called [updating your `PATH`](https://www.google.ca/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=windows%20update%20path%20variable). You will want to update the `PATH` to include the `bin` directory of the newly installed program. These are the steps on Windows 7 (for Windows 8 you'd have to Google it):
-
-### Update your `PATH`
-
-+ Click on the Windows logo
-+ Right click on *Computer*
-+ Select *Properties*
-+ Select *Advanced System Settings*
-+ Select *Environment variables*
-+ Select the line that has the `PATH` variable. You may have to scroll down to find it
-+ Select *Edit*
-+ Go to the end of the line and add a semicolon `;`, followed by the path where the program was installed, followed by `\bin`. For example, I added the following to the end of the line: `;C:\Program Files (x86)\GnuWin32\bin`
-+ Click Okay and close all the windows that you opened
-+ Close RStudio and open it again.
-+ RStudio and your command line will now know where to find `make`
-
-Configure RStudio
-------------------------------------------------------------
-
-+ `make` is rather picky and requires that lines be indented with tabs and not spaces
-+ Select *Tools -> Global Options -> Code Editing* and make sure that *Insert spaces for tabs* is *not* checked
-+ If *Tools -> Project Options* is not greyed out, select *Tools -> Project Options -> Code Editing* and make sure that *Insert spaces for tabs* is *not* checked
-
 Dependency graph of the pipeline
 ================================================================================
 
-[![block023_pipelines/images/activity.png](block023_pipelines/images/activity.png)](block023_pipelines/images/activity.gv)
+[![automation01_slides/images/activity.png](automation01_slides/images/activity.png)](automation01_slides/images/activity.gv)
 
-Use RStudio to run make
-================================================================================
-
-+ Create an RStudio project: *File -> New Project*
-+ Create a new text file: *File -> New File -> Text File*
-+ Start editing your first `Makefile`!
-	```makefile
-	all:
-		@echo Build all
-
-	clean:
-		@echo Clean all
-	```
-+ Save it, and name it `Makefile`
-+ Select *Build -> Configure Build Tools -> Build Tools -> Project build tools -> Makefile*
-+ Select *Build -> Build All*
-+ The result and any error messages will appear under the *Build* tab, usually found in the top-right corner of RStudio
-
-### *Build* menu items
-
-+ *Build All* runs `make all`
-+ *Clean and Rebuild* runs `make clean all`
-+ *Clean All* runs `make clean`
-
-For these menu items to work your `Makefile` needs to have targets named `all` and `clean`. These non-file targets are called phony targets.
-
-Run make from the command line
-================================================================================
-
-+ Select *Tools -> Shell*
-+ Run
-
-	```sh
-	make clean
-	make all
-	make clean all
-	```
 
 Download or copy the dictionary
 ================================================================================
@@ -114,6 +53,17 @@ Our first `Makefile` rule will download the dictionary `words.txt`. The command 
 ```makefile
 words.txt:
 	Rscript -e 'cat(file="words.txt", RCurl::getURL("https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt", ssl.verifypeer=FALSE))'
+```
+
+Troubleshooting
+
+RCurl::getURL: GET_SERVER_CERTIFICATE: certificate verify failed
+------------------------------------------------------------
+
+The secure socket layer (SSL) was unable to make a secure `https` connection to the remote web site. A work around is to set the `ssl.verifypeer=FALSE` option of `RCurl::getURL`. There's more discussion of this issue on the [FAQ for RCurl](http://www.omegahat.org/RCurl/FAQ.html).
+
+```r
+RCurl::getURL(..., ssl.verifypeer=FALSE)'
 ```
 
 Copy the dictionary
@@ -143,7 +93,7 @@ histogram.tsv: histogram.r words.txt
 	Rscript $<
 ```
 
-Create the R script `histogram.r` that reads the list of words from `words.txt` and writes the table of word length frequency to `histogram.tsv`. It should be a tab-delimited TSV file with a header and two columns, named `Length` and `Freq`. Hint: you can accomplish this task using four functions: `readLines`, `nchar`, `table` and `write.table`. Here's [one solution](block023_pipelines/activity/histogram.r), but try not to peek until you've attempted this task yourself.
+Create the R script `histogram.r` that reads the list of words from `words.txt` and writes the table of word length frequency to `histogram.tsv`. It should be a tab-delimited TSV file with a header and two columns, named `Length` and `Freq`. Hint: you can accomplish this task using four functions: `readLines`, `nchar`, `table` and `write.table`. Here's [one solution](https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/automation10_holding-area/activity/histogram.r), but try not to peek until you've attempted this task yourself.
 
 Plot a histogram of word lengths
 ================================================================================
@@ -172,7 +122,7 @@ report.html: report.rmd histogram.tsv histogram.png
 	Rscript -e 'rmarkdown::render("$<")'
 ```
 
-Create the RMarkdown file `report.rmd` that reads the table of words lengths `histogram.tsv`, reports the most common word length and displays the histogram `histogram.png`. Here's [one solution](https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/block023_pipelines/activity/report.rmd), but try not to peek until you've attempted this task yourself.
+Create the RMarkdown file `report.rmd` that reads the table of words lengths `histogram.tsv`, reports the most common word length and displays the histogram `histogram.png`. Here's [one solution](https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/automation10_holding-area/activity/report.rmd), but try not to peek until you've attempted this task yourself.
 
 Render a PDF report
 ================================================================================
@@ -201,26 +151,3 @@ clean:
 ```
 
 Select *Build -> Clean All* and then *Build -> Build All*.
-
-Troubleshooting
-================================================================================
-
-Missing separator
-------------------------------------------------------------
-
-Error: `makefile:2: *** missing separator. Stop.`
-
-Use tabs instead of spaces to indent command lines.
-
-See [Configure RStudio](#configure-rstudio)
-
-RCurl::getURL: GET_SERVER_CERTIFICATE: certificate verify failed
-------------------------------------------------------------
-
-The secure socket layer (SSL) was unable to make a secure `https` connection to the remote web site. A work around is to set the `ssl.verifypeer=FALSE` option of `RCurl::getURL`. There's more discussion of this issue on the [FAQ for RCurl](http://www.omegahat.org/RCurl/FAQ.html).
-
-```r
-RCurl::getURL(..., ssl.verifypeer=FALSE)'
-```
-
-------------------------------------------------------------

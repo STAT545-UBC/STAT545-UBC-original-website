@@ -41,9 +41,11 @@
     - [2013 lesson](http://www.stat.ubc.ca/~jenny/STAT545A/block05_getNumbersOut.html) *2014 update: do data manipulation with `dplyr`*
   * [Why and how to tidy data](bit002_tidying-lotr-data.html)
   * [Regular expressions](block022_regular-expression.html) and more about character data
-  * Automating Data-analysis Pipelines
-    - [Slides](block023_pipelines/slides.html)
-    - [Hands-on lesson](block023_pipelines.html)
+  * [All the automation things](automation00_index.html)
+    - [Slides](automation01_slides/slides.html)
+    - [Special considerations for Windows](automation02_windows.html)
+    - [Test drive `Make`](automation03_make-test-drive.html) from a shell and RStudio
+    - [Hands-on activity](automation04_make-activity.html)
   
 ## Course-specific material
 

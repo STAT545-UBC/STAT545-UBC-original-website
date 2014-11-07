@@ -17,5 +17,5 @@ output:
 ### Automating Data-analysis Pipelines
 
 + led by [Shaun Jackman](http://sjackman.ca)
-+ [Slides](block023_pipelines/slides.html)
-+ [Activity](block023_pipelines.html)
++ landing page for [All the automation things](automation00_index.html)
+  - slides, Make installation and test drive, hands-on activity, etc.
