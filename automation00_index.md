@@ -6,7 +6,7 @@ output:
     toc_depth: 4
 ---
 
-Although we spend alot of time working with data interactively, this sort of hands-on babysitting is not always appropriate. We have a philosphy of "source is real" in this class and that philosophy can be implemented on a grander scale. Just as we save R code in a script so we can replay analytical steps, we can also record how a series of scripts and commands work together to produce a set of analytical results. This is what we mean by automating data analysis or building an analytical pipeline.
+Although we spend alot of time working with data interactively, this sort of hands-on babysitting is not always appropriate. We have a philosophy of "source is real" in this class and that philosophy can be implemented on a grander scale. Just as we save R code in a script so we can replay analytical steps, we can also record how a series of scripts and commands work together to produce a set of analytical results. This is what we mean by automating data analysis or building an analytical pipeline.
 
 ### Overview
 
@@ -67,10 +67,10 @@ Other, more modern data-oriented alternatives to `make`
 
   * [Drake](https://github.com/Factual/drake), a kind of "make for data"
   * [Nextflow](http://www.nextflow.io) for "data-driven computational pipelines"
-  * [`maker`](https://github.com/richfitz/maker), "Make-like build management, reimagined for R"
+  * [`maker`](https://github.com/richfitz/maker), "Make-like build management, re-imagined for R"
   
 [Managing Projects with GNU Make, Third Edition By Robert Mecklenburg](http://www.oreilly.com/openbook/make3/book/) is a fantastic book but, sadly, is very focused on compiling software
 
-Rstudio's [website documenting R Markdown](http://rmarkdown.rstudio.com) is generated from [this repo](https://github.com/rstudio/rmarkdown/tree/gh-pages) using [this 20 line Makefile](https://github.com/rstudio/rmarkdown/blob/gh-pages/Makefile), which is sort of amazing. This is why we study regular expressions and follow filename conventions, people!
+RStudio's [website documenting R Markdown](http://rmarkdown.rstudio.com) is generated from [this repo](https://github.com/rstudio/rmarkdown/tree/gh-pages) using [this 20 line Makefile](https://github.com/rstudio/rmarkdown/blob/gh-pages/Makefile), which is sort of amazing. This is why we study regular expressions and follow filename conventions, people!
 
 [littler](http://dirk.eddelbuettel.com/code/littler.html) is an R package maintained by Dirk Eddelbuettel that "provides the `r` program, a simplified command-line interface for GNU R."

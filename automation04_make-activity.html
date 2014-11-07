@@ -98,7 +98,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>calculate a histogram of word lengths</li>
 <li>determine the most common word length</li>
 <li>generate a figure of this histogram</li>
-<li>render a RMarkdown report in HTML and PDF</li>
+<li>render a R Markdown report in HTML and PDF</li>
 </ul>
 <p>You will automate this pipeline using <code>make</code>!</p>
 <div id="dependency-graph-of-the-pipeline" class="section level3">
@@ -109,9 +109,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="set-up-a-new-rstudio-project-and-git-repo" class="section level3">
 <h3>Set up a new RStudio Project (and Git repo)</h3>
-<p>In Rstudio: <em>File &gt; New Project &gt; New Directory &gt; Empty Project.</em> If you’re a Git user, we strongly encourage you to click on “Create a git repository.”</p>
+<p>In RStudio: <em>File &gt; New Project &gt; New Directory &gt; Empty Project.</em> If you’re a Git user, we strongly encourage you to click on “Create a git repository.”</p>
 <p>This project will be useful as a reference in the future, so give it an informative name and location. If you’re a GitHub user, you may want to push it there as well.</p>
-<p>Git(Hub) users: from here on out, we assume you will be commiting at regular intervals. At key points, we explicitly prompt you to commit.</p>
+<p>Git(Hub) users: from here on out, we assume you will be committing at regular intervals. At key points, we explicitly prompt you to commit.</p>
 <p>Configure this RStudio Project to work with <code>make</code>. Consult the <a href="automation03_make-test-drive.html"><code>make</code> test drive</a> for details:</p>
 <ul>
 <li>make sure tabs are NOT replaced with spaces</li>
@@ -126,14 +126,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="create-the-makefile" class="section level3">
 <h3>Create the Makefile</h3>
-<p>In Rstudio: <em>File &gt; New File &gt; Text File.</em> Save it with the name <code>Makefile</code>. Keep adding the rules we write below to this file, saving regularly.</p>
+<p>In RStudio: <em>File &gt; New File &gt; Text File.</em> Save it with the name <code>Makefile</code>. Keep adding the rules we write below to this file, saving regularly.</p>
 </div>
 <div id="get-the-dictionary-of-words" class="section level3">
 <h3>Get the dictionary of words</h3>
 <p>Depending on your OS and mood, you can get the file of English words by copying a local file or downloading from the internet.</p>
 <div id="download-the-dictionary" class="section level4">
 <h4>Download the dictionary</h4>
-<p>Our first <code>Makefile</code> rule will download the dictionary <code>words.txt</code>. The command of this rule is a one-line R script, so instead of putting the R script in a separate file, we’ll include the command directly in the Makefile, since it’s so short. <em>Sure, we could download a file without using R at all but humor us: this is a tutorial about <code>make</code> and R!</em></p>
+<p>Our first <code>Makefile</code> rule will download the dictionary <code>words.txt</code>. The command of this rule is a one-line R script, so instead of putting the R script in a separate file, we’ll include the command directly in the <code>Makefile</code>, since it’s so short. <em>Sure, we could download a file without using R at all but humor us: this is a tutorial about <code>make</code> and R!</em></p>
 <pre class="makefile"><code>words.txt:
 	Rscript -e &#39;download.file(&quot;http://svnweb.freebsd.org/base/head/share/dict/web2?view=co&quot;, destfile = &quot;words.txt&quot;, quiet = TRUE)&#39;</code></pre>
 <p>Suggested workflow:</p>
@@ -244,7 +244,7 @@ clean:
 <p>Suggested workflow:</p>
 <ul>
 <li>Test the histogram-drawing code in the R Console to make sure it works.</li>
-<li>Inpsect the resulting PNG to make sure it’s good.</li>
+<li>Inspect the resulting PNG to make sure it’s good.</li>
 <li>Clean up after yourself.</li>
 <li>Add the above rule to your <code>Makefile</code>.</li>
 <li>Test that new rule works.</li>
@@ -302,7 +302,7 @@ clean:
 Render a PDF report
 ================================================================================
 
-Can you modify the `rmarkdown::render` command to generate a PDF report instead of an HTML report? Hint: look at the optional second argument of `rmarkdown::render`. Alternatively, click the *Knit* dropdown box and select *Knit PDF*, and look at how RStudio modifies the header of your RMarkdown script.
+Can you modify the `rmarkdown::render` command to generate a PDF report instead of an HTML report? Hint: look at the optional second argument of `rmarkdown::render`. Alternatively, click the *Knit* dropdown box and select *Knit PDF*, and look at how RStudio modifies the header of your R Markdown script.
 
 --> 
 

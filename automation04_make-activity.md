@@ -15,7 +15,7 @@ The goal of this activity is to create a pipeline that will
   + calculate a histogram of word lengths
   + determine the most common word length
   + generate a figure of this histogram
-  + render a RMarkdown report in HTML and PDF
+  + render a R Markdown report in HTML and PDF
 
 You will automate this pipeline using `make`!
 
@@ -27,11 +27,11 @@ You will automate this pipeline using `make`!
 
 ### Set up a new RStudio Project (and Git repo)
 
-In Rstudio: *File > New Project > New Directory > Empty Project.* If you're a Git user, we strongly encourage you to click on "Create a git repository."
+In RStudio: *File > New Project > New Directory > Empty Project.* If you're a Git user, we strongly encourage you to click on "Create a git repository."
 
 This project will be useful as a reference in the future, so give it an informative name and location. If you're a GitHub user, you may want to push it there as well.
 
-Git(Hub) users: from here on out, we assume you will be commiting at regular intervals. At key points, we explicitly prompt you to commit.
+Git(Hub) users: from here on out, we assume you will be committing at regular intervals. At key points, we explicitly prompt you to commit.
 
 Configure this RStudio Project to work with `make`. Consult the [`make` test drive](automation03_make-test-drive.html) for details:
 
@@ -48,7 +48,7 @@ The Project is set up for use with `make` at [this commit](https://github.com/ST
 
 ### Create the Makefile
 
-In Rstudio: *File > New File > Text File.* Save it with the name `Makefile`. Keep adding the rules we write below to this file, saving regularly.
+In RStudio: *File > New File > Text File.* Save it with the name `Makefile`. Keep adding the rules we write below to this file, saving regularly.
 
 ### Get the dictionary of words
 
@@ -56,7 +56,7 @@ Depending on your OS and mood, you can get the file of English words by copying 
 
 #### Download the dictionary
 
-Our first `Makefile` rule will download the dictionary `words.txt`. The command of this rule is a one-line R script, so instead of putting the R script in a separate file, we'll include the command directly in the Makefile, since it's so short. *Sure, we could download a file without using R at all but humor us: this is a tutorial about `make` and R!*
+Our first `Makefile` rule will download the dictionary `words.txt`. The command of this rule is a one-line R script, so instead of putting the R script in a separate file, we'll include the command directly in the `Makefile`, since it's so short. *Sure, we could download a file without using R at all but humor us: this is a tutorial about `make` and R!*
 
 ```makefile
 words.txt:
@@ -190,7 +190,7 @@ histogram.png: histogram.tsv
 Suggested workflow:
 
   * Test the histogram-drawing code in the R Console to make sure it works.
-  * Inpsect the resulting PNG to make sure it's good.
+  * Inspect the resulting PNG to make sure it's good.
   * Clean up after yourself.
   * Add the above rule to your `Makefile`.
   * Test that new rule works.
@@ -265,7 +265,7 @@ See the sample Project at this point in [this commit](https://github.com/STAT545
 Render a PDF report
 ================================================================================
 
-Can you modify the `rmarkdown::render` command to generate a PDF report instead of an HTML report? Hint: look at the optional second argument of `rmarkdown::render`. Alternatively, click the *Knit* dropdown box and select *Knit PDF*, and look at how RStudio modifies the header of your RMarkdown script.
+Can you modify the `rmarkdown::render` command to generate a PDF report instead of an HTML report? Hint: look at the optional second argument of `rmarkdown::render`. Alternatively, click the *Knit* dropdown box and select *Knit PDF*, and look at how RStudio modifies the header of your R Markdown script.
 
 --> 
 
