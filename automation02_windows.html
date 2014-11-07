@@ -11,7 +11,7 @@
 <meta name="author" content="Shaun Jackman, Dean Attali, Jenny Bryan" />
 
 
-<title>Automation: Special considerations for Windows</title>
+<title>make: Special considerations for Windows</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -69,31 +69,30 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </header>
 
 <div id="header">
-<h1 class="title">Automation: Special considerations for Windows</h1>
+<h1 class="title">make: Special considerations for Windows</h1>
 <h4 class="author"><em>Shaun Jackman, Dean Attali, Jenny Bryan</em></h4>
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#install-make-on-microsoft-windows">Install <code>make</code> on Microsoft Windows</a></li>
-</ul>
-</div>
 
-<div id="install-make-on-microsoft-windows" class="section level2">
-<h2>Install <code>make</code> on Microsoft Windows</h2>
-<p>Mac OS and Linux machines come with <code>make</code> installed. You do not need to follow these instructions.</p>
-<div id="install-make-for-windows" class="section level3">
-<h3>Install Make for Windows</h3>
+<div id="install-make-on-microsoft-windows" class="section level3">
+<h3>Install <code>make</code> on Microsoft Windows</h3>
+<p>Remember when you were <a href="git01_git-install.html#git-installation-windows">installing Git on your Windows machine</a>? If you followed our top recommendation and installed <code>Git for Windows</code>, aka <code>mysysgit</code>, aka “Git bash”, <code>make</code> <a href="https://github.com/msysgit/msysgit/blob/master/mingw/bin/make.exe">should already be installed</a> on your system. Congratulations!</p>
+<p>However, if you used some other method to install Git, you don’t have <code>make</code> yet. We still strongly recommend installing <a href="http://msysgit.github.io"><code>Git for Windows</code></a> because it installs an entire build environment for Windows, which includes <code>make</code>, Git, and the Bash shell.</p>
+<p>Here is another alternative for installing <code>make</code> alone:</p>
 <ul>
 <li>Go to the <a href="http://gnuwin32.sourceforge.net/packages/make.htm">Make for Windows</a> web site</li>
 <li>Download the <a href="http://gnuwin32.sourceforge.net/downlinks/make.php">Setup program</a></li>
-<li>Install the file you just downloaded and copy to your clipboard the directory in which it is being installed</li>
-<li>The default directory is <code>C:\Program Files (x86)\GnuWin32\</code></li>
-<li>You now have <code>make</code> installed, but you need to tell Windows where to find the program. This is called <a href="https://www.google.ca/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8#q=windows%20update%20path%20variable">updating your <code>PATH</code></a>. You will want to update the <code>PATH</code> to include the <code>bin</code> directory of the newly installed program. These are the steps on Windows 7 (for Windows 8 you’d have to Google it):</li>
+<li>Install the file you just downloaded and copy to your clipboard the directory in which it is being installed
+<ul>
+<li>FYI: The default directory is <code>C:\Program Files (x86)\GnuWin32\</code></li>
+</ul></li>
+<li>You now have <code>make</code> installed, but you need to tell Windows where to find the program. This is called <a href="https://www.google.ca/webhp?sourceid=chrome-instant&amp;ion=1&amp;espv=2&amp;ie=UTF-8#q=windows%20update%20path%20variable">updating your <code>PATH</code></a>. You will want to update the <code>PATH</code> to include the <code>bin</code> directory of the newly installed program.</li>
 </ul>
 </div>
 <div id="update-your-path" class="section level3">
 <h3>Update your <code>PATH</code></h3>
+<p>If you installed <code>Make for Windows</code> (as opposed to the <code>make</code> that comes with <code>Git for Windows</code>), you still need to update your <code>PATH</code>.</p>
+<p>These are the steps on Windows 7 (we don’t have such a write-up yet for Windows 8 – feel free to send one!):</p>
 <ul>
 <li>Click on the Windows logo</li>
 <li>Right click on <em>Computer</em></li>
@@ -102,17 +101,27 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>Select <em>Environment variables</em></li>
 <li>Select the line that has the <code>PATH</code> variable. You may have to scroll down to find it</li>
 <li>Select <em>Edit</em></li>
-<li>Go to the end of the line and add a semicolon <code>;</code>, followed by the path where the program was installed, followed by <code>\bin</code>. For example, I added the following to the end of the line: <code>;C:\Program Files (x86)\GnuWin32\bin</code></li>
-<li>Click Okay and close all the windows that you opened</li>
-<li>Close RStudio and open it again.</li>
-<li>RStudio and your command line will now know where to find <code>make</code></li>
-</ul>
-<p><strong>TO DO</strong>:</p>
+<li>Go to the end of the line and add a semicolon <code>;</code>, followed by the path where the program was installed, followed by <code>\bin</code>.
 <ul>
-<li>issue about Make on PATH</li>
-<li>issue about which shell Make is using</li>
+<li>Typical example of what one might add: <code>;C:\Program Files (x86)\GnuWin32\bin</code></li>
+</ul></li>
+<li>Click Okay and close all the windows that you opened</li>
+<li>Quit RStudio and open it again.</li>
+<li>You should now be able to use <code>make</code> from RStudio and the command line</li>
 </ul>
 </div>
+<div id="issues-we-are-still-clarifying" class="section level3">
+<h3>Issues we are still clarifying</h3>
+<p>See <a href="https://github.com/STAT545-UBC/Discussion/issues/58">issue 58</a> for what seems to be the most comprehensive statement of the Windows situation.</p>
+<p>What are the tricky bits?</p>
+<ul>
+<li>Getting the same <code>Makefile</code> to “work” via RStudio’s Build buttons/menus and in the shell. And, for that matter, which shell? Git Bash or ???</li>
+<li>Ensuring <code>make</code>, <code>Rscript</code>, <code>pandoc</code>, <code>rm</code>, etc. can be found = updating <code>PATH</code>.</li>
+<li>Getting <code>make</code> to use the correct shell.
+<ul>
+<li>See <a href="https://github.com/STAT545-UBC/Discussion/issues/54">issue 54</a> on the Discussion repo.</li>
+</ul></li>
+</ul>
 </div>
 
 <div class="footer">
