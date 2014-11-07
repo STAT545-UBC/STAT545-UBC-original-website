@@ -86,26 +86,11 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#update-rules-for-all-and-clean">Update rules for all and clean</a></li>
 <li><a href="#plot-a-histogram-of-word-lengths-update-all-and-clean">Plot a histogram of word lengths, update all and clean</a></li>
 <li><a href="#use-make-to-deal-with-an-annoyance">Use <code>make</code> to deal with an annoyance</a></li>
-<li><a href="#render-a-html-report">Render a HTML report</a></li>
-<li><a href="#render-a-pdf-report">Render a PDF report</a></li>
-<li><a href="#add-a-default-target-to-the-makefile">Add a default target to the Makefile</a></li>
-<li><a href="#add-a-clean-target-to-the-makefile">Add a clean target to the Makefile</a></li>
+<li><a href="#render-an-html-report">Render an HTML report</a></li>
+<li><a href="#the-final-makefile">The Final Makefile</a></li>
 </ul>
 </div>
 
-<p>Jenny’s proposed re-org and some insertions:</p>
-<ul>
-<li><del>dependency graph of the pipeline</del></li>
-<li><del>new RStudio project and Git repo</del></li>
-<li><del>rule to copy and/or download words.txt</del></li>
-<li><del>create all and clean targets at this point and play with them</del></li>
-<li><del>R script to compute table of word lengths</del></li>
-<li><del>rule to run word length script</del></li>
-<li><del>R snippet to create visual histogram</del></li>
-<li><del>rule to create histogram</del></li>
-<li>R Markdown file to generate a report</li>
-<li>rule to render the Markdown file</li>
-</ul>
 <p>The goal of this activity is to create a pipeline that will</p>
 <ul>
 <li>obtain a large file of English words</li>
@@ -257,6 +242,7 @@ clean:
 <li>Test the new definitions of <code>all</code> and <code>clean</code>.</li>
 <li>Git folks: commit.</li>
 </ul>
+<p><em>NOTE: Why are we writing this PNG to file when, by the end of the activity, we are writing an R Markdown report? We could include this figure-making code in an R chunk there. We’re doing it this way to demonstrate more about R and <code>make</code> workflows. Plus sometimes we do work this way in real life, if a figure has a life outside one specific R Markdown report.</em></p>
 </div>
 <div id="use-make-to-deal-with-an-annoyance" class="section level3">
 <h3>Use <code>make</code> to deal with an annoyance</h3>
@@ -275,32 +261,59 @@ clean:
 <li>Git folks: commit.</li>
 </ul>
 </div>
-<div id="render-a-html-report" class="section level1">
-<h1>Render a HTML report</h1>
-<p>Finally, we’ll use <code>rmarkdown::render</code> to generate the HTML report.</p>
+<div id="render-an-html-report" class="section level3">
+<h3>Render an HTML report</h3>
+<p>Finally, we’ll use <code>rmarkdown::render()</code> to generate an HTML report. If we think narrowly, we might say that the HTML report depends only on its Markdown predecessor, which would lead to a rule like this:</p>
 <pre class="makefile"><code>report.html: report.md
 	Rscript -e &#39;rmarkdown::render(&quot;$&lt;&quot;)&#39;</code></pre>
-<p>If the table of word lengths or figure were to change, <code>make</code> wouldn’t know that it needs to regenerate the report. We can add additional dependencies to the rule so that <code>make</code> will regenerate the report if any of its three dependencies changes.</p>
+<p>But we really shouldn’t hard-wire statements about word length in Markdown; we should use inline R code to compute that from the word length table. Similarly, if the plotted histogram were to change, we’d need to remake the HTML report. Here is a better rule that captures all of these dependencies:</p>
 <pre class="makefile"><code>report.html: report.rmd histogram.tsv histogram.png
 	Rscript -e &#39;rmarkdown::render(&quot;$&lt;&quot;)&#39;</code></pre>
-<p>Create the RMarkdown file <code>report.rmd</code> that reads the table of words lengths <code>histogram.tsv</code>, reports the most common word length and displays the histogram <code>histogram.png</code>. Here’s <a href="https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/automation10_holding-area/activity/report.rmd">one solution</a>, but try not to peek until you’ve attempted this task yourself.</p>
+<p>Create the R Markdown file <code>report.rmd</code> that reads the table of word lengths <code>histogram.tsv</code>, reports the most common word length, and displays the pre-made histogram <code>histogram.png</code>. Here’s <a href="https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/automation10_holding-area/activity/report.rmd">one solution</a>, but try not to peek until you’ve attempted this task yourself.</p>
+<p>Suggested workflow:</p>
+<ul>
+<li>Develop <code>report.rmd</code>, running the R chunks often, from a clean workspace and fresh R session. Debugging only gets harder once you’re rendering entire reports at arm’s length via <code>make</code>!</li>
+<li>Render the report using <code>rmarkdown::render()</code> in the Console or RStudio’s Preview HTML button.</li>
+<li>Clean up after yourself.</li>
+<li>Add the above rule for <code>report.html</code> to your <code>Makefile</code>.</li>
+<li>Test that new rule works.</li>
+<li>Update the <code>all</code> and <code>clean</code> targets in light of this addition to the pipeline.</li>
+<li>Test the new definitions of <code>all</code> and <code>clean</code>.</li>
+<li>Git folks: commit.</li>
+</ul>
+<!-- TO DO: this PDF bit awaiting attention from Shaun -->
+ 
+<!--
+
+Render a PDF report
+================================================================================
+
+Can you modify the `rmarkdown::render` command to generate a PDF report instead of an HTML report? Hint: look at the optional second argument of `rmarkdown::render`. Alternatively, click the *Knit* dropdown box and select *Knit PDF*, and look at how RStudio modifies the header of your RMarkdown script.
+
+--> 
+
 </div>
-<div id="render-a-pdf-report" class="section level1">
-<h1>Render a PDF report</h1>
-<p>Can you modify the <code>rmarkdown::render</code> command to generate a PDF report instead of an HTML report? Hint: look at the optional second argument of <code>rmarkdown::render</code>. Alternatively, click the <em>Knit</em> dropdown box and select <em>Knit PDF</em>, and look at how RStudio modifies the header of your RMarkdown script.</p>
-</div>
-<div id="add-a-default-target-to-the-makefile" class="section level1">
-<h1>Add a default target to the Makefile</h1>
-<p>The <em>Build -&gt; Build All</em> menu item of RStudio runs the <code>Makefile</code> target named <code>all</code>. To make this default target generate our report, add the report as a dependency of the target named <code>all</code>. Note that unlike other rules, this rule has no commands associated with it.</p>
-<pre class="makefile"><code>all: report.html</code></pre>
-<p>Select <em>Build -&gt; Build All</em>.</p>
-</div>
-<div id="add-a-clean-target-to-the-makefile" class="section level1">
-<h1>Add a clean target to the Makefile</h1>
-<p>The <em>Build -&gt; Clean All</em> menu item of RStudio runs the <code>Makefile</code> target named <code>clean</code>. By convention this target removes all files that can be regenerated by the Makefile.</p>
-<pre class="makefile"><code>clean:
-	rm -f words.txt histogram.tsv histogram.png report.html</code></pre>
-<p>Select <em>Build -&gt; Clean All</em> and then <em>Build -&gt; Build All</em>.</p>
+<div id="the-final-makefile" class="section level3">
+<h3>The Final Makefile</h3>
+<p>At this point, your <code>Makefile</code> should look something like this:</p>
+<pre class="makefile"><code>all: report.html
+
+clean:
+	rm -f words.txt histogram.tsv histogram.png report.md report.html
+
+words.txt: /usr/share/dict/words
+	cp /usr/share/dict/words words.txt
+
+histogram.tsv: histogram.r words.txt
+	Rscript $&lt;
+
+histogram.png: histogram.tsv
+	Rscript -e &#39;library(ggplot2); qplot(Length, Freq, data=read.delim(&quot;$&lt;&quot;)); ggsave(&quot;$@&quot;)&#39;
+	rm Rplots.pdf
+
+report.html: report.rmd histogram.tsv histogram.png
+	Rscript -e &#39;rmarkdown::render(&quot;$&lt;&quot;)&#39;</code></pre>
+<p>And that’s how a data analytical pipeline gets built using <code>make</code>, the shell, R, RStudio, and optionally Git.</p>
 </div>
 
 <div class="footer">

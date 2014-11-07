@@ -9,19 +9,6 @@ output:
     pandoc_args: "--preserve-tabs"
 ---
 
-Jenny's proposed re-org and some insertions:
-
-  * ~~dependency graph of the pipeline~~
-  * ~~new RStudio project and Git repo~~
-  * ~~rule to copy and/or download words.txt~~
-  * ~~create all and clean targets at this point and play with them~~
-  * ~~R script to compute table of word lengths~~
-  * ~~rule to run word length script~~
-  * ~~R snippet to create visual histogram~~
-  * ~~rule to create histogram~~
-  * R Markdown file to generate a report
-  * rule to render the Markdown file
-
 The goal of this activity is to create a pipeline that will
 
   + obtain a large file of English words
@@ -196,6 +183,8 @@ Suggested workflow:
   * Test the new definitions of `all` and `clean`.
   * Git folks: commit.
 
+*NOTE: Why are we writing this PNG to file when, by the end of the activity, we are writing an R Markdown report? We could include this figure-making code in an R chunk there. We're doing it this way to demonstrate more about R and `make` workflows. Plus sometimes we do work this way in real life, if a figure has a life outside one specific R Markdown report.*
+
 ### Use `make` to deal with an annoyance
 
 The code used above to create `histogram.png` usually leaves an empty `Rplots.pdf` file behind. You can read [this thread on stackoverflow](http://stackoverflow.com/questions/17348359/how-to-stop-r-from-creating-empty-rplots-pdf-file-when-using-ggsave-and-rscript) if you'd like to know more.
@@ -218,49 +207,68 @@ Suggested workflow:
   * Test that behavior of `all` and `clean` still good.
   * Git folks: commit.
 
-Render a HTML report
-================================================================================
+### Render an HTML report
 
-Finally, we'll use `rmarkdown::render` to generate the HTML report.
+Finally, we'll use `rmarkdown::render()` to generate an HTML report. If we think narrowly, we might say that the HTML report depends only on its Markdown predecessor, which would lead to a rule like this: 
 
 ```makefile
 report.html: report.md
 	Rscript -e 'rmarkdown::render("$<")'
 ```
 
-If the table of word lengths or figure were to change, `make` wouldn't know that it needs to regenerate the report. We can add additional dependencies to the rule so that `make` will regenerate the report if any of its three dependencies changes.
+But we really shouldn't hard-wire statements about word length in Markdown; we should use inline R code to compute that from the word length table. Similarly, if the plotted histogram were to change, we'd need to remake the HTML report. Here is a better rule that captures all of these dependencies:
 
 ```makefile
 report.html: report.rmd histogram.tsv histogram.png
 	Rscript -e 'rmarkdown::render("$<")'
 ```
 
-Create the RMarkdown file `report.rmd` that reads the table of words lengths `histogram.tsv`, reports the most common word length and displays the histogram `histogram.png`. Here's [one solution](https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/automation10_holding-area/activity/report.rmd), but try not to peek until you've attempted this task yourself.
+Create the R Markdown file `report.rmd` that reads the table of word lengths `histogram.tsv`, reports the most common word length, and displays the pre-made histogram `histogram.png`. Here's [one solution](https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/automation10_holding-area/activity/report.rmd), but try not to peek until you've attempted this task yourself.
+
+Suggested workflow:
+
+  * Develop `report.rmd`, running the R chunks often, from a clean workspace and fresh R session. Debugging only gets harder once you're rendering entire reports at arm's length via `make`!
+  * Render the report using `rmarkdown::render()` in the Console or RStudio's Preview HTML button.
+  * Clean up after yourself.
+  * Add the above rule for `report.html` to your `Makefile`.
+  * Test that new rule works.
+  * Update the `all` and `clean` targets in light of this addition to the pipeline.
+  * Test the new definitions of `all` and `clean`.
+  * Git folks: commit.
+  
+<!-- TO DO: this PDF bit awaiting attention from Shaun -->
+ 
+<!--
 
 Render a PDF report
 ================================================================================
 
 Can you modify the `rmarkdown::render` command to generate a PDF report instead of an HTML report? Hint: look at the optional second argument of `rmarkdown::render`. Alternatively, click the *Knit* dropdown box and select *Knit PDF*, and look at how RStudio modifies the header of your RMarkdown script.
 
-Add a default target to the Makefile
-================================================================================
+--> 
 
-The *Build -> Build All* menu item of RStudio runs the `Makefile` target named `all`. To make this default target generate our report, add the report as a dependency of the target named `all`. Note that unlike other rules, this rule has no commands associated with it.
+### The Final Makefile
+
+At this point, your `Makefile` should look something like this:
 
 ```makefile
 all: report.html
-```
 
-Select *Build -> Build All*.
-
-Add a clean target to the Makefile
-================================================================================
-
-The *Build -> Clean All* menu item of RStudio runs the `Makefile` target named `clean`. By convention this target removes all files that can be regenerated by the Makefile.
-
-```makefile
 clean:
-	rm -f words.txt histogram.tsv histogram.png report.html
+	rm -f words.txt histogram.tsv histogram.png report.md report.html
+
+words.txt: /usr/share/dict/words
+	cp /usr/share/dict/words words.txt
+
+histogram.tsv: histogram.r words.txt
+	Rscript $<
+
+histogram.png: histogram.tsv
+	Rscript -e 'library(ggplot2); qplot(Length, Freq, data=read.delim("$<")); ggsave("$@")'
+	rm Rplots.pdf
+
+report.html: report.rmd histogram.tsv histogram.png
+	Rscript -e 'rmarkdown::render("$<")'
 ```
 
-Select *Build -> Clean All* and then *Build -> Build All*.
+And that's how a data analytical pipeline gets built using `make`, the shell, R, RStudio, and optionally Git.
