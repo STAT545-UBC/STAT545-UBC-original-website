@@ -81,6 +81,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#set-up-a-new-rstudio-project-and-git-repo">Set up a new RStudio Project (and Git repo)</a></li>
 <li><a href="#create-the-makefile">Create the Makefile</a></li>
 <li><a href="#get-the-dictionary-of-words">Get the dictionary of words</a></li>
+<li><a href="#create-rules-for-all-and-clean">Create rules for all and clean</a></li>
 <li><a href="#create-a-table-of-word-lengths">Create a table of word lengths</a></li>
 <li><a href="#plot-a-histogram-of-word-lengths">Plot a histogram of word lengths</a></li>
 <li><a href="#render-a-html-report">Render a HTML report</a></li>
@@ -173,6 +174,33 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>Git folks: look at the diff. You should see how your <code>words.txt</code> rule has changed and you might also see some differences between the local and remote words files. Interesting! Commit <code>Makefile</code> and <code>words.txt</code>.</li>
 </ul>
 </div>
+</div>
+<div id="create-rules-for-all-and-clean" class="section level3">
+<h3>Create rules for all and clean</h3>
+<p>It would be nice to execute our <code>make</code> rules from RStudio. So it’s urgent that we create phony targets <code>all</code> and <code>clean</code>, which are the only targets accessible from RStudio.</p>
+<p>Edit your <code>Makefile</code> to look like this (where your <code>words.txt</code> rule can be the copy or download version):</p>
+<pre class="makefile"><code>all: words.txt
+
+clean:
+	rm -f words.txt
+
+words.txt: /usr/share/dict/words
+	cp /usr/share/dict/words words.txt</code></pre>
+<p>Since our only output so far is <code>words.txt</code>, that’s what we associate with the <code>all</code> target. Likewise, the only product we can re-make so far is <code>words.txt</code>, so it’s the only thing we delete via <code>clean</code>.</p>
+<p>Suggested workflow:</p>
+<ul>
+<li>Use <code>make clean</code> from the shell and/or <em>RStudio &gt; Build &gt; More &gt; Clean All</em> to delete <code>words.txt</code>.
+<ul>
+<li>Does it go away?</li>
+<li>Git folks: does the deletion of this file show up in your Git tab?</li>
+</ul></li>
+<li>Use <code>make all</code> from the shell and/or <em>RStudio &gt; Build &gt; Build All</em> to get <code>words.txt</code> back.
+<ul>
+<li>Does it come back?</li>
+<li>Git folks: does the restoration of <code>words.txt</code> cause it to drop off your radar as a changed/deleted file? See how this stuff all works together?</li>
+</ul></li>
+<li>Git folks: Commit.</li>
+</ul>
 </div>
 <div id="create-a-table-of-word-lengths" class="section level1">
 <h1>Create a table of word lengths</h1>

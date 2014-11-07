@@ -107,6 +107,34 @@ Suggested workflow:
   * Put the above rule into your `Makefile`. From the shell, enter `make words.txt` to verify rule works. Reinspect the words file.
   * Git folks: look at the diff. You should see how your `words.txt` rule has changed and you might also see some differences between the local and remote words files. Interesting! Commit `Makefile` and `words.txt`.
 
+### Create rules for all and clean
+
+It would be nice to execute our `make` rules from RStudio. So it's urgent that we create phony targets `all` and `clean`, which are the only targets accessible from RStudio.
+
+Edit your `Makefile` to look like this (where your `words.txt` rule can be the copy or download version):
+
+```makefile
+all: words.txt
+
+clean:
+	rm -f words.txt
+
+words.txt: /usr/share/dict/words
+	cp /usr/share/dict/words words.txt
+```
+
+Since our only output so far is `words.txt`, that's what we associate with the `all` target. Likewise, the only product we can re-make so far is `words.txt`, so it's the only thing we delete via `clean`.
+
+Suggested workflow:
+
+  * Use `make clean` from the shell and/or *RStudio > Build > More > Clean All* to delete `words.txt`.
+    - Does it go away?
+    - Git folks: does the deletion of this file show up in your Git tab?
+  * Use `make all` from the shell and/or *RStudio > Build > Build All* to get `words.txt` back.
+    - Does it come back?
+    - Git folks: does the restoration of `words.txt` cause it to drop off your radar as a changed/deleted file? See how this stuff all works together?
+  * Git folks: Commit.
+
 Create a table of word lengths
 ================================================================================
 
