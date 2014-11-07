@@ -6,50 +6,82 @@ output:
     toc_depth: 4
 ---
 
-__TO DO__ Turn this into a proper introduction.
-
-Running R scripts at arm's length vs. interactively.
-
-Using `Make` to record which files are inputs vs. outputs and how to use scripts and commands to make the outputs from the inputs. 
-
-The intersection of R and `Make`: running R code snippets, running an entire R script, and rendering an R Markdown document.
-
-The intersection of RStudio and `Make`: running the most important `Make` rules from the Build tab.
-
-Using `Make` in the shell.
+Although we spend alot of time working with data interactively, this sort of hands-on babysitting is not always appropriate. We have a philosphy of "source is real" in this class and that philosophy can be implemented on a grander scale. Just as we save R code in a script so we can replay analytical steps, we can also record how a series of scripts and commands work together to produce a set of analytical results. This is what we mean by automating data analysis or building an analytical pipeline.
 
 ### Overview
 
-Check out the [slides](automation01_slides/slides.html)!
+[slides](automation01_slides/slides.html)
 
-### Install Make
+Why and how we automate data analyses + examples.
 
-If you are running Mac OS or Linux, Make should already be installed. Skip to the next step.
+### Install `make`
 
-If you are running Windows, see our [page on Windows installation](automation02_windows.html).
+[Windows installation](automation02_windows.html)
+
+(If you are running Mac OS or Linux, `make` should already be installed.)
   
-### Test drive Make and RStudio
+### Test drive `make` and RStudio
 
-Walk before you run! Prove that Make is actually installed and that is can be found and executed from the shell and from RStudio. There is also some set-up you may want to do in order to use RStudio to edit Makefiles
+[Test drive of `make`](automation03_make-test-drive.html).
 
-Do not go any further until you have had a successful [test drive of Make](automation03_make-test-drive.html).
+Walk before you run! Prove that `make` is actually installed and that it can be found and executed from the shell and from RStudio. It is also important to tell RStudio to NOT substitute spaces for tabs when editing a `Makefile` (applies to any text editor).
 
 ### Tab gotcha
 
-Make is rather picky and __requires that lines be indented with tabs and not spaces__. In the [test drive](automation03_make-test-drive.html) we explained how to globally ask RStudio to NOT replace tabs with spaces. Below in the hands-on activity, we explain how to incorporate this request into the settings for a specific RStudio Project.
+`make` is rather picky and __requires that lines be indented with tabs and not spaces__. In the [test drive](automation03_make-test-drive.html), we explained how to set a global RStudio preference to NOT replace tabs with spaces. Below in the hands-on activity, we explain how to incorporate this request into the settings for a specific RStudio Project. When in doubt, double check that both settings are correct.
 
-Please pause here and take a moment for this to truly sink in. __When writing a Makefile, it is very important to indent with tabs.__
+Please pause here and let this truly sink in: __When writing a Makefile, it is very important to indent with tabs.__
 
-If you mess up, here's the type of error you might see:
+If you have indentation with spaces instead of tab, here's the type of error you might see:
 
 ```sh
 Error: `makefile:2: *** missing separator. Stop.`
 ```
 
+RStudio can show you more information about the whitespace in a file: *RStudio > Preferences... > Code editing > Show whitespace characters*. When in doubt, make darn sure your `Makefile` is indented with tabs and not spaces.
+
 ### Hands-on activity
 
-Go to [this page](automation04_make-activity.html)
+[This fully developed example](automation04_make-activity.html) shows you
+
+  * How to run an R script non-interactively
+  * How to use `make`
+    - to record which files are inputs vs. intermediates vs. outputs
+    - to capture how scripts and commands convert inputs to outputs
+    - to re-run parts of an analysis that are out-of-date
+  * The intersection of R and `make`, i.e. how to
+    - run snippets of R code
+    - run an entire R script
+    - render an R Markdown document (or R script)
+  * The interface between RStudio and `make`
+  * How to use `make` from the shell
 
 ### Resources
 
-links!
+[xkcd comic on automation](http://xkcd.com/1319/). 'Automating' comes from the roots 'auto-' meaning 'self-', and 'mating', meaning 'screwing'.
+
+Karl Broman covers GNU Make in his course [Tools for Reproducible Research](http://kbroman.org/Tools4RR/pages/schedule.html) *(see first week)*
+
+Karl Broman also wrote [An introduction to `Make`](http://kbroman.github.io/minimal_make/), aimed at stats / data science types
+ 
+[Using Make for reproducible scientific analyses](http://www.bendmorris.com/2013/09/using-make-for-reproducible-scientific.html), blog post by Ben Morris
+
+Software Carpentry's [Slides on `Make`](http://software-carpentry.org/v4/make/index.html)
+
+Zachary M. Jones wrote [GNU Make for Reproducible Data Analysis](http://zmjones.com/make.html)
+
+[Keeping tabs on your data analysis workflow](http://www.adamlaiacano.com/post/45356689519/keeping-tabs-on-your-data-analysis-workflow), blog post by Adam Laiacano, who works at Tumblr
+
+Mike Bostock, of D3.js and New York Times fame, explains [Why Use Make](http://bost.ocks.org/mike/make/): "it's about the benefits of capturing workflows via a file-based dependency-tracking build system"
+
+[Make for Data Scientists](http://bitaesthetics.com/posts/make-for-data-scientists.html), blog post by Paul Butler, who also made a [beautiful map of Facebook connections](https://www.facebook.com/notes/facebook-engineering/visualizing-friendships/469716398919) using R
+
+Other, more modern data-oriented alternatives to `make`
+
+  * [Drake](https://github.com/Factual/drake), a kind of "make for data"
+  * [Nextflow](http://www.nextflow.io) for "data-driven computational pipelines"
+  * [`maker`](https://github.com/richfitz/maker), "Make-like build management, reimagined for R"
+  
+[Managing Projects with GNU Make, Third Edition By Robert Mecklenburg](http://www.oreilly.com/openbook/make3/book/) is a fantastic book but, sadly, is very focused on compiling software
+
+[littler](http://dirk.eddelbuettel.com/code/littler.html) is an R package maintained by Dirk Eddelbuettel that "provides the `r` program, a simplified command-line interface for GNU R."

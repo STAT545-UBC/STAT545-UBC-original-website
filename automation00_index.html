@@ -74,48 +74,78 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="TOC">
 <ul>
 <li><a href="#overview">Overview</a></li>
-<li><a href="#install-make">Install Make</a></li>
-<li><a href="#test-drive-make-and-rstudio">Test drive Make and RStudio</a></li>
+<li><a href="#install-make">Install <code>make</code></a></li>
+<li><a href="#test-drive-make-and-rstudio">Test drive <code>make</code> and RStudio</a></li>
 <li><a href="#tab-gotcha">Tab gotcha</a></li>
 <li><a href="#hands-on-activity">Hands-on activity</a></li>
 <li><a href="#resources">Resources</a></li>
 </ul>
 </div>
 
-<p><strong>TO DO</strong> Turn this into a proper introduction.</p>
-<p>Running R scripts at arm’s length vs. interactively.</p>
-<p>Using <code>Make</code> to record which files are inputs vs. outputs and how to use scripts and commands to make the outputs from the inputs.</p>
-<p>The intersection of R and <code>Make</code>: running R code snippets, running an entire R script, and rendering an R Markdown document.</p>
-<p>The intersection of RStudio and <code>Make</code>: running the most important <code>Make</code> rules from the Build tab.</p>
-<p>Using <code>Make</code> in the shell.</p>
+<p>Although we spend alot of time working with data interactively, this sort of hands-on babysitting is not always appropriate. We have a philosphy of “source is real” in this class and that philosophy can be implemented on a grander scale. Just as we save R code in a script so we can replay analytical steps, we can also record how a series of scripts and commands work together to produce a set of analytical results. This is what we mean by automating data analysis or building an analytical pipeline.</p>
 <div id="overview" class="section level3">
 <h3>Overview</h3>
-<p>Check out the <a href="automation01_slides/slides.html">slides</a>!</p>
+<p><a href="automation01_slides/slides.html">slides</a></p>
+<p>Why and how we automate data analyses + examples.</p>
 </div>
 <div id="install-make" class="section level3">
-<h3>Install Make</h3>
-<p>If you are running Mac OS or Linux, Make should already be installed. Skip to the next step.</p>
-<p>If you are running Windows, see our <a href="automation02_windows.html">page on Windows installation</a>.</p>
+<h3>Install <code>make</code></h3>
+<p><a href="automation02_windows.html">Windows installation</a></p>
+<p>(If you are running Mac OS or Linux, <code>make</code> should already be installed.)</p>
 </div>
 <div id="test-drive-make-and-rstudio" class="section level3">
-<h3>Test drive Make and RStudio</h3>
-<p>Walk before you run! Prove that Make is actually installed and that is can be found and executed from the shell and from RStudio. There is also some set-up you may want to do in order to use RStudio to edit Makefiles</p>
-<p>Do not go any further until you have had a successful <a href="automation03_make-test-drive.html">test drive of Make</a>.</p>
+<h3>Test drive <code>make</code> and RStudio</h3>
+<p><a href="automation03_make-test-drive.html">Test drive of <code>make</code></a>.</p>
+<p>Walk before you run! Prove that <code>make</code> is actually installed and that it can be found and executed from the shell and from RStudio. It is also important to tell RStudio to NOT substitute spaces for tabs when editing a <code>Makefile</code> (applies to any text editor).</p>
 </div>
 <div id="tab-gotcha" class="section level3">
 <h3>Tab gotcha</h3>
-<p>Make is rather picky and <strong>requires that lines be indented with tabs and not spaces</strong>. In the <a href="automation03_make-test-drive.html">test drive</a> we explained how to globally ask RStudio to NOT replace tabs with spaces. Below in the hands-on activity, we explain how to incorporate this request into the settings for a specific RStudio Project.</p>
-<p>Please pause here and take a moment for this to truly sink in. <strong>When writing a Makefile, it is very important to indent with tabs.</strong></p>
-<p>If you mess up, here’s the type of error you might see:</p>
+<p><code>make</code> is rather picky and <strong>requires that lines be indented with tabs and not spaces</strong>. In the <a href="automation03_make-test-drive.html">test drive</a>, we explained how to set a global RStudio preference to NOT replace tabs with spaces. Below in the hands-on activity, we explain how to incorporate this request into the settings for a specific RStudio Project. When in doubt, double check that both settings are correct.</p>
+<p>Please pause here and let this truly sink in: <strong>When writing a Makefile, it is very important to indent with tabs.</strong></p>
+<p>If you have indentation with spaces instead of tab, here’s the type of error you might see:</p>
 <pre class="sh"><code>Error: `makefile:2: *** missing separator. Stop.`</code></pre>
+<p>RStudio can show you more information about the whitespace in a file: <em>RStudio &gt; Preferences… &gt; Code editing &gt; Show whitespace characters</em>. When in doubt, make darn sure your <code>Makefile</code> is indented with tabs and not spaces.</p>
 </div>
 <div id="hands-on-activity" class="section level3">
 <h3>Hands-on activity</h3>
-<p>Go to <a href="automation04_make-activity.html">this page</a></p>
+<p><a href="automation04_make-activity.html">This fully developed example</a> shows you</p>
+<ul>
+<li>How to run an R script non-interactively</li>
+<li>How to use <code>make</code>
+<ul>
+<li>to record which files are inputs vs. intermediates vs. outputs</li>
+<li>to capture how scripts and commands convert inputs to outputs</li>
+<li>to re-run parts of an analysis that are out-of-date</li>
+</ul></li>
+<li>The intersection of R and <code>make</code>, i.e. how to
+<ul>
+<li>run snippets of R code</li>
+<li>run an entire R script</li>
+<li>render an R Markdown document (or R script)</li>
+</ul></li>
+<li>The interface between RStudio and <code>make</code></li>
+<li>How to use <code>make</code> from the shell</li>
+</ul>
 </div>
 <div id="resources" class="section level3">
 <h3>Resources</h3>
-<p>links!</p>
+<p><a href="http://xkcd.com/1319/">xkcd comic on automation</a>. ‘Automating’ comes from the roots ‘auto-’ meaning ‘self-’, and ‘mating’, meaning ‘screwing’.</p>
+<p>Karl Broman covers GNU Make in his course <a href="http://kbroman.org/Tools4RR/pages/schedule.html">Tools for Reproducible Research</a> <em>(see first week)</em></p>
+<p>Karl Broman also wrote <a href="http://kbroman.github.io/minimal_make/">An introduction to <code>Make</code></a>, aimed at stats / data science types</p>
+<p><a href="http://www.bendmorris.com/2013/09/using-make-for-reproducible-scientific.html">Using Make for reproducible scientific analyses</a>, blog post by Ben Morris</p>
+<p>Software Carpentry’s <a href="http://software-carpentry.org/v4/make/index.html">Slides on <code>Make</code></a></p>
+<p>Zachary M. Jones wrote <a href="http://zmjones.com/make.html">GNU Make for Reproducible Data Analysis</a></p>
+<p><a href="http://www.adamlaiacano.com/post/45356689519/keeping-tabs-on-your-data-analysis-workflow">Keeping tabs on your data analysis workflow</a>, blog post by Adam Laiacano, who works at Tumblr</p>
+<p>Mike Bostock, of D3.js and New York Times fame, explains <a href="http://bost.ocks.org/mike/make/">Why Use Make</a>: “it’s about the benefits of capturing workflows via a file-based dependency-tracking build system”</p>
+<p><a href="http://bitaesthetics.com/posts/make-for-data-scientists.html">Make for Data Scientists</a>, blog post by Paul Butler, who also made a <a href="https://www.facebook.com/notes/facebook-engineering/visualizing-friendships/469716398919">beautiful map of Facebook connections</a> using R</p>
+<p>Other, more modern data-oriented alternatives to <code>make</code></p>
+<ul>
+<li><a href="https://github.com/Factual/drake">Drake</a>, a kind of “make for data”</li>
+<li><a href="http://www.nextflow.io">Nextflow</a> for “data-driven computational pipelines”</li>
+<li><a href="https://github.com/richfitz/maker"><code>maker</code></a>, “Make-like build management, reimagined for R”</li>
+</ul>
+<p><a href="http://www.oreilly.com/openbook/make3/book/">Managing Projects with GNU Make, Third Edition By Robert Mecklenburg</a> is a fantastic book but, sadly, is very focused on compiling software</p>
+<p><a href="http://dirk.eddelbuettel.com/code/littler.html">littler</a> is an R package maintained by Dirk Eddelbuettel that “provides the <code>r</code> program, a simplified command-line interface for GNU R.”</p>
 </div>
 
 <div class="footer">
