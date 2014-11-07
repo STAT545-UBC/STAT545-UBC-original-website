@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Automation</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Automation</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#test-drive">Test drive</a></li>
+<li><a href="#tab-gotcha">TAB gotcha</a></li>
+<li><a href="#hands-on-activity">Hands-on activity</a></li>
+<li><a href="#resources">Resources</a></li>
+</ul>
+</div>
+
+<p>Running R scripts at arm’s length vs. interactively.</p>
+<p>Using <code>Make</code> to record which files are inputs vs. outputs and how to use scripts and commands to make the outputs from the inputs.</p>
+<p>The intersection of R and <code>Make</code>: running R code snippets, running an entire R script, and rendering an R Markdown document.</p>
+<p>The intersection of RStudio and <code>Make</code>: running the most important <code>Make</code> rules from the Build tab.</p>
+<p>Using <code>Make</code> in the shell.</p>
+<p>Check out the slides!</p>
+<div id="installation" class="section level3">
+<h3>Installation</h3>
+<ul>
+<li>Mac and Linux folks are already set</li>
+<li>Link to page on Windows installation
+<ul>
+<li>installing Make</li>
+<li>issue about Make on PATH</li>
+<li>issue about which shell Make is using</li>
+</ul></li>
+</ul>
+</div>
+<div id="test-drive" class="section level3">
+<h3>Test drive</h3>
+<ul>
+<li>Prove <code>Make</code> is working from the shell and RStudio
+<ul>
+<li>Bring the dummy Makefile forward out of activity with the echo commands</li>
+</ul></li>
+</ul>
+</div>
+<div id="tab-gotcha" class="section level3">
+<h3>TAB gotcha</h3>
+<ul>
+<li>definitive coverage here, link back here from other places</li>
+</ul>
+</div>
+<div id="hands-on-activity" class="section level3">
+<h3>Hands-on activity</h3>
+<ul>
+<li>Separate page
+<ul>
+<li>dependency graph of the pipeline</li>
+<li>new RStudio project and Git repo</li>
+<li>rule to copy and/or download words.txt</li>
+<li>R script to compute table of word lengths</li>
+<li>rule to run word length script</li>
+<li>?create all and clean targets at this point and play with them?</li>
+<li>R snippet to create visual histogram</li>
+<li>rule to create histogram</li>
+<li>update all and clean targets; use them</li>
+<li>R Markdown file to generate a report</li>
+<li>rule to render the Markdown file</li>
+<li>update all and clean targets; use them</li>
+</ul></li>
+</ul>
+</div>
+<div id="resources" class="section level3">
+<h3>Resources</h3>
+<p>links!</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
