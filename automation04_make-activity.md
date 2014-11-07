@@ -1,5 +1,5 @@
 ---
-title: "Automating Data-analysis Pipelines"
+title: "Automating Data analysis Pipelines"
 author: "Shaun Jackman and Jenny Bryan"
 date: "2014-11-03"
 output:
@@ -40,6 +40,12 @@ Configure this RStudio Project to work with `make`. Consult the [`make` test dri
 
 Git folks: commit now.
 
+### Sample Project and Git repository
+
+We walked through this activity ourselves and [this Git repo](https://github.com/STAT545-UBC/make-activity) reflects how our Project evolved.
+
+The Project is set up for use with `make` at [this commit](https://github.com/STAT545-UBC/make-activity/tree/5d282f87ec3fd46d13b500be51a74c9df146d283).
+
 ### Create the Makefile
 
 In Rstudio: *File > New File > Text File.* Save it with the name `Makefile`. Keep adding the rules we write below to this file, saving regularly.
@@ -65,6 +71,8 @@ Suggested workflow:
   * Delete `words.txt`.
   * Put the above rule into your `Makefile`. From the shell, enter `make words.txt` to verify rule works. Reinspect the words file.
   * Git folks: commit `Makefile` and `words.txt`.
+  
+See the sample Project at this point in [this commit](https://github.com/STAT545-UBC/make-activity/tree/c30ecc9c890a2f2261eb94118997f0774012eeb8).
 
 #### Copy the dictionary
 
@@ -91,6 +99,8 @@ Suggested workflow:
   * Delete `words.txt`.
   * Put the above rule into your `Makefile`. From the shell, enter `make words.txt` to verify rule works. Reinspect the words file.
   * Git folks: look at the diff. You should see how your `words.txt` rule has changed and you might also see some differences between the local and remote words files. Interesting! Commit `Makefile` and `words.txt`.
+
+See the sample Project at this point in [this commit](https://github.com/STAT545-UBC/make-activity/tree/1131791548e0c5bbc5104eebb19710ed435146e3).
 
 ### Create rules for all and clean
 
@@ -120,6 +130,8 @@ Suggested workflow:
     - Git folks: does the restoration of `words.txt` cause it to drop off your radar as a changed/deleted file? See how this stuff all works together?
   * Git folks: Commit.
 
+See the sample Project at this point in [this commit](https://github.com/STAT545-UBC/make-activity/tree/9e1a556adc602ffce91b5c8edccd223237080c54).
+
 ### Create a table of word lengths
 
 This rule will read the list of words and generate a table of word length frequency, stored in a tab-separated-values (TSV) file. This R script is a little longer, so we'll put it in its own file, named `histogram.r`. If either the script `histogram.r` or the data file `words.txt` were to change, we'd need to rerun this command to get up-to-date results, so both files are dependencies of this rule. The input-file variable `$<` refers to the *first* dependency, `histogram.r`.
@@ -140,6 +152,8 @@ Suggested workflow:
   * Add the `histogram.tsv` rule to your `Makefile`.
   * Remove `histogram.tsv` and regenerate it via `make histogram.tsv` from the shell.
   * Git folks: Commit.
+  
+See the sample Project at this point in [this commit](https://github.com/STAT545-UBC/make-activity/tree/889e01a3d610e900c7e58ebd32a0506c61543fd9).
 
 ### Update rules for all and clean
 
@@ -161,7 +175,9 @@ Suggested workflow:
     - Does it come back?
     - Git folks: does the restoration of the files cause them to drop off your radar as changed/deleted files?
   * Git folks: Commit.
-  
+
+See the sample Project at this point in [this commit](https://github.com/STAT545-UBC/make-activity/tree/4f392d0e20bb7e4bfcdc00a812190e40e27ae3d4).
+
 ### Plot a histogram of word lengths, update all and clean
 
 This rule will read the table of word lengths and plot a histogram using `ggplot2::qplot()`. The R snippet is three lines long, but we'll still include the script in the `Makefile` directly, and use semicolons `;` to separate the R commands. The variable `$@` refers to the output file, `histogram.png`.
@@ -185,6 +201,8 @@ Suggested workflow:
 
 *NOTE: Why are we writing this PNG to file when, by the end of the activity, we are writing an R Markdown report? We could include this figure-making code in an R chunk there. We're doing it this way to demonstrate more about R and `make` workflows. Plus sometimes we do work this way in real life, if a figure has a life outside one specific R Markdown report.*
 
+See the sample Project at this point in [this commit](https://github.com/STAT545-UBC/make-activity/tree/221c2d66fe9fd7a359835492db6557e258178780).
+
 ### Use `make` to deal with an annoyance
 
 The code used above to create `histogram.png` usually leaves an empty `Rplots.pdf` file behind. You can read [this thread on stackoverflow](http://stackoverflow.com/questions/17348359/how-to-stop-r-from-creating-empty-rplots-pdf-file-when-using-ggsave-and-rscript) if you'd like to know more.
@@ -206,6 +224,8 @@ Suggested workflow:
   * Test that new rule works.
   * Test that behavior of `all` and `clean` still good.
   * Git folks: commit.
+
+See the sample Project at this point in [this commit](https://github.com/STAT545-UBC/make-activity/tree/3b75dac0d0cd8dd7e7cd3c2e66799a65d90b9fff).
 
 ### Render an HTML report
 
@@ -236,6 +256,8 @@ Suggested workflow:
   * Test the new definitions of `all` and `clean`.
   * Git folks: commit.
   
+See the sample Project at this point in [this commit](https://github.com/STAT545-UBC/make-activity/tree/91ebcfc7d25743ebd8d6c9684ed7923ad4758585).
+
 <!-- TO DO: this PDF bit awaiting attention from Shaun -->
  
 <!--
@@ -270,5 +292,7 @@ histogram.png: histogram.tsv
 report.html: report.rmd histogram.tsv histogram.png
 	Rscript -e 'rmarkdown::render("$<")'
 ```
+
+Remember, you can review the entire activity via the commit history of the sample Project: <https://github.com/STAT545-UBC/make-activity>.
 
 And that's how a data analytical pipeline gets built using `make`, the shell, R, RStudio, and optionally Git.

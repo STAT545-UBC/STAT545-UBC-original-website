@@ -12,7 +12,7 @@
 
 <meta name="date" content="2014-11-03" />
 
-<title>Automating Data-analysis Pipelines</title>
+<title>Automating Data analysis Pipelines</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -70,7 +70,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </header>
 
 <div id="header">
-<h1 class="title">Automating Data-analysis Pipelines</h1>
+<h1 class="title">Automating Data analysis Pipelines</h1>
 <h4 class="author"><em>Shaun Jackman and Jenny Bryan</em></h4>
 <h4 class="date"><em>2014-11-03</em></h4>
 </div>
@@ -79,6 +79,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <ul>
 <li><a href="#dependency-graph-of-the-pipeline">Dependency graph of the pipeline</a></li>
 <li><a href="#set-up-a-new-rstudio-project-and-git-repo">Set up a new RStudio Project (and Git repo)</a></li>
+<li><a href="#sample-project-and-git-repository">Sample Project and Git repository</a></li>
 <li><a href="#create-the-makefile">Create the Makefile</a></li>
 <li><a href="#get-the-dictionary-of-words">Get the dictionary of words</a></li>
 <li><a href="#create-rules-for-all-and-clean">Create rules for all and clean</a></li>
@@ -118,6 +119,11 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 <p>Git folks: commit now.</p>
 </div>
+<div id="sample-project-and-git-repository" class="section level3">
+<h3>Sample Project and Git repository</h3>
+<p>We walked through this activity ourselves and <a href="https://github.com/STAT545-UBC/make-activity">this Git repo</a> reflects how our Project evolved.</p>
+<p>The Project is set up for use with <code>make</code> at <a href="https://github.com/STAT545-UBC/make-activity/tree/5d282f87ec3fd46d13b500be51a74c9df146d283">this commit</a>.</p>
+</div>
 <div id="create-the-makefile" class="section level3">
 <h3>Create the Makefile</h3>
 <p>In Rstudio: <em>File &gt; New File &gt; Text File.</em> Save it with the name <code>Makefile</code>. Keep adding the rules we write below to this file, saving regularly.</p>
@@ -139,6 +145,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>Put the above rule into your <code>Makefile</code>. From the shell, enter <code>make words.txt</code> to verify rule works. Reinspect the words file.</li>
 <li>Git folks: commit <code>Makefile</code> and <code>words.txt</code>.</li>
 </ul>
+<p>See the sample Project at this point in <a href="https://github.com/STAT545-UBC/make-activity/tree/c30ecc9c890a2f2261eb94118997f0774012eeb8">this commit</a>.</p>
 </div>
 <div id="copy-the-dictionary" class="section level4">
 <h4>Copy the dictionary</h4>
@@ -158,6 +165,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>Put the above rule into your <code>Makefile</code>. From the shell, enter <code>make words.txt</code> to verify rule works. Reinspect the words file.</li>
 <li>Git folks: look at the diff. You should see how your <code>words.txt</code> rule has changed and you might also see some differences between the local and remote words files. Interesting! Commit <code>Makefile</code> and <code>words.txt</code>.</li>
 </ul>
+<p>See the sample Project at this point in <a href="https://github.com/STAT545-UBC/make-activity/tree/1131791548e0c5bbc5104eebb19710ed435146e3">this commit</a>.</p>
 </div>
 </div>
 <div id="create-rules-for-all-and-clean" class="section level3">
@@ -186,6 +194,7 @@ words.txt: /usr/share/dict/words
 </ul></li>
 <li>Git folks: Commit.</li>
 </ul>
+<p>See the sample Project at this point in <a href="https://github.com/STAT545-UBC/make-activity/tree/9e1a556adc602ffce91b5c8edccd223237080c54">this commit</a>.</p>
 </div>
 <div id="create-a-table-of-word-lengths" class="section level3">
 <h3>Create a table of word lengths</h3>
@@ -202,6 +211,7 @@ words.txt: /usr/share/dict/words
 <li>Remove <code>histogram.tsv</code> and regenerate it via <code>make histogram.tsv</code> from the shell.</li>
 <li>Git folks: Commit.</li>
 </ul>
+<p>See the sample Project at this point in <a href="https://github.com/STAT545-UBC/make-activity/tree/889e01a3d610e900c7e58ebd32a0506c61543fd9">this commit</a>.</p>
 </div>
 <div id="update-rules-for-all-and-clean" class="section level3">
 <h3>Update rules for all and clean</h3>
@@ -224,6 +234,7 @@ clean:
 </ul></li>
 <li>Git folks: Commit.</li>
 </ul>
+<p>See the sample Project at this point in <a href="https://github.com/STAT545-UBC/make-activity/tree/4f392d0e20bb7e4bfcdc00a812190e40e27ae3d4">this commit</a>.</p>
 </div>
 <div id="plot-a-histogram-of-word-lengths-update-all-and-clean" class="section level3">
 <h3>Plot a histogram of word lengths, update all and clean</h3>
@@ -243,6 +254,7 @@ clean:
 <li>Git folks: commit.</li>
 </ul>
 <p><em>NOTE: Why are we writing this PNG to file when, by the end of the activity, we are writing an R Markdown report? We could include this figure-making code in an R chunk there. We’re doing it this way to demonstrate more about R and <code>make</code> workflows. Plus sometimes we do work this way in real life, if a figure has a life outside one specific R Markdown report.</em></p>
+<p>See the sample Project at this point in <a href="https://github.com/STAT545-UBC/make-activity/tree/221c2d66fe9fd7a359835492db6557e258178780">this commit</a>.</p>
 </div>
 <div id="use-make-to-deal-with-an-annoyance" class="section level3">
 <h3>Use <code>make</code> to deal with an annoyance</h3>
@@ -260,6 +272,7 @@ clean:
 <li>Test that behavior of <code>all</code> and <code>clean</code> still good.</li>
 <li>Git folks: commit.</li>
 </ul>
+<p>See the sample Project at this point in <a href="https://github.com/STAT545-UBC/make-activity/tree/3b75dac0d0cd8dd7e7cd3c2e66799a65d90b9fff">this commit</a>.</p>
 </div>
 <div id="render-an-html-report" class="section level3">
 <h3>Render an HTML report</h3>
@@ -281,6 +294,7 @@ clean:
 <li>Test the new definitions of <code>all</code> and <code>clean</code>.</li>
 <li>Git folks: commit.</li>
 </ul>
+<p>See the sample Project at this point in <a href="https://github.com/STAT545-UBC/make-activity/tree/91ebcfc7d25743ebd8d6c9684ed7923ad4758585">this commit</a>.</p>
 <!-- TO DO: this PDF bit awaiting attention from Shaun -->
  
 <!--
@@ -313,6 +327,7 @@ histogram.png: histogram.tsv
 
 report.html: report.rmd histogram.tsv histogram.png
 	Rscript -e &#39;rmarkdown::render(&quot;$&lt;&quot;)&#39;</code></pre>
+<p>Remember, you can review the entire activity via the commit history of the sample Project: <a href="https://github.com/STAT545-UBC/make-activity">https://github.com/STAT545-UBC/make-activity</a>.</p>
 <p>And that’s how a data analytical pipeline gets built using <code>make</code>, the shell, R, RStudio, and optionally Git.</p>
 </div>
 
