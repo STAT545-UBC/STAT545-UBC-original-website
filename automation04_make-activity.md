@@ -9,6 +9,7 @@ output:
     pandoc_args: "--preserve-tabs"
 ---
 
+<!--
 Jenny's proposed re-org and some insertions:
 
   * dependency graph of the pipeline
@@ -23,6 +24,7 @@ Jenny's proposed re-org and some insertions:
   * R Markdown file to generate a report
   * rule to render the Markdown file
   * update all and clean targets; use them
+-->
 
 Automating Data-analysis Pipelines
 ================================================================================
@@ -55,12 +57,13 @@ words.txt:
 	Rscript -e 'cat(file="words.txt", RCurl::getURL("https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt", ssl.verifypeer=FALSE))'
 ```
 
-Troubleshooting
+Troubleshooting: If you see this:
 
+```sh
 RCurl::getURL: GET_SERVER_CERTIFICATE: certificate verify failed
-------------------------------------------------------------
+```
 
-The secure socket layer (SSL) was unable to make a secure `https` connection to the remote web site. A work around is to set the `ssl.verifypeer=FALSE` option of `RCurl::getURL`. There's more discussion of this issue on the [FAQ for RCurl](http://www.omegahat.org/RCurl/FAQ.html).
+The secure socket layer (SSL) was unable to make a secure `https` connection to the remote web site. A work around is to set the `ssl.verifypeer=FALSE` option of `RCurl::getURL`. There's more discussion of this issue on the [FAQ for RCurl](http://www.omegahat.org/RCurl/FAQ.html). This is why our suggested `RCurl` command looks like this:
 
 ```r
 RCurl::getURL(..., ssl.verifypeer=FALSE)'

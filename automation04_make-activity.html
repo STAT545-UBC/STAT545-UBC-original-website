@@ -81,7 +81,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#dependency-graph-of-the-pipeline">Dependency graph of the pipeline</a></li>
 <li><a href="#download-or-copy-the-dictionary">Download or copy the dictionary</a><ul>
 <li><a href="#download-the-dictionary">Download the dictionary</a></li>
-<li><a href="#rcurlgeturl-get_server_certificate-certificate-verify-failed">RCurl::getURL: GET_SERVER_CERTIFICATE: certificate verify failed</a></li>
 <li><a href="#copy-the-dictionary">Copy the dictionary</a></li>
 </ul></li>
 <li><a href="#create-a-table-of-word-lengths">Create a table of word lengths</a></li>
@@ -93,21 +92,23 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 </div>
 
-<p>Jenny’s proposed re-org and some insertions:</p>
-<ul>
-<li>dependency graph of the pipeline</li>
-<li>new RStudio project and Git repo</li>
-<li>rule to copy and/or download words.txt</li>
-<li>R script to compute table of word lengths</li>
-<li>rule to run word length script</li>
-<li>?create all and clean targets at this point and play with them?</li>
-<li>R snippet to create visual histogram</li>
-<li>rule to create histogram</li>
-<li>update all and clean targets; use them</li>
-<li>R Markdown file to generate a report</li>
-<li>rule to render the Markdown file</li>
-<li>update all and clean targets; use them</li>
-</ul>
+<!--
+Jenny's proposed re-org and some insertions:
+
+  * dependency graph of the pipeline
+  * new RStudio project and Git repo
+  * rule to copy and/or download words.txt
+  * R script to compute table of word lengths
+  * rule to run word length script
+  * ?create all and clean targets at this point and play with them?
+  * R snippet to create visual histogram
+  * rule to create histogram
+  * update all and clean targets; use them
+  * R Markdown file to generate a report
+  * rule to render the Markdown file
+  * update all and clean targets; use them
+-->
+
 <div id="automating-data-analysis-pipelines" class="section level1">
 <h1>Automating Data-analysis Pipelines</h1>
 <p>The goal of this activity is to create a pipeline that will</p>
@@ -130,11 +131,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>Our first <code>Makefile</code> rule will download the dictionary <code>words.txt</code>. The command of this rule is a one-line R script, so instead of putting the R script in a separate file, we’ll include the command directly in the Makefile, since it’s so short.</p>
 <pre class="makefile"><code>words.txt:
 	Rscript -e &#39;cat(file=&quot;words.txt&quot;, RCurl::getURL(&quot;https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt&quot;, ssl.verifypeer=FALSE))&#39;</code></pre>
-<p>Troubleshooting</p>
-</div>
-<div id="rcurlgeturl-get_server_certificate-certificate-verify-failed" class="section level2">
-<h2>RCurl::getURL: GET_SERVER_CERTIFICATE: certificate verify failed</h2>
-<p>The secure socket layer (SSL) was unable to make a secure <code>https</code> connection to the remote web site. A work around is to set the <code>ssl.verifypeer=FALSE</code> option of <code>RCurl::getURL</code>. There’s more discussion of this issue on the <a href="http://www.omegahat.org/RCurl/FAQ.html">FAQ for RCurl</a>.</p>
+<p>Troubleshooting: If you see this:</p>
+<pre class="sh"><code>RCurl::getURL: GET_SERVER_CERTIFICATE: certificate verify failed</code></pre>
+<p>The secure socket layer (SSL) was unable to make a secure <code>https</code> connection to the remote web site. A work around is to set the <code>ssl.verifypeer=FALSE</code> option of <code>RCurl::getURL</code>. There’s more discussion of this issue on the <a href="http://www.omegahat.org/RCurl/FAQ.html">FAQ for RCurl</a>. This is why our suggested <code>RCurl</code> command looks like this:</p>
 <pre class="r"><code>RCurl::getURL(..., ssl.verifypeer=FALSE)&#39;</code></pre>
 </div>
 <div id="copy-the-dictionary" class="section level2">
