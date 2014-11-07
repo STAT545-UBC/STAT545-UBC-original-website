@@ -41,6 +41,7 @@ Walk before you run! Prove that `make` is actually installed and that it can be 
     - render an R Markdown document (or R script)
   * The interface between RStudio and `make`
   * How to use `make` from the shell
+  * How Git facilitates the process of building a pipeline
 
 ### Resources
 
@@ -69,5 +70,7 @@ Other, more modern data-oriented alternatives to `make`
   * [`maker`](https://github.com/richfitz/maker), "Make-like build management, reimagined for R"
   
 [Managing Projects with GNU Make, Third Edition By Robert Mecklenburg](http://www.oreilly.com/openbook/make3/book/) is a fantastic book but, sadly, is very focused on compiling software
+
+Rstudio's [website documenting R Markdown](http://rmarkdown.rstudio.com) is generated from [this repo](https://github.com/rstudio/rmarkdown/tree/gh-pages) using [this 20 line Makefile](https://github.com/rstudio/rmarkdown/blob/gh-pages/Makefile), which is sort of amazing. This is why we study regular expressions and follow filename conventions, people!
 
 [littler](http://dirk.eddelbuettel.com/code/littler.html) is an R package maintained by Dirk Eddelbuettel that "provides the `r` program, a simplified command-line interface for GNU R."
