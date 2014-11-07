@@ -11,7 +11,7 @@
 <meta name="author" content="Shaun Jackman, Jenny Bryan" />
 
 
-<title>Automation: Test drive Make</title>
+<title>Automation: Test drive make</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -69,63 +69,90 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </header>
 
 <div id="header">
-<h1 class="title">Automation: Test drive Make</h1>
+<h1 class="title">Automation: Test drive make</h1>
 <h4 class="author"><em>Shaun Jackman, Jenny Bryan</em></h4>
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#configure-rstudio">Configure RStudio</a></li>
-<li><a href="#use-rstudio-to-run-make">Use RStudio to run make</a></li>
-<li><a href="#run-make-from-the-command-line">Run make from the command line</a></li>
+<li><a href="#create-a-temporary-rstudio-project">Create a temporary RStudio Project</a></li>
+<li><a href="#disable-insert-spaces-for-tab">Disable “insert spaces for tab”</a></li>
+<li><a href="#write-a-toy-makefile">Write a toy <code>Makefile</code></a></li>
+<li><a href="#configure-this-rstudio-project-to-use-make">Configure this Rstudio Project to use <code>make</code></a></li>
+<li><a href="#run-make-via-rstudio">Run <code>make</code> via RStudio</a></li>
+<li><a href="#run-make-from-the-shell">Run <code>make</code> from the shell</a></li>
 </ul>
 </div>
 
+<p>Before we use <code>make</code> for real work, we want to prove beyond a shadow of a doubt that it’s installed and findable from RStudio and/or the shell.</p>
+<div id="create-a-temporary-rstudio-project" class="section level3">
+<h3>Create a temporary RStudio Project</h3>
+<p>You can delete this project after this test drive, so don’t sweat too much about what you name it or where you put it.</p>
 <ul>
-<li>Prove <code>Make</code> is working from the shell and RStudio
-<ul>
-<li>Bring the dummy Makefile forward out of activity with the echo commands</li>
-</ul></li>
+<li>Create an RStudio project: <em>File &gt; New Project</em></li>
+<li>Create a new text file: <em>File &gt; New File &gt; Text File</em></li>
+<li>We are about to write our first <code>Makefile</code>!</li>
 </ul>
-<div id="configure-rstudio" class="section level2">
-<h2>Configure RStudio</h2>
+<p>But first …</p>
+</div>
+<div id="disable-insert-spaces-for-tab" class="section level3">
+<h3>Disable “insert spaces for tab”</h3>
+<p>Tabs are very meaningful in <code>Makefiles</code>, so it’s important to make sure your text editor is not “helpfully” but silently converting tabs to spaces.</p>
+<p>Here’s how to disable this in RStudio.</p>
 <ul>
-<li><code>make</code> is rather picky and requires that lines be indented with tabs and not spaces</li>
-<li>Select <em>Tools -&gt; Global Options -&gt; Code Editing</em> and make sure that <em>Insert spaces for tabs</em> is <em>not</em> checked</li>
-<li>If <em>Tools -&gt; Project Options</em> is not greyed out, select <em>Tools -&gt; Project Options -&gt; Code Editing</em> and make sure that <em>Insert spaces for tabs</em> is <em>not</em> checked</li>
+<li>Global setting: <em>Tools &gt; Global Options… &gt; Code editing</em>. Make sure “insert spaces for tab” is <strong>unchecked</strong>.</li>
+<li>Project-specific setting: <em>Tools &gt; Project Options… &gt; Code editing</em>. Make sure “insert spaces for tab” is <strong>unchecked</strong>.</li>
 </ul>
 </div>
-<div id="use-rstudio-to-run-make" class="section level1">
-<h1>Use RStudio to run make</h1>
+<div id="write-a-toy-makefile" class="section level3">
+<h3>Write a toy <code>Makefile</code></h3>
+<p>Type or paste this into your new text file. Make sure the indentation before <code>@echo</code> is always a tab! Save as <code>Makefile</code>:</p>
+<pre class="makefile"><code>all:
+	@echo Build all
+
+clean:
+	@echo Clean all</code></pre>
+</div>
+<div id="configure-this-rstudio-project-to-use-make" class="section level3">
+<h3>Configure this Rstudio Project to use <code>make</code></h3>
+<p>Select <em>Build &gt; Configure Build Tools &gt; Build Tools &gt; Project build tools &gt; Makefile</em>.</p>
+<p>This will make a new tab and buttons and menus available in RStudio, usually in the upper right-hand pane, similar to the Git stuff.</p>
+</div>
+<div id="run-make-via-rstudio" class="section level3">
+<h3>Run <code>make</code> via RStudio</h3>
+<p>Select <em>Build &gt; Build All</em> (the hammer icon).</p>
+<p>The result and any error messages should appear under the <em>Build</em> tab.</p>
+<p>Hopefully you will see this:</p>
+<pre class="sh"><code>Build all</code></pre>
+<p>If you see something like this:</p>
+<pre class="sh"><code>Makefile:2: *** missing separator.  Stop.</code></pre>
+<p>you probably have spaces instead of tabs as indentation. Fix that and try again.</p>
+<p>RStudio offers these buttons or menu items to run things from your <code>Makefile</code>:</p>
 <ul>
-<li>Create an RStudio project: <em>File -&gt; New Project</em></li>
-<li>Create a new text file: <em>File -&gt; New File -&gt; Text File</em></li>
-<li><p>Start editing your first <code>Makefile</code>! ```makefile all: <span class="citation">@echo</span> Build all</p>
-clean: <span class="citation">@echo</span> Clean all ```</li>
-<li>Save it, and name it <code>Makefile</code></li>
-<li>Select <em>Build -&gt; Configure Build Tools -&gt; Build Tools -&gt; Project build tools -&gt; Makefile</em></li>
-<li>Select <em>Build -&gt; Build All</em></li>
-<li><p>The result and any error messages will appear under the <em>Build</em> tab, usually found in the top-right corner of RStudio</p></li>
-</ul>
-<div id="build-menu-items" class="section level3">
-<h3><em>Build</em> menu items</h3>
-<ul>
-<li><em>Build All</em> runs <code>make all</code></li>
-<li><em>Clean and Rebuild</em> runs <code>make clean all</code></li>
+<li><em>Build All</em> runs <code>make all</code>, as we just saw</li>
 <li><em>Clean All</em> runs <code>make clean</code></li>
+<li><em>Clean and Rebuild</em> runs <code>make clean all</code></li>
 </ul>
-<p>For these menu items to work your <code>Makefile</code> needs to have targets named <code>all</code> and <code>clean</code>. These non-file targets are called phony targets.</p>
+<p>For these menu items to work, your <code>Makefile</code> needs to have targets named <code>all</code> and <code>clean</code>. These non-file targets are called phony targets.</p>
+<p>You should be able to select <em>Build &gt; More &gt; Clean All</em> and get this:</p>
+<pre class="sh"><code>Clean all</code></pre>
+<p>You should be able to select <em>Build &gt; More &gt; Clean and Rebuild</em> and get this:</p>
+<pre class="sh"><code>Clean all
+Build all</code></pre>
+<p>This proves that <code>make</code> is installed and working from RStudio.</p>
 </div>
-</div>
-<div id="run-make-from-the-command-line" class="section level1">
-<h1>Run make from the command line</h1>
+<div id="run-make-from-the-shell" class="section level3">
+<h3>Run <code>make</code> from the shell</h3>
+<p>RStudio only provides access to a very limited bit of <code>make</code> – it’s even more limited than the RStudio Git client. In the long run, it’s important to be able to run <code>make</code> from the shell.</p>
 <ul>
-<li>Select <em>Tools -&gt; Shell</em></li>
+<li>Select <em>Tools &gt; Shell</em></li>
 <li><p>Run</p>
 <pre class="sh"><code>make clean
 make all
 make clean all</code></pre></li>
 </ul>
+<p>You should be seeing similar output as you saw in the Build tab of RStudio.</p>
+<p>If you are not, are you getting the error message that’s characteristic of a “spaces instead of tabs” problem? Or does it look more like <code>make</code> or other commands aren’t being found? If the latter, go back to the <a href="automation02_windows.html">Windows installation page</a> or reach out to the course staff.</p>
 </div>
 
 <div class="footer">
