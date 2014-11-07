@@ -83,6 +83,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#get-the-dictionary-of-words">Get the dictionary of words</a></li>
 <li><a href="#create-rules-for-all-and-clean">Create rules for all and clean</a></li>
 <li><a href="#create-a-table-of-word-lengths">Create a table of word lengths</a></li>
+<li><a href="#update-rules-for-all-and-clean">Update rules for all and clean</a></li>
 <li><a href="#plot-a-histogram-of-word-lengths">Plot a histogram of word lengths</a></li>
 <li><a href="#render-a-html-report">Render a HTML report</a></li>
 <li><a href="#render-a-pdf-report">Render a PDF report</a></li>
@@ -96,15 +97,13 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><del>dependency graph of the pipeline</del></li>
 <li><del>new RStudio project and Git repo</del></li>
 <li><del>rule to copy and/or download words.txt</del></li>
-<li>R script to compute table of word lengths</li>
-<li>rule to run word length script</li>
-<li>?create all and clean targets at this point and play with them?</li>
+<li><del>create all and clean targets at this point and play with them</del></li>
+<li><del>R script to compute table of word lengths</del></li>
+<li><del>rule to run word length script</del></li>
 <li>R snippet to create visual histogram</li>
 <li>rule to create histogram</li>
-<li>update all and clean targets; use them</li>
 <li>R Markdown file to generate a report</li>
 <li>rule to render the Markdown file</li>
-<li>update all and clean targets; use them</li>
 </ul>
 <p>The goal of this activity is to create a pipeline that will</p>
 <ul>
@@ -117,7 +116,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>You will automate this pipeline using <code>make</code>!</p>
 <div id="dependency-graph-of-the-pipeline" class="section level3">
 <h3>Dependency graph of the pipeline</h3>
-<!-- TO DO: remake the figure to say words.txt not words.tsv -->
+<!-- TO DO: remake the figure to say words.txt not words.tsv and the new words downloading strategy -->
 
 <p><a href="automation01_slides/images/activity.gv"><img src="automation01_slides/images/activity.png" alt="automation01_slides/images/activity.png" /></a></p>
 </div>
@@ -202,12 +201,43 @@ words.txt: /usr/share/dict/words
 <li>Git folks: Commit.</li>
 </ul>
 </div>
-<div id="create-a-table-of-word-lengths" class="section level1">
-<h1>Create a table of word lengths</h1>
+<div id="create-a-table-of-word-lengths" class="section level3">
+<h3>Create a table of word lengths</h3>
 <p>This rule will read the list of words and generate a table of word length frequency, stored in a tab-separated-values (TSV) file. This R script is a little longer, so we’ll put it in its own file, named <code>histogram.r</code>. If either the script <code>histogram.r</code> or the data file <code>words.txt</code> were to change, we’d need to rerun this command to get up-to-date results, so both files are dependencies of this rule. The input-file variable <code>$&lt;</code> refers to the <em>first</em> dependency, <code>histogram.r</code>.</p>
 <pre class="makefile"><code>histogram.tsv: histogram.r words.txt
 	Rscript $&lt;</code></pre>
+<p>FYI: <code>Rscript</code> allows you to execute R scripts from the shell. It is a more modern replacement for <code>R CMD BATCH</code> (don’t worry if you’ve never heard of that).</p>
 <p>Create the R script <code>histogram.r</code> that reads the list of words from <code>words.txt</code> and writes the table of word length frequency to <code>histogram.tsv</code>. It should be a tab-delimited TSV file with a header and two columns, named <code>Length</code> and <code>Freq</code>. Hint: you can accomplish this task using four functions: <code>readLines</code>, <code>nchar</code>, <code>table</code> and <code>write.table</code>. Here’s <a href="https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/automation10_holding-area/activity/histogram.r">one solution</a>, but try not to peek until you’ve attempted this task yourself.</p>
+<p>Suggested workflow:</p>
+<ul>
+<li>Develop your <code>histogram.r</code> script interactively. Make sure it works when you step through it line-by-line. Debugging only gets harder once you’re running entire scripts at arm’s length via <code>make</code>!</li>
+<li>Remove <code>histogram.tsv</code>. Clean out the workspace and restart R. Run <code>histogram.r</code> via <code>source()</code> or using RStudio’s Source button. Make sure it works!</li>
+<li>Add the <code>histogram.tsv</code> rule to your <code>Makefile</code>.</li>
+<li>Remove <code>histogram.tsv</code> and regenerate it via <code>make histogram.tsv</code> from the shell.</li>
+<li>Git folks: Commit.</li>
+</ul>
+</div>
+<div id="update-rules-for-all-and-clean" class="section level3">
+<h3>Update rules for all and clean</h3>
+<p>The new output <code>histogram.tsv</code> can replace <code>words.txt</code> as our most definitive output. So it will go in the <code>all</code> rule. Likewise, we should add <code>histogram.tsv</code> to the <code>clean</code> rule. Edit your <code>all</code> and <code>clean</code> rules to look like this:</p>
+<pre class="makefile"><code>all: histogram.tsv
+
+clean:
+	rm -f words.txt histogram.tsv</code></pre>
+<p>Suggested workflow:</p>
+<ul>
+<li>Use <code>make clean</code> from the shell and/or <em>RStudio &gt; Build &gt; More &gt; Clean All</em>.
+<ul>
+<li>Do <code>words.txt</code> and <code>histogram.tsv</code> go away?</li>
+<li>Git folks: does the deletion of these files show up in your Git tab?</li>
+</ul></li>
+<li>Use <code>make all</code> from the shell and/or <em>RStudio &gt; Build &gt; Build All</em> to get <code>words.txt</code> back.
+<ul>
+<li>Does it come back?</li>
+<li>Git folks: does the restoration of the files cause them to drop off your radar as changed/deleted files?</li>
+</ul></li>
+<li>Git folks: Commit.</li>
+</ul>
 </div>
 <div id="plot-a-histogram-of-word-lengths" class="section level1">
 <h1>Plot a histogram of word lengths</h1>

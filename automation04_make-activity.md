@@ -14,15 +14,13 @@ Jenny's proposed re-org and some insertions:
   * ~~dependency graph of the pipeline~~
   * ~~new RStudio project and Git repo~~
   * ~~rule to copy and/or download words.txt~~
-  * R script to compute table of word lengths
-  * rule to run word length script
-  * ?create all and clean targets at this point and play with them?
+  * ~~create all and clean targets at this point and play with them~~
+  * ~~R script to compute table of word lengths~~
+  * ~~rule to run word length script~~
   * R snippet to create visual histogram
   * rule to create histogram
-  * update all and clean targets; use them
   * R Markdown file to generate a report
   * rule to render the Markdown file
-  * update all and clean targets; use them
 
 The goal of this activity is to create a pipeline that will
 
@@ -36,7 +34,7 @@ You will automate this pipeline using `make`!
 
 ### Dependency graph of the pipeline
 
-<!-- TO DO: remake the figure to say words.txt not words.tsv -->
+<!-- TO DO: remake the figure to say words.txt not words.tsv and the new words downloading strategy -->
 
 [![automation01_slides/images/activity.png](automation01_slides/images/activity.png)](automation01_slides/images/activity.gv)
 
@@ -135,8 +133,7 @@ Suggested workflow:
     - Git folks: does the restoration of `words.txt` cause it to drop off your radar as a changed/deleted file? See how this stuff all works together?
   * Git folks: Commit.
 
-Create a table of word lengths
-================================================================================
+### Create a table of word lengths
 
 This rule will read the list of words and generate a table of word length frequency, stored in a tab-separated-values (TSV) file. This R script is a little longer, so we'll put it in its own file, named `histogram.r`. If either the script `histogram.r` or the data file `words.txt` were to change, we'd need to rerun this command to get up-to-date results, so both files are dependencies of this rule. The input-file variable `$<` refers to the *first* dependency, `histogram.r`.
 
@@ -145,8 +142,39 @@ histogram.tsv: histogram.r words.txt
 	Rscript $<
 ```
 
+FYI: `Rscript` allows you to execute R scripts from the shell. It is a more modern replacement for `R CMD BATCH` (don't worry if you've never heard of that).
+
 Create the R script `histogram.r` that reads the list of words from `words.txt` and writes the table of word length frequency to `histogram.tsv`. It should be a tab-delimited TSV file with a header and two columns, named `Length` and `Freq`. Hint: you can accomplish this task using four functions: `readLines`, `nchar`, `table` and `write.table`. Here's [one solution](https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/automation10_holding-area/activity/histogram.r), but try not to peek until you've attempted this task yourself.
 
+Suggested workflow:
+
+  * Develop your `histogram.r` script interactively. Make sure it works when you step through it line-by-line. Debugging only gets harder once you're running entire scripts at arm's length via `make`!
+  * Remove `histogram.tsv`. Clean out the workspace and restart R. Run `histogram.r` via `source()` or using RStudio's Source button. Make sure it works!
+  * Add the `histogram.tsv` rule to your `Makefile`.
+  * Remove `histogram.tsv` and regenerate it via `make histogram.tsv` from the shell.
+  * Git folks: Commit.
+
+### Update rules for all and clean
+
+The new output `histogram.tsv` can replace `words.txt` as our most definitive output. So it will go in the `all` rule. Likewise, we should add `histogram.tsv` to the `clean` rule. Edit your `all` and `clean` rules to look like this:
+
+```makefile
+all: histogram.tsv
+
+clean:
+	rm -f words.txt histogram.tsv
+```
+
+Suggested workflow:
+
+  * Use `make clean` from the shell and/or *RStudio > Build > More > Clean All*.
+    - Do `words.txt` and `histogram.tsv` go away?
+    - Git folks: does the deletion of these files show up in your Git tab?
+  * Use `make all` from the shell and/or *RStudio > Build > Build All* to get `words.txt` back.
+    - Does it come back?
+    - Git folks: does the restoration of the files cause them to drop off your radar as changed/deleted files?
+  * Git folks: Commit.
+  
 Plot a histogram of word lengths
 ================================================================================
 
