@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
-<meta name="author" content="Shaun Jackman" />
+<meta name="author" content="Shaun Jackman and Jenny Bryan" />
 
 <meta name="date" content="2014-11-03" />
 
@@ -71,18 +71,16 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="header">
 <h1 class="title">Automating Data-analysis Pipelines</h1>
-<h4 class="author"><em>Shaun Jackman</em></h4>
+<h4 class="author"><em>Shaun Jackman and Jenny Bryan</em></h4>
 <h4 class="date"><em>2014-11-03</em></h4>
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#automating-data-analysis-pipelines">Automating Data-analysis Pipelines</a></li>
 <li><a href="#dependency-graph-of-the-pipeline">Dependency graph of the pipeline</a></li>
-<li><a href="#download-or-copy-the-dictionary">Download or copy the dictionary</a><ul>
-<li><a href="#download-the-dictionary">Download the dictionary</a></li>
-<li><a href="#copy-the-dictionary">Copy the dictionary</a></li>
-</ul></li>
+<li><a href="#set-up-a-new-rstudio-project-and-git-repo">Set up a new RStudio Project (and Git repo)</a></li>
+<li><a href="#create-the-makefile">Create the Makefile</a></li>
+<li><a href="#get-the-dictionary-of-words">Get the dictionary of words</a></li>
 <li><a href="#create-a-table-of-word-lengths">Create a table of word lengths</a></li>
 <li><a href="#plot-a-histogram-of-word-lengths">Plot a histogram of word lengths</a></li>
 <li><a href="#render-a-html-report">Render a HTML report</a></li>
@@ -92,58 +90,88 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 </div>
 
-<!--
-Jenny's proposed re-org and some insertions:
-
-  * dependency graph of the pipeline
-  * new RStudio project and Git repo
-  * rule to copy and/or download words.txt
-  * R script to compute table of word lengths
-  * rule to run word length script
-  * ?create all and clean targets at this point and play with them?
-  * R snippet to create visual histogram
-  * rule to create histogram
-  * update all and clean targets; use them
-  * R Markdown file to generate a report
-  * rule to render the Markdown file
-  * update all and clean targets; use them
--->
-
-<div id="automating-data-analysis-pipelines" class="section level1">
-<h1>Automating Data-analysis Pipelines</h1>
+<p>Jenny’s proposed re-org and some insertions:</p>
+<ul>
+<li><del>dependency graph of the pipeline</del></li>
+<li><del>new RStudio project and Git repo</del></li>
+<li><del>rule to copy and/or download words.txt</del></li>
+<li>R script to compute table of word lengths</li>
+<li>rule to run word length script</li>
+<li>?create all and clean targets at this point and play with them?</li>
+<li>R snippet to create visual histogram</li>
+<li>rule to create histogram</li>
+<li>update all and clean targets; use them</li>
+<li>R Markdown file to generate a report</li>
+<li>rule to render the Markdown file</li>
+<li>update all and clean targets; use them</li>
+</ul>
 <p>The goal of this activity is to create a pipeline that will</p>
 <ul>
-<li>calculate a histogram of English word lengths</li>
+<li>obtain a large file of English words</li>
+<li>calculate a histogram of word lengths</li>
 <li>determine the most common word length</li>
 <li>generate a figure of this histogram</li>
 <li>render a RMarkdown report in HTML and PDF</li>
 </ul>
 <p>You will automate this pipeline using <code>make</code>!</p>
-</div>
-<div id="dependency-graph-of-the-pipeline" class="section level1">
-<h1>Dependency graph of the pipeline</h1>
+<div id="dependency-graph-of-the-pipeline" class="section level3">
+<h3>Dependency graph of the pipeline</h3>
+<!-- TO DO: remake the figure to say words.txt not words.tsv -->
+
 <p><a href="automation01_slides/images/activity.gv"><img src="automation01_slides/images/activity.png" alt="automation01_slides/images/activity.png" /></a></p>
 </div>
-<div id="download-or-copy-the-dictionary" class="section level1">
-<h1>Download or copy the dictionary</h1>
-<div id="download-the-dictionary" class="section level2">
-<h2>Download the dictionary</h2>
-<p>Our first <code>Makefile</code> rule will download the dictionary <code>words.txt</code>. The command of this rule is a one-line R script, so instead of putting the R script in a separate file, we’ll include the command directly in the Makefile, since it’s so short.</p>
-<pre class="makefile"><code>words.txt:
-	Rscript -e &#39;cat(file=&quot;words.txt&quot;, RCurl::getURL(&quot;https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt&quot;, ssl.verifypeer=FALSE))&#39;</code></pre>
-<p>Troubleshooting: If you see this:</p>
-<pre class="sh"><code>RCurl::getURL: GET_SERVER_CERTIFICATE: certificate verify failed</code></pre>
-<p>The secure socket layer (SSL) was unable to make a secure <code>https</code> connection to the remote web site. A work around is to set the <code>ssl.verifypeer=FALSE</code> option of <code>RCurl::getURL</code>. There’s more discussion of this issue on the <a href="http://www.omegahat.org/RCurl/FAQ.html">FAQ for RCurl</a>. This is why our suggested <code>RCurl</code> command looks like this:</p>
-<pre class="r"><code>RCurl::getURL(..., ssl.verifypeer=FALSE)&#39;</code></pre>
+<div id="set-up-a-new-rstudio-project-and-git-repo" class="section level3">
+<h3>Set up a new RStudio Project (and Git repo)</h3>
+<p>In Rstudio: <em>File &gt; New Project &gt; New Directory &gt; Empty Project.</em> If you’re a Git user, we strongly encourage you to click on “Create a git repository.”</p>
+<p>This project will be useful as a reference in the future, so give it an informative name and location. If you’re a GitHub user, you may want to push it there as well.</p>
+<p>Git(Hub) users: from here on out, we assume you will be commiting at regular intervals. At key points, we explicitly prompt you to commit.</p>
+<p>Configure this RStudio Project to work with <code>make</code>. Consult the <a href="automation03_make-test-drive.html"><code>make</code> test drive</a> for details:</p>
+<ul>
+<li>make sure tabs are NOT replaced with spaces</li>
+<li>set Project Build Tools to <code>Makefile</code></li>
+</ul>
+<p>Git folks: commit now.</p>
 </div>
-<div id="copy-the-dictionary" class="section level2">
-<h2>Copy the dictionary</h2>
-<p>On Mac or Linux systems, rather than download the dictionary, we can simply copy the file <code>/usr/share/dict/words</code> that comes with the operating system. Windows machines do not have <code>/usr/share/dict/words</code>, and so there we’ll have to download the dictionary.</p>
+<div id="create-the-makefile" class="section level3">
+<h3>Create the Makefile</h3>
+<p>In Rstudio: <em>File &gt; New File &gt; Text File.</em> Save it with the name <code>Makefile</code>. Keep adding the rules we write below to this file, saving regularly.</p>
+</div>
+<div id="get-the-dictionary-of-words" class="section level3">
+<h3>Get the dictionary of words</h3>
+<p>Depending on your OS and mood, you can get the file of English words by copying a local file or downloading from the internet.</p>
+<div id="download-the-dictionary" class="section level4">
+<h4>Download the dictionary</h4>
+<p>Our first <code>Makefile</code> rule will download the dictionary <code>words.txt</code>. The command of this rule is a one-line R script, so instead of putting the R script in a separate file, we’ll include the command directly in the Makefile, since it’s so short. <em>Sure, we could download a file without using R at all but humor us: this is a tutorial about <code>make</code> and R!</em></p>
+<pre class="makefile"><code>words.txt:
+	Rscript -e &#39;download.file(&quot;http://svnweb.freebsd.org/base/head/share/dict/web2?view=co&quot;, destfile = &quot;words.txt&quot;, quiet = TRUE)&#39;</code></pre>
+<p>Suggested workflow:</p>
+<ul>
+<li>Git folks: commit anything new/modified. Start with a clean working tree.</li>
+<li>Submit the above <code>download.file()</code> command in the R Console to make sure it works.</li>
+<li>Inspect the downloaded words file any way you know how; make sure it’s not garbage. Size should be about 2.4MB.</li>
+<li>Delete <code>words.txt</code>.</li>
+<li>Put the above rule into your <code>Makefile</code>. From the shell, enter <code>make words.txt</code> to verify rule works. Reinspect the words file.</li>
+<li>Git folks: commit <code>Makefile</code> and <code>words.txt</code>.</li>
+</ul>
+</div>
+<div id="copy-the-dictionary" class="section level4">
+<h4>Copy the dictionary</h4>
+<p>On Mac or Linux systems, rather than download the dictionary, we can simply copy the file <code>/usr/share/dict/words</code> that comes with the operating system. In this alternative rule, we use the shell command <code>cp</code> to copy the file.</p>
 <pre class="makefile"><code>words.txt: /usr/share/dict/words
 	cp /usr/share/dict/words words.txt</code></pre>
-<p>This rule copies the input file <code>/usr/share/dict/words</code> to create the output file <code>words.txt</code>. We then repeat these file names in the command rule, which seems rather redundant. We can use the oddly-named variables <code>$&lt;</code> and <code>$@</code>, which represent the input file and output file respectively to save us from this redundancy.</p>
+<p>This rule copies the input file <code>/usr/share/dict/words</code> to create the output file <code>words.txt</code>. We then repeat these file names in the command rule, which is redundant and leaves us vulnerable to typos. <code>make</code> offers many automatic variables, so the revised rule below uses <code>$&lt;</code> and <code>$@</code> to represent the input file and output file, respectively.</p>
 <pre class="makefile"><code>words.txt: /usr/share/dict/words
 	cp $&lt; $@</code></pre>
+<p>Suggested workflow:</p>
+<ul>
+<li>Git folks: commit anything new/modified. Start with a clean working tree.</li>
+<li>Remove <code>words.txt</code> if you succeeded with the download approach.</li>
+<li>Submit the above <code>cp</code> command in the shell to make sure it works.</li>
+<li>Inspect the copied words file any way you know how; make sure it’s not garbage. Size should be about 2.4MB.</li>
+<li>Delete <code>words.txt</code>.</li>
+<li>Put the above rule into your <code>Makefile</code>. From the shell, enter <code>make words.txt</code> to verify rule works. Reinspect the words file.</li>
+<li>Git folks: look at the diff. You should see how your <code>words.txt</code> rule has changed and you might also see some differences between the local and remote words files. Interesting! Commit <code>Makefile</code> and <code>words.txt</code>.</li>
+</ul>
 </div>
 </div>
 <div id="create-a-table-of-word-lengths" class="section level1">

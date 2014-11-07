@@ -1,20 +1,19 @@
 ---
 title: "Automating Data-analysis Pipelines"
-author: "Shaun Jackman"
+author: "Shaun Jackman and Jenny Bryan"
 date: "2014-11-03"
 output:
   html_document:
     toc: true
-    toc_depth: 2
+    toc_depth: 3
     pandoc_args: "--preserve-tabs"
 ---
 
-<!--
 Jenny's proposed re-org and some insertions:
 
-  * dependency graph of the pipeline
-  * new RStudio project and Git repo
-  * rule to copy and/or download words.txt
+  * ~~dependency graph of the pipeline~~
+  * ~~new RStudio project and Git repo~~
+  * ~~rule to copy and/or download words.txt~~
   * R script to compute table of word lengths
   * rule to run word length script
   * ?create all and clean targets at this point and play with them?
@@ -24,67 +23,89 @@ Jenny's proposed re-org and some insertions:
   * R Markdown file to generate a report
   * rule to render the Markdown file
   * update all and clean targets; use them
--->
-
-Automating Data-analysis Pipelines
-================================================================================
 
 The goal of this activity is to create a pipeline that will
 
-+ calculate a histogram of English word lengths
-+ determine the most common word length
-+ generate a figure of this histogram
-+ render a RMarkdown report in HTML and PDF
+  + obtain a large file of English words
+  + calculate a histogram of word lengths
+  + determine the most common word length
+  + generate a figure of this histogram
+  + render a RMarkdown report in HTML and PDF
 
 You will automate this pipeline using `make`!
 
-Dependency graph of the pipeline
-================================================================================
+### Dependency graph of the pipeline
+
+<!-- TO DO: remake the figure to say words.txt not words.tsv -->
 
 [![automation01_slides/images/activity.png](automation01_slides/images/activity.png)](automation01_slides/images/activity.gv)
 
+### Set up a new RStudio Project (and Git repo)
 
-Download or copy the dictionary
-================================================================================
+In Rstudio: *File > New Project > New Directory > Empty Project.* If you're a Git user, we strongly encourage you to click on "Create a git repository."
 
-Download the dictionary
-------------------------------------------------------------
+This project will be useful as a reference in the future, so give it an informative name and location. If you're a GitHub user, you may want to push it there as well.
 
-Our first `Makefile` rule will download the dictionary `words.txt`. The command of this rule is a one-line R script, so instead of putting the R script in a separate file, we'll include the command directly in the Makefile, since it's so short.
+Git(Hub) users: from here on out, we assume you will be commiting at regular intervals. At key points, we explicitly prompt you to commit.
+
+Configure this RStudio Project to work with `make`. Consult the [`make` test drive](automation03_make-test-drive.html) for details:
+
+  * make sure tabs are NOT replaced with spaces
+  * set Project Build Tools to `Makefile`
+
+Git folks: commit now.
+
+### Create the Makefile
+
+In Rstudio: *File > New File > Text File.* Save it with the name `Makefile`. Keep adding the rules we write below to this file, saving regularly.
+
+### Get the dictionary of words
+
+Depending on your OS and mood, you can get the file of English words by copying a local file or downloading from the internet.
+
+#### Download the dictionary
+
+Our first `Makefile` rule will download the dictionary `words.txt`. The command of this rule is a one-line R script, so instead of putting the R script in a separate file, we'll include the command directly in the Makefile, since it's so short. *Sure, we could download a file without using R at all but humor us: this is a tutorial about `make` and R!*
 
 ```makefile
 words.txt:
-	Rscript -e 'cat(file="words.txt", RCurl::getURL("https://raw.githubusercontent.com/eneko/data-repository/master/data/words.txt", ssl.verifypeer=FALSE))'
+	Rscript -e 'download.file("http://svnweb.freebsd.org/base/head/share/dict/web2?view=co", destfile = "words.txt", quiet = TRUE)'
 ```
 
-Troubleshooting: If you see this:
+Suggested workflow:
 
-```sh
-RCurl::getURL: GET_SERVER_CERTIFICATE: certificate verify failed
-```
+  * Git folks: commit anything new/modified. Start with a clean working tree.
+  * Submit the above `download.file()` command in the R Console to make sure it works.
+  * Inspect the downloaded words file any way you know how; make sure it's not garbage. Size should be about 2.4MB.
+  * Delete `words.txt`.
+  * Put the above rule into your `Makefile`. From the shell, enter `make words.txt` to verify rule works. Reinspect the words file.
+  * Git folks: commit `Makefile` and `words.txt`.
 
-The secure socket layer (SSL) was unable to make a secure `https` connection to the remote web site. A work around is to set the `ssl.verifypeer=FALSE` option of `RCurl::getURL`. There's more discussion of this issue on the [FAQ for RCurl](http://www.omegahat.org/RCurl/FAQ.html). This is why our suggested `RCurl` command looks like this:
+#### Copy the dictionary
 
-```r
-RCurl::getURL(..., ssl.verifypeer=FALSE)'
-```
-
-Copy the dictionary
-------------------------------------------------------------
-
-On Mac or Linux systems, rather than download the dictionary, we can simply copy the file `/usr/share/dict/words` that comes with the operating system. Windows machines do not have `/usr/share/dict/words`, and so there we'll have to download the dictionary. 
+On Mac or Linux systems, rather than download the dictionary, we can simply copy the file `/usr/share/dict/words` that comes with the operating system. In this alternative rule, we use the shell command `cp` to copy the file.
 
 ```makefile
 words.txt: /usr/share/dict/words
 	cp /usr/share/dict/words words.txt
 ```
 
-This rule copies the input file `/usr/share/dict/words` to create the output file `words.txt`. We then repeat these file names in the command rule, which seems rather redundant. We can use the oddly-named variables `$<` and `$@`, which represent the input file and output file respectively to save us from this redundancy.
+This rule copies the input file `/usr/share/dict/words` to create the output file `words.txt`. We then repeat these file names in the command rule, which is redundant and leaves us vulnerable to typos. `make` offers many automatic variables, so the revised rule below uses `$<` and `$@` to represent the input file and output file, respectively.
 
 ```makefile
 words.txt: /usr/share/dict/words
 	cp $< $@
 ```
+
+Suggested workflow:
+
+  * Git folks: commit anything new/modified. Start with a clean working tree.
+  * Remove `words.txt` if you succeeded with the download approach.
+  * Submit the above `cp` command in the shell to make sure it works.
+  * Inspect the copied words file any way you know how; make sure it's not garbage. Size should be about 2.4MB.
+  * Delete `words.txt`.
+  * Put the above rule into your `Makefile`. From the shell, enter `make words.txt` to verify rule works. Reinspect the words file.
+  * Git folks: look at the diff. You should see how your `words.txt` rule has changed and you might also see some differences between the local and remote words files. Interesting! Commit `Makefile` and `words.txt`.
 
 Create a table of word lengths
 ================================================================================
