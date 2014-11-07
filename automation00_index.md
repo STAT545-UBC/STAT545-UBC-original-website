@@ -26,20 +26,6 @@ Why and how we automate data analyses + examples.
 
 Walk before you run! Prove that `make` is actually installed and that it can be found and executed from the shell and from RStudio. It is also important to tell RStudio to NOT substitute spaces for tabs when editing a `Makefile` (applies to any text editor).
 
-### Tab gotcha
-
-`make` is rather picky and __requires that lines be indented with tabs and not spaces__. In the [test drive](automation03_make-test-drive.html), we explained how to set a global RStudio preference to NOT replace tabs with spaces. Below in the hands-on activity, we explain how to incorporate this request into the settings for a specific RStudio Project. When in doubt, double check that both settings are correct.
-
-Please pause here and let this truly sink in: __When writing a Makefile, it is very important to indent with tabs.__
-
-If you have indentation with spaces instead of tab, here's the type of error you might see:
-
-```sh
-Error: `makefile:2: *** missing separator. Stop.`
-```
-
-RStudio can show you more information about the whitespace in a file: *RStudio > Preferences... > Code editing > Show whitespace characters*. When in doubt, make darn sure your `Makefile` is indented with tabs and not spaces.
-
 ### Hands-on activity
 
 [This fully developed example](automation04_make-activity.html) shows you

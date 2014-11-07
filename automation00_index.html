@@ -76,7 +76,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#overview">Overview</a></li>
 <li><a href="#install-make">Install <code>make</code></a></li>
 <li><a href="#test-drive-make-and-rstudio">Test drive <code>make</code> and RStudio</a></li>
-<li><a href="#tab-gotcha">Tab gotcha</a></li>
 <li><a href="#hands-on-activity">Hands-on activity</a></li>
 <li><a href="#resources">Resources</a></li>
 </ul>
@@ -97,14 +96,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h3>Test drive <code>make</code> and RStudio</h3>
 <p><a href="automation03_make-test-drive.html">Test drive of <code>make</code></a>.</p>
 <p>Walk before you run! Prove that <code>make</code> is actually installed and that it can be found and executed from the shell and from RStudio. It is also important to tell RStudio to NOT substitute spaces for tabs when editing a <code>Makefile</code> (applies to any text editor).</p>
-</div>
-<div id="tab-gotcha" class="section level3">
-<h3>Tab gotcha</h3>
-<p><code>make</code> is rather picky and <strong>requires that lines be indented with tabs and not spaces</strong>. In the <a href="automation03_make-test-drive.html">test drive</a>, we explained how to set a global RStudio preference to NOT replace tabs with spaces. Below in the hands-on activity, we explain how to incorporate this request into the settings for a specific RStudio Project. When in doubt, double check that both settings are correct.</p>
-<p>Please pause here and let this truly sink in: <strong>When writing a Makefile, it is very important to indent with tabs.</strong></p>
-<p>If you have indentation with spaces instead of tab, here’s the type of error you might see:</p>
-<pre class="sh"><code>Error: `makefile:2: *** missing separator. Stop.`</code></pre>
-<p>RStudio can show you more information about the whitespace in a file: <em>RStudio &gt; Preferences… &gt; Code editing &gt; Show whitespace characters</em>. When in doubt, make darn sure your <code>Makefile</code> is indented with tabs and not spaces.</p>
 </div>
 <div id="hands-on-activity" class="section level3">
 <h3>Hands-on activity</h3>
