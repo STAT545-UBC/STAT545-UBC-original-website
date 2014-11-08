@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Bernhard Konrad" />
+
+<meta name="date" content="2014-11-10" />
+
+<title>Write your own R package</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Write your own R package</h1>
+<h4 class="author"><em>Bernhard Konrad</em></h4>
+<h4 class="date"><em>2014-11-10</em></h4>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#write-your-own-r-package">Write your own R package</a></li>
+<li><a href="#getting-started">Getting Started</a></li>
+</ul>
+</div>
+
+<div id="write-your-own-r-package" class="section level1">
+<h1>Write your own R package</h1>
+<p>This is a step-by-step instruction on how to create your first R package.</p>
+<ul>
+<li>This will be much easier than you think</li>
+<li>Bundle helper functions for your other projects</li>
+<li>Share your code</li>
+<li>Add (some) documentation and examples</li>
+<li>Add tests</li>
+</ul>
+</div>
+<div id="getting-started" class="section level1">
+<h1>Getting Started</h1>
+<p>In this tutorial we will develop a package that provides the function <code>gameday</code>. This function takes one argument <code>teamname</code>, the name of your favorite <a href="http://www.nhl.com/">NHL</a> team, and returns <code>TRUE</code> if this team has a game today, and <code>FALSE</code> otherwise. The function will actually be a one-liner because we can read this information from the web.</p>
+<div id="packages-that-you-will-need" class="section level3">
+<h3>Packages that you will need</h3>
+<p>Please make sure to run <code>install.packages('devtools')</code> and <code>install.packages('roxygen2')</code>.</p>
+</div>
+<div id="some-background-and-pointers" class="section level3">
+<h3>Some Background and pointers</h3>
+<p>You can skip this section on your first read if you want to dive right into the hands-on exercise.</p>
+<p>TODO, <span class="citation">@jennybc</span>?</p>
+</div>
+<div id="setting-up-the-folder-structure" class="section level3">
+<h3>Setting up the folder structure</h3>
+<ul>
+<li>R expects a certain folder structure for your package. Luckily, <code>RStudio</code>, using <code>devtools</code>, does this work for you.</li>
+<li>In <em>RStudio</em>: <em>File -&gt; New Project -&gt; New Directory -&gt; R Package</em>.</li>
+<li>Package name <code>gameday</code> and please also make sure that <strong>Create a git repository</strong> is checked.</li>
+</ul>
+<p>You see that this created a galore of files and folders. Let’s see what they are.</p>
+</div>
+<div id="files-that-make-a-packages" class="section level3">
+<h3>Files that make a packages</h3>
+<ul>
+<li>Helper files that we don’t have to worry about:
+<ul>
+<li><code>.gitignore</code> is the usual ignore file for git. We don’t have to change it.</li>
+<li><code>.Rbuildignore</code> TODO</li>
+<li><code>gameday.Rproj</code> is the usual file for an R project. We don’t have to change it.</li>
+<li><code>Read-and-delete-me</code> was placed here to help with the documentation. We will use <code>roxygen2</code> instead, so we can delete this file (with or without reading it).</li>
+<li><code>NAMESPACE</code> again, <code>roxygen2</code> will help us with that. We will never edit this by hand.</li>
+</ul></li>
+<li><code>man/</code> (for <em>manual</em>) will be where we will document our code and package.</li>
+<li><code>R/</code> finally, this is where the actual R code will go.</li>
+<li><code>DESCRIPTION</code> holds meta information about your package. We will modify this first.</li>
+</ul>
+</div>
+<div id="description-file" class="section level3">
+<h3>DESCRIPTION FILE</h3>
+<p>Here is where we add information about the package (gameday) and its authors (us). Some fields are pre-filled, but many more fields can be added as necessary.</p>
+<pre><code>Package: gameday
+Type: Package
+Title: Let R tell you if your NHL team plays today
+Version: 1.0
+Date: 2014-11-11
+Author: Bernhard Konrad, Jennifer Bryan
+Maintainer: Bernhard Konrad &lt;bernhard.konrad@gmail.com&gt;
+Description: Querry live.nhle.com to check if your NHL team is listed on the teams that play today
+License: CC0</code></pre>
+<p>Let’s briefly discuss some of those fields. * <code>Maintainer</code> is a mandatory, and must provide a contact email * <code>License</code> <a href="http://creativecommons.org/publicdomain/zero/1.0/"><em>CC0</em></a> means that we dedicate our package to the public domain and waive all of our rights. Anyone can freely use/adapt/modify/sell this work without our permission. We also don’t provide any warranties about liability or correctness. You can check (other creative common licenses)[<a href="http://creativecommons.org/choose/">http://creativecommons.org/choose/</a>].</p>
+</div>
+<div id="the-actual-r-code" class="section level3">
+<h3>The actual R code</h3>
+<p>The R code that our package provides is in the <em>R</em> folder. You see that a file <code>gameday.R</code> is already there. We will leave this alone for now. Instead, let’s <strong>create a new R script</strong> and save it in the <em>R</em> folder with the name <code>gday.R</code>.</p>
+<p>The content is the following:</p>
+<pre><code>#&#39; Is it Gameday?
+#&#39;
+#&#39; This function returns TRUE if your NHL team plays today
+#&#39; @param teamname Defaults to &quot;canucks&quot;
+#&#39; @param date The (potential game) day you want to check
+#&#39; @return \code{TRUE} if \code{teamname} has an NHL game on \code{date},
+#&#39; \code{FALSE} otherwise
+#&#39; @keywords misc
+#&#39; @note case in \code{teamname} is ignored
+#&#39; @export
+#&#39; @examples
+#&#39; gday()
+#&#39; gday(&quot;canadiens&quot;)
+#&#39; gday(&quot;Bruins&quot;, &quot;2014-11-07&quot;)
+
+gday &lt;- function(teamname=&quot;canucks&quot;) {
+  url &lt;- paste0(&quot;http://live.nhle.com/GameData/GCScoreboard/&quot;, Sys.Date(), &quot;.jsonp&quot;)
+  grepl(teamname, getURL(url), ignore.case=TRUE)
+}</code></pre>
+<p>TODO: explain function gday. Explain roxygen syntax (split the above up in two steps). Add dependency <code>RCurl</code> to DESCRIPTION.</p>
+</div>
+<div id="documentation-for-the-package-itself" class="section level3">
+<h3>Documentation for the package itself</h3>
+<pre><code>#&#39; More documentation
+#&#39; 
+#&#39; and some more stuff
+#&#39; 
+#&#39; and even more details
+#&#39; that spans two lines
+#&#39; 
+#&#39; @docType package
+#&#39; @name gameday
+NULL</code></pre>
+<p>TODO: explain roxygen syntax and why <code>NULL</code></p>
+</div>
+<div id="let-devtools-roxygen2-do-the-documenation-for-you" class="section level3">
+<h3>Let devtools, roxygen2 do the documenation for you</h3>
+<p>Run <code>document()</code> and <em>Build &amp; Reload</em> for testing.</p>
+</div>
+<div id="publish-on-github" class="section level3">
+<h3>Publish on GitHub</h3>
+<ol style="list-style-type: decimal">
+<li>commit files locally</li>
+<li>Create empty repo on github</li>
+<li>Add remote: Shell -&gt; Terminal -&gt; git remote add … -&gt; git push -u origin master</li>
+<li>install from github</li>
+</ol>
+<hr />
+</div>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
