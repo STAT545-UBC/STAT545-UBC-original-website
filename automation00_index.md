@@ -43,6 +43,14 @@ Walk before you run! Prove that `make` is actually installed and that it can be 
   * How to use `make` from the shell
   * How Git facilitates the process of building a pipeline
 
+### More examples
+
+There are three more toy pipelines, using the Lord of the Rings data that reinforce:
+
+  * [01_automation-example_just-r](https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/01_automation-example_just-r): use of an R script as a pseudo-`Makefile`
+  * [02_automation-example_r-and-make](https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/02_automation-example_r-and-make): use of a simple `Makefile` 
+  * [03_automation-example_render-without-rstudio](https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/03_automation-example_render-without-rstudio): use of `rmarkdown::render()` from a `Makefile`, as the default way of running an R script or an R Markdown document, leading to pretty HTML reports without any mouse clicks
+
 ### Resources
 
 [xkcd comic on automation](http://xkcd.com/1319/). 'Automating' comes from the roots 'auto-' meaning 'self-', and 'mating', meaning 'screwing'.
