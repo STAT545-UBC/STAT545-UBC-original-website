@@ -1,0 +1,37 @@
+---
+output:
+  html_document:
+    keep_md: yes
+---
+LOTR R Markdown file
+========================================================
+
+This is an R Markdown document. In this example, its purpose is to allow us to demonstrate how to use `rmarkdown::render()` without the help of RStudio's buttons. We will, in fact, call `rmarkdown::render()` from within a `Makefile`.
+
+```{r include = FALSE}
+library(ggplot2)
+library(plyr)
+lotr_dat <- read.delim("lotr_clean.tsv")
+## infer order of Race and Film factors from order in file
+lotr_dat <-
+  within(lotr_dat, {
+    Race <- factor(as.character(Race), levels = unique(Race))
+    Film <- factor(as.character(Film), levels = unique(Film))
+  })
+## WARNING: probably not a safe long-run strategy for communicating factor level
+## order with plain text data files; I see no guarantees that unique() return 
+## value will be in any particular order; I have just noticed anecdotally that
+## return value is in order of appearance
+```
+
+Here is a plot we are making "on the fly" via code in an R chunk.
+```{r stripplot, echo = FALSE, fig.width = 7, fig.height = 6}
+the_film <- levels(lotr_dat$Film)[2]
+p <- ggplot(lotr_dat, aes(x = Race, y = Words)) + scale_y_log10() +
+  ggtitle(paste(the_film, "(made from code in R Markdown)")) + 
+  geom_jitter(alpha = 1/2, position = position_jitter(width = 0.1))
+print(p)
+```
+
+Here is a pre-made plot we are merely embedding in the compiled document.
+![barchart of total words by Race](barchart_total-words-by-race.png)
