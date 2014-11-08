@@ -12,7 +12,7 @@
 
 <meta name="date" content="2014-11-03" />
 
-<title>Automating Data analysis Pipelines</title>
+<title>Automating Data-analysis Pipelines</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -70,7 +70,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </header>
 
 <div id="header">
-<h1 class="title">Automating Data analysis Pipelines</h1>
+<h1 class="title">Automating Data-analysis Pipelines</h1>
 <h4 class="author"><em>Shaun Jackman and Jenny Bryan</em></h4>
 <h4 class="date"><em>2014-11-03</em></h4>
 </div>
@@ -104,7 +104,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="dependency-graph-of-the-pipeline" class="section level3">
 <h3>Dependency graph of the pipeline</h3>
 <!-- TO DO: remake the figure to say words.txt not words.tsv and the new words downloading strategy -->
-
 <p><a href="automation01_slides/images/activity.gv"><img src="automation01_slides/images/activity.png" alt="automation01_slides/images/activity.png" /></a></p>
 </div>
 <div id="set-up-a-new-rstudio-project-and-git-repo" class="section level3">
@@ -296,7 +295,6 @@ clean:
 </ul>
 <p>See the sample Project at this point in <a href="https://github.com/STAT545-UBC/make-activity/tree/91ebcfc7d25743ebd8d6c9684ed7923ad4758585">this commit</a>.</p>
 <!-- TO DO: this PDF bit awaiting attention from Shaun -->
- 
 <!--
 
 Render a PDF report
@@ -304,8 +302,7 @@ Render a PDF report
 
 Can you modify the `rmarkdown::render` command to generate a PDF report instead of an HTML report? Hint: look at the optional second argument of `rmarkdown::render`. Alternatively, click the *Knit* dropdown box and select *Knit PDF*, and look at how RStudio modifies the header of your R Markdown script.
 
---> 
-
+-->
 </div>
 <div id="the-final-makefile" class="section level3">
 <h3>The Final Makefile</h3>
@@ -327,7 +324,7 @@ histogram.png: histogram.tsv
 
 report.html: report.rmd histogram.tsv histogram.png
 	Rscript -e &#39;rmarkdown::render(&quot;$&lt;&quot;)&#39;</code></pre>
-<p>Remember, you can review the entire activity via the commit history of the sample Project: <a href="https://github.com/STAT545-UBC/make-activity">https://github.com/STAT545-UBC/make-activity</a>.</p>
+<p>Remember, you can review the entire activity via the commit history of the sample Project: <a href="https://github.com/STAT545-UBC/make-activity" class="uri">https://github.com/STAT545-UBC/make-activity</a>.</p>
 <p>And that’s how a data analytical pipeline gets built using <code>make</code>, the shell, R, RStudio, and optionally Git.</p>
 </div>
 

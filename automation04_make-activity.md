@@ -1,5 +1,5 @@
 ---
-title: "Automating Data analysis Pipelines"
+title: "Automating Data-analysis Pipelines"
 author: "Shaun Jackman and Jenny Bryan"
 date: "2014-11-03"
 output:
