@@ -46,6 +46,7 @@
     - [Special considerations for Windows](automation02_windows.html)
     - [Test drive `Make`](automation03_make-test-drive.html) from a shell and RStudio
     - [Hands-on activity](automation04_make-activity.html)
+    - [Example pipelines](automation00_index.html#more-examples)
   
 ## Course-specific material
 
