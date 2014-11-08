@@ -10,9 +10,9 @@ output:
 
 ### Install `make` on Microsoft Windows
 
-Remember when you were [installing Git on your Windows machine](git01_git-install.html#git-installation-windows)? If you followed our top recommendation and installed `Git for Windows`, aka `mysysgit`, aka "Git bash", `make` [should already be installed](https://github.com/msysgit/msysgit/blob/master/mingw/bin/make.exe) on your system. Congratulations!
+We are still working out the best way to install `make` on Windows. Our current best recommendation is to install *msysGit*, which includes `make` as well as `git` and `bash`.
 
-However, if you used some other method to install Git, you don't have `make` yet. We still strongly recommend installing [`Git for Windows`](http://msysgit.github.io) because it installs an entire build environment for Windows, which includes `make`, Git, and the Bash shell.
+Download and [install msysGit](https://github.com/msysgit/msysgit/releases/download/Git-1.9.4-preview20140929/msysGit-netinstall-1.9.4-preview20140929.exe). The two software packages [msysGit](https://github.com/msysgit/msysgit) and [Git for Windows](http://msysgit.github.io/) are related. Both install `git` and `bash`, but only *msysGit* installs `make`. The programs installed by *msysGit* are found by default in `C:\msysGit\bin`. Here is the [complete list](https://github.com/msysgit/msysgit/tree/master/bin) of programs included with *msysGit*. For this activity, RStudio needs to be able to find in your `PATH` environment variable the program `make`, the shell `bash`, other utilities like `rm` and `cp`, and `Rscript`.
 
 Here is another alternative for installing `make` alone:
 
