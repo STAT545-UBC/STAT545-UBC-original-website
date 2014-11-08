@@ -1,8 +1,11 @@
 all: syllabus.html \
 	cm105_pipelines.html \
 	cm106_pipelines.html \
-	block023_pipelines.html \
-	block023_pipelines/slides.html
+	automation00_index.html \
+	automation01_slides/slides.html \
+	automation02_windows.html \
+	automation03_make-test-drive.html \
+	automation04_make-activity.html
 
 install-deps:
 	brew install graphviz
@@ -13,7 +16,7 @@ install-deps:
 
 # Patterns
 
-block%/slides.html: block%/slides.revealjs block%/slides.md
+%/slides.html: %/slides.revealjs %/slides.md
 	pandoc -pst revealjs -V theme:sky -o $@ --template $^
 
 %.html: %.Rmd
