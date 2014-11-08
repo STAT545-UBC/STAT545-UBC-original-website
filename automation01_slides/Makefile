@@ -2,8 +2,8 @@ all: slides.html
 
 graphs: \
 	Makefile.png \
-	02_rAndMake/Makefile.png \
-	03_knitWithoutRStudio/Makefile.png \
+#	02_rAndMake/Makefile.png \
+#	03_knitWithoutRStudio/Makefile.png \
 	activity/Makefile.png \
 	article/Makefile.png
 
