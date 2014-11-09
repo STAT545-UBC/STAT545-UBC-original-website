@@ -114,7 +114,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>Package name <code>gameday</code> and please also make sure that <strong>Create a git repository</strong> is checked.</li>
 </ul>
 <p>You see that this created a galore of files and folders. Let’s see what they are.</p>
-<p><span class="citation">@jennybc</span>: No, sadly, RStudio does not (yet) use devtools for this, though apparently it soon will. In the meantime, let’s follow the advice given in Hadley’s book, which is to use <code>devtools::create(&quot;path/to/package/pkgname&quot;)</code>, followed by RStudio File &gt; New Project &gt; Existing Directory … pointed at <code>path/to/package/pkgname</code> and with <strong>Create a git repository</strong> checked. Here’s a side-by-side comparison of freshly created R packages via the two different workflows (I think I forgot to make it a Git repo via RStudio, but that’s neither here nor there):</p>
+<p><span class="citation">@jennybc</span>: No, sadly, RStudio does not (yet) use devtools for this, though apparently it soon will. In the meantime, let’s follow the advice given in Hadley’s book, which is to use <code>devtools::create(&quot;path/to/package/pkgname&quot;)</code>, followed by double clicking on the associated <code>pkgname.Rproj</code> file or RStudio File &gt; New Project &gt; Existing Directory … pointed at <code>path/to/package/pkgname</code> and with <strong>Create a git repository</strong> checked. Here’s a side-by-side comparison of freshly created R packages via the two different workflows (I think I forgot to make it a Git repo via RStudio, but that’s neither here nor there):</p>
 <p><img src="img/rstudio-vs-devtools-create-for-new-pkg.png" /></p>
 </div>
 <div id="files-that-make-a-packages" class="section level3">
@@ -122,16 +122,15 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <ul>
 <li>Helper files that we don’t have to worry about:
 <ul>
-<li><code>.gitignore</code> is the usual ignore file for git. We don’t have to change it.</li>
-<li><code>.Rbuildignore</code> TODO</li>
-<li><code>gameday.Rproj</code> is the usual file for an R project. We don’t have to change it.</li>
-<li><code>Read-and-delete-me</code> was placed here to help with the documentation. We will use <code>roxygen2</code> instead, so we can delete this file (with or without reading it).</li>
-<li><code>NAMESPACE</code> again, <code>roxygen2</code> will help us with that. We will never edit this by hand.</li>
+<li><code>.gitignore</code> is the usual ignore file for Git. We don’t have to change it.</li>
+<li><code>.Rbuildignore</code> is an ignore file for the R package building process. We can talk about this later.</li>
+<li><code>gameday.Rproj</code> is the usual file for an RStudio project. We don’t have to change it.</li>
+<li><code>NAMESPACE</code> is a very important file, but we will never edit this by hand. <code>roxygen2</code> will maintain this for us.</li>
 </ul></li>
-<li><code>man/</code> (for <em>manual</em>) will be where we will document our code and package.</li>
 <li><code>R/</code> finally, this is where the actual R code will go.</li>
 <li><code>DESCRIPTION</code> holds meta information about your package. We will modify this first.</li>
 </ul>
+<p><span class="citation">@jennybc</span>: If you submit to my plea that we init package with <code>devtools::create()</code> two bullet points go away. I have deleted them for you!</p>
 </div>
 <div id="description-file" class="section level3">
 <h3>DESCRIPTION FILE</h3>

@@ -52,16 +52,15 @@ You see that this created a galore of files and folders. Let's see what they are
 ### Files that make a packages
 
 * Helper files that we don't have to worry about:
-    + `.gitignore` is the usual ignore file for git. We don't have to change it.
-    + `.Rbuildignore` TODO
-    + `gameday.Rproj` is the usual file for an R project. We don't have to change it.
-    + `Read-and-delete-me` was placed here to help with the documentation. We will use `roxygen2` instead, so we can delete this file (with or without reading it).
-    + `NAMESPACE` again, `roxygen2` will help us with that. We will never edit this by hand.
+    + `.gitignore` is the usual ignore file for Git. We don't have to change it.
+    + `.Rbuildignore` is an ignore file for the R package building process. We can talk about this later.
+    + `gameday.Rproj` is the usual file for an RStudio project. We don't have to change it.
+    + `NAMESPACE` is a very important file, but we will never edit this by hand. `roxygen2` will maintain this for us.
 
-* `man/` (for *manual*) will be where we will document our code and package.
 * `R/` finally, this is where the actual R code will go.
 * `DESCRIPTION` holds meta information about your package. We will modify this first.
 
+@jennybc: If you submit to my plea that we init package with `devtools::create()` two  bullet points go away. I have deleted them for you!
 
 ### DESCRIPTION FILE
 
