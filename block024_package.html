@@ -135,16 +135,26 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="description-file" class="section level3">
 <h3>DESCRIPTION FILE</h3>
 <p>Here is where we add information about the package (gameday) and its authors (us). Some fields are pre-filled, but many more fields can be added as necessary.</p>
+<p><span class="citation">@jennybc</span>: Maybe you should mention that this is how it looks <em>after</em> editing? Why do you have <code>Type: Package</code>? Start with version 0.1 or, as <a href="http://r-pkgs.had.co.nz/description.html#version">Hadley’s book recommends</a>, 0.0.0.9000. Omit the date. Use the new syntax for authors, contributors, etc. Pick single author (you) or maintainer + contributor (you + me) as you see fit. Single author might be more relevant to them today. Hard line breaks and indents in the description. Make it depend on R now or future for safety. Put LazyData true. I’ve just put in what I think this should be.</p>
 <pre><code>Package: gameday
-Type: Package
 Title: Let R tell you if your NHL team plays today
-Version: 1.0
-Date: 2014-11-11
-Author: Bernhard Konrad, Jennifer Bryan
-Maintainer: Bernhard Konrad &lt;bernhard.konrad@gmail.com&gt;
-Description: Querry live.nhle.com to check if your NHL team is listed on the teams that play today
-License: CC0</code></pre>
-<p>Let’s briefly discuss some of those fields. * <code>Maintainer</code> is a mandatory, and must provide a contact email * <code>License</code> <a href="http://creativecommons.org/publicdomain/zero/1.0/"><em>CC0</em></a> means that we dedicate our package to the public domain and waive all of our rights. Anyone can freely use/adapt/modify/sell this work without our permission. We also don’t provide any warranties about liability or correctness. You can check (other creative common licenses)[<a href="http://creativecommons.org/choose/">http://creativecommons.org/choose/</a>].</p>
+Version: 0.0.0.9000
+Authors@R: person(&quot;Bernhard&quot;, &quot;Konrad&quot;, email = &quot;bernhard.konrad@gmail.com&quot;,
+    role = c(&quot;aut&quot;, &quot;cre&quot;))
+Authors@R: as.person(c(
+    &quot;Bernhard Konrad &lt;bernhard.konrad@gmail.com&gt; [aut, cre]&quot;, 
+    &quot;Jennifer Bryan &lt;jenny@stat.ubc.ca&gt; [aut]&quot;
+    ))
+Description: Query live.nhle.com to check if your NHL team is listed on
+    the teams that play today
+Depends: R (&gt;= 3.1.1)
+License: CC0
+LazyData: true</code></pre>
+<p>Let’s briefly discuss some of those fields.</p>
+<ul>
+<li>You must specify a <code>Maintainer</code> or __cre_ator and must provide a contact email.</li>
+<li><code>License</code> <a href="http://creativecommons.org/publicdomain/zero/1.0/"><em>CC0</em></a> means that we dedicate our package to the public domain and waive all of our rights. Anyone can freely use/adapt/modify/sell this work without our permission. We also don’t provide any warranties about liability or correctness. You can check our <a href="http://creativecommons.org/choose/">other creative common licenses</a>.</li>
+</ul>
 </div>
 <div id="the-actual-r-code" class="section level3">
 <h3>The actual R code</h3>

@@ -66,22 +66,27 @@ You see that this created a galore of files and folders. Let's see what they are
 
 Here is where we add information about the package (gameday) and its authors (us). Some fields are pre-filled, but many more fields can be added as necessary.
 
+@jennybc: Maybe you should mention that this is how it looks *after* editing? Why do you have `Type: Package`? Start with version 0.1 or, as [Hadley's book recommends](http://r-pkgs.had.co.nz/description.html#version), 0.0.0.9000. Omit the date. Use the new syntax for authors, contributors, etc. Pick single author (you) or maintainer + contributor (you + me) as you see fit. Single author might be more relevant to them today. Hard line breaks and indents in the description. Make it depend on R now or future for safety. Put LazyData true. I've just put in what I think this should be.
 
     Package: gameday
-    Type: Package
     Title: Let R tell you if your NHL team plays today
-    Version: 1.0
-    Date: 2014-11-11
-    Author: Bernhard Konrad, Jennifer Bryan
-    Maintainer: Bernhard Konrad <bernhard.konrad@gmail.com>
-    Description: Querry live.nhle.com to check if your NHL team is listed on the teams that play today
+    Version: 0.0.0.9000
+    Authors@R: person("Bernhard", "Konrad", email = "bernhard.konrad@gmail.com",
+        role = c("aut", "cre"))
+    Authors@R: as.person(c(
+        "Bernhard Konrad <bernhard.konrad@gmail.com> [aut, cre]", 
+        "Jennifer Bryan <jenny@stat.ubc.ca> [aut]"
+        ))
+    Description: Query live.nhle.com to check if your NHL team is listed on
+        the teams that play today
+    Depends: R (>= 3.1.1)
     License: CC0
-
+    LazyData: true
 
 Let's briefly discuss some of those fields.
-* `Maintainer` is a mandatory, and must provide a contact email
-* `License` [*CC0* ](http://creativecommons.org/publicdomain/zero/1.0/) means that we dedicate our package to the public domain and waive all of our rights. Anyone can freely use/adapt/modify/sell this work without our permission. We also don't provide any warranties about liability or correctness. You can check (other creative common licenses)[http://creativecommons.org/choose/].
 
+* You must specify a `Maintainer` or __cre_ator and must provide a contact email.
+* `License` [*CC0*](http://creativecommons.org/publicdomain/zero/1.0/) means that we dedicate our package to the public domain and waive all of our rights. Anyone can freely use/adapt/modify/sell this work without our permission. We also don't provide any warranties about liability or correctness. You can check our [other creative common licenses](http://creativecommons.org/choose/).
 
 ### The actual R code
 
