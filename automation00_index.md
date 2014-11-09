@@ -45,7 +45,7 @@ Walk before you run! Prove that `make` is actually installed and that it can be 
 
 ### More examples
 
-There are three more toy pipelines, using the Lord of the Rings data that reinforce:
+There are three more toy pipelines, using the Lord of the Rings data, that reinforce:
 
   * [01_automation-example_just-r](https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/01_automation-example_just-r): use of an R script as a pseudo-`Makefile`
   * [02_automation-example_r-and-make](https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/02_automation-example_r-and-make): use of a simple `Makefile` 

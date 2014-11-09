@@ -25,18 +25,17 @@ Getting Started
 
 In this tutorial we will develop a package that provides the function `gameday`. This function takes one argument `teamname`, the name of your favorite [NHL](http://www.nhl.com/) team, and returns `TRUE` if this team has a game today, and `FALSE` otherwise. The function will actually be a one-liner because we can read this information from the web.
 
-
 ### Packages that you will need
 
 Please make sure to run `install.packages('devtools')` and `install.packages('roxygen2')`.
 
+@jennybc: Let's say we assume everyone is running very current R (3.1.0 or higher?) and RStudio. I also recommend that everyone start with `update.packages()`. Specifically, devtools, roxygen2, testthat, and knitr should all be very current, so why not just update everything? 
 
 ### Some Background and pointers
 
 You can skip this section on your first read if you want to dive right into the hands-on exercise.
 
-TODO, @jennybc?
-
+@jennybc: TODO for me. Might link to slides.
 
 ### Setting up the folder structure
 
@@ -45,6 +44,10 @@ TODO, @jennybc?
 + Package name `gameday` and please also make sure that **Create a git repository** is checked.
 
 You see that this created a galore of files and folders. Let's see what they are.
+
+@jennybc: No, sadly, RStudio does not (yet) use devtools for this, though apparently it soon will. In the meantime, let's follow the advice given in Hadley's book, which is to use `devtools::create("path/to/package/pkgname")`, followed by double clicking on the associated `pkgname.Rproj` file or RStudio File > New Project > Existing Directory ... pointed at `path/to/package/pkgname` and with **Create a git repository** checked. Here's a side-by-side comparison of freshly created R packages via the two different workflows (I think I forgot to make it a Git repo via RStudio, but that's neither here nor there):
+
+![](img/rstudio-vs-devtools-create-for-new-pkg.png)
 
 ### Files that make a packages
 

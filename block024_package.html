@@ -99,11 +99,12 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="packages-that-you-will-need" class="section level3">
 <h3>Packages that you will need</h3>
 <p>Please make sure to run <code>install.packages('devtools')</code> and <code>install.packages('roxygen2')</code>.</p>
+<p><span class="citation">@jennybc</span>: Let’s say we assume everyone is running very current R (3.1.0 or higher?) and RStudio. I also recommend that everyone start with <code>update.packages()</code>. Specifically, devtools, roxygen2, testthat, and knitr should all be very current, so why not just update everything?</p>
 </div>
 <div id="some-background-and-pointers" class="section level3">
 <h3>Some Background and pointers</h3>
 <p>You can skip this section on your first read if you want to dive right into the hands-on exercise.</p>
-<p>TODO, <span class="citation">@jennybc</span>?</p>
+<p><span class="citation">@jennybc</span>: TODO for me. Might link to slides.</p>
 </div>
 <div id="setting-up-the-folder-structure" class="section level3">
 <h3>Setting up the folder structure</h3>
@@ -113,6 +114,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>Package name <code>gameday</code> and please also make sure that <strong>Create a git repository</strong> is checked.</li>
 </ul>
 <p>You see that this created a galore of files and folders. Let’s see what they are.</p>
+<p><span class="citation">@jennybc</span>: No, sadly, RStudio does not (yet) use devtools for this, though apparently it soon will. In the meantime, let’s follow the advice given in Hadley’s book, which is to use <code>devtools::create(&quot;path/to/package/pkgname&quot;)</code>, followed by RStudio File &gt; New Project &gt; Existing Directory … pointed at <code>path/to/package/pkgname</code> and with <strong>Create a git repository</strong> checked. Here’s a side-by-side comparison of freshly created R packages via the two different workflows (I think I forgot to make it a Git repo via RStudio, but that’s neither here nor there):</p>
+<p><img src="img/rstudio-vs-devtools-create-for-new-pkg.png" /></p>
 </div>
 <div id="files-that-make-a-packages" class="section level3">
 <h3>Files that make a packages</h3>
