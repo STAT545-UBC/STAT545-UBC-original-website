@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Automating Data-analysis Pipelines</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Automating Data-analysis Pipelines</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#big-picture">Big picture</a></li>
+<li><a href="#templates">Templates</a></li>
+<li><a href="#please-just-tell-me-what-to-do">Please just tell me what to do</a><ul>
+<li><a href="#download-the-data">Download the data</a></li>
+<li><a href="#perform-exploratory-analyses">Perform exploratory analyses</a></li>
+<li><a href="#perform-statistical-analyses">Perform statistical analyses</a></li>
+<li><a href="#generate-figures">Generate figures</a></li>
+<li><a href="#automate-the-pipeline">Automate the pipeline</a></li>
+</ul></li>
+<li><a href="#i-want-to-aim-higher">I want to aim higher!</a></li>
+<li><a href="#links">Links</a></li>
+<li><a href="#authors">Authors</a></li>
+</ul>
+</div>
+
+<div id="big-picture" class="section level1">
+<h1>Big picture</h1>
+<ul>
+<li>Write three or more R scripts to carry out a data analysis pipeline</li>
+<li>The output of the first script must be the input of the second, and so on</li>
+<li>The first script will download some data</li>
+<li>The second script will read that data, perform some analysis and write numerical data to file in CSV or TSV format</li>
+<li>The third script will read the output of the second script, generate some figures and save them to files</li>
+<li>Finally, a fourth script to rule them all will run your pipeline non-interactively, without RStudio</li>
+<li>Feel free to add more stages to your pipeline if you’re feeling adventurous</li>
+</ul>
+</div>
+<div id="templates" class="section level1">
+<h1>Templates</h1>
+<ul>
+<li>Bare bones example using only R: <a href="01_justR" class="uri">01_justR</a></li>
+<li>Example upgraded to include using Make to run the pipeline: <a href="02_rAndMake" class="uri">02_rAndMake</a></li>
+<li>Example compiling an R script and an R Markdown file to HTML via the makefile: <a href="03_knitWithoutRStudio" class="uri">03_knitWithoutRStudio</a></li>
+</ul>
+</div>
+<div id="please-just-tell-me-what-to-do" class="section level1">
+<h1>Please just tell me what to do</h1>
+<p>If you don’t feel like dreaming up your own thing, here’s a Gapminder blueprint that is a minimal but respectable way to complete the assignment. You are welcome to remix R code already written by someone, student or JB, in this class, but credit/link appropriately, e.g. in comments.</p>
+<p>JB has provided a template, using a different dataset, <a href="01_justR" class="uri">01_justR</a>, that should help make this concrete.</p>
+<div id="download-the-data" class="section level2">
+<h2>Download the data</h2>
+<p>Download the raw data for our example, <a href="https://gist.githubusercontent.com/sjackman/c10a5f7bcf6eebc1ba14/raw/b033c038605f9fdac855479714f65703be565b81/lotr_raw.tsv">lotr_raw.tsv</a>.</p>
+<ul>
+<li><p>in an R script using <a href="http://www.omegahat.org/RCurl/">RCurl::getURL</a> or <a href="http://stat.ethz.ch/R-manual/R-patched/library/utils/html/download.file.html">download.file</a> note: <code>download.file</code> does not work with <code>https://</code> <code>followlocation</code> tells curl to follow the HTTP redirect used by bit.ly</p>
+<pre class="r"><code>cat(file = &quot;lotr_raw.tsv&quot;,
+  RCurl::getURL(&quot;http://bit.ly/lotr_raw-tsv&quot;, followlocation = TRUE))</code></pre></li>
+<li><p>in a shell script using <code>curl</code> or <code>wget</code></p>
+<pre class="bash"><code>curl -L http://bit.ly/lotr_raw-tsv &gt;lotr_raw.tsv
+wget http://bit.ly/lotr_raw-tsv -O lotr_raw.tsv</code></pre></li>
+</ul>
+</div>
+<div id="perform-exploratory-analyses" class="section level2">
+<h2>Perform exploratory analyses</h2>
+<ul>
+<li>Import the data.</li>
+<li>Save a couple descriptive plots to file with highly informative names.</li>
+<li>Reorder the continents based on life expectancy. You decide the details.</li>
+<li>Sort the actual data in a deliberate fashion. You decide the details, but this should <em>at least</em> implement your new continent ordering.</li>
+<li>Write the Gapminder data to file(s), for immediate and future reuse.</li>
+</ul>
+</div>
+<div id="perform-statistical-analyses" class="section level2">
+<h2>Perform statistical analyses</h2>
+<ul>
+<li>Import the data created in the first script.</li>
+<li>Make sure your new continent order is still in force. You decide the details.</li>
+<li>Fit a linear regression of life expectancy on year within each country. Write the estimated intercepts, slopes, and residual error variance (or sd) to file.</li>
+<li>Find the 3 or 4 “worst” and “best” countries for each continent. You decide the details.</li>
+<li>Write the linear regression info for just these countries to file.</li>
+</ul>
+</div>
+<div id="generate-figures" class="section level2">
+<h2>Generate figures</h2>
+<p>Create a single-page figure for each continent, including data only for the 6-8 “extreme” countries, and write to file. One file per continent, with an informative name. The figure should give scatterplots of life expectancy vs. year, panelling/faceting on country, fitted line overlaid.</p>
+</div>
+<div id="automate-the-pipeline" class="section level2">
+<h2>Automate the pipeline</h2>
+<p>Identify and test a method of running your pipeline non-interactively.</p>
+<p>You could write a master R script that simply <code>source()</code>s the three scripts, one after the other. Tip: you will probably want a second “clean up / reset” script that deletes all the output your scripts leave behind, so you can easily test and refine your strategy, i.e. without repeatedly deleting stuff “by hand”. You can run the master script or the cleaning script from a shell with <code>R CMD BATCH</code> or <code>Rscript</code>.</p>
+<blockquote>
+<p>Dear Windows people: Recent versions of Windows have PowerShell, whose syntax resembles the Unix-type shells the Mac/Linux folks will have automatically. Try using that. See below for links to documentation on PowerShell and for help getting other software. Alternatively, install <a href="http://msysgit.github.io/">msysGit</a>, which includes the command line <em>Git BASH</em>.</p>
+</blockquote>
+<p>Provide a link to a page that explains how your pipeline works and links to the remaining files. The TAs should be able to go to this landing page and re-run your analysis quickly and easily. Consider including an image showing a graphical view of your pipeline.</p>
+</div>
+</div>
+<div id="i-want-to-aim-higher" class="section level1">
+<h1>I want to aim higher!</h1>
+<p>Follow the basic Gapminder blueprint above, but find a different data aggregation task, different panelling/faceting emphasis, focus on different variables, etc.</p>
+<p>Use non-Gapminder data.</p>
+<p>This means you’ll need to spend more time on data cleaning and sanity checking. You will probably have an entire script (or more!) devoted to data prep. Examples:</p>
+<ul>
+<li>Are there wonky factors? Consider bringing in as character, addressing their deficiencies, then converting to factor.</li>
+<li>Are there variables you’re just willing to drop at this point? Do it!</li>
+<li>Are there dates and times that need special handling? Do it!</li>
+<li>Are there annoying observations that require very special handling or crap up your figures (e.g. Oceania)? Drop them!</li>
+</ul>
+<p>Include some dynamic report generation in your pipeline. That is, create HTML from one or more plain R or R markdown files.</p>
+<ul>
+<li>Example of how to emulate RStudio’s “Compile Notebook” button from a shell: <code>Rscript -e &quot;rmarkdown::render('myAwesomeScript.R')&quot;</code> or using <code>knitr</code> instead of <code>rmarkdown</code> <code>Rscript -e &quot;knitr::stitch_rmd('myAwesomeScript.R')&quot;</code></li>
+<li>To emulate “Knit HTML”, use <code>rmarkdown::render()</code> or knitr’s <code>knitr::knit2html()</code>.</li>
+<li>See <a href="03_knitWithoutRStudio/Makefile">the Makefile in this example</a> to see these commands in action</li>
+</ul>
+<p>Experiment with running R code saved in a script from within R Markdown. Here’s some official documentation on <a href="http://yihui.name/knitr/demo/externalization/">code externalization</a>.</p>
+<p>Embed pre-existing figures in and R Markdown document, i.e. an R script creates the figures, then the report incorporates them. General advice on writing figures to file is <a href="http://www.stat.ubc.ca/~jenny/STAT545A/topic12_writeFigureToFile.html">here</a> and <code>ggplot2</code> has a purpose-built function <code>ggsave()</code> you should try. See an example of this in <a href="https://github.com/jennybc/STAT545A_2013/blob/master/hw06_scaffolds/03_knitWithoutRStudio/03_doStuff.Rmd">an R Markdown file in one of the examples</a>.</p>
+<p>Import pre-existing data in an R Markdown document, then format nicely as a table.</p>
+<p>Use Pandoc and/or LaTeX to explore new territory in document compilation. You could use Pandoc as an alternative to <code>rmarkdown</code> (or <code>knitr</code>) for Markdown to HTML conversion; you’d still use <code>rmarkdown</code> for conversion of R Markdown to Markdown. You would use LaTeX to get PDF output from R Markdown.</p>
+<p>Use <code>Make</code> to run your pipeline. See below for help. Also demonstrated in the example <a href="02_rAndMake" class="uri">02_rAndMake</a> and in the example <a href="03_knitWithoutRStudio" class="uri">03_knitWithoutRStudio</a></p>
+</div>
+<div id="links" class="section level1">
+<h1>Links</h1>
+<ul>
+<li><a href="http://kbroman.github.io/minimal_make/">An introduction to <code>Make</code></a> by Karl Broman aimed at stats / data science types</li>
+<li>Blog post <a href="http://www.bendmorris.com/2013/09/using-make-for-reproducible-scientific.html">Using Make for reproducible scientific analyses</a> by Ben Morris</li>
+<li><a href="http://software-carpentry.org/v4/make/index.html">Slides on <code>Make</code></a> from Software Carpentry</li>
+<li>Mike Bostock on <a href="http://bost.ocks.org/mike/make/">Why Use Make</a></li>
+<li>Zachary M. Jones on <a href="http://zmjones.com/make.html">GNU Make for Reproducible Data Analysis</a></li>
+</ul>
+</div>
+<div id="authors" class="section level1">
+<h1>Authors</h1>
+<p>Written by <a href="http://sjackman.ca/">Shaun Jackman</a> and <a href="http://www.stat.ubc.ca/~jenny/">Jenny Bryan</a>.</p>
+<p>This work is licensed under the <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a> Creative Commons License.</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

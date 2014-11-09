@@ -5,7 +5,8 @@ all: syllabus.html \
 	automation01_slides/slides.html \
 	automation02_windows.html \
 	automation03_make-test-drive.html \
-	automation04_make-activity.html
+	automation04_make-activity.html \
+	hw09_automation.html
 
 install-deps:
 	brew install graphviz
