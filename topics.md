@@ -48,7 +48,7 @@
     - [Hands-on activity](automation04_make-activity.html)
     - [Example pipelines](automation00_index.html#more-examples)
   * All the package things
-    - Hands-on activity]((block024_package.html))
+    - Hands-on activity](block024_package.html)
   
 ## Course-specific material
 
