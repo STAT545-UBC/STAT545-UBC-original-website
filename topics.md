@@ -48,7 +48,7 @@
     - [Hands-on activity](automation04_make-activity.html)
     - [Example pipelines](automation00_index.html#more-examples)
   * All the package things
-    - Hands-on activity](block024_package.html)
+    - [Hands-on activity](block024_package.html)
   
 ## Course-specific material
 
@@ -69,6 +69,8 @@
   * [Class meeting 103](cm103_regular-expressions.html) Regular expressions
   * [Class meeting 104](cm104_data-cleaning.html) Data cleaning
   * [Class meeting 105](cm105_pipelines.html) Automating Data-analysis Pipelines
+  * [Class meeting 106](cm106_pipelines.html) More automating Data-analysis Pipelines
+  * [Class meeting 107](cm105_packages.html) Writing an R package
   * [General homework guidelines](hw00_homework-guidelines.html)
   * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
   * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
