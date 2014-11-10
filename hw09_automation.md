@@ -27,9 +27,9 @@ Templates
 + Example compiling an R script and an R Markdown file to HTML via the makefile:
   [03_knitWithoutRStudio][]
 
-[01_justR]: automation10_holding-area/01_automation-example_just-r/
-[02_rAndMake]: automation10_holding-area/02_automation-example_r-and-make/
-[03_knitWithoutRStudio]: automation10_holding-area/03_automation-example_render-without-rstudio/
+[01_justR]: https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/01_automation-example_just-r
+[02_rAndMake]: https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/02_automation-example_r-and-make
+[03_knitWithoutRStudio]: https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/03_automation-example_render-without-rstudio
 
 Please just tell me what to do
 ================================================================================
