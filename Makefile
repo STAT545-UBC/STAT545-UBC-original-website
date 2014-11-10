@@ -1,4 +1,5 @@
 all: syllabus.html \
+	topics.html \
 	cm105_pipelines.html \
 	cm106_pipelines.html \
 	automation00_index.html \
