@@ -3,7 +3,7 @@ all: syllabus.html \
 	cm105_pipelines.html \
 	cm106_pipelines.html \
 	automation00_index.html \
-	automation01_slides/slides.html \
+	automation01_slides/index.html \
 	automation02_windows.html \
 	automation03_make-test-drive.html \
 	automation04_make-activity.html \
@@ -21,14 +21,14 @@ install-deps:
 
 # Patterns
 
-%/slides.html: %/slides.revealjs %/slides.md
-	pandoc -pst revealjs -V theme:sky -o $@ --template $^
-
 %.html: %.Rmd
 	Rscript -e 'rmarkdown::render("$<")'
 
 %.html: %.md
 	Rscript -e 'rmarkdown::render("$<")'
+
+%/index.html: %/slides.revealjs %/slides.md
+	pandoc -pst revealjs -V theme:sky -o $@ --template $^
 
 %/index.html: %/README.md
 	Rscript -e 'rmarkdown::render("$<", "html_document", "index.html")'

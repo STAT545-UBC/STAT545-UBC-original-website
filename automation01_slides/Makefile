@@ -1,4 +1,4 @@
-all: slides.html
+all: index.html
 
 graphs: \
 	Makefile.png \
@@ -8,7 +8,7 @@ graphs: \
 	article/Makefile.png
 
 clean:
-	rm -f slides.html
+	rm -f index.html
 
 install-deps:
 	brew install pandoc
@@ -20,10 +20,10 @@ install-deps:
 revealjs-2.6.2.tar.gz:
 	curl -L https://github.com/hakimel/reveal.js/archive/2.6.2.tar.gz >$@
 
-slides.html: %.html: %.md %.revealjs
+index.html: slides.md slides.revealjs
 	pandoc -pst revealjs --template $* -V theme:sky -o $@ $<
 
-slides.html: images/article.png images/pipeline.png
+index.html: images/article.png images/pipeline.png
 
 # Render a PNG from a GraphViz file
 %.png: %.gv

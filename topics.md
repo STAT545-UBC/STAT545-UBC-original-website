@@ -42,7 +42,7 @@
   * [Why and how to tidy data](bit002_tidying-lotr-data.html)
   * [Regular expressions](block022_regular-expression.html) and more about character data
   * [All the automation things](automation00_index.html)
-    - [Slides](automation01_slides/slides.html)
+    - [Slides](automation01_slides/index.html)
     - [Special considerations for Windows](automation02_windows.html)
     - [Test drive `Make`](automation03_make-test-drive.html) from a shell and RStudio
     - [Hands-on activity](automation04_make-activity.html)
