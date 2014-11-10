@@ -93,11 +93,14 @@ Identify and test a method of running your pipeline non-interactively.
 
 You could write a master R script that simply `source()`s the three scripts, one after the other. Tip: you will probably want a second "clean up / reset" script that deletes all the output your scripts leave behind, so you can easily test and refine your strategy, i.e. without repeatedly  deleting stuff "by hand". You can run the master script or the cleaning script from a shell with `R CMD BATCH` or `Rscript`.
 
-> Dear Windows people: Recent versions of Windows have PowerShell, whose syntax resembles the Unix-type shells the Mac/Linux folks will have automatically. Try using that. See below for links to documentation on PowerShell and for help getting other software. Alternatively, install [msysGit][], which includes the command line *Git BASH*.
-
 Provide a link to a page that explains how your pipeline works and links to the remaining files. The TAs should be able to go to this landing page and re-run your analysis quickly and easily. Consider including an image showing a graphical view of your pipeline.
 
+### Windows
+
+Follow [these instructions][] to install [msysGit][], which includes the command line programs *bash*, *git* and *make*, among others.
+
 [msysGit]: http://msysgit.github.io/
+[these instructions]: automation02_windows.html
 
 I want to aim higher!
 ================================================================================
@@ -120,7 +123,7 @@ Include some dynamic report generation in your pipeline. That is, create HTML fr
   or using `knitr` instead of `rmarkdown`
   `Rscript -e "knitr::stitch_rmd('myAwesomeScript.R')"`
 + To emulate "Knit HTML", use `rmarkdown::render()` or knitr's `knitr::knit2html()`.
-+ See [the Makefile in this example](03_knitWithoutRStudio/Makefile) to see these commands in action
++ See the Makefile in [03_knitWithoutRStudio][] to see these commands in action
 
 Experiment with running R code saved in a script from within R Markdown. Here's some official documentation on [code externalization](http://yihui.name/knitr/demo/externalization/).
 
@@ -145,8 +148,6 @@ Authors
 ================================================================================
 
 Written by [Shaun Jackman][] and [Jenny Bryan][].
-
-This work is licensed under the [CC BY 3.0][] Creative Commons License.
 
 [Shaun Jackman]: http://sjackman.ca/
 [Jenny Bryan]: http://www.stat.ubc.ca/~jenny/

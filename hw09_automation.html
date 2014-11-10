@@ -152,10 +152,11 @@ wget http://bit.ly/lotr_raw-tsv -O lotr_raw.tsv</code></pre></li>
 <h2>Automate the pipeline</h2>
 <p>Identify and test a method of running your pipeline non-interactively.</p>
 <p>You could write a master R script that simply <code>source()</code>s the three scripts, one after the other. Tip: you will probably want a second “clean up / reset” script that deletes all the output your scripts leave behind, so you can easily test and refine your strategy, i.e. without repeatedly deleting stuff “by hand”. You can run the master script or the cleaning script from a shell with <code>R CMD BATCH</code> or <code>Rscript</code>.</p>
-<blockquote>
-<p>Dear Windows people: Recent versions of Windows have PowerShell, whose syntax resembles the Unix-type shells the Mac/Linux folks will have automatically. Try using that. See below for links to documentation on PowerShell and for help getting other software. Alternatively, install <a href="http://msysgit.github.io/">msysGit</a>, which includes the command line <em>Git BASH</em>.</p>
-</blockquote>
 <p>Provide a link to a page that explains how your pipeline works and links to the remaining files. The TAs should be able to go to this landing page and re-run your analysis quickly and easily. Consider including an image showing a graphical view of your pipeline.</p>
+<div id="windows" class="section level3">
+<h3>Windows</h3>
+<p>Follow <a href="automation02_windows.html">these instructions</a> to install <a href="http://msysgit.github.io/">msysGit</a>, which includes the command line programs <em>bash</em>, <em>git</em> and <em>make</em>, among others.</p>
+</div>
 </div>
 </div>
 <div id="i-want-to-aim-higher" class="section level1">
@@ -173,7 +174,7 @@ wget http://bit.ly/lotr_raw-tsv -O lotr_raw.tsv</code></pre></li>
 <ul>
 <li>Example of how to emulate RStudio’s “Compile Notebook” button from a shell: <code>Rscript -e &quot;rmarkdown::render('myAwesomeScript.R')&quot;</code> or using <code>knitr</code> instead of <code>rmarkdown</code> <code>Rscript -e &quot;knitr::stitch_rmd('myAwesomeScript.R')&quot;</code></li>
 <li>To emulate “Knit HTML”, use <code>rmarkdown::render()</code> or knitr’s <code>knitr::knit2html()</code>.</li>
-<li>See <a href="03_knitWithoutRStudio/Makefile">the Makefile in this example</a> to see these commands in action</li>
+<li>See the Makefile in <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/03_automation-example_render-without-rstudio">03_knitWithoutRStudio</a> to see these commands in action</li>
 </ul>
 <p>Experiment with running R code saved in a script from within R Markdown. Here’s some official documentation on <a href="http://yihui.name/knitr/demo/externalization/">code externalization</a>.</p>
 <p>Embed pre-existing figures in and R Markdown document, i.e. an R script creates the figures, then the report incorporates them. General advice on writing figures to file is <a href="http://www.stat.ubc.ca/~jenny/STAT545A/topic12_writeFigureToFile.html">here</a> and <code>ggplot2</code> has a purpose-built function <code>ggsave()</code> you should try. See an example of this in <a href="https://github.com/jennybc/STAT545A_2013/blob/master/hw06_scaffolds/03_knitWithoutRStudio/03_doStuff.Rmd">an R Markdown file in one of the examples</a>.</p>
@@ -194,7 +195,6 @@ wget http://bit.ly/lotr_raw-tsv -O lotr_raw.tsv</code></pre></li>
 <div id="authors" class="section level1">
 <h1>Authors</h1>
 <p>Written by <a href="http://sjackman.ca/">Shaun Jackman</a> and <a href="http://www.stat.ubc.ca/~jenny/">Jenny Bryan</a>.</p>
-<p>This work is licensed under the <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a> Creative Commons License.</p>
 </div>
 
 <div class="footer">
