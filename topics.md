@@ -78,6 +78,7 @@
   * [Homework 06](hw06_repo-hygiene-figure-boss.html) *Optional, unmarked* activities for the STAT 545A / STAT 547M transition
   * [Homework 07](hw07_data-wrangling-grand-finale.html) Data wrangling Grand Finale
   * [Homework 08](hw08_data-cleaning.html) re: handling character data and data cleaning
+  * [Homework 09](hw09_automation.html) Automating Data-analysis Pipelines
 
 ## Short random things
 
@@ -129,4 +130,3 @@ New topics for STAT 545A and/or STAT 547M will be selected from here:
     - exposing your hard work on the web (data, code, results)
   * Distributing data and code to the world via an R package
   * ~~Automating an analytical pipeline, e.g. via `Make`.~~ *done*
-  
