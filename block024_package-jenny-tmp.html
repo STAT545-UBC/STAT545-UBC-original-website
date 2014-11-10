@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Write your own R package</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Write your own R package</h1>
+</div>
+
+
+<p><em>Temporary file holding links and stuff I might use 2014-11-10</em></p>
+<p><a href="http://www.stats.uwo.ca/faculty/murdoch/ism2013/5Vignettes.pdf">http://www.stats.uwo.ca/faculty/murdoch/ism2013/5Vignettes.pdf</a></p>
+<p>Packages are a big deal</p>
+<ul>
+<li>13 base, 15 recommended packages</li>
+<li>CRAN 5K (isn’t over 6K now?)</li>
+<li>Bioconductor, R-forge, Omegahat</li>
+<li>not to mention GitHub!</li>
+</ul>
+<p>What package for</p>
+<ul>
+<li>make R objects available: data, functions</li>
+<li>help pages documenting those objects</li>
+<li>README and vignettes show how to combine goodies in the package to accomplish real stuff</li>
+<li>optionally, external code</li>
+<li>tests to make sure code works and stays that way as it evolves</li>
+</ul>
+<p>library = directory where packages live on your computer</p>
+<p><code>library(foo)</code> loads the package foo from a library</p>
+<ul>
+<li>now functions and data define by <code>foo</code> are available</li>
+<li>you can access their official documentation</li>
+<li>writing a package is about making that good stuff happen for YOUR functions and data</li>
+</ul>
+<p><code>.libPaths()</code> to see which libraries R knows about</p>
+<p><code>lapply(.libPaths(), dir)</code> to see what’s in them</p>
+<p>You can add libraries to this list to consult via <code>.Renviron</code> in case you want to separate those from outside world and your personal package(s)</p>
+<p>What is a package? <a href="http://r-pkgs.had.co.nz/r.html">http://r-pkgs.had.co.nz/r.html</a></p>
+<ul>
+<li>source, bundled, binary, installed, in memory</li>
+</ul>
+<p>Build an analogy re: R scripts</p>
+<ul>
+<li>I tell students to save source</li>
+<li>students might resist if this means giving up interactivity</li>
+<li>everyone wins with an IDE like RStudio, where develop and some application can be interactive, but script can be <code>source()</code>d or run via <code>Rscript</code> and/or <code>make</code> in “production”</li>
+<li>the <code>devtools</code> package (and the integration features offered by RStudio) play exactly this role for R package development</li>
+<li>someone tells me to write a package</li>
+<li>I might resist if this means giving up my interactive development and informal testing/application workflow</li>
+<li>everyone wins with a helper package like <code>devtools</code></li>
+<li>makes it easy to go into a world where it’s as if your package has been built + installed + loaded AND still be tweaking the code</li>
+</ul>
+<p>Other than making R functions and data available, other killer features of making a package</p>
+<ul>
+<li>documentation</li>
+<li>testing</li>
+<li>R CMD check</li>
+<li>distribution via CRAN or GitHub</li>
+</ul>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

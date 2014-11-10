@@ -29,7 +29,7 @@ Here's how to disable this in RStudio.
   * Global setting: *Tools > Global Options... > Code editing*. Make sure "insert spaces for tab" is __unchecked__.
   * Project-specific setting: *Tools > Project Options... > Code editing*. Make sure "insert spaces for tab" is __unchecked__.
   
-RStudio can show reveal information about the whitespace in a file: *RStudio > Preferences... > Code editing > Show whitespace characters*. When in doubt, make darn sure your `Makefile` is indented with tabs and not spaces!
+RStudio can reveal information about the whitespace in a file: *RStudio > Preferences... > Code editing > Show whitespace characters*. When in doubt, make darn sure your `Makefile` is indented with tabs and not spaces!
   
 ### Write a toy `Makefile`
 
