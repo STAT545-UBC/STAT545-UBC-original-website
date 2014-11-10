@@ -103,15 +103,15 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="templates" class="section level1">
 <h1>Templates</h1>
 <ul>
-<li>Bare bones example using only R: <a href="01_justR" class="uri">01_justR</a></li>
-<li>Example upgraded to include using Make to run the pipeline: <a href="02_rAndMake" class="uri">02_rAndMake</a></li>
-<li>Example compiling an R script and an R Markdown file to HTML via the makefile: <a href="03_knitWithoutRStudio" class="uri">03_knitWithoutRStudio</a></li>
+<li>Bare bones example using only R: <a href="automation10_holding-area/01_automation-example_just-r/">01_justR</a></li>
+<li>Example upgraded to include using Make to run the pipeline: <a href="automation10_holding-area/02_automation-example_r-and-make/">02_rAndMake</a></li>
+<li>Example compiling an R script and an R Markdown file to HTML via the makefile: <a href="automation10_holding-area/03_automation-example_render-without-rstudio/">03_knitWithoutRStudio</a></li>
 </ul>
 </div>
 <div id="please-just-tell-me-what-to-do" class="section level1">
 <h1>Please just tell me what to do</h1>
 <p>If you don’t feel like dreaming up your own thing, here’s a Gapminder blueprint that is a minimal but respectable way to complete the assignment. You are welcome to remix R code already written by someone, student or JB, in this class, but credit/link appropriately, e.g. in comments.</p>
-<p>JB has provided a template, using a different dataset, <a href="01_justR" class="uri">01_justR</a>, that should help make this concrete.</p>
+<p>JB has provided a template, using a different dataset, <a href="automation10_holding-area/01_automation-example_just-r/">01_justR</a>, that should help make this concrete.</p>
 <div id="download-the-data" class="section level2">
 <h2>Download the data</h2>
 <p>Download the raw data for our example, <a href="https://gist.githubusercontent.com/sjackman/c10a5f7bcf6eebc1ba14/raw/b033c038605f9fdac855479714f65703be565b81/lotr_raw.tsv">lotr_raw.tsv</a>.</p>
@@ -179,7 +179,7 @@ wget http://bit.ly/lotr_raw-tsv -O lotr_raw.tsv</code></pre></li>
 <p>Embed pre-existing figures in and R Markdown document, i.e. an R script creates the figures, then the report incorporates them. General advice on writing figures to file is <a href="http://www.stat.ubc.ca/~jenny/STAT545A/topic12_writeFigureToFile.html">here</a> and <code>ggplot2</code> has a purpose-built function <code>ggsave()</code> you should try. See an example of this in <a href="https://github.com/jennybc/STAT545A_2013/blob/master/hw06_scaffolds/03_knitWithoutRStudio/03_doStuff.Rmd">an R Markdown file in one of the examples</a>.</p>
 <p>Import pre-existing data in an R Markdown document, then format nicely as a table.</p>
 <p>Use Pandoc and/or LaTeX to explore new territory in document compilation. You could use Pandoc as an alternative to <code>rmarkdown</code> (or <code>knitr</code>) for Markdown to HTML conversion; you’d still use <code>rmarkdown</code> for conversion of R Markdown to Markdown. You would use LaTeX to get PDF output from R Markdown.</p>
-<p>Use <code>Make</code> to run your pipeline. See below for help. Also demonstrated in the example <a href="02_rAndMake" class="uri">02_rAndMake</a> and in the example <a href="03_knitWithoutRStudio" class="uri">03_knitWithoutRStudio</a></p>
+<p>Use <code>Make</code> to run your pipeline. See below for help. Also demonstrated in the example <a href="automation10_holding-area/02_automation-example_r-and-make/">02_rAndMake</a> and in the example <a href="automation10_holding-area/03_automation-example_render-without-rstudio/">03_knitWithoutRStudio</a></p>
 </div>
 <div id="links" class="section level1">
 <h1>Links</h1>
