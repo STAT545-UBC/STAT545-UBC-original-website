@@ -10,7 +10,7 @@ Although we spend alot of time working with data interactively, this sort of han
 
 ### Overview
 
-[slides](automation01_slides/index.html)
+<a href="automation01_slides/index.html" target="_blank">slides</a>
 
 Why and how we automate data analyses + examples.
 
