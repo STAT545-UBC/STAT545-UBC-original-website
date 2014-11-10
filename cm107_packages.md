@@ -1,0 +1,18 @@
+---
+output:
+  html_document:
+    toc: true
+    includes:
+      after_body: include/nothing.html
+---
+
+### cm107 2014-11-10 Monesday overview
+
++ [HW09](hw09_automation.html) Automating Data-analysis Pipelines
+    - due ??Thursday, November 13?? let's talk about that
++ [Office hours](https://github.com/STAT545-UBC/Discussion/issues/47) are back ON; check that issue for up-to-date info
+
+### Building your first R package
+
++ led by Bernhard Konrad
++ [Activity](block024_package.html)

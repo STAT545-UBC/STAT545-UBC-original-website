@@ -47,6 +47,8 @@
     - [Test drive `Make`](automation03_make-test-drive.html) from a shell and RStudio
     - [Hands-on activity](automation04_make-activity.html)
     - [Example pipelines](automation00_index.html#more-examples)
+  * All the package things
+    - Hands-on activity]((block024_package.html))
   
 ## Course-specific material
 
