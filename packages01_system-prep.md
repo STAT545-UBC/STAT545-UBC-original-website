@@ -55,7 +55,7 @@ See how profound your problem with out-of-date packages is:
 Just update everything:
 
 ```r
-`update.packages(ask=FALSE)`
+`update.packages(ask = FALSE)`
 ```
         
 __CAVEAT:__ The above examples will only consult your default library and default CRAN mirror. If you want to target a non-default library, use function arguments to say so. Packages that you have installed from GitHub? You'll need to check the current-ness of your version and perform upgrades yourself.
