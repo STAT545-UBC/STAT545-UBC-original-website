@@ -75,39 +75,15 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h4 class="date"><em>2014-11-10</em></h4>
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#write-your-own-r-package">Write your own R package</a></li>
-<li><a href="#getting-started">Getting Started</a></li>
-</ul>
-</div>
 
-<div id="write-your-own-r-package" class="section level1">
-<h1>Write your own R package</h1>
+<div id="your-mission" class="section level3">
+<h3>Your mission</h3>
 <p>This is a step-by-step instruction on how to create your first R package. <em>This will be much easier than you think.</em></p>
+<p>In this tutorial we will develop a package <em>gameday</em> that provides the function <code>gday()</code>. This function takes one argument <code>team.name</code>, the name of your favorite <a href="http://www.nhl.com/">NHL</a> team, and returns <code>TRUE</code> if this team has a game today, and <code>FALSE</code> otherwise. The function will actually be a one-liner because we can read this information from the web.</p>
 </div>
-<div id="getting-started" class="section level1">
-<h1>Getting Started</h1>
-<p>In this tutorial we will develop a package <em>gameday</em> that provides the function <code>gday</code>. This function takes one argument <code>team.name</code>, the name of your favorite <a href="http://www.nhl.com/">NHL</a> team, and returns <code>TRUE</code> if this team has a game today, and <code>FALSE</code> otherwise. The function will actually be a one-liner because we can read this information from the web.</p>
-<div id="what-you-will-need" class="section level3">
-<h3>What you will need</h3>
-<p>I’m running <em>RStudio 0.98.1056</em> as well as</p>
-<ol style="list-style-type: decimal">
-<li>R version 3.1.2</li>
-<li>devtools 1.6.1</li>
-<li>roxygen2 4.0.2</li>
-<li>testthat 0.9.1</li>
-<li>knitr 1.7</li>
-</ol>
-<p>Run <code>packageVersion(&quot;devtools&quot;)</code> to check your version of the above packages. Use <code>install.packages(&quot;devtools&quot;, dependencies=TRUE)</code> to install missing packages (check for non-zero exit status), or run <code>update.packages(ask=FALSE)</code> to get the latest version.</p>
-</div>
-<div id="some-background-and-pointers" class="section level3">
-<h3>Some Background and pointers</h3>
-<p>You can skip this section on your first read if you want to dive right into the hands-on exercise.</p>
-<p><span class="citation">@jennybc</span>: TODO for me. Might link to slides.</p>
-</div>
-<div id="setting-up-the-folder-structure" class="section level3">
-<h3>Setting up the folder structure</h3>
+<div id="prerequisites" class="section level3">
+<h3>Prerequisites</h3>
+<p>We assume you have <a href="packages01_system-prep.html">configured your system for R package development</a>. This will ensure you have all the right software installed and that it’s updated. Please be adviced that ignoring this prep will only lead to heartache. ### Setting up the folder structure</p>
 <p>R expects a certain folder structure for your package. Luckily, the package <code>devtools</code> does this work for us.</p>
 <pre><code>library(&quot;devtools&quot;)
 create(&quot;/home/bernhard/Desktop/gameday&quot;)</code></pre>
@@ -269,7 +245,7 @@ gday(&quot;flames&quot;)</code></pre>
 <p>We have to tell <em>RStudio</em> where to put the files of our new package. For this, we have to briefly default back to the <em>Shell</em>:</p>
 <ol style="list-style-type: decimal">
 <li><em>Tools -&gt; Shell…</em>.</li>
-<li>In the shell we have to add the GitHub repository as a remote, and we abbreviate it with <em>origin</em>: <code>git remote add origin https://github.com/BernhardKonrad/gameday</code>.</li>
+<li>In the shell we have to add the GitHub repository as a remote, and we abbreviate it as <em>origin</em>: <code>git remote add origin https://github.com/BernhardKonrad/gameday</code>.</li>
 <li>Push your changes to the new remote (branch <em>master</em>), and set this remote as the new default: <code>git push -u origin master</code>.</li>
 <li>Close the shell, you will now be able to push and pull directly from <em>RStudio</em>.</li>
 <li>Your package is now publically (and freely, remember the License) available to the world.</li>
@@ -278,7 +254,6 @@ gday(&quot;flames&quot;)</code></pre>
 </ol>
 <p>The End (for now)</p>
 <hr />
-</div>
 </div>
 </div>
 

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Write your own R package</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Write your own R package</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#prepare-your-system-for-package-development">Prepare your system for package development</a></li>
+<li><a href="#hands-on-activity">Hands-on activity</a></li>
+<li><a href="#resources">Resources</a></li>
+</ul>
+</div>
+
+<p><em>warning: under development!</em></p>
+<div id="overview" class="section level3">
+<h3>Overview</h3>
+<p><span class="citation">@jennybc</span>: TODO for me. Might link to slides? Or just an HTML page?</p>
+<ul>
+<li>Why make an R package?</li>
+<li>What is an R package?</li>
+<li>What is a library?</li>
+<li>Why <code>devtools</code> is so integral to a happy workflow.</li>
+</ul>
+</div>
+<div id="prepare-your-system-for-package-development" class="section level3">
+<h3>Prepare your system for package development</h3>
+<p><a href="packages01_system-prep.html">System prep and testing</a></p>
+<p>Although we’ll build a very simple package, we’re still going to use the most modern and powerful tools for R package development. In theory, this could eventually involve compiling C/C++ code, which means you need what’s called a “build environment.” Follow the link above for help preparing your system.</p>
+</div>
+<div id="hands-on-activity" class="section level3">
+<h3>Hands-on activity</h3>
+<p><a href="packages02_activity.html">This fully developed example</a> shows you</p>
+<ul>
+<li>How to create a new R package</li>
+<li>How to accept help from <code>devtools</code> and RStudio during development</li>
+<li>Workflow for package development</li>
+<li>How to document functions and your overall package</li>
+<li>How to test the functions in your package</li>
+<li>How to put your package on GitHub to share with the world</li>
+</ul>
+</div>
+<div id="resources" class="section level3">
+<h3>Resources</h3>
+<p><em>put all the links from our issue in the InstructorsOnly repo here</em></p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -9,36 +9,15 @@ output:
     pandoc_args: "--preserve-tabs"
 ---
 
-Write your own R package
-================================================================================
+### Your mission
 
 This is a step-by-step instruction on how to create your first R package. *This will be much easier than you think.*
 
+In this tutorial we will develop a package *gameday* that provides the function `gday()`. This function takes one argument `team.name`, the name of your favorite [NHL](http://www.nhl.com/) team, and returns `TRUE` if this team has a game today, and `FALSE` otherwise. The function will actually be a one-liner because we can read this information from the web.
 
-Getting Started
-================================================================================
+### Prerequisites
 
-In this tutorial we will develop a package *gameday* that provides the function `gday`. This function takes one argument `team.name`, the name of your favorite [NHL](http://www.nhl.com/) team, and returns `TRUE` if this team has a game today, and `FALSE` otherwise. The function will actually be a one-liner because we can read this information from the web.
-
-### What you will need
-
-I'm running *RStudio 0.98.1056* as well as
-
-1. R version 3.1.2
-2. devtools 1.6.1
-3. roxygen2 4.0.2
-4. testthat 0.9.1
-5. knitr 1.7
-
-Run `packageVersion("devtools")` to check your version of the above packages. Use `install.packages("devtools", dependencies=TRUE)` to install missing packages (check for non-zero exit status), or run `update.packages(ask=FALSE)` to get the latest version.
-
-
-### Some Background and pointers
-
-You can skip this section on your first read if you want to dive right into the hands-on exercise.
-
-@jennybc: TODO for me. Might link to slides.
-
+We assume you have [configured your system for R package development](packages01_system-prep.html). This will ensure you have all the right software installed and that it's updated. Please be adviced that ignoring this prep will only lead to heartache.
 ### Setting up the folder structure
 
 R expects a certain folder structure for your package. Luckily, the package `devtools` does this work for us.
