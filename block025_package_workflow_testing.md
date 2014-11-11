@@ -132,8 +132,44 @@ We have to tell *RStudio* where to put the files of our new package. For this, w
 
 ### Vignette
 
-TODO: @BernhardKonrad
+Vignettes allow you to give a broader overview of your package, and show new users what it can be used for and how to use it. Vignettes tell the story of your package. The good news is that, as of *R 3.0.0* you can use *Rmarkdown* to write your vignettes (previous *LaTeX* was required). It gets better: `devtools` provides a template for your vignette, to make the process of writing this user-friendly guide as easy as possible:
 
++ In your package, call `library(devtools)` and then `use_vignette("overview")`. This creates `vignettes/overview.Rmd` and adds
+
+        Suggests: knitr
+        VignetteBuilder: knitr
+to your `DESCRIPTION` file.
++ Open `vignettes/overview.Rmd` and check the YAML:
+
+        ---
+        title: "Vignette Title"
+        author: "Vignette Author"
+        date: "`r Sys.Date()`"
+        output: rmarkdown::html_vignette
+        vignette: >
+          %\VignetteIndexEntry{Vignette Title}
+          %\VignetteEngine{knitr::rmarkdown}
+          \usepackage[utf8]{inputenc}
+        ---
+    * Please change the *title* and *author*, as well as the *Vignette Title*. Don't be confused about *vignette: >*, this just means that the following LaTeX lines are read as-is instead of being interpreted as YAML. After your changes, `vignettes/overview.Rmd` YAML should look similar to this:
+    
+        ---
+        title: "Gameday Overview"
+        author: "Bernhard Konrad"
+        date: "`r Sys.Date()`"
+        output: rmarkdown::html_vignette
+        vignette: >
+          %\VignetteIndexEntry{Gameday Overview}
+          %\VignetteEngine{knitr::rmarkdown}
+          %\usepackage[utf8]{inputenc}
+        ---
+* Now we can add the actual *Rmarkdown* of our vignette. We refer to other sources (TODO, @jennybc?) on what makes a good vignette.
+* Once you have your vignette in an acceptable state it is time to turn the *Rmarkdown* source into the vignette as the R package expects it. Since vignettes may take a long time to complile, this is **not** automatically done by *Build & Reload*. Instead, use `devtools:build_vignettes()`. This puts all required files in the folder `inst/doc`.
+* You can now *Build & Reload* your package, it will also make the vignette available. To view it, simply use `browseVignettes(package="gameday")`.
+
+
+
+[More details](http://r-pkgs.had.co.nz/vignettes.html)
 
 ### Tests
 
