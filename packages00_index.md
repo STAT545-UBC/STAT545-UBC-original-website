@@ -3,7 +3,6 @@ title: Write your own R package
 output:
   html_document:
     toc: true
-    toc_depth: 4
 ---
 
 *warning: under development!*
