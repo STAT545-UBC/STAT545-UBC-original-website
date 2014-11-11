@@ -149,7 +149,7 @@ LazyData: true</code></pre>
 <li><strong>Version</strong>. Convention has it that this should be in the format <code>&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;</code>. Since we are only in development we start a fourth digit, which, also by convention, starts with <code>9000</code>. Hence <code>0.0.0.9000</code> is a good starting point, and <code>0.0.0.9001</code> would be the next (development) version while <code>0.1.0</code> or <code>1.0.0</code> would be the first release version.</li>
 <li><strong>Authors@R</strong>. Machine-readable description of the authors (<code>aut</code>), maintainer (<code>cre</code>), contributors (<code>ctb</code>) and others (see <code>?person</code>).</li>
 <li><strong>Description</strong>. One paragraph of what the packages does.</li>
-<li><strong>License</strong>. Who can use this package and for what? I suggest <a href="http://creativecommons.org/publicdomain/zero/1.0/"><em>CC0</em></a>, which means that we dedicate our package to the public domain and waive all of our rights. Anyone can freely use/adapt/modify/sell this work without our permission. We also don’t provide any warranties about liability or correctness. You can check our <a href="http://creativecommons.org/choose/">other creative common licenses</a>.</li>
+<li><strong>License</strong>. Who can use this package and for what? I suggest <a href="http://creativecommons.org/publicdomain/zero/1.0/"><em>CC0</em></a>, which means that we dedicate our package to the public domain and waive all of our rights. Anyone can freely use/adapt/modify/sell this work without our permission. We also don’t provide any warranties about liability or correctness. You can check out <a href="http://choosealicense.com/">other licenses</a>.</li>
 <li><em>LazyData</em>. Is a little technical, but seeting this to <code>true</code> makes loading data that your package provides easier.</li>
 <li>There are <a href="http://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file">many more fields available</a>.</li>
 </ul>
@@ -269,7 +269,7 @@ gday(&quot;flames&quot;)</code></pre>
 <p>We have to tell <em>RStudio</em> where to put the files of our new package. For this, we have to briefly default back to the <em>Shell</em>:</p>
 <ol style="list-style-type: decimal">
 <li><em>Tools -&gt; Shell…</em>.</li>
-<li>In the shell we have to add the GitHub repository as a remote, and we abbreviate it with <em>origin</em>: <code>git remote add origin https://github.com/BernhardKonrad/gameday</code>.</li>
+<li>In the shell we have to add the GitHub repository as a remote, and we abbreviate it as <em>origin</em>: <code>git remote add origin https://github.com/BernhardKonrad/gameday</code>.</li>
 <li>Push your changes to the new remote (branch <em>master</em>), and set this remote as the new default: <code>git push -u origin master</code>.</li>
 <li>Close the shell, you will now be able to push and pull directly from <em>RStudio</em>.</li>
 <li>Your package is now publically (and freely, remember the License) available to the world.</li>
