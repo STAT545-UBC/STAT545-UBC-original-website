@@ -18,7 +18,8 @@ In this tutorial we will develop a package *gameday* that provides the function 
 ### Prerequisites
 
 We assume you have [configured your system for R package development](packages01_system-prep.html). This will ensure you have all the right software installed and that it's updated. Please be adviced that ignoring this prep will only lead to heartache.
-### Setting up the folder structure
+
+### Setting up the directory = RStudio project = R package = Git repo
 
 R expects a certain folder structure for your package. Luckily, the package `devtools` does this work for us.
 
@@ -29,15 +30,15 @@ R expects a certain folder structure for your package. Luckily, the package `dev
 
 This creates a folder *gameday* on my Desktop, and populates it with a couple of files. Navigate to this folder and open `gameday.Rproj` with *RStudio*.
 
-Before we talk about the files and folders that were created, let's add *Git Version Control*: *Tools -> Version Control -> Project Setup*. Then choose *Version control system: Git* and *initialize a new git repository for this project* (this will require restarting RStudio).
+Before we talk about the files and folders that were created, let's put this under version control: *Tools > Version Control > Project Setup*. Then choose *Version control system: Git* and *initialize a new git repository for this project*. Then restart RStudio in this Project.
 
-
-Now, let's talk about the galore of files and folders in our folder *gameday*.
-
+Now, let's talk about the contents of our *gameday* directory.
 
 ### Files that make a packages
 
-* Helper files that we don't have to worry about:
+@jennybc: the header of this section contains a typo but I'm not sure of your intent
+
+* Helper files that we don't have to worry about now:
     + `.gitignore` The usual ignore file for Git. We don't have to change it.
     + `.Rbuildignore` An ignore file for the R package building process. We can talk about this later.
     + `.Rhistory` The usual history file of your R session. We don't have to change it.
@@ -45,12 +46,12 @@ Now, let's talk about the galore of files and folders in our folder *gameday*.
     + `NAMESPACE` A very important file, but we will never edit this by hand. `roxygen2` will maintain this for us.
 
 * `R/` finally, this is where the actual R code will go.
-* `DESCRIPTION` holds meta information about your package. We will modify this first. (Technically, the presence of this very file defines the `gameday` folder as a package.)
+* `DESCRIPTION` holds meta information about your package. We will modify this first. (Technically, the presence of this very file signals to RStudio that the `gameday` Project is a package.)
 
 
 ### The DESCRIPTION File
 
-Here is where we add information about the package (gameday) and its authors (us). Some fields are pre-filled, but many more fields can be added as necessary. The initial raw version may depepend on your version of `devtools` but should look similar to this:
+Here is where we add information about the package (gameday) and its authors (us). Some fields are pre-filled, but many more fields can be added as necessary. The initial raw version may depend on your version of `devtools` but should look similar to this:
 
     Package: gameday
     Title: What the package does (one line)
@@ -61,15 +62,15 @@ Here is where we add information about the package (gameday) and its authors (us
     License: What license is it under?
     LazyData: true
 
-Let's look at those in detail. **Bold** fiels are mandatory:
+Let's look at those in detail. **Bold** fields are mandatory:
 
 + **Package**. The name of the package. We will leave this as *gameday*.
 + **Title**. A one-line description of what the package does. Capitalize principal words, stick to a single line, don't use markup and do not end in a period.
 + **Version**. Convention has it that this should be in the format `<major>.<minor>.<patch>`. Since we are only in development we start a fourth digit, which, also by convention, starts with `9000`. Hence `0.0.0.9000` is a good starting point, and `0.0.0.9001` would be the next (development) version while `0.1.0` or `1.0.0` would be the first release version.
 + **Authors\@R**. Machine-readable description of the authors (`aut`), maintainer (`cre`), contributors (`ctb`) and others (see `?person`).
-+ **Description**. One paragraph of what the packages does.
++ **Description**. One paragraph of what the packages does. Lines of 80 characters or less. Indent subsequent lines with 4 spaces.
 + **License**. Who can use this package and for what? I suggest [*CC0*](http://creativecommons.org/publicdomain/zero/1.0/), which means that we dedicate our package to the public domain and waive all of our rights. Anyone can freely use/adapt/modify/sell this work without our permission. We also don't provide any warranties about liability or correctness. You can check our [other creative common licenses](http://creativecommons.org/choose/).
-+ *LazyData*. Is a little technical, but seeting this to `true` makes loading data that your package provides easier.
++ *LazyData*. Is a little technical, but setting this to `true` makes your package a better citizen with respect to memory.
 + There are [many more fields available](http://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file).
 
 

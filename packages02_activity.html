@@ -83,19 +83,23 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="prerequisites" class="section level3">
 <h3>Prerequisites</h3>
-<p>We assume you have <a href="packages01_system-prep.html">configured your system for R package development</a>. This will ensure you have all the right software installed and that it’s updated. Please be adviced that ignoring this prep will only lead to heartache. ### Setting up the folder structure</p>
+<p>We assume you have <a href="packages01_system-prep.html">configured your system for R package development</a>. This will ensure you have all the right software installed and that it’s updated. Please be adviced that ignoring this prep will only lead to heartache.</p>
+</div>
+<div id="setting-up-the-directory-rstudio-project-r-package-git-repo" class="section level3">
+<h3>Setting up the directory = RStudio project = R package = Git repo</h3>
 <p>R expects a certain folder structure for your package. Luckily, the package <code>devtools</code> does this work for us.</p>
 <pre><code>library(&quot;devtools&quot;)
 create(&quot;/home/bernhard/Desktop/gameday&quot;)</code></pre>
 <p><strong>!! Replace this path above with a path that exists on your computer !!</strong></p>
 <p>This creates a folder <em>gameday</em> on my Desktop, and populates it with a couple of files. Navigate to this folder and open <code>gameday.Rproj</code> with <em>RStudio</em>.</p>
-<p>Before we talk about the files and folders that were created, let’s add <em>Git Version Control</em>: <em>Tools -&gt; Version Control -&gt; Project Setup</em>. Then choose <em>Version control system: Git</em> and <em>initialize a new git repository for this project</em> (this will require restarting RStudio).</p>
-<p>Now, let’s talk about the galore of files and folders in our folder <em>gameday</em>.</p>
+<p>Before we talk about the files and folders that were created, let’s put this under version control: <em>Tools &gt; Version Control &gt; Project Setup</em>. Then choose <em>Version control system: Git</em> and <em>initialize a new git repository for this project</em>. Then restart RStudio in this Project.</p>
+<p>Now, let’s talk about the contents of our <em>gameday</em> directory.</p>
 </div>
 <div id="files-that-make-a-packages" class="section level3">
 <h3>Files that make a packages</h3>
+<p><span class="citation">@jennybc</span>: the header of this section contains a typo but I’m not sure of your intent</p>
 <ul>
-<li>Helper files that we don’t have to worry about:
+<li>Helper files that we don’t have to worry about now:
 <ul>
 <li><code>.gitignore</code> The usual ignore file for Git. We don’t have to change it.</li>
 <li><code>.Rbuildignore</code> An ignore file for the R package building process. We can talk about this later.</li>
@@ -104,12 +108,12 @@ create(&quot;/home/bernhard/Desktop/gameday&quot;)</code></pre>
 <li><code>NAMESPACE</code> A very important file, but we will never edit this by hand. <code>roxygen2</code> will maintain this for us.</li>
 </ul></li>
 <li><code>R/</code> finally, this is where the actual R code will go.</li>
-<li><code>DESCRIPTION</code> holds meta information about your package. We will modify this first. (Technically, the presence of this very file defines the <code>gameday</code> folder as a package.)</li>
+<li><code>DESCRIPTION</code> holds meta information about your package. We will modify this first. (Technically, the presence of this very file signals to RStudio that the <code>gameday</code> Project is a package.)</li>
 </ul>
 </div>
 <div id="the-description-file" class="section level3">
 <h3>The DESCRIPTION File</h3>
-<p>Here is where we add information about the package (gameday) and its authors (us). Some fields are pre-filled, but many more fields can be added as necessary. The initial raw version may depepend on your version of <code>devtools</code> but should look similar to this:</p>
+<p>Here is where we add information about the package (gameday) and its authors (us). Some fields are pre-filled, but many more fields can be added as necessary. The initial raw version may depend on your version of <code>devtools</code> but should look similar to this:</p>
 <pre><code>Package: gameday
 Title: What the package does (one line)
 Version: 0.1
@@ -118,15 +122,15 @@ Description: What the package does (one paragraph)
 Depends: R (&gt;= 3.1.2)
 License: What license is it under?
 LazyData: true</code></pre>
-<p>Let’s look at those in detail. <strong>Bold</strong> fiels are mandatory:</p>
+<p>Let’s look at those in detail. <strong>Bold</strong> fields are mandatory:</p>
 <ul>
 <li><strong>Package</strong>. The name of the package. We will leave this as <em>gameday</em>.</li>
 <li><strong>Title</strong>. A one-line description of what the package does. Capitalize principal words, stick to a single line, don’t use markup and do not end in a period.</li>
 <li><strong>Version</strong>. Convention has it that this should be in the format <code>&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;</code>. Since we are only in development we start a fourth digit, which, also by convention, starts with <code>9000</code>. Hence <code>0.0.0.9000</code> is a good starting point, and <code>0.0.0.9001</code> would be the next (development) version while <code>0.1.0</code> or <code>1.0.0</code> would be the first release version.</li>
 <li><strong>Authors@R</strong>. Machine-readable description of the authors (<code>aut</code>), maintainer (<code>cre</code>), contributors (<code>ctb</code>) and others (see <code>?person</code>).</li>
-<li><strong>Description</strong>. One paragraph of what the packages does.</li>
+<li><strong>Description</strong>. One paragraph of what the packages does. Lines of 80 characters or less. Indent subsequent lines with 4 spaces.</li>
 <li><strong>License</strong>. Who can use this package and for what? I suggest <a href="http://creativecommons.org/publicdomain/zero/1.0/"><em>CC0</em></a>, which means that we dedicate our package to the public domain and waive all of our rights. Anyone can freely use/adapt/modify/sell this work without our permission. We also don’t provide any warranties about liability or correctness. You can check our <a href="http://creativecommons.org/choose/">other creative common licenses</a>.</li>
-<li><em>LazyData</em>. Is a little technical, but seeting this to <code>true</code> makes loading data that your package provides easier.</li>
+<li><em>LazyData</em>. Is a little technical, but setting this to <code>true</code> makes your package a better citizen with respect to memory.</li>
 <li>There are <a href="http://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file">many more fields available</a>.</li>
 </ul>
 <p>Hence, a reasonable version of <code>DESCRIPTION</code> after editing would be</p>
