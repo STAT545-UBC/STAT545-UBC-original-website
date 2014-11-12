@@ -32,9 +32,6 @@ What we do next:
 + Show interactive *fix & test* workflow when we modify `gday()` and tests.
 
 
-================================================================================
-
-
 ### Documentation for the package itself
 
 We now have a documentation for the `gday` function. Next, let's add a minimal documentation of the `gameday` package itself (what you would see with `?gameday`). For that, open a *New R script* and save it as *R/gameday.r*. The content should be something like
@@ -53,10 +50,9 @@ We now have a documentation for the `gday` function. Next, let's add a minimal d
 + `\@docType package` specifies that we document the package itself (instead of a function)
 + We don't have any *R* code to document here, but `roxygen2` needs some *R* code here. Hence the convention is to put the dummy code `NULL`.
 
-
 ### Vignette
 
-Vignettes allow you to give a broader overview of your package, and show new users what it can be used for and how to use it. Vignettes tell the story of your package. The good news is that, as of *R 3.0.0* you can use *Rmarkdown* to write your vignettes (previous *LaTeX* was required). It gets better: `devtools` provides a template for your vignette, to make the process of writing this user-friendly guide as easy as possible:
+Vignettes allow you to give a broader overview of your package, and show new users what it can be used for and how to use it. Vignettes tell the story of your package. The good news is that, as of *R 3.0.0* you can use *Rmarkdown* to write your vignettes (previously *LaTeX* was required). It gets better: `devtools` provides a template for your vignette, to make the process of writing this user-friendly guide as easy as possible:
 
 + In your package, call `library(devtools)` and then `use_vignette("overview")`. This creates `vignettes/overview.Rmd` and adds
 
@@ -87,12 +83,10 @@ to your `DESCRIPTION` file.
           %\VignetteEngine{knitr::rmarkdown}
           %\usepackage[utf8]{inputenc}
         ---
-* Now we can add the actual *Rmarkdown* of our vignette. We refer to other sources (see below) on what makes a good vignette.
+
+* Now we can add the actual *Rmarkdown* of our vignette. This should show realistic usage -- usually something beyond the scope of the examples typically found in a help file. In packages that are more sophisticated than `gameday`, it's fair to say that a vignette is where you show how to combine several functions from your package to accomplish something interesting to your audience. 
 * Once you have your vignette in an acceptable state it is time to turn the *Rmarkdown* source into the vignette as the R package expects it. Since vignettes may take a long time to complile, this is **not** automatically done by *Build & Reload*. Instead, use `devtools:build_vignettes()`. This puts all required files in the folder `inst/doc`.
 * You can now *Build & Reload* your package, it will also make the vignette available. To view it, simply use `browseVignettes(package="gameday")`.
-
-[More details](http://r-pkgs.had.co.nz/vignettes.html)
-
 
 ### Publish on GitHub
 
@@ -102,7 +96,7 @@ First we have to commit all our files to our local git repository. If you don't 
 
 #### Create new, empty GitHub repository
 
-We will now make our package publically available on GitHub. If we want others to see and use our work we have to make this repository public.
+We will now make our package publicly available on GitHub. If we want others to see and use our work we have to make this repository public.
 
 1. Go to `github.com` and click on your username (should be on the top right).
 2. Choose *Repositories -> New*
@@ -117,12 +111,10 @@ We have to tell *RStudio* where to put the files of our new package. For this, w
 2. In the shell we have to add the GitHub repository as a remote, and we abbreviate it as *origin*: `git remote add origin https://github.com/BernhardKonrad/gameday`.
 3. Push your changes to the new remote (branch *master*), and set this remote as the new default: `git push -u origin master`.
 4. Close the shell, you will now be able to push and pull directly from *RStudio*.
-5. Your package is now publically (and freely, remember the License) available to the world.
+5. Your package is now publicly (and freely, remember the License) available to the world.
 6. It gets better: You can actually install your package from GitHub directly:
 
         install_github("BernhardKonrad/gameday")
-
-
 
 
 ### Tests

@@ -6,7 +6,7 @@ output:
       after_body: include/nothing.html
 ---
 
-### cm107 2014-11-10 Monday overview
+### cm107 2014-11-10 Wednesday overview
 
 + [HW09](hw09_automation.html) Automating Data-analysis Pipelines
     - *recommended* due date Thursday, November 13
