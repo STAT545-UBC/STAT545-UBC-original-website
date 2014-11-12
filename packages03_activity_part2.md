@@ -53,10 +53,9 @@ We now have a documentation for the `gday` function. Next, let's add a minimal d
 + `\@docType package` specifies that we document the package itself (instead of a function)
 + We don't have any *R* code to document here, but `roxygen2` needs some *R* code here. Hence the convention is to put the dummy code `NULL`.
 
-
 ### Vignette
 
-Vignettes allow you to give a broader overview of your package, and show new users what it can be used for and how to use it. Vignettes tell the story of your package. The good news is that, as of *R 3.0.0* you can use *Rmarkdown* to write your vignettes (previous *LaTeX* was required). It gets better: `devtools` provides a template for your vignette, to make the process of writing this user-friendly guide as easy as possible:
+Vignettes allow you to give a broader overview of your package, and show new users what it can be used for and how to use it. Vignettes tell the story of your package. The good news is that, as of *R 3.0.0* you can use *Rmarkdown* to write your vignettes (previously *LaTeX* was required). It gets better: `devtools` provides a template for your vignette, to make the process of writing this user-friendly guide as easy as possible:
 
 + In your package, call `library(devtools)` and then `use_vignette("overview")`. This creates `vignettes/overview.Rmd` and adds
 
@@ -87,12 +86,9 @@ to your `DESCRIPTION` file.
           %\VignetteEngine{knitr::rmarkdown}
           %\usepackage[utf8]{inputenc}
         ---
-* Now we can add the actual *Rmarkdown* of our vignette. We refer to other sources (TODO, @jennybc?) on what makes a good vignette.
+* Now we can add the actual *Rmarkdown* of our vignette. This should show realistic usage -- usually something beyond the scope of the examples typically found in a help file. In packages that are more sophisticated than `gameday`, it's fair to say that a vignette is where you show how to combine several functions from your package to accomplish something interesting to your audience. 
 * Once you have your vignette in an acceptable state it is time to turn the *Rmarkdown* source into the vignette as the R package expects it. Since vignettes may take a long time to complile, this is **not** automatically done by *Build & Reload*. Instead, use `devtools:build_vignettes()`. This puts all required files in the folder `inst/doc`.
 * You can now *Build & Reload* your package, it will also make the vignette available. To view it, simply use `browseVignettes(package="gameday")`.
-
-[More details](http://r-pkgs.had.co.nz/vignettes.html)
-
 
 ### Publish on GitHub
 

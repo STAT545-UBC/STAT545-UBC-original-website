@@ -131,7 +131,7 @@ NULL</code></pre>
 </div>
 <div id="vignette" class="section level3">
 <h3>Vignette</h3>
-<p>Vignettes allow you to give a broader overview of your package, and show new users what it can be used for and how to use it. Vignettes tell the story of your package. The good news is that, as of <em>R 3.0.0</em> you can use <em>Rmarkdown</em> to write your vignettes (previous <em>LaTeX</em> was required). It gets better: <code>devtools</code> provides a template for your vignette, to make the process of writing this user-friendly guide as easy as possible:</p>
+<p>Vignettes allow you to give a broader overview of your package, and show new users what it can be used for and how to use it. Vignettes tell the story of your package. The good news is that, as of <em>R 3.0.0</em> you can use <em>Rmarkdown</em> to write your vignettes (previously <em>LaTeX</em> was required). It gets better: <code>devtools</code> provides a template for your vignette, to make the process of writing this user-friendly guide as easy as possible:</p>
 <ul>
 <li><p>In your package, call <code>library(devtools)</code> and then <code>use_vignette(&quot;overview&quot;)</code>. This creates <code>vignettes/overview.Rmd</code> and adds</p>
 <pre><code>Suggests: knitr
@@ -151,11 +151,10 @@ vignette: &gt;
 <ul>
 <li>Please change the <em>title</em> and <em>author</em>, as well as the <em>Vignette Title</em>. Don’t be confused about <em>vignette: &gt;</em>, this just means that the following LaTeX lines are read as-is instead of being interpreted as YAML. After your changes, <code>vignettes/overview.Rmd</code> YAML should look similar to this:</li>
 </ul></li>
-<li>Now we can add the actual <em>Rmarkdown</em> of our vignette. We refer to other sources (TODO, <span class="citation">@jennybc</span>?) on what makes a good vignette.</li>
+<li>Now we can add the actual <em>Rmarkdown</em> of our vignette. This should show realistic usage – usually something beyond the scope of the examples typically found in a help file. In packages that are more sophisticated than <code>gameday</code>, it’s fair to say that a vignette is where you show how to combine several functions from your package to accomplish something interesting to your audience.</li>
 <li>Once you have your vignette in an acceptable state it is time to turn the <em>Rmarkdown</em> source into the vignette as the R package expects it. Since vignettes may take a long time to complile, this is <strong>not</strong> automatically done by <em>Build &amp; Reload</em>. Instead, use <code>devtools:build_vignettes()</code>. This puts all required files in the folder <code>inst/doc</code>.</li>
 <li><p>You can now <em>Build &amp; Reload</em> your package, it will also make the vignette available. To view it, simply use <code>browseVignettes(package=&quot;gameday&quot;)</code>.</p></li>
 </ul>
-<p><a href="http://r-pkgs.had.co.nz/vignettes.html">More details</a></p>
 </div>
 <div id="publish-on-github" class="section level3">
 <h3>Publish on GitHub</h3>
