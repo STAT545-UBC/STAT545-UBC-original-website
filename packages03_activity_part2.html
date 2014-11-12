@@ -152,7 +152,7 @@ vignette: &gt;
 <li>Please change the <em>title</em> and <em>author</em>, as well as the <em>Vignette Title</em>. Don’t be confused about <em>vignette: &gt;</em>, this just means that the following LaTeX lines are read as-is instead of being interpreted as YAML. After your changes, <code>vignettes/overview.Rmd</code> YAML should look similar to this:</li>
 </ul></li>
 <li>Now we can add the actual <em>Rmarkdown</em> of our vignette. This should show realistic usage – usually something beyond the scope of the examples typically found in a help file. In packages that are more sophisticated than <code>gameday</code>, it’s fair to say that a vignette is where you show how to combine several functions from your package to accomplish something interesting to your audience.</li>
-<li>Once you have your vignette in an acceptable state it is time to turn the <em>Rmarkdown</em> source into the vignette as the R package expects it. Since vignettes may take a long time to complile, this is <strong>not</strong> automatically done by <em>Build &amp; Reload</em>. Instead, use <code>devtools:build_vignettes()</code>. This puts all required files in the folder <code>inst/doc</code>.</li>
+<li>Once you have your vignette in an acceptable state it is time to turn the <em>Rmarkdown</em> source into the vignette as the R package expects it. Since vignettes may take a long time to compile, this is <strong>not</strong> automatically done by <em>Build &amp; Reload</em>. Instead, use <code>devtools:build_vignettes()</code>. This puts all required files in the folder <code>inst/doc</code>.</li>
 <li><p>You can now <em>Build &amp; Reload</em> your package, it will also make the vignette available. To view it, simply use <code>browseVignettes(package=&quot;gameday&quot;)</code>.</p></li>
 </ul>
 </div>
@@ -164,7 +164,7 @@ vignette: &gt;
 </div>
 <div id="create-new-empty-github-repository" class="section level4">
 <h4>Create new, empty GitHub repository</h4>
-<p>We will now make our package publically available on GitHub. If we want others to see and use our work we have to make this repository public.</p>
+<p>We will now make our package publicly available on GitHub. If we want others to see and use our work we have to make this repository public.</p>
 <ol style="list-style-type: decimal">
 <li>Go to <code>github.com</code> and click on your username (should be on the top right).</li>
 <li>Choose <em>Repositories -&gt; New</em></li>
@@ -180,7 +180,7 @@ vignette: &gt;
 <li>In the shell we have to add the GitHub repository as a remote, and we abbreviate it as <em>origin</em>: <code>git remote add origin https://github.com/BernhardKonrad/gameday</code>.</li>
 <li>Push your changes to the new remote (branch <em>master</em>), and set this remote as the new default: <code>git push -u origin master</code>.</li>
 <li>Close the shell, you will now be able to push and pull directly from <em>RStudio</em>.</li>
-<li>Your package is now publically (and freely, remember the License) available to the world.</li>
+<li>Your package is now public ally (and freely, remember the License) available to the world.</li>
 <li><p>It gets better: You can actually install your package from GitHub directly:</p>
 <pre><code>install_github(&quot;BernhardKonrad/gameday&quot;)</code></pre></li>
 </ol>
@@ -255,7 +255,7 @@ expect_error(gday(&quot;Bruins&quot;, date=&quot;201-111-10&quot;), &quot;Error&
 #&#39;
 #&#39; You know then problem: You&#39;re in your office writing R code and
 #&#39; suddenly have the urge to check whether your NHL team has a game today.
-#&#39; Before you know it you just wasted 15 minutes browsing the lastest
+#&#39; Before you know it you just wasted 15 minutes browsing the saltest
 #&#39; news on your favorite hockey webpage.
 #&#39; Suffer no more! You can now ask R directly, without tempting yourself
 #&#39; by firing up your web browser.

@@ -87,7 +87,7 @@ to your `DESCRIPTION` file.
           %\usepackage[utf8]{inputenc}
         ---
 * Now we can add the actual *Rmarkdown* of our vignette. This should show realistic usage -- usually something beyond the scope of the examples typically found in a help file. In packages that are more sophisticated than `gameday`, it's fair to say that a vignette is where you show how to combine several functions from your package to accomplish something interesting to your audience. 
-* Once you have your vignette in an acceptable state it is time to turn the *Rmarkdown* source into the vignette as the R package expects it. Since vignettes may take a long time to complile, this is **not** automatically done by *Build & Reload*. Instead, use `devtools:build_vignettes()`. This puts all required files in the folder `inst/doc`.
+* Once you have your vignette in an acceptable state it is time to turn the *Rmarkdown* source into the vignette as the R package expects it. Since vignettes may take a long time to compile, this is **not** automatically done by *Build & Reload*. Instead, use `devtools:build_vignettes()`. This puts all required files in the folder `inst/doc`.
 * You can now *Build & Reload* your package, it will also make the vignette available. To view it, simply use `browseVignettes(package="gameday")`.
 
 ### Publish on GitHub
@@ -98,7 +98,7 @@ First we have to commit all our files to our local git repository. If you don't 
 
 #### Create new, empty GitHub repository
 
-We will now make our package publically available on GitHub. If we want others to see and use our work we have to make this repository public.
+We will now make our package publicly available on GitHub. If we want others to see and use our work we have to make this repository public.
 
 1. Go to `github.com` and click on your username (should be on the top right).
 2. Choose *Repositories -> New*
@@ -113,7 +113,7 @@ We have to tell *RStudio* where to put the files of our new package. For this, w
 2. In the shell we have to add the GitHub repository as a remote, and we abbreviate it as *origin*: `git remote add origin https://github.com/BernhardKonrad/gameday`.
 3. Push your changes to the new remote (branch *master*), and set this remote as the new default: `git push -u origin master`.
 4. Close the shell, you will now be able to push and pull directly from *RStudio*.
-5. Your package is now publically (and freely, remember the License) available to the world.
+5. Your package is now public ally (and freely, remember the License) available to the world.
 6. It gets better: You can actually install your package from GitHub directly:
 
         install_github("BernhardKonrad/gameday")
@@ -191,7 +191,7 @@ This sets up a handy test structure TODO
     #'
     #' You know then problem: You're in your office writing R code and
     #' suddenly have the urge to check whether your NHL team has a game today.
-    #' Before you know it you just wasted 15 minutes browsing the lastest
+    #' Before you know it you just wasted 15 minutes browsing the saltest
     #' news on your favorite hockey webpage.
     #' Suffer no more! You can now ask R directly, without tempting yourself
     #' by firing up your web browser.
