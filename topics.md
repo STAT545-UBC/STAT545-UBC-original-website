@@ -48,7 +48,7 @@
     - [Hands-on activity](automation04_make-activity.html)
     - [Example pipelines](automation00_index.html#more-examples)
   * [All the package things](packages00_index.html)
-    - slides
+    - [slides](https://speakerdeck.com/jennybc/ubc-stat545-2014-cm107-context-for-writing-your-first-r-package-week)
     - [System preparation for package development](packages01_system-prep.html)
     - [Hands-on activity, part 1](packages02_activity.html)
     - [Hands-on activity, part 2](packages02_activity_part2.html)

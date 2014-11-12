@@ -18,7 +18,7 @@ output:
 
   * led by Bernhard Konrad
   * [All the package things](packages00_index.html)
-    - slides
-    - [System preparation for package development](packages01_system-prep.html)
-    - [Hands-on activity, part 1](packages02_activity.html)
-    - [Hands-on activity, part 2](packages02_activity_part2.html)
+    - we looked at some of the slides
+    - we did system prep
+    - we did first part of activity
+   

@@ -5,16 +5,14 @@ output:
     toc: true
 ---
 
-*warning: under development!*
-
 ### Overview
 
-@jennybc: TODO for me. Might link to slides? Or just an HTML page?
+[slides](https://speakerdeck.com/jennybc/ubc-stat545-2014-cm107-context-for-writing-your-first-r-package-week)
 
-  * Why make an R package?
   * What is an R package?
   * What is a library?
-  * Why `devtools` is so integral to a happy workflow.
+  * Why make an R package?
+  * Why `devtools` is integral to a happy workflow.
 
 ### Prepare your system for package development
 
@@ -24,14 +22,23 @@ Although we'll build a very simple package, we're still going to use the most mo
   
 ### Hands-on activity
 
-[This fully developed example](packages02_activity.html) shows you
+We build the `gameday` package to check if your favorite NHL team has a game today.
+
+This fully developed example shows you
 
   * How to create a new R package
   * How to accept help from `devtools` and RStudio during development
   * Workflow for package development
   * How to document functions and your overall package
   * How to test the functions in your package
+  * How to demonstrate your package's utility with a vignette
   * How to put your package on GitHub to share with the world
+
+[Day 1](packages02_activity.html) of hands-on work
+
+[Day 2](packages03_activity_part2.html) of hands-on work
+
+Homework *not posted yet*
 
 ### Resources
 
