@@ -77,11 +77,11 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <ul>
 <li><a href="#write-your-own-r-package-part-2">Write your own R package, part 2</a><ul>
 <li><a href="#documentation-for-the-package-itself">Documentation for the package itself</a></li>
+<li><a href="#vignette">Vignette</a></li>
+<li><a href="#publish-on-github">Publish on GitHub</a></li>
+<li><a href="#tests">Tests</a></li>
 <li><a href="#update-the-r-code">Update the R code</a></li>
 <li><a href="#let-devtools-roxygen2-compile-the-documenation-for-you">Let devtools, roxygen2 compile the documenation for you</a></li>
-<li><a href="#publish-on-github">Publish on GitHub</a></li>
-<li><a href="#vignette">Vignette</a></li>
-<li><a href="#tests">Tests</a></li>
 </ul></li>
 </ul>
 </div>
@@ -92,7 +92,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <ul>
 <li>Created <code>gameday</code> package layout with <code>devtools::create()</code></li>
 <li>Modified <code>DESCRIPTION</code></li>
-<li>Added <code>gday.R</code> with <code>gameday::gday()</code> function to check if your NHL team plays today</li>
+<li>Added <code>gday.R</code> function to the <code>gameday</code> package. It checks if your NHL team plays today</li>
 <li>Added <code>roxygen2</code>-style documentation to <code>gday()</code></li>
 <li>Built package in <em>RStudio</em> with <em>Build &amp; Reload</em> from the <em>Build</em> tab</li>
 <li>What works now:
@@ -104,12 +104,11 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 <p>What we do next:</p>
 <ul>
-<li>Create help file for the <code>gameday</code> package, which is displayed by <code>?gameday</code></li>
-<li>Add a vignette (<code>use_vignette(&quot;vignette&quot;)</code>, <code>build_vignettes()</code>, <code>browseVignettes(package=&quot;gameday&quot;)</code>)</li>
-<li>Publish <code>gameday</code> on GitHub</li>
-<li>Modify <code>gday()</code> to accept a second input <code>date</code> that defaults to <code>Sys.Date()</code></li>
-<li>Show interactive <em>fix &amp; test</em> workflow</li>
-<li>Add tests with <code>testthat</code></li>
+<li>Create help file for the <code>gameday</code> package, which is displayed by <code>?gameday</code>.</li>
+<li>Add a vignette.</li>
+<li>Publish <code>gameday</code> on GitHub.</li>
+<li>Add tests with <code>testthat</code>.</li>
+<li>Show interactive <em>fix &amp; test</em> workflow when we modify <code>gday()</code> and tests.</li>
 </ul>
 <p>================================================================================</p>
 <div id="documentation-for-the-package-itself" class="section level3">
@@ -117,19 +116,136 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>We now have a documentation for the <code>gday</code> function. Next, let’s add a minimal documentation of the <code>gameday</code> package itself (what you would see with <code>?gameday</code>). For that, open a <em>New R script</em> and save it as <em>R/gameday.r</em>. The content should be something like</p>
 <pre><code>#&#39; My first R package: gameday
 #&#39; 
-#&#39; This is so much fun
+#&#39; A one-line sentence on what this packages does
 #&#39; 
-#&#39; I look forward to writing really neat packages
-#&#39; so that I can have all my helper functions in one place
-#&#39; and maybe even share them.
+#&#39; Single paragraph with more detail on the package.
+#&#39; This can span several lines.
 #&#39; 
 #&#39; @docType package
 #&#39; @name gameday
 NULL</code></pre>
 <ul>
-<li>We don’t have any <em>R</em> code to document here, hence we put <code>NULL</code>.</li>
-<li><code>\@docType package</code> specifies that we document the package itself</li>
+<li><code>\@docType package</code> specifies that we document the package itself (instead of a function)</li>
+<li>We don’t have any <em>R</em> code to document here, but <code>roxygen2</code> needs some <em>R</em> code here. Hence the convention is to put the dummy code <code>NULL</code>.</li>
 </ul>
+</div>
+<div id="vignette" class="section level3">
+<h3>Vignette</h3>
+<p>Vignettes allow you to give a broader overview of your package, and show new users what it can be used for and how to use it. Vignettes tell the story of your package. The good news is that, as of <em>R 3.0.0</em> you can use <em>Rmarkdown</em> to write your vignettes (previous <em>LaTeX</em> was required). It gets better: <code>devtools</code> provides a template for your vignette, to make the process of writing this user-friendly guide as easy as possible:</p>
+<ul>
+<li><p>In your package, call <code>library(devtools)</code> and then <code>use_vignette(&quot;overview&quot;)</code>. This creates <code>vignettes/overview.Rmd</code> and adds</p>
+<pre><code>Suggests: knitr
+VignetteBuilder: knitr</code></pre>
+to your <code>DESCRIPTION</code> file.</li>
+<li><p>Open <code>vignettes/overview.Rmd</code> and check the YAML:</p>
+<pre><code>---
+title: &quot;Vignette Title&quot;
+author: &quot;Vignette Author&quot;
+date: &quot;`r Sys.Date()`&quot;
+output: rmarkdown::html_vignette
+vignette: &gt;
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---</code></pre>
+<ul>
+<li>Please change the <em>title</em> and <em>author</em>, as well as the <em>Vignette Title</em>. Don’t be confused about <em>vignette: &gt;</em>, this just means that the following LaTeX lines are read as-is instead of being interpreted as YAML. After your changes, <code>vignettes/overview.Rmd</code> YAML should look similar to this:</li>
+</ul></li>
+<li>Now we can add the actual <em>Rmarkdown</em> of our vignette. We refer to other sources (TODO, <span class="citation">@jennybc</span>?) on what makes a good vignette.</li>
+<li>Once you have your vignette in an acceptable state it is time to turn the <em>Rmarkdown</em> source into the vignette as the R package expects it. Since vignettes may take a long time to complile, this is <strong>not</strong> automatically done by <em>Build &amp; Reload</em>. Instead, use <code>devtools:build_vignettes()</code>. This puts all required files in the folder <code>inst/doc</code>.</li>
+<li><p>You can now <em>Build &amp; Reload</em> your package, it will also make the vignette available. To view it, simply use <code>browseVignettes(package=&quot;gameday&quot;)</code>.</p></li>
+</ul>
+<p><a href="http://r-pkgs.had.co.nz/vignettes.html">More details</a></p>
+</div>
+<div id="publish-on-github" class="section level3">
+<h3>Publish on GitHub</h3>
+<div id="commit-locally" class="section level4">
+<h4>Commit locally</h4>
+<p>First we have to commit all our files to our local git repository. If you don’t have a <em>Git</em> tab in <em>RStudio</em>, go to <em>Tools -&gt; Version Control -&gt; Project Setup</em> and choose <em>Git</em>. This will restart <em>RStudio</em>. Then, go to the <em>Git</em> tab, check all files and folders, click <em>commit</em>, add a <em>commit message</em> (eg “my first version of my first R package”) and <em>commit</em>.</p>
+</div>
+<div id="create-new-empty-github-repository" class="section level4">
+<h4>Create new, empty GitHub repository</h4>
+<p>We will now make our package publically available on GitHub. If we want others to see and use our work we have to make this repository public.</p>
+<ol style="list-style-type: decimal">
+<li>Go to <code>github.com</code> and click on your username (should be on the top right).</li>
+<li>Choose <em>Repositories -&gt; New</em></li>
+<li>The repository name is <em>gameday</em>. You can leave <em>Description</em> empty. Choose <strong>Public</strong> and <strong>do NOT initialize with a README</strong>.</li>
+<li>Copy the address of the repository. For me this is <code>https://github.com/BernhardKonrad/gameday</code>.</li>
+</ol>
+</div>
+<div id="connect-rstudio-and-github" class="section level4">
+<h4>Connect RStudio and GitHub</h4>
+<p>We have to tell <em>RStudio</em> where to put the files of our new package. For this, we have to briefly default back to the <em>Shell</em>:</p>
+<ol style="list-style-type: decimal">
+<li><em>Tools -&gt; Shell…</em>.</li>
+<li>In the shell we have to add the GitHub repository as a remote, and we abbreviate it as <em>origin</em>: <code>git remote add origin https://github.com/BernhardKonrad/gameday</code>.</li>
+<li>Push your changes to the new remote (branch <em>master</em>), and set this remote as the new default: <code>git push -u origin master</code>.</li>
+<li>Close the shell, you will now be able to push and pull directly from <em>RStudio</em>.</li>
+<li>Your package is now publically (and freely, remember the License) available to the world.</li>
+<li><p>It gets better: You can actually install your package from GitHub directly:</p>
+<pre><code>install_github(&quot;BernhardKonrad/gameday&quot;)</code></pre></li>
+</ol>
+</div>
+</div>
+<div id="tests" class="section level3">
+<h3>Tests</h3>
+<p>We all feel that we should be testing our code. In fact, we all do, but not in an effective and efficient way.</p>
+<blockquote>
+<p>It’s not that we don’t test our code, it’s that we don’t store our tests so they can be re-run automatically. (Hadley Wickham)</p>
+</blockquote>
+<p>Usually we inspect our code interactively and smell test our data. Formal testing, however, is regarded as very advanced and <em>“not worth it”</em> for the daily work. Turns out, a simple test suit like <a href="http://vita.had.co.nz/papers/testthat.html"><code>testthat</code></a> doesn’t only make testing very easy, but will also make you spend less time fixing bugs and more time writing code.</p>
+<p>We will use <code>testthat</code> to add tests to our package. The syntax is about as close to english as it gets:</p>
+<pre><code># save as test_me.R
+test_that(&quot;case is ignored&quot;, {
+expect_equal(gday(&quot;canucks&quot;), gday(&quot;Canucks&quot;))
+})</code></pre>
+<ul>
+<li>The first argument is a string that explains what we are testing for. It completes the sentence <em>“Test that…”</em></li>
+<li>The second argument is (list of) test(s), that is, checks that have to be satisfied. Above we use <code>expect_equal</code>, but there are many more:
+<ul>
+<li><code>expect_true(x)</code></li>
+<li><code>expect_false(x)</code></li>
+<li><code>expect_is(x, y)</code></li>
+<li><code>expect_equal(x, y)</code></li>
+<li><code>expect_equivalent(x, y)</code></li>
+<li><code>expect_identical(x, y)</code></li>
+<li><code>expect_matches(x, y)</code></li>
+<li><code>expect_output(x, y)</code></li>
+<li><code>expect_message(x, y)</code></li>
+<li><code>expect_warning(x, y)</code></li>
+<li><code>expect_error(x, y)</code></li>
+</ul></li>
+<li>To run the test you can
+<ul>
+<li><code>source</code> the corresponding <em>R</em> file,</li>
+<li>run <code>test_file(&quot;testMe.R&quot;)</code></li>
+<li>run <code>test_dir(&quot;.&quot;)</code></li>
+<li>run <code>auto_test(&quot;.&quot;, &quot;./R&quot;)</code></li>
+<li>run <code>devtools:check()</code></li>
+</ul></li>
+</ul>
+<p>When you add tests to your package it makes sense to think about a folder structure for where to put the tests. Luckily, <code>devtools</code> also has a function for that:</p>
+<ul>
+<li><code>devtools::use_testthat()</code></li>
+</ul>
+<p>This sets up a handy test structure TODO</p>
+<pre><code>test_that(&quot;Vancouver Canucks had a game against Nashville Predators on 2014-11-02&quot;, {
+expect_true(gday(team.name=&quot;canucks&quot;, date=&quot;2014-11-02&quot;))
+expect_true(gday(team.name=&quot;predators&quot;, date=&quot;2014-11-02&quot;))
+})
+
+test_that(&quot;Washington Capitals did not play on 2014-11-10&quot;, {
+expect_false(gday(team.name=&quot;capitals&quot;, date=&quot;2014-11-10&quot;))
+expect_false(gday(team.name=&quot;washington&quot;, date=&quot;2014-11-10&quot;))
+})
+
+test_that(&quot;Case is ignored&quot;, {
+expect_equal(gday(&quot;canucks&quot;), gday(&quot;Canucks&quot;))
+})
+
+test_that(&quot;Wrong date type throws error&quot;, {
+expect_error(gday(&quot;Bruins&quot;, date=&quot;201-111-10&quot;), &quot;Error&quot;)
+})</code></pre>
 </div>
 <div id="update-the-r-code" class="section level3">
 <h3>Update the R code</h3>
@@ -167,85 +283,6 @@ gday &lt;- function(team.name, date=Sys.Date()){
 <pre><code>library(&quot;devtools&quot;)
 document()</code></pre>
 <p>Observe the new file <code>man/gameday.Rd</code>.</p>
-</div>
-<div id="publish-on-github" class="section level3">
-<h3>Publish on GitHub</h3>
-<div id="commit-locally" class="section level4">
-<h4>Commit locally</h4>
-<p>First we have to commit all our files. In <em>RStudio</em>, go to the <em>Git</em> tab, check all files and folders, click <em>commit</em>, add a <em>commit message</em> (eg “my first version of my first R package”) and <em>commit</em>.</p>
-</div>
-<div id="create-new-empty-github-repository" class="section level4">
-<h4>Create new, empty GitHub repository</h4>
-<p>As a final step we will now make our package available on GitHub. If we want others to see and use our work we have to make this repository public.</p>
-<ol style="list-style-type: decimal">
-<li>Go to <code>github.com</code> and click on your username (should be on the top right).</li>
-<li>Choose <em>Repositories -&gt; New</em></li>
-<li>The repository name is <em>gameday</em>. You can leave <em>Description</em> empty. Choose <strong>Public</strong> and <strong>do NOT initialize with a README</strong>.</li>
-<li>Copy the address of the repository. For me this is <code>https://github.com/BernhardKonrad/gameday</code>.</li>
-</ol>
-</div>
-<div id="connect-rstudio-and-github" class="section level4">
-<h4>Connect RStudio and GitHub</h4>
-<p>We have to tell <em>RStudio</em> where to put the files of our new package. For this, we have to briefly default back to the <em>Shell</em>:</p>
-<ol style="list-style-type: decimal">
-<li><em>Tools -&gt; Shell…</em>.</li>
-<li>In the shell we have to add the GitHub repository as a remote, and we abbreviate it as <em>origin</em>: <code>git remote add origin https://github.com/BernhardKonrad/gameday</code>.</li>
-<li>Push your changes to the new remote (branch <em>master</em>), and set this remote as the new default: <code>git push -u origin master</code>.</li>
-<li>Close the shell, you will now be able to push and pull directly from <em>RStudio</em>.</li>
-<li>Your package is now publically (and freely, remember the License) available to the world.</li>
-<li><p>It gets better: You can actually install your package from GitHub directly:</p>
-<pre><code>install_github(&quot;BernhardKonrad/gameday&quot;)</code></pre></li>
-</ol>
-</div>
-</div>
-<div id="vignette" class="section level3">
-<h3>Vignette</h3>
-<p>Vignettes allow you to give a broader overview of your package, and show new users what it can be used for and how to use it. Vignettes tell the story of your package. The good news is that, as of <em>R 3.0.0</em> you can use <em>Rmarkdown</em> to write your vignettes (previous <em>LaTeX</em> was required). It gets better: <code>devtools</code> provides a template for your vignette, to make the process of writing this user-friendly guide as easy as possible:</p>
-<ul>
-<li><p>In your package, call <code>library(devtools)</code> and then <code>use_vignette(&quot;overview&quot;)</code>. This creates <code>vignettes/overview.Rmd</code> and adds</p>
-<pre><code>Suggests: knitr
-VignetteBuilder: knitr</code></pre>
-to your <code>DESCRIPTION</code> file.</li>
-<li><p>Open <code>vignettes/overview.Rmd</code> and check the YAML:</p>
-<pre><code>---
-title: &quot;Vignette Title&quot;
-author: &quot;Vignette Author&quot;
-date: &quot;`r Sys.Date()`&quot;
-output: rmarkdown::html_vignette
-vignette: &gt;
-  %\VignetteIndexEntry{Vignette Title}
-  %\VignetteEngine{knitr::rmarkdown}
-  \usepackage[utf8]{inputenc}
----</code></pre>
-<ul>
-<li>Please change the <em>title</em> and <em>author</em>, as well as the <em>Vignette Title</em>. Don’t be confused about <em>vignette: &gt;</em>, this just means that the following LaTeX lines are read as-is instead of being interpreted as YAML. After your changes, <code>vignettes/overview.Rmd</code> YAML should look similar to this:</li>
-</ul></li>
-<li>Now we can add the actual <em>Rmarkdown</em> of our vignette. We refer to other sources (TODO, <span class="citation">@jennybc</span>?) on what makes a good vignette.</li>
-<li>Once you have your vignette in an acceptable state it is time to turn the <em>Rmarkdown</em> source into the vignette as the R package expects it. Since vignettes may take a long time to complile, this is <strong>not</strong> automatically done by <em>Build &amp; Reload</em>. Instead, use <code>devtools:build_vignettes()</code>. This puts all required files in the folder <code>inst/doc</code>.</li>
-<li><p>You can now <em>Build &amp; Reload</em> your package, it will also make the vignette available. To view it, simply use <code>browseVignettes(package=&quot;gameday&quot;)</code>.</p></li>
-</ul>
-<p><a href="http://r-pkgs.had.co.nz/vignettes.html">More details</a></p>
-</div>
-<div id="tests" class="section level3">
-<h3>Tests</h3>
-<p><code>devtools::use_testthat()</code>, <code>test()</code></p>
-<pre><code>test_that(&quot;Vancouver Canucks had a game against Nashville Predators on 2014-11-02&quot;, {
-expect_true(gday(team.name=&quot;canucks&quot;, date=&quot;2014-11-02&quot;))
-expect_true(gday(team.name=&quot;predators&quot;, date=&quot;2014-11-02&quot;))
-})
-
-test_that(&quot;Washington Capitals did not play on 2014-11-10&quot;, {
-expect_false(gday(team.name=&quot;capitals&quot;, date=&quot;2014-11-10&quot;))
-expect_false(gday(team.name=&quot;washington&quot;, date=&quot;2014-11-10&quot;))
-})
-
-test_that(&quot;Case is ignored&quot;, {
-expect_equal(gday(&quot;canucks&quot;), gday(&quot;Canucks&quot;))
-})
-
-test_that(&quot;Wrong date type throws error&quot;, {
-expect_error(gday(&quot;Bruins&quot;, date=&quot;201-111-10&quot;), &quot;Error&quot;)
-})</code></pre>
 <hr />
 </div>
 </div>
