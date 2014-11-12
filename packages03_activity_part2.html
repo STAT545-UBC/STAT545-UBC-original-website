@@ -81,14 +81,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#publish-on-github">Publish on GitHub</a></li>
 <li><a href="#tests">Tests</a></li>
 <li><a href="#update-the-r-code">Update the R code</a></li>
-<li><a href="#let-devtools-roxygen2-compile-the-documenation-for-you">Let devtools, roxygen2 compile the documenation for you</a></li>
+<li><a href="#finally">Finally…</a></li>
 </ul></li>
 </ul>
 </div>
 
 <div id="write-your-own-r-package-part-2" class="section level1">
 <h1>Write your own R package, part 2</h1>
-<p>Where we left off on Monday:</p>
+<p>Where we left off after <a href="packages02_activity.html">part 1 on Monday</a>:</p>
 <ul>
 <li>Created <code>gameday</code> package layout with <code>devtools::create()</code></li>
 <li>Modified <code>DESCRIPTION</code></li>
@@ -110,7 +110,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>Add tests with <code>testthat</code>.</li>
 <li>Show interactive <em>fix &amp; test</em> workflow when we modify <code>gday()</code> and tests.</li>
 </ul>
-<p>================================================================================</p>
 <div id="documentation-for-the-package-itself" class="section level3">
 <h3>Documentation for the package itself</h3>
 <p>We now have a documentation for the <code>gday</code> function. Next, let’s add a minimal documentation of the <code>gameday</code> package itself (what you would see with <code>?gameday</code>). For that, open a <em>New R script</em> and save it as <em>R/gameday.r</em>. The content should be something like</p>
@@ -152,7 +151,7 @@ vignette: &gt;
 <li>Please change the <em>title</em> and <em>author</em>, as well as the <em>Vignette Title</em>. Don’t be confused about <em>vignette: &gt;</em>, this just means that the following LaTeX lines are read as-is instead of being interpreted as YAML. After your changes, <code>vignettes/overview.Rmd</code> YAML should look similar to this:</li>
 </ul></li>
 <li>Now we can add the actual <em>Rmarkdown</em> of our vignette. This should show realistic usage – usually something beyond the scope of the examples typically found in a help file. In packages that are more sophisticated than <code>gameday</code>, it’s fair to say that a vignette is where you show how to combine several functions from your package to accomplish something interesting to your audience.</li>
-<li>Once you have your vignette in an acceptable state it is time to turn the <em>Rmarkdown</em> source into the vignette as the R package expects it. Since vignettes may take a long time to compile, this is <strong>not</strong> automatically done by <em>Build &amp; Reload</em>. Instead, use <code>devtools:build_vignettes()</code>. This puts all required files in the folder <code>inst/doc</code>.</li>
+<li>Once you have your vignette in an acceptable state it is time to turn the <em>Rmarkdown</em> source into the vignette as the R package expects it. Since vignettes may take a long time to complile, this is <strong>not</strong> automatically done by <em>Build &amp; Reload</em>. Instead, use <code>devtools:build_vignettes()</code>. This puts all required files in the folder <code>inst/doc</code>.</li>
 <li><p>You can now <em>Build &amp; Reload</em> your package, it will also make the vignette available. To view it, simply use <code>browseVignettes(package=&quot;gameday&quot;)</code>.</p></li>
 </ul>
 </div>
@@ -188,38 +187,39 @@ vignette: &gt;
 </div>
 <div id="tests" class="section level3">
 <h3>Tests</h3>
-<p>We all feel that we should be testing our code. In fact, we all do, but not in an effective and efficient way.</p>
+<p>We all feel that we should be testing our code. In fact, most of us are, but not in an effective and efficient way:</p>
 <blockquote>
 <p>It’s not that we don’t test our code, it’s that we don’t store our tests so they can be re-run automatically. (Hadley Wickham)</p>
 </blockquote>
-<p>Usually we inspect our code interactively and smell test our data. Formal testing, however, is regarded as very advanced and <em>“not worth it”</em> for the daily work. Turns out, a simple test suit like <a href="http://vita.had.co.nz/papers/testthat.html"><code>testthat</code></a> doesn’t only make testing very easy, but will also make you spend less time fixing bugs and more time writing code.</p>
-<p>We will use <code>testthat</code> to add tests to our package. The syntax is about as close to english as it gets:</p>
+<p>We are used to inspecting our code interactively and smell-test our data. Formal testing, however, is regarded as very advanced and <em>“not worth it”</em> for the daily work. Turns out, a simple test suit like <a href="http://vita.had.co.nz/papers/testthat.html"><code>testthat</code></a> doesn’t only make testing very easy, but will also make you spend less time fixing bugs and more time writing code.</p>
+<p>We will use <code>testthat</code> to add tests to our package. It’s syntax is designed to be very close to english:</p>
 <pre><code># save as test_me.R
 test_that(&quot;case is ignored&quot;, {
-expect_equal(gday(&quot;canucks&quot;), gday(&quot;Canucks&quot;))
+expect_equal(gday(&quot;canucks&quot;), gday(&quot;CANUCKS&quot;))
 })</code></pre>
 <ul>
+<li>Save the script above as <code>test_me.R</code>.</li>
 <li>The first argument is a string that explains what we are testing for. It completes the sentence <em>“Test that…”</em></li>
-<li>The second argument is (list of) test(s), that is, checks that have to be satisfied. Above we use <code>expect_equal</code>, but there are many more:
+<li>The second argument is a (list of) test(s), that is, a check that has to be satisfied. Above we use <code>expect_equal</code>, to check that both arguments <code>gday(&quot;canucks&quot;)</code> and <code>gday(&quot;CANUCKS&quot;)</code> give the same answer. There are more things we can test for:
 <ul>
 <li><code>expect_true(x)</code></li>
 <li><code>expect_false(x)</code></li>
-<li><code>expect_is(x, y)</code></li>
+<li><code>expect_is(x, y)</code> Is <code>x</code> of class <code>y</code>?</li>
 <li><code>expect_equal(x, y)</code></li>
 <li><code>expect_equivalent(x, y)</code></li>
 <li><code>expect_identical(x, y)</code></li>
-<li><code>expect_matches(x, y)</code></li>
-<li><code>expect_output(x, y)</code></li>
+<li><code>expect_matches(x, y)</code> Match character vector <code>x</code> against regular expression <code>y</code>.</li>
+<li><code>expect_output(x, y)</code> Match output of running <code>x</code> against regular expression <code>y</code>.</li>
 <li><code>expect_message(x, y)</code></li>
-<li><code>expect_warning(x, y)</code></li>
-<li><code>expect_error(x, y)</code></li>
+<li><code>expect_warning(x, y)</code> Match warning against regular expression <code>y</code>.</li>
+<li><code>expect_error(x, y)</code> Match error against regular expression <code>y</code>.</li>
 </ul></li>
 <li>To run the test you can
 <ul>
 <li><code>source</code> the corresponding <em>R</em> file,</li>
 <li>run <code>test_file(&quot;testMe.R&quot;)</code></li>
 <li>run <code>test_dir(&quot;.&quot;)</code></li>
-<li>run <code>auto_test(&quot;.&quot;, &quot;./R&quot;)</code></li>
+<li>run <code>auto_test(code_path=&quot;./R&quot;, test_path=&quot;.&quot;)</code></li>
 <li>run <code>devtools:check()</code></li>
 </ul></li>
 </ul>
@@ -227,61 +227,87 @@ expect_equal(gday(&quot;canucks&quot;), gday(&quot;Canucks&quot;))
 <ul>
 <li><code>devtools::use_testthat()</code></li>
 </ul>
-<p>This sets up a handy test structure TODO</p>
-<pre><code>test_that(&quot;Vancouver Canucks had a game against Nashville Predators on 2014-11-02&quot;, {
-expect_true(gday(team.name=&quot;canucks&quot;, date=&quot;2014-11-02&quot;))
-expect_true(gday(team.name=&quot;predators&quot;, date=&quot;2014-11-02&quot;))
+<p>This sets up a handy test structure in the folder <code>tests</code> by adding the folder <code>tests/testthat/</code> (where our tests will go) as well as the <em>master file</em> <code>tests/testthat.R</code>:</p>
+<pre><code>library(testthat)
+library(gameday)
+
+test_check(&quot;gameday&quot;)</code></pre>
+<p>It also adds <code>testthat</code> to the <code>Suggests</code> in our <code>DESCRIPTION</code>.</p>
+<p>What is there to test about <code>gday()</code>? Since it relies on live data it is a little more challenging to write an informative test, but some useful tests are below. To begin with, we copy our test that checks the case to the new <code>tests/testthat/</code> folder. Other reasonable tests are:</p>
+<pre><code># save as tests/testthat/test_me.R
+test_that(&quot;case is ignored&quot;, {
+  expect_equal(gday(&quot;canucks&quot;), gday(&quot;CANUCKS&quot;))
 })
 
-test_that(&quot;Washington Capitals did not play on 2014-11-10&quot;, {
-expect_false(gday(team.name=&quot;capitals&quot;, date=&quot;2014-11-10&quot;))
-expect_false(gday(team.name=&quot;washington&quot;, date=&quot;2014-11-10&quot;))
+test_that(&quot;always returns logical&quot;, {
+  expect_is(gday(&quot;canucks&quot;), &quot;logical&quot;)
 })
 
-test_that(&quot;Case is ignored&quot;, {
-expect_equal(gday(&quot;canucks&quot;), gday(&quot;Canucks&quot;))
+test_that(&quot;asking for the city works just as well&quot;, {
+  expect_equal(gday(&quot;canucks&quot;), gday(&quot;Vancouver&quot;))
 })
 
-test_that(&quot;Wrong date type throws error&quot;, {
-expect_error(gday(&quot;Bruins&quot;, date=&quot;201-111-10&quot;), &quot;Error&quot;)
-})</code></pre>
+test_that(&quot;Seattle does not have a NHL team&quot;, {
+  expect_false(gday(team.name=&quot;Seattle&quot;))
+}</code></pre>
+<p>Looks good, let’s run the tests! What are our options:</p>
+<ul>
+<li><em>Build &amp; Reload</em> (<code>R CMD INSTALL ../gameday</code>) does <strong>not</strong> run the tests.</li>
+<li><em>Load All</em> (<code>devtools:load_all()</code>) does <strong>not</strong> run the tests.</li>
+<li><em>Test package</em> (<code>devtools::test()</code>) runs the tests.</li>
+<li><em>Check</em> (<code>devtools::check()</code>) runs the tests (also updates vignette, documentation, etc).</li>
+<li><code>devtools::auto_check('./R', './tests')</code> runs all the tests continuous.</li>
+</ul>
+<p>Once these tests work, I suggest it’s time for a new version number <code>0.0.0.9001</code> and a commit &amp; push to GitHub.</p>
 </div>
 <div id="update-the-r-code" class="section level3">
 <h3>Update the R code</h3>
-<pre><code>#&#39; Is it Gameday?
-#&#39;
-#&#39; This function returns TRUE if your NHL team plays today
-#&#39; and FALSE otherwise
-#&#39;
-#&#39; You know then problem: You&#39;re in your office writing R code and
-#&#39; suddenly have the urge to check whether your NHL team has a game today.
-#&#39; Before you know it you just wasted 15 minutes browsing the saltest
-#&#39; news on your favorite hockey webpage.
-#&#39; Suffer no more! You can now ask R directly, without tempting yourself
-#&#39; by firing up your web browser.
-#&#39;
-#&#39; @param team.name The name of your team
-#&#39; @param date The date you want to check. Defaults to today (\code{Sys.Date()})
-#&#39; @return Logical \code{TRUE} if \code{team.name} has a NHL game today,
-#&#39; \code{FALSE} otherwise
-#&#39; @note case in \code{team.name} is ignored
-#&#39; @export
-#&#39; @examples
-#&#39; gday(&quot;canucks&quot;)
-#&#39; gday(&quot;Bruins&quot;)
-#&#39; gday(&quot;ottawa&quot;, date=&quot;2014-11-09&quot;)
-gday &lt;- function(team.name, date=Sys.Date()){
-  stopifnot(!is.nan(as.Date(date)))
-  url  &lt;- paste0(&#39;http://live.nhle.com/GameData/GCScoreboard/&#39;,
-                date, &#39;.jsonp&#39;)
-  grepl(team.name, getURL(url), ignore.case=TRUE)
-}</code></pre>
+<p>There are a couple of things that could be improved in our current implementation.</p>
+<div id="move-rcurl-from-depends-to-imports" class="section level4">
+<h4>Move RCurl from <code>Depends</code> to <code>Imports</code></h4>
+<p>Our function <code>gday()</code> relies on <code>getURL</code> from <code>RCurl</code>, so we need to make sure that <code>gday()</code> can use it. However, the user of <code>gameday</code> be able to call <code>RCurl</code> functions directly, without specifically loading the package with <code>library(RCurl)</code>? In almost all cases the answer is no. However, if we use <code>Depends: RCurl</code> in <code>DESCRIPTION</code> this is what would happen. Instead, we can use <code>Imports: RCurl</code>. This is almost the same as <code>Depends</code>: <code>RCurl</code> is installed when needed, and loaded when <code>gameday</code> is. But with <code>Imports</code> the user can not call <code>getURL</code> without explicitly loading the <code>RCurl</code> package.</p>
+<blockquote>
+<p>Unless there is a good reason otherwise, you should alway list packages in Imports not Depends. That’s because a good package is self-contained, and minimises changes to the global environment (including the search path). There are a few exceptions… (Hadley Wickham)</p>
+</blockquote>
+<ul>
+<li><p>In <code>DESCRIPTION</code>:</p>
+<pre><code>### REMOVE THIS LINE Depends: RCurl ###
+Imports: RCurl</code></pre></li>
+<li><p>In <code>R/gday.R</code></p>
+<pre><code>#&#39; @importFrom RCurl getURL</code></pre></li>
+</ul>
+<p>Then, re-run <code>document()</code> and notice how the <code>NAMESPACE</code> changes. Finally, <em>Build &amp; Reload</em>.</p>
 </div>
-<div id="let-devtools-roxygen2-compile-the-documenation-for-you" class="section level3">
-<h3>Let devtools, roxygen2 compile the documenation for you</h3>
-<pre><code>library(&quot;devtools&quot;)
-document()</code></pre>
-<p>Observe the new file <code>man/gameday.Rd</code>.</p>
+<div id="rename-team.name-to-team-add-default" class="section level4">
+<h4>Rename team.name to team, add default</h4>
+<p>The first argument <code>team.name</code> is unnecessarily long, let’s just all it <code>team</code>. While we’re at it, let’s also make <code>team</code> default to <code>&quot;canucks&quot;</code>.</p>
+<p><strong>Your turn:</strong> Which files do you need to modify to make these changes? What do you need to run next to make your package consistent? Your last step is to <em>Build &amp; Reload</em> the consistent package.</p>
+</div>
+<div id="add-a-date-argument-to-gday" class="section level4">
+<h4>Add a <code>date</code> argument to <code>gday()</code></h4>
+<p>Since the url is so predictable, it is natural to allow the user to specify a second argument <code>date</code> (in the past or future, should default to today’s date) and use <code>gday()</code> to check if her team has a game that day. This will also open the door for more test cases (the schedule in the past is not going to change).</p>
+<p><strong>Your turn:</strong> Which files do you need to modify to make these changes? What do you need to run next to make your package consistent? Your last step is to <em>Build &amp; Reload</em> the consistent package.</p>
+<p>As a bonus, add a check to <code>gday()</code> to make sure the date is entered correctly. Use <code>as.Date</code> (what does it return if an invalid date like “201-411-12” is entered?) and <code>stopifnot()</code>. The following tests should all pass.</p>
+<pre><code>context(&quot;Check dates&quot;)
+
+test_that(&quot;Vancouver Canucks had a game against Nashville Predators on 2014-11-02&quot;, {
+expect_true(gday(team=&quot;canucks&quot;, date=&quot;2014-11-02&quot;))
+expect_true(gday(team=&quot;predators&quot;, date=&quot;2014-11-02&quot;))
+})
+
+test_that(&quot;Washington Capitals did not play on 2014-11-10&quot;, {
+expect_false(gday(team=&quot;capitals&quot;, date=&quot;2014-11-10&quot;))
+expect_false(gday(team=&quot;washington&quot;, date=&quot;2014-11-10&quot;))
+})
+
+test_that(&quot;Wrong date type throws error&quot;, {
+expect_error(gday(&quot;Bruins&quot;, date=&quot;201-411-12&quot;), &quot;Error&quot;)
+})</code></pre>
+</div>
+</div>
+<div id="finally" class="section level3">
+<h3>Finally…</h3>
+<p>…let’s bump the version to our first minor release <code>0.1.0</code> and push everything to GitHub. You can be proud of yourself if you got this far!</p>
 <hr />
 </div>
 </div>

@@ -165,13 +165,13 @@ As you update the package, frequently run `document()` and then *Build & Reload*
 
 ### What's next
 
-Congratulations, you just wrote your first *R* package! This is the end of part 1. In the second part we explore the following:
+Congratulations, you just wrote your first *R* package! This is the end of part 1. In the [second part](packages02_activity_part2.html) we explore the following:
 
 + Create help file for the `gameday` package, which is displayed by `?gameday`.
 + Add a vignette.
 + Publish `gameday` on GitHub.
++ Add tests with `testthat`.
 + Modify `gday()` to accept a second input `date` that defaults to `Sys.Date()`.
 + Show interactive *fix & test* workflow.
-+ Add tests with `testthat`.
 
 ------------------------------------------------------------
