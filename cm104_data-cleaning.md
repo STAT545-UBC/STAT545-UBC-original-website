@@ -18,6 +18,7 @@ output:
     - *God willing, the slides are embedded below?*
 
 <script async class="speakerdeck-embed" data-id="5e6765704c300132129f2ee134ae9694" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+
 Links from the slides or generally relevant to data cleaning
 
    * [An introduction to data cleaning with R](http://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf), a PDF based on a tutorial given by Edwin de Jonge and Mark van der Loo at the useR!2013 conference.
