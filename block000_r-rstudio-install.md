@@ -14,7 +14,7 @@ output:
     - RStudio comes with a __text editor__, so there is no immediate need to install a separate stand-alone editor.
     - RStudio can __interface with Git(Hub)__. However, you must do all the Git(Hub) set up described elsewhere before you can take advantage of this.
     
-If you have a pre-existing installation of R and/or RStudio, we __highly recommend__ that you reinstall both and upgrade to the most recent version. It is very easy and RStudio, specifically, is changing rapidly and positively (written 2014-09).
+If you have a pre-existing installation of R and/or RStudio, we __highly recommend__ that you reinstall both and upgrade to the most recent version. It is very easy and RStudio, specifically, is changing rapidly and positively (written 2014-11). You may even wish to use the preview version of RStudio (we do!) [available here](http://www.rstudio.com/products/rstudio/download/preview/).
 
   * If you upgrade R, you will need to update any packages you have installed. The command below should get you started, though you may need to specify more arguments if, e.g., you have been using a non-default library for your packages.
 
