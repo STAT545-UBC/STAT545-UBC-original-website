@@ -11,7 +11,7 @@ output:
 Write your own R package, part 2
 ================================================================================
 
-Where we left off on Monday:
+Where we left off after [part 1 on Monday](packages02_activity.html):
 
 + Created `gameday` package layout with `devtools::create()`
 + Modified `DESCRIPTION`
@@ -87,7 +87,7 @@ to your `DESCRIPTION` file.
           %\VignetteEngine{knitr::rmarkdown}
           %\usepackage[utf8]{inputenc}
         ---
-* Now we can add the actual *Rmarkdown* of our vignette. We refer to other sources (TODO, @jennybc?) on what makes a good vignette.
+* Now we can add the actual *Rmarkdown* of our vignette. We refer to other sources (see below) on what makes a good vignette.
 * Once you have your vignette in an acceptable state it is time to turn the *Rmarkdown* source into the vignette as the R package expects it. Since vignettes may take a long time to complile, this is **not** automatically done by *Build & Reload*. Instead, use `devtools:build_vignettes()`. This puts all required files in the folder `inst/doc`.
 * You can now *Build & Reload* your package, it will also make the vignette available. To view it, simply use `browseVignettes(package="gameday")`.
 
@@ -127,107 +127,137 @@ We have to tell *RStudio* where to put the files of our new package. For this, w
 
 ### Tests
 
-We all feel that we should be testing our code. In fact, we all do, but not in an effective and efficient way.
+We all feel that we should be testing our code. In fact, most of us are, but not in an effective and efficient way:
 
 > It's not that we don't test our code, it's that we don't store our tests so they can be re-run automatically. (Hadley Wickham)
 
-Usually we inspect our code interactively and smell test our data. Formal testing, however, is regarded as very advanced and *"not worth it"* for the daily work. Turns out, a simple test suit like [`testthat`](http://vita.had.co.nz/papers/testthat.html) doesn't only make testing very easy, but will also make you spend less time fixing bugs and more time writing code.
+We are used to inspecting our code interactively and smell-test our data. Formal testing, however, is regarded as very advanced and *"not worth it"* for the daily work. Turns out, a simple test suit like [`testthat`](http://vita.had.co.nz/papers/testthat.html) doesn't only make testing very easy, but will also make you spend less time fixing bugs and more time writing code.
 
-We will use `testthat` to add tests to our package. The syntax is about as close to english as it gets:
+We will use `testthat` to add tests to our package. It's syntax is designed to be very close to english:
 
     # save as test_me.R
     test_that("case is ignored", {
-    expect_equal(gday("canucks"), gday("Canucks"))
+    expect_equal(gday("canucks"), gday("CANUCKS"))
     })
 
++ Save the script above as `test_me.R`.
 + The first argument is a string that explains what we are testing for. It completes the sentence *"Test that..."*
-+ The second argument is (list of) test(s), that is, checks that have to be satisfied. Above we use `expect_equal`, but there are many more:
++ The second argument is a (list of) test(s), that is, a check that has to be satisfied. Above we use `expect_equal`, to check that both arguments `gday("canucks")` and `gday("CANUCKS")` give the same answer. There are more things we can test for:
     * `expect_true(x)`
     * `expect_false(x)`
-    * `expect_is(x, y)`
+    * `expect_is(x, y)` Is `x` of class `y`?
     * `expect_equal(x, y)`
     * `expect_equivalent(x, y)`
     * `expect_identical(x, y)`
-    * `expect_matches(x, y)`
-    * `expect_output(x, y)`
+    * `expect_matches(x, y)` Match character vector `x` against regular expression `y`.
+    * `expect_output(x, y)` Match output of running `x` against regular expression `y`.
     * `expect_message(x, y)`
-    * `expect_warning(x, y)`
-    * `expect_error(x, y)`
+    * `expect_warning(x, y)` Match warning against regular expression `y`.
+    * `expect_error(x, y)` Match error against regular expression `y`.
 + To run the test you can
     * `source` the corresponding *R* file,
     * run `test_file("testMe.R")`
     * run `test_dir(".")`
-    * run `auto_test(".", "./R")`
+    * run `auto_test(code_path="./R", test_path=".")`
     * run `devtools:check()`
     
 When you add tests to your package it makes sense to think about a folder structure for where to put the tests. Luckily, `devtools` also has a function for that:
 
 + `devtools::use_testthat()`
 
-This sets up a handy test structure TODO
+This sets up a handy test structure in the folder `tests` by adding the folder `tests/testthat/` (where our tests will go) as well as the *master file* `tests/testthat.R`:
 
-    test_that("Vancouver Canucks had a game against Nashville Predators on 2014-11-02", {
-    expect_true(gday(team.name="canucks", date="2014-11-02"))
-    expect_true(gday(team.name="predators", date="2014-11-02"))
-    })
+    library(testthat)
+    library(gameday)
     
-    test_that("Washington Capitals did not play on 2014-11-10", {
-    expect_false(gday(team.name="capitals", date="2014-11-10"))
-    expect_false(gday(team.name="washington", date="2014-11-10"))
-    })
-    
-    test_that("Case is ignored", {
-    expect_equal(gday("canucks"), gday("Canucks"))
-    })
-    
-    test_that("Wrong date type throws error", {
-    expect_error(gday("Bruins", date="201-111-10"), "Error")
-    })
+    test_check("gameday")
 
+It also adds `testthat` to the `Suggests` in our `DESCRIPTION`.
+
+What is there to test about `gday()`? Since it relies on live data it is a little more challenging to write an informative test, but some useful tests are below. To begin with, we copy our test that checks the case to the new `tests/testthat/` folder. Other reasonable tests are:
+
+    # save as tests/testthat/test_me.R
+    test_that("case is ignored", {
+      expect_equal(gday("canucks"), gday("CANUCKS"))
+    })
+    
+    test_that("always returns logical", {
+      expect_is(gday("canucks"), "logical")
+    })
+    
+    test_that("asking for the city works just as well", {
+      expect_equal(gday("canucks"), gday("Vancouver"))
+    })
+    
+    test_that("Seattle does not have a NHL team", {
+      expect_false(gday(team.name="Seattle"))
+    }
+
+
+Looks good, let's run the tests! What are our options:
+
++ *Build & Reload*  (`R CMD INSTALL ../gameday`) does **not** run the tests.
++ *Load All* (`devtools:load_all()`) does **not** run the tests.
++ *Test package* (`devtools::test()`) runs the tests.
++ *Check* (`devtools::check()`) runs the tests (also updates vignette, documentation, etc).
++ `devtools::auto_check('./R', './tests')` runs all the tests continuous.
+
+Once these tests work, I suggest it's time for a new version number `0.0.0.9001` and a commit & push to GitHub.
 
 
 ### Update the R code
 
-    #' Is it Gameday?
-    #'
-    #' This function returns TRUE if your NHL team plays today
-    #' and FALSE otherwise
-    #'
-    #' You know then problem: You're in your office writing R code and
-    #' suddenly have the urge to check whether your NHL team has a game today.
-    #' Before you know it you just wasted 15 minutes browsing the lastest
-    #' news on your favorite hockey webpage.
-    #' Suffer no more! You can now ask R directly, without tempting yourself
-    #' by firing up your web browser.
-    #'
-    #' @param team.name The name of your team
-    #' @param date The date you want to check. Defaults to today (\code{Sys.Date()})
-    #' @return Logical \code{TRUE} if \code{team.name} has a NHL game today,
-    #' \code{FALSE} otherwise
-    #' @note case in \code{team.name} is ignored
-    #' @export
-    #' @examples
-    #' gday("canucks")
-    #' gday("Bruins")
-    #' gday("ottawa", date="2014-11-09")
-    gday <- function(team.name, date=Sys.Date()){
-      stopifnot(!is.nan(as.Date(date)))
-      url  <- paste0('http://live.nhle.com/GameData/GCScoreboard/',
-                    date, '.jsonp')
-      grepl(team.name, getURL(url), ignore.case=TRUE)
-    }
+There are a couple of things that could be improved in our current implementation.
+
+#### Move RCurl from `Depends` to `Imports`
+
+Our function `gday()` relies on `getURL` from `RCurl`, so we need to make sure that `gday()` can use it. However, the user of `gameday` be able to call `RCurl` functions directly, without specifically loading the package with `library(RCurl)`? In almost all cases the answer is no. However, if we use `Depends: RCurl` in `DESCRIPTION` this is what would happen. Instead, we can use `Imports: RCurl`. This is almost the same as `Depends`: `RCurl` is installed when needed, and loaded when `gameday` is. But with `Imports` the user can not call `getURL` without explicitly loading the `RCurl` package.
+
+> Unless there is a good reason otherwise, you should alway list packages in Imports not Depends.  That’s because a good package is self-contained, and minimises changes to the global environment (including the search path). There are a few exceptions... (Hadley Wickham)
+
++ In `DESCRIPTION`:
+
+        ### REMOVE THIS LINE Depends: RCurl ###
+        Imports: RCurl
++ In `R/gday.R`
+
+        #' @importFrom RCurl getURL
+
+Then, re-run `document()` and notice how the `NAMESPACE` changes. Finally, *Build & Reload*.
+
+#### Rename team.name to team, add default
+
+The first argument `team.name` is unnecessarily long, let's just all it `team`. While we're at it, let's also make `team` default to `"canucks"`.
+
+**Your turn:** Which files do you need to modify to make these changes? What do you need to run next to make your package consistent? Your last step is to *Build & Reload* the consistent package.
+
+#### Add a `date` argument to `gday()`
+
+Since the url is so predictable, it is natural to allow the user to specify a second argument `date` (in the past or future, should default to today's date) and use `gday()` to check if her team has a game that day. This will also open the door for more test cases (the schedule in the past is not going to change).
+
+**Your turn:** Which files do you need to modify to make these changes? What do you need to run next to make your package consistent? Your last step is to *Build & Reload* the consistent package.
+
+As a bonus, add a check to `gday()` to make sure the date is entered correctly. Use `as.Date` (what does it return if an invalid date like "201-411-12" is entered?) and `stopifnot()`. The following tests should all pass.
+
+    context("Check dates")
+    
+    test_that("Vancouver Canucks had a game against Nashville Predators on 2014-11-02", {
+    expect_true(gday(team="canucks", date="2014-11-02"))
+    expect_true(gday(team="predators", date="2014-11-02"))
+    })
+    
+    test_that("Washington Capitals did not play on 2014-11-10", {
+    expect_false(gday(team="capitals", date="2014-11-10"))
+    expect_false(gday(team="washington", date="2014-11-10"))
+    })
+    
+    test_that("Wrong date type throws error", {
+    expect_error(gday("Bruins", date="201-411-12"), "Error")
+    })
 
 
-### Let devtools, roxygen2 compile the documenation for you
+### Finally...
 
-
-    library("devtools")
-    document()
-
-Observe the new file `man/gameday.Rd`.
-
-
-
-
+...let's bump the version to our first minor release `0.1.0` and push everything to GitHub. You can be proud of yourself if you got this far!
 
 ------------------------------------------------------------
