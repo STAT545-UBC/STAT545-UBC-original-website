@@ -1,11 +1,10 @@
 ---
 title: "Write your own R package, part 2"
 author: "Bernhard Konrad"
-date: "2014-11-12"
+date: ""
 output:
   html_document:
     toc: true
-    toc_depth: 2
     pandoc_args: "--preserve-tabs"
 ---
 

@@ -15,4 +15,5 @@ output:
 ### Building your first R package
 
 + led by Bernhard Konrad
-+ [Activity](block024_package.html)
++ [Activity for day 1 (Monday)](packages02_activity.html)
++ [Activity for day 2 (Wednesday)](packages03_activity_part2.html)
