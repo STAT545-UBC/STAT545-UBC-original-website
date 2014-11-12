@@ -47,8 +47,11 @@
     - [Test drive `Make`](automation03_make-test-drive.html) from a shell and RStudio
     - [Hands-on activity](automation04_make-activity.html)
     - [Example pipelines](automation00_index.html#more-examples)
-  * All the package things
-    - [Hands-on activity](block024_package.html)
+  * [All the package things](packages00_index.html)
+    - slides
+    - [System preparation for package development](packages01_system-prep.html)
+    - [Hands-on activity, part 1](packages02_activity.html)
+    - [Hands-on activity, part 2](packages02_activity_part2.html)
   
 ## Course-specific material
 
@@ -70,7 +73,8 @@
   * [Class meeting 104](cm104_data-cleaning.html) Data cleaning
   * [Class meeting 105](cm105_pipelines.html) Automating Data-analysis Pipelines
   * [Class meeting 106](cm106_pipelines.html) More automating Data-analysis Pipelines
-  * [Class meeting 107](cm105_packages.html) Writing an R package
+  * [Class meeting 107](cm107_packages.html) Writing an R package
+  * [Class meeting 108](cm108_packages.html) More writing an R package
   * [General homework guidelines](hw00_homework-guidelines.html)
   * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
   * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
