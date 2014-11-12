@@ -8,9 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
-<meta name="author" content="Bernhard Konrad" />
+<meta name="author" content="Bernhard Konrad, Jennifer Bryan" />
 
-<meta name="date" content="2014-11-10" />
 
 <title>Write your own R package</title>
 
@@ -71,55 +70,46 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="header">
 <h1 class="title">Write your own R package</h1>
-<h4 class="author"><em>Bernhard Konrad</em></h4>
-<h4 class="date"><em>2014-11-10</em></h4>
+<h4 class="author"><em>Bernhard Konrad, Jennifer Bryan</em></h4>
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#write-your-own-r-package">Write your own R package</a></li>
-<li><a href="#getting-started">Getting Started</a></li>
+<li><a href="#your-mission">Your mission</a></li>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#setting-up-the-directory-rstudio-project-r-package-git-repo">Setting up the directory = RStudio project = R package = Git repo</a></li>
+<li><a href="#files-that-r-expects-in-a-package">Files that R expects in a package</a></li>
+<li><a href="#the-description-file">The DESCRIPTION File</a></li>
+<li><a href="#the-actual-r-code">The actual R code</a></li>
+<li><a href="#let-devtools-roxygen2-compile-the-documenation-for-you">Let devtools, roxygen2 compile the documenation for you</a></li>
+<li><a href="#build-the-package">Build the package</a></li>
+<li><a href="#whats-next">What’s next</a></li>
 </ul>
 </div>
 
-<div id="write-your-own-r-package" class="section level1">
-<h1>Write your own R package</h1>
+<div id="your-mission" class="section level3">
+<h3>Your mission</h3>
 <p>This is a step-by-step instruction on how to create your first R package. <em>This will be much easier than you think.</em></p>
+<p>In this tutorial we will develop a package <em>gameday</em> that provides the function <code>gday()</code>. This function takes one argument <code>team.name</code>, the name of your favorite <a href="http://www.nhl.com/">NHL</a> team, and returns <code>TRUE</code> if this team has a game today, and <code>FALSE</code> otherwise. The function will actually be a one-liner because we can read this information from the web.</p>
 </div>
-<div id="getting-started" class="section level1">
-<h1>Getting Started</h1>
-<p>In this tutorial we will develop a package <em>gameday</em> that provides the function <code>gday</code>. This function takes one argument <code>team.name</code>, the name of your favorite <a href="http://www.nhl.com/">NHL</a> team, and returns <code>TRUE</code> if this team has a game today, and <code>FALSE</code> otherwise. The function will actually be a one-liner because we can read this information from the web.</p>
-<div id="what-you-will-need" class="section level3">
-<h3>What you will need</h3>
-<p>I’m running <em>RStudio 0.98.1056</em> as well as</p>
-<ol style="list-style-type: decimal">
-<li>R version 3.1.2</li>
-<li>devtools 1.6.1</li>
-<li>roxygen2 4.0.2</li>
-<li>testthat 0.9.1</li>
-<li>knitr 1.7</li>
-</ol>
-<p>Run <code>packageVersion(&quot;devtools&quot;)</code> to check your version of the above packages. Use <code>install.packages(&quot;devtools&quot;, dependencies=TRUE)</code> to install missing packages (check for non-zero exit status), or run <code>update.packages(ask=FALSE)</code> to get the latest version.</p>
+<div id="prerequisites" class="section level3">
+<h3>Prerequisites</h3>
+<p>We assume you have <a href="packages01_system-prep.html">configured your system for R package development</a>. This will ensure you have all the right software installed and that it’s updated. Please be adviced that ignoring this prep will only lead to heartache.</p>
 </div>
-<div id="some-background-and-pointers" class="section level3">
-<h3>Some Background and pointers</h3>
-<p>You can skip this section on your first read if you want to dive right into the hands-on exercise.</p>
-<p><span class="citation">@jennybc</span>: TODO for me. Might link to slides.</p>
-</div>
-<div id="setting-up-the-folder-structure" class="section level3">
-<h3>Setting up the folder structure</h3>
+<div id="setting-up-the-directory-rstudio-project-r-package-git-repo" class="section level3">
+<h3>Setting up the directory = RStudio project = R package = Git repo</h3>
 <p>R expects a certain folder structure for your package. Luckily, the package <code>devtools</code> does this work for us.</p>
 <pre><code>library(&quot;devtools&quot;)
 create(&quot;/home/bernhard/Desktop/gameday&quot;)</code></pre>
 <p><strong>!! Replace this path above with a path that exists on your computer !!</strong></p>
 <p>This creates a folder <em>gameday</em> on my Desktop, and populates it with a couple of files. Navigate to this folder and open <code>gameday.Rproj</code> with <em>RStudio</em>.</p>
-<p>Before we talk about the files and folders that were created, let’s add <em>Git Version Control</em>: <em>Tools -&gt; Version Control -&gt; Project Setup</em>. Then choose <em>Version control system: Git</em> and <em>initialize a new git repository for this project</em> (this will require restarting RStudio).</p>
-<p>Now, let’s talk about the galore of files and folders in our folder <em>gameday</em>.</p>
+<p>Before we talk about the files and folders that were created, let’s put this under version control: <em>Tools &gt; Version Control &gt; Project Setup</em>. Then choose <em>Version control system: Git</em> and <em>initialize a new git repository for this project</em>. Then restart RStudio in this Project.</p>
+<p>Now, let’s talk about the contents of our <em>gameday</em> directory.</p>
 </div>
-<div id="files-that-make-a-packages" class="section level3">
-<h3>Files that make a packages</h3>
+<div id="files-that-r-expects-in-a-package" class="section level3">
+<h3>Files that R expects in a package</h3>
 <ul>
-<li>Helper files that we don’t have to worry about:
+<li>Helper files that we don’t have to worry about now:
 <ul>
 <li><code>.gitignore</code> The usual ignore file for Git. We don’t have to change it.</li>
 <li><code>.Rbuildignore</code> An ignore file for the R package building process. We can talk about this later.</li>
@@ -128,12 +118,12 @@ create(&quot;/home/bernhard/Desktop/gameday&quot;)</code></pre>
 <li><code>NAMESPACE</code> A very important file, but we will never edit this by hand. <code>roxygen2</code> will maintain this for us.</li>
 </ul></li>
 <li><code>R/</code> finally, this is where the actual R code will go.</li>
-<li><code>DESCRIPTION</code> holds meta information about your package. We will modify this first. (Technically, the presence of this very file defines the <code>gameday</code> folder as a package.)</li>
+<li><code>DESCRIPTION</code> holds meta information about your package. We will modify this first. (Technically, the presence of this very file signals to RStudio that the <code>gameday</code> Project is a package.)</li>
 </ul>
 </div>
 <div id="the-description-file" class="section level3">
 <h3>The DESCRIPTION File</h3>
-<p>Here is where we add information about the package (gameday) and its authors (us). Some fields are pre-filled, but many more fields can be added as necessary. The initial raw version may depepend on your version of <code>devtools</code> but should look similar to this:</p>
+<p>Here is where we add information about the package (gameday) and its authors (us). Some fields are pre-filled, but many more fields can be added as necessary. The initial raw version may depend on your version of <code>devtools</code> but should look similar to this:</p>
 <pre><code>Package: gameday
 Title: What the package does (one line)
 Version: 0.1
@@ -142,15 +132,15 @@ Description: What the package does (one paragraph)
 Depends: R (&gt;= 3.1.2)
 License: What license is it under?
 LazyData: true</code></pre>
-<p>Let’s look at those in detail. <strong>Bold</strong> fiels are mandatory:</p>
+<p>Let’s look at those in detail. <strong>Bold</strong> fields are mandatory:</p>
 <ul>
 <li><strong>Package</strong>. The name of the package. We will leave this as <em>gameday</em>.</li>
 <li><strong>Title</strong>. A one-line description of what the package does. Capitalize principal words, stick to a single line, don’t use markup and do not end in a period.</li>
 <li><strong>Version</strong>. Convention has it that this should be in the format <code>&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;</code>. Since we are only in development we start a fourth digit, which, also by convention, starts with <code>9000</code>. Hence <code>0.0.0.9000</code> is a good starting point, and <code>0.0.0.9001</code> would be the next (development) version while <code>0.1.0</code> or <code>1.0.0</code> would be the first release version.</li>
 <li><strong>Authors@R</strong>. Machine-readable description of the authors (<code>aut</code>), maintainer (<code>cre</code>), contributors (<code>ctb</code>) and others (see <code>?person</code>).</li>
-<li><strong>Description</strong>. One paragraph of what the packages does.</li>
+<li><strong>Description</strong>. One paragraph of what the packages does. Lines of 80 characters or less. Indent subsequent lines with 4 spaces (if you’re lucky some of this formatting will be done automatically for you later, but don’t count on this).</li>
 <li><strong>License</strong>. Who can use this package and for what? I suggest <a href="http://creativecommons.org/publicdomain/zero/1.0/"><em>CC0</em></a>, which means that we dedicate our package to the public domain and waive all of our rights. Anyone can freely use/adapt/modify/sell this work without our permission. We also don’t provide any warranties about liability or correctness. You can check out <a href="http://choosealicense.com/">other licenses</a>.</li>
-<li><em>LazyData</em>. Is a little technical, but seeting this to <code>true</code> makes loading data that your package provides easier.</li>
+<li><em>LazyData</em>. Is a little technical, but setting this to <code>true</code> makes your package a better citizen with respect to memory.</li>
 <li>There are <a href="http://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file">many more fields available</a>.</li>
 </ul>
 <p>Hence, a reasonable version of <code>DESCRIPTION</code> after editing would be</p>
@@ -194,15 +184,14 @@ LazyData: true</code></pre>
 #&#39; Suffer no more! You can now ask R directly, without tempting yourself
 #&#39; by firing up your web browser.
 #&#39; 
-#&#39; @param team.name Defaults to &quot;canucks&quot;
+#&#39; @param team.name
 #&#39; @return \code{TRUE} if \code{team.name} has an NHL game on \code{date},
 #&#39; \code{FALSE} otherwise
 #&#39; @keywords misc
 #&#39; @note case in \code{team.name} is ignored
 #&#39; @export
 #&#39; @examples
-#&#39; gday()
-#&#39; gday(&quot;canadiens&quot;)
+#&#39; gday(&quot;canucks&quot;)
 #&#39; gday(&quot;Bruins&quot;)</code></pre>
 <p>A few of those tags need explanation</p>
 <ul>
@@ -211,31 +200,12 @@ LazyData: true</code></pre>
 <li>There are <a href="http://r-pkgs.had.co.nz/man.html">many more tags and explanations</a> if you want to learn more.</li>
 </ul>
 </div>
-<div id="documentation-for-the-package-itself" class="section level3">
-<h3>Documentation for the package itself</h3>
-<p>We now have a documentation for the <code>gday</code> function. Next, let’s add a minimal documentation of the <code>gameday</code> package itself (what you would see with <code>?gameday</code>). For that, open a <em>New R script</em> and save it as <em>R/gameday.r</em>. The content should be something like</p>
-<pre><code>#&#39; My first R package: gameday
-#&#39; 
-#&#39; This is so much fun
-#&#39; 
-#&#39; I look forward to writing really neat packages
-#&#39; so that I can have all my helper functions in one place
-#&#39; and maybe even share them.
-#&#39; 
-#&#39; @docType package
-#&#39; @name gameday
-NULL</code></pre>
-<ul>
-<li>We don’t have any <em>R</em> code to document here, hence we put <code>NULL</code>.</li>
-<li><code>\@docType package</code> specifies that we document the package itself</li>
-</ul>
-</div>
 <div id="let-devtools-roxygen2-compile-the-documenation-for-you" class="section level3">
 <h3>Let devtools, roxygen2 compile the documenation for you</h3>
 <p>Phew, that was a lot of work, but now we can hand the rest over back to <em>R</em>. In particular, <code>devtools</code> and <code>roxygen2</code> will compile the documentation</p>
 <pre><code>library(&quot;devtools&quot;)
 document()</code></pre>
-<p>When we run this the first time, the new folder <code>man</code> is created with the files <code>gameday.Rd</code> and <code>gday.Rd</code>. Go ahead an open those, this is what we would have had to write if it was not for <code>roxygen2</code> (the syntax resembles the markup language <a href="http://en.wikipedia.org/wiki/LaTeX">LaTeX</a>).</p>
+<p>When we run this the first time, the new folder <code>man</code> is created with the file <code>gday.Rd</code>. Go ahead an open it, this is what we would have had to write if it was not for <code>roxygen2</code> (the syntax resembles the markup language <a href="http://en.wikipedia.org/wiki/LaTeX">LaTeX</a>).</p>
 <p>Also observe that we now have a file <code>NAMESPACE</code> which, as expected, says that the package <code>gameday</code> provides the function <code>gday</code>.</p>
 </div>
 <div id="build-the-package" class="section level3">
@@ -243,43 +213,22 @@ document()</code></pre>
 <p>As a final step, let’s build the package. In <em>RStudio</em> use the <em>Build</em> tab and choose <em>Build &amp; Reload</em>. That’s it. Your package is now checked, installed and loaded. Your <em>R</em> session is also restarted. You are now able to run</p>
 <pre><code>gday(&quot;canucks&quot;)
 gday(&quot;flames&quot;)</code></pre>
-<p>and will notice that (on 2014-11-10) the Vancouver Canucks are not playing, but the Calgary Flames do have a game. To see the rendered version of our documentation, use</p>
-<pre><code>?gameday
-?gday</code></pre>
+<p>and will notice that (on 2014-11-10) the Vancouver Canucks are not playing, but the Calgary Flames do have a game. To see the rendered version of our function documentation, use</p>
+<pre><code>?gday</code></pre>
 <p>As you update the package, frequently run <code>document()</code> and then <em>Build &amp; Reload</em> to test your latest version.</p>
 </div>
-<div id="publish-on-github" class="section level3">
-<h3>Publish on GitHub</h3>
-<div id="commit-locally" class="section level4">
-<h4>Commit locally</h4>
-<p>First we have to commit all our files. In <em>RStudio</em>, go to the <em>Git</em> tab, check all files and folders, click <em>commit</em>, add a <em>commit message</em> (eg “my first version of my first R package”) and <em>commit</em>.</p>
-</div>
-<div id="create-new-empty-github-repository" class="section level4">
-<h4>Create new, empty GitHub repository</h4>
-<p>As a final step we will now make our package available on GitHub. If we want others to see and use our work we have to make this repository public.</p>
-<ol style="list-style-type: decimal">
-<li>Go to <code>github.com</code> and click on your username (should be on the top right).</li>
-<li>Choose <em>Repositories -&gt; New</em></li>
-<li>The repository name is <em>gameday</em>. You can leave <em>Description</em> empty. Choose <strong>Public</strong> and <strong>do NOT initialize with a README</strong>.</li>
-<li>Copy the address of the repository. For me this is <code>https://github.com/BernhardKonrad/gameday</code>.</li>
-</ol>
-</div>
-<div id="connect-rstudio-and-github" class="section level4">
-<h4>Connect RStudio and GitHub</h4>
-<p>We have to tell <em>RStudio</em> where to put the files of our new package. For this, we have to briefly default back to the <em>Shell</em>:</p>
-<ol style="list-style-type: decimal">
-<li><em>Tools -&gt; Shell…</em>.</li>
-<li>In the shell we have to add the GitHub repository as a remote, and we abbreviate it as <em>origin</em>: <code>git remote add origin https://github.com/BernhardKonrad/gameday</code>.</li>
-<li>Push your changes to the new remote (branch <em>master</em>), and set this remote as the new default: <code>git push -u origin master</code>.</li>
-<li>Close the shell, you will now be able to push and pull directly from <em>RStudio</em>.</li>
-<li>Your package is now publically (and freely, remember the License) available to the world.</li>
-<li><p>It gets better: You can actually install your package from GitHub directly:</p>
-<pre><code>install_github(&quot;BernhardKonrad/gameday&quot;)</code></pre></li>
-</ol>
-<p>The End (for now)</p>
+<div id="whats-next" class="section level3">
+<h3>What’s next</h3>
+<p>Congratulations, you just wrote your first <em>R</em> package! This is the end of part 1. In the second part we explore the following:</p>
+<ul>
+<li>Create help file for the <code>gameday</code> package, which is displayed by <code>?gameday</code>.</li>
+<li>Add a vignette.</li>
+<li>Publish <code>gameday</code> on GitHub.</li>
+<li>Modify <code>gday()</code> to accept a second input <code>date</code> that defaults to <code>Sys.Date()</code>.</li>
+<li>Show interactive <em>fix &amp; test</em> workflow.</li>
+<li>Add tests with <code>testthat</code>.</li>
+</ul>
 <hr />
-</div>
-</div>
 </div>
 
 <div class="footer">

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Prepare your system for package development</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Prepare your system for package development</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#update-r-and-rstudio">Update R and RStudio</a></li>
+<li><a href="#special-considerations-for-windows">Special considerations for Windows</a></li>
+<li><a href="#r-packages-to-help-you-build-yet-more-r-packages">R packages to help you build yet more R packages</a></li>
+</ul>
+</div>
+
+<p>Although we’ll build a very simple package, we’re still going to use the most modern and powerful tools for R package development. In theory, this could eventually involve compiling C/C++ code, which means you need what’s called a <em>build environment</em>.</p>
+<p><em>Warning: under development!</em></p>
+<div id="update-r-and-rstudio" class="section level3">
+<h3>Update R and RStudio</h3>
+<p>Embarking on your career as an R package developer is an important milestone. Why not celebrate by updating R and RStudio? This is something we recommended early and we recommend doing it often. <a href="block000_r-rstudio-install.html#r-and-rstudio">Go back to Day 0 of the course</a> for reminders on the process.</p>
+<p><em>2014-11 FYI: TA Bernhard was running R version 3.1.2 and RStudio 0.98.1056 during this lesson.</em></p>
+</div>
+<div id="special-considerations-for-windows" class="section level3">
+<h3>Special considerations for Windows</h3>
+<p>Sorry folks! Yes here we are again, installing software together while the Mac people sit there looking smug.</p>
+<p>You need to install <code>Rtools</code>. This is <strong>NOT an R package</strong> but is rather “a collection of resources for building packages for R under Microsoft Windows, or for building R itself”. Go here and do what it says:</p>
+<p><a href="http://cran.r-project.org/bin/windows/Rtools/">http://cran.r-project.org/bin/windows/Rtools/</a></p>
+<p>Note the repeated advice to stay current: “We recommend that users use the latest release of <code>Rtools</code> with the latest release of R.”</p>
+</div>
+<div id="r-packages-to-help-you-build-yet-more-r-packages" class="section level3">
+<h3>R packages to help you build yet more R packages</h3>
+<p>Install the following packages. If you already have them, update them. <em>versions reflect TA Bernhard’s system when lesson was delivered 2014-11</em></p>
+<ul>
+<li><code>devtools</code> 1.6.1</li>
+<li><code>roxygen2</code> 4.0.2</li>
+<li><code>testthat</code> 0.9.1</li>
+<li><code>knitr</code> 1.7</li>
+</ul>
+<p>Example of how to check which version of a package you’ve got installed:</p>
+<pre class="r"><code>`packageVersion(&quot;devtools&quot;)`</code></pre>
+<p>Example of how to install a package and all it’s dependencies:</p>
+<pre class="r"><code>`install.packages(&quot;devtools&quot;, dependencies = TRUE)`</code></pre>
+<p>See how profound your problem with out-of-date packages is:</p>
+<pre class="r"><code>`old.packages()`</code></pre>
+<p>Just update everything:</p>
+<pre class="r"><code>`update.packages(ask = FALSE)`</code></pre>
+<p><strong>CAVEAT:</strong> The above examples will only consult your default library and default CRAN mirror. If you want to target a non-default library, use function arguments to say so. Packages that you have installed from GitHub? You’ll need to check the current-ness of your version and perform upgrades yourself.</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
