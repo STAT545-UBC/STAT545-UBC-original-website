@@ -113,12 +113,10 @@ We have to tell *RStudio* where to put the files of our new package. For this, w
 2. In the shell we have to add the GitHub repository as a remote, and we abbreviate it as *origin*: `git remote add origin https://github.com/BernhardKonrad/gameday`.
 3. Push your changes to the new remote (branch *master*), and set this remote as the new default: `git push -u origin master`.
 4. Close the shell, you will now be able to push and pull directly from *RStudio*.
-5. Your package is now public ally (and freely, remember the License) available to the world.
+5. Your package is now publicly (and freely, remember the License) available to the world.
 6. It gets better: You can actually install your package from GitHub directly:
 
         install_github("BernhardKonrad/gameday")
-
-
 
 
 ### Tests
