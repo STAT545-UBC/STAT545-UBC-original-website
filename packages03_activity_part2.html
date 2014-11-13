@@ -258,14 +258,14 @@ test_that(&quot;Seattle does not have a NHL team&quot;, {
 <li><em>Check</em> (<code>devtools::check()</code>) runs the tests (also updates vignette, documentation, etc).</li>
 <li><code>devtools::auto_check('./R', './tests')</code> runs all the tests continuous.</li>
 </ul>
-<p>Once these tests work, I suggest it’s time for a new version number <code>0.0.0.9001</code> and a commit &amp; push to GitHub.</p>
+<p>Once these tests work and pass, I suggest it’s time for a new version number <code>0.0.0.9001</code> and a commit &amp; push to GitHub.</p>
 </div>
 <div id="update-the-r-code" class="section level3">
 <h3>Update the R code</h3>
 <p>There are a couple of things that could be improved in our current implementation.</p>
 <div id="move-rcurl-from-depends-to-imports" class="section level4">
 <h4>Move RCurl from <code>Depends</code> to <code>Imports</code></h4>
-<p>Our function <code>gday()</code> relies on <code>getURL</code> from <code>RCurl</code>, so we need to make sure that <code>gday()</code> can use it. However, the user of <code>gameday</code> be able to call <code>RCurl</code> functions directly, without specifically loading the package with <code>library(RCurl)</code>? In almost all cases the answer is no. However, if we use <code>Depends: RCurl</code> in <code>DESCRIPTION</code> this is what would happen. Instead, we can use <code>Imports: RCurl</code>. This is almost the same as <code>Depends</code>: <code>RCurl</code> is installed when needed, and loaded when <code>gameday</code> is. But with <code>Imports</code> the user can not call <code>getURL</code> without explicitly loading the <code>RCurl</code> package.</p>
+<p>Our function <code>gday()</code> relies on <code>getURL</code> from <code>RCurl</code>, so we need to make sure that <code>gday()</code> can use it. However, should the user of <code>gameday</code> be able to call any <code>RCurl</code> function directly, without specifically loading the package with <code>library(RCurl)</code>? In almost all cases the answer is no. However, if we use <code>Depends: RCurl</code> in <code>DESCRIPTION</code> this is what would happen. Instead, we should use <code>Imports: RCurl</code>. This is almost the same as <code>Depends</code>: <code>RCurl</code> is installed when needed, and loaded when <code>gameday</code> is. But with <code>Imports</code> the user can not call <code>getURL</code> without explicitly loading the <code>RCurl</code> package.</p>
 <blockquote>
 <p>Unless there is a good reason otherwise, you should alway list packages in Imports not Depends. That’s because a good package is self-contained, and minimises changes to the global environment (including the search path). There are a few exceptions… (Hadley Wickham)</p>
 </blockquote>
@@ -273,8 +273,7 @@ test_that(&quot;Seattle does not have a NHL team&quot;, {
 <li><p>In <code>DESCRIPTION</code>:</p>
 <pre><code>### REMOVE THIS LINE Depends: RCurl ###
 Imports: RCurl</code></pre></li>
-<li><p>In <code>R/gday.R</code></p>
-<pre><code>#&#39; @importFrom RCurl getURL</code></pre></li>
+<li><p>In <code>R/gday.R</code> replace any occurence of <code>getURL</code> with <code>RCurl::getURL</code>. (The alternative is to add the <em>roxygen2</em> comment <code>#' @importFrom RCurl getURL</code> and keep using <code>getURL</code> as before. However, <em>explicit is better than implicit</em>, so the call to <code>RCurl::</code> is usually prefered.)</p></li>
 </ul>
 <p>Then, re-run <code>document()</code> and notice how the <code>NAMESPACE</code> changes. Finally, <em>Build &amp; Reload</em>.</p>
 </div>

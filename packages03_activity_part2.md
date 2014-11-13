@@ -194,7 +194,7 @@ Looks good, let's run the tests! What are our options:
 + *Check* (`devtools::check()`) runs the tests (also updates vignette, documentation, etc).
 + `devtools::auto_check('./R', './tests')` runs all the tests continuous.
 
-Once these tests work, I suggest it's time for a new version number `0.0.0.9001` and a commit & push to GitHub.
+Once these tests work and pass, I suggest it's time for a new version number `0.0.0.9001` and a commit & push to GitHub.
 
 
 ### Update the R code
@@ -203,7 +203,7 @@ There are a couple of things that could be improved in our current implementatio
 
 #### Move RCurl from `Depends` to `Imports`
 
-Our function `gday()` relies on `getURL` from `RCurl`, so we need to make sure that `gday()` can use it. However, the user of `gameday` be able to call `RCurl` functions directly, without specifically loading the package with `library(RCurl)`? In almost all cases the answer is no. However, if we use `Depends: RCurl` in `DESCRIPTION` this is what would happen. Instead, we can use `Imports: RCurl`. This is almost the same as `Depends`: `RCurl` is installed when needed, and loaded when `gameday` is. But with `Imports` the user can not call `getURL` without explicitly loading the `RCurl` package.
+Our function `gday()` relies on `getURL` from `RCurl`, so we need to make sure that `gday()` can use it. However, should the user of `gameday` be able to call any `RCurl` function directly, without specifically loading the package with `library(RCurl)`? In almost all cases the answer is no. However, if we use `Depends: RCurl` in `DESCRIPTION` this is what would happen. Instead, we should use `Imports: RCurl`. This is almost the same as `Depends`: `RCurl` is installed when needed, and loaded when `gameday` is. But with `Imports` the user can not call `getURL` without explicitly loading the `RCurl` package.
 
 > Unless there is a good reason otherwise, you should alway list packages in Imports not Depends.  That’s because a good package is self-contained, and minimises changes to the global environment (including the search path). There are a few exceptions... (Hadley Wickham)
 
@@ -211,9 +211,9 @@ Our function `gday()` relies on `getURL` from `RCurl`, so we need to make sure t
 
         ### REMOVE THIS LINE Depends: RCurl ###
         Imports: RCurl
-+ In `R/gday.R`
++ In `R/gday.R` replace any occurence of `getURL` with `RCurl::getURL`. (The alternative is to add the *roxygen2* comment `#' @importFrom RCurl getURL` and keep using `getURL` as before. However, *explicit is better than implicit*, so the call to `RCurl::` is usually prefered.)
 
-        #' @importFrom RCurl getURL
+        
 
 Then, re-run `document()` and notice how the `NAMESPACE` changes. Finally, *Build & Reload*.
 
