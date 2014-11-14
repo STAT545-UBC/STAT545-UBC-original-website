@@ -165,7 +165,7 @@ As you update the package, frequently run `document()` and then *Build & Reload*
 
 ### What's next
 
-Congratulations, you just wrote your first *R* package! This is the end of part 1. In the [second part](packages02_activity_part2.html) we explore the following:
+Congratulations, you just wrote your first *R* package! This is the end of part 1. In the [second part](packages03_activity_part2.html) we explore the following:
 
 + Create help file for the `gameday` package, which is displayed by `?gameday`.
 + Add a vignette.
