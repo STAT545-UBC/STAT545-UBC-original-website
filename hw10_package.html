@@ -83,33 +83,41 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="big-picture" class="section level1">
 <h1>Big picture</h1>
-<p>In class we have developed the package <code>gameday</code> and showed</p>
+<p>In class we have developed the package <code>gameday</code> and showed how to</p>
 <ul>
-<li>how to set up the directory structure for a package using <code>devtools::create()</code></li>
-<li>how populate the <code>DESCRIPTION</code> file</li>
-<li>how to document the functions of your package and the package itself with <code>roxygen2</code> comments and <code>devtools::document()</code></li>
-<li>how to use a function from another package via the <code>Imports</code> field of <code>DESCRIPTION</code> and syntax like <code>foopkg::foofunction()</code></li>
-<li>how to add and render a vignette with <code>devtools::use_vignette()</code> and <code>devtools::build_vignettes()</code></li>
-<li>how to configure your package to use <code>testthat</code> for unit testing with <code>devtools::use_testthat()</code></li>
-<li>how to publish your package on GitHub so that <code>devtools::install_github()</code> works</li>
+<li>set up the directory structure for a package using <code>devtools::create()</code>,</li>
+<li>populate the <code>DESCRIPTION</code> file,</li>
+<li>document the functions of your package and the package itself with <code>roxygen2</code> comments and <code>devtools::document()</code>,</li>
+<li>use a function from another package via the <code>Imports</code> field of <code>DESCRIPTION</code> and syntax like <code>foopkg::foofunction()</code>,</li>
+<li>add and render a vignette with <code>devtools::use_vignette()</code> and <code>devtools::build_vignettes()</code>,</li>
+<li>configure your package to use <code>testthat</code> for unit testing with <code>devtools::use_testthat()</code>,</li>
+<li>publish your package on GitHub so that <code>devtools::install_github()</code> works.</li>
 </ul>
 <p>In this homework you will either continue developing the <code>gameday</code> package or create your own package of helper functions (e.g. to work with <code>gapminder</code>, or other functions that you find useful).</p>
 <p>Below we sketch the task for <code>gameday</code>. If you develop your own package, it must include the following elements:</p>
 <ul>
 <li>Export at least two functions, i.e. make them visible to and usable by a user.</li>
-<li>Document exported functions and the package itself, e.g. a user must be able to get help via <code>?</code></li>
-<li>documentation for exported functions must include <code>@param</code>, <code>@return</code>, <code>@examples</code>, at least</li>
-<li>Include at least one helper function that is NOT exported but is used by other function(s) in the package</li>
-<li>means function is not callable directly by the user, even when the package is loaded</li>
-<li>such an attempt should yield <code>Error: could not find function</code></li>
-<li>Include at least three tests for every exported function that is exported</li>
-<li>use <code>testthat</code> for your testing</li>
-<li>Add a validity check to at least one argument and throw an error early in the function if the input does not have the expected format</li>
-<li>revisit our <a href="block011_write-your-own-function-01.html">block on writing your own functions</a> for a refresher</li>
+<li>Document exported functions and the package itself, e.g. a user must be able to get help via <code>?</code>
+<ul>
+<li>documentation for exported functions must include <code>@param</code>, <code>@return</code>, <code>@examples</code>, at least.</li>
+</ul></li>
+<li>Include at least one helper function that is NOT exported but is used by other function(s) in the package
+<ul>
+<li>means function is not callable directly by the user, even when the package is loaded,</li>
+<li>such an attempt should yield <code>Error: could not find function</code>.</li>
+</ul></li>
+<li>Include at least three tests for every function that is exported,
+<ul>
+<li>use <code>testthat</code> for your testing.</li>
+</ul></li>
+<li>Add a validity check to at least one argument and throw an error early in the function if the input does not have the expected format
+<ul>
+<li>revisit our <a href="block011_write-your-own-function-01.html">block on writing your own functions</a> for a refresher,</li>
 <li>use <code>assertthat</code> for this validity check and import the <code>assertthat</code> package correctly, as we did for <code>RCurl</code> <em>TO DO: add a link to an appropriate anchor in the activity and alert students that we rewrote that part</em></li>
-<li>make sure one of your tests verifies that invalid input does indeed trigger the error, using <code>testthat::test_error()</code></li>
-<li>Must pass <code>devtools::check()</code> without errors (warnings and notes are ok).</li>
-<li>Write a vignette where you describe why your package is useful, what functions it provides and how they can be combined to provide new insight to a sample question. This is the main prose document for this homework.</li>
+<li>make sure one of your tests verifies that invalid input does indeed trigger the error, using <code>testthat::test_error()</code>.</li>
+</ul></li>
+<li>Your package must pass <code>devtools::check()</code> without errors (warnings and notes are ok).</li>
+<li>Write a vignette where you describe why your package is useful, what functions it provides and how they can be combined to provide new insight to a simple sample question. Your vignette is the main prose document for this homework.</li>
 <li>Upload your package to a <strong>public</strong> repository on GitHub. Add a minimal <code>README.md</code> that explains how to install your package, a minimal example how it works, and points to the vignette. <em>(If you are uncomfortable making your homework public to the world please contact Jenny and we can find a way around that. This may require some fiddling but is doable.)</em></li>
 </ul>
 </div>

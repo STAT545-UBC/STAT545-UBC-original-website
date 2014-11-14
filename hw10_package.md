@@ -8,15 +8,15 @@ output:
 
 # Big picture
 
-In class we have developed the package `gameday` and showed
+In class we have developed the package `gameday` and showed how to
 
-+ how to set up the directory structure for a package using `devtools::create()`
-+ how populate the `DESCRIPTION` file
-+ how to document the functions of your package and the package itself with `roxygen2` comments and `devtools::document()`
-+ how to use a function from another package via the `Imports` field of `DESCRIPTION` and syntax like `foopkg::foofunction()`
-+ how to add and render a vignette with `devtools::use_vignette()` and `devtools::build_vignettes()`
-+ how to configure your package to use `testthat` for unit testing with `devtools::use_testthat()`
-+ how to publish your package on GitHub so that `devtools::install_github()` works
++ set up the directory structure for a package using `devtools::create()`,
++ populate the `DESCRIPTION` file,
++ document the functions of your package and the package itself with `roxygen2` comments and `devtools::document()`,
++ use a function from another package via the `Imports` field of `DESCRIPTION` and syntax like `foopkg::foofunction()`,
++ add and render a vignette with `devtools::use_vignette()` and `devtools::build_vignettes()`,
++ configure your package to use `testthat` for unit testing with `devtools::use_testthat()`,
++ publish your package on GitHub so that `devtools::install_github()` works.
 
 In this homework you will either continue developing the `gameday` package or create your own package of helper functions (e.g. to work with `gapminder`, or other functions that you find useful).
 
@@ -24,18 +24,18 @@ Below we sketch the task for `gameday`. If you develop your own package, it must
 
 + Export at least two functions, i.e. make them visible to and usable by a user.
 + Document exported functions and the package itself, e.g. a user must be able to get help via `?`
-  - documentation for exported functions must include `@param`, `@return`, `@examples`, at least
+    - documentation for exported functions must include `@param`, `@return`, `@examples`, at least.
 + Include at least one helper function that is NOT exported but is used by other function(s) in the package
-  - means function is not callable directly by the user, even when the package is loaded
-  - such an attempt should yield `Error: could not find function`
-+ Include at least three tests for every exported function that is exported
-  - use `testthat` for your testing
+    - means function is not callable directly by the user, even when the package is loaded,
+    - such an attempt should yield `Error: could not find function`.
++ Include at least three tests for every function that is exported,
+    - use `testthat` for your testing.
 + Add a validity check to at least one argument and throw an error early in the function if the input does not have the expected format
-  - revisit our [block on writing your own functions](block011_write-your-own-function-01.html) for a refresher
-  - use `assertthat` for this validity check and import the `assertthat` package correctly, as we did for `RCurl` *TO DO: add a link to an appropriate anchor in the activity and alert students that we rewrote that part*
-  - make sure one of your tests verifies that invalid input does indeed trigger the error, using `testthat::test_error()`
-+ Must pass `devtools::check()` without errors (warnings and notes are ok).
-+ Write a vignette where you describe why your package is useful, what functions it provides and how they can be combined to provide new insight to a sample question. This is the main prose document for this homework.
+    - revisit our [block on writing your own functions](block011_write-your-own-function-01.html) for a refresher,
+    - use `assertthat` for this validity check and import the `assertthat` package correctly, as we did for `RCurl` *TO DO: add a link to an appropriate anchor in the activity and alert students that we rewrote that part*
+    - make sure one of your tests verifies that invalid input does indeed trigger the error, using `testthat::test_error()`.
++ Your package must pass `devtools::check()` without errors (warnings and notes are ok).
++ Write a vignette where you describe why your package is useful, what functions it provides and how they can be combined to provide new insight to a simple sample question. Your vignette is the main prose document for this homework.
 + Upload your package to a **public** repository on GitHub. Add a minimal `README.md` that explains how to install your package, a minimal example how it works, and points to the vignette. *(If you are uncomfortable making your homework public to the world please contact Jenny and we can find a way around that. This may require some fiddling but is doable.)*
 
 # Template
