@@ -143,10 +143,11 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 raw &lt;- RCurl::getURL(url)
 json &lt;- gsub(&#39;([a-zA-Z_0-9\\.]*\\()|(\\);?$)&#39;, &quot;&quot;, raw, perl = TRUE)
 data &lt;- jsonlite::fromJSON(json)$games
-data.frame(&quot;home&quot;=paste(data$htn, data$htcommon),
-           &quot;away&quot;=paste(data$atn, data$atcommon),
-           &quot;home_score&quot;=data$hts,
-           &quot;away_score&quot;=data$ats)</code></pre>
+with(data,
+    data.frame(home = paste(htn, htcommon),
+               away = paste(atn, atcommon),
+               home_score = hts,
+               away_score = ats))</code></pre>
 <ul>
 <li>Export <code>scores</code> so that the user can access it when <code>gameday</code> is loaded. Also add a documentation that provides <code>@param</code>, <code>@return</code> and <code>@examples</code>. Then add a handful of tests.</li>
 <li>Write a vignette that can be used as a manual to your package and its functions. Provide at least one use-case where the output of <code>gday</code> or <code>scores</code> can be used to gain some insight. For example, to list all winning teams of a certain hockey day (you can use friends like <code>dplyr</code> or <code>ggplot</code> if you want to be fancy).</li>

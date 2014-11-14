@@ -75,10 +75,11 @@ url  <- paste0('http://live.nhle.com/GameData/GCScoreboard/',
 raw <- RCurl::getURL(url)
 json <- gsub('([a-zA-Z_0-9\\.]*\\()|(\\);?$)', "", raw, perl = TRUE)
 data <- jsonlite::fromJSON(json)$games
-data.frame("home"=paste(data$htn, data$htcommon),
-           "away"=paste(data$atn, data$atcommon),
-           "home_score"=data$hts,
-           "away_score"=data$ats)
+with(data,
+    data.frame(home = paste(htn, htcommon),
+               away = paste(atn, atcommon),
+               home_score = hts,
+               away_score = ats))
 ```
 + Export `scores` so that the user can access it when `gameday` is loaded. Also add a documentation that provides `@param`, `@return` and `@examples`. Then add a handful of tests.
 + Write a vignette that can be used as a manual to your package and its functions. Provide at least one use-case where the output of `gday` or `scores` can be used to gain some insight. For example, to list all winning teams of a certain hockey day (you can use friends like `dplyr` or `ggplot` if you want to be fancy).
