@@ -139,6 +139,8 @@ LazyData: true</code></pre>
 <li><strong>Version</strong>. Convention has it that this should be in the format <code>&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;</code>. Since we are only in development we start a fourth digit, which, also by convention, starts with <code>9000</code>. Hence <code>0.0.0.9000</code> is a good starting point, and <code>0.0.0.9001</code> would be the next (development) version while <code>0.1.0</code> or <code>1.0.0</code> would be the first release version.</li>
 <li><strong>Authors@R</strong>. Machine-readable description of the authors (<code>aut</code>), maintainer (<code>cre</code>), contributors (<code>ctb</code>) and others (see <code>?person</code>).</li>
 <li><strong>Description</strong>. One paragraph of what the packages does. Lines of 80 characters or less. Indent subsequent lines with 4 spaces (if you’re lucky some of this formatting will be done automatically for you later, but don’t count on this).</li>
+<li><strong>Depends</strong>. Lists the dependencies that are absolutely necessary to load the package. These will be installed when the package is installed with <code>install.package(&quot;gameday&quot;, dependencies=TRUE)</code>. Packages listed here will also be imported in the namespace whenever <em>gameday</em> is loaded with <code>library(&quot;gameday&quot;)</code>.</li>
+<li><em>Imports</em>. Similar to <strong>Depends</strong> a package in <em>Imports</em> will also be installed when <em>gameday</em> is, but it won’t be imported to the namespace. This means that your package can use the imported package, but the user has to explicitely import the helper package if they want to use it. For example, if you choose <code>Imports: RCurl</code>, then any <em>gameday</em> function can use the <em>RCurl</em> function <em>getURL</em>, but <code>library(gameday); getURL(www.google.com)</code> will fail (unless <code>library(RCurl)</code> is explicitely imported by the user).</li>
 <li><strong>License</strong>. Who can use this package and for what? I suggest <a href="http://creativecommons.org/publicdomain/zero/1.0/"><em>CC0</em></a>, which means that we dedicate our package to the public domain and waive all of our rights. Anyone can freely use/adapt/modify/sell this work without our permission. We also don’t provide any warranties about liability or correctness. You can check out <a href="http://choosealicense.com/">other licenses</a>.</li>
 <li><em>LazyData</em>. Is a little technical, but setting this to <code>true</code> makes your package a better citizen with respect to memory.</li>
 <li>There are <a href="http://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file">many more fields available</a>.</li>
@@ -161,17 +163,13 @@ LazyData: true</code></pre>
 <h3>The actual R code</h3>
 <p>The R code that our package provides is in the <em>R</em> folder. So let’s <strong>create a new R script</strong> and save it in the <em>R</em> folder with the name <code>gday.R</code>.</p>
 <p>The content is the following:</p>
-<pre><code>gday &lt;- function(team.name=&quot;canucks&quot;) {
-  url &lt;- paste0(&quot;http://live.nhle.com/GameData/GCScoreboard/&quot;, Sys.Date(), &quot;.jsonp&quot;)
-  grepl(team.name, getURL(url), ignore.case=TRUE)
+<pre><code>gday &lt;- function(team=&quot;canucks&quot;) {
+url &lt;- paste0(&quot;http://live.nhle.com/GameData/GCScoreboard/&quot;, Sys.Date(), &quot;.jsonp&quot;)
+grepl(team, RCurl::getURL(url), ignore.case=TRUE)
 }</code></pre>
-<p>We first construct the url where the data for today’s matches is stored, and then <code>grepl</code> to check if <code>team.name</code> is among them. <a href="http://live.nhle.com/GameData/GCScoreboard/2014-11-09.jsonp">See how the data file looks like</a> and compare with <a href="http://www.nhl.com/">today’s matches on NHL.com</a>. Notice that we use <code>RCurl::getURL</code>, which we have to add to our list of <em>dependencies</em> in <code>DESCRIPTION</code>, i.e.</p>
-<pre><code>Depends: R (&gt;= 3.1.2)</code></pre>
-<p>becomes</p>
-<pre><code>Depends:
-    R (&gt;= 3.1.2),
-    RCurl</code></pre>
-<p>So far so good. But what about <a href="http://asset-1.soup.io/asset/1524/9224_10db.jpeg">documentation</a> (what you would see with <code>?gday</code>)? Luckily, <code>roxygen2</code> helps us with that and allows us to add the documentation as comments directly in the <em>R</em> script. All we have to do is start the line with <code>#'</code> and use the <code>\@</code> notation like so:</p>
+<p>We first construct the url where the data for today’s matches is stored, and then <code>grepl</code> to check if <code>team</code> is among them. <a href="http://live.nhle.com/GameData/GCScoreboard/2014-11-09.jsonp">See how the data file looks like</a> and compare with <a href="http://www.nhl.com/">today’s matches on NHL.com</a>. Notice that we use <code>RCurl::getURL</code>, which we have to add to our list of <em>Imports</em> in <code>DESCRIPTION</code>, i.e. we add the line</p>
+<pre><code>Imports: RCurl</code></pre>
+<p>We don’t have to specify a version number for other packages, but we could if we wanted to. So far so good. But what about <a href="http://asset-1.soup.io/asset/1524/9224_10db.jpeg">documentation</a> (what you would see with <code>?gday</code>)? Luckily, <code>roxygen2</code> helps us with that and allows us to add the documentation as comments directly in the <em>R</em> script. All we have to do is start the line with <code>#'</code> and use the <code>\@</code> notation like so:</p>
 <pre><code>#&#39; Is it Gameday?
 #&#39;
 #&#39; This function returns TRUE if your NHL team plays today
@@ -184,15 +182,19 @@ LazyData: true</code></pre>
 #&#39; Suffer no more! You can now ask R directly, without tempting yourself
 #&#39; by firing up your web browser.
 #&#39; 
-#&#39; @param team.name
-#&#39; @return \code{TRUE} if \code{team.name} has an NHL game on \code{date},
+#&#39; @param team
+#&#39; @return Logical. \code{TRUE} if \code{team} has a NHL game today,
 #&#39; \code{FALSE} otherwise
 #&#39; @keywords misc
-#&#39; @note case in \code{team.name} is ignored
+#&#39; @note case in \code{team} is ignored
 #&#39; @export
 #&#39; @examples
-#&#39; gday(&quot;canucks&quot;)
-#&#39; gday(&quot;Bruins&quot;)</code></pre>
+#&#39; gday()
+#&#39; gday(&quot;Bruins&quot;)
+gday &lt;- function(team=&quot;canucks&quot;) {
+  url &lt;- paste0(&quot;http://live.nhle.com/GameData/GCScoreboard/&quot;, Sys.Date(), &quot;.jsonp&quot;)
+  grepl(team, RCurl::getURL(url), ignore.case=TRUE)
+}</code></pre>
 <p>A few of those tags need explanation</p>
 <ul>
 <li><code>\@keywords</code> must be taken from the <a href="https://svn.r-project.org/R/trunk/doc/KEYWORDS">list of R keywords</a></li>

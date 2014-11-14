@@ -182,7 +182,7 @@ What is there to test about `gday()`? Since it relies on live data it is a littl
     })
     
     test_that("Seattle does not have a NHL team", {
-      expect_false(gday(team.name="Seattle"))
+      expect_false(gday(team="Seattle"))
     }
 
 

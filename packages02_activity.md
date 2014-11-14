@@ -64,6 +64,8 @@ Let's look at those in detail. **Bold** fields are mandatory:
 + **Version**. Convention has it that this should be in the format `<major>.<minor>.<patch>`. Since we are only in development we start a fourth digit, which, also by convention, starts with `9000`. Hence `0.0.0.9000` is a good starting point, and `0.0.0.9001` would be the next (development) version while `0.1.0` or `1.0.0` would be the first release version.
 + **Authors\@R**. Machine-readable description of the authors (`aut`), maintainer (`cre`), contributors (`ctb`) and others (see `?person`).
 + **Description**. One paragraph of what the packages does. Lines of 80 characters or less. Indent subsequent lines with 4 spaces (if you're lucky some of this formatting will be done automatically for you later, but don't count on this).
++ **Depends**. Lists the dependencies that are absolutely necessary to load the package. These will be installed when the package is installed with `install.package("gameday", dependencies=TRUE)`. Packages listed here will also be imported in the namespace whenever *gameday* is loaded with `library("gameday")`.
++ *Imports*. Similar to **Depends** a package in *Imports* will also be installed when *gameday* is, but it won't be imported to the namespace. This means that your package can use the imported package, but the user has to explicitely import the helper package if they want to use it. For example, if you choose `Imports: RCurl`, then any *gameday* function can use the *RCurl* function *getURL*, but `library(gameday); getURL(www.google.com)` will fail (unless `library(RCurl)` is explicitely imported by the user).
 + **License**. Who can use this package and for what? I suggest [*CC0*](http://creativecommons.org/publicdomain/zero/1.0/), which means that we dedicate our package to the public domain and waive all of our rights. Anyone can freely use/adapt/modify/sell this work without our permission. We also don't provide any warranties about liability or correctness. You can check out [other licenses](http://choosealicense.com/).
 + *LazyData*. Is a little technical, but setting this to `true` makes your package a better citizen with respect to memory.
 + There are [many more fields available](http://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file).
@@ -91,44 +93,49 @@ The R code that our package provides is in the *R* folder. So let's **create a n
 
 The content is the following:
 
-    gday <- function(team.name="canucks") {
-      url <- paste0("http://live.nhle.com/GameData/GCScoreboard/", Sys.Date(), ".jsonp")
-      grepl(team.name, getURL(url), ignore.case=TRUE)
-    }
+```
+gday <- function(team="canucks") {
+url <- paste0("http://live.nhle.com/GameData/GCScoreboard/", Sys.Date(), ".jsonp")
+grepl(team, RCurl::getURL(url), ignore.case=TRUE)
+}
+```
 
-We first construct the url where the data for today's matches is stored, and then `grepl` to check if `team.name` is among them. [See how the data file looks like](http://live.nhle.com/GameData/GCScoreboard/2014-11-09.jsonp) and compare with [today's matches on NHL.com](http://www.nhl.com/). Notice that we use `RCurl::getURL`, which we have to add to our list of *dependencies* in `DESCRIPTION`, i.e.
+We first construct the url where the data for today's matches is stored, and then `grepl` to check if `team` is among them. [See how the data file looks like](http://live.nhle.com/GameData/GCScoreboard/2014-11-09.jsonp) and compare with [today's matches on NHL.com](http://www.nhl.com/). Notice that we use `RCurl::getURL`, which we have to add to our list of *Imports* in `DESCRIPTION`, i.e. we add the line
 
-    Depends: R (>= 3.1.2)
+```
+Imports: RCurl
+```
 
-becomes
+We don't have to specify a version number for other packages, but we could if we wanted to. So far so good. But what about [documentation](http://asset-1.soup.io/asset/1524/9224_10db.jpeg) (what you would see with `?gday`)? Luckily, `roxygen2` helps us with that and allows us to add the documentation as comments directly in the *R* script. All we have to do is start the line with `#' ` and use the `\@` notation like so:
 
-    Depends:
-        R (>= 3.1.2),
-        RCurl
+```
+#' Is it Gameday?
+#'
+#' This function returns TRUE if your NHL team plays today
+#' and FALSE otherwise
+#' 
+#' You know then problem: You're in your office writing R code and
+#' suddenly have the urge to check whether your NHL team has a game today.
+#' Before you know it you just wasted 15 minutes browsing the lastest
+#' news on your favorite hockey webpage.
+#' Suffer no more! You can now ask R directly, without tempting yourself
+#' by firing up your web browser.
+#' 
+#' @param team
+#' @return Logical. \code{TRUE} if \code{team} has a NHL game today,
+#' \code{FALSE} otherwise
+#' @keywords misc
+#' @note case in \code{team} is ignored
+#' @export
+#' @examples
+#' gday()
+#' gday("Bruins")
+gday <- function(team="canucks") {
+  url <- paste0("http://live.nhle.com/GameData/GCScoreboard/", Sys.Date(), ".jsonp")
+  grepl(team, RCurl::getURL(url), ignore.case=TRUE)
+}
+```
 
-So far so good. But what about [documentation](http://asset-1.soup.io/asset/1524/9224_10db.jpeg) (what you would see with `?gday`)? Luckily, `roxygen2` helps us with that and allows us to add the documentation as comments directly in the *R* script. All we have to do is start the line with `#' ` and use the `\@` notation like so:
-
-    #' Is it Gameday?
-    #'
-    #' This function returns TRUE if your NHL team plays today
-    #' and FALSE otherwise
-    #' 
-    #' You know then problem: You're in your office writing R code and
-    #' suddenly have the urge to check whether your NHL team has a game today.
-    #' Before you know it you just wasted 15 minutes browsing the lastest
-    #' news on your favorite hockey webpage.
-    #' Suffer no more! You can now ask R directly, without tempting yourself
-    #' by firing up your web browser.
-    #' 
-    #' @param team.name
-    #' @return \code{TRUE} if \code{team.name} has an NHL game on \code{date},
-    #' \code{FALSE} otherwise
-    #' @keywords misc
-    #' @note case in \code{team.name} is ignored
-    #' @export
-    #' @examples
-    #' gday("canucks")
-    #' gday("Bruins")
 
 A few of those tags need explanation
 
@@ -141,8 +148,10 @@ A few of those tags need explanation
 
 Phew, that was a lot of work, but now we can hand the rest over back to *R*. In particular, `devtools` and `roxygen2` will compile the documentation
 
-    library("devtools")
-    document()
+```
+library("devtools")
+document()
+```
 
 When we run this the first time, the new folder `man` is created with the file `gday.Rd`. Go ahead an open it, this is what we would have had to write if it was not for `roxygen2` (the syntax resembles the markup language [LaTeX](http://en.wikipedia.org/wiki/LaTeX)).
 
@@ -152,12 +161,16 @@ Also observe that we now have a file `NAMESPACE` which, as expected, says that t
 
 As a final step, let's build the package. In *RStudio* use the *Build* tab and choose *Build & Reload*. That's it. Your package is now checked, installed and loaded. Your *R* session is also restarted. You are now able to run
 
-    gday("canucks")
-    gday("flames")
+```
+gday("canucks")
+gday("flames")
+```
 
 and will notice that (on 2014-11-10) the Vancouver Canucks are not playing, but the Calgary Flames do have a game. To see the rendered version of our function documentation, use
 
-    ?gday
+```
+?gday
+```
 
 
 As you update the package, frequently run `document()` and then *Build & Reload* to test your latest version.
