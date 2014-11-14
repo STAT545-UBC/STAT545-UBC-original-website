@@ -83,18 +83,19 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="big-picture" class="section level1">
 <h1>Big picture</h1>
-<p>In class we have developed the package <code>gameday</code> and showed how to</p>
+<p>In class we developed the package <code>gameday</code> and showed how to</p>
 <ul>
-<li>set up the directory structure for a package using <code>devtools::create()</code>,</li>
-<li>populate the <code>DESCRIPTION</code> file,</li>
-<li>document the functions of your package and the package itself with <code>roxygen2</code> comments and <code>devtools::document()</code>,</li>
-<li>use a function from another package via the <code>Imports</code> field of <code>DESCRIPTION</code> and syntax like <code>foopkg::foofunction()</code>,</li>
-<li>add and render a vignette with <code>devtools::use_vignette()</code> and <code>devtools::build_vignettes()</code>,</li>
-<li>configure your package to use <code>testthat</code> for unit testing with <code>devtools::use_testthat()</code>,</li>
-<li>publish your package on GitHub so that <code>devtools::install_github()</code> works.</li>
+<li>set up the directory structure for a package using <code>devtools::create()</code></li>
+<li>populate the <code>DESCRIPTION</code> file</li>
+<li>document the functions of your package and the package itself with <code>roxygen2</code> comments and <code>devtools::document()</code></li>
+<li>use a function from another package via the <code>Imports</code> field of <code>DESCRIPTION</code> and syntax like <code>foopkg::foofunction()</code></li>
+<li>build, install, and load your developing package with RStudio’s “Build and Reload” or to fake doing that with <code>devtools::load_all()</code></li>
+<li>add and render a vignette with <code>devtools::use_vignette()</code> and <code>devtools::build_vignettes()</code></li>
+<li>configure your package to use <code>testthat</code> for unit testing with <code>devtools::use_testthat()</code></li>
+<li>publish your package on GitHub so that <code>devtools::install_github()</code> works</li>
 </ul>
 <p>In this homework you will either continue developing the <code>gameday</code> package or create your own package of helper functions (e.g. to work with <code>gapminder</code>, or other functions that you find useful).</p>
-<p>Below we sketch the task for <code>gameday</code>. If you develop your own package, it must include the following elements:</p>
+<p>Below we outline follow-up tasks for <code>gameday</code>. If you develop your own package, it must include the following elements:</p>
 <ul>
 <li>Export at least two functions, i.e. make them visible to and usable by a user.</li>
 <li>Document exported functions and the package itself, e.g. a user must be able to get help via <code>?</code>

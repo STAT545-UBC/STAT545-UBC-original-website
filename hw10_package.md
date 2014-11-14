@@ -8,19 +8,20 @@ output:
 
 # Big picture
 
-In class we have developed the package `gameday` and showed how to
+In class we developed the package `gameday` and showed how to
 
-+ set up the directory structure for a package using `devtools::create()`,
-+ populate the `DESCRIPTION` file,
-+ document the functions of your package and the package itself with `roxygen2` comments and `devtools::document()`,
-+ use a function from another package via the `Imports` field of `DESCRIPTION` and syntax like `foopkg::foofunction()`,
-+ add and render a vignette with `devtools::use_vignette()` and `devtools::build_vignettes()`,
-+ configure your package to use `testthat` for unit testing with `devtools::use_testthat()`,
-+ publish your package on GitHub so that `devtools::install_github()` works.
++ set up the directory structure for a package using `devtools::create()`
++ populate the `DESCRIPTION` file
++ document the functions of your package and the package itself with `roxygen2` comments and `devtools::document()`
++ use a function from another package via the `Imports` field of `DESCRIPTION` and syntax like `foopkg::foofunction()`
++ build, install, and load your developing package with RStudio's "Build and Reload" or to fake doing that with `devtools::load_all()`
++ add and render a vignette with `devtools::use_vignette()` and `devtools::build_vignettes()`
++ configure your package to use `testthat` for unit testing with `devtools::use_testthat()`
++ publish your package on GitHub so that `devtools::install_github()` works
 
 In this homework you will either continue developing the `gameday` package or create your own package of helper functions (e.g. to work with `gapminder`, or other functions that you find useful).
 
-Below we sketch the task for `gameday`. If you develop your own package, it must include the following elements:
+Below we outline follow-up tasks for `gameday`. If you develop your own package, it must include the following elements:
 
 + Export at least two functions, i.e. make them visible to and usable by a user.
 + Document exported functions and the package itself, e.g. a user must be able to get help via `?`
