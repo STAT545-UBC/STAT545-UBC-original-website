@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Building your own R package</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Building your own R package</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#big-picture">Big picture</a></li>
+<li><a href="#template">Template</a></li>
+<li><a href="#please-just-tell-me-what-to-do">Please just tell me what to do</a></li>
+<li><a href="#i-want-to-aim-higher">I want to aim higher!</a></li>
+<li><a href="#authors">Authors</a></li>
+</ul>
+</div>
+
+<div id="big-picture" class="section level1">
+<h1>Big picture</h1>
+<p>In class we have developed the package <code>gameday</code> and showed</p>
+<ul>
+<li>how to set up the directory structure for a package <code>devtools::create()</code></li>
+<li>what is the <code>DESCRIPTION</code> file</li>
+<li>how to document functions of your package with <code>roxygen2</code> comments and <code>devtools::document()</code></li>
+<li>how to document the package itself with <code>roxygen2</code> comments and <code>devtools::document()</code></li>
+<li>how to add a vignette with <code>devtools::use_vignette()</code></li>
+<li>how to add <code>testthat</code> tests with <code>devtools::use_testthat()</code></li>
+<li>how to publish your package on GitHub so that <code>devtools::install_github()</code> works</li>
+</ul>
+<p>In this homework you will either continue developing the <code>gameday</code> package or create your own package of helper functions (e.g. to work with <code>gapminder</code>, or other functions that you find useful).</p>
+<p>Below we sketch the task for <code>gameday</code>. If you develop your own package, it must include the following:</p>
+<ul>
+<li>Export at least two functions.</li>
+<li>Every function that is exported (visible to the user) must be documented using <code>@param</code>, <code>@return</code>, <code>@examples</code>.</li>
+<li>The package itself needs to be documented.</li>
+<li>The package must include at least one helper function that is not exported (i.e. not callable directly even when the package is loaded (<code>Error: could not find function</code>)).</li>
+<li>Include at least three tests (using <code>testthat</code>) for every function that is exported.</li>
+<li>Add a validity check to at least one argument and throw an error early in the function if the input does not have the expected format (use <code>assertthat</code> and <strong>import</strong> the <code>assertthat</code> package correctly, as we did for <code>RCurl</code>). Add a test using <code>testthat::test_error()</code> that triggers this behavior.</li>
+<li>Must pass <code>devtools::check()</code> without errors (warnings are ok).</li>
+<li>Write a vignette where you describe why your package is useful, what functions it provides and how they can be combined to provide new insight to a sample question.</li>
+<li>Upload your package to a <strong>public</strong> repository on GitHub. Add a minimal <code>README.md</code> that explains how to install your package, a minimal example how it works, and points to the vignette. <em>(If you are uncomfortable making your homework public to the world please contact Jenny and we can find a way around that. This may require some fiddling but is doable.)</em></li>
+</ul>
+</div>
+<div id="template" class="section level1">
+<h1>Template</h1>
+<ul>
+<li>The version at the end of the class activity can be downloaded from <a href="https://github.com/BernhardKonrad/gameday">Bernhard’s Github</a>, simply <a href="https://github.com/BernhardKonrad/gameday/archive/master.zip">unzip this file</a>.</li>
+</ul>
+<p>The only difference from the class activity is that this version is a better <em>R</em> citizen with respect to namespace and imports. The <code>RCurl</code> dependency is moved from <code>Depends</code> to <code>Imports</code> (to avoid cluttering the namespace with <code>RCurl</code> function when loading <code>gameday</code>), and that instead of <code>getULR()</code> we use <code>RCurl::getURL</code> (see <a href="packages03_activity_part2.html">here for more explanation on this detail</a>).</p>
+</div>
+<div id="please-just-tell-me-what-to-do" class="section level1">
+<h1>Please just tell me what to do</h1>
+<p>If you don’t feel like developing your own package, here’s a <code>gameday</code> blueprint that is a minimal but respectable way to complete the assignment. You are welcome to remix R code already written by someone, student or JB, in this class, but credit/link appropriately, e.g. in comments or your vignette.</p>
+<ul>
+<li>Rename the first argument <code>team.name</code> to <code>team</code> and provide the default value <code>&quot;canucks&quot;</code>. Update the documentation, examples and tests accordingly.</li>
+<li>Add a second argument <code>date</code> that defaults to <code>Sys.Date()</code> and gives the user the option to see whether their team plays or played on a particular day. This test must pass:</li>
+</ul>
+<pre><code>test_that(&quot;Vancouver Canucks had a game against Nashville Predators on 2014-11-02&quot;, {
+  expect_true(gday(team=&quot;canucks&quot;, date=&quot;2014-11-02&quot;))
+  expect_true(gday(team=&quot;predators&quot;, date=&quot;2014-11-02&quot;))
+})</code></pre>
+<ul>
+<li>Use <code>expect_false()</code> to check that a certain team did not have a game on a certain day.</li>
+<li>Let <code>gday()</code> throw an error if there is not internet connection. For that, add a helper function <code>internet_connection</code> that takes no argument. This function should not be exported, that is, it should not be callable directly when <code>gameday</code> is loaded. The helper function below returns a logical that is only <code>TRUE</code> if an internet connection can be established:</li>
+</ul>
+<pre><code>internet_connection &lt;- function(){
+  tryCatch({RCurl::getURL(&quot;www.google.com&quot;); TRUE},
+    error = function(err) FALSE)
+}</code></pre>
+<ul>
+<li>Add a helper function <code>check_date</code> that performs a validity check on <code>date</code> and returns a logical that is only <code>TRUE</code> when <code>date</code> is a valid date. You can check the value of <code>as.Date(date)</code> for that. Add at least one <code>expect_true</code> and <code>expect_false</code> test for <code>check_date</code>.</li>
+<li>Use your function <code>check_date</code> to throw an error in <code>gday</code> if the provided date does not have the right format. A date like <code>201-411-07</code> should throw an error early. Use <code>assertthat</code> to throw the error. This requires that the <code>assertthat</code> package is imported (copy what we did for <code>RCurl</code>). Then add a test with <code>testthat::expect_error()</code> to trigger the error.</li>
+<li>Add another function <code>scores</code> that takes <code>date</code> (use <code>check_date</code> to make sure the date is valid) and returns a data frame with information about the games on <code>date</code>. The <em>R code</em> below can be used as a blueprint for your function.</li>
+</ul>
+<pre><code>url  &lt;- paste0(&#39;http://live.nhle.com/GameData/GCScoreboard/&#39;,
+               date, &#39;.jsonp&#39;)
+raw &lt;- RCurl::getURL(url)
+json &lt;- gsub(&#39;([a-zA-Z_0-9\\.]*\\()|(\\);?$)&#39;, &quot;&quot;, raw, perl = TRUE)
+data &lt;- jsonlite::fromJSON(json)$games
+data.frame(&quot;home&quot;=paste(data$htn, data$htcommon),
+           &quot;away&quot;=paste(data$atn, data$atcommon),
+           &quot;home_score&quot;=data$hts,
+           &quot;away_score&quot;=data$ats)</code></pre>
+<ul>
+<li>Export <code>scores</code> so that the user can access it when <code>gameday</code> is loaded. Also add a documentation that provides <code>@param</code>, <code>@return</code> and <code>@examples</code>. Then add a handful of tests.</li>
+<li>Write a vignette that can be used as a manual to your package and its functions. Provide at least one use-case where the output of <code>gday</code> or <code>scores</code> can be used to gain some insight. For example, to list all winning teams of a certain hockey day (you can use friends like <code>dplyr</code> or <code>ggplot</code> if you want to be fancy).</li>
+<li>Finally, update the Version number to <code>1.0.0</code> and upload your package to a <strong>public</strong> repository on GitHub. Add a minimal <code>README.md</code> that explains how to install your package, a minimal example how it works, and points to the vignette. <em>(If you are uncomfortable making your homework public to the world please contact Jenny and we can find a way around that. This may require some fiddling but is doable.)</em></li>
+</ul>
+</div>
+<div id="i-want-to-aim-higher" class="section level1">
+<h1>I want to aim higher!</h1>
+<ul>
+<li>Use <code>testthat::context(...)</code> to separate your tests into logical chuncks.</li>
+<li>Extend the data.frame that <code>scores</code> returns by capturing more fields. Depending on what you want to do this may call for more helper functions or more functions that are exported. Document your new functions, add tests, and extend the vignette. Below is a description of what fields available in the data.</li>
+</ul>
+<pre><code>field                  datatype      descriptipon 
+ata                    char(3)       Away team acronym, 3 letter short name 
+atc                    text          Before: blank During: &quot;progress&quot; After: &quot;winner&quot; if away team wins 
+atcommon               text          away team common name 
+atn                    text          away team city name 
+ats                    int           away team score 
+atsog                  int           Before: null During and After: away team shots on goal 
+bs                     time/text     Before: start time (unsure if local or EST) During: 05:10 2nd, eg After: &quot;FINAL&quot;, &quot;FINAL OT&quot; etc 
+bsc                    text          Before: blank During: &quot;progress&quot; After: &quot;final&quot; 
+canationalbroadcasts   text          Canadian TV broadcasters, comma separated list 
+gcl                    Bool          gamecenter live? 
+gcll                   bool          gamecenter live? 
+gs                     int           game status? 1=secheduled, 3= in progress, 5=finished 
+hta                    char(3)       home team acronym 
+htc                    text          Before: blank During: &quot;progress&quot; After: &quot;winner&quot; if home team wins 
+htcommon               text          home team common name 
+htn                    text          home team city name 
+hts                    int           home team score 
+htsog                  int           Before: null During and After: home team shots on goal 
+id                     int           game ID 
+rl                     Bool          true after game completed 
+usnationalbroadcasts   text          US tv broadcasters, comma separated list  </code></pre>
+<ul>
+<li>Add a <code>data</code> directory that provides a list of all team names with the corresponding city and name of their home arena. Do not read this data from the web, you can <a href="r_package_data/arena_team.tsv">download this data file here</a>. Here is a short intro on <a href="http://r-pkgs.had.co.nz/data.html">how to add data to your R package</a>.</li>
+<li>Use the data file <a href="r_package_data/arena_team.tsv">arena_team.tsv</a> to add a validity check for <code>team</code> in the function <code>gday</code>. Return an error if this team is not listed in the data file (that is, if the city does not have an NHL team or if the team name has a typo). Write a test that triggers this error with <code>expect_error</code>.</li>
+</ul>
+</div>
+<div id="authors" class="section level1">
+<h1>Authors</h1>
+<p>Written by <a href="https://twitter.com/BernhardKonrad">Bernhard Konrad</a> and <a href="http://www.stat.ubc.ca/~jenny/">Jenny Bryan</a>.</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
