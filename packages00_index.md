@@ -38,7 +38,7 @@ This fully developed example shows you
 
 [Day 2](packages03_activity_part2.html) of hands-on work
 
-Homework *not posted yet*
+[Homework](hw10_package.html) that builds on the in-class work on `gameday`. 
 
 ### Resources
 

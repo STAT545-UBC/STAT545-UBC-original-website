@@ -12,9 +12,9 @@ output:
     - *recommended* due date Thursday, November 13
     - but we were late posting, so ...
     - *required* due date is before class Monday, November 17
-+ HW10 Write your first R package
-    - coming soon
-    - will be fleshing out `gameday` package started in class
++ [HW10](hw10_package.html) Write an R package
+    - due date Friday, November 21
+    - fleshes out `gameday` package started in class
     - peer review will require installing and running your *peer's* `gameday` package
 + [Office hours](https://github.com/STAT545-UBC/Discussion/issues/47) are back ON; check that issue for up-to-date info
 
