@@ -90,10 +90,10 @@ Use this helper function in `gday()` to check for an internet connection *before
 + Write a vignette that can be used as a manual to your package and its functions. Provide at least one use-case where the output of `gday` or `scores` can be used to gain some insight. For example, to list all winning teams of a certain hockey day (you can use friends like `dplyr` or `ggplot` if you want to be fancy).
 + Finally, update the Version number to `1.0.0` and upload your package to a **public** repository on GitHub. Add a minimal `README.md` that explains how to install your package, a minimal example how it works, and points to the vignette. *(If you are uncomfortable making your homework public to the world please contact Jenny and we can find a way around that. This may require some fiddling but is doable.)*
 
-## I want to aim higher!
+## I want to aim higher! gameday version
 
-+ Use `testthat::context(...)` to separate your tests into logical chuncks.
-+ Extend the data.frame that `scores` returns by capturing more fields. Depending on what you want to do this may call for more helper functions or more functions that are exported. Document your new functions, add tests, and extend the vignette. Below is a description of what fields available in the data.
++ Use `testthat::context(...)` to separate your tests into logical chunks.
++ Extend the data.frame that `scores` returns by capturing more fields. Depending on what you want to do this may call for more helper functions or more functions that are exported. Document your new functions, add tests, and extend the vignette. Below is a description of what fields are available in the data.
 
 ```
 field                  datatype      descriptipon 
@@ -119,8 +119,27 @@ id                     int           game ID
 rl                     Bool          true after game completed 
 usnationalbroadcasts   text          US tv broadcasters, comma separated list  
 ```
-+ Add a `data` directory that provides a list of all team names with the corresponding city and name of their home arena. Do not read this data from the web, you can [download this data file here](r_package_data/arena_team.tsv). Here is a short intro on [how to add data to your R package](http://r-pkgs.had.co.nz/data.html).
-+ Use the data file [arena_team.tsv](r_package_data/arena_team.tsv) to add a validity check for `team` in the function `gday`. Return an error if this team is not listed in the data file (that is, if the city does not have an NHL team or if the team name has a typo). Write a test that triggers this error with `expect_error`.
++ Add a `data` directory that provides a data.frame of all team names with the corresponding city and name of their home arena. Do not read this data from the web, you can [download this data file here](r_package_data/arena_team.tsv). Here is a short intro on [how to add data to your R package](http://r-pkgs.had.co.nz/data.html).
++ Use the data in [arena_team.tsv](r_package_data/arena_team.tsv) to add a validity check for `team` in the function `gday()`. Return an error if this team is not listed in the data.frame (that is, if the city does not have an NHL team or if the team name has a typo). Write a test that triggers this error with `testthat::expect_error()`.
++ Use the data to generalize `gday()` so that it works if the user requests info for the "Canucks" or "Vancouver."
+
+## I want to aim higher! blue sky version
+
+Do you want to write your very own package and ditch `gameday`? Here are some ideas.
+
+*jenny populating now but wanted to commit*
+
+## Rubric
+
+Your peer reviewer will try to install your package from GitHub and use it! They will follow your instructions from `README.md` and might even try stuff from your vignette.
+
+Check minus: Package does not install. Or installation seemed go OK but one or more of the functions don't work. Or you do something that seems totally natural (probably copied from `README.md` or vignette) and get odd behavior.
+
+Check: Hits all the elements. No obvious technical difficulties. Package pleasant to use. `README.md` and vignette are pleasant to read and provide accessible examples of usage. No heroic detective work required. Good work!
+
+Check plus: Exceeded the requirements in number of dimensions. Took `gameday` farther than was required. Wrote a new package from scratch. Experience of installation and usage was dreamy because of excellent documentation and high functionality. You learned something new from reviewing their work and you’re eager to incorporate it into your work. Wow!
+
+Recall the [general homework rubric](http://stat545-ubc.github.io/peer-review01_marking-rubric.html).
 
 ## Authors
 
@@ -128,4 +147,3 @@ Written by [Bernhard Konrad][] and [Jenny Bryan][].
 
 [Bernhard Konrad]: https://twitter.com/BernhardKonrad
 [Jenny Bryan]: http://www.stat.ubc.ca/~jenny/
-[CC BY 3.0]: http://creativecommons.org/licenses/by/3.0/
