@@ -35,7 +35,7 @@ Below we outline follow-up tasks for `gameday`. If you develop your own package,
     - revisit our [block on writing your own functions](block011_write-your-own-function-01.html) for a refresher,
     - use `assertthat` for this validity check and import the `assertthat` package correctly, as we did for `RCurl` *TO DO: add a link to an appropriate anchor in the activity and alert students that we rewrote that part*
     - make sure one of your tests verifies that invalid input does indeed trigger the error, using `testthat::expect_error()`.
-+ Your package must pass `devtools::check()` without errors (warnings and notes are ok).
++ Your package must pass `devtools::check()` without errors (warnings and notes are OK).
 + Write a vignette where you describe why your package is useful, what functions it provides and how they can be combined to provide answer a simple sample question. Your vignette is the main prose document for this homework, so that's where your reflections on the process should go, even though that would be weird for a real vignette!
 + Upload your package to a **public** repository on GitHub. Add a minimal `README.md` that shows how to install your package, a minimal example how it works, and links to the vignette. *(If you are uncomfortable making your homework public to the world please contact Jenny and we can find a way around that. This may require some fiddling but is doable.)*
 
@@ -96,7 +96,7 @@ Use this helper function in `gday()` to check for an internet connection *before
 + Extend the data.frame that `scores` returns by capturing more fields. Depending on what you want to do this may call for more helper functions or more functions that are exported. Document your new functions, add tests, and extend the vignette. Below is a description of what fields are available in the data.
 
 ```
-field                  datatype      descriptipon 
+field                  datatype      description 
 ata                    char(3)       Away team acronym, 3 letter short name 
 atc                    text          Before: blank During: "progress" After: "winner" if away team wins 
 atcommon               text          away team common name 
@@ -108,7 +108,7 @@ bsc                    text          Before: blank During: "progress" After: "fi
 canationalbroadcasts   text          Canadian TV broadcasters, comma separated list 
 gcl                    Bool          gamecenter live? 
 gcll                   bool          gamecenter live? 
-gs                     int           game status? 1=secheduled, 3= in progress, 5=finished 
+gs                     int           game status? 1=scheduled, 3= in progress, 5=finished 
 hta                    char(3)       home team acronym 
 htc                    text          Before: blank During: "progress" After: "winner" if home team wins 
 htcommon               text          home team common name 
