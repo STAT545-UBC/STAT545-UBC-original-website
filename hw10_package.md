@@ -19,6 +19,8 @@ In class we developed the package `gameday` and showed how to
 + configure your package to use `testthat` for unit testing with `devtools::use_testthat()` and run your tests with `devtools::test()`
 + publish your package on GitHub so that `devtools::install_github()` works
 
+The [landing page for all the package material](packages00_index.html) contains lots of [links](packages00_index.html#resources) with extra technical information and general inspiration.
+
 In this homework you will either continue developing the `gameday` package or create your own package (inspiration given below).
 
 Below we outline follow-up tasks for `gameday`. If you develop your own package, it must include the following elements:
@@ -127,7 +129,17 @@ usnationalbroadcasts   text          US tv broadcasters, comma separated list
 
 Do you want to write your very own package and ditch `gameday`? Here are some ideas.
 
-*jenny populating now but wanted to commit*
+  * Re-implement and expand on [`cats`](https://github.com/hilaryparker/cats) with your favorite animal.
+  *  Personal package of utility functions. Examples from Jenny's life:
+    - `peek()`: kind of like `head()` and `tail()` but uses a random sample instead of the first few or last elements
+    - wrapper around `write.table()` that, by default, sets `row.names = FALSE`, `quote = FALSE` and `sep =` to tab or comma
+  * `NA` sleuth to provide a report and perhaps visual info on how many `NA`s are in a data.frame, afflicting which variables, in which rows
+  * `factorboss`
+    - heatmap-style visual overview of factor levels in a data.frame (Gapminder would work well as practice dataset ... how easy can you make it to spot that data comes in 12 row clumps by country?)
+    - detect factors that should be character because # unique values = length
+    - write a version of reorder() that uses `desc()` a la `(d)plyr`
+    - write a version of `factor()` that sets levels to the order in which they appear in the data, i.e. set the levels "as is"
+    - functions to write and read data.frames to plain text delimited files while retaining factor levels; maybe by writing/reading a companion file?
 
 ## Rubric
 

@@ -96,6 +96,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>configure your package to use <code>testthat</code> for unit testing with <code>devtools::use_testthat()</code> and run your tests with <code>devtools::test()</code></li>
 <li>publish your package on GitHub so that <code>devtools::install_github()</code> works</li>
 </ul>
+<p>The <a href="packages00_index.html">landing page for all the package material</a> contains lots of <a href="packages00_index.html#resources">links</a> with extra technical information and general inspiration.</p>
 <p>In this homework you will either continue developing the <code>gameday</code> package or create your own package (inspiration given below).</p>
 <p>Below we outline follow-up tasks for <code>gameday</code>. If you develop your own package, it must include the following elements:</p>
 <ul>
@@ -203,7 +204,23 @@ usnationalbroadcasts   text          US tv broadcasters, comma separated list  <
 <div id="i-want-to-aim-higher-blue-sky-version" class="section level2">
 <h2>I want to aim higher! blue sky version</h2>
 <p>Do you want to write your very own package and ditch <code>gameday</code>? Here are some ideas.</p>
-<p><em>jenny populating now but wanted to commit</em></p>
+<ul>
+<li>Re-implement and expand on <a href="https://github.com/hilaryparker/cats"><code>cats</code></a> with your favorite animal.</li>
+<li>Personal package of utility functions. Examples from Jenny’s life:
+<ul>
+<li><code>peek()</code>: kind of like <code>head()</code> and <code>tail()</code> but uses a random sample instead of the first few or last elements</li>
+<li>wrapper around <code>write.table()</code> that, by default, sets <code>row.names = FALSE</code>, <code>quote = FALSE</code> and <code>sep =</code> to tab or comma</li>
+</ul></li>
+<li><code>NA</code> sleuth to provide a report and perhaps visual info on how many <code>NA</code>s are in a data.frame, afflicting which variables, in which rows</li>
+<li><code>factorboss</code>
+<ul>
+<li>heatmap-style visual overview of factor levels in a data.frame (Gapminder would work well as practice dataset … how easy can you make it to spot that data comes in 12 row clumps by country?)</li>
+<li>detect factors that should be character because # unique values = length</li>
+<li>write a version of reorder() that uses <code>desc()</code> a la <code>(d)plyr</code></li>
+<li>write a version of <code>factor()</code> that sets levels to the order in which they appear in the data, i.e. set the levels “as is”</li>
+<li>functions to write and read data.frames to plain text delimited files while retaining factor levels; maybe by writing/reading a companion file?</li>
+</ul></li>
+</ul>
 </div>
 <div id="rubric" class="section level2">
 <h2>Rubric</h2>
