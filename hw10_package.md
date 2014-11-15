@@ -3,7 +3,7 @@ title: "Building your own R package"
 output:
   html_document:
     toc: true
-    toc_depth: 2
+    toc_depth: 3
 ---
 
 ## Big picture
@@ -40,6 +40,10 @@ Below we outline follow-up tasks for `gameday`. If you develop your own package,
 + Your package must pass `devtools::check()` without errors (warnings and notes are OK).
 + Write a vignette where you describe why your package is useful, what functions it provides and how they can be combined to provide answer a simple sample question. Your vignette is the main prose document for this homework, so that's where your reflections on the process should go, even though that would be weird for a real vignette!
 + Upload your package to a **public** repository on GitHub. Add a minimal `README.md` that shows how to install your package, a minimal example how it works, and links to the vignette. *(If you are uncomfortable making your homework public to the world please contact Jenny and we can find a way around that. This may require some fiddling but is doable.)*
+
+### Due date
+
+Submit an issue with a link to your package sometime on Friday November 21.
 
 ## Template
 
