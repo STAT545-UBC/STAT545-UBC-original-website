@@ -87,6 +87,7 @@
   * [Homework 07](hw07_data-wrangling-grand-finale.html) Data wrangling Grand Finale
   * [Homework 08](hw08_data-cleaning.html) re: handling character data and data cleaning
   * [Homework 09](hw09_automation.html) Automating Data-analysis Pipelines
+  * [Homework 10](hw10_package.html) Write an R package
 
 ## Short random things
 
