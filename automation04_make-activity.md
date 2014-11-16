@@ -104,7 +104,7 @@ See the sample Project at this point in [this commit](https://github.com/STAT545
 
 ### Create rules for all and clean
 
-It would be nice to execute our `make` rules from RStudio. So it's urgent that we create phony targets `all` and `clean`, which are the only targets accessible from RStudio.
+It would be nice to execute our `make` rules from RStudio. So it's urgent that we create phony targets `all` and `clean`, which are the only targets accessible from RStudio. These targets are phony in the sense that they do not specify an actual file to be made, rather they just make it easy to trigger a certain action. `all` and `clean` are phony targets that appear in most `Makefiles`, which is why RStudio makes it easy to access them from the IDE.
 
 Edit your `Makefile` to look like this (where your `words.txt` rule can be the copy or download version):
 
@@ -296,3 +296,19 @@ report.html: report.rmd histogram.tsv histogram.png
 Remember, you can review the entire activity via the commit history of the sample Project: <https://github.com/STAT545-UBC/make-activity>.
 
 And that's how a data analytical pipeline gets built using `make`, the shell, R, RStudio, and optionally Git.
+
+### Appendix
+
+Here are [some additions](https://www.gnu.org/software/make/manual/html_node/Special-Targets.html) you might like to include in your `Makefiles`:
+
+```sh
+.PHONY: all clean
+.DELETE_ON_ERROR:
+.SECONDARY:
+```
+
+The `.PHONY` line is where you declare which targets are *phony*, i.e. are not actual files to be made in the literal sense. It's a good idea to explicitly tell `make` which targets are phony, instead of letting it try to deduce this.
+
+`.DELETE_ON_ERROR` causes `make` to "delete the target of a rule if it has changed and its recipe exits with a nonzero exit status". In English, this means that -- if a rule starts to run but then exits due to error -- any outputs written in the course of that fiasco will be deleted. This can protect you from having half-baked, erroneous files lying around that will just confuse you later.
+
+<!-- @sjackman: would you write a sentence or two about .SECONDARY? -->

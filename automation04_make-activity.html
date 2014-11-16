@@ -89,6 +89,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#use-make-to-deal-with-an-annoyance">Use <code>make</code> to deal with an annoyance</a></li>
 <li><a href="#render-an-html-report">Render an HTML report</a></li>
 <li><a href="#the-final-makefile">The Final Makefile</a></li>
+<li><a href="#appendix">Appendix</a></li>
 </ul>
 </div>
 
@@ -104,6 +105,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="dependency-graph-of-the-pipeline" class="section level3">
 <h3>Dependency graph of the pipeline</h3>
 <!-- TO DO: remake the figure to say words.txt not words.tsv and the new words downloading strategy -->
+
 <p><a href="automation01_slides/images/activity.gv"><img src="automation01_slides/images/activity.png" alt="automation01_slides/images/activity.png" /></a></p>
 </div>
 <div id="set-up-a-new-rstudio-project-and-git-repo" class="section level3">
@@ -169,7 +171,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="create-rules-for-all-and-clean" class="section level3">
 <h3>Create rules for all and clean</h3>
-<p>It would be nice to execute our <code>make</code> rules from RStudio. So it’s urgent that we create phony targets <code>all</code> and <code>clean</code>, which are the only targets accessible from RStudio.</p>
+<p>It would be nice to execute our <code>make</code> rules from RStudio. So it’s urgent that we create phony targets <code>all</code> and <code>clean</code>, which are the only targets accessible from RStudio. These targets are phony in the sense that they do not specify an actual file to be made, rather they just make it easy to trigger a certain action. <code>all</code> and <code>clean</code> are phony targets that appear in most <code>Makefiles</code>, which is why RStudio makes it easy to access them from the IDE.</p>
 <p>Edit your <code>Makefile</code> to look like this (where your <code>words.txt</code> rule can be the copy or download version):</p>
 <pre class="makefile"><code>all: words.txt
 
@@ -295,6 +297,7 @@ clean:
 </ul>
 <p>See the sample Project at this point in <a href="https://github.com/STAT545-UBC/make-activity/tree/91ebcfc7d25743ebd8d6c9684ed7923ad4758585">this commit</a>.</p>
 <!-- TO DO: this PDF bit awaiting attention from Shaun -->
+ 
 <!--
 
 Render a PDF report
@@ -302,7 +305,8 @@ Render a PDF report
 
 Can you modify the `rmarkdown::render` command to generate a PDF report instead of an HTML report? Hint: look at the optional second argument of `rmarkdown::render`. Alternatively, click the *Knit* dropdown box and select *Knit PDF*, and look at how RStudio modifies the header of your R Markdown script.
 
--->
+--> 
+
 </div>
 <div id="the-final-makefile" class="section level3">
 <h3>The Final Makefile</h3>
@@ -324,8 +328,20 @@ histogram.png: histogram.tsv
 
 report.html: report.rmd histogram.tsv histogram.png
 	Rscript -e &#39;rmarkdown::render(&quot;$&lt;&quot;)&#39;</code></pre>
-<p>Remember, you can review the entire activity via the commit history of the sample Project: <a href="https://github.com/STAT545-UBC/make-activity" class="uri">https://github.com/STAT545-UBC/make-activity</a>.</p>
+<p>Remember, you can review the entire activity via the commit history of the sample Project: <a href="https://github.com/STAT545-UBC/make-activity">https://github.com/STAT545-UBC/make-activity</a>.</p>
 <p>And that’s how a data analytical pipeline gets built using <code>make</code>, the shell, R, RStudio, and optionally Git.</p>
+</div>
+<div id="appendix" class="section level3">
+<h3>Appendix</h3>
+<p>Here are <a href="https://www.gnu.org/software/make/manual/html_node/Special-Targets.html">some additions</a> you might like to include in your <code>Makefiles</code>:</p>
+<pre class="sh"><code>.PHONY: all clean
+.DELETE_ON_ERROR:
+.SECONDARY:</code></pre>
+<p>The <code>.PHONY</code> line is where you declare which targets are <em>phony</em>, i.e. are not actual files to be made in the literal sense. It’s a good idea to explicitly tell <code>make</code> which targets are phony, instead of letting it try to deduce this.</p>
+<p><code>.DELETE_ON_ERROR</code> causes <code>make</code> to “delete the target of a rule if it has changed and its recipe exits with a nonzero exit status”. In English, this means that – if a rule starts to run but then exits due to error – any outputs written in the course of that fiasco will be deleted. This can protect you from having half-baked, erroneous files lying around that will just confuse you later.</p>
+<!-- @sjackman: would you write a sentence or two about .SECONDARY? -->
+
+
 </div>
 
 <div class="footer">
