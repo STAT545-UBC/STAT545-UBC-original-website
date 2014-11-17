@@ -48,7 +48,7 @@ nov-03 mon   <a href="cm105_pipelines.html">cm105</a>: Task automation and pipel
 nov-05 wed   <a href="cm106_pipelines.html">cm106</a>: ditto                                                      
 nov-10 mon   <a href="cm107_packages.html">cm107</a>: Build your first R package                                  
 nov-12 wed   <a href="cm108_packages.html">cm108</a>: ditto                                                       
-nov-17 mon   cm109: Build your first Shiny app                                                                    
+nov-17 mon   <a href="cm109_shiny.html">cm109</a>: Build your first Shiny app                                     
 nov-19 wed   cm110: ditto                                                                                         
 nov-24 mon   cm111: Get data from the web                                                                         
 nov-26 wed   cm112: ditto                                                                                         
