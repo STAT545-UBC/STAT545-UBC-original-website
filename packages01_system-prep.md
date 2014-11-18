@@ -7,8 +7,6 @@ output:
 
 Although we'll build a very simple package, we're still going to use the most modern and powerful tools for R package development. In theory, this could eventually involve compiling C/C++ code, which means you need what's called a *build environment*.
 
-*Warning: under development!*
-
 ### Update R and RStudio
 
 Embarking on your career as an R package developer is an important milestone. Why not celebrate by updating R and RStudio? This is something we recommended early and we recommend doing it often. [Go back to Day 0 of the course](block000_r-rstudio-install.html#r-and-rstudio) for reminders on the process.
@@ -18,6 +16,8 @@ Embarking on your career as an R package developer is an important milestone. Wh
 ### Special considerations for Windows
 
 Sorry folks! Yes here we are again, installing software together while the Mac people sit there looking smug.
+
+*Warning: we are still weighing various recommendations for what Windows users should do. You can probably get by for quite a while without installing `Rtools` as described below, but it will eventually be come necessary and the `devtools` package will alert you to this. For example, once your package development/building activities involve compiling code, you will need `Rtools`.*
 
 You need to install `Rtools`. This is __NOT an R package__ but is rather "a collection of resources for building packages for R under Microsoft Windows, or for building R itself". Go here and do what it says:
 

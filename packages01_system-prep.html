@@ -80,7 +80,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 
 <p>Although we’ll build a very simple package, we’re still going to use the most modern and powerful tools for R package development. In theory, this could eventually involve compiling C/C++ code, which means you need what’s called a <em>build environment</em>.</p>
-<p><em>Warning: under development!</em></p>
 <div id="update-r-and-rstudio" class="section level3">
 <h3>Update R and RStudio</h3>
 <p>Embarking on your career as an R package developer is an important milestone. Why not celebrate by updating R and RStudio? This is something we recommended early and we recommend doing it often. <a href="block000_r-rstudio-install.html#r-and-rstudio">Go back to Day 0 of the course</a> for reminders on the process.</p>
@@ -89,6 +88,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="special-considerations-for-windows" class="section level3">
 <h3>Special considerations for Windows</h3>
 <p>Sorry folks! Yes here we are again, installing software together while the Mac people sit there looking smug.</p>
+<p><em>Warning: we are still weighing various recommendations for what Windows users should do. You can probably get by for quite a while without installing <code>Rtools</code> as described below, but it will eventually be come necessary and the <code>devtools</code> package will alert you to this. For example, once your package development/building activities involve compiling code, you will need <code>Rtools</code>.</em></p>
 <p>You need to install <code>Rtools</code>. This is <strong>NOT an R package</strong> but is rather “a collection of resources for building packages for R under Microsoft Windows, or for building R itself”. Go here and do what it says:</p>
 <p><a href="http://cran.r-project.org/bin/windows/Rtools/">http://cran.r-project.org/bin/windows/Rtools/</a></p>
 <p>Note the repeated advice to stay current: “We recommend that users use the latest release of <code>Rtools</code> with the latest release of R.”</p>
