@@ -182,11 +182,11 @@ and will notice that (on 2014-11-10) the Vancouver Canucks are not playing, but 
 ?gday
 ```
 
-As you update the package, frequently run `document()` and then *Build & Reload* to try out your latest version. As your package gets bigger, you will want to explore `devtools::load_all()` as a lighter weight way to see how things are going.
+As you update the package, frequently run `document()` and then *Build & Reload* to try out your latest version. As your package gets bigger, you will want to explore `devtools::load_all()` as a lighter weight alternative.
 
 ### What's next
 
-Congratulations, you just wrote your first *R* package! This is the end of part 1. In the [second part](packages03_activity_part2.html) we explore the following:
+Congratulations, you just wrote your first R package! This is the end of part 1. In the [second part](packages03_activity_part2.html) we explore the following:
 
 + Create help file for the `gameday` package, which is displayed by `?gameday`.
 + Add a vignette.
@@ -194,7 +194,5 @@ Congratulations, you just wrote your first *R* package! This is the end of part 
 + Add tests with `testthat`.
 + Modify `gday()` to accept a second input `date` that defaults to `Sys.Date()`.
 + Show interactive *fix & test* workflow.
-
-------------------------------------------------------------
 
 back to [All the package things](packages00_index.html)
