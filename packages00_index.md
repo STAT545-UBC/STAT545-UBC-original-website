@@ -7,7 +7,7 @@ output:
 
 ### Overview
 
-[slides](https://speakerdeck.com/jennybc/ubc-stat545-2014-cm107-context-for-writing-your-first-r-package-week)
+[slides](https://speakerdeck.com/jennybc/ubc-stat545-2014-cm107-and-cm108-context-for-writing-your-first-r-package-week)
 
   * What is an R package?
   * What is a library?
