@@ -55,7 +55,7 @@ The only difference from the class activity is that this version is a better R c
 
 If you don't feel like developing your own package, here's a `gameday` blueprint that is a respectable way to complete the assignment. You are welcome to remix R code already written by someone, student or JB, in this class, but credit/link appropriately, e.g. in comments or your vignette. Take full advantage of [office hours](https://github.com/STAT545-UBC/Discussion/issues/47) and the [Discussion board](https://github.com/STAT545-UBC/Discussion/issues)!
 
-If you can't do all of this, do what you can. Make sure to include the vignette and push to GitHub, since that is needed for peer review and marking.
+If you can't do all of this, do what you can. Make sure to include the vignette and push to GitHub, since that is needed for peer review and marking. Jenny took a crack at some parts of this homework and [has some hints](hw10_package_jenny-hints.html).
 
 
 + Rename the first argument `team.name` to `team` and provide the default value `"canucks"`. Update the documentation, examples and tests accordingly.

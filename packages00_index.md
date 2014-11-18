@@ -38,7 +38,7 @@ This fully developed example shows you
 
 [Day 2](packages03_activity_part2.html) of hands-on work
 
-[Homework](hw10_package.html) that builds on the in-class work on `gameday`. [Peer review help](hw10_package_peer-review.html).
+[Homework](hw10_package.html) that builds on the in-class work on `gameday`. [Hints](hw10_package_jenny-hints.html) on how to get started. [Peer review help](hw10_package_peer-review.html).
 
 ### Resources
 
