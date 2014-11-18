@@ -35,7 +35,7 @@ Below we outline follow-up tasks for `gameday`. If you develop your own package,
     - use `testthat` for your testing.
 + Add a validity check to at least one argument and throw an error if the input is invalid
     - revisit our [block on writing your own functions](block011_write-your-own-function-01.html) for a refresher,
-    - use `assertthat` for this validity check and import the `assertthat` package correctly, as we did for `RCurl` *TO DO: add a link to an appropriate anchor in the activity and alert students that we rewrote that part*
+    - use `assertthat` for this validity check and import the `assertthat` package correctly, as we did for `RCurl`
     - make sure one of your tests verifies that invalid input does indeed trigger the error, using `testthat::expect_error()`.
 + Your package must pass `devtools::check()` without errors (warnings and notes are OK).
 + Write a vignette where you describe why your package is useful, what functions it provides and how they can be combined to provide answer a simple sample question. Your vignette is the main prose document for this homework, so that's where your reflections on the process should go, even though that would be weird for a real vignette!
@@ -53,7 +53,9 @@ The only difference from the class activity is that this version is a better R c
 
 ## Please just tell me what to do
 
-If you don't feel like developing your own package, here's a `gameday` blueprint that is a minimal but respectable way to complete the assignment. You are welcome to remix R code already written by someone, student or JB, in this class, but credit/link appropriately, e.g. in comments or your vignette. Take full advantage of [office hours](https://github.com/STAT545-UBC/Discussion/issues/47) and the [Discussion board](https://github.com/STAT545-UBC/Discussion/issues)!
+If you don't feel like developing your own package, here's a `gameday` blueprint that is a respectable way to complete the assignment. You are welcome to remix R code already written by someone, student or JB, in this class, but credit/link appropriately, e.g. in comments or your vignette. Take full advantage of [office hours](https://github.com/STAT545-UBC/Discussion/issues/47) and the [Discussion board](https://github.com/STAT545-UBC/Discussion/issues)!
+
+If you can't do all of this, do what you can. Make sure to include the vignette and push to GitHub, since that is needed for peer review and marking.
 
 
 + Rename the first argument `team.name` to `team` and provide the default value `"canucks"`. Update the documentation, examples and tests accordingly.
@@ -151,7 +153,7 @@ Your peer reviewer will try to install your package from GitHub and use it! They
 
 Check minus: Package does not install. Or installation seemed go OK but one or more of the functions don't work. Or you do something that seems totally natural (probably copied from `README.md` or vignette) and get odd behavior.
 
-Check: Hits all the elements. No obvious technical difficulties. Package pleasant to use. `README.md` and vignette are pleasant to read and provide accessible examples of usage. No heroic detective work required. Good work!
+Check: Hits most/all the elements. No obvious technical difficulties. Package pleasant to use. `README.md` and vignette are pleasant to read and provide accessible examples of usage. No heroic detective work required. Good work!
 
 Check plus: Exceeded the requirements in number of dimensions. Took `gameday` farther than was required. Wrote a new package from scratch. Experience of installation and usage was dreamy because of excellent documentation and high functionality. You learned something new from reviewing their work and you’re eager to incorporate it into your work. Wow!
 

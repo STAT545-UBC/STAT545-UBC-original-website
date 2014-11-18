@@ -6,51 +6,51 @@ output:
   toc: true
 ---
 
-When you install your peer's package for your review, it is possible that their implementation may overwrite your version. In fact, this is the default behavior if you both implemented your version of `gameday`. In this document we explain two possible solutions to this, so that you are able to recover your version of `gameday` when you're done with your review.
+When you install your peer's `gameday` package for review, it is possible that it will overwrite the installation of your own `gameday` package. In fact, this is the default. Note: only your *installed* package is at risk. The source of your `gameday` package lives on safely on your computer and on GitHub.
+
+In this document we explain two possible solutions, so that your own version of `gameday` is available when you complete peer review.
 
 > To quickly check whose version is currently installed, use `maintainer("gameday")`.
 
-# Option A. Overwrite and re-install
+## Option A. Overwrite and re-install
 
-In this option we temporarily overwrite our version of `gameday` with the version of our peer. This means that during the peer review we will not be able to access any functions or documentation of our version of `gameday`, we always see those of our peer.
+In this option we temporarily overwrite our installed version of `gameday` with the version of our peer. This means that during the peer review we will not be able to load and run our version of `gameday`.
 
-## Step 1. Backup
+### Step 1. Backup
 
-Luckily, installing another version of `gameday` will not overwrite your source files (the files that you wrote and compiled to create your version of `gameday`). As long as you keep the source uou will always be able to quickly recover your package `gameday`. To be extra save, let's add two layers of security, a local version on your computer, and a version on GitHub:
+Let's make extra sure your `gameday` source package is safely stored locally and on GitHub.
 
-+ Know where your source files are stored on your computer. Open the *gameday.RProj* file in the corresponding folder. Run `remove.packages("gameday")`, then *Build & Reload* and make sure that your package still works (open the vignette, `?gday`, `?gameday`, `gday("canucks")`, etc.)
-+ Upload your source files to GitHub. Commit every source file, even the ones that were created automatically. Then, run `remove.packages("gameday")` and recreate it with the following steps:
-  - Clone your GitHub repository to a separate, temporary, folder: *File -> New Project -> Version Control -> Git*, paste the *url* of your GitHub repo, and choose a temporary folder.
++ Confirm where your source files are stored on your computer. Open the `gameday.RProj` file in the corresponding folder. Run `remove.packages("gameday")` to un-install your `gameday`, then *Build & Reload* to re-install. Make sure that your package still works (open the vignette, `?gday`, `?gameday`, `gday("canucks")`, etc.)
++ Upload your source files to GitHub. Commit every source file, even the ones that were created automatically. Push to GitHub. Then, run `remove.packages("gameday")` and recreate it with the following steps:
+  - Clone your GitHub repository to a separate, temporary, folder: *File > New Project > Version Control > Git*, paste the *url* of your GitHub repo, and choose a temporary folder.
   - recreate your package with `devtools::test()`, `devtools::document()`, `devtools:build_vignettes()` and finally *Build & reload*.
-  - Check that your version of `gameday` is restored (open the vignette, `?gday`, `?gameday`, `gday("canucks")`, etc.). If everything works as expected you can delete this new folder -- your source files are save and complete on GitHub.
+  - Check that your version of `gameday` is restored (open the vignette, `?gday`, `?gameday`, `gday("canucks")`, etc.). If everything works as expected you can delete this new folder -- your source files are safe and complete on GitHub.
 
+### Step 2. Install `gameday` from your peer
 
-## Step 2. Install `gameday` from your peer
+Now that you know that you can re-install your version of `gameday`, it's time to let your peer's version of `gameday` take over.
 
-Now that you know that you can always recreate your version of `gameday`, it's time to let go of your version for the time being so that you can review your peer's version.
-
-+ Use `devtools::install_github(...)` to install the `gameday` version that you are going to review. Then, run maintainer("gameday"). This should now be the name of your peer.
++ Use `devtools::install_github(...)` to install your peer's `gameday`. Then, run `library(gameday)` and `maintainer("gameday")` to load it and confirm it belongs to your peer.
 + Review `gameday`.
 
-## Step 3. Re-install your version
+### Step 3. Re-install your version
 
-Once you are *completely* done with the peer review and submitted your marks and comments you want to re-compile your own version of `gameday`. To do this, simply run `devtools::install_github(...)` with the path to your version. Then check that your name appears when you run `maintainer("gameday")`.
+Once you are done with the peer review, re-install your own version of `gameday`. To install from your local source, while working in your `gameday` Project, do "Build and Reload". Or install from GitHub via `devtools::install_github(...)`. Then check that your name appears when you run `maintainer("gameday")`.
 
+## Option B. Install peer's work to different library
 
-# Option B. Install peer's work to different library
+This more advanced option makes use of the fact that you can specify which library to install a new package to. Hence you can avoid overwriting your version of `gameday` by installing your peer's version to a different library.
 
-This more advanced option makes use of the fact that you can specify which library to install a new package to. Hence you can avoid overwriting your version of `gameday` by installing your peer's version to a different library
-
-## Step 1. Set up a new library
-
-todo: @jennybc
-
-
-## Step 2. Install `gameday` from your peer
+### Step 1. Set up a new library
 
 todo: @jennybc
 
-## Step 3. Remove peer's work after peer-review
+
+### Step 2. Install `gameday` from your peer
+
+todo: @jennybc
+
+### Step 3. Remove peer's work after peer-review
 
 todo: @jennybc
 

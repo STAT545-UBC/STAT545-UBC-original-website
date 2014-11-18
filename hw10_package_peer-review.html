@@ -57,50 +57,51 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 
 
-<p>When you install your peer’s package for your review, it is possible that their implementation may overwrite your version. In fact, this is the default behavior if you both implemented your version of <code>gameday</code>. In this document we explain two possible solutions to this, so that you are able to recover your version of <code>gameday</code> when you’re done with your review.</p>
+<p>When you install your peer’s <code>gameday</code> package for review, it is possible that it will overwrite the installation of your own <code>gameday</code> package. In fact, this is the default. Note: only your <em>installed</em> package is at risk. The source of your <code>gameday</code> package lives on safely on your computer and on GitHub.</p>
+<p>In this document we explain two possible solutions, so that your own version of <code>gameday</code> is available when you complete peer review.</p>
 <blockquote>
 <p>To quickly check whose version is currently installed, use <code>maintainer(&quot;gameday&quot;)</code>.</p>
 </blockquote>
-<div id="option-a.-overwrite-and-re-install" class="section level1">
-<h1>Option A. Overwrite and re-install</h1>
-<p>In this option we temporarily overwrite our version of <code>gameday</code> with the version of our peer. This means that during the peer review we will not be able to access any functions or documentation of our version of <code>gameday</code>, we always see those of our peer.</p>
-<div id="step-1.-backup" class="section level2">
-<h2>Step 1. Backup</h2>
-<p>Luckily, installing another version of <code>gameday</code> will not overwrite your source files (the files that you wrote and compiled to create your version of <code>gameday</code>). As long as you keep the source uou will always be able to quickly recover your package <code>gameday</code>. To be extra save, let’s add two layers of security, a local version on your computer, and a version on GitHub:</p>
+<div id="option-a.-overwrite-and-re-install" class="section level2">
+<h2>Option A. Overwrite and re-install</h2>
+<p>In this option we temporarily overwrite our installed version of <code>gameday</code> with the version of our peer. This means that during the peer review we will not be able to load and run our version of <code>gameday</code>.</p>
+<div id="step-1.-backup" class="section level3">
+<h3>Step 1. Backup</h3>
+<p>Let’s make extra sure your <code>gameday</code> source package is safely stored locally and on GitHub.</p>
 <ul>
-<li>Know where your source files are stored on your computer. Open the <em>gameday.RProj</em> file in the corresponding folder. Run <code>remove.packages(&quot;gameday&quot;)</code>, then <em>Build &amp; Reload</em> and make sure that your package still works (open the vignette, <code>?gday</code>, <code>?gameday</code>, <code>gday(&quot;canucks&quot;)</code>, etc.)</li>
-<li>Upload your source files to GitHub. Commit every source file, even the ones that were created automatically. Then, run <code>remove.packages(&quot;gameday&quot;)</code> and recreate it with the following steps:</li>
-<li>Clone your GitHub repository to a separate, temporary, folder: <em>File -&gt; New Project -&gt; Version Control -&gt; Git</em>, paste the <em>url</em> of your GitHub repo, and choose a temporary folder.</li>
+<li>Confirm where your source files are stored on your computer. Open the <code>gameday.RProj</code> file in the corresponding folder. Run <code>remove.packages(&quot;gameday&quot;)</code> to un-install your <code>gameday</code>, then <em>Build &amp; Reload</em> to re-install. Make sure that your package still works (open the vignette, <code>?gday</code>, <code>?gameday</code>, <code>gday(&quot;canucks&quot;)</code>, etc.)</li>
+<li>Upload your source files to GitHub. Commit every source file, even the ones that were created automatically. Push to GitHub. Then, run <code>remove.packages(&quot;gameday&quot;)</code> and recreate it with the following steps:</li>
+<li>Clone your GitHub repository to a separate, temporary, folder: <em>File &gt; New Project &gt; Version Control &gt; Git</em>, paste the <em>url</em> of your GitHub repo, and choose a temporary folder.</li>
 <li>recreate your package with <code>devtools::test()</code>, <code>devtools::document()</code>, <code>devtools:build_vignettes()</code> and finally <em>Build &amp; reload</em>.</li>
-<li>Check that your version of <code>gameday</code> is restored (open the vignette, <code>?gday</code>, <code>?gameday</code>, <code>gday(&quot;canucks&quot;)</code>, etc.). If everything works as expected you can delete this new folder – your source files are save and complete on GitHub.</li>
+<li>Check that your version of <code>gameday</code> is restored (open the vignette, <code>?gday</code>, <code>?gameday</code>, <code>gday(&quot;canucks&quot;)</code>, etc.). If everything works as expected you can delete this new folder – your source files are safe and complete on GitHub.</li>
 </ul>
 </div>
-<div id="step-2.-install-gameday-from-your-peer" class="section level2">
-<h2>Step 2. Install <code>gameday</code> from your peer</h2>
-<p>Now that you know that you can always recreate your version of <code>gameday</code>, it’s time to let go of your version for the time being so that you can review your peer’s version.</p>
+<div id="step-2.-install-gameday-from-your-peer" class="section level3">
+<h3>Step 2. Install <code>gameday</code> from your peer</h3>
+<p>Now that you know that you can re-install your version of <code>gameday</code>, it’s time to let your peer’s version of <code>gameday</code> take over.</p>
 <ul>
-<li>Use <code>devtools::install_github(...)</code> to install the <code>gameday</code> version that you are going to review. Then, run maintainer(“gameday”). This should now be the name of your peer.</li>
+<li>Use <code>devtools::install_github(...)</code> to install your peer’s <code>gameday</code>. Then, run <code>library(gameday)</code> and <code>maintainer(&quot;gameday&quot;)</code> to load it and confirm it belongs to your peer.</li>
 <li>Review <code>gameday</code>.</li>
 </ul>
 </div>
-<div id="step-3.-re-install-your-version" class="section level2">
-<h2>Step 3. Re-install your version</h2>
-<p>Once you are <em>completely</em> done with the peer review and submitted your marks and comments you want to re-compile your own version of <code>gameday</code>. To do this, simply run <code>devtools::install_github(...)</code> with the path to your version. Then check that your name appears when you run <code>maintainer(&quot;gameday&quot;)</code>.</p>
+<div id="step-3.-re-install-your-version" class="section level3">
+<h3>Step 3. Re-install your version</h3>
+<p>Once you are done with the peer review, re-install your own version of <code>gameday</code>. To install from your local source, while working in your <code>gameday</code> Project, do “Build and Reload”. Or install from GitHub via <code>devtools::install_github(...)</code>. Then check that your name appears when you run <code>maintainer(&quot;gameday&quot;)</code>.</p>
 </div>
 </div>
-<div id="option-b.-install-peers-work-to-different-library" class="section level1">
-<h1>Option B. Install peer’s work to different library</h1>
-<p>This more advanced option makes use of the fact that you can specify which library to install a new package to. Hence you can avoid overwriting your version of <code>gameday</code> by installing your peer’s version to a different library</p>
-<div id="step-1.-set-up-a-new-library" class="section level2">
-<h2>Step 1. Set up a new library</h2>
+<div id="option-b.-install-peers-work-to-different-library" class="section level2">
+<h2>Option B. Install peer’s work to different library</h2>
+<p>This more advanced option makes use of the fact that you can specify which library to install a new package to. Hence you can avoid overwriting your version of <code>gameday</code> by installing your peer’s version to a different library.</p>
+<div id="step-1.-set-up-a-new-library" class="section level3">
+<h3>Step 1. Set up a new library</h3>
 <p>todo: <span class="citation">@jennybc</span></p>
 </div>
-<div id="step-2.-install-gameday-from-your-peer-1" class="section level2">
-<h2>Step 2. Install <code>gameday</code> from your peer</h2>
+<div id="step-2.-install-gameday-from-your-peer-1" class="section level3">
+<h3>Step 2. Install <code>gameday</code> from your peer</h3>
 <p>todo: <span class="citation">@jennybc</span></p>
 </div>
-<div id="step-3.-remove-peers-work-after-peer-review" class="section level2">
-<h2>Step 3. Remove peer’s work after peer-review</h2>
+<div id="step-3.-remove-peers-work-after-peer-review" class="section level3">
+<h3>Step 3. Remove peer’s work after peer-review</h3>
 <p>todo: <span class="citation">@jennybc</span></p>
 </div>
 </div>
