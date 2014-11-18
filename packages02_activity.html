@@ -77,10 +77,11 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <ul>
 <li><a href="#your-mission">Your mission</a></li>
 <li><a href="#prerequisites">Prerequisites</a></li>
-<li><a href="#setting-up-the-directory-rstudio-project-r-package-git-repo">Setting up the directory = RStudio project = R package = Git repo</a></li>
+<li><a href="#set-up-the-directory-rstudio-project-r-package-git-repo">Set up the directory = RStudio project = R package = Git repo</a></li>
 <li><a href="#files-that-r-expects-in-a-package">Files that R expects in a package</a></li>
 <li><a href="#the-description-file">The DESCRIPTION File</a></li>
 <li><a href="#the-actual-r-code">The actual R code</a></li>
+<li><a href="#documenting-the-function">Documenting the function</a></li>
 <li><a href="#let-devtools-roxygen2-compile-the-documenation-for-you">Let devtools, roxygen2 compile the documenation for you</a></li>
 <li><a href="#build-the-package">Build the package</a></li>
 <li><a href="#whats-next">What’s next</a></li>
@@ -94,17 +95,17 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="prerequisites" class="section level3">
 <h3>Prerequisites</h3>
-<p>We assume you have <a href="packages01_system-prep.html">configured your system for R package development</a>. This will ensure you have all the right software installed and that it’s updated. Please be adviced that ignoring this prep will only lead to heartache.</p>
+<p>We assume you have <a href="packages01_system-prep.html">configured your system for R package development</a>. This will ensure you have all the right software installed and that it’s updated. Ignoring this prep will only lead to heartache. Do it.</p>
 </div>
-<div id="setting-up-the-directory-rstudio-project-r-package-git-repo" class="section level3">
-<h3>Setting up the directory = RStudio project = R package = Git repo</h3>
+<div id="set-up-the-directory-rstudio-project-r-package-git-repo" class="section level3">
+<h3>Set up the directory = RStudio project = R package = Git repo</h3>
 <p>R expects a certain folder structure for your package. Luckily, the package <code>devtools</code> does this work for us.</p>
-<pre><code>library(&quot;devtools&quot;)
-create(&quot;/home/bernhard/Desktop/gameday&quot;)</code></pre>
-<p><strong>!! Replace this path above with a path that exists on your computer !!</strong></p>
-<p>This creates a folder <em>gameday</em> on my Desktop, and populates it with a couple of files. Navigate to this folder and open <code>gameday.Rproj</code> with <em>RStudio</em>.</p>
+<pre class="r"><code>library(&quot;devtools&quot;)
+create(&quot;/path/to/your/package/gameday&quot;)</code></pre>
+<p><strong>!! Replace <code>/path/to/your/package/</code> with a path that exists on your computer !!</strong> Use RStudio’s auto-completion of paths to make this true by definition. To avoid nesting a Git repo within a Git repo, we recommend you NOT put this inside your STAT 545 repository.</p>
+<p>This creates a folder <code>gameday</code> and populates it with a couple of files. Navigate to this folder and open <code>gameday.Rproj</code> with RStudio.</p>
 <p>Before we talk about the files and folders that were created, let’s put this under version control: <em>Tools &gt; Version Control &gt; Project Setup</em>. Then choose <em>Version control system: Git</em> and <em>initialize a new git repository for this project</em>. Then restart RStudio in this Project.</p>
-<p>Now, let’s talk about the contents of our <em>gameday</em> directory.</p>
+<p>Now, let’s talk about the contents of our <code>gameday</code> directory.</p>
 </div>
 <div id="files-that-r-expects-in-a-package" class="section level3">
 <h3>Files that R expects in a package</h3>
@@ -123,8 +124,8 @@ create(&quot;/home/bernhard/Desktop/gameday&quot;)</code></pre>
 </div>
 <div id="the-description-file" class="section level3">
 <h3>The DESCRIPTION File</h3>
-<p>Here is where we add information about the package (gameday) and its authors (us). Some fields are pre-filled, but many more fields can be added as necessary. The initial raw version may depend on your version of <code>devtools</code> but should look similar to this:</p>
-<pre><code>Package: gameday
+<p>Here is where we add information about the package (<code>gameday</code>) and its authors (us). Some fields are pre-filled, but many more fields can be added as necessary. The initial raw version may depend on your version of <code>devtools</code> but should look similar to this:</p>
+<pre class="sh"><code>Package: gameday
 Title: What the package does (one line)
 Version: 0.1
 Authors@R: &quot;First last &lt;first.last@example.com&gt; [aut, cre]&quot;
@@ -134,19 +135,19 @@ License: What license is it under?
 LazyData: true</code></pre>
 <p>Let’s look at those in detail. <strong>Bold</strong> fields are mandatory:</p>
 <ul>
-<li><strong>Package</strong>. The name of the package. We will leave this as <em>gameday</em>.</li>
+<li><strong>Package</strong>. The name of the package. We will leave this as <code>gameday</code>.</li>
 <li><strong>Title</strong>. A one-line description of what the package does. Capitalize principal words, stick to a single line, don’t use markup and do not end in a period.</li>
 <li><strong>Version</strong>. Convention has it that this should be in the format <code>&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;</code>. Since we are only in development we start a fourth digit, which, also by convention, starts with <code>9000</code>. Hence <code>0.0.0.9000</code> is a good starting point, and <code>0.0.0.9001</code> would be the next (development) version while <code>0.1.0</code> or <code>1.0.0</code> would be the first release version.</li>
 <li><strong>Authors@R</strong>. Machine-readable description of the authors (<code>aut</code>), maintainer (<code>cre</code>), contributors (<code>ctb</code>) and others (see <code>?person</code>).</li>
 <li><strong>Description</strong>. One paragraph of what the packages does. Lines of 80 characters or less. Indent subsequent lines with 4 spaces (if you’re lucky some of this formatting will be done automatically for you later, but don’t count on this).</li>
-<li><strong>Depends</strong>. Lists the dependencies that are absolutely necessary to load the package. These will be installed when the package is installed with <code>install.package(&quot;gameday&quot;, dependencies=TRUE)</code>. Packages listed here will also be imported in the namespace whenever <em>gameday</em> is loaded with <code>library(&quot;gameday&quot;)</code>.</li>
-<li><em>Imports</em>. Similar to <strong>Depends</strong> a package in <em>Imports</em> will also be installed when <em>gameday</em> is, but it won’t be imported to the namespace. This means that your package can use the imported package, but the user has to explicitely import the helper package if they want to use it. For example, if you choose <code>Imports: RCurl</code>, then any <em>gameday</em> function can use the <em>RCurl</em> function <em>getURL</em>, but <code>library(gameday); getURL(www.google.com)</code> will fail (unless <code>library(RCurl)</code> is explicitely imported by the user).</li>
+<li><strong>Depends</strong>. Lists the dependencies that are absolutely necessary to load the package. These will be installed when the package is installed with <code>install.package(&quot;gameday&quot;, dependencies = TRUE)</code>. Packages listed here will also be attached whenever <code>gameday</code> is loaded with <code>library(&quot;gameday&quot;)</code>. You should probably only list some version of R here.</li>
+<li><em>Imports</em>. Similar to <strong>Depends</strong> a package in <em>Imports</em> will also be installed when <code>gameday</code> is, but it won’t be attached. This means that your package can use the functions from the package, but you will need to call them via, e.g., <code>package::function()</code>. This should be your default way to depend on external packages.</li>
 <li><strong>License</strong>. Who can use this package and for what? I suggest <a href="http://creativecommons.org/publicdomain/zero/1.0/"><em>CC0</em></a>, which means that we dedicate our package to the public domain and waive all of our rights. Anyone can freely use/adapt/modify/sell this work without our permission. We also don’t provide any warranties about liability or correctness. You can check out <a href="http://choosealicense.com/">other licenses</a>.</li>
 <li><em>LazyData</em>. Is a little technical, but setting this to <code>true</code> makes your package a better citizen with respect to memory.</li>
 <li>There are <a href="http://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file">many more fields available</a>.</li>
 </ul>
 <p>Hence, a reasonable version of <code>DESCRIPTION</code> after editing would be</p>
-<pre><code>Package: gameday
+<pre class="sh"><code>Package: gameday
 Title: Let R tell you if your NHL team plays today
 Version: 0.0.0.9000
 Authors@R: as.person(c(
@@ -161,15 +162,20 @@ LazyData: true</code></pre>
 </div>
 <div id="the-actual-r-code" class="section level3">
 <h3>The actual R code</h3>
-<p>The R code that our package provides is in the <em>R</em> folder. So let’s <strong>create a new R script</strong> and save it in the <em>R</em> folder with the name <code>gday.R</code>.</p>
+<p>The R code that our package provides is in the <code>R</code> folder. So let’s <strong>create a new R script</strong> and save it in the <code>R</code> folder with the name <code>gday.R</code>.</p>
 <p>The content is the following:</p>
-<pre><code>gday &lt;- function(team=&quot;canucks&quot;) {
-url &lt;- paste0(&quot;http://live.nhle.com/GameData/GCScoreboard/&quot;, Sys.Date(), &quot;.jsonp&quot;)
-grepl(team, RCurl::getURL(url), ignore.case=TRUE)
+<pre><code>gday &lt;- function(team = &quot;canucks&quot;) {
+    url &lt;- paste0(&quot;http://live.nhle.com/GameData/GCScoreboard/&quot;,
+                  Sys.Date(), &quot;.jsonp&quot;)
+    grepl(team, RCurl::getURL(url), ignore.case = TRUE)
 }</code></pre>
-<p>We first construct the url where the data for today’s matches is stored, and then <code>grepl</code> to check if <code>team</code> is among them. <a href="http://live.nhle.com/GameData/GCScoreboard/2014-11-09.jsonp">See how the data file looks like</a> and compare with <a href="http://www.nhl.com/">today’s matches on NHL.com</a>. Notice that we use <code>RCurl::getURL</code>, which we have to add to our list of <em>Imports</em> in <code>DESCRIPTION</code>, i.e. we add the line</p>
+<p>We first construct the url where the data for today’s matches is stored and retrieve info from the web. We use <code>grepl()</code> on the result to check if <code>team</code> is among them. <a href="http://live.nhle.com/GameData/GCScoreboard/2014-11-09.jsonp">See what the data file looks like</a> and compare with <a href="http://www.nhl.com/">today’s matches on NHL.com</a>. Notice that we use <code>RCurl::getURL()</code>, which means we need to add <code>RCurl</code> to <em>Imports</em> in <code>DESCRIPTION</code>, i.e. we add the line</p>
 <pre><code>Imports: RCurl</code></pre>
-<p>We don’t have to specify a version number for other packages, but we could if we wanted to. So far so good. But what about <a href="http://asset-1.soup.io/asset/1524/9224_10db.jpeg">documentation</a> (what you would see with <code>?gday</code>)? Luckily, <code>roxygen2</code> helps us with that and allows us to add the documentation as comments directly in the <em>R</em> script. All we have to do is start the line with <code>#'</code> and use the <code>\@</code> notation like so:</p>
+<p>We don’t have to specify a version number for other packages, but we could if we wanted to. So far so good.</p>
+</div>
+<div id="documenting-the-function" class="section level3">
+<h3>Documenting the function</h3>
+<p>But what about <a href="http://asset-1.soup.io/asset/1524/9224_10db.jpeg">documentation</a> (what you would see with <code>?gday</code>)? Luckily, <code>roxygen2</code> helps us with that and allows us to add the documentation as comments directly in the <em>R</em> script. All we have to do is start the line with <code>#'</code> and use the <code>\@</code> notation like so:</p>
 <pre><code>#&#39; Is it Gameday?
 #&#39;
 #&#39; This function returns TRUE if your NHL team plays today
@@ -198,26 +204,27 @@ gday &lt;- function(team=&quot;canucks&quot;) {
 <p>A few of those tags need explanation</p>
 <ul>
 <li><code>\@keywords</code> must be taken from the <a href="https://svn.r-project.org/R/trunk/doc/KEYWORDS">list of R keywords</a></li>
-<li><code>\@export</code> makes the function <code>gday</code> available when the package is loaded, in contrast to a helper function that is only designed for internal use within the package.</li>
+<li><code>\@export</code> makes the function <code>gday()</code> available when the package is loaded, in contrast to a helper function that is only designed for internal use within the package.</li>
 <li>There are <a href="http://r-pkgs.had.co.nz/man.html">many more tags and explanations</a> if you want to learn more.</li>
 </ul>
 </div>
 <div id="let-devtools-roxygen2-compile-the-documenation-for-you" class="section level3">
 <h3>Let devtools, roxygen2 compile the documenation for you</h3>
-<p>Phew, that was a lot of work, but now we can hand the rest over back to <em>R</em>. In particular, <code>devtools</code> and <code>roxygen2</code> will compile the documentation</p>
+<p>Phew, that was a lot of work, but now we can hand the rest over back to R. In particular, <code>devtools</code> and <code>roxygen2</code> will compile the documentation</p>
 <pre><code>library(&quot;devtools&quot;)
 document()</code></pre>
 <p>When we run this the first time, the new folder <code>man</code> is created with the file <code>gday.Rd</code>. Go ahead an open it, this is what we would have had to write if it was not for <code>roxygen2</code> (the syntax resembles the markup language <a href="http://en.wikipedia.org/wiki/LaTeX">LaTeX</a>).</p>
-<p>Also observe that we now have a file <code>NAMESPACE</code> which, as expected, says that the package <code>gameday</code> provides the function <code>gday</code>.</p>
+<p>Also observe that we now have a file <code>NAMESPACE</code> which, as expected, says that the package <code>gameday</code> provides the function <code>gday()</code>.</p>
+<p>You can also generate documentation with RStudio via the Build menu or the Build tab or the keyboard shortcut given there.</p>
 </div>
 <div id="build-the-package" class="section level3">
 <h3>Build the package</h3>
-<p>As a final step, let’s build the package. In <em>RStudio</em> use the <em>Build</em> tab and choose <em>Build &amp; Reload</em>. That’s it. Your package is now checked, installed and loaded. Your <em>R</em> session is also restarted. You are now able to run</p>
+<p>As a final step, let’s build the package. In RStudio use the <em>Build</em> tab and choose <em>Build &amp; Reload</em>. That’s it. Your package is now installed, your R session is restarted, and your package is loaded. You are now able to run</p>
 <pre><code>gday(&quot;canucks&quot;)
 gday(&quot;flames&quot;)</code></pre>
 <p>and will notice that (on 2014-11-10) the Vancouver Canucks are not playing, but the Calgary Flames do have a game. To see the rendered version of our function documentation, use</p>
 <pre><code>?gday</code></pre>
-<p>As you update the package, frequently run <code>document()</code> and then <em>Build &amp; Reload</em> to test your latest version.</p>
+<p>As you update the package, frequently run <code>document()</code> and then <em>Build &amp; Reload</em> to try out your latest version. As your package gets bigger, you will want to explore <code>devtools::load_all()</code> as a lighter weight way to see how things are going.</p>
 </div>
 <div id="whats-next" class="section level3">
 <h3>What’s next</h3>
@@ -231,6 +238,7 @@ gday(&quot;flames&quot;)</code></pre>
 <li>Show interactive <em>fix &amp; test</em> workflow.</li>
 </ul>
 <hr />
+<p>back to <a href="packages00_index.html">All the package things</a></p>
 </div>
 
 <div class="footer">
