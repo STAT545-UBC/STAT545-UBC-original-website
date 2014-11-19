@@ -1,22 +1,47 @@
 ---
 title: "R package - Peer review instructions"
-author: "Bernhard Konrad, Jennifer Bryan"
 output:
   html_document:
   toc: true
 ---
 
-When you install your peer's `gameday` package for review, it is possible that it will overwrite the installation of your own `gameday` package. In fact, this is the default. Note: only your *installed* package is at risk. The *source* of your `gameday` package lives on safely on your computer and on GitHub.
+If you barrel ahead and install your peer's `gameday` package for review, it will likely overwrite the installation of your own `gameday` package. Note: only your *installed* package is at risk. The *source* of your `gameday` package lives on safely on your computer and on GitHub. And you could re-install from either source.
 
-In this document we explain two possible solutions, so that your own version of `gameday` is available when you complete peer review.
+If you want to be more careful, here are two approaches to take more control of the situation.
 
-*To quickly check whose version is currently installed, do this:*
+## Option A. Install peer's work to different library
 
-```r
-maintainer("gameday")
-```
+In this option we install the peer's version of `gameday` to a non-default library, leaving the installation of our own version intact.
 
-## Option A. Overwrite and re-install
+First, restart your R session. Specifically, we don't want *your* `gameday` package to be loaded before we start this. To confirm this is true, enter `search()` and make sure you don't see `gameday` listed in the result.
+
+### Step 1. Create a temporary library
+
+This is nothing more than creating a new directory on your computer. It's where you'll install and load your peer's package from. Then we'll delete it. I'm putting in my all purpose temp directory, but you can pick another location.
+
+        tmp_lib <- "~/tmp/tmp_lib"
+        dir.create(tmp_lib)
+
+Navigate to this directory in some file browser and confirm the directory exists.
+
+### Step 2. Install `gameday` from your peer
+
+Install your peer's `gameday` package from GitHub into your temporary library. Below, `devtools::with_lib()` prepends your usual list of libraries with `tmp_lib`. Load your peer's package from there and confirm you're using the right version via `maintainer()`.
+
+        library(devtools)
+        with_lib(tmp_lib, install_github("rebjoh/gameday"))
+        library(gameday, lib.loc = tmp_lib)
+        maintainer("gameday")
+
+Use the peer's package and submit your review.
+
+### Step 3. Remove peer's work after peer-review
+
+Delete your temporary library any way you want. Restart your R session to clean out your loaded packages and rest assured that plain ol' `library(gameday)` will now load *your* version. Use `maintainer()` to check if you are worried. Here's an R command to get rid of the temporary library.
+
+        unlink(tmp_lib, recursive = TRUE)
+
+## Option B. Overwrite and re-install
 
 In this option we temporarily overwrite our installed version of `gameday` with the version of our peer. This means that during the peer review we will not be able to load and run our version of `gameday`.
 
@@ -24,7 +49,7 @@ In this option we temporarily overwrite our installed version of `gameday` with 
 
 Let's make extra sure your `gameday` source package is safely stored locally and on GitHub.
 
-  * Is everything saved and commited and pushed to GitHub? Do it now!
+  * Is your package in working order, with everything saved and committed and pushed to GitHub? Do it now!
   * Launch RStudio in the Project corresponding to your `gameday` package.
   * De-install `gameday` and confirm it's truly gone from your library:
 
@@ -47,27 +72,26 @@ If everything works as expected, you can feel good that your package source is s
 
 Now that you know that you can re-install your version of `gameday`, it's time to let your peer's version of `gameday` take over.
 
-+ Use `devtools::install_github(YOURPEER/gameday)` to install your peer's `gameday`. Then, run `library(gameday)` and `maintainer("gameday")` to load it and confirm it belongs to your peer.
-+ Review peer's version of `gameday`.
+  * Install your peer's `gameday`, load it, check maintainer:
+
+        devtools::install_github(YOURPEER/gameday)
+        library(gameday)
+        maintainer("gameday")
+        ## USE IT
+
+  * Review peer's version of `gameday`.
 
 ### Step 3. Re-install your version
 
-Once you are done with the peer review, re-install your own version of `gameday`. To install from your local source, while working in your `gameday` Project, do "Build and Reload". Or install from GitHub via `devtools::install_github("YOURGITHUBUSERNAME/gameday")`. Then check that your name appears when you run `maintainer("gameday")`.
+Once you are done with the peer review, restore your own version of `gameday`.
 
-## Option B. Install peer's work to different library
+  * To install from your local source, launch RStudio in your `gameday` Project and do "Build and Reload".
+  * Or install from GitHub
+  
+        devtools::install_github("YOURGITHUBUSERNAME/gameday")
+        
+  * Either way, verify your version is now installed:
+  
+        maintainer("gameday")
 
-This more advanced option makes use of the fact that you can specify which library to install a new package to. Hence you can avoid overwriting your version of `gameday` by installing your peer's version to a different library.
-
-### Step 1. Set up a new library
-
-todo: @jennybc
-
-
-### Step 2. Install `gameday` from your peer
-
-todo: @jennybc
-
-### Step 3. Remove peer's work after peer-review
-
-todo: @jennybc
 
