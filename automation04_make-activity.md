@@ -299,7 +299,7 @@ And that's how a data analytical pipeline gets built using `make`, the shell, R,
 
 ### Appendix
 
-Here are [some additions](https://www.gnu.org/software/make/manual/html_node/Special-Targets.html) you might like to include in your `Makefiles`:
+Here are [some additions](https://www.gnu.org/software/make/manual/html_node/Special-Targets.html) you might like to include in your `Makefile`:
 
 ```sh
 .PHONY: all clean
@@ -307,8 +307,8 @@ Here are [some additions](https://www.gnu.org/software/make/manual/html_node/Spe
 .SECONDARY:
 ```
 
-The `.PHONY` line is where you declare which targets are *phony*, i.e. are not actual files to be made in the literal sense. It's a good idea to explicitly tell `make` which targets are phony, instead of letting it try to deduce this.
+The `.PHONY` line is where you declare which targets are *phony*, i.e. are not actual files to be made in the literal sense. It's a good idea to explicitly tell `make` which targets are phony, instead of letting it try to deduce this. `make` can get confused if you create a file that has the same name as a phony target. If for example you create a directory named `clean` to hold your clean data and run `make clean`, then `make` will report `'clean' is up to date`, because a directory with that name already exists.
 
 `.DELETE_ON_ERROR` causes `make` to "delete the target of a rule if it has changed and its recipe exits with a nonzero exit status". In English, this means that -- if a rule starts to run but then exits due to error -- any outputs written in the course of that fiasco will be deleted. This can protect you from having half-baked, erroneous files lying around that will just confuse you later.
 
-<!-- @sjackman: would you write a sentence or two about .SECONDARY? -->
+`.SECONDARY` tells `make` not to delete intermediate files of a chain of pattern rules. Consider creating a `Makefile` with two pattern rules, `%.md: %.rmd` and `%.html: %.md`, and then running `make report.html`. After `make` has created `report.md` and `report.html`, it will delete the intermediate file `report.md`. Adding `.SECONDARY` to your `Makefile` prevents the intermediate file from being deleted.
