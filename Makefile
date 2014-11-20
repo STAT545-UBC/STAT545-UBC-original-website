@@ -33,8 +33,17 @@ install-deps:
 %/index.html: %/README.md
 	Rscript -e 'rmarkdown::render("$<", "html_document", "index.html")'
 
+# Render a PNG from a GraphViz file
 %.png: %.gv
 	dot -Tpng $< >$@
+
+# Create a GraphViz file from this Makefile
+Makefile.gv: Makefile
+	$(MAKE) -Bnd all |make2graph >$@
+
+# Create a GraphViz file from a Makefile
+%/Makefile.gv: %/Makefile
+	$(MAKE) -C $* -Bnd all |make2graph >$@
 
 # Dependencies
 
