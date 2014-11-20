@@ -41,26 +41,27 @@ JB has provided a template, using a different dataset, [01_justR][], that should
 Download the data
 ------------------------------------------------------------
 
-Download the raw data for our example, [lotr_raw.tsv][].
+Download the raw data for our example, [gapminder.tsv][].
 
-+ in an R script using [RCurl::getURL][] or [download.file][]
-  note: `download.file` does not work with `https://`
-  `followlocation` tells curl to follow the HTTP redirect used by bit.ly
++ in an R script using [downloader::download][] or [RCurl::getURL][].
+  note: [download.file][] does not work with `https://`
 
     ```r
-    cat(file = "lotr_raw.tsv",
-      RCurl::getURL("http://bit.ly/lotr_raw-tsv", followlocation = TRUE))
+    downloader::download("https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.tsv")
+    cat(file = "gapminder.tsv",
+      RCurl::getURL("https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.tsv"))
     ```
 
-+ in a shell script using `curl` or `wget`
++ in a shell script using `curl` or `wget`.
 
     ```bash
-    curl -L http://bit.ly/lotr_raw-tsv >lotr_raw.tsv
-    wget http://bit.ly/lotr_raw-tsv -O lotr_raw.tsv
+    curl -O https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.tsv
+    wget https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.tsv
     ```
 
-[lotr_raw.tsv]: https://gist.githubusercontent.com/sjackman/c10a5f7bcf6eebc1ba14/raw/b033c038605f9fdac855479714f65703be565b81/lotr_raw.tsv
+[gapminder.tsv]: https://github.com/jennybc/gapminder/blob/master/inst/gapminder.tsv
 [download.file]: http://stat.ethz.ch/R-manual/R-patched/library/utils/html/download.file.html
+[downloader::download]: http://cran.r-project.org/web/packages/downloader/index.html
 [RCurl::getURL]: http://www.omegahat.org/RCurl/
 
 Perform exploratory analyses

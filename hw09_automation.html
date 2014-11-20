@@ -114,14 +114,15 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>JB has provided a template, using a different dataset, <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/01_automation-example_just-r">01_justR</a>, that should help make this concrete.</p>
 <div id="download-the-data" class="section level2">
 <h2>Download the data</h2>
-<p>Download the raw data for our example, <a href="https://gist.githubusercontent.com/sjackman/c10a5f7bcf6eebc1ba14/raw/b033c038605f9fdac855479714f65703be565b81/lotr_raw.tsv">lotr_raw.tsv</a>.</p>
+<p>Download the raw data for our example, <a href="https://github.com/jennybc/gapminder/blob/master/inst/gapminder.tsv">gapminder.tsv</a>.</p>
 <ul>
-<li><p>in an R script using <a href="http://www.omegahat.org/RCurl/">RCurl::getURL</a> or <a href="http://stat.ethz.ch/R-manual/R-patched/library/utils/html/download.file.html">download.file</a> note: <code>download.file</code> does not work with <code>https://</code> <code>followlocation</code> tells curl to follow the HTTP redirect used by bit.ly</p>
-<pre class="r"><code>cat(file = &quot;lotr_raw.tsv&quot;,
-  RCurl::getURL(&quot;http://bit.ly/lotr_raw-tsv&quot;, followlocation = TRUE))</code></pre></li>
-<li><p>in a shell script using <code>curl</code> or <code>wget</code></p>
-<pre class="bash"><code>curl -L http://bit.ly/lotr_raw-tsv &gt;lotr_raw.tsv
-wget http://bit.ly/lotr_raw-tsv -O lotr_raw.tsv</code></pre></li>
+<li><p>in an R script using <a href="http://cran.r-project.org/web/packages/downloader/index.html">downloader::download</a> or <a href="http://www.omegahat.org/RCurl/">RCurl::getURL</a>. note: <a href="http://stat.ethz.ch/R-manual/R-patched/library/utils/html/download.file.html">download.file</a> does not work with <code>https://</code></p>
+<pre class="r"><code>downloader::download(&quot;https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.tsv&quot;)
+cat(file = &quot;gapminder.tsv&quot;,
+  RCurl::getURL(&quot;https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.tsv&quot;))</code></pre></li>
+<li><p>in a shell script using <code>curl</code> or <code>wget</code>.</p>
+<pre class="bash"><code>curl -O https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.tsv
+wget https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.tsv</code></pre></li>
 </ul>
 </div>
 <div id="perform-exploratory-analyses" class="section level2">
