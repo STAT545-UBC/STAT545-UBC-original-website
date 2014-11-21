@@ -24,7 +24,7 @@ output:
      - we deployed our app to the web
      
 
- ### Homework
+### Homework
  
  * homework will consist of extending your gapminder app 
  *  [HW11](hw11_build_shiny_app.html)
