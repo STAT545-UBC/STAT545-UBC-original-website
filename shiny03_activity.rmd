@@ -698,6 +698,67 @@ And our app looks like this:
 
 ![Gapminder Shiny app with select box](img/Gapminder_shiny_app_select_box_generated_from_gapminder_data.png)
 
+### Warning: "Warning in is.na(e2)"
+
+You might have noticed that our app produces some warnings (angry red text in console) when we first run our shiny app now. This is happening because we are trying to get data from the renderUI text box, but it hasn't generated the text box yet. Afer the drop-down menu has been generated from `server.R` the app is able to find all of the data that it needs. If you want to avoid this issue you can add some code to deal with these initial states. 
+
+In our one_country_data reactive function we add: 
+```
+  if(is.null(input$country_from_gapminder)) {
+      return(NULL)
+    }
+```
+And to the output$ggplot_gdppc_vs_country renderPlot we add:
+
+```
+    if(is.null(one_country_data())) {
+      return(NULL)
+    }
+```
+
+So now our `server.R` looks like this:
+
+`server.R`
+```
+library(ggplot2)
+gdURL <- "http://tiny.cc/gapminder"
+gDat <- read.delim(file = gdURL) 
+
+shinyServer(function(input, output) {
+  
+  # Drop-down selection box generated from Gapminder dataset
+  output$choose_country <- renderUI({
+    selectInput("country_from_gapminder", "Country", as.list(levels(gDat$country)))
+  })
+  
+  one_country_data <- reactive({
+    if(is.null(input$country_from_gapminder)) {
+      return(NULL)
+    }
+    subset(gDat, country == input$country_from_gapminder &
+             year >= input$year_range[1] & year <= input$year_range[2] )
+  })
+    
+  output$gapminder_table <- renderTable({ 
+    one_country_data()
+  })
+  output$output_country <- renderText({
+    if (is.null(input$country_from_gapminder)){
+      return(NULL)
+    }
+    paste("Country selected", input$country_from_gapminder)
+  })
+  output$ggplot_gdppc_vs_country <- renderPlot({
+    if(is.null(one_country_data())) {
+      return(NULL)
+    }
+    p <-  ggplot(one_country_data(), aes(x = year, y = gdpPercap))
+    p + geom_point() 
+  })
+})
+```
+
+
 # Adding headers and html gadgets to Shiny App
 
 We can add some different header styles to our `ui.R` app if we want. 
