@@ -114,11 +114,11 @@ runApp("Gapminder-app")
 
 3. R studio is smart and recognizes when you are working with files for a Shiny app. If either your `server.R` or `ui.R` file is your current script in R studio you should see a button at the upper right of your source window that says "Run App". You can click on it and your Shiny app will run. ** If this button doesn't appear after the creation of your files, try restarting RStudio. **
 
-![Run Shiny in R studio](images/Shiny-run-app-screenshot-circled.png)
+![Run Shiny in R studio](img/Shiny-run-app-screenshot-circled.png)
 
 With this option you have a lot of control over how the Shiny app is run.
 
-![Run Shiny options in R studio](images/Shiny-run-app-options-screenshot.png)
+![Run Shiny options in R studio](img/Shiny-run-app-options-screenshot.png)
 
 Depending on your Rstudio and shiny set up you should see an empty window open (either in Rstudio or in your default web browser). R will be "listening" until we close the window (if in its own web browser window) or when we click on the stop button to tell it to stop listening for feedback. 
 
@@ -140,7 +140,7 @@ Leaving our `server.R` script the same, let's re-run our app.
 
 It should look something like this:
 
-![Gapminder Shiny app first text](images/Gapminder_shiny_app_screenshot_first_text.png)
+![Gapminder Shiny app first text](img/Gapminder_shiny_app_screenshot_first_text.png)
 
 Let's go quickly go through a few of these commands:
 
@@ -199,7 +199,7 @@ shinyUI(fluidPage(
 
 This is our first instance of using something generated from the `server.R` We use the `output$` variable name to call this in our `ui.R` and it generates a table.  
 
-![Gapminder Shiny app with raw table](images/Gapminder_shiny_app_with_raw_table.png)
+![Gapminder Shiny app with raw table](img/Gapminder_shiny_app_with_raw_table.png)
 
 # Control widgets 
 
@@ -241,7 +241,7 @@ shinyUI(fluidPage(
 
 And when you run your app you should get something that looks like this:
 
-![Gapminder Shiny app with select box](images/Gapminder_shiny_app_select_test_box.png)
+![Gapminder Shiny app with select box](img/Gapminder_shiny_app_select_test_box.png)
 
 So now we have a way to select one of three countries. 
 
@@ -321,7 +321,7 @@ shinyServer(function(input, output) {
 })
 ```
 
-![Gapminder Shiny app with filtered table](images/Gapminder_shiny_app_table_filtered_by_country.png)
+![Gapminder Shiny app with filtered table](img/Gapminder_shiny_app_table_filtered_by_country.png)
 
 Let's add in a way to choose the year. We will use a slider that will let us select the year that we want to start and the end year. We will also put this in the sidebar. 
 
@@ -355,7 +355,7 @@ shinyUI(fluidPage(
 
 When you run your shiny app it should look like this:
 
-![Gapminder Shiny app with select box](images/Gapminder_shiny_app_year_slider_widget.png)
+![Gapminder Shiny app with select box](img/Gapminder_shiny_app_year_slider_widget.png)
 
 The year has a comma after the thousand digit which makes it look less like a year. Let's fix that by adding the `format` argument to `sliderInput`. We will change it to `format = "####"`. 
 
@@ -387,7 +387,7 @@ shinyUI(fluidPage(
 
 Ahh much better. 
 
-![Gapminder Shiny app with select box](images/Gapminder_shiny_app_year_slider_widget_fixed_formatting.png)
+![Gapminder Shiny app with select box](img/Gapminder_shiny_app_year_slider_widget_fixed_formatting.png)
 
 **Exercise**:  Let's change `server.R` so that we can filter our table using this slider too.
 
@@ -420,7 +420,7 @@ runApp('Shiny-apps/Gapminder-app', display.mode= "showcase")
 
 The app will highlight what is reacting in `server.R` when you select a different country. 
 
-![Gapminder Shiny app with select box](images/Gapminder_shiny_app_showcase_mode.png)
+![Gapminder Shiny app with select box](img/Gapminder_shiny_app_showcase_mode.png)
 
 This is a good way to run more complicated apps when you are learning and are curious about how they work. All of the Shiny examples can be run like this. 
 
@@ -745,7 +745,7 @@ shinyUI(fluidPage(
 
 And our app looks like this:
 
-![Gapminder Shiny app with select box](images/Gapminder_shiny_app_select_box_generated_from_gapminder_data.png)
+![Gapminder Shiny app with select box](img/Gapminder_shiny_app_select_box_generated_from_gapminder_data.png)
 
 # Adding headers and html gadgets to Shiny App
 
@@ -799,7 +799,7 @@ shinyUI(fluidPage(
 ))
 ```
 
-![Gapminder Shiny app first text with h1 tag](images/Gapminder_shiny_app_screenshot_first_text_header.png)
+![Gapminder Shiny app first text with h1 tag](img/Gapminder_shiny_app_screenshot_first_text_header.png)
 
 Like many things in R we can play around with this and take pains to make it beautiful, but today we will just show you one more of these tricks. We can center align the text:
 
@@ -825,7 +825,7 @@ shinyUI(fluidPage(
 ))
 ```
 
-![Gapminder Shiny app first text with h3 tag centered](images/Gapminder_shiny_app_screenshot_first_text_centered_header.png)
+![Gapminder Shiny app first text with h3 tag centered](img/Gapminder_shiny_app_screenshot_first_text_centered_header.png)
 
 There are many other tags you can use to format your text in Shiny such as `p()` to make paragraphs, and `code()` to display text like code. You can make ordered and unordered lists too, but these will require you to add  "tags" to the function wrapper `tags$ul()` (unordered list item). You can list all tags by running `names(tags)`. You can get further information on these in the [Shiny html tags glossary](http://shiny.rstudio.com/articles/tag-glossary.html).
 
@@ -854,7 +854,7 @@ So you are ready to show you app to the world. What are your options?
 ## Deploy your app to www.shinyapps.io and send url to users
 
 * From either your `server.R` or `ui.R` app click on the "Publish" button
-![Publish Shiny app](images/Shiny_app_publish_button.png)
+![Publish Shiny app](img/Shiny_app_publish_button.png)
 * Follow the directions from the website which will basically be:
     * `library(devtools)`
     * ` devtools::install_github("rstudio/shinyapps")`
