@@ -39,7 +39,7 @@ Follow the tutorial up until the end.
 * Add images to your app.[R studio Shiny tutorial-see header "Images"](http://shiny.rstudio.com/tutorial/lesson2/)
 * Deploy on shinyapps.stat.ubc.ca
 
-## I want to way aim higher!  
+## I want to aim way higher!  
 
 * CSS or Html junkie? Try using another css theme or create and use your own css theme. `shinyUI(fluidPage(theme = "bootstrap.css"` [R studio Shiny Article on css style](http://shiny.rstudio.com/articles/css.html)
 * Explore a new layout (e.g. `gridLayout()`, `fluidRow()`) and have different graphs laid out on different pages.

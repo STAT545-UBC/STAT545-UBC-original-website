@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Julia Gustavsen" />
+
+<meta name="date" content="2014-11-17" />
+
+<title>Stat 545 shiny tutorial using Gapminder data</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Stat 545 shiny tutorial using Gapminder data</h1>
+<h4 class="author"><em>Julia Gustavsen</em></h4>
+<h4 class="date"><em>2014-11-17</em></h4>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#getting-your-system-ready">Getting your system ready</a><ul>
+<li><a href="#update-rstudio-and-r.">Update Rstudio and R.</a></li>
+<li><a href="#installing-shiny-and-shinyapps">Installing Shiny and shinyapps</a></li>
+</ul></li>
+<li><a href="#ui.r-and-server.r-files">ui.R and server.R files</a><ul>
+<li><a href="#using-rstudio-to-set-up-a-shiny-directory-structure">Using Rstudio to set up a Shiny directory structure</a></li>
+</ul></li>
+<li><a href="#deployment">Deployment</a><ul>
+<li><a href="#stat-ubc-shiny-pro-server">Stat UBC Shiny Pro server</a></li>
+<li><a href="#run-apps-from-public-github-repositories.">Run apps from public Github repositories.</a></li>
+<li><a href="#deploy-your-app-to-www.shinyapps.io-and-send-url-to-users">Deploy your app to www.shinyapps.io and send url to users</a><ul>
+<li><a href="#problems-deploying">Problems deploying:</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="getting-your-system-ready" class="section level1">
+<h1>Getting your system ready</h1>
+<div id="update-rstudio-and-r." class="section level2">
+<h2>Update Rstudio and R.</h2>
+<p>To get started make sure you have the most up to date RStudio version (menu “Help” -&gt; “Check for Updates”) and R.</p>
+</div>
+<div id="installing-shiny-and-shinyapps" class="section level2">
+<h2>Installing Shiny and shinyapps</h2>
+<p>Then go ahead and install Shiny:</p>
+<pre><code>install.packages(&quot;shiny&quot;)</code></pre>
+<p>We will use another package to deploy our app to the web called <code>shinyapps</code>. Please install the most up to date version.</p>
+<pre><code>library(devtools)
+install_github(&quot;rstudio/shinyapps&quot;)</code></pre>
+</div>
+</div>
+<div id="ui.r-and-server.r-files" class="section level1">
+<h1>ui.R and server.R files</h1>
+<p>Shiny makes it very easy to write your own app, but to keep things simple it does have some requirements for it to run.</p>
+<p>To get started, within your Stat 547 course folder create a folder entitled: “Shiny-apps” and within that folder create a directory entitled “Gapminder-app”. You can do this either from your terminal window or using your graphical directory to create these folder. Each Shiny app gets its own folder. <a href="#Rstudio_shiny_project">Skip here if you want to use Rstudio to help you set up your directory structure</a></p>
+<p>Using the terminal (the “$” here represents your terminal prompt <strong>NOT</strong> your R console prompt) to make our folders:</p>
+<pre><code>$ mkdir Shiny-apps
+$ cd Shiny-apps
+$ mkdir Gapminder-app
+$ cd Gapminder-app</code></pre>
+<p>Or use your RStudio files navigator to make these directories or in R:</p>
+<pre><code>dir.create(&quot;Shiny-apps&quot;)
+dir.create(&quot;Shiny-app/Gapminder-app&quot;)</code></pre>
+<p>Your Stat-547 directory now probably looks something like this:</p>
+<pre><code>├───Stat-547
+    ├───Amazing-homework
+    ├───Brilliant-notes
+    └───Shiny-apps
+        └───Gapminder-app</code></pre>
+<p>Shiny, in its most basic form, requires only 2 files: ui.R and server.R</p>
+<p>Making sure we are in our “Gapminder-app” directory, create an empty R script entitled <code>ui.R</code> and an empty R script entitled <code>server.R</code></p>
+<pre><code>├───Stat-547
+    ├───Amazing-homework
+    ├───Brilliant-notes
+    └───Shiny-apps
+        └───Gapminder-app
+            ├───ui.R
+            └───server.R</code></pre>
+<p>Your <code>ui.R</code> creates your <strong>u</strong>ser <strong>i</strong>nterface for your Shiny app. This is the part that controls the layout, the way you can insert images and where you specify how the user can interact with your app. Your <code>server.R</code> file serves up your data, reacts to the user input and contains the overall data processing “guts.”</p>
+<p><a name="Rstudio_shiny_project"></a></p>
+<div id="using-rstudio-to-set-up-a-shiny-directory-structure" class="section level3">
+<h3>Using Rstudio to set up a Shiny directory structure</h3>
+<p>In RStudio File menu choose: New Project &gt; New Directory &gt; Shiny Web Application. Choose to make a new directory in your Stat545 directory (which is under version control). This series of commands will set up a Shiny app that is based on <code>faithful</code> data set.</p>
+</div>
+</div>
+<div id="deployment" class="section level1">
+<h1>Deployment</h1>
+<p>When you are ready to show you app to the world you can deploy it to the web. What are your options?</p>
+<div id="stat-ubc-shiny-pro-server" class="section level2">
+<h2>Stat UBC Shiny Pro server</h2>
+<ul>
+<li>some students will use Jenny’s server</li>
+<li>volunteers? Jenny will update</li>
+</ul>
+</div>
+<div id="run-apps-from-public-github-repositories." class="section level2">
+<h2>Run apps from public Github repositories.</h2>
+<ul>
+<li><code>runGitHub()</code> is a way to run an app from github using Rstudio.</li>
+<li>to use this push your server.R and ui.R files to a public github repo (in their own folder, remember Shiny is particular). <code>runGitHub()</code> takes a few arguments, if I had a public repo in the Stat545 organization called “julia_gustavsen_shiny” and I had pushed my Gapminder app <code>server.R</code> and <code>ui.R</code> (and any other necessary files) to that repo, we could run my app using `runGitHub(“STAT545-UBC/julia_gustavsen_shiny”,subdir = “Shiny-apps/Gapminder-app/”). The subdirectory argument refers to the subdirectory in the repository.</li>
+</ul>
+</div>
+<div id="deploy-your-app-to-www.shinyapps.io-and-send-url-to-users" class="section level2">
+<h2>Deploy your app to www.shinyapps.io and send url to users</h2>
+<ul>
+<li>From either your <code>server.R</code> or <code>ui.R</code> app click on the “Publish” button <img src="img/Shiny_app_publish_button.png" alt="Publish Shiny app" /></li>
+<li>Follow the directions from the website which will basically be:
+<ul>
+<li><code>library(devtools)</code></li>
+<li><code>devtools::install_github(&quot;rstudio/shinyapps&quot;)</code></li>
+<li>sign up for an account (I used my Github id to login)on <a href="http://shinyapps.io">shinyapps.io</a></li>
+<li>choose your shinyapps.io username. It does not have to be the same as your login.</li>
+<li>under “Settings” choose “token”</li>
+<li>let Rstudio know what your account is by running the token and secret code that the website gives you ( it will look something like this: shinyapps::setAccountInfo(name=‘YourNameHere’, token=‘GeneratedAlphaNumericCode’, secret=‘YoursecretCodeHere’)</li>
+<li>then deploy your app from Rstudio <code>shinyapps::deployApp('Shiny-apps/Gapminder-app')</code> and it should deploy the app to a url under your account name (e.g. my gapminder app is here: <a href="https://jooolia.shinyapps.io/Gapminder-app/">https://jooolia.shinyapps.io/Gapminder-app/</a>)</li>
+</ul></li>
+</ul>
+<div id="problems-deploying" class="section level3">
+<h3>Problems deploying:</h3>
+<ul>
+<li>if you get an error “bad signature” run <code>Sys.setlocale(locale=&quot;en_US.UTF-8&quot;)</code> on linux or mac and <code>Sys.setlocale(locale=&quot;English&quot;)</code> on Windows (thanks <a href="http://stackoverflow.com/questions/20943687/shinyapps-setaccountinfo-error">Stack Overflow</a>) and then try setting your account info and then deploying the app again.</li>
+<li>If the deployment does not work from the console prompt try clicking into your <code>server.R</code> or <code>uir.R</code> script and then try deployment using the “Publish” button.</li>
+<li>If your publish button does not appear, run <code>devtools::install_github(&quot;rstudio/shinyapps&quot;)</code> and then restart RStudio.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
