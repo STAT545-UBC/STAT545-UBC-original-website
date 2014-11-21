@@ -43,7 +43,7 @@ Below we outline follow-up tasks for `gameday`. If you develop your own package,
 
 ### Due date
 
-Submit an issue with a link to your package sometime on Friday November 21.
+Submit an issue with a link to your package sometime on ~~Friday November 21~~ *if you need the weekend, submit before class on Monday November 24*.
 
 ## Template
 
