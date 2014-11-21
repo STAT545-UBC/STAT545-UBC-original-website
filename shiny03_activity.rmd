@@ -20,58 +20,9 @@ output:
 * Uses R to harness power of html, css and javascript for presenting data on the web
 * Find more info here: [Shiny: A web application framework for R](http://shiny.rstudio.com/)
 
-# ui.R and server.R files
-
-Shiny makes it very easy to write your own app, but to keep things simple it does have some requirements for it to run.
-
-To get started, within your Stat 547 course folder create a folder entitled: "Shiny-apps" and within that folder create a directory entitled "Gapminder-app". You can do this either from your terminal window or using your graphical directory to create these folder. Each Shiny app gets its own folder.
-
-Using the terminal (the "$" here represents your terminal prompt **NOT** your R console prompt) to make our folders:
-
-```
-$ mkdir Shiny-apps
-$ cd Shiny-apps
-$ mkdir Gapminder-app
-$ cd Gapminder-app
-```
-
-Or use your RStudio files navigator to make these directories or in R:
-
-```
-dir.create("Shiny-apps")
-dir.create("Shiny-app/Gapminder-app")
-```
-
-Your Stat-547 directory now probably looks something like this:
-
-```
-├───Stat-547
-    ├───Amazing-homework
-    ├───Brilliant-notes
-    └───Shiny-apps
-        └───Gapminder-app
-```   
-
-Shiny, in its most basic form, requires only 2 files: ui.R and server.R
-
-Making sure we are in our "Gapminder-app" directory, create an empty R script entitled `ui.R` and an empty R script entitled `server.R`
-
-```
-├───Stat-547
-    ├───Amazing-homework
-    ├───Brilliant-notes
-    └───Shiny-apps
-        └───Gapminder-app
-            ├───ui.R
-            └───server.R
-```
-
-Your `ui.R` creates your **u**ser **i**nterface for your Shiny app. This is the part that controls the layout, the way you can insert images and where you specify how the user can interact with your app. 
-Your `server.R` file serves up your data, reacts to the user input and contains the overall data processing "guts."
-
 ## First shiny app
 
-We are going to slowly build our app over the course of this class and the next. We will start by making a very basic interface using  our `ui.R` script and slowly start adding some bells and whistles to it. 
+We are going to slowly build our app over the course of this class and the next. Make sure that you have your system set up as described in [Shiny Setup](shiny02_setup.html). You will have 2 files `ui.R` and `server.R`, in addition to the latest Rstudio, `shiny` and `shinyapps` packages. We will start by making a very basic interface using  our `ui.R` script and slowly start adding some bells and whistles to it. 
 
 So the minimum you can have is:
 
@@ -411,7 +362,7 @@ shinyServer(function(input, output) {
 
 ## Running Shiny app in "showcase" mode
 
-If you want to see  this idea demonstrated more clearly you can run you Shiny app in "showcase made". At your R prompt run:
+If you want to see see your scripts and your app together you can run you Shiny app in "showcase made". At your R prompt run:
 
 ```
 library(shiny)
@@ -450,7 +401,7 @@ shinyServer(function(input, output) {
 
 And we see that when we run the Shiny app we get an output to the console: "chr "Chad"". This output changes each time that we select a different country from our select box. We could replace `str(input$select_country)` with `cat(input$select_country)` and see our expected output at the console. 
 
-If we wanted to show this sort of output in our Shiny app we could add to our `server.R` let's add another output$ variable.
+If we wanted to show this sort of output in our Shiny app we could add another output$ variable to our `server.R`.
 
 ```
 gdURL <- "http://tiny.cc/gapminder"
@@ -526,9 +477,7 @@ We will see the expected behaviour when we run our app.
 
 # Finally, making a reactive plot 
 
-Ok so we are getting closer to our goal! Let's learn how to bring in real data to play with. 
-
-We are going to work with your old friend the gapminder data. Let's load in the data. We will load in the data above our shiny server. We will also load in the ggplot2 package since we will use that for our plot. If we had some helper functions or something else we wanted to use here we could also add in a line `source("useful_functions.R")`.   
+We will load in the ggplot2 package since we will use that for our plot. If we had some helper functions or something else we wanted to use here we could also add in a line `source("useful_functions.R")`.   
 
 ## Generate plot from data 
 
@@ -536,7 +485,9 @@ Now that we've laid our beautiful foundation, we are ready to build our plot! So
 
 To add a plot we do it in the same way that we add text by using our family of `renderX` calls. This time we will use `renderPlot`. We will use our selected country from the dropdown menu to subset our data set and then we will graph the gross domestic product per capita by year for our selected country. 
 
-Added to our `shinyServer()` in `server.R` :
+We will simply add the plot and for now use our `subset` function again to use our data selected by the user. 
+
+`server.R` :
 
 ```
 library(ggplot2)
@@ -552,8 +503,8 @@ shinyServer(function(input, output) {
     paste("Country selected", input$select_country)
   })
   output$ggplot_gdppc_vs_country <- renderPlot({
-    p <-  ggplot(subset(gDat, country == input$select_country), aes(x = year, y = gdpPercap))
-    p + geom_point() + xlim(c(input$year_range[1], input$year_range[2]))
+    p <-  ggplot(subset(gDat, country == input$select_country & year >= input$year_range[1] & year <= input$year_range[2]), aes(x = year, y = gdpPercap))
+    p + geom_point()
   })
 })
 ```
@@ -578,8 +529,8 @@ shinyServer(function(input, output) {
     paste("Country selected", input$select_country)
   })
   output$ggplot_gdppc_vs_country <- renderPlot({
-    p <-  ggplot(subset(gDat, country == input$select_country), aes(x = year, y = gdpPercap))
-    p + geom_point() + xlim(c(input$year_range[1], input$year_range[2]))
+    p <-  ggplot(subset(gDat, country == input$select_country & year >= input$year_range[1] & year <= input$year_range[2]), aes(x = year, y = gdpPercap))
+    p + geom_point()
   })
 })
 ```
@@ -855,11 +806,4 @@ So you are ready to show you app to the world. What are your options?
 
 * From either your `server.R` or `ui.R` app click on the "Publish" button
 ![Publish Shiny app](img/Shiny_app_publish_button.png)
-* Follow the directions from the website which will basically be:
-    * `library(devtools)`
-    * ` devtools::install_github("rstudio/shinyapps")`
-    * sign up for an account (I used my Github id to login)
-    * let Rstudio know what your account is by running the token and secret code that the website gives you ( it will look something like this:  shinyapps::setAccountInfo(name='YourNameHere', token='GeneratedAlphaNumericCode', secret='YoursecretCodeHere')
-    * then deploy your app from Rstudio `shinyapps::deployApp('Shiny-apps/Gapminder-app')` and it should deploy the app to a url under your account name (e.g. my gapminder app is here: https://jooolia.shinyapps.io/Gapminder-app/)
-  * if you get an error "bad signature" run `Sys.setlocale(locale="en_US.UTF-8")` on linux or mac and `Sys.setlocale(locale="English")` on Windows thanks [Stack Overflow](http://stackoverflow.com/questions/20943687/shinyapps-setaccountinfo-error) and then try setting your account info and then deploying the app again. If the deployment does not work from the console prompt try clicking into your `server.R` or `uir.R` script and then try deployment using the "Publish" button. 
-
+* This will ensure you have the `shinyapps` package and take youto (http://shinyapps.io). Follow the directions from the website  to set up your account. See our setup directions if there are any hiccups during this process: [Deploy your app](shiny02_setup.html)
