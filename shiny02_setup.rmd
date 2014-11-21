@@ -1,0 +1,51 @@
+---
+title: "Stat 545 shiny tutorial using Gapminder data"
+author: "Julia Gustavsen"
+date: '2014-11-17'
+output:
+  html_document:
+    toc: yes
+    toc_depth: 4
+---
+
+# Getting your system ready
+
+## Update Rstudio and R. 
+
+To get started make sure you have the most up to date RStudio version (menu "Help" -> "Check for Updates") and R. 
+
+##Installing Shiny 
+
+Then go ahead and install Shiny:
+
+```
+install.packages("shiny")
+```
+
+
+# Deployment
+
+So you are ready to show you app to the world. What are your options?
+
+## Stat UBC Shiny Pro server
+
+* some students will use Jenny's server
+* volunteers? Jenny will update
+
+## Run apps from public Github repositories.
+
+* `runGitHub()` is a way to run an app from github using Rstudio. 
+* to use this push your server.R and ui.R files to a public github repo (in their own folder, remember Shiny is particular). `runGitHub()` takes a few arguments, if I had a public repo in the Stat545 organization called "julia_gustavsen_shiny" and I had pushed my Gapminder app `server.R` and `ui.R` (and any other necessary files) to that repo, we could run my app using `runGitHub("STAT545-UBC/julia_gustavsen_shiny",subdir = "Shiny-apps/Gapminder-app/"). The subdirectory argument refers to the subdirectory in the repository. 
+
+## Deploy your app to www.shinyapps.io and send url to users
+
+* From either your `server.R` or `ui.R` app click on the "Publish" button
+![Publish Shiny app](images/Shiny_app_publish_button.png)
+* Follow the directions from the website which will basically be:
+    * `library(devtools)`
+    * ` devtools::install_github("rstudio/shinyapps")`
+    * sign up for an account (I used my Github id to login)
+    * let Rstudio know what your account is by running the token and secret code that the website gives you ( it will look something like this:  shinyapps::setAccountInfo(name='YourNameHere', token='GeneratedAlphaNumericCode', secret='YoursecretCodeHere')
+    * then deploy your app from Rstudio `shinyapps::deployApp('Shiny-apps/Gapminder-app')` and it should deploy the app to a url under your account name (e.g. my gapminder app is here: https://jooolia.shinyapps.io/Gapminder-app/)
+  * if you get an error "bad signature" run `Sys.setlocale(locale="en_US.UTF-8")` on linux or mac and `Sys.setlocale(locale="English")` on Windows thanks [Stack Overflow](http://stackoverflow.com/questions/20943687/shinyapps-setaccountinfo-error) and then try setting your account info and then deploying the app again. If the deployment does not work from the console prompt try clicking into your `server.R` or `uir.R` script and then try deployment using the "Publish" button. 
+
