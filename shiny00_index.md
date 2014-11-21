@@ -12,7 +12,7 @@ output:
 
 [PDF slides](shiny01_slides.pdf)
 
-### Getting your system setup
+### Getting your system set up
 
 [Installing Shiny and other required packages](shiny02_setup.html)
 
