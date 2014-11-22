@@ -1,12 +1,6 @@
----
-title: "Shiny - Homework"
-author: "Julia Gustavsen and Jenny Bryan"
-date: '2014-11-18'
-output:
-  html_document:
-    toc: yes
-    toc_depth: 4
----
+# Shiny - Homework
+Julia Gustavsen and Jenny Bryan  
+2014-11-18  
 
 ## Big picture
 
@@ -20,13 +14,16 @@ There is a lot you can do with Shiny. For homework we want you to:
 * try facetting the data based on one of your user inputs.
 * please have your app organized with the strict directory structure required by Shiny so that your peer reviewer can download your scripts and run you app locally. Please also deploy your app to the shinyapps.io website or if you are really excited talk to Jenny about deploying to the shinyapps.stat.ubc.ca server.  
 
+In a suitable file and place, probably a `README.md`, describe how the Shiny development work went for you. What's been the hardest? The most rewarding? How do you regard Shiny's strengths / weakness relative to webpages you can create from RMarkdown? What sort of future applications can you see for Shiny? 
+
 ### Due date
 
-Your Shiny app is due Friday 28 November 2014.
+Your Shiny app is due Monday 01 December 2014.
 
 ## Please just tell me what to do
 
 Follow the tutorial up until the end. 
+
 * Replace the slider for the years instead with the widget `dateRangeInput`. Pay careful attention to the "format" and "startview" arguments. 
 * Edit the `selectInput` for countries by adding in values for the arguments "selected" and "multiple".  
 * Either add facetting to your plot by country or add the use of colour to you plot to distinguish the 2 or more countries displayed. See [ggplot2 tutorial](cm005_still-data-ggplot2-rmarkdown.html)

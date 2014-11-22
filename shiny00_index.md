@@ -6,6 +6,8 @@ output:
     toc_depth: 4
 ---
 
+*this page and sub-pages still under development!*
+
 *Shiny intro*
 
 ### Overview
@@ -19,6 +21,10 @@ output:
 ### Hands-on activity
 
 [Tutorial with Gapminder data](shiny03_activity.html)
+
+### Homework
+
+[HW11 Build a Shiny app](hw11_build-shiny-app.html)
 
 ### Resources
 
