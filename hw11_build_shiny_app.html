@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Julia Gustavsen and Jenny Bryan" />
+
+<meta name="date" content="2014-11-18" />
+
+<title>Shiny - Homework</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Shiny - Homework</h1>
+<h4 class="author"><em>Julia Gustavsen and Jenny Bryan</em></h4>
+<h4 class="date"><em>2014-11-18</em></h4>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#big-picture">Big picture</a><ul>
+<li><a href="#due-date">Due date</a></li>
+</ul></li>
+<li><a href="#please-just-tell-me-what-to-do">Please just tell me what to do</a></li>
+<li><a href="#i-want-to-aim-higher-shiny">I want to aim higher! Shiny</a></li>
+<li><a href="#i-want-to-aim-way-higher">I want to aim way higher!</a></li>
+<li><a href="#rubric">Rubric</a></li>
+<li><a href="#authors">Authors</a></li>
+</ul>
+</div>
+
+<div id="big-picture" class="section level2">
+<h2>Big picture</h2>
+<p>We made a Shiny app that let us graph the Gapminder data.</p>
+<p>There is a lot you can do with Shiny. For homework we want you to:</p>
+<ul>
+<li>add the Gapminder data as a .tsv file to a directory in your gapminder app (“./data/” would be a good option for a directory). This way we the data are included as part of your app. Load in the data from this directory instead of the url given in class.</li>
+<li>use another type of widget to control an aspect of the data (see <a href="http://shiny.rstudio.com/gallery/widget-gallery.html">Shiny Widget Gallery</a>)</li>
+<li>edit the dropdown menu for countries so that you can choose 2 (or more) countries</li>
+<li>try facetting the data based on one of your user inputs.</li>
+<li>please have your app organized with the strict directory structure required by Shiny so that your peer reviewer can download your scripts and run you app locally. Please also deploy your app to the shinyapps.io website or if you are really excited talk to Jenny about deploying to the shinyapps.stat.ubc.ca server.</li>
+</ul>
+<div id="due-date" class="section level3">
+<h3>Due date</h3>
+<p>Your Shiny app is due Friday 28 November 2014.</p>
+</div>
+</div>
+<div id="please-just-tell-me-what-to-do" class="section level2">
+<h2>Please just tell me what to do</h2>
+<p>Follow the tutorial up until the end. * Replace the slider for the years instead with the widget <code>dateRangeInput</code>. Pay careful attention to the “format” and “startview” arguments. * Edit the <code>selectInput</code> for countries by adding in values for the arguments “selected” and “multiple”.<br />* Either add facetting to your plot by country or add the use of colour to you plot to distinguish the 2 or more countries displayed. See <a href="cm005_still-data-ggplot2-rmarkdown.html">ggplot2 tutorial</a> * Commit the app to your Stat545/547 repo, push to Github. Also deploy the app to shinyapps.io using the “Publish” button in Rstudio (or see <a href="shiny02_activity.html#deployment">tutorial section on deployment</a>)</p>
+</div>
+<div id="i-want-to-aim-higher-shiny" class="section level2">
+<h2>I want to aim higher! Shiny</h2>
+<ul>
+<li>Use another approved data set to create an app that outputs a plot, a table and has 2 control widgets that change the output of the plot (i.e. meets all the requirements above, but using a different data set).</li>
+<li>Add a widget to enable you to turn the facetting of the graphs “on” or “off” (either using your Gapminder app or another dataset.)</li>
+<li>Add images to your app.<a href="http://shiny.rstudio.com/tutorial/lesson2/">R studio Shiny tutorial-see header “Images”</a></li>
+<li>Deploy on shinyapps.stat.ubc.ca</li>
+</ul>
+</div>
+<div id="i-want-to-aim-way-higher" class="section level2">
+<h2>I want to aim way higher!</h2>
+<ul>
+<li>CSS or Html junkie? Try using another css theme or create and use your own css theme. <code>shinyUI(fluidPage(theme = &quot;bootstrap.css&quot;</code> <a href="http://shiny.rstudio.com/articles/css.html">R studio Shiny Article on css style</a></li>
+<li>Explore a new layout (e.g. <code>gridLayout()</code>, <code>fluidRow()</code>) and have different graphs laid out on different pages.</li>
+<li>Deploy your cool app and tweet to <span class="citation">@STAT545</span> about it. We guarantee people will be stoked about what you created.</li>
+</ul>
+</div>
+<div id="rubric" class="section level2">
+<h2>Rubric</h2>
+<p>Your peer reviewer will try run your app!</p>
+<p>Check minus: There is a problem with some aspect of <code>server.R</code> or <code>ui.R</code>. When the directory for the Gapminder app is downloaded locally (we won’t be able to use the <code>runGitHub()</code> since these are private repositories) the peer reviewer cannot get the Shiny app to run.</p>
+<p>Check: App runs! All the required widgets, interactivity and facetting/colour are included. Good work!</p>
+<p>Check plus: Exceeded the requirements in number of dimensions. App is deployed on shinyapps.io or on shinyapps.stat.ubc.ca. You have added a pleasant, useful dimension (widget, images, layout, css/html coding) to the app that was not required. Neat!</p>
+<p>Recall the <a href="http://stat545-ubc.github.io/peer-review01_marking-rubric.html">general homework rubric</a>.</p>
+</div>
+<div id="authors" class="section level2">
+<h2>Authors</h2>
+<p>Written by <a href="http://twitter.com/JuliaGustavsen">Julia Gustavsen</a> and <a href="http://www.stat.ubc.ca/~jenny/">Jenny Bryan</a>.</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

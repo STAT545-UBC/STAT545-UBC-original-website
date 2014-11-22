@@ -12,10 +12,14 @@ output:
 
 [PDF slides](shiny01_slides.pdf)
 
+### Getting your system set up
+
+[Installing Shiny and other required packages](shiny02_setup.html)
+
 ### Hands-on activity
 
-[shiny02_activity.html](shiny02_activity.html)
+[Tutorial with Gapminder data](shiny03_activity.html)
 
 ### Resources
 
-*links go here*
+[Links for Shiny tutorials and other interactive graphing](shiny04_links.html)

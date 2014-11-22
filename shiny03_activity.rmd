@@ -1,30 +1,17 @@
 ---
 title: "Stat 545 shiny tutorial using Gapminder data"
 author: "Julia Gustavsen"
-output: 
-    html_document:
-        toc: true
-        toc_depth: 4
+date: '2014-11-17'
+output:
+  html_document:
+    toc: yes
+    toc_depth: 4
 ---
 
-<!--
-TO-DO:
-
-* check with others about the way we use the renderUI and the levels of countries, is there something terribly bad about this?
-* Consider putting the Gapminder data file into the app's data folder as tsv
-* make clearer the link between output in ui.R and output$ in server.R
-* make a clear when we will stop for little exercises. 
-* should I use dplyr instead of subset() for filtering? Doesn't really change much. 
-* discuss can use source(rscript.r) in server.R too to load in functions 
-* fix sloppy sentences
-
--->
-
-# Purpose of this tutorial:
+# Purpose of this tutorial
 
 * Introduce Shiny
 * Write simple Shiny app using GapMinder data
-
 
 # What is Shiny?
 
@@ -33,69 +20,9 @@ TO-DO:
 * Uses R to harness power of html, css and javascript for presenting data on the web
 * Find more info here: [Shiny: A web application framework for R](http://shiny.rstudio.com/)
 
-# Installing Shiny 
-
-To get started make sure you have Shiny installed:
-
-```
-install.packages("shiny")
-```
-
-(It also helps if you are running an up-to-date Rstudio version. )
-
-# ui.R and server.R files
-
-Shiny makes it very easy to write your own, but to keep things simple it does have some requirements for it to run.
-
-To get started, within your Stat 547 course folder (same as your github repo right??? this is important for when we try to run `runGitHub` **nope this will have to be a different folder since the repos will have to be public **) create a folder entitled: "Shiny-apps" and within that folder create a directory entitled "Gapminder-app". You can do this either from your terminal window or using your graphical directory to create these folder. Each Shiny app gets its own folder.
-
-Using the terminal (the "$" here represents your terminal prompt **NOT** your R console prompt) to make our folders:
-
-```
-$ mkdir Shiny-apps
-$ cd Shiny-apps
-$ mkdir Gapminder-app
-$ cd Gapminder-app
-```
-
-Or use your R studio navigator to make these directories or in R
-
-```
-dir.create("Shiny-apps")
-dir.create("Shiny-app/Gapminder-app")
-```
-
-Your Stat-547 directory now probably looks something like this:
-(will make little screenshot later o)
-
-```
-├───Stat-547
-    ├───Amazing-homework
-    ├───Brilliant-notes
-    └───Shiny-apps
-        └───Gapminder-app
-```   
-
-Shiny, in its most basic form, requires only 2 files: ui.R and server.R
-
-Making sure we are in our "Gapminder-app" directory, create an empty R script entitled `ui.R` and an empty R script entitled `server.R`
-
-```
-├───Stat-547
-    ├───Amazing-homework
-    ├───Brilliant-notes
-    └───Shiny-apps
-        └───Gapminder-app
-            ├───ui.R
-            └───server.R
-```
-
-Your `ui.R` creates your **u**ser **i**nterface for your Shiny app. This is the part that controls the layout, the way you can insert images and where you specify how the user can interact with your app. 
-Your `server.R` file serves up your data, reacts to the user input and contains the overall data processing "guts."
-
 ## First shiny app
 
-We are going to slowly build our app over the course of this class and the next. We will start by making a very basic interface using  our UI script and slowly start adding some bells and whistles to it. 
+We are going to slowly build our app over the course of this class and the next. Make sure that you have your system set up as described in [Shiny Setup](shiny02_setup.html). You will have 2 files `ui.R` and `server.R`, in addition to the latest Rstudio, `shiny` and `shinyapps` packages. We will start by making a very basic interface using  our `ui.R` script and slowly start adding some bells and whistles to it. 
 
 So the minimum you can have is:
 
@@ -127,7 +54,7 @@ There you've created your first shiny app! Well it will be slighly more exciting
 
 You have three different ways that you can run these apps.
 
-1. From your R console prompt. Make sure you have loaded the Shiny library first. Then use the Shiny command `runApp()` with the name of the **directory** that contains your `server.R` and `ui.R` files.
+1. From your R console prompt. Make sure you have loaded the Shiny package first. Then use the Shiny command `runApp()` with the name of the **directory** that contains your `server.R` and `ui.R` files.
 
 ```
 library(shiny)  # only needed once per session
@@ -136,7 +63,7 @@ runApp("Gapminder-app")
 
 2. If either your `server.R` or `ui.R` file is your current script in R studio press "ctr-shift-enter"
 
-3. R studio is smart and recognizes when you are working with files for a Shiny app. If either your `server.R` or `ui.R` file is your current script in R studio you should see a button at the upper right of your source window that says "Run App". You can click on it and your Shiny app will run. 
+3. R studio is smart and recognizes when you are working with files for a Shiny app. If either your `server.R` or `ui.R` file is your current script in R studio you should see a button at the upper right of your source window that says "Run App". You can click on it and your Shiny app will run. ** If this button doesn't appear after the creation of your files, try restarting RStudio. **
 
 ![Run Shiny in R studio](img/Shiny-run-app-screenshot-circled.png)
 
@@ -144,7 +71,7 @@ With this option you have a lot of control over how the Shiny app is run.
 
 ![Run Shiny options in R studio](img/Shiny-run-app-options-screenshot.png)
 
-Depending on your Rstudio and shiny set up you should see an empty window open (either in Rstudio or in your default web browser). R will be "listening" until we close the window (if in its own web browser window) or when we click on the stop button to tell it to stop listening for feedback. (Insert pic of stop button.)
+Depending on your Rstudio and shiny set up you should see an empty window open (either in Rstudio or in your default web browser). R will be "listening" until we close the window (if in its own web browser window) or when we click on the stop button to tell it to stop listening for feedback. 
 
 ### Adding text elements to the `ui.R`
 
@@ -187,7 +114,7 @@ shinyServer(function(input, output) {
 })
 ```
 
-So that reads the data in, but what if we want to show some of the data? First we need to make a variable in the server.R
+So that reads the data in, but what if we want to show some of the data? First we need to make a variable in `server.R`
 
 ```
 gdURL <- "http://tiny.cc/gapminder"
@@ -223,6 +150,8 @@ shinyUI(fluidPage(
 
 This is our first instance of using something generated from the `server.R` We use the `output$` variable name to call this in our `ui.R` and it generates a table.  
 
+![Gapminder Shiny app with raw table](img/Gapminder_shiny_app_with_raw_table.png)
+
 # Control widgets 
 
 We will start buidling up our plot in a way so that we can choose a country to display when looking at gdp by year. 
@@ -247,14 +176,15 @@ shinyUI(fluidPage(
   
   sidebarLayout(
     sidebarPanel("User inputs will be here",
-      selectInput("select_country", 
-                  label = h2("Country"),
-                  choices = list("Chad", 
-                                 "Iraq", 
-                                 "Mali")
-                  )
+                 selectInput("select_country", 
+                             label = "Country",
+                             choices = list("Chad", 
+                                            "Iraq", 
+                                            "Mali")
+                 )
+    ),
     mainPanel("My cool graph will go here",
-                            tableOutput("gapminder_table")
+              tableOutput("gapminder_table")
     )
   )
 ))
@@ -262,7 +192,7 @@ shinyUI(fluidPage(
 
 And when you run your app you should get something that looks like this:
 
-(update[Gapminder Shiny app with select box](img/Gapminder_shiny_app_select_test_box.png))
+![Gapminder Shiny app with select box](img/Gapminder_shiny_app_select_test_box.png)
 
 So now we have a way to select one of three countries. 
 
@@ -306,18 +236,19 @@ shinyUI(fluidPage(
   
   sidebarLayout(
     sidebarPanel("User inputs will be here",
-      selectInput("select_country", 
-                  label = "Country",
-                  choices = list("Chad", 
-                                 "Iraq", 
-                                 "Mali")
-      )),
-      mainPanel("My cool graph will go here",
-                textOutput("output_country"),
-                tableOutput("gapminder_table")
-      )
+                 selectInput("select_country", 
+                             label = "Country",
+                             choices = list("Chad", 
+                                            "Iraq", 
+                                            "Mali")
+                 )
+    ),
+    mainPanel("My cool graph will go here",
+              textOutput("output_country"),
+              tableOutput("gapminder_table")
     )
-  ))
+  )
+))
 ```
 
 Now when we run our app we see that this text is "reactive", that is it changes when we select a different "country". We have used the `inputId` "select_country" from `ui.R` to give this value to our `server.R` that in turn serves up this value to our `textOutput("output_country")` which shows us our selected country. Neat!
@@ -333,13 +264,15 @@ gDat <- read.delim(file = gdURL)
 shinyServer(function(input, output) {
   
   output$gapminder_table <- renderTable({ 
-    one_country_data  <- subset(gDat, country == input$select_country)
+    subset(gDat, country == input$select_country)
   })
   output$output_country <- renderText({
     paste("Country selected", input$select_country)
   })
 })
 ```
+
+![Gapminder Shiny app with filtered table](img/Gapminder_shiny_app_table_filtered_by_country.png)
 
 Let's add in a way to choose the year. We will use a slider that will let us select the year that we want to start and the end year. We will also put this in the sidebar. 
 
@@ -373,7 +306,7 @@ shinyUI(fluidPage(
 
 When you run your shiny app it should look like this:
 
-[Gapminder Shiny app with select box](img/Gapminder_shiny_app_year_slider_widget.png)
+![Gapminder Shiny app with select box](img/Gapminder_shiny_app_year_slider_widget.png)
 
 The year has a comma after the thousand digit which makes it look less like a year. Let's fix that by adding the `format` argument to `sliderInput`. We will change it to `format = "####"`. 
 
@@ -405,7 +338,9 @@ shinyUI(fluidPage(
 
 Ahh much better. 
 
-**Exercise**:  Let's change server.R so that we can filter our table using this slider too.
+![Gapminder Shiny app with select box](img/Gapminder_shiny_app_year_slider_widget_fixed_formatting.png)
+
+**Exercise**:  Let's change `server.R` so that we can filter our table using this slider too.
 
 `server.R`
 
@@ -416,18 +351,37 @@ gDat <- read.delim(file = gdURL)
 shinyServer(function(input, output) {
   
   output$gapminder_table <- renderTable({ 
-    one_country_data  <- subset(gDat, country == input$select_country & year >= input$year_range[1] & year <= input$year_range[2] )
+    subset(gDat, country == input$select_country & year >= input$year_range[1] & year <= input$year_range[2] )
   })
   output$output_country <- renderText({
     paste("Country selected", input$select_country)
   })
 })
 ```
+# Going behind the curtain
 
-* **Exercise**: Add in text output to show the year chosen. 
+## Running Shiny app in "showcase" mode
 
-Now your files should look like:
-`server.R`
+If you want to see see your scripts and your app together you can run you Shiny app in "showcase made". At your R prompt run:
+
+```
+library(shiny)
+runApp('Shiny-apps/Gapminder-app', display.mode= "showcase")
+```
+
+The app will highlight what is reacting in `server.R` when you select a different country. 
+
+![Gapminder Shiny app with select box](img/Gapminder_shiny_app_showcase_mode.png)
+
+This is a good way to run more complicated apps when you are learning and are curious about how they work. All of the Shiny examples can be run like this. 
+
+## Using `cat`, `str` and `renderPrint()` to learn about your Shiny functions
+
+When we are getting to know Shiny and are learning about what the Shiny functions are returning we would like to be able to use `str` (look at the structure) to learn about about an object or to use `cat` to see what the output of an object is. 
+
+These functions can be put in `server.R` in any of your reactive functions and will print to the console. 
+
+So we could try:
 
 ```
 gdURL <- "http://tiny.cc/gapminder"
@@ -436,18 +390,38 @@ gDat <- read.delim(file = gdURL)
 shinyServer(function(input, output) {
   
   output$gapminder_table <- renderTable({ 
-    one_country_data  <- subset(gDat, country == input$select_country & year >= input$year_range[1] & year <= input$year_range[2] )
+    str(input$select_country)
+    subset(gDat, country == input$select_country & year >= input$year_range[1] & year <= input$year_range[2])
   })
   output$output_country <- renderText({
     paste("Country selected", input$select_country)
   })
-  output$output_years <- renderText({
-    paste("The years selected are between", input$year_range[1], "and", input$year_range[2] )
+})
+```
+
+And we see that when we run the Shiny app we get an output to the console: "chr "Chad"". This output changes each time that we select a different country from our select box. We could replace `str(input$select_country)` with `cat(input$select_country)` and see our expected output at the console. 
+
+If we wanted to show this sort of output in our Shiny app we could add another output$ variable to our `server.R`.
+
+```
+gdURL <- "http://tiny.cc/gapminder"
+gDat <- read.delim(file = gdURL) 
+
+shinyServer(function(input, output) {
+  
+  output$gapminder_table <- renderTable({ 
+    subset(gDat, country == input$select_country & year >= input$year_range[1] & year <= input$year_range[2])
+  })
+  output$output_country <- renderText({
+    paste("Country selected", input$select_country)
+  })
+  output$info <- renderText({
+    str(input$select_country)
   })
 })
 ```
 
-Let's add this output to our `ui.R`
+To see any output we have to add to our `ui.R` :
 
 ```
 shinyUI(fluidPage(
@@ -455,55 +429,65 @@ shinyUI(fluidPage(
   
   sidebarLayout(
     sidebarPanel("User inputs will be here",
-      selectInput("select_country", 
-                  label = "Country",
-                  choices = list("Chad", 
-                                 "Iraq", 
-                                 "Mali")
-      ),
-      sliderInput("year_range", 
-                  label = "Range of years:",
-                  min = 1952, max = 2007, 
-                  value = c(1955, 2005),
-                  format = "####")
+                 selectInput("select_country", 
+                             label = "Country",
+                             choices = list("Chad", 
+                                            "Iraq", 
+                                            "Mali")
+                 ),
+                 sliderInput("year_range", 
+                             label = "Range of years:",
+                             min = 1952, max = 2007, 
+                             value = c(1955, 2005),
+                             format = "####")
     ),
     mainPanel("My cool graph will go here",
               textOutput("output_country"),
-              textOutput("output_years"),
-              tableOutput("gapminder_table")
-              
+              tableOutput("gapminder_table"),
+              textOutput("info")
     )
   )
 ))
 ```
-## Running Shiny app in "showcase" mode
-(optional)
-If you want to see  this idea demonstrated more clearly you can run you Shiny app in "showcase made". At your R prompt run:
+
+But when we run this we don't get any output in the app, but we still see the `str` output to the console.
+
+To get this type of output in our console we need to change our `renderText()` function to the `renderPrint()` to return what would be printed to the console. 
+
+So if we replace that part of `server.R`: 
 
 ```
-library(shiny)
-runApp('Gapminder-app', display.mode= "showcase")
+gdURL <- "http://tiny.cc/gapminder"
+gDat <- read.delim(file = gdURL) 
+
+shinyServer(function(input, output) {
+  
+  output$gapminder_table <- renderTable({ 
+    subset(gDat, country == input$select_country & year >= input$year_range[1] & year <= input$year_range[2])
+  })
+  output$output_country <- renderText({
+    paste("Country selected", input$select_country)
+  })
+  output$info <- renderPrint({
+    str(input$select_country)
+  })
+})
 ```
+We will see the expected behaviour when we run our app. 
 
-The app will highlight what is reacting in `server.R` when you select a different country. 
+# Finally, making a reactive plot 
 
-[Gapminder Shiny app with select box](img/Gapminder_shiny_app_showcase_mode.png)
+We will load in the ggplot2 package since we will use that for our plot. If we had some helper functions or something else we wanted to use here we could also add in a line `source("useful_functions.R")`.   
 
-This is a good way to run more complicated apps when you are learning and are curious about how they work. All of the Shiny examples can be run like this. 
-
-## Finally, making a reactive plot 
-
-Ok so we are getting closer to our goal! Let's learn how to bring in real data to play with. 
-
-We are going to work with your old friend the gapminder data. Let's load in the data. We will load in the data above our shiny server. We will also load in the ggplot2 library since we will use that for our plot.  
-
-### Generate plot from data 
+## Generate plot from data 
 
 Now that we've laid our beautiful foundation, we are ready to build our plot! So now that we have everything organized we just add our ggplot call to the `server.R` and tell `ui.R` to show our plot. Let's go:
 
 To add a plot we do it in the same way that we add text by using our family of `renderX` calls. This time we will use `renderPlot`. We will use our selected country from the dropdown menu to subset our data set and then we will graph the gross domestic product per capita by year for our selected country. 
 
-Added to our `shinyServer()` in `server.R` :
+We will simply add the plot and for now use our `subset` function again to use our data selected by the user. 
+
+`server.R` :
 
 ```
 library(ggplot2)
@@ -513,27 +497,47 @@ gDat <- read.delim(file = gdURL)
 shinyServer(function(input, output) {
   
   output$gapminder_table <- renderTable({ 
-    one_country_data  <- subset(gDat, country == input$select_country & year >= input$year_range[1] & year <= input$year_range[2] )
+    subset(gDat, country == input$select_country & year >= input$year_range[1] & year <= input$year_range[2] )
   })
   output$output_country <- renderText({
     paste("Country selected", input$select_country)
   })
-  output$output_years <- renderText({
-    paste("The years selected are between", input$year_range[1], "and", input$year_range[2] )
-  })
-  output$ggplot_gdp_vs_country <- renderPlot({
-   p <-  ggplot(subset(gDat, country == input$country_from_gapminder), aes(x = year, y = gdpPercap))
-   p + geom_point() + xlim(c(input$year_range[1], input$year_range[2]))
+  output$ggplot_gdppc_vs_country <- renderPlot({
+    p <-  ggplot(subset(gDat, country == input$select_country & year >= input$year_range[1] & year <= input$year_range[2]), aes(x = year, y = gdpPercap))
+    p + geom_point()
   })
 })
 ```
 
-Then the only thing left to do is to is to add the plot to `ui.R`. We do this in the same way that we added the text. We add `plotOutput("ggplot_gdp_vs_country")`. Tada! You can try plotting different countries and different years. 
+Then the only thing left to do is to is to add the plot to `ui.R`. We do this in the same way that we added the text. We add `plotOutput("ggplot_gdppc_vs_country")`. Tada! You can try plotting different countries and different years. 
 
-But we see that we have some repetition in our plot and since we want to keep nice clean code that we can easily maintain we should get rid of this. Let's get rid of the redundancy by moving the subsetting of the data out of the plot and table render functions. 
+But we see that we have some repetition in our plot and since we want to keep nice clean code that we can easily maintain we should get rid of this. Let's get rid of the redundancy by moving the subsetting of the data out of the plot and table render functions. We'll start by adding an assignment that will create a copy of our data based on our `ui.R` inputs. 
 
-**Explain what happens (or show?) to move the `one_country_data  <- subset(gDat, country == input$select_country & year >= input$year_range[1] & year <= input$year_range[2] )` out of the renderX Function  and explain that it is not in a reactive expression.**
-So we can work around this by using a function called `reactive`.
+```
+library(ggplot2)
+gdURL <- "http://tiny.cc/gapminder"
+gDat <- read.delim(file = gdURL) 
+
+shinyServer(function(input, output) {
+  
+  one_country_data  <- subset(gDat, country == input$select_country & year >= input$year_range[1] & year <= input$year_range[2])
+  
+  output$gapminder_table <- renderTable({ 
+    subset(gDat, country == input$select_country & year >= input$year_range[1] & year <= input$year_range[2] )
+  })
+  output$output_country <- renderText({
+    paste("Country selected", input$select_country)
+  })
+  output$ggplot_gdppc_vs_country <- renderPlot({
+    p <-  ggplot(subset(gDat, country == input$select_country & year >= input$year_range[1] & year <= input$year_range[2]), aes(x = year, y = gdpPercap))
+    p + geom_point()
+  })
+})
+```
+
+Eeeep when we go to run our app we get no table or plot. We get an error that starts: "Error in .getReactiveEnvironment()$currentContext()". This is because we've tried to use "reactive" input without a `renderX()` function. Shiny is not happy about this.
+
+We can work around this by using a function called `reactive`.
 
 `server.R` with added plot and `reactive()` data. 
 
@@ -547,17 +551,14 @@ shinyServer(function(input, output) {
   one_country_data  <- reactive({
     subset(gDat, country == input$select_country & year >= input$year_range[1] & year <= input$year_range[2] )
   })
-   output$gapminder_table <- renderTable({ 
+  output$gapminder_table <- renderTable({ 
     one_country_data()
-    })
+  })
   output$output_country <- renderText({
     paste("Country selected", input$select_country)
   })
-  output$output_years <- renderText({
-    paste("The years selected are between", input$year_range[1], "and", input$year_range[2] )
-  })
-  output$ggplot_gdp_vs_country <- renderPlot({
-    p <-  ggplot(subset(gDat, country == input$country_from_gapminder), aes(x = year, y = gdpPercap))
+  output$ggplot_gdppc_vs_country <- renderPlot({
+    p <-  ggplot(subset(gDat, country == input$select_country), aes(x = year, y = gdpPercap))
     p + geom_point() + xlim(c(input$year_range[1], input$year_range[2]))
   })
 })
@@ -583,48 +584,14 @@ shinyServer(function(input, output) {
   output$output_country <- renderText({
     paste("Country selected", input$select_country)
   })
-  output$output_years <- renderText({
-    paste("The years selected are between", input$year_range[1], "and", input$year_range[2] )
-  })
-  
-  output$ggplot_gdp_vs_country <- renderPlot({
+  output$ggplot_gdppc_vs_country <- renderPlot({
     p <-  ggplot(one_country_data(), aes(x = year, y = gdpPercap))
     p + geom_point() 
   })
 })
 ```
 
-Run that. No errors, ok let's add the plot to our `ui.R`
-
-```
-shinyUI(fluidPage(
-  titlePanel("Gapminder Shiny app"),
-  
-  sidebarLayout(
-    sidebarPanel("User inputs will be here",
-      selectInput("select_country", 
-                  label = "Country",
-                  choices = list("Chad", 
-                                 "Iraq", 
-                                 "Mali")
-      ),
-      sliderInput("year_range", 
-                  label = "Range of years:",
-                  min = 1952, max = 2007, 
-                  value = c(1955, 2005),
-                  format = "####")
-    ),
-    mainPanel("My cool graph will go here",
-              textOutput("output_country"),
-              textOutput("output_years"),
-              plotOutput("ggplot_gdp_vs_country"),
-              tableOutput("gapminder_table")         
-    )
-  )
-))
-```
-
-### Using our app with more than 3 countries
+## Using our app with more than 3 countries
 
 Earlier in our app we used the `selectInput` widget to get info from the user about "countries". Many Shiny apps use this sort of input where the options you select are coded into the `ui.R`, however since you are bffs with the Gapminder data and you demand sophistication in your data exploration we will look at an alternative to populating a `selectInput(..., choices = list())` with all 142 countries that are found in the gapminder dataset without typing them all in. 
 
@@ -662,8 +629,7 @@ shinyUI(fluidPage(
     ),
     mainPanel("My cool graph will go here",
               textOutput("output_country"),
-              textOutput("output_years"),
-              plotOutput("ggplot_gdp_vs_country"),
+              plotOutput("ggplot_gdppc_vs_country"),
               tableOutput("gapminder_table")
               
     )
@@ -671,9 +637,9 @@ shinyUI(fluidPage(
 ))
 ```
 
-We run the app and see that we have a select box that populates from all of the countries in Gapmindder. But now we have a confusing app that still only reacts to our three country drop-down menu. 
+We run the app and see that we have a select box that populates from all of the countries in Gapminder. But now we have a confusing app that still only reacts to our three country drop-down menu. 
 
-Let's tidy up our app a bit and get rid of the old select box, change the select panel box to something more informative, get rid of our silly first sentence "my cool graph will go here", and change the text output for country to something that reflects our new select box (even though it is on the server.R side we see that idvariable name is called the same way as if it were on the `ui.R` page. (**Add better explanation here**)
+Let's tidy up our app a bit and get rid of the old select box, change the select panel box to something more informative, get rid of our silly first sentence "my cool graph will go here", and change the text output for country to something that reflects our new select box (even though it is on the server.R side we see that idvariable name is called the same way as if it were on the `ui.R` page).
 
 So now our `server.R` script looks like this:
 
@@ -697,11 +663,7 @@ shinyServer(function(input, output) {
   output$output_country <- renderText({
     paste("Country selected", input$country_from_gapminder)
   })
-  output$output_years <- renderText({
-    paste("The years selected are between", input$year_range[1], "and", input$year_range[2] )
-  })
-  
-  output$ggplot_gdp_vs_country <- renderPlot({
+  output$ggplot_gdppc_vs_country <- renderPlot({
     p <-  ggplot(one_country_data(), aes(x = year, y = gdpPercap))
     p + geom_point() 
   })
@@ -716,17 +678,16 @@ shinyUI(fluidPage(
   
   sidebarLayout(
     sidebarPanel("User inputs will be here",
-      uiOutput("choose_country"),
-      sliderInput("year_range", 
-                  label = "Range of years:",
-                  min = 1952, max = 2007, 
-                  value = c(1955, 2005),
-                  format = "####")
+                 uiOutput("choose_country"),
+                 sliderInput("year_range", 
+                             label = "Range of years:",
+                             min = 1952, max = 2007, 
+                             value = c(1955, 2005),
+                             format = "####")
     ),
     mainPanel("My cool graph will go here",
               textOutput("output_country"),
-              textOutput("output_years"),
-              plotOutput("ggplot_gdp_vs_country"),
+              plotOutput("ggplot_gdppc_vs_country"),
               tableOutput("gapminder_table")              
     )
   )
@@ -735,9 +696,70 @@ shinyUI(fluidPage(
 
 And our app looks like this:
 
-[Gapminder Shiny app with select box](img/Gapminder_shiny_app_select_box_from_gapminder_data.png)
+![Gapminder Shiny app with select box](img/Gapminder_shiny_app_select_box_generated_from_gapminder_data.png)
 
-### Adding headers and html gadgets to Shiny App
+### Warning: "Warning in is.na(e2)"
+
+You might have noticed that our app produces some warnings (angry red text in console) when we first run our shiny app now. This is happening because we are trying to get data from the renderUI text box, but it hasn't generated the text box yet. Afer the drop-down menu has been generated from `server.R` the app is able to find all of the data that it needs. If you want to avoid this issue you can add some code to deal with these initial states. 
+
+In our one_country_data reactive function we add: 
+```
+  if(is.null(input$country_from_gapminder)) {
+      return(NULL)
+    }
+```
+And to the output$ggplot_gdppc_vs_country renderPlot we add:
+
+```
+    if(is.null(one_country_data())) {
+      return(NULL)
+    }
+```
+
+So now our `server.R` looks like this:
+
+`server.R`
+```
+library(ggplot2)
+gdURL <- "http://tiny.cc/gapminder"
+gDat <- read.delim(file = gdURL) 
+
+shinyServer(function(input, output) {
+  
+  # Drop-down selection box generated from Gapminder dataset
+  output$choose_country <- renderUI({
+    selectInput("country_from_gapminder", "Country", as.list(levels(gDat$country)))
+  })
+  
+  one_country_data <- reactive({
+    if(is.null(input$country_from_gapminder)) {
+      return(NULL)
+    }
+    subset(gDat, country == input$country_from_gapminder &
+             year >= input$year_range[1] & year <= input$year_range[2] )
+  })
+    
+  output$gapminder_table <- renderTable({ 
+    one_country_data()
+  })
+  output$output_country <- renderText({
+    if (is.null(input$country_from_gapminder)){
+      return(NULL)
+    }
+    paste("Country selected", input$country_from_gapminder)
+  })
+  output$ggplot_gdppc_vs_country <- renderPlot({
+    if(is.null(one_country_data())) {
+      return(NULL)
+    }
+    p <-  ggplot(one_country_data(), aes(x = year, y = gdpPercap))
+    p + geom_point() 
+  })
+})
+```
+
+
+# Adding headers and html gadgets to Shiny App
 
 We can add some different header styles to our `ui.R` app if we want. 
 
@@ -759,8 +781,7 @@ shinyUI(fluidPage(
     ),
     mainPanel("My cool graph will go here",
               textOutput("output_country"),
-              textOutput("output_years"),
-              plotOutput("ggplot_gdp_vs_country"),
+              plotOutput("ggplot_gdppc_vs_country"),
               tableOutput("gapminder_table")              
     )
   )
@@ -783,8 +804,7 @@ shinyUI(fluidPage(
                   format = "####")
     ),
     mainPanel(h3(textOutput("output_country")),
-              textOutput("output_years"),
-              plotOutput("ggplot_gdp_vs_country"),
+              plotOutput("ggplot_gdppc_vs_country"),
               tableOutput("gapminder_table")              
     )
   )
@@ -810,8 +830,7 @@ shinyUI(fluidPage(
                   format = "####")
     ),
     mainPanel(h3(textOutput("output_country"), align = "center"),
-              textOutput("output_years"),
-              plotOutput("ggplot_gdp_vs_country"),
+              plotOutput("ggplot_gdppc_vs_country"),
               tableOutput("gapminder_table")              
     )
   )
@@ -836,10 +855,8 @@ So you are ready to show you app to the world. What are your options?
 
 ## Stat UBC Shiny Pro server
 
-* some students will use Jenny's server-get that organized
-* how to determine who? volunteers? -Jenny
-* get logins for students -Jenny
-*  where to direct other students to deploy on the web?
+* some students will use Jenny's server
+* volunteers? Jenny will update
 
 ## Run apps from public Github repositories.
 
@@ -849,33 +866,5 @@ So you are ready to show you app to the world. What are your options?
 ## Deploy your app to www.shinyapps.io and send url to users
 
 * From either your `server.R` or `ui.R` app click on the "Publish" button
-- include pic
-* Follow the directions from the website which will basically be:
-    * `library(devtools)`
-    * ` devtools::install_github("rstudio/shinyapps")`
-    * sign up for an account (I used my Github id to login)
-    * let Rstudio know what your account is by running the token and secret code that the website gives you ( it will look something like this:  shinyapps::setAccountInfo(name='YourNameHere', token='GeneratedAlphaNumericCode', secret='YoursecretCodeHere')
-    * then deploy your app from Rstudio `shinyapps::deployApp('Shiny-apps/Gapminder-app')` and it should deploy the app to a url under your account name (e.g. my gapminder app is here: https://jooolia.shinyapps.io/Gapminder-app/)
-  * if you get an error "bad signature" run `Sys.setlocale(locale="en_US.UTF-8")` on linux or mac and `Sys.setlocale(locale="English")` on Windows thanks [Stack Overflow](http://stackoverflow.com/questions/20943687/shinyapps-setaccountinfo-error) and then try setting your account info and then deploying the app again. If the deployment does not work from the console prompt try clicking into your `server.R` or `uir.R` script and then try deployment using the "Publish" button. 
-
-
-# Link section for further help and ideas 
-
-## Tutorials:
-
-* [R studio Shiny tutorial](http://shiny.rstudio.com/tutorial/)
-* [Shiny tutorial by Hadley Wickam (pdf)](https://www.dropbox.com/sh/lk88vl1i4s1cfx0/AAC4Q1IMtal6wYCbLciFTP2Za/shiny/shiny-slides.pdf?dl=0)
-* [Make a bilingual Shiny app](http://withr.me/blog/2014/10/17/design-a-bilingual-shiny-application/)
-* [Baby Names Shiny Tutorial from Strata in NY (dropbox folder)](https://www.dropbox.com/sh/lk88vl1i4s1cfx0/AABnkGh6XitTe6Al0QVXdUfca/shiny?dl=0)
-* [Shiny Cheatsheet by RStudio](http://shiny.rstudio.com/articles/cheatsheet.html)
-
-## Demos:
-* [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/)
-* [Shiny Dashboard example using some toy data](http://glimmer.rstudio.com/reinholdsson/shiny-dashboard/)
-* [World Bank population data and using the "animint" package for animation](https://cpsievert.shinyapps.io/animintRmarkdown/)
-* [dygraphs (pretty time-series graphs)](http://rstudio.github.io/dygraphs/)
-* [Gallery of Shiny Apps](http://www.showmeshiny.com/)
-
-## Interactive plots (not neccessarily Shiny):
-* [Karl Broman: "Why aren't all of our graphs interactive"(using json d3.js) (presentation)](https://www.biostat.wisc.edu/~kbroman/presentations/InteractiveGraphs3/)
-* [New York Times: Corporate Taxes in the US](http://www.nytimes.com/interactive/2013/05/25/sunday-review/corporate-taxes.html?smid=pl-share)
+![Publish Shiny app](img/Shiny_app_publish_button.png)
+* This will ensure you have the `shinyapps` package and take youto (http://shinyapps.io). Follow the directions from the website  to set up your account. See our setup directions if there are any hiccups during this process: [Deploy your app](shiny02_setup.html)
