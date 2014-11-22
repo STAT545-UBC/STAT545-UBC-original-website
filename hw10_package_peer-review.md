@@ -2,7 +2,7 @@
 title: "R package - Peer review instructions"
 output:
   html_document:
-  toc: true
+    toc: true
 ---
 
 If you barrel ahead and install your peer's `gameday` package for review, it will likely overwrite the installation of your own `gameday` package. Note: only your *installed* package is at risk. The *source* of your `gameday` package lives on safely on your computer and on GitHub. And you could re-install from either source.
