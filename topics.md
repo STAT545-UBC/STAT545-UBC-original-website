@@ -52,6 +52,9 @@
     - [System preparation for package development](packages01_system-prep.html)
     - [Hands-on activity, part 1](packages02_activity.html)
     - [Hands-on activity, part 2](packages02_activity_part2.html)
+  * [All the Shiny things](shiny00_index.html)
+    - *add sub-bullet points*
+  * Get data from the web
   
 ## Course-specific material
 
@@ -75,6 +78,10 @@
   * [Class meeting 106](cm106_pipelines.html) More automating Data-analysis Pipelines
   * [Class meeting 107](cm107_packages.html) Writing an R package
   * [Class meeting 108](cm108_packages.html) More writing an R package
+  * [Class meeting 109](cm109_shiny.html) Build a Shiny app
+  * [Class meeting 110](cm110_shiny.html) More build a Shiny app
+  * [Class meeting 111](cm111_data-from-web.html) Get data from the web
+  * Class meeting 112 More get data from the web
   * [General homework guidelines](hw00_homework-guidelines.html)
   * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
   * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
@@ -88,6 +95,8 @@
   * [Homework 08](hw08_data-cleaning.html) re: handling character data and data cleaning
   * [Homework 09](hw09_automation.html) Automating Data-analysis Pipelines
   * [Homework 10](hw10_package.html) Write an R package
+  * Homework 11 Build a Shiny app
+  * Homework 12 Get data from the web
 
 ## Short random things
 
@@ -126,7 +135,7 @@ New topics for STAT 545A and/or STAT 547M will be selected from here:
   * ~~The tabular data mentality, "tidy" data, data reshaping~~ *done*
   * ~~Regular expressions, programmatic transformation and searching of character data~~ *done*
   * ~~Writing R functions~~ *done*
-  * Creating interactive pages, apps, and graphics via [Shiny](http://shiny.rstudio.com) and (maybe) [`ggvis`](http://ggvis.rstudio.com)
+  * ~~Creating interactive pages, apps, and graphics via [Shiny](http://shiny.rstudio.com)~~ *done* and (maybe) [`ggvis`](http://ggvis.rstudio.com)
   * ~~Unit testing, at least as a mentality. Maybe will cover formal unit testing, e.g. `testthat`~~ *done*
   * Stats particularly useful in exploration (and often neglected in standard intro stats courses)
     - robust summary statistics
@@ -137,5 +146,5 @@ New topics for STAT 545A and/or STAT 547M will be selected from here:
   * Embrace the web:
     - getting data from the web, e.g. using an API or via scraping
     - exposing your hard work on the web (data, code, results)
-  * Distributing data and code to the world via an R package
+  * ~~Distributing data and code to the world via an R package~~ *done*
   * ~~Automating an analytical pipeline, e.g. via `Make`.~~ *done*
