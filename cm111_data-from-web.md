@@ -8,7 +8,7 @@ output:
 
 ### cm110 2014-11-124 Monday overview
 
-+ HW11 Build a Shiny app
++ HW12 Download and remix data from the web
     - *coming soon*
     - due date Monday, December 1 but you might want to submit earlier, because the final homework HW12 will be due Friday, December 5
     - builds on Gapminder Shiny app started in class
