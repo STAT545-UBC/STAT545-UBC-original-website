@@ -109,7 +109,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h2>Please just tell me what to do</h2>
 <p>Follow the tutorial up until the end.</p>
 <ul>
-<li>Replace the slider for the years instead with the widget <code>dateRangeInput</code>. Pay careful attention to the “format” and “startview” arguments.</li>
+<li>Replace the slider for the years instead with the widget <code>dateRangeInput</code>. Pay careful attention to the “format” and “startview” arguments. The <code>dateRangeInput</code> requires dates to be in yyyy-mm-dd format, so you will need to give this format to your arguments that involve the date in this function. The <code>dateRangeInput</code> widget returns not only years, but dates in the format “yyyy-mm-dd”. This is not ideal, but we just want the year, so one way to get at that is for the minimum date instead of having the <code>input$select_year[1]</code> in <code>server.R</code> to access the year, we can get at the year by using <code>as.numeric(format(input$name_of_your_dateRangeInput_id_in_uiR[1], &quot;%Y&quot;))</code>.</li>
 <li>Edit the <code>selectInput</code> for countries by adding in values for the arguments “selected” and “multiple”.<br /></li>
 <li>Either add facetting to your plot by country or add the use of colour to you plot to distinguish the 2 or more countries displayed. See <a href="cm005_still-data-ggplot2-rmarkdown.html">ggplot2 tutorial</a></li>
 <li>Commit the app to your Stat545/547 repo, push to Github. Also deploy the app to shinyapps.io using the “Publish” button in Rstudio (or see <a href="shiny02_activity.html#deployment">tutorial section on deployment</a>)</li>

@@ -24,7 +24,7 @@ Your Shiny app is due Monday 01 December 2014.
 
 Follow the tutorial up until the end. 
 
-* Replace the slider for the years instead with the widget `dateRangeInput`. Pay careful attention to the "format" and "startview" arguments. 
+* Replace the slider for the years instead with the widget `dateRangeInput`. Pay careful attention to the "format" and "startview" arguments. The `dateRangeInput` requires dates to be in yyyy-mm-dd format, so you will need to give this format to your arguments that involve the date in this function.  The `dateRangeInput` widget returns not only years, but dates in the format "yyyy-mm-dd". This is not ideal, but we just want the year, so one way to get at that is for the minimum date instead of having the `input$select_year[1]` in `server.R` to access the year, we can get at the year by using `as.numeric(format(input$name_of_your_dateRangeInput_id_in_uiR[1], "%Y"))`. 
 * Edit the `selectInput` for countries by adding in values for the arguments "selected" and "multiple".  
 * Either add facetting to your plot by country or add the use of colour to you plot to distinguish the 2 or more countries displayed. See [ggplot2 tutorial](cm005_still-data-ggplot2-rmarkdown.html)
 * Commit the app to your Stat545/547 repo, push to Github.  Also deploy the app to shinyapps.io using the "Publish" button in Rstudio (or see [tutorial section on deployment](shiny02_activity.html#deployment))
