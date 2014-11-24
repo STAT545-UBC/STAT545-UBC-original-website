@@ -15,5 +15,5 @@ output:
 
 ### Getting data off the web
   * led by Andrew MacDonald
-  * today's activity: learning some new R packages
+  * today's activity: [learning some new R packages](webdata02_activity.html), courtesy of [ROpenSci](http://ropensci.org/)
  
