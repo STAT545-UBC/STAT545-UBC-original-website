@@ -14,7 +14,7 @@ output:
     - peer review will require installing and running your *peer's* `gameday` package
   * HW11 Build a Shiny app
     - extend your Gapminder app
-    - *DRAFT* [HW11](hw11_build_shiny_app.html) *we'll tweet when it's official*
+    - *DRAFT* [HW11](hw11_build-shiny-app.html) *we'll tweet when it's official*
     - due date Monday, December 1 but you might want to submit earlier, because the final homework HW12 will be due Friday, December 5
     - peer review will require getting your peer's app from GitHub and running it locally 
 
