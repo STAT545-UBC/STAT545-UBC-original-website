@@ -1,0 +1,237 @@
+---
+title: "Stat 545 getting data from the Web"
+author: "Andrew MacDonald and Dr. Jenny Bryan"
+date: "2014-11-11"
+output: 
+    html_document:
+        toc: true
+        toc_depth: 4
+---
+
+```{r message=FALSE}
+library(dplyr)
+library(knitr)
+library(devtools)
+```
+
+# Introduction
+
+There are many ways to obtain data from the Internet; let's consider four categories:
+
+* *click-and-download* on the internet as a "flat" file, such as .csv, .xls
+* *install-and-play* published in a repository which has an API , which has been wrapped
+* *API-query* published with an unwrapped API
+* *Scraping* implicit in an html website
+
+# Click-and-Download
+We're not going to consider data that needs to be downloaded to your hard drive first, and which may require filling out a form etc. For example [World Value Survey]() or [gapminder]()
+
+# install-and-play
+
+Many web data sources provide a structured way of requesting and presenting data. A set of rules controls how computer programs ("clients") can make requests of the server, and how the server will respond. These rules are called **A**pplication **P**rogramming **I**nterfaces (API).
+
+Many common web services and APIs have been "wrapped", i.e. R functions have been written around them which send your query to the server and format the response.
+
+Why do we want this?
+
+* provenance
+* reproducible
+* updating
+* ease
+* scaling
+
+## Sightings of birds: `rebird`
+
+[Rebird](https://github.com/ropensci/rebird) is an R interface for the [ebird]() database. Ebird lets birders upload sightings of birds, and allows everyone access to those data.
+
+```{r eval=FALSE}
+install.packages("rebird")
+```
+```{r message=FALSE}
+library(rebird)
+```
+
+Find out *WHEN* a bird has been seen in a certain place!
+
+```{r eval=FALSE}
+ebirdgeo(species = 'spinus tristis', lat = 42, lng = -76)
+```
+
+rebird **knows where you are**:
+```{r eval=FALSE}
+ebirdgeo(species = 'Buteo lagopus')
+```
+
+Get a list for an area. (Note that South and West are negative):
+
+```{r results='asis'}
+vanbirds <- ebirdgeo(lat = 49.2500, lng = -123.1000)
+vanbirds %>%
+	head %>%
+	kable
+```
+
+Check the defaults on this function. e.g. radius of circle, time of year.
+
+Birds in a region:
+```{r eval=FALSE}
+ebirdregion("AI")
+```
+(note that the link in the help file leads to a dead link (as I write this on 24 Nov) but you can probably use the codes from geonames, below)
+
+
+## Searching geographic info: `geonames`
+```{r message=FALSE}
+#install.packages("rjson")
+#install_github("ropensci/geonames")
+
+library(geonames)
+```
+
+There are two things we need to do to be able to use this package to access the geonames API
+
+1. go to [the geonames site](www.geonames.org/login/) and register an account. 
+2. click [here](http://www.geonames.org/enablefreewebservice)
+3. Tell R your geonames username:
+
+```{r}
+options(geonamesUsername="aammd")
+```
+
+What can we do? get access to lots of geographical information via the various "web services" see [here](http://www.geonames.org/export/ws-overview.html)
+
+```{r}
+countryInfo <- GNcountryInfo()
+```
+
+```{r results='asis'}
+countryInfo %>%
+	head %>%
+	kable
+```
+
+This country info dataset is very helpful for accessing the rest of the data, because it gives us the standardized codes for country and language.  
+
+What are the cities of France?
+```{r results='asis'}
+countryInfo %>%
+	filter(countryName == "France") %>%
+	GNcities(north = .$north, east = .$east, south = .$south, west = .$west, maxRows = 500) %>%
+	ungroup %>%
+	head %>%
+	kable
+```
+
+How many birds have been seen in France?
+
+```{r results='asis'}
+francebirds <- countryInfo %>%
+	filter(countryName == "France") %>%
+	group_by(countryName) %>%
+	do(allbirds = ebirdregion(.$countryCode))  ## or perhaps fipsCode?
+
+francebirds %>%
+	summarize(nbirds = nrow(allbirds)) %>%
+	ungroup %>%
+	kable
+```
+
+
+Geonames also helps us search Wikipedia!
+```{r results='asis'}
+GNwikipediaSearch("London") %>%
+	select(-summary) %>%
+	head %>%
+	kable
+```
+
+
+We can use geonames to search for georeferenced Wikipedia articles! here are those within 20 Km of Rio de Janerio:
+```{r}
+rio_english <- GNfindNearbyWikipedia(lat = -22.9083, lng = -43.1964, radius = 20, lang = "en", maxRows = 500)
+rio_portuguese <- GNfindNearbyWikipedia(lat = -22.9083, lng = -43.1964, radius = 20, lang = "pt", maxRows = 500)
+
+nrow(rio_english)
+nrow(rio_portuguese)
+```
+
+
+## Searching the Public Library of Science: `rplos`
+PLOS ONE is an open-access journal. They allow access to an impressive range of search tools, and allow you to obtain the full text of their articles. 
+
+```{r eval=FALSE}
+install.packages("rplos")
+## Do this only once:
+```
+
+```{r}
+library(rplos)
+```
+Immediately we get a message. It's a link to the [tutorial on the Ropensci website!](http://ropensci.org/tutorials/rplos_tutorial.html). How nice :)
+
+* We also get instructions to create a PLOS account: https://register.plos.org/ambra-registration/register.action
+* Then go to Article Level Metrics http://alm.plos.org/
+* click on your name to find your key.
+
+```{r}
+Sys.setenv(PlosApiKey = "Paste your Key in here!!")
+key <-  Sys.getenv("PlosApiKey")
+```
+
+
+### alternate strategy for keeping keys: `.Rprofile`
+**Remember to protect your key! it is important for your privacy. You know, like a key**
+Now we follow the ROpenSci [tutorial on API keys](https://github.com/ropensci/rOpenSci/wiki/Installation-and-use-of-API-keys)
+Make a `.rprofile` file [windows tips](http://cran.r-project.org/bin/windows/rw-FAQ.html#What-are-HOME-and-working-directories_003f) [mac tips](http://cran.r-project.org/bin/macosx/RMacOSX-FAQ.html#The-R-Console)
+Write the following in it:
+
+```r
+options(PlosApiKey= "YOUR_KEY")
+```
+
+## Searching PLOS
+Let's do some searches:
+```{r eval=FALSE}
+searchplos(q= "Helianthus", fl= "id", limit = 5, key = key)
+```
+
+```{r eval=FALSE}
+searchplos("materials_and_methods:France", fl = "title, materials_and_methods", key = key)
+lat <- searchplos("materials_and_methods:study site", fl = "title, materials_and_methods", key = key)
+aff <- searchplos("*:*", fl = "title, author_affiliate", key = key)
+aff$author_affiliate[[2]]
+searchplos("*:*", fl = "id", key = key)
+```
+
+here is a list of [options for the search](http://api.plos.org/solr/search-fields/)
+or can do `data(plosfields); plosfields`
+
+### take a highbrow look!
+
+```{r eval=FALSE}
+out <- highplos(q='alcohol', hl.fl = 'abstract', rows=10, , key = key)
+highbrow(out)
+```
+
+## plots over time
+```{r}
+plot_throughtime(terms = "phylogeny", limit = 200, key = key)
+```
+
+
+## is it a boy or a girl? `gender` throughout US history
+
+```{r eval = FALSE}
+devtools::install_github("lmullen/gender-data-pkg")
+devtools::install_github("ropensci/gender")
+```
+
+The gender package allows you access to American data on the gender of names. Because names change gender over the years, the probability of a name belonging to a man or a woman also depends on the *year*:
+
+```{r}
+library(gender)
+gender("Kelsey")
+gender("Kelsey", years = 1940)
+```
+
+
