@@ -51,4 +51,4 @@ nov-12 wed   <a href="cm108_packages.html">cm108</a>: ditto
 nov-17 mon   <a href="cm109_shiny.html">cm109</a>: Build your first Shiny app                                     
 nov-19 wed   <a href="cm110_shiny.html">cm110</a>: ditto                                                          
 nov-24 mon   <a href="cm111_data-from-web.html">cm111</a>: Get data from the web                                  
-nov-26 wed   cm112: ditto                                                                                         
+nov-26 wed   <a href="cm112_data-from-web.html">cm112</a>: ditto                                                  
