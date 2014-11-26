@@ -147,7 +147,7 @@ We will use `testthat` to add tests to our package. It's syntax is designed to b
     * `expect_equal(x, y)`
     * `expect_equivalent(x, y)`
     * `expect_identical(x, y)`
-    * `expect_matches(x, y)` Match character vector `x` against regular expression `y`.
+    * `expect_match(x, y)` Match character vector `x` against regular expression `y`.
     * `expect_output(x, y)` Match output of running `x` against regular expression `y`.
     * `expect_message(x, y)`
     * `expect_warning(x, y)` Match warning against regular expression `y`.
