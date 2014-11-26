@@ -190,6 +190,19 @@ options(PlosApiKey= "YOUR_KEY")
 ```
 * restart R (e.g. reopen your Rstudio project)
 
+This code adds another element to the list of options, which you can see by calling `options()`. Part of the work done by `rplos::searchplos()` and friends is to go and obtain the value of this option with the function `getOption("PlosApiKey")`.  This indicates two things: 
+  1. Spelling is important when you set the option in your `.Rprofile`
+  2. you can do a similar process for an arbitrary package or key. For example:
+  
+```r 
+## in .Rprofile
+options("this_is_my_key" = XXXX)
+
+## later, in the R script:
+key <- getOption("this_is_my_key")
+```
+This is a simple means to keep your keys private, especially if you are sharing the same authentication across several projects.
+
 ### A few timely reminders about your .Rprofile
 
 ```r
