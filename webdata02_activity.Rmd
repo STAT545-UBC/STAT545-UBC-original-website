@@ -1,7 +1,7 @@
 ---
 title: "Stat 545 getting data from the Web"
 author: "Andrew MacDonald and Dr. Jenny Bryan"
-date: "2014-11-11"
+date: "2014-11-24"
 output: 
     html_document:
         toc: true
@@ -19,12 +19,12 @@ library(devtools)
 There are many ways to obtain data from the Internet; let's consider four categories:
 
 * *click-and-download* on the internet as a "flat" file, such as .csv, .xls
-* *install-and-play* published in a repository which has an API , which has been wrapped
+* *install-and-play* an API for which someone has written a handy R package
 * *API-query* published with an unwrapped API
 * *Scraping* implicit in an html website
 
 # Click-and-Download
-We're not going to consider data that needs to be downloaded to your hard drive first, and which may require filling out a form etc. For example [World Value Survey]() or [gapminder]()
+We're not going to consider data that needs to be downloaded to your hard drive first, and which may require filling out a form etc. For example [World Value Survey](http://www.worldvaluessurvey.org/wvs.jsp) or [gapminder](http://www.worldvaluessurvey.org/wvs.jsp)
 
 # install-and-play
 
@@ -42,42 +42,43 @@ Why do we want this?
 
 ## Sightings of birds: `rebird`
 
-[Rebird](https://github.com/ropensci/rebird) is an R interface for the [ebird]() database. Ebird lets birders upload sightings of birds, and allows everyone access to those data.
+[Rebird](https://github.com/ropensci/rebird) is an R interface for the [ebird](http://ebird.org/content/ebird/) database. Ebird lets birders upload sightings of birds, and allows everyone access to those data.
 
 ```{r eval=FALSE}
 install.packages("rebird")
 ```
+
 ```{r message=FALSE}
 library(rebird)
 ```
 
-Find out *WHEN* a bird has been seen in a certain place!
+### Search birds by geography
 
-```{r eval=FALSE}
-ebirdgeo(species = 'spinus tristis', lat = 42, lng = -76)
-```
-
-rebird **knows where you are**:
-```{r eval=FALSE}
-ebirdgeo(species = 'Buteo lagopus')
-```
-
-Get a list for an area. (Note that South and West are negative):
-
+We can use the function `ebirdgeo` to get a list for an area. (Note that South and West are negative):
 ```{r results='asis'}
 vanbirds <- ebirdgeo(lat = 49.2500, lng = -123.1000)
 vanbirds %>%
-	head %>%
+  head %>%
 	kable
 ```
+**Note**: Check the defaults on this function. e.g. radius of circle, time of year.
 
-Check the defaults on this function. e.g. radius of circle, time of year.
-
-Birds in a region:
+We can also search by "region", which refers to short codes which serve as common shorthands for different political units. For example, France is represented by the letters **FR**
 ```{r eval=FALSE}
-ebirdregion("AI")
+ebirdregion("FR")
 ```
 (note that the link in the help file leads to a dead link (as I write this on 24 Nov) but you can probably use the codes from geonames, below)
+
+Find out *WHEN* a bird has been seen in a certain place! Choosing a name from `vanbirds` above (the Bald Eagle):
+
+```{r eval=FALSE}
+ebirdgeo(species = 'Haliaeetus leucocephalus', lat = 42, lng = -76)
+```
+
+`rebird` **knows where you are**:
+```{r eval=FALSE}
+ebirdgeo(species = 'Buteo lagopus')
+```
 
 
 ## Searching geographic info: `geonames`
@@ -91,11 +92,11 @@ library(geonames)
 There are two things we need to do to be able to use this package to access the geonames API
 
 1. go to [the geonames site](www.geonames.org/login/) and register an account. 
-2. click [here](http://www.geonames.org/enablefreewebservice)
+2. click [here to enable the free web service](http://www.geonames.org/enablefreewebservice)
 3. Tell R your geonames username:
 
 ```{r}
-options(geonamesUsername="aammd")
+options(geonamesUsername="")
 ```
 
 What can we do? get access to lots of geographical information via the various "web services" see [here](http://www.geonames.org/export/ws-overview.html)
@@ -112,41 +113,39 @@ countryInfo %>%
 
 This country info dataset is very helpful for accessing the rest of the data, because it gives us the standardized codes for country and language.  
 
+### remixing `geonames` and `rebird`:
 What are the cities of France?
 ```{r results='asis'}
-countryInfo %>%
-	filter(countryName == "France") %>%
-	GNcities(north = .$north, east = .$east, south = .$south, west = .$west, maxRows = 500) %>%
-	ungroup %>%
-	head %>%
-	kable
+francedata <- countryInfo %>%
+	filter(countryName == "France")
+
+frenchcities <- with(francedata, GNcities(north = north, east = east, south = south, west = west, maxRows = 500)
+                     
 ```
 
-How many birds have been seen in France?
+How many birds have been seen in France? Use the `countryCode` from the geonames data to get bird data from rebird!
 
 ```{r results='asis'}
 francebirds <- countryInfo %>%
-	filter(countryName == "France") %>%
-	group_by(countryName) %>%
-	do(allbirds = ebirdregion(.$countryCode))  ## or perhaps fipsCode?
+	filter(countryName == "France")
 
-francebirds %>%
-	summarize(nbirds = nrow(allbirds)) %>%
-	ungroup %>%
-	kable
+
+allbirds <- ebirdregion(francebirds$countryCode)  ## or perhaps fipsCode?
+
+nrow(allbirds)
 ```
 
+### Wikipedia searching 
 
-Geonames also helps us search Wikipedia!
+Geonames also helps us search Wikipedia.
 ```{r results='asis'}
 GNwikipediaSearch("London") %>%
-	select(-summary) %>%
+  select(-summary) %>%
 	head %>%
 	kable
 ```
 
-
-We can use geonames to search for georeferenced Wikipedia articles! here are those within 20 Km of Rio de Janerio:
+We can use geonames to search for georeferenced Wikipedia articles. Here are those within 20 Km of Rio de Janerio, comparing results for English-language Wikipedia (`lang = "en"`) and Portuguese-language Wikipedia (`lang = "pt"`):
 ```{r}
 rio_english <- GNfindNearbyWikipedia(lat = -22.9083, lng = -43.1964, radius = 20, lang = "en", maxRows = 500)
 rio_portuguese <- GNfindNearbyWikipedia(lat = -22.9083, lng = -43.1964, radius = 20, lang = "pt", maxRows = 500)
@@ -169,7 +168,7 @@ library(rplos)
 ```
 Immediately we get a message. It's a link to the [tutorial on the Ropensci website!](http://ropensci.org/tutorials/rplos_tutorial.html). How nice :)
 
-* We also get instructions to create a PLOS account: https://register.plos.org/ambra-registration/register.action
+* We also get instructions to [create a PLOS account](https://register.plos.org/ambra-registration/register.action)
 * Then go to Article Level Metrics http://alm.plos.org/
 * click on your name to find your key.
 
@@ -181,18 +180,34 @@ key <-  Sys.getenv("PlosApiKey")
 
 ### alternate strategy for keeping keys: `.Rprofile`
 **Remember to protect your key! it is important for your privacy. You know, like a key**
-Now we follow the ROpenSci [tutorial on API keys](https://github.com/ropensci/rOpenSci/wiki/Installation-and-use-of-API-keys)
-Make a `.rprofile` file [windows tips](http://cran.r-project.org/bin/windows/rw-FAQ.html#What-are-HOME-and-working-directories_003f) [mac tips](http://cran.r-project.org/bin/macosx/RMacOSX-FAQ.html#The-R-Console)
-Write the following in it:
+* Now we follow the ROpenSci [tutorial on API keys](https://github.com/ropensci/rOpenSci/wiki/Installation-and-use-of-API-keys)
+* ___Add `.Rprofile` to your `.gitignore` !!___
+* Make a `.rprofile` file [windows tips](http://cran.r-project.org/bin/windows/rw-FAQ.html#What-are-HOME-and-working-directories_003f) [mac tips](http://cran.r-project.org/bin/macosx/RMacOSX-FAQ.html#The-R-Console)
+* Write the following in it:
 
 ```r
 options(PlosApiKey= "YOUR_KEY")
 ```
+* restart R (e.g. reopen your Rstudio project)
+
+### A few timely reminders about your .Rprofile
+
+```r
+print("This is Andrew's Rprofile and you can't have it!")
+options(PlosApiKey= "XXXXXXXXX")
+
+```
+
+* Note that it must end with a blank line!
+* It lives in the project's working directory, i.e. the location of your `.Rproj`
+* It must be gitignored
+
+Remember that using `.Rprofile` makes your code un-reproducible.  In this case, that is exactly what we want!  
 
 ## Searching PLOS
 Let's do some searches:
 ```{r eval=FALSE}
-searchplos(q= "Helianthus", fl= "id", limit = 5, key = key)
+searchplos(q= "Helianthus", fl= "id", limit = 5)
 ```
 
 ```{r eval=FALSE}
@@ -217,7 +232,6 @@ highbrow(out)
 ```{r}
 plot_throughtime(terms = "phylogeny", limit = 200, key = key)
 ```
-
 
 ## is it a boy or a girl? `gender` throughout US history
 
