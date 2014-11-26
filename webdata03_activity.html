@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Andrew MacDonald and Dr. Jenny Bryan" />
+
+<meta name="date" content="2014-11-26" />
+
+<title>Stat 545 getting data from the Web – part 2</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/united.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Stat 545 getting data from the Web – part 2</h1>
+<h4 class="author"><em>Andrew MacDonald and Dr. Jenny Bryan</em></h4>
+<h4 class="date"><em>2014-11-26</em></h4>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#interacting-with-an-api">Interacting with an API</a></li>
+<li><a href="#intro-to-json-and-xml">intro to JSON and XML</a><ul>
+<li><a href="#xpath-the-scandalously-shallow-introduction"><code>XPATH</code>, the scandalously shallow introduction:</a></li>
+</ul></li>
+<li><a href="#introducing-the-easy-way-httr">Introducing the Easy Way: <code>httr</code></a></li>
+<li><a href="#scraping">Scraping</a><ul>
+<li><a href="#obtain-a-table">Obtain a table</a></li>
+</ul></li>
+<li><a href="#scraping-text-startrek">scraping text: staRtrek</a><ul>
+<li><a href="#random-observations-on-scraping">Random observations on scraping</a></li>
+</ul></li>
+<li><a href="#extras">Extras</a></li>
+<li><a href="#airports">Airports</a></li>
+<li><a href="#extending-gameday">Extending <code>gameday</code></a></li>
+</ul>
+</div>
+
+<pre class="r"><code>library(&quot;knitr&quot;)</code></pre>
+<div id="interacting-with-an-api" class="section level2">
+<h2>Interacting with an API</h2>
+<p>On Monday we experimented with several packages that “wrapped” APIs. That is, they handled the creation of the request and the formatting of the output. Today we’re going to look at (part of) what these functions were doing.</p>
+<p>First we’re going to examine the structure of API requests via the <a href="http://www.omdbapi.com/">Open Movie Database</a>. OMDb is very similar to IMDB, except it has a nice, simple API. We can go to the website, input some search parameters, and obtain both the XML query and the response from it.</p>
+<p><strong>EXERCISE</strong> determine the shape of an API request:</p>
+<p>Let’s experiment with different values of the <code>title</code> and <code>year</code> fields. Notice the pattern in the request. For example for Title = Interstellar and Year = 2014, we get:</p>
+<pre class="http"><code>http://www.omdbapi.com/?t=Interstellar&amp;y=2014&amp;plot=short&amp;r=xml</code></pre>
+<p>Try pasting this link into the browser. Also experiment with <code>json</code> and <code>xml</code></p>
+<p>How can we create this request in R?</p>
+<pre class="r"><code>request &lt;- paste0(&quot;http://www.omdbapi.com/?t=&quot;, &quot;Interstellar&quot;, &quot;&amp;&quot;, &quot;y=&quot;, &quot;2014&quot;, &quot;&amp;&quot;, &quot;plot=&quot;, &quot;short&quot;, &quot;&amp;&quot;, &quot;r=&quot;, &quot;xml&quot;)
+request</code></pre>
+<pre><code>## [1] &quot;http://www.omdbapi.com/?t=Interstellar&amp;y=2014&amp;plot=short&amp;r=xml&quot;</code></pre>
+<p>It works, but it’s a bit ungainly. Lets try to abstract that into a function:</p>
+<pre class="r"><code>omdb &lt;- function(Title, Year, Plot, Format){
+  baseurl &lt;- &quot;http://www.omdbapi.com/?&quot;
+  params &lt;- c(&quot;t=&quot;, &quot;y=&quot;, &quot;plot=&quot;, &quot;r=&quot;)
+  values &lt;- c(Title, Year, Plot, Format)
+  param_values &lt;- Map(paste0, params, values)
+  args &lt;- paste0(param_values, collapse = &quot;&amp;&quot;)
+  paste0(baseurl, args)
+}
+
+omdb(&quot;Interstellar&quot;, &quot;2014&quot;, &quot;short&quot;, &quot;xml&quot;)</code></pre>
+<pre><code>## [1] &quot;http://www.omdbapi.com/?t=Interstellar&amp;y=2014&amp;plot=short&amp;r=xml&quot;</code></pre>
+<p>Now we have a handy function that returns the API query. We can paste in the link, but we can also obtain data from within R:</p>
+<pre class="r"><code>request_interstellar &lt;- omdb(&quot;Interstellar&quot;, &quot;2014&quot;, &quot;short&quot;, &quot;xml&quot;)
+answer_xml &lt;- RCurl::getURL(request_interstellar)
+answer_xml</code></pre>
+<pre><code>## [1] &quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;&lt;root response=\&quot;True\&quot;&gt;&lt;movie title=\&quot;Interstellar\&quot; year=\&quot;2014\&quot; rated=\&quot;PG-13\&quot; released=\&quot;07 Nov 2014\&quot; runtime=\&quot;169 min\&quot; genre=\&quot;Adventure, Sci-Fi\&quot; director=\&quot;Christopher Nolan\&quot; writer=\&quot;Jonathan Nolan, Christopher Nolan\&quot; actors=\&quot;Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow\&quot; plot=\&quot;A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor.\&quot; language=\&quot;English\&quot; country=\&quot;USA, UK\&quot; awards=\&quot;1 nomination.\&quot; poster=\&quot;http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg\&quot; metascore=\&quot;73\&quot; imdbRating=\&quot;9.1\&quot; imdbVotes=\&quot;114,391\&quot; imdbID=\&quot;tt0816692\&quot; type=\&quot;movie\&quot;/&gt;&lt;/root&gt;&quot;</code></pre>
+<pre class="r"><code>request_interstellar &lt;- omdb(&quot;Interstellar&quot;, &quot;2014&quot;, &quot;short&quot;, &quot;json&quot;)
+answer_json &lt;- RCurl::getURL(request_interstellar)
+answer_json</code></pre>
+<pre><code>## [1] &quot;{\&quot;Title\&quot;:\&quot;Interstellar\&quot;,\&quot;Year\&quot;:\&quot;2014\&quot;,\&quot;Rated\&quot;:\&quot;PG-13\&quot;,\&quot;Released\&quot;:\&quot;07 Nov 2014\&quot;,\&quot;Runtime\&quot;:\&quot;169 min\&quot;,\&quot;Genre\&quot;:\&quot;Adventure, Sci-Fi\&quot;,\&quot;Director\&quot;:\&quot;Christopher Nolan\&quot;,\&quot;Writer\&quot;:\&quot;Jonathan Nolan, Christopher Nolan\&quot;,\&quot;Actors\&quot;:\&quot;Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow\&quot;,\&quot;Plot\&quot;:\&quot;A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor.\&quot;,\&quot;Language\&quot;:\&quot;English\&quot;,\&quot;Country\&quot;:\&quot;USA, UK\&quot;,\&quot;Awards\&quot;:\&quot;1 nomination.\&quot;,\&quot;Poster\&quot;:\&quot;http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg\&quot;,\&quot;Metascore\&quot;:\&quot;73\&quot;,\&quot;imdbRating\&quot;:\&quot;9.1\&quot;,\&quot;imdbVotes\&quot;:\&quot;114,391\&quot;,\&quot;imdbID\&quot;:\&quot;tt0816692\&quot;,\&quot;Type\&quot;:\&quot;movie\&quot;,\&quot;Response\&quot;:\&quot;True\&quot;}&quot;</code></pre>
+<p>The get a form of data that is obviously structured. What is it?</p>
+</div>
+<div id="intro-to-json-and-xml" class="section level2">
+<h2>intro to JSON and XML</h2>
+<p>These are the two common languages of web services: <strong>J</strong>ava<strong>S</strong>cript <strong>O</strong>bject <strong>N</strong>otation and e<strong>X</strong>tensible <strong>M</strong>arkup <strong>L</strong>anguage.</p>
+<p>Here’s an example of JSON: from <a href="https://zapier.com/learn/apis/chapter-3-data-formats/">this wonderful site</a></p>
+<pre class="javascript"><code>{
+  &quot;crust&quot;: &quot;original&quot;,
+  &quot;toppings&quot;: [&quot;cheese&quot;, &quot;pepperoni&quot;, &quot;garlic&quot;],
+  &quot;status&quot;: &quot;cooking&quot;,
+  &quot;customer&quot;: {
+    &quot;name&quot;: &quot;Brian&quot;,
+    &quot;phone&quot;: &quot;573-111-1111&quot;
+  }
+}</code></pre>
+<p>And here is XML:</p>
+<pre class="xml"><code>&lt;order&gt;
+    &lt;crust&gt;original&lt;/crust&gt;
+    &lt;toppings&gt;
+        &lt;topping&gt;cheese&lt;/topping&gt;
+        &lt;topping&gt;pepperoni&lt;/topping&gt;
+        &lt;topping&gt;garlic&lt;/topping&gt;
+    &lt;/toppings&gt;
+    &lt;status&gt;cooking&lt;/status&gt;
+&lt;/order&gt;</code></pre>
+<p>You can see that both of these data structures are quite easy to read. They are “self-describing”. In other words, they tell you how they are meant to be read.</p>
+<p>There are easy means of taking these data types and creating R objects. You’ve already met the function <code>fromJSON</code> in the <code>jsonlite</code> package, thanks to Bernard:</p>
+<pre class="r"><code>library(&quot;jsonlite&quot;)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;jsonlite&#39;
+## 
+## The following object is masked from &#39;package:utils&#39;:
+## 
+##     View</code></pre>
+<pre class="r"><code>fromJSON(answer_json)</code></pre>
+<pre><code>## $Title
+## [1] &quot;Interstellar&quot;
+## 
+## $Year
+## [1] &quot;2014&quot;
+## 
+## $Rated
+## [1] &quot;PG-13&quot;
+## 
+## $Released
+## [1] &quot;07 Nov 2014&quot;
+## 
+## $Runtime
+## [1] &quot;169 min&quot;
+## 
+## $Genre
+## [1] &quot;Adventure, Sci-Fi&quot;
+## 
+## $Director
+## [1] &quot;Christopher Nolan&quot;
+## 
+## $Writer
+## [1] &quot;Jonathan Nolan, Christopher Nolan&quot;
+## 
+## $Actors
+## [1] &quot;Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow&quot;
+## 
+## $Plot
+## [1] &quot;A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor.&quot;
+## 
+## $Language
+## [1] &quot;English&quot;
+## 
+## $Country
+## [1] &quot;USA, UK&quot;
+## 
+## $Awards
+## [1] &quot;1 nomination.&quot;
+## 
+## $Poster
+## [1] &quot;http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg&quot;
+## 
+## $Metascore
+## [1] &quot;73&quot;
+## 
+## $imdbRating
+## [1] &quot;9.1&quot;
+## 
+## $imdbVotes
+## [1] &quot;114,391&quot;
+## 
+## $imdbID
+## [1] &quot;tt0816692&quot;
+## 
+## $Type
+## [1] &quot;movie&quot;
+## 
+## $Response
+## [1] &quot;True&quot;</code></pre>
+<p>The output is a named list! A familiar and friendly R structure. Because data frames are lists, and because this list has no nested lists-within-lists, we can coerce it very simply:</p>
+<pre class="r"><code>answer_list &lt;- fromJSON(answer_json)
+kable(data.frame(answer_list))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Title</th>
+<th align="left">Year</th>
+<th align="left">Rated</th>
+<th align="left">Released</th>
+<th align="left">Runtime</th>
+<th align="left">Genre</th>
+<th align="left">Director</th>
+<th align="left">Writer</th>
+<th align="left">Actors</th>
+<th align="left">Plot</th>
+<th align="left">Language</th>
+<th align="left">Country</th>
+<th align="left">Awards</th>
+<th align="left">Poster</th>
+<th align="left">Metascore</th>
+<th align="left">imdbRating</th>
+<th align="left">imdbVotes</th>
+<th align="left">imdbID</th>
+<th align="left">Type</th>
+<th align="left">Response</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Interstellar</td>
+<td align="left">2014</td>
+<td align="left">PG-13</td>
+<td align="left">07 Nov 2014</td>
+<td align="left">169 min</td>
+<td align="left">Adventure, Sci-Fi</td>
+<td align="left">Christopher Nolan</td>
+<td align="left">Jonathan Nolan, Christopher Nolan</td>
+<td align="left">Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow</td>
+<td align="left">A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor.</td>
+<td align="left">English</td>
+<td align="left">USA, UK</td>
+<td align="left">1 nomination.</td>
+<td align="left"><a href="http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE" class="uri">http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE</a>@._V1_SX300.jpg |73 |9.1 |114,391 |tt0816692 |movie |True |</td>
+</tr>
+</tbody>
+</table>
+<p>A similar process exists for XML formats:</p>
+<pre class="r"><code>library(XML)
+ans_xml_parsed &lt;- xmlParse(answer_xml)
+ans_xml_parsed</code></pre>
+<pre><code>## &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+## &lt;root response=&quot;True&quot;&gt;
+##   &lt;movie title=&quot;Interstellar&quot; year=&quot;2014&quot; rated=&quot;PG-13&quot; released=&quot;07 Nov 2014&quot; runtime=&quot;169 min&quot; genre=&quot;Adventure, Sci-Fi&quot; director=&quot;Christopher Nolan&quot; writer=&quot;Jonathan Nolan, Christopher Nolan&quot; actors=&quot;Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow&quot; plot=&quot;A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor.&quot; language=&quot;English&quot; country=&quot;USA, UK&quot; awards=&quot;1 nomination.&quot; poster=&quot;http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg&quot; metascore=&quot;73&quot; imdbRating=&quot;9.1&quot; imdbVotes=&quot;114,391&quot; imdbID=&quot;tt0816692&quot; type=&quot;movie&quot;/&gt;
+## &lt;/root&gt;
+## </code></pre>
+<p>Not exactly the response we were hoping for! This shows us some of the XML document’s structure:</p>
+<ul>
+<li>a <code>&lt;root&gt;</code> node with a single child, <code>&lt;movie&gt;</code>.</li>
+<li>the information we want is all stored as attributes</li>
+</ul>
+<p>From Nolan and Lang 2014:</p>
+<blockquote>
+<p>The <code>xmlRoot()</code> function returns an object of class <code>XMLInternalElementNode</code>. This is a regular XML node and not specific to the root node, i.e., all XML nodes will appear in R with this class or a more specific class. An object of class XMLInternalElementNode has four fields: name, attributes, children and value, which we access with the methods xmlName(), xmlAttrs(), xmlChildren(), and xmlValue()</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th align="center">field</th>
+<th align="center">method</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">name</td>
+<td align="center"><code>xmlName()</code></td>
+</tr>
+<tr class="even">
+<td align="center">attributes</td>
+<td align="center"><code>xmlAttrs()</code></td>
+</tr>
+<tr class="odd">
+<td align="center">children</td>
+<td align="center"><code>xmlChildren()</code></td>
+</tr>
+<tr class="even">
+<td align="center">value</td>
+<td align="center"><code>xmlValue()</code></td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>ans_xml_parsed_root &lt;- xmlRoot(ans_xml_parsed)[[&quot;movie&quot;]]  # could also use [[1]]
+ans_xml_parsed_root</code></pre>
+<pre><code>## &lt;movie title=&quot;Interstellar&quot; year=&quot;2014&quot; rated=&quot;PG-13&quot; released=&quot;07 Nov 2014&quot; runtime=&quot;169 min&quot; genre=&quot;Adventure, Sci-Fi&quot; director=&quot;Christopher Nolan&quot; writer=&quot;Jonathan Nolan, Christopher Nolan&quot; actors=&quot;Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow&quot; plot=&quot;A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor.&quot; language=&quot;English&quot; country=&quot;USA, UK&quot; awards=&quot;1 nomination.&quot; poster=&quot;http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg&quot; metascore=&quot;73&quot; imdbRating=&quot;9.1&quot; imdbVotes=&quot;114,391&quot; imdbID=&quot;tt0816692&quot; type=&quot;movie&quot;/&gt;</code></pre>
+<pre class="r"><code>ans_xml_attrs &lt;- xmlAttrs(ans_xml_parsed_root)
+ans_xml_attrs</code></pre>
+<pre><code>##                                                                                                                                         title 
+##                                                                                                                                &quot;Interstellar&quot; 
+##                                                                                                                                          year 
+##                                                                                                                                        &quot;2014&quot; 
+##                                                                                                                                         rated 
+##                                                                                                                                       &quot;PG-13&quot; 
+##                                                                                                                                      released 
+##                                                                                                                                 &quot;07 Nov 2014&quot; 
+##                                                                                                                                       runtime 
+##                                                                                                                                     &quot;169 min&quot; 
+##                                                                                                                                         genre 
+##                                                                                                                           &quot;Adventure, Sci-Fi&quot; 
+##                                                                                                                                      director 
+##                                                                                                                           &quot;Christopher Nolan&quot; 
+##                                                                                                                                        writer 
+##                                                                                                           &quot;Jonathan Nolan, Christopher Nolan&quot; 
+##                                                                                                                                        actors 
+##                                                                             &quot;Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow&quot; 
+##                                                                                                                                          plot 
+## &quot;A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor.&quot; 
+##                                                                                                                                      language 
+##                                                                                                                                     &quot;English&quot; 
+##                                                                                                                                       country 
+##                                                                                                                                     &quot;USA, UK&quot; 
+##                                                                                                                                        awards 
+##                                                                                                                               &quot;1 nomination.&quot; 
+##                                                                                                                                        poster 
+##                                            &quot;http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg&quot; 
+##                                                                                                                                     metascore 
+##                                                                                                                                          &quot;73&quot; 
+##                                                                                                                                    imdbRating 
+##                                                                                                                                         &quot;9.1&quot; 
+##                                                                                                                                     imdbVotes 
+##                                                                                                                                     &quot;114,391&quot; 
+##                                                                                                                                        imdbID 
+##                                                                                                                                   &quot;tt0816692&quot; 
+##                                                                                                                                          type 
+##                                                                                                                                       &quot;movie&quot;</code></pre>
+<pre class="r"><code>kable(data.frame(t(ans_xml_attrs)))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">title</th>
+<th align="left">year</th>
+<th align="left">rated</th>
+<th align="left">released</th>
+<th align="left">runtime</th>
+<th align="left">genre</th>
+<th align="left">director</th>
+<th align="left">writer</th>
+<th align="left">actors</th>
+<th align="left">plot</th>
+<th align="left">language</th>
+<th align="left">country</th>
+<th align="left">awards</th>
+<th align="left">poster</th>
+<th align="left">metascore</th>
+<th align="left">imdbRating</th>
+<th align="left">imdbVotes</th>
+<th align="left">imdbID</th>
+<th align="left">type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Interstellar</td>
+<td align="left">2014</td>
+<td align="left">PG-13</td>
+<td align="left">07 Nov 2014</td>
+<td align="left">169 min</td>
+<td align="left">Adventure, Sci-Fi</td>
+<td align="left">Christopher Nolan</td>
+<td align="left">Jonathan Nolan, Christopher Nolan</td>
+<td align="left">Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow</td>
+<td align="left">A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor.</td>
+<td align="left">English</td>
+<td align="left">USA, UK</td>
+<td align="left">1 nomination.</td>
+<td align="left"><a href="http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE" class="uri">http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE</a>@._V1_SX300.jpg |73 |9.1 |114,391 |tt0816692 |movie |</td>
+</tr>
+</tbody>
+</table>
+<div id="xpath-the-scandalously-shallow-introduction" class="section level3">
+<h3><code>XPATH</code>, the scandalously shallow introduction:</h3>
+<p>There is a special syntax for querying the structure of XML documents, called XPATH, which is an essential skill if you are doing extensive work with XML documents.</p>
+<pre class="r"><code>movienode &lt;- getNodeSet(ans_xml_parsed, &quot;//movie&quot;)
+movienode</code></pre>
+<pre><code>## [[1]]
+## &lt;movie title=&quot;Interstellar&quot; year=&quot;2014&quot; rated=&quot;PG-13&quot; released=&quot;07 Nov 2014&quot; runtime=&quot;169 min&quot; genre=&quot;Adventure, Sci-Fi&quot; director=&quot;Christopher Nolan&quot; writer=&quot;Jonathan Nolan, Christopher Nolan&quot; actors=&quot;Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow&quot; plot=&quot;A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor.&quot; language=&quot;English&quot; country=&quot;USA, UK&quot; awards=&quot;1 nomination.&quot; poster=&quot;http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg&quot; metascore=&quot;73&quot; imdbRating=&quot;9.1&quot; imdbVotes=&quot;114,391&quot; imdbID=&quot;tt0816692&quot; type=&quot;movie&quot;/&gt; 
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;XMLNodeSet&quot;</code></pre>
+</div>
+</div>
+<div id="introducing-the-easy-way-httr" class="section level2">
+<h2>Introducing the Easy Way: <code>httr</code></h2>
+<p><code>httr</code> is yet another star in the hadleyverse, this one designed to facilitate all things HTTP from within R. This includes the major HTTP verbs, which are: * <strong>GET</strong>: fetch an existing resource. The URL contains all the necessary information the server needs to locate and return the resource. * <strong>POST</strong>: create a new resource. POST requests usually carry a payload that specifies the data for the new resource. * <strong>PUT</strong>: update an existing resource. The payload may contain the updated data for the resource. * <strong>DELETE</strong>: delete an existing resource. <a href="http://www.jmarshall.com/easy/http/">Source: HTTP made really easy</a></p>
+<p>HTTP is the foundation for APIs; understanding how it works is the key to interacting with all the diverse APIs out there. An excellent beginning resource for APIs (including HTTP basics) is <a href="https://zapier.com/learn/apis/">this simple guide</a></p>
+<p><code>httr</code> also facilitates a variety of <strong><em>authentication</em></strong> protocols.</p>
+<pre class="r"><code>#devtools::install_github(&quot;hadley/httr&quot;, build_vignettes = TRUE, dependencies = TRUE)
+install.packages(&quot;httr&quot;)</code></pre>
+<p><code>httr</code> contains one function for every HTTP verb. The functions have the same names as the verbs (e.g. <code>GET()</code>, <code>POST()</code>). They have more informative outputs than simply using <code>RCurl::getURL()</code>, and come with some nice convenience functions for working with the output:</p>
+<pre class="r"><code>library(httr)
+
+interstellar_json &lt;- omdb(&quot;Interstellar&quot;, &quot;2014&quot;, &quot;short&quot;, &quot;json&quot;)
+response_json &lt;- GET(interstellar_json)
+content(response_json, as = &quot;parsed&quot;, type = &quot;application/json&quot;)</code></pre>
+<pre><code>## $Title
+## [1] &quot;Interstellar&quot;
+## 
+## $Year
+## [1] &quot;2014&quot;
+## 
+## $Rated
+## [1] &quot;PG-13&quot;
+## 
+## $Released
+## [1] &quot;07 Nov 2014&quot;
+## 
+## $Runtime
+## [1] &quot;169 min&quot;
+## 
+## $Genre
+## [1] &quot;Adventure, Sci-Fi&quot;
+## 
+## $Director
+## [1] &quot;Christopher Nolan&quot;
+## 
+## $Writer
+## [1] &quot;Jonathan Nolan, Christopher Nolan&quot;
+## 
+## $Actors
+## [1] &quot;Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow&quot;
+## 
+## $Plot
+## [1] &quot;A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor.&quot;
+## 
+## $Language
+## [1] &quot;English&quot;
+## 
+## $Country
+## [1] &quot;USA, UK&quot;
+## 
+## $Awards
+## [1] &quot;1 nomination.&quot;
+## 
+## $Poster
+## [1] &quot;http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg&quot;
+## 
+## $Metascore
+## [1] &quot;73&quot;
+## 
+## $imdbRating
+## [1] &quot;9.1&quot;
+## 
+## $imdbVotes
+## [1] &quot;114,391&quot;
+## 
+## $imdbID
+## [1] &quot;tt0816692&quot;
+## 
+## $Type
+## [1] &quot;movie&quot;
+## 
+## $Response
+## [1] &quot;True&quot;</code></pre>
+<pre class="r"><code>interstellar_xml &lt;- omdb(&quot;Interstellar&quot;, &quot;2014&quot;, &quot;short&quot;, &quot;xml&quot;)
+response_xml &lt;- GET(interstellar_xml)
+content(response_xml, as = &quot;parsed&quot;)</code></pre>
+<pre><code>## &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+## &lt;root response=&quot;True&quot;&gt;
+##   &lt;movie title=&quot;Interstellar&quot; year=&quot;2014&quot; rated=&quot;PG-13&quot; released=&quot;07 Nov 2014&quot; runtime=&quot;169 min&quot; genre=&quot;Adventure, Sci-Fi&quot; director=&quot;Christopher Nolan&quot; writer=&quot;Jonathan Nolan, Christopher Nolan&quot; actors=&quot;Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow&quot; plot=&quot;A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor.&quot; language=&quot;English&quot; country=&quot;USA, UK&quot; awards=&quot;1 nomination.&quot; poster=&quot;http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg&quot; metascore=&quot;73&quot; imdbRating=&quot;9.1&quot; imdbVotes=&quot;114,391&quot; imdbID=&quot;tt0816692&quot; type=&quot;movie&quot;/&gt;
+## &lt;/root&gt;
+## </code></pre>
+<p>In addition, <code>httr</code> gives us access to lots of useful information about the quality of our response. For example, the header:</p>
+<pre class="r"><code>headers(response_xml)</code></pre>
+<pre><code>## $`cache-control`
+## [1] &quot;private, max-age=909&quot;
+## 
+## $`content-type`
+## [1] &quot;text/xml; charset=utf-8&quot;
+## 
+## $expires
+## [1] &quot;Wed, 26 Nov 2014 17:26:14 GMT&quot;
+## 
+## $`last-modified`
+## [1] &quot;Wed, 26 Nov 2014 16:26:14 GMT&quot;
+## 
+## $vary
+## [1] &quot;*&quot;
+## 
+## $server
+## [1] &quot;Microsoft-IIS/7.5&quot;
+## 
+## $`x-aspnet-version`
+## [1] &quot;4.0.30319&quot;
+## 
+## $`x-powered-by`
+## [1] &quot;ASP.NET&quot;
+## 
+## $`access-control-allow-origin`
+## [1] &quot;*&quot;
+## 
+## $date
+## [1] &quot;Wed, 26 Nov 2014 17:11:04 GMT&quot;
+## 
+## $`content-length`
+## [1] &quot;731&quot;
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;insensitive&quot; &quot;list&quot;</code></pre>
+<p>And also a handy means to extract specifically the HTTP status code:</p>
+<pre class="r"><code>status_code(response_xml)</code></pre>
+<pre><code>## [1] 200</code></pre>
+<p>It is very good to <a href="https://www.flickr.com/photos/girliemac/sets/72157628409467125">learn your http status codes</a>.<br />The documentation for <code>httr</code> includes a vignette of “best practices for writing an API package”, which is useful for when you want to bring your favourite web resource into the world of R!</p>
+</div>
+<div id="scraping" class="section level2">
+<h2>Scraping</h2>
+<p>What if data is present on a website, but isn’t provided in an API at all? It is possible to grab that information too. How easy that is to do depends a lot on the quality of the website that we are using.</p>
+<p>HTML is a structured way of displaying information. It is very similar in structure to XML (in fact many modern html sites are actually XHTML5, <a href="http://www.w3.org/TR/html5/the-xhtml-syntax.html">which is also valid XML</a>)</p>
+<p>Two pieces of equipment</p>
+<ul>
+<li><code>rvest</code>: <code>devtools::install_github(&quot;hadley/rvest&quot;)</code></li>
+<li>SelectorGadget: <a href="http://selectorgadget.com/">Install in your browser</a></li>
+</ul>
+<p>Before we go any further, <a href="http://flukeout.github.io">let’s play a game together!</a></p>
+<pre class="r"><code>library(rvest)</code></pre>
+<div id="obtain-a-table" class="section level3">
+<h3>Obtain a table</h3>
+<p>Let’s make a simple HTML table and then parse it!</p>
+<ul>
+<li>make a new, empty project</li>
+<li>make a totally empty .Rmd file</li>
+<li>copy this into the body: ```r — output: html_document —</li>
+</ul>
+<p><code>r echo=FALSE, results='asis'  library(gapminder) knitr::kable(head(gapminder))</code> ``` (uncommenting the code chunk)</p>
+<ul>
+<li>knit the document</li>
+<li>click “View in Browser”</li>
+<li>paste the url into the code below:</li>
+</ul>
+<pre class="r"><code>html(&quot;file:///home/andrew/Documents/projects/GapminderHead/GapminderHead.html&quot;) %&gt;%
+  html_table</code></pre>
+<pre><code>## [[1]]
+##       country continent year lifeExp      pop gdpPercap
+## 1 Afghanistan      Asia 1952   28.80  8425333     779.4
+## 2 Afghanistan      Asia 1957   30.33  9240934     820.9
+## 3 Afghanistan      Asia 1962   32.00 10267083     853.1
+## 4 Afghanistan      Asia 1967   34.02 11537966     836.2
+## 5 Afghanistan      Asia 1972   36.09 13079460     740.0
+## 6 Afghanistan      Asia 1977   38.44 14880372     786.1</code></pre>
+<p>(note that this is also possible with <code>XML</code> package)</p>
+</div>
+</div>
+<div id="scraping-text-startrek" class="section level2">
+<h2>scraping text: staRtrek</h2>
+<p>getting Star Trek species data from <a href="http://en.memory-alpha.org/">MemoryAlpha</a></p>
+<pre class="r"><code>library(&quot;magrittr&quot;)
+library(&quot;dplyr&quot;)
+library(&quot;tidyr&quot;)
+
+character_data &lt;- function(chname){
+  paste0(&quot;http://en.memory-alpha.org/wiki/&quot;, chname) %&gt;%
+    html %&gt;%
+    html_nodes(&quot;.wiki-sidebar&quot;) %&gt;%
+    html_table(header = FALSE) %&gt;%
+    extract2(1) %&gt;%
+    set_colnames(c(&quot;trait&quot;, &quot;value&quot;)) %&gt;%
+    mutate(trait = gsub(&quot;:&quot;, &quot;&quot;, trait)) %&gt;%
+    filter(trait %in% c(&quot;Gender&quot;,&quot;Species&quot;,&quot;Affiliation&quot;,&quot;Rank&quot;)) %&gt;%
+    mutate(name = chname) %&gt;%
+    spread(trait, value)
+}
+
+character_data(&quot;Worf&quot;)</code></pre>
+<pre><code>##   name                         Affiliation Gender                 Rank
+## 1 Worf Federation StarfleetHouse of Martok   Male Lieutenant Commander
+##   Species
+## 1 Klingon</code></pre>
+<div id="random-observations-on-scraping" class="section level3">
+<h3>Random observations on scraping</h3>
+<ul>
+<li>make sure you’ve obtained ONLY what you want! scroll over the whole page to ensure that selectorgadget hasn’t found too many things</li>
+<li>if you are having trouble parsing, try selecting a smaller subset of the thing you are seeking (ie being more precise)</li>
+</ul>
+<p><strong>MOST IMPORTANT</strong> confirm that there is NO RopenSci package and NO API before you <a href="https://rpubs.com/aammd/kivascrape">spend hours scraping</a> (the <a href="http://build.kiva.org/">API was right here</a>)</p>
+</div>
+</div>
+<div id="extras" class="section level2">
+<h2>Extras</h2>
+</div>
+<div id="airports" class="section level2">
+<h2>Airports</h2>
+<p>First go to this website about <a href="https://www.developer.aero/Airport-API">Airports</a>. Follow the link to get your API key (you will need to click a confirmation email)</p>
+<p>All the airports of the planet:</p>
+<pre class="url"><code>https://airport.api.aero/airport/?user_key={yourkey}</code></pre>
+<pre><code>https://airport.api.aero/airport/match/toronto?user_key={yourkey}</code></pre>
+<pre><code>https://airport.api.aero/airport/distance/YVR/LAX?user_key={yourkey}</code></pre>
+<p>Do you need just the US airports? this API does that <a href="http://services.faa.gov/docs/services/airport/">and is free</a></p>
+<p>And even simpler API queries very simple data about the airports of the world:</p>
+<pre class="r"><code>fromJSON(file = &quot;http://airportcode.riobard.com/search?q=Toronto&amp;fmt=JSON&quot;)</code></pre>
+<pre class="r"><code>fromJSON(file = &quot;http://airportcode.riobard.com/airport/YVR?fmt=json&quot;)</code></pre>
+<p>perfectly possible to combine these into a handy <code>data.frame</code>. One way might be:</p>
+<pre class="r"><code>library(jsonlite)
+
+tdot_data &lt;- fromJSON(&quot;http://airportcode.riobard.com/search?q=Toronto&amp;fmt=JSON&quot;)</code></pre>
+</div>
+<div id="extending-gameday" class="section level2">
+<h2>Extending <code>gameday</code></h2>
+<p>Does anybody remember this lovely function?</p>
+<pre class="r"><code>gday &lt;- function(team=&quot;canucks&quot;) {
+  url &lt;- paste0(&quot;http://live.nhle.com/GameData/GCScoreboard/&quot;, Sys.Date(), &quot;.jsonp&quot;)
+  grepl(team, RCurl::getURL(url), ignore.case=TRUE)
+}</code></pre>
+<p>Here is the <code>httr</code> version:</p>
+<pre class="r"><code>library(httr)
+req &lt;- GET(&quot;http://live.nhle.com/GameData/GCScoreboard/2014-11-24.jsonp&quot;)
+jsonp &lt;- content(req, &quot;text&quot;)
+json &lt;- gsub(&#39;([a-zA-Z_0-9\\.]*\\()|(\\);?$)&#39;, &quot;&quot;, jsonp, perl = TRUE)
+data &lt;- fromJSON(json)
+
+data$games %&gt;%
+  kable</code></pre>
+<pre><code>## 
+## 
+## |atcommon |canationalbroadcasts |ata |rl   | atsog|bs       |htcommon  |        id|atn          | hts|atc    |htn          |usnationalbroadcasts |gcl  |hta | ats|htc    | htsog|bsc   | gs|gcll |
+## |:--------|:--------------------|:---|:----|-----:|:--------|:---------|---------:|:------------|---:|:------|:------------|:--------------------|:----|:---|---:|:------|-----:|:-----|--:|:----|
+## |PENGUINS |TVA, SN              |PIT |TRUE |    33|FINAL OT |BRUINS    | 2.014e+09|PITTSBURGH   |   2|winner |BOSTON       |NBCSN                |TRUE |BOS |   3|       |    29|final |  5|TRUE |
+## |FLYERS   |                     |PHI |TRUE |    21|FINAL SO |ISLANDERS | 2.014e+09|PHILADELPHIA |   1|       |NY ISLANDERS |                     |TRUE |NYI |   0|winner |    46|final |  5|TRUE |
+## |SENATORS |                     |OTT |TRUE |    26|FINAL    |RED WINGS | 2.014e+09|OTTAWA       |   4|       |DETROIT      |                     |TRUE |DET |   3|winner |    43|final |  5|TRUE |
+## |WILD     |                     |MIN |TRUE |    39|FINAL    |PANTHERS  | 2.014e+09|MINNESOTA    |   1|winner |FLORIDA      |                     |TRUE |FLA |   4|       |    30|final |  5|TRUE |</code></pre>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
