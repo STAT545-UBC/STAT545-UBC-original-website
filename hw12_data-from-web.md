@@ -1,10 +1,11 @@
-# Shiny - Homework
+# Data from the Web - Homework
 Andrew MacDonald and Jenny Bryan  
 `r Sys.Date()`  
 
 ## Big picture
 
 We learned three ways of collecting data from the internet:
+
   * Accessing data using ROpenSci packages
   * Running (basic) API queries
   * Web scraping
@@ -16,6 +17,7 @@ For the homework, we want you to either combine two existing datasets in a novel
 ### Combine `gapminder` and data from `geonames`
 
 Use data from both to make plots which answer either:
+
   * What is the relationship between per-capita GDP and the proportion of the population which lives in urban centers?
   * Consider the following graph (a modification of Jenny's [gapminder demo](https://github.com/jennybc/gapminder)):
     
@@ -51,7 +53,7 @@ Replace population with *density*. To do this, look up the country codes in `geo
 
 ## I am a leaf on the wind. See how I SOAR
 
-* Find an interesting website which is a) not on Ropensci __nor__ b) has a published API. Scrape it into a lovely dataset for us, and publish this as a data package a la Gapminder 
+* Find an interesting website which is a) __not__ on Ropensci __nor__ b) has a published API. Scrape it into a lovely dataset for us, and publish this as a data package a la Gapminder 
 
 ### Due date
 

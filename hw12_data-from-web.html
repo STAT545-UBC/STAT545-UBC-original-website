@@ -12,7 +12,7 @@
 
 <meta name="date" content="2014-11-26" />
 
-<title>Shiny - Homework</title>
+<title>Data from the Web - Homework</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -71,7 +71,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </header>
 
 <div id="header">
-<h1 class="title">Shiny - Homework</h1>
+<h1 class="title">Data from the Web - Homework</h1>
 <h4 class="author"><em>Andrew MacDonald and Jenny Bryan</em></h4>
 <h4 class="date"><em>2014-11-26</em></h4>
 </div>
@@ -95,14 +95,23 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="big-picture" class="section level2">
 <h2>Big picture</h2>
-<p>We learned three ways of collecting data from the internet: * Accessing data using ROpenSci packages * Running (basic) API queries * Web scraping</p>
+<p>We learned three ways of collecting data from the internet:</p>
+<ul>
+<li>Accessing data using ROpenSci packages</li>
+<li>Running (basic) API queries</li>
+<li>Web scraping</li>
+</ul>
 <p>For the homework, we want you to either combine two existing datasets in a novel (and reproducible!) way, or create a new dataset by web scraping.</p>
 </div>
 <div id="please-just-tell-me-what-to-do" class="section level2">
 <h2>Please just tell me what to do!</h2>
 <div id="combine-gapminder-and-data-from-geonames" class="section level3">
 <h3>Combine <code>gapminder</code> and data from <code>geonames</code></h3>
-<p>Use data from both to make plots which answer either: * What is the relationship between per-capita GDP and the proportion of the population which lives in urban centers? * Consider the following graph (a modification of Jenny’s <a href="https://github.com/jennybc/gapminder">gapminder demo</a>):</p>
+<p>Use data from both to make plots which answer either:</p>
+<ul>
+<li>What is the relationship between per-capita GDP and the proportion of the population which lives in urban centers?</li>
+<li>Consider the following graph (a modification of Jenny’s <a href="https://github.com/jennybc/gapminder">gapminder demo</a>):</li>
+</ul>
 <pre class="r"><code>library(&quot;ggplot2&quot;)
 library(&quot;gapminder&quot;)
 
@@ -138,7 +147,7 @@ ggplot(subset(gapminder, continent != &quot;Oceania&quot;),
 <div id="i-am-a-leaf-on-the-wind.-see-how-i-soar" class="section level2">
 <h2>I am a leaf on the wind. See how I SOAR</h2>
 <ul>
-<li>Find an interesting website which is a) not on Ropensci <strong>nor</strong> b) has a published API. Scrape it into a lovely dataset for us, and publish this as a data package a la Gapminder</li>
+<li>Find an interesting website which is a) <strong>not</strong> on Ropensci <strong>nor</strong> b) has a published API. Scrape it into a lovely dataset for us, and publish this as a data package a la Gapminder</li>
 </ul>
 <div id="due-date" class="section level3">
 <h3>Due date</h3>
