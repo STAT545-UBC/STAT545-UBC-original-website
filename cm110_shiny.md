@@ -12,9 +12,8 @@ output:
     - *recommended* due date Friday, November 21 but just get it in before class on Monday, November 24
     - fleshes out `gameday` package started in class
     - peer review will require installing and running your *peer's* `gameday` package
-  * HW11 Build a Shiny app
+  * [HW11](hw11_build-shiny-app.html) Build a Shiny app
     - extend your Gapminder app
-    - *DRAFT* [HW11](hw11_build-shiny-app.html) *we'll tweet when it's official*
     - due date Monday, December 1 but you might want to submit earlier, because the final homework HW12 will be due Friday, December 5
     - peer review will require getting your peer's app from GitHub and running it locally 
 
