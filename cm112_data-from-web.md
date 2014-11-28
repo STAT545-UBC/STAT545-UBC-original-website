@@ -8,8 +8,7 @@ output:
 
 ### cm110 2014-11-24 Monday overview
 
-+ HW12 Download and remix data from the web
-    - *coming soon*
++ [HW12](hw12_data-from-web) Download and remix data from the web
     - homework HW12 will be due Friday, December 5
 + [Office hours](https://github.com/STAT545-UBC/Discussion/issues/47) are back ON; check that issue for up-to-date info
 
