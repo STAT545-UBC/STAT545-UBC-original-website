@@ -55,7 +55,9 @@
   * [All the Shiny things](shiny00_index.html)
     - *add sub-bullet points*
   * Get data from the web
-  
+    - *make usual landing page and add bullet points*
+    - class meeting [one](cm111_data-from-web.html) and [two](cm112_data-from-web.html)  
+
 ## Course-specific material
 
   * [Class meeting 001](cm001_course-intro-sw-install-account-signup.html) deals with "What is data science? What is data carpentry?" and includes links re: use of Twitter in academia.
@@ -80,8 +82,8 @@
   * [Class meeting 108](cm108_packages.html) More writing an R package
   * [Class meeting 109](cm109_shiny.html) Build a Shiny app
   * [Class meeting 110](cm110_shiny.html) More build a Shiny app
-  * [Class meeting 111](cm111_data-from-web.html) Get data from the web
-  * Class meeting 112 More get data from the web
+  * [Class meeting 111](cm111_data-from-web.html) Get data from the web via an API
+  * [Class meeting 112](cm112_data-from-web.html) Get data from the web via an API and web scraping
   * [General homework guidelines](hw00_homework-guidelines.html)
   * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
   * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
@@ -96,7 +98,7 @@
   * [Homework 09](hw09_automation.html) Automating Data-analysis Pipelines
   * [Homework 10](hw10_package.html) Write an R package
   * [Homework 11](hw11_build-shiny-app) Build a Shiny app
-  * Homework 12 Get data from the web
+  * [Homework 12](hw12_data-from-web) Get data from the web
 
 ## Short random things
 
@@ -143,8 +145,8 @@ New topics for STAT 545A and/or STAT 547M will be selected from here:
     - smoothing
     - density estimation
     - cluster analysis, PCA, SVD, MDS
-  * Embrace the web:
-    - getting data from the web, e.g. using an API or via scraping
-    - exposing your hard work on the web (data, code, results)
+  * ~~Embrace the web:~~ *done*
+    - ~~getting data from the web, e.g. using an API or via scraping~~
+    - ~~exposing your hard work on the web (data, code, results)~~
   * ~~Distributing data and code to the world via an R package~~ *done*
   * ~~Automating an analytical pipeline, e.g. via `Make`.~~ *done*
