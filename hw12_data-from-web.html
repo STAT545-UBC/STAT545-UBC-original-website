@@ -10,16 +10,15 @@
 
 <meta name="author" content="Andrew MacDonald and Jenny Bryan" />
 
-<meta name="date" content="2014-11-26" />
+<meta name="date" content="2014-11-28" />
 
 <title>Data from the Web - Homework</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/united.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -73,7 +72,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="header">
 <h1 class="title">Data from the Web - Homework</h1>
 <h4 class="author"><em>Andrew MacDonald and Jenny Bryan</em></h4>
-<h4 class="date"><em>2014-11-26</em></h4>
+<h4 class="date"><em>2014-11-28</em></h4>
 </div>
 
 <div id="TOC">
@@ -89,7 +88,6 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#due-date">Due date</a></li>
 </ul></li>
 <li><a href="#rubric">Rubric</a></li>
-<li><a href="#authors">Authors</a></li>
 </ul>
 </div>
 
@@ -97,20 +95,24 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h2>Big picture</h2>
 <p>We learned three ways of collecting data from the internet:</p>
 <ul>
-<li>Accessing data using ROpenSci packages</li>
-<li>Running (basic) API queries</li>
+<li>Accessing data using ROpenSci packages that wrap APIs</li>
+<li>Running (basic) API queries “by hand”</li>
 <li>Web scraping</li>
 </ul>
-<p>For the homework, we want you to either combine two existing datasets in a novel (and reproducible!) way, or create a new dataset by web scraping.</p>
+<p>For the homework, we want you to either</p>
+<ul>
+<li>combine two existing datasets in a novel (and reproducible!) way; at least one must come from the web</li>
+<li>create a new dataset by web scraping</li>
+</ul>
 </div>
 <div id="please-just-tell-me-what-to-do" class="section level2">
 <h2>Please just tell me what to do!</h2>
 <div id="combine-gapminder-and-data-from-geonames" class="section level3">
 <h3>Combine <code>gapminder</code> and data from <code>geonames</code></h3>
-<p>Use data from both to make plots which answer either:</p>
+<p>Use data from both to investigate either of these questions:</p>
 <ul>
 <li>What is the relationship between per-capita GDP and the proportion of the population which lives in urban centers?</li>
-<li>Consider the following graph (a modification of Jenny’s <a href="https://github.com/jennybc/gapminder">gapminder demo</a>):</li>
+<li>Consider the following graph of population against time (a modification of Jenny’s <a href="https://github.com/jennybc/gapminder">gapminder demo</a>):</li>
 </ul>
 <pre class="r"><code>library(&quot;ggplot2&quot;)
 library(&quot;gapminder&quot;)
@@ -120,8 +122,10 @@ ggplot(subset(gapminder, continent != &quot;Oceania&quot;),
   geom_line(lwd = 1, show_guide = FALSE) + facet_wrap(~ continent) +
   scale_color_manual(values = country_colors) +
   theme_bw() + theme(strip.text = element_text(size = rel(1.1))) + scale_y_log10()</code></pre>
-<p><img src="hw12_data-from-web_files/figure-html/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1" /></p>
-<p>Replace population with <em>density</em>. To do this, look up the country codes in <code>geonames()</code> and obtain the area of each country.</p>
+<p><img src="hw12_data-from-web_files/figure-html/spaghetti-plot-pop-vs-year-1.png" /></p>
+<p>Replace population with <em>density</em>. To do this, look up the country codes in <code>geonames()</code>, obtain the area of each country and compute density as population divided by area.</p>
+<p>Write and render an RMarkdown document with a narrative of what you’ve done and why and the code that does it. What was most difficult? What are you most excited about re: your future in getting data from the web?</p>
+<p>Your procedure for obtaining and remixing data should be reproducible and, ideally, portable to your peer’s system (no more <code>setwd()</code>!).</p>
 </div>
 </div>
 <div id="combine-two-datasets" class="section level2">
@@ -147,22 +151,17 @@ ggplot(subset(gapminder, continent != &quot;Oceania&quot;),
 <div id="i-am-a-leaf-on-the-wind.-see-how-i-soar" class="section level2">
 <h2>I am a leaf on the wind. See how I SOAR</h2>
 <ul>
-<li>Find an interesting website which is a) <strong>not</strong> on Ropensci <strong>nor</strong> b) has a published API. Scrape it into a lovely dataset for us, and publish this as a data package a la Gapminder</li>
+<li>Find an interesting website which is a) <strong>not</strong> on Ropensci <strong>nor</strong> b) has a published API. Scrape it into a lovely dataset for us, and publish this as a data package a la Gapminder .</li>
 </ul>
 <div id="due-date" class="section level3">
 <h3>Due date</h3>
-<p>Your Shiny app is due Friday 05 December 2014.</p>
+<p>Your homework is due Friday 05 December 2014.</p>
 </div>
 </div>
 <div id="rubric" class="section level2">
 <h2>Rubric</h2>
-<p>Your peer reviewer will look at your data, and hopefully like it.</p>
-<p>These datasets should be reproducible.</p>
+<p>Ideally you will actually <em>run</em> your peer’s code and get the same results! Again, you’re welcome to abandon the effort after 30 mins and provide feedback.</p>
 <p>Recall the <a href="http://stat545-ubc.github.io/peer-review01_marking-rubric.html">general homework rubric</a>.</p>
-</div>
-<div id="authors" class="section level2">
-<h2>Authors</h2>
-<p>Written by [Andrew MacDoanld][] and <a href="http://www.stat.ubc.ca/~jenny/">Jenny Bryan</a>.</p>
 </div>
 
 <div class="footer">

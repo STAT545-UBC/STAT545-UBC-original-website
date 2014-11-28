@@ -6,20 +6,23 @@ Andrew MacDonald and Jenny Bryan
 
 We learned three ways of collecting data from the internet:
 
-  * Accessing data using ROpenSci packages
-  * Running (basic) API queries
+  * Accessing data using ROpenSci packages that wrap APIs
+  * Running (basic) API queries "by hand"
   * Web scraping
 
-For the homework, we want you to either combine two existing datasets in a novel (and reproducible!) way, or create a new dataset by web scraping.
+For the homework, we want you to either
+
+  * combine two existing datasets in a novel (and reproducible!) way; at least one must come from the web
+  * create a new dataset by web scraping
 
 ## Please just tell me what to do! 
 
 ### Combine `gapminder` and data from `geonames`
 
-Use data from both to make plots which answer either:
+Use data from both to investigate either of these questions:
 
   * What is the relationship between per-capita GDP and the proportion of the population which lives in urban centers?
-  * Consider the following graph (a modification of Jenny's [gapminder demo](https://github.com/jennybc/gapminder)):
+  * Consider the following graph of population against time (a modification of Jenny's [gapminder demo](https://github.com/jennybc/gapminder)):
     
 
 ```r
@@ -33,15 +36,19 @@ ggplot(subset(gapminder, continent != "Oceania"),
   theme_bw() + theme(strip.text = element_text(size = rel(1.1))) + scale_y_log10()
 ```
 
-![plot of chunk unnamed-chunk-1](hw12_data-from-web_files/figure-html/unnamed-chunk-1.png) 
+![](hw12_data-from-web_files/figure-html/spaghetti-plot-pop-vs-year-1.png) 
 
-Replace population with *density*. To do this, look up the country codes in `geonames()` and obtain the area of each country.
+Replace population with *density*. To do this, look up the country codes in `geonames()`, obtain the area of each country and compute density as population divided by area.
+
+Write and render an RMarkdown document with a narrative of what you've done and why and the code that does it. What was most difficult? What are you most excited about re: your future in getting data from the web?
+
+Your procedure for obtaining and remixing data should be reproducible and, ideally, portable to your peer's system (no more `setwd()`!).
 
 ## Combine two datasets
 
-* `rplos` and `rebird` -- how many articles are published on a bird species? 
-* `rplos` and `geonames` -- Choose a random set of countries. How many papers have been published by people from that country? In that country? how does that relate to GDP (will require expert-level regex skills)
-* `rebird` and `geonames` -- Do countries with more bird species also have more languages?
+  * `rplos` and `rebird` -- how many articles are published on a bird species? 
+  * `rplos` and `geonames` -- Choose a random set of countries. How many papers have been published by people from that country? In that country? how does that relate to GDP (will require expert-level regex skills)
+  * `rebird` and `geonames` -- Do countries with more bird species also have more languages?
 
 ## I want to aim higher!
 
@@ -53,23 +60,15 @@ Replace population with *density*. To do this, look up the country codes in `geo
 
 ## I am a leaf on the wind. See how I SOAR
 
-* Find an interesting website which is a) __not__ on Ropensci __nor__ b) has a published API. Scrape it into a lovely dataset for us, and publish this as a data package a la Gapminder 
+  * Find an interesting website which is a) __not__ on Ropensci __nor__ b) has a published API. Scrape it into a lovely dataset for us, and publish this as a data package a la Gapminder .
 
 ### Due date
 
-Your Shiny app is due Friday 05 December 2014.
+Your homework is due Friday 05 December 2014.
 
 ## Rubric
 
-Your peer reviewer will look at your data, and hopefully like it.
-
-These datasets should be reproducible.  
+Ideally you will actually *run* your peer's code and get the same results! Again, you're welcome to abandon the effort after 30 mins and provide feedback.
 
 Recall the [general homework rubric](http://stat545-ubc.github.io/peer-review01_marking-rubric.html).
 
-## Authors
-
-Written by [Andrew MacDoanld][] and [Jenny Bryan][].
-
-[Julia Gustavsen]: https://twitter.com/polesasunder
-[Jenny Bryan]: http://www.stat.ubc.ca/~jenny/
