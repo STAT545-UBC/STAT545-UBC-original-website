@@ -47,7 +47,9 @@ Follow the tutorial up until the end.
 
 Your peer reviewer will try run your app! 
 
-Check minus: There is a problem with some aspect of `server.R` or `ui.R`. When the directory for the Gapminder app is downloaded locally (we won't be able to use the `runGitHub()` since these are private repositories) the peer reviewer cannot get the Shiny app to run. 
+As peer reviewer you will critique the student's shiny homework on the deployed app (either on the Stats UBC server or on shinyapps.io) *and* by looking at their code in their github repo. (We won't be able to use the `shiny::runGitHub()` since these are private repositories, but you could optionally download the student's app locally and use `shiny::runApp()` to view the app.) 
+
+Check minus: There is a problem with some aspect of `server.R` or `ui.R`. The deployed app does not function as it should or there are missing/broken pieces to the app.  
 
 Check: App runs! All the required widgets, interactivity and facetting/colour are included. Good work!
 
