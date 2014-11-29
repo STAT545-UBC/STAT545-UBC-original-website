@@ -10,9 +10,16 @@
 
 <meta name="author" content="Andrew MacDonald and Jenny Bryan" />
 
-<meta name="date" content="2014-11-28" />
+<meta name="date" content="2014-11-29" />
 
 <title>Data from the Web - Homework</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
 
 
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
@@ -21,6 +28,14 @@
 
 <body>
 
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
 
 <header>
   <div class="nav">
@@ -40,7 +55,7 @@
 <div id="header">
 <h1 class="title">Data from the Web - Homework</h1>
 <h4 class="author"><em>Andrew MacDonald and Jenny Bryan</em></h4>
-<h4 class="date"><em>2014-11-28</em></h4>
+<h4 class="date"><em>2014-11-29</em></h4>
 </div>
 
 <div id="TOC">
@@ -90,7 +105,7 @@ ggplot(subset(gapminder, continent != &quot;Oceania&quot;),
   geom_line(lwd = 1, show_guide = FALSE) + facet_wrap(~ continent) +
   scale_color_manual(values = country_colors) +
   theme_bw() + theme(strip.text = element_text(size = rel(1.1))) + scale_y_log10()</code></pre>
-<p><img src="hw12_data-from-web_files/figure-html/spaghetti-plot-pop-vs-year.png" alt="plot of chunk spaghetti-plot-pop-vs-year" /></p>
+<p><img src="hw12_data-from-web_files/figure-html/spaghetti-plot-pop-vs-year-1.png" /></p>
 <p>Replace population with <em>population density</em>. To do this, look up the country codes in <code>geonames()</code>, obtain the area of each country and compute density as population divided by area.</p>
 <p>Write and render an RMarkdown document with a narrative of what you’ve done and why and the code that does it. What was most difficult? What are you most excited about re: your future in getting data from the web?</p>
 <p>Your procedure for obtaining and remixing data should be reproducible and, ideally, portable to your peer’s system (no more <code>setwd()</code>!). If your process involves obtaining some records (countries, species) at random, provide either the list of things chosen (id numbers, country codes etc.) OR use <code>set.seed()</code> so that your peer can produce the same random sample. Remember to protect your API key!</p>
@@ -138,6 +153,16 @@ ggplot(subset(gapminder, continent != &quot;Oceania&quot;),
 This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
 </div>
 
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

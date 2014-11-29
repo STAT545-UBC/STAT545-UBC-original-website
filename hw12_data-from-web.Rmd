@@ -6,7 +6,6 @@ output:
   html_document:
     highlight: null
     keep_md: yes
-    theme: null
     toc: yes
     toc_depth: 4
 ---

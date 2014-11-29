@@ -36,7 +36,7 @@ ggplot(subset(gapminder, continent != "Oceania"),
   theme_bw() + theme(strip.text = element_text(size = rel(1.1))) + scale_y_log10()
 ```
 
-![plot of chunk spaghetti-plot-pop-vs-year](hw12_data-from-web_files/figure-html/spaghetti-plot-pop-vs-year.png) 
+![](hw12_data-from-web_files/figure-html/spaghetti-plot-pop-vs-year-1.png) 
 
 Replace population with *population density*. To do this, look up the country codes in `geonames()`, obtain the area of each country and compute density as population divided by area.
 
