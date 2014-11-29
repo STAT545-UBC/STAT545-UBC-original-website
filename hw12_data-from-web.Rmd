@@ -1,9 +1,12 @@
 ---
 title: "Data from the Web - Homework"
 author: "Andrew MacDonald and Jenny Bryan"
-date: "`r Sys.Date()`"
+date: '`r Sys.Date()`'
 output:
   html_document:
+    highlight: null
+    keep_md: yes
+    theme: null
     toc: yes
     toc_depth: 4
 ---
@@ -50,9 +53,13 @@ Remember to protect your API key!
 
 ## Combine two datasets
 
+We took cursory looks at two other ROpenSci packages: [rebird](https://github.com/ropensci/rebird) and [rplos](https://github.com/ropensci/rplos). Both packages are on CRAN; see the instructions on their github repo READMEs. Here are three suggested ways in which they could be combined.
+
   * `rplos` and `rebird` -- how many articles are published on a bird species? 
   * `rplos` and `geonames` -- Choose a some subset of countries. How many papers have been published by people from that country? In that country? how does that relate to GDP (will require expert-level regex skills)
   * `rebird` and `geonames` -- Do countries with more bird species also have more languages?
+  
+For each of these tasks, produce an Rmarkdown report that illustrates how you obtained the data, how you processed it and sucessfully merged the two datasets. If you are downloading lots of data (or if you are worried about over-using an API) consider automating the process using `make`. 
 
 ## I want to aim higher!
 
