@@ -1,6 +1,6 @@
 ---
 title: "Stat 545 getting data from the Web"
-author: "Andrew MacDonald and Dr. Jenny Bryan"
+author: "Andrew MacDonald and Jenny Bryan"
 date: "2014-11-24"
 output: 
     html_document:
@@ -95,8 +95,8 @@ There are two things we need to do to be able to use this package to access the 
 2. click [here to enable the free web service](http://www.geonames.org/enablefreewebservice)
 3. Tell R your geonames username:
 
-```{r}
-options(geonamesUsername="")
+```{r eval = FALSE}
+options(geonamesUsername="?????")
 ```
 
 What can we do? get access to lots of geographical information via the various "web services" see [here](http://www.geonames.org/export/ws-overview.html)
@@ -119,8 +119,9 @@ What are the cities of France?
 francedata <- countryInfo %>%
 	filter(countryName == "France")
 
-frenchcities <- with(francedata, GNcities(north = north, east = east, south = south, west = west, maxRows = 500)
-                     
+frenchcities <-	with(francedata,
+			 GNcities(north = north, east = east, south = south,
+			 				 west = west, maxRows = 500))
 ```
 
 How many birds have been seen in France? Use the `countryCode` from the geonames data to get bird data from rebird!
@@ -147,8 +148,10 @@ GNwikipediaSearch("London") %>%
 
 We can use geonames to search for georeferenced Wikipedia articles. Here are those within 20 Km of Rio de Janerio, comparing results for English-language Wikipedia (`lang = "en"`) and Portuguese-language Wikipedia (`lang = "pt"`):
 ```{r}
-rio_english <- GNfindNearbyWikipedia(lat = -22.9083, lng = -43.1964, radius = 20, lang = "en", maxRows = 500)
-rio_portuguese <- GNfindNearbyWikipedia(lat = -22.9083, lng = -43.1964, radius = 20, lang = "pt", maxRows = 500)
+rio_english <- GNfindNearbyWikipedia(lat = -22.9083, lng = -43.1964,
+																		 radius = 20, lang = "en", maxRows = 500)
+rio_portuguese <- GNfindNearbyWikipedia(lat = -22.9083, lng = -43.1964,
+																				radius = 20, lang = "pt", maxRows = 500)
 
 nrow(rio_english)
 nrow(rio_portuguese)
@@ -172,7 +175,7 @@ Immediately we get a message. It's a link to the [tutorial on the Ropensci websi
 * Then go to Article Level Metrics http://alm.plos.org/
 * click on your name to find your key.
 
-```{r}
+```{r eval = FALSE}
 Sys.setenv(PlosApiKey = "Paste your Key in here!!")
 key <-  Sys.getenv("PlosApiKey")
 ```
@@ -182,33 +185,34 @@ key <-  Sys.getenv("PlosApiKey")
 **Remember to protect your key! it is important for your privacy. You know, like a key**
 * Now we follow the ROpenSci [tutorial on API keys](https://github.com/ropensci/rOpenSci/wiki/Installation-and-use-of-API-keys)
 * ___Add `.Rprofile` to your `.gitignore` !!___
-* Make a `.rprofile` file [windows tips](http://cran.r-project.org/bin/windows/rw-FAQ.html#What-are-HOME-and-working-directories_003f) [mac tips](http://cran.r-project.org/bin/macosx/RMacOSX-FAQ.html#The-R-Console)
+* Make a `.Rprofile` file [windows tips](http://cran.r-project.org/bin/windows/rw-FAQ.html#What-are-HOME-and-working-directories_003f) [mac tips](http://cran.r-project.org/bin/macosx/RMacOSX-FAQ.html#The-R-Console)
 * Write the following in it:
 
-```r
-options(PlosApiKey= "YOUR_KEY")
+```{r eval = FALSE}
+options(PlosApiKey = "YOUR_KEY")
 ```
+
 * restart R (e.g. reopen your Rstudio project)
 
 This code adds another element to the list of options, which you can see by calling `options()`. Part of the work done by `rplos::searchplos()` and friends is to go and obtain the value of this option with the function `getOption("PlosApiKey")`.  This indicates two things: 
   1. Spelling is important when you set the option in your `.Rprofile`
   2. you can do a similar process for an arbitrary package or key. For example:
-  
-```r 
+
+```{r eval = FALSE}
 ## in .Rprofile
 options("this_is_my_key" = XXXX)
 
 ## later, in the R script:
 key <- getOption("this_is_my_key")
 ```
+
 This is a simple means to keep your keys private, especially if you are sharing the same authentication across several projects.
 
 ### A few timely reminders about your .Rprofile
 
 ```r
 print("This is Andrew's Rprofile and you can't have it!")
-options(PlosApiKey= "XXXXXXXXX")
-
+options(PlosApiKey = "XXXXXXXXX")
 ```
 
 * Note that it must end with a blank line!
@@ -224,15 +228,16 @@ searchplos(q= "Helianthus", fl= "id", limit = 5)
 ```
 
 ```{r eval=FALSE}
-searchplos("materials_and_methods:France", fl = "title, materials_and_methods", key = key)
-lat <- searchplos("materials_and_methods:study site", fl = "title, materials_and_methods", key = key)
+searchplos("materials_and_methods:France",
+					 fl = "title, materials_and_methods", key = key)
+lat <- searchplos("materials_and_methods:study site",
+									fl = "title, materials_and_methods", key = key)
 aff <- searchplos("*:*", fl = "title, author_affiliate", key = key)
 aff$author_affiliate[[2]]
 searchplos("*:*", fl = "id", key = key)
 ```
 
-here is a list of [options for the search](http://api.plos.org/solr/search-fields/)
-or can do `data(plosfields); plosfields`
+here is a list of [options for the search](http://api.plos.org/solr/search-fields/) or can do `data(plosfields); plosfields`
 
 ### take a highbrow look!
 
@@ -242,7 +247,7 @@ highbrow(out)
 ```
 
 ## plots over time
-```{r}
+```{r eval = FALSE}
 plot_throughtime(terms = "phylogeny", limit = 200, key = key)
 ```
 
@@ -255,7 +260,7 @@ devtools::install_github("ropensci/gender")
 
 The gender package allows you access to American data on the gender of names. Because names change gender over the years, the probability of a name belonging to a man or a woman also depends on the *year*:
 
-```{r}
+```{r eval = FALSE}
 library(gender)
 gender("Kelsey")
 gender("Kelsey", years = 1940)

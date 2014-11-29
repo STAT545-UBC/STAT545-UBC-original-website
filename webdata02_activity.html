@@ -8,9 +8,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
-<meta name="author" content="Andrew MacDonald and Dr. Jenny Bryan" />
+<meta name="author" content="Andrew MacDonald and Jenny Bryan" />
 
-<meta name="date" content="2014-11-11" />
+<meta name="date" content="2014-11-24" />
 
 <title>Stat 545 getting data from the Web</title>
 
@@ -71,8 +71,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="header">
 <h1 class="title">Stat 545 getting data from the Web</h1>
-<h4 class="author"><em>Andrew MacDonald and Dr. Jenny Bryan</em></h4>
-<h4 class="date"><em>2014-11-11</em></h4>
+<h4 class="author"><em>Andrew MacDonald and Jenny Bryan</em></h4>
+<h4 class="date"><em>2014-11-24</em></h4>
 </div>
 
 <div id="TOC">
@@ -80,10 +80,16 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#click-and-download">Click-and-Download</a></li>
 <li><a href="#install-and-play">install-and-play</a><ul>
-<li><a href="#sightings-of-birds-rebird">Sightings of birds: <code>rebird</code></a></li>
-<li><a href="#searching-geographic-info-geonames">Searching geographic info: <code>geonames</code></a></li>
+<li><a href="#sightings-of-birds-rebird">Sightings of birds: <code>rebird</code></a><ul>
+<li><a href="#search-birds-by-geography">Search birds by geography</a></li>
+</ul></li>
+<li><a href="#searching-geographic-info-geonames">Searching geographic info: <code>geonames</code></a><ul>
+<li><a href="#remixing-geonames-and-rebird">remixing <code>geonames</code> and <code>rebird</code>:</a></li>
+<li><a href="#wikipedia-searching">Wikipedia searching</a></li>
+</ul></li>
 <li><a href="#searching-the-public-library-of-science-rplos">Searching the Public Library of Science: <code>rplos</code></a><ul>
 <li><a href="#alternate-strategy-for-keeping-keys-.rprofile">alternate strategy for keeping keys: <code>.Rprofile</code></a></li>
+<li><a href="#a-few-timely-reminders-about-your-.rprofile">A few timely reminders about your .Rprofile</a></li>
 </ul></li>
 <li><a href="#searching-plos">Searching PLOS</a><ul>
 <li><a href="#take-a-highbrow-look">take a highbrow look!</a></li>
@@ -102,14 +108,14 @@ library(devtools)</code></pre>
 <p>There are many ways to obtain data from the Internet; let’s consider four categories:</p>
 <ul>
 <li><em>click-and-download</em> on the internet as a “flat” file, such as .csv, .xls</li>
-<li><em>install-and-play</em> published in a repository which has an API , which has been wrapped</li>
+<li><em>install-and-play</em> an API for which someone has written a handy R package</li>
 <li><em>API-query</em> published with an unwrapped API</li>
 <li><em>Scraping</em> implicit in an html website</li>
 </ul>
 </div>
 <div id="click-and-download" class="section level1">
 <h1>Click-and-Download</h1>
-<p>We’re not going to consider data that needs to be downloaded to your hard drive first, and which may require filling out a form etc. For example <a href="">World Value Survey</a> or <a href="">gapminder</a></p>
+<p>We’re not going to consider data that needs to be downloaded to your hard drive first, and which may require filling out a form etc. For example <a href="http://www.worldvaluessurvey.org/wvs.jsp">World Value Survey</a> or <a href="http://www.worldvaluessurvey.org/wvs.jsp">gapminder</a></p>
 </div>
 <div id="install-and-play" class="section level1">
 <h1>install-and-play</h1>
@@ -125,17 +131,15 @@ library(devtools)</code></pre>
 </ul>
 <div id="sightings-of-birds-rebird" class="section level2">
 <h2>Sightings of birds: <code>rebird</code></h2>
-<p><a href="https://github.com/ropensci/rebird">Rebird</a> is an R interface for the <a href="">ebird</a> database. Ebird lets birders upload sightings of birds, and allows everyone access to those data.</p>
+<p><a href="https://github.com/ropensci/rebird">Rebird</a> is an R interface for the <a href="http://ebird.org/content/ebird/">ebird</a> database. Ebird lets birders upload sightings of birds, and allows everyone access to those data.</p>
 <pre class="r"><code>install.packages(&quot;rebird&quot;)</code></pre>
 <pre class="r"><code>library(rebird)</code></pre>
-<p>Find out <em>WHEN</em> a bird has been seen in a certain place!</p>
-<pre class="r"><code>ebirdgeo(species = &#39;spinus tristis&#39;, lat = 42, lng = -76)</code></pre>
-<p>rebird <strong>knows where you are</strong>:</p>
-<pre class="r"><code>ebirdgeo(species = &#39;Buteo lagopus&#39;)</code></pre>
-<p>Get a list for an area. (Note that South and West are negative):</p>
+<div id="search-birds-by-geography" class="section level3">
+<h3>Search birds by geography</h3>
+<p>We can use the function <code>ebirdgeo</code> to get a list for an area. (Note that South and West are negative):</p>
 <pre class="r"><code>vanbirds &lt;- ebirdgeo(lat = 49.2500, lng = -123.1000)
 vanbirds %&gt;%
-    head %&gt;%
+  head %&gt;%
     kable</code></pre>
 <table>
 <thead>
@@ -155,89 +159,106 @@ vanbirds %&gt;%
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Common Merganser</td>
-<td align="right">10</td>
-<td align="right">49.17</td>
-<td align="right">-122.9</td>
-<td align="left">L1140384</td>
-<td align="left">Annacis Island</td>
+<td align="left">Black-bellied Plover</td>
+<td align="right">3</td>
+<td align="right">49.21278</td>
+<td align="right">-123.2025</td>
+<td align="left">L339171</td>
+<td align="left">Iona Island Causeway</td>
 <td align="left">FALSE</td>
-<td align="left">2014-11-23 15:45</td>
+<td align="left">2014-11-28 16:30</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
-<td align="left">Mergus merganser</td>
+<td align="left">Pluvialis squatarola</td>
 </tr>
 <tr class="even">
-<td align="left">Northwestern Crow</td>
-<td align="right">20</td>
-<td align="right">49.17</td>
-<td align="right">-122.9</td>
-<td align="left">L1140384</td>
-<td align="left">Annacis Island</td>
+<td align="left">gull sp.</td>
+<td align="right">200</td>
+<td align="right">49.21278</td>
+<td align="right">-123.2025</td>
+<td align="left">L339171</td>
+<td align="left">Iona Island Causeway</td>
 <td align="left">FALSE</td>
-<td align="left">2014-11-23 15:45</td>
+<td align="left">2014-11-28 16:30</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
-<td align="left">Corvus caurinus</td>
+<td align="left">Larinae sp.</td>
 </tr>
 <tr class="odd">
-<td align="left">Mallard</td>
-<td align="right">20</td>
-<td align="right">49.17</td>
-<td align="right">-122.9</td>
-<td align="left">L1140384</td>
-<td align="left">Annacis Island</td>
-<td align="left">FALSE</td>
-<td align="left">2014-11-23 15:45</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-<td align="left">Anas platyrhynchos</td>
-</tr>
-<tr class="even">
 <td align="left">Great Blue Heron</td>
 <td align="right">1</td>
-<td align="right">49.17</td>
-<td align="right">-122.9</td>
-<td align="left">L1140384</td>
-<td align="left">Annacis Island</td>
+<td align="right">49.21278</td>
+<td align="right">-123.2025</td>
+<td align="left">L339171</td>
+<td align="left">Iona Island Causeway</td>
 <td align="left">FALSE</td>
-<td align="left">2014-11-23 15:45</td>
+<td align="left">2014-11-28 16:30</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 <td align="left">Ardea herodias</td>
 </tr>
-<tr class="odd">
-<td align="left">Golden-crowned Kinglet</td>
+<tr class="even">
+<td align="left">Fox Sparrow</td>
 <td align="right">1</td>
-<td align="right">49.17</td>
-<td align="right">-122.9</td>
-<td align="left">L1140384</td>
-<td align="left">Annacis Island</td>
-<td align="left">FALSE</td>
-<td align="left">2014-11-23 15:45</td>
+<td align="right">49.34932</td>
+<td align="right">-123.1963</td>
+<td align="left">L2682350</td>
+<td align="left">Mulgrave School</td>
+<td align="left">TRUE</td>
+<td align="left">2014-11-28 14:39</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
-<td align="left">Regulus satrapa</td>
+<td align="left">Passerella iliaca</td>
+</tr>
+<tr class="odd">
+<td align="left">Song Sparrow</td>
+<td align="right">3</td>
+<td align="right">49.34932</td>
+<td align="right">-123.1963</td>
+<td align="left">L2682350</td>
+<td align="left">Mulgrave School</td>
+<td align="left">TRUE</td>
+<td align="left">2014-11-28 14:39</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">Melospiza melodia</td>
 </tr>
 <tr class="even">
-<td align="left">Green-winged Teal</td>
-<td align="right">25</td>
-<td align="right">49.17</td>
-<td align="right">-122.9</td>
-<td align="left">L1140384</td>
-<td align="left">Annacis Island</td>
-<td align="left">FALSE</td>
-<td align="left">2014-11-23 15:45</td>
+<td align="left">Dark-eyed Junco</td>
+<td align="right">1</td>
+<td align="right">49.34932</td>
+<td align="right">-123.1963</td>
+<td align="left">L2682350</td>
+<td align="left">Mulgrave School</td>
+<td align="left">TRUE</td>
+<td align="left">2014-11-28 14:39</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
-<td align="left">Anas crecca</td>
+<td align="left">Junco hyemalis</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Note</strong>: Check the def</td>
+<td align="right">aults on t</td>
+<td align="right">his functio</td>
+<td align="right">n. e.g. radi</td>
+<td align="left">us of circl</td>
+<td align="left">e, time of year.</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>
-<p>Check the defaults on this function. e.g. radius of circle, time of year.</p>
-<p>Birds in a region:</p>
-<pre class="r"><code>ebirdregion(&quot;AI&quot;)</code></pre>
+<p>We can also search by “region”, which refers to short codes which serve as common shorthands for different political units. For example, France is represented by the letters <strong>FR</strong></p>
+<pre class="r"><code>ebirdregion(&quot;FR&quot;)</code></pre>
 <p>(note that the link in the help file leads to a dead link (as I write this on 24 Nov) but you can probably use the codes from geonames, below)</p>
+<p>Find out <em>WHEN</em> a bird has been seen in a certain place! Choosing a name from <code>vanbirds</code> above (the Bald Eagle):</p>
+<pre class="r"><code>ebirdgeo(species = &#39;Haliaeetus leucocephalus&#39;, lat = 42, lng = -76)</code></pre>
+<p><code>rebird</code> <strong>knows where you are</strong>:</p>
+<pre class="r"><code>ebirdgeo(species = &#39;Buteo lagopus&#39;)</code></pre>
+</div>
 </div>
 <div id="searching-geographic-info-geonames" class="section level2">
 <h2>Searching geographic info: <code>geonames</code></h2>
@@ -248,10 +269,10 @@ library(geonames)</code></pre>
 <p>There are two things we need to do to be able to use this package to access the geonames API</p>
 <ol style="list-style-type: decimal">
 <li>go to <a href="www.geonames.org/login/">the geonames site</a> and register an account.</li>
-<li>click <a href="http://www.geonames.org/enablefreewebservice">here</a></li>
+<li>click <a href="http://www.geonames.org/enablefreewebservice">here to enable the free web service</a></li>
 <li>Tell R your geonames username:</li>
 </ol>
-<pre class="r"><code>options(geonamesUsername=&quot;aammd&quot;)</code></pre>
+<pre class="r"><code>options(geonamesUsername=&quot;?????&quot;)</code></pre>
 <p>What can we do? get access to lots of geographical information via the various “web services” see <a href="http://www.geonames.org/export/ws-overview.html">here</a> </p>
 <pre class="r"><code>countryInfo &lt;- GNcountryInfo()</code></pre>
 <pre class="r"><code>countryInfo %&gt;%
@@ -397,142 +418,30 @@ library(geonames)</code></pre>
 </tbody>
 </table>
 <p>This country info dataset is very helpful for accessing the rest of the data, because it gives us the standardized codes for country and language.</p>
+<div id="remixing-geonames-and-rebird" class="section level3">
+<h3>remixing <code>geonames</code> and <code>rebird</code>:</h3>
 <p>What are the cities of France?</p>
-<pre class="r"><code>countryInfo %&gt;%
-    filter(countryName == &quot;France&quot;) %&gt;%
-    GNcities(north = .$north, east = .$east, south = .$south, west = .$west, maxRows = 500) %&gt;%
-    ungroup %&gt;%
-    head %&gt;%
-    kable</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left">lng</th>
-<th align="left">geonameId</th>
-<th align="left">countrycode</th>
-<th align="left">name</th>
-<th align="left">fclName</th>
-<th align="left">toponymName</th>
-<th align="left">fcodeName</th>
-<th align="left">wikipedia</th>
-<th align="left">lat</th>
-<th align="left">fcl</th>
-<th align="left">population</th>
-<th align="left">fcode</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">2.3488</td>
-<td align="left">2988507</td>
-<td align="left">FR</td>
-<td align="left">Paris</td>
-<td align="left">city, village,…</td>
-<td align="left">Paris</td>
-<td align="left">capital of a political entity</td>
-<td align="left">en.wikipedia.org/wiki/Paris</td>
-<td align="left">48.85341</td>
-<td align="left">P</td>
-<td align="left">2138551</td>
-<td align="left">PPLC</td>
-</tr>
-<tr class="even">
-<td align="left">4.34878349304199</td>
-<td align="left">2800866</td>
-<td align="left">BE</td>
-<td align="left">Brusela</td>
-<td align="left">city, village,…</td>
-<td align="left">Brussels</td>
-<td align="left">capital of a political entity</td>
-<td align="left">en.wikipedia.org/wiki/City_of_Brussels</td>
-<td align="left">50.8504450552593</td>
-<td align="left">P</td>
-<td align="left">1019022</td>
-<td align="left">PPLC</td>
-</tr>
-<tr class="odd">
-<td align="left">7.44744300842285</td>
-<td align="left">2661552</td>
-<td align="left">CH</td>
-<td align="left">Berna</td>
-<td align="left">city, village,…</td>
-<td align="left">Bern</td>
-<td align="left">capital of a political entity</td>
-<td align="left">en.wikipedia.org/wiki/Bern</td>
-<td align="left">46.9480943365053</td>
-<td align="left">P</td>
-<td align="left">121631</td>
-<td align="left">PPLC</td>
-</tr>
-<tr class="even">
-<td align="left">6.13</td>
-<td align="left">2960316</td>
-<td align="left">LU</td>
-<td align="left">Luxenburgo</td>
-<td align="left">city, village,…</td>
-<td align="left">Luxembourg</td>
-<td align="left">capital of a political entity</td>
-<td align="left">en.wikipedia.org/wiki/Luxembourg_%28city%29</td>
-<td align="left">49.6116667</td>
-<td align="left">P</td>
-<td align="left">76684</td>
-<td align="left">PPLC</td>
-</tr>
-<tr class="odd">
-<td align="left">7.4166667</td>
-<td align="left">2993458</td>
-<td align="left">MC</td>
-<td align="left">Monaco</td>
-<td align="left">city, village,…</td>
-<td align="left">Monaco</td>
-<td align="left">capital of a political entity</td>
-<td align="left">en.wikipedia.org/wiki/Monaco</td>
-<td align="left">43.7333333</td>
-<td align="left">P</td>
-<td align="left">32965</td>
-<td align="left">PPLC</td>
-</tr>
-<tr class="even">
-<td align="left">-2.10491180419922</td>
-<td align="left">3042091</td>
-<td align="left">JE</td>
-<td align="left">Saint Helier</td>
-<td align="left">city, village,…</td>
-<td align="left">Saint Helier</td>
-<td align="left">capital of a political entity</td>
-<td align="left">en.wikipedia.org/wiki/Saint_Helier</td>
-<td align="left">49.1880427659223</td>
-<td align="left">P</td>
-<td align="left">28000</td>
-<td align="left">PPLC</td>
-</tr>
-</tbody>
-</table>
-<p>How many birds have been seen in France?</p>
-<pre class="r"><code>francebirds &lt;- countryInfo %&gt;%
-    filter(countryName == &quot;France&quot;) %&gt;%
-    group_by(countryName) %&gt;%
-    do(allbirds = ebirdregion(.$countryCode))  ## or perhaps fipsCode?
+<pre class="r"><code>francedata &lt;- countryInfo %&gt;%
+    filter(countryName == &quot;France&quot;)
 
-francebirds %&gt;%
-    summarize(nbirds = nrow(allbirds)) %&gt;%
-    ungroup %&gt;%
-    kable</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="right">nbirds</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">156</td>
-</tr>
-</tbody>
-</table>
-<p>Geonames also helps us search Wikipedia!</p>
+frenchcities &lt;- with(francedata,
+             GNcities(north = north, east = east, south = south,
+                             west = west, maxRows = 500))</code></pre>
+<p>How many birds have been seen in France? Use the <code>countryCode</code> from the geonames data to get bird data from rebird!</p>
+<pre class="r"><code>francebirds &lt;- countryInfo %&gt;%
+    filter(countryName == &quot;France&quot;)
+
+
+allbirds &lt;- ebirdregion(francebirds$countryCode)  ## or perhaps fipsCode?
+
+nrow(allbirds)</code></pre>
+<p>[1] 151</p>
+</div>
+<div id="wikipedia-searching" class="section level3">
+<h3>Wikipedia searching</h3>
+<p>Geonames also helps us search Wikipedia.</p>
 <pre class="r"><code>GNwikipediaSearch(&quot;London&quot;) %&gt;%
-    select(-summary) %&gt;%
+  select(-summary) %&gt;%
     head %&gt;%
     kable</code></pre>
 <table>
@@ -559,7 +468,7 @@ francebirds %&gt;%
 <td align="left">-0.07857</td>
 <td align="left">GB</td>
 <td align="left">100</td>
-<td align="left"><a href="http://www.geonames.org/img/wikipedia/43000/thumb-42715-100.jpg" class="uri">http://www.geonames.org/img/wikipedia/43000/thumb-42715-100.jpg</a></td>
+<td align="left"><a href="http://www.geonames.org/img/wikipedia/43000/thumb-42715-100.jpg">http://www.geonames.org/img/wikipedia/43000/thumb-42715-100.jpg</a></td>
 <td align="left">en</td>
 <td align="left">London</td>
 <td align="left">51.504872</td>
@@ -572,7 +481,7 @@ francebirds %&gt;%
 <td align="left">-81.2497</td>
 <td align="left">CA</td>
 <td align="left">100</td>
-<td align="left"><a href="http://www.geonames.org/img/wikipedia/58000/thumb-57388-100.jpg" class="uri">http://www.geonames.org/img/wikipedia/58000/thumb-57388-100.jpg</a></td>
+<td align="left"><a href="http://www.geonames.org/img/wikipedia/58000/thumb-57388-100.jpg">http://www.geonames.org/img/wikipedia/58000/thumb-57388-100.jpg</a></td>
 <td align="left">en</td>
 <td align="left">London, Ontario</td>
 <td align="left">42.9837</td>
@@ -585,7 +494,7 @@ francebirds %&gt;%
 <td align="left">27.9036078333333</td>
 <td align="left">ZA</td>
 <td align="left">100</td>
-<td align="left"><a href="http://www.geonames.org/img/wikipedia/138000/thumb-137098-100.jpg" class="uri">http://www.geonames.org/img/wikipedia/138000/thumb-137098-100.jpg</a></td>
+<td align="left"><a href="http://www.geonames.org/img/wikipedia/138000/thumb-137098-100.jpg">http://www.geonames.org/img/wikipedia/138000/thumb-137098-100.jpg</a></td>
 <td align="left">en</td>
 <td align="left">East London, Eastern Cape</td>
 <td align="left">-33.0145668333333</td>
@@ -598,7 +507,7 @@ francebirds %&gt;%
 <td align="left">-0.0159638888888889</td>
 <td align="left">GB</td>
 <td align="left">98</td>
-<td align="left"><a href="http://www.geonames.org/img/wikipedia/157000/thumb-156609-100.jpg" class="uri">http://www.geonames.org/img/wikipedia/157000/thumb-156609-100.jpg</a></td>
+<td align="left"><a href="http://www.geonames.org/img/wikipedia/157000/thumb-156609-100.jpg">http://www.geonames.org/img/wikipedia/157000/thumb-156609-100.jpg</a></td>
 <td align="left">en</td>
 <td align="left">London Borough of Lewisham</td>
 <td align="left">51.4568777777778</td>
@@ -611,7 +520,7 @@ francebirds %&gt;%
 <td align="left">-72.1008333333333</td>
 <td align="left">US</td>
 <td align="left">100</td>
-<td align="left"><a href="http://www.geonames.org/img/wikipedia/160000/thumb-159123-100.jpg" class="uri">http://www.geonames.org/img/wikipedia/160000/thumb-159123-100.jpg</a></td>
+<td align="left"><a href="http://www.geonames.org/img/wikipedia/160000/thumb-159123-100.jpg">http://www.geonames.org/img/wikipedia/160000/thumb-159123-100.jpg</a></td>
 <td align="left">en</td>
 <td align="left">New London, Connecticut</td>
 <td align="left">41.3555555555556</td>
@@ -624,7 +533,7 @@ francebirds %&gt;%
 <td align="left">-0.303547222222222</td>
 <td align="left">GB</td>
 <td align="left">100</td>
-<td align="left"><a href="http://www.geonames.org/img/wikipedia/146000/thumb-145782-100.jpg" class="uri">http://www.geonames.org/img/wikipedia/146000/thumb-145782-100.jpg</a></td>
+<td align="left"><a href="http://www.geonames.org/img/wikipedia/146000/thumb-145782-100.jpg">http://www.geonames.org/img/wikipedia/146000/thumb-145782-100.jpg</a></td>
 <td align="left">en</td>
 <td align="left">London Borough of Richmond upon Thames</td>
 <td align="left">51.4613416666667</td>
@@ -632,14 +541,17 @@ francebirds %&gt;%
 </tr>
 </tbody>
 </table>
-<p>We can use geonames to search for georeferenced Wikipedia articles! here are those within 20 Km of Rio de Janerio:</p>
-<pre class="r"><code>rio_english &lt;- GNfindNearbyWikipedia(lat = -22.9083, lng = -43.1964, radius = 20, lang = &quot;en&quot;, maxRows = 500)
-rio_portuguese &lt;- GNfindNearbyWikipedia(lat = -22.9083, lng = -43.1964, radius = 20, lang = &quot;pt&quot;, maxRows = 500)
+<p>We can use geonames to search for georeferenced Wikipedia articles. Here are those within 20 Km of Rio de Janerio, comparing results for English-language Wikipedia (<code>lang = &quot;en&quot;</code>) and Portuguese-language Wikipedia (<code>lang = &quot;pt&quot;</code>):</p>
+<pre class="r"><code>rio_english &lt;- GNfindNearbyWikipedia(lat = -22.9083, lng = -43.1964,
+                                                                         radius = 20, lang = &quot;en&quot;, maxRows = 500)
+rio_portuguese &lt;- GNfindNearbyWikipedia(lat = -22.9083, lng = -43.1964,
+                                                                                radius = 20, lang = &quot;pt&quot;, maxRows = 500)
 
 nrow(rio_english)</code></pre>
 <pre><code>## [1] 305</code></pre>
 <pre class="r"><code>nrow(rio_portuguese)</code></pre>
 <pre><code>## [1] 349</code></pre>
+</div>
 </div>
 <div id="searching-the-public-library-of-science-rplos" class="section level2">
 <h2>Searching the Public Library of Science: <code>rplos</code></h2>
@@ -653,24 +565,47 @@ nrow(rio_english)</code></pre>
 ##  New to rplos? Tutorial at http://ropensci.org/tutorials/rplos_tutorial.html. Use suppressPackageStartupMessages() to suppress these startup messages in the future</code></pre>
 <p>Immediately we get a message. It’s a link to the <a href="http://ropensci.org/tutorials/rplos_tutorial.html">tutorial on the Ropensci website!</a>. How nice :)</p>
 <ul>
-<li>We also get instructions to create a PLOS account: <a href="https://register.plos.org/ambra-registration/register.action" class="uri">https://register.plos.org/ambra-registration/register.action</a></li>
-<li>Then go to Article Level Metrics <a href="http://alm.plos.org/" class="uri">http://alm.plos.org/</a></li>
+<li>We also get instructions to <a href="https://register.plos.org/ambra-registration/register.action">create a PLOS account</a></li>
+<li>Then go to Article Level Metrics <a href="http://alm.plos.org/">http://alm.plos.org/</a></li>
 <li>click on your name to find your key.</li>
 </ul>
 <pre class="r"><code>Sys.setenv(PlosApiKey = &quot;Paste your Key in here!!&quot;)
 key &lt;-  Sys.getenv(&quot;PlosApiKey&quot;)</code></pre>
 <div id="alternate-strategy-for-keeping-keys-.rprofile" class="section level3">
 <h3>alternate strategy for keeping keys: <code>.Rprofile</code></h3>
-<p><strong>Remember to protect your key! it is important for your privacy. You know, like a key</strong> Now we follow the ROpenSci <a href="https://github.com/ropensci/rOpenSci/wiki/Installation-and-use-of-API-keys">tutorial on API keys</a> Make a <code>.rprofile</code> file <a href="http://cran.r-project.org/bin/windows/rw-FAQ.html#What-are-HOME-and-working-directories_003f">windows tips</a> <a href="http://cran.r-project.org/bin/macosx/RMacOSX-FAQ.html#The-R-Console">mac tips</a> Write the following in it:</p>
-<pre class="r"><code>options(PlosApiKey= &quot;YOUR_KEY&quot;)</code></pre>
+<p><strong>Remember to protect your key! it is important for your privacy. You know, like a key</strong> * Now we follow the ROpenSci <a href="https://github.com/ropensci/rOpenSci/wiki/Installation-and-use-of-API-keys">tutorial on API keys</a> * <strong><em>Add <code>.Rprofile</code> to your <code>.gitignore</code> !!</em></strong> * Make a <code>.Rprofile</code> file <a href="http://cran.r-project.org/bin/windows/rw-FAQ.html#What-are-HOME-and-working-directories_003f">windows tips</a> <a href="http://cran.r-project.org/bin/macosx/RMacOSX-FAQ.html#The-R-Console">mac tips</a> * Write the following in it:</p>
+<pre class="r"><code>options(PlosApiKey = &quot;YOUR_KEY&quot;)</code></pre>
+<ul>
+<li>restart R (e.g. reopen your Rstudio project)</li>
+</ul>
+<p>This code adds another element to the list of options, which you can see by calling <code>options()</code>. Part of the work done by <code>rplos::searchplos()</code> and friends is to go and obtain the value of this option with the function <code>getOption(&quot;PlosApiKey&quot;)</code>. This indicates two things: 1. Spelling is important when you set the option in your <code>.Rprofile</code> 2. you can do a similar process for an arbitrary package or key. For example:</p>
+<pre class="r"><code>## in .Rprofile
+options(&quot;this_is_my_key&quot; = XXXX)
+
+## later, in the R script:
+key &lt;- getOption(&quot;this_is_my_key&quot;)</code></pre>
+<p>This is a simple means to keep your keys private, especially if you are sharing the same authentication across several projects.</p>
+</div>
+<div id="a-few-timely-reminders-about-your-.rprofile" class="section level3">
+<h3>A few timely reminders about your .Rprofile</h3>
+<pre class="r"><code>print(&quot;This is Andrew&#39;s Rprofile and you can&#39;t have it!&quot;)
+options(PlosApiKey = &quot;XXXXXXXXX&quot;)</code></pre>
+<ul>
+<li>Note that it must end with a blank line!</li>
+<li>It lives in the project’s working directory, i.e. the location of your <code>.Rproj</code></li>
+<li>It must be gitignored</li>
+</ul>
+<p>Remember that using <code>.Rprofile</code> makes your code un-reproducible. In this case, that is exactly what we want!</p>
 </div>
 </div>
 <div id="searching-plos" class="section level2">
 <h2>Searching PLOS</h2>
 <p>Let’s do some searches:</p>
-<pre class="r"><code>searchplos(q= &quot;Helianthus&quot;, fl= &quot;id&quot;, limit = 5, key = key)</code></pre>
-<pre class="r"><code>searchplos(&quot;materials_and_methods:France&quot;, fl = &quot;title, materials_and_methods&quot;, key = key)
-lat &lt;- searchplos(&quot;materials_and_methods:study site&quot;, fl = &quot;title, materials_and_methods&quot;, key = key)
+<pre class="r"><code>searchplos(q= &quot;Helianthus&quot;, fl= &quot;id&quot;, limit = 5)</code></pre>
+<pre class="r"><code>searchplos(&quot;materials_and_methods:France&quot;,
+                     fl = &quot;title, materials_and_methods&quot;, key = key)
+lat &lt;- searchplos(&quot;materials_and_methods:study site&quot;,
+                                    fl = &quot;title, materials_and_methods&quot;, key = key)
 aff &lt;- searchplos(&quot;*:*&quot;, fl = &quot;title, author_affiliate&quot;, key = key)
 aff$author_affiliate[[2]]
 searchplos(&quot;*:*&quot;, fl = &quot;id&quot;, key = key)</code></pre>
@@ -684,7 +619,6 @@ highbrow(out)</code></pre>
 <div id="plots-over-time" class="section level2">
 <h2>plots over time</h2>
 <pre class="r"><code>plot_throughtime(terms = &quot;phylogeny&quot;, limit = 200, key = key)</code></pre>
-<p><img src="webdata02_activity_files/figure-html/unnamed-chunk-22.png" alt="plot of chunk unnamed-chunk-22" /></p>
 </div>
 <div id="is-it-a-boy-or-a-girl-gender-throughout-us-history" class="section level2">
 <h2>is it a boy or a girl? <code>gender</code> throughout US history</h2>
@@ -692,42 +626,8 @@ highbrow(out)</code></pre>
 devtools::install_github(&quot;ropensci/gender&quot;)</code></pre>
 <p>The gender package allows you access to American data on the gender of names. Because names change gender over the years, the probability of a name belonging to a man or a woman also depends on the <em>year</em>:</p>
 <pre class="r"><code>library(gender)
-gender(&quot;Kelsey&quot;)</code></pre>
-<pre><code>## $name
-## [1] &quot;Kelsey&quot;
-## 
-## $proportion_male
-## [1] 0.0314
-## 
-## $proportion_female
-## [1] 0.9686
-## 
-## $gender
-## [1] &quot;female&quot;
-## 
-## $year_min
-## [1] 1932
-## 
-## $year_max
-## [1] 2012</code></pre>
-<pre class="r"><code>gender(&quot;Kelsey&quot;, years = 1940)</code></pre>
-<pre><code>## $name
-## [1] &quot;Kelsey&quot;
-## 
-## $proportion_male
-## [1] 1
-## 
-## $proportion_female
-## [1] 0
-## 
-## $gender
-## [1] &quot;male&quot;
-## 
-## $year_min
-## [1] 1940
-## 
-## $year_max
-## [1] 1940</code></pre>
+gender(&quot;Kelsey&quot;)
+gender(&quot;Kelsey&quot;, years = 1940)</code></pre>
 </div>
 </div>
 
