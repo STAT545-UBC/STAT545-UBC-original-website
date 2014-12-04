@@ -81,7 +81,7 @@ Follow instructions on [How to submit homework](hw00_homework-guidelines.html#ho
 
 __Start using our [general rubric](peer-review01_marking-rubric.html) for specifics to evaluate! The form will require you to do so!__
 
-Check minus: Student's custom function was exactly what we did in class or trivial extension. Exploration of the data aggregation results is non-existent or rote. Obvious opportunities to complement numbers with a figure were ignored. More than one technical problem that is relatively easy to fix. It's hard to find the report in this crazy repo.
+Check minus: *One or more problems such as ...* Student's custom function was exactly what we did in class or a very modest extension. Exploration of the data aggregation results is missing or minimal. Student missed clear opportunities to complement numbers with a figure. Technical problem(s) that are relatively easy to fix. Repository organization -- or lack thereof -- leaves work for the reader, in terms of finding the necessary files.
 
 Check: Hits all the elements. No obvious mistakes. Pleasant to read. No heroic detective work required. Solid.
 
