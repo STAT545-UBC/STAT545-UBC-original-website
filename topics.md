@@ -104,6 +104,7 @@
 
   * [Lesson I contributed](bit002_tidying-lotr-data.html) to [Data Carpentry](http://software-carpentry.org/blog/2014/05/our-first-data-carpentry-workshop.html) on tidying data
   * [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
+  * [Store an API key as an environment variable](bit003_api-key-env-var.html)
 
 ## What's coming
 
