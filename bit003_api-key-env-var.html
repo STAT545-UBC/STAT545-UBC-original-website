@@ -86,7 +86,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><p>Put a line break at the end! If you’re using an editor that shows line numbers, there should be two lines, where the second one is empty.</p></li>
 <li><p>Save in your home directory with the filename <code>.Renviron</code>. If questioned, YES you do want to use a filename that begins with a dot <code>.</code>.</p></li>
 <li><p>Note that by default <a href="http://linux.about.com/cs/linux101/g/dot_file.htm">dotfiles</a> are usually hidden. But within RStudio, the file browser will make <code>.Renviron</code> visible and therefore easy to edit in the future.</p></li>
-<li><p>Restart R! <code>.Renviron</code> is processed only <a href="http://www.rdocumentation.org/packages/base/functions/Startup.html">at the start of an R session</a>.</p></li>
+<li><p>Restart R! <code>.Renviron</code> is processed only <a href="http://stat.ethz.ch/R-manual/R-patched/library/base/html/Startup.html">at the start of an R session</a>.</p></li>
 <li><p>Use <code>Sys.getenv()</code> to access your API-key-stored-as-environment-variable and provide to your API wrapper of choice. For example, here’s how I use my <code>GITHUB_TOKEN</code> with the <code>github</code> package:</p>
 <pre><code>library(github)
 ctx &lt;- create.github.context(access_token = Sys.getenv(&quot;GITHUB_TOKEN&quot;))

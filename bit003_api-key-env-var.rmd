@@ -28,7 +28,7 @@ How to do it:
   
   * Note that by default [dotfiles](http://linux.about.com/cs/linux101/g/dot_file.htm) are usually hidden. But within RStudio, the file browser will make `.Renviron` visible and therefore easy to edit in the future.
   
-  * Restart R! `.Renviron` is processed only [at the start of an R session](http://www.rdocumentation.org/packages/base/functions/Startup.html).
+  * Restart R! `.Renviron` is processed only [at the start of an R session](http://stat.ethz.ch/R-manual/R-patched/library/base/html/Startup.html).
   
   * Use `Sys.getenv()` to access your API-key-stored-as-environment-variable and provide to your API wrapper of choice. For example, here's how I use my `GITHUB_TOKEN` with the `github` package:
   
