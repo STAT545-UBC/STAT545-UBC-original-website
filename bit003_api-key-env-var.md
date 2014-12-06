@@ -10,6 +10,10 @@ Source: The [`httr` package](https://github.com/hadley/httr) has a vignette, [Be
 
 How to do it:
 
+  * Create the username, password, key, token or whatever secret thing your API demands. Copy it to the clipboard.
+  
+    - Example: To use the GitHub API, you must create a personal access token in the [Applications area](https://github.com/settings/applications) of your GitHub personal settings.
+    
   * Identify your home directory. Not sure? Enter `normalizePath("~/")` in the R console.
   
   * Create a new text file. If in RStudio, do *File > New File > Text file.*

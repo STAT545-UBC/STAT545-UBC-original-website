@@ -78,6 +78,10 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>Source: The <a href="https://github.com/hadley/httr"><code>httr</code> package</a> has a vignette, <a href="http://cran.r-project.org/web/packages/httr/vignettes/api-packages.html">Best practices for writing an API package</a>, that advocates this approach (but lacks this excruciating detail).</p>
 <p>How to do it:</p>
 <ul>
+<li><p>Create the username, password, key, token or whatever secret thing your API demands. Copy it to the clipboard.</p>
+<ul>
+<li>Example: To use the GitHub API, you must create a personal access token in the <a href="https://github.com/settings/applications">Applications area</a> of your GitHub personal settings.</li>
+</ul></li>
 <li><p>Identify your home directory. Not sure? Enter <code>normalizePath(&quot;~/&quot;)</code> in the R console.</p></li>
 <li><p>Create a new text file. If in RStudio, do <em>File &gt; New File &gt; Text file.</em></p></li>
 <li><p>Put a line like this for the key you wish to store:</p>
