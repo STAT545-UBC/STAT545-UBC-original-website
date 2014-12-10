@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Use of GitHub in STAT545</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Use of GitHub in STAT545</h1>
+</div>
+
+
+<p><em>Mostly just notes for myself! Unconference talk at <a href="https://github.com/Reproducible-Science-Curriculum/Reproducible-Science-Hackathon-Dec-08-2014">#rrhack</a></em></p>
+<p>Back story</p>
+<ul>
+<li>2013 no explicit usage of GitHub, yet vast majority of students elected to use for final project submission
+<ul>
+<li>What submission requirements induced this behavior?</li>
+<li>no email attachments – email me a link to location on the web</li>
+<li>I will not click on each file to download – must come in one bundle</li>
+<li>course materials were on GitHub so they had been exposed</li>
+</ul></li>
+<li>2014 Jan - Apr used GitHub in another course (STAT 540 Stats for genomics)
+<ul>
+<li>students got educational GitHub accounts = 5 private repos</li>
+<li>one public and one private repo per student</li>
+<li>private repo used for homework submission and feedback</li>
+<li>PAIN POINTS:</li>
+<li>prof and TA made explicit collaborators on EACH private repo, by the student</li>
+<li>students needed to submit link to their repo to prof</li>
+<li>students cannot see each others work</li>
+<li>internal matters handled in a private repo owned by me, with TAs added as collaborators</li>
+<li>not easy to see all of these course-related repos as a collection</li>
+</ul></li>
+</ul>
+<p>STAT 545 in 2014</p>
+<ul>
+<li><a href="http://stat545-ubc.github.io/git00_index.html">Explicit coverage of Git and GitHub</a> in the course</li>
+<li><a href="https://help.github.com/categories/organizations/">GitHub Organization</a> Gold Account provided <em>gratis</em> by GitHub via their <a href="https://education.github.com">Education initiative</a></li>
+<li>~50 private repos for free
+<ul>
+<li>one per student (team)</li>
+<li>one for internal development by prof and TAs</li>
+</ul></li>
+<li>main course website is an <a href="https://help.github.com/articles/user-organization-and-project-pages/">Organization page</a>
+<ul>
+<li><a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io">https://github.com/STAT545-UBC/STAT545-UBC.github.io</a></li>
+<li><a href="http://stat545-ubc.github.io">http://stat545-ubc.github.io</a></li>
+<li>inspired by back end of <a href="http://rmarkdown.rstudio.com">rmarkdown.rstudio.com</a> – see it in the <a href="https://github.com/rstudio/rmarkdown/tree/gh-pages">gh-pages branch of rmarkdown repo</a> and <a href="https://github.com/rstudio/rmarkdown/blob/gh-pages/Makefile">behold their Makefile</a></li>
+</ul></li>
+<li><a href="https://github.com/STAT545-UBC/Discussion/issues">Discussion repository’s issues</a> used as a class forum</li>
+<li>Organization Teams give control over who can read, write, administer what
+<ul>
+<li><a href="https://help.github.com/articles/permission-levels-for-an-organization-repository/">chart</a> of repository access by team role</li>
+<li>prof + TAs on Owners team</li>
+<li>each student must be a singleton team :( (invisible to outside world)</li>
+<li>all students belong to Students team (invisible to outside world)</li>
+</ul></li>
+<li>Teams and repos and permissions
+<ul>
+<li>Important: You cannot give an individual permission to do anything. Only a Team.</li>
+<li>Each student is a team with one member. It is a “Write access” team on the student’s repository</li>
+<li>The Students team is a “Read access” team on all student repositories.</li>
+<li>The Owners team is omnipotent.</li>
+<li>Tagging happy: <code>@STAT545-UBC/owners</code> works as a tag</li>
+<li>Tagging sad: frustrated in our attempts to create a <code>@STAT545-UBC/markers</code> team – you can only <span class="citation">@mention</span> the Owners team, individual GitHub users or a team you are a member of</li>
+</ul></li>
+<li>Homework submission
+<ul>
+<li>student does work in her/his repo</li>
+<li>opens an issue titled “Mark homework 11 of jenny_bryan”</li>
+<li>puts SHA of relevant commit and tags <code>@STAT545-UBC/owners</code> in comment</li>
+<li>marker puts comment in the issue, comments on commits, sends a pull request</li>
+<li>marker closes issue when done</li>
+</ul></li>
+<li>Peer review
+<ul>
+<li>each assignment reviewed by two peers</li>
+<li>issue titled “Peer review of jenny_bryan’s hwYY by karl_broman”</li>
+<li>issue on jenny’s repo, formally assigned to karl</li>
+<li>karl puts comments in the issue</li>
+<li>karl indicates he is done but sadly cannot close the issue :( jenny or Owners must do that</li>
+</ul></li>
+<li>Programmatic interaction with GitHub is a MUST
+<ul>
+<li>started out using <a href="https://github.com/education/teachers_pet"><code>teachers_pet</code></a></li>
+<li>created student teams, added students to singleton teams and the Students team</li>
+<li>results were mixed, e.g. inflexibility of naming scheme, docs were uneven</li>
+<li>regret over repo names :( <code>zz_</code> prefix did not have desired effect, delimiter chaos</li>
+<li>added me to each repo for no reason?</li>
+<li>supports a <em>very specific</em> <a href="https://education.github.com/guide">workflow</a>, e.g. one repository per student per assignment, seeded with boilerplate content</li>
+<li>switched quickly to <a href="https://github.com/cscheid/rgithub"><code>github</code></a>, an R wrapper around <a href="http://developer.github.com/v3/">GitHub v3 API</a></li>
+<li>once I figured out <a href="http://stat545-ubc.github.io/bit003_api-key-env-var.html">non-interactive authentication</a>, mostly success</li>
+<li>excellent for creating ~100 issues each week</li>
+<li>epic fail at adding new teams and repos mid-term; luckily volume small enough to do manually</li>
+<li>fail not due to capability but lack of examples and, I think?, inconsistency about JSON-ification of inputs, i.e. whether user or wrapper function converts</li>
+<li>documentation really doesn’t exist, no vignette</li>
+</ul></li>
+<li>Fake GitHub account and dummy repos and teams are a MUST
+<ul>
+<li>luckily I could create an account as my husband and hijack as needed</li>
+<li>very hard to do “dry run” before you unleash your issue-creating script</li>
+<li>Apparently someone’s GitHub handle is <a href="https://github.com/na"><code>NA</code></a>. Ask me how I know. Sorry about the issues, Nate Anderson!</li>
+</ul></li>
+<li>Other
+<ul>
+<li><a href="http://shinyapps.stat.ubc.ca/STAT545/peer-review/">Peer review Shiny app</a></li>
+<li>any time spent configuring Git(Hub) and learning about usage patterns struck me as a valid pedagogical goal – so did not worry about the time spent on this</li>
+</ul></li>
+</ul>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
