@@ -76,4 +76,5 @@ STAT 545 in 2014
   * Other
     - [Peer review Shiny app](http://shinyapps.stat.ubc.ca/STAT545/peer-review/)
     - any time spent configuring Git(Hub) and learning about usage patterns struck me as a valid pedagogical goal -- so did not worry about the time spent on this
+    - like Mine, harvesting the GitHub usernames is semi-painful; repo names however were within my control and I created them from official class registration list
     
