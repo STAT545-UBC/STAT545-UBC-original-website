@@ -11,6 +11,9 @@ output:
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(error = T)
 ```
+```{r create_fake, echo=F, results='hide'}
+file.create(c("block0_dplyr-fake.rmd", "block000_dplyr-fake.rmd.txt", "xblock000_dplyr-fake.rmd"))
+```
 
 In this tutorial, we will use the Gapminder data and file names in our [class repository](https://github.com/STAT545-UBC/STAT545-UBC.github.io) as examples to demonstrate using regular expression in R. First, let's start off by cloning the class repository, getting the list of file names with `list.files()`, and load the Gapminder dataset into R. 
 
@@ -225,7 +228,7 @@ pattern <- "block.*dplyr.*rmd"
 grep(pattern, files, value = TRUE)
 ```
 
-Apart from the two files we wanted, we also got three fake ones: `block0_dplyr-fake.rmd`, `xblock000_dplyr-fake.rmd`, and `block000_dplyr-fake.rmd.txt`. Looks like our pattern is not stringent enough. The first fake file does not have 3 digits after `block`, second one does not start with `block`, and last one has `.txt` after `rmd`. So let's try to fix that: 
+Apart from the two files we wanted, we also got three fake ones: `r paste0(list.files(pattern = "fake"), collapse = ", ")`. Looks like our pattern is not stringent enough. The first fake file does not have 3 digits after `block`, second one does not start with `block`, and last one has `.txt` after `rmd`. So let's try to fix that: 
 
 ```{r example_2}
 pattern <- "^block\\d{3}_.*dplyr.*rmd$"
@@ -305,4 +308,8 @@ The term globbing in shell or Unix-like environment refers to pattern matching b
   * There are some online tools to help learn, build and test regular expressions. On these websites, you can simply paste your test data and write regular expression, and matches will be highlighted.   
   + [regexpal](http://regexpal.com/)    
   + [RegExr](http://www.regexr.com/)   
+
+```{r delete_fake, echo=F, results='hide'}
+file.remove(c("block0_dplyr-fake.rmd", "block000_dplyr-fake.rmd.txt", "xblock000_dplyr-fake.rmd"))
+```
 

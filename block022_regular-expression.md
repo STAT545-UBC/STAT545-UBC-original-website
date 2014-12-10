@@ -4,6 +4,7 @@ October 19, 2014
 
 
 
+
 In this tutorial, we will use the Gapminder data and file names in our [class repository](https://github.com/STAT545-UBC/STAT545-UBC.github.io) as examples to demonstrate using regular expression in R. First, let's start off by cloning the class repository, getting the list of file names with `list.files()`, and load the Gapminder dataset into R. 
 
 We will also need to use some functions from the [stringr](https://github.com/hadley/stringr) package. It provids a clean, modern alternative to common string operations, and is sometimes easier to remember and use than R basic string functions. If you have not done so yet, install the package.   
@@ -21,9 +22,9 @@ head(files)
 ```
 
 ```
-## [1] "_output.yaml"                  "bit001_dplyr-cheatsheet.html" 
-## [3] "bit001_dplyr-cheatsheet.md"    "bit001_dplyr-cheatsheet.rmd"  
-## [5] "bit002_tidying-lotr-data.html" "bit002_tidying-lotr-data.md"
+## [1] "_output.yaml"              "automation00_index.html"  
+## [3] "automation00_index.md"     "automation01_slides"      
+## [5] "automation02_windows.html" "automation02_windows.md"
 ```
 
 ```r
@@ -72,7 +73,7 @@ grep("dplyr", files, value = FALSE)
 ```
 
 ```
-##  [1]   2   3   4   7   8  27  28  29  30  31  32  98  99 150 151 184
+##  [1]  12  13  14  23  24  43  44  45  46  47  48 114 115 186 187 267
 ```
 
 ```r
@@ -80,23 +81,31 @@ grepl("dplyr", files)
 ```
 
 ```
-##   [1] FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE
-##  [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-##  [23] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
-##  [34] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-##  [45] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##   [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [12]  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [23]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [34] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE
+##  [45]  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ##  [56] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ##  [67] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ##  [78] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-##  [89] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE
+##  [89] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [100] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [111] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [111] FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [122] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [144] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE
+## [144] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [155] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [166] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [177] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
+## [177] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE
+## [188] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [199] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [210] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [221] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [232] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [243] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [254] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [265] FALSE FALSE  TRUE
 ```
 
 What if we wanted to extract all homework files on `dplyr`? We would need a way to specify matching a string containing `hw` and then something and then `dplyr`. This is where regular expressions come in handy.   
@@ -485,7 +494,7 @@ grep(pattern, files, value = TRUE)
 ## [5] "xblock000_dplyr-fake.rmd"
 ```
 
-Apart from the two files we wanted, we also got three fake ones: `block0_dplyr-fake.rmd`, `xblock000_dplyr-fake.rmd`, and `block000_dplyr-fake.rmd.txt`. Looks like our pattern is not stringent enough. The first fake file does not have 3 digits after `block`, second one does not start with `block`, and last one has `.txt` after `rmd`. So let's try to fix that: 
+Apart from the two files we wanted, we also got three fake ones: block0_dplyr-fake.rmd, block000_dplyr-fake.rmd.txt, xblock000_dplyr-fake.rmd. Looks like our pattern is not stringent enough. The first fake file does not have 3 digits after `block`, second one does not start with `block`, and last one has `.txt` after `rmd`. So let's try to fix that: 
 
 
 ```r
@@ -533,8 +542,8 @@ pattern <- "^block\\d{3}_.*dplyr-(.*)\\.rmd$"
 ## [2,] "block010_dplyr-end-single-table.rmd" "end-single-table"
 ## attr(,"na.action")
 ##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17
-##  [18]  18  19  20  21  22  23  24  25  26  27  28  30  31  33  34  35  36
-##  [35]  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53
+##  [18]  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34
+##  [35]  35  36  37  38  39  40  41  42  43  44  46  47  49  50  51  52  53
 ##  [52]  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70
 ##  [69]  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87
 ##  [86]  88  89  90  91  92  93  94  95  96  97  98  99 100 101 102 103 104
@@ -542,7 +551,12 @@ pattern <- "^block\\d{3}_.*dplyr-(.*)\\.rmd$"
 ## [120] 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138
 ## [137] 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155
 ## [154] 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172
-## [171] 173 174 175 176 177 178 179 180 181 182 183 184
+## [171] 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189
+## [188] 190 191 192 193 194 195 196 197 198 199 200 201 202 203 204 205 206
+## [205] 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221 222 223
+## [222] 224 225 226 227 228 229 230 231 232 233 234 235 236 237 238 239 240
+## [239] 241 242 243 244 245 246 247 248 249 250 251 252 253 254 255 256 257
+## [256] 258 259 260 261 262 263 264 265 266 267
 ## attr(,"class")
 ## [1] "omit"
 ```
@@ -627,4 +641,6 @@ The term globbing in shell or Unix-like environment refers to pattern matching b
   * There are some online tools to help learn, build and test regular expressions. On these websites, you can simply paste your test data and write regular expression, and matches will be highlighted.   
   + [regexpal](http://regexpal.com/)    
   + [RegExr](http://www.regexr.com/)   
+
+
 
