@@ -215,7 +215,6 @@ I created a directory and, therefore RStudio project, called `swc` in my `tmp` d
 
 ```{r eval = FALSE}
 setwd("~/tmp/swc")
-getwd()
 ```
 
 Now check that the "home" directory for your project is the working directory of our current R process:
