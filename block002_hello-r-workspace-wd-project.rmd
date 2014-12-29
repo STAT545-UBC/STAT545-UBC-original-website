@@ -203,7 +203,7 @@ But there's a better way. A way that also puts you on the path to managing your 
 
 ### RStudio projects
 
-Keeping all the files associated with a project organized together -- input data, R scripts, analytical results, figures -- is such a wise and common practice that RStudio has built-in support for this via it's _projects_.
+Keeping all the files associated with a project organized together -- input data, R scripts, analytical results, figures -- is such a wise and common practice that RStudio has built-in support for this via its _projects_.
 
 [Using Projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
 
