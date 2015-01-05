@@ -112,12 +112,12 @@ evenOthersUseCamelCase</code></pre>
 <pre class="r"><code>this_is_a_really_long_name &lt;- 2.5</code></pre>
 <p>To inspect this, try out RStudio’s completion facility: type the first few characters, press TAB, add characters until you disambiguate, then press return.</p>
 <p>Make another assignment</p>
-<pre class="r"><code>jenny_rocks &lt;- 2^3</code></pre>
+<pre class="r"><code>jenny_rocks &lt;- 2 ^ 3</code></pre>
 <p>Let’s try to inspect:</p>
 <pre class="r"><code>jennyrocks</code></pre>
-<pre><code>## Error: object &#39;jennyrocks&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;jennyrocks&#39; not found</code></pre>
 <pre class="r"><code>jeny_rocks</code></pre>
-<pre><code>## Error: object &#39;jeny_rocks&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;jeny_rocks&#39; not found</code></pre>
 <p>Implicit contract with the computer / scripting language: Computer will do tedious computation for you. In return, you will be completely precise in your instructions. Typos matter. Case matters. Get better at typing.</p>
 <p>R has a mind-blowing collection of built-in functions that are accessed like so</p>
 <pre class="r"><code>functionName(arg1 = val1, arg2 = val2, and so on)</code></pre>
@@ -137,16 +137,16 @@ y</code></pre>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 <p>Not all functions have (or require) arguments:</p>
 <pre class="r"><code>date()</code></pre>
-<pre><code>## [1] &quot;Mon Sep  8 00:42:27 2014&quot;</code></pre>
+<pre><code>## [1] &quot;Mon Jan  5 14:20:26 2015&quot;</code></pre>
 <p>Now look at your workspace – in the upper right pane. The workspace is where user-defined objects accumulate. You can also get a listing of these objects with commands:</p>
 <pre class="r"><code>objects()</code></pre>
-<pre><code>## [1] &quot;jenny_rocks&quot;                &quot;metadata&quot;                  
-## [3] &quot;this_is_a_really_long_name&quot; &quot;x&quot;                         
-## [5] &quot;y&quot;                          &quot;yo&quot;</code></pre>
+<pre><code>## [1] &quot;jenny_rocks&quot;                &quot;this_is_a_really_long_name&quot;
+## [3] &quot;x&quot;                          &quot;y&quot;                         
+## [5] &quot;yo&quot;</code></pre>
 <pre class="r"><code>ls()</code></pre>
-<pre><code>## [1] &quot;jenny_rocks&quot;                &quot;metadata&quot;                  
-## [3] &quot;this_is_a_really_long_name&quot; &quot;x&quot;                         
-## [5] &quot;y&quot;                          &quot;yo&quot;</code></pre>
+<pre><code>## [1] &quot;jenny_rocks&quot;                &quot;this_is_a_really_long_name&quot;
+## [3] &quot;x&quot;                          &quot;y&quot;                         
+## [5] &quot;yo&quot;</code></pre>
 <p>If you want to remove the object named <code>y</code>, you can do this</p>
 <pre class="r"><code>rm(y)</code></pre>
 <p>To remove everything:</p>
@@ -195,15 +195,14 @@ y</code></pre>
 </div>
 <div id="rstudio-projects" class="section level3">
 <h3>RStudio projects</h3>
-<p>Keeping all the files associated with a project organized together – input data, R scripts, analytical results, figures – is such a wise and common practice that RStudio has built-in support for this via it’s <em>projects</em>.</p>
+<p>Keeping all the files associated with a project organized together – input data, R scripts, analytical results, figures – is such a wise and common practice that RStudio has built-in support for this via its <em>projects</em>.</p>
 <p><a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">Using Projects</a></p>
 <p>Let’s make one to use for the rest of this workshop/class. Do this: File &gt; New Project …. The directory name you choose here will be the project name. Call it whatever you want (or follow me for convenience).</p>
 <p>I created a directory and, therefore RStudio project, called <code>swc</code> in my <code>tmp</code> directory, FYI.</p>
 <!-- https://github.com/yihui/knitr/issues/277 -->
 
 
-<pre class="r"><code>setwd(&quot;~/tmp/swc&quot;)
-getwd()</code></pre>
+<pre class="r"><code>setwd(&quot;~/tmp/swc&quot;)</code></pre>
 <p>Now check that the “home” directory for your project is the working directory of our current R process:</p>
 <pre class="r"><code>getwd()</code></pre>
 <p><em>I can’t print my output here because this document itself does not reside in the RStudio Project we just created.</em></p>
@@ -214,11 +213,11 @@ sig_sq &lt;- 0.5
 x &lt;- runif(40)
 y &lt;- a + b * x + rnorm(40, sd = sqrt(sig_sq))
 (avg_x &lt;- mean(x))</code></pre>
-<pre><code>## [1] 0.4961</code></pre>
+<pre><code>## [1] 0.4997209</code></pre>
 <pre class="r"><code>write(avg_x, &quot;avg_x.txt&quot;)
 plot(x, y)
 abline(a, b, col = &quot;purple&quot;)</code></pre>
-<p><img src="block002_hello-r-workspace-wd-project_files/figure-html/toy-line.png" alt="plot of chunk toy-line" /></p>
+<p><img src="block002_hello-r-workspace-wd-project_files/figure-html/toy-line-1.png" /></p>
 <pre class="r"><code>dev.print(pdf, &quot;toy_line_plot.pdf&quot;)</code></pre>
 <pre><code>## pdf 
 ##   2</code></pre>

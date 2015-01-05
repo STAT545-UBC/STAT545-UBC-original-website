@@ -60,7 +60,7 @@ To inspect this, try out RStudio's completion facility: type the first few chara
 Make another assignment
 
 ```r
-jenny_rocks <- 2^3
+jenny_rocks <- 2 ^ 3
 ```
 
 Let's try to inspect:
@@ -70,7 +70,7 @@ jennyrocks
 ```
 
 ```
-## Error: object 'jennyrocks' not found
+## Error in eval(expr, envir, enclos): object 'jennyrocks' not found
 ```
 
 ```r
@@ -78,7 +78,7 @@ jeny_rocks
 ```
 
 ```
-## Error: object 'jeny_rocks' not found
+## Error in eval(expr, envir, enclos): object 'jeny_rocks' not found
 ```
 
 Implicit contract with the computer / scripting language: Computer will do tedious computation for you. In return, you will be completely precise in your instructions. Typos matter. Case matters. Get better at typing.
@@ -143,7 +143,7 @@ date()
 ```
 
 ```
-## [1] "Mon Sep  8 00:42:27 2014"
+## [1] "Mon Jan  5 14:20:26 2015"
 ```
 
 Now look at your workspace -- in the upper right pane. The workspace is where user-defined objects accumulate. You can also get a listing of these objects with commands:
@@ -154,9 +154,9 @@ objects()
 ```
 
 ```
-## [1] "jenny_rocks"                "metadata"                  
-## [3] "this_is_a_really_long_name" "x"                         
-## [5] "y"                          "yo"
+## [1] "jenny_rocks"                "this_is_a_really_long_name"
+## [3] "x"                          "y"                         
+## [5] "yo"
 ```
 
 ```r
@@ -164,9 +164,9 @@ ls()
 ```
 
 ```
-## [1] "jenny_rocks"                "metadata"                  
-## [3] "this_is_a_really_long_name" "x"                         
-## [5] "y"                          "yo"
+## [1] "jenny_rocks"                "this_is_a_really_long_name"
+## [3] "x"                          "y"                         
+## [5] "yo"
 ```
 
 If you want to remove the object named `y`, you can do this
@@ -257,7 +257,7 @@ But there's a better way. A way that also puts you on the path to managing your 
 
 ### RStudio projects
 
-Keeping all the files associated with a project organized together -- input data, R scripts, analytical results, figures -- is such a wise and common practice that RStudio has built-in support for this via it's _projects_.
+Keeping all the files associated with a project organized together -- input data, R scripts, analytical results, figures -- is such a wise and common practice that RStudio has built-in support for this via its _projects_.
 
 [Using Projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
 
@@ -270,7 +270,6 @@ I created a directory and, therefore RStudio project, called `swc` in my `tmp` d
 
 ```r
 setwd("~/tmp/swc")
-getwd()
 ```
 
 Now check that the "home" directory for your project is the working directory of our current R process:
@@ -294,7 +293,7 @@ y <- a + b * x + rnorm(40, sd = sqrt(sig_sq))
 ```
 
 ```
-## [1] 0.4961
+## [1] 0.4997209
 ```
 
 ```r
@@ -303,7 +302,7 @@ plot(x, y)
 abline(a, b, col = "purple")
 ```
 
-![plot of chunk toy-line](./block002_hello-r-workspace-wd-project_files/figure-html/toy-line.png) 
+![](block002_hello-r-workspace-wd-project_files/figure-html/toy-line-1.png) 
 
 ```r
 dev.print(pdf, "toy_line_plot.pdf")

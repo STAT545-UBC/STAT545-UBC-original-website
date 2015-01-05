@@ -60,7 +60,7 @@ To inspect this, try out RStudio's completion facility: type the first few chara
 
 Make another assignment
 ```{r}
-jenny_rocks <- 2^3
+jenny_rocks <- 2 ^ 3
 ```
 
 Let's try to inspect:
