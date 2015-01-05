@@ -8,7 +8,11 @@ output:
       after_body: include/nothing.html
 ---
 
-### Course facts
+### When is the course next offered?
+
+September - Dec 2015 *to be confimed, but very likely*
+
+### Course facts for Sept - Dec 2014 run
 
 |          | STAT 545A                       | STAT547M                        |
 |----------|---------------------------------|---------------------------------|
@@ -31,12 +35,12 @@ Up-to-date info on [office hours](https://github.com/STAT545-UBC/Discussion/issu
 
 For several years, I have taught STAT 545A as a 1.5 credit course. I -- and many students -- have felt there was alot of great, relevant content that could go into an additional 1.5 credits.
 
-Therefore, in 2014/2015, we will pilot a full semester on data exploration, visualization, and all-around data wrangling. It is structured as two half courses for various reasons, such as allowing STAT 545A alums to register for STAT 547M and get the "missing half" of the course!
+Therefore, in 2014/2015, we piloted a full semester on data exploration, visualization, and all-around data wrangling. It was structured as two half courses primarily so that STAT 545A alums could register for STAT 547M and get the "missing half" of the course. We're still figuring out the long term plan re: 2 courses of 1.5 credits vs. 1 course of 3 credits.
 
 ### Am I allowed to register in ...?
 
   * I have taken STAT 545A for 1.5 credits in the past. Can I take STAT 547M?
-    - YES. But you will want to follow along during STAT 545A (at least online), so you get some new content. Examples: the use of Git for version control, GitHub for collaboration, `knitr` and R Markdown for dynamic documents, `ggplot2` for graphics, `plyr` and `dplyr` for data aggregation.
+    - YES. But STAT 545 has changed to keep current with the R world. It is your responsibility to level up. Examples: the use of Git for version control, GitHub for collaboration, `knitr` and R Markdown for dynamic documents, `ggplot2` for graphics, `plyr` and `dplyr` for data aggregation.
   * Can I just take the second half, i.e. STAT 547M?
     - NO, not unless you have taken STAT 545A previously.
   * Can I take just the first half, i.e. STAT 545A?
