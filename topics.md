@@ -53,7 +53,10 @@
     - [Hands-on activity, part 1](packages02_activity.html)
     - [Hands-on activity, part 2](packages02_activity_part2.html)
   * [All the Shiny things](shiny00_index.html)
-    - *add sub-bullet points*
+    - [slides](shiny01_slides.pdf)
+    - [Getting your system set up for Shiny](shiny02_setup.html)
+    - [Hands-on activity-build a shiny app](shiny03_activity.html)
+    - [Shiny and other interactive plotting links](shiny04_links.html)
   * Get data from the web
     - *make usual landing page and add bullet points*
     - class meeting [one](cm111_data-from-web.html) and [two](cm112_data-from-web.html)  

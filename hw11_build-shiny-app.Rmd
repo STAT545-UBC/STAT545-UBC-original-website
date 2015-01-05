@@ -14,13 +14,13 @@ We made a Shiny app that let us graph the Gapminder data.
 
 There is a lot you can do with Shiny. For homework we want you to:
 
-* add the Gapminder data as a .tsv file to a directory in your gapminder app ("./data/" would be a good option for a directory). This way we the data are included as part of your app. Load in the data from this directory instead of the url given in class. 
+* add the Gapminder data as a .tsv file to a directory in your gapminder app ("./data/" would be a good option for a directory). This way the data are included as part of your app. Load in the data from this directory instead of the url given in class. 
 * use another type of widget to control an aspect of the data (see [Shiny Widget Gallery](http://shiny.rstudio.com/gallery/widget-gallery.html))
 * edit the dropdown menu for countries so that you can choose 2 (or more) countries
-* try facetting the data based on one of your user inputs.
+* try facetting the data based on one of your user inputs
 * please have your app organized with the strict directory structure required by Shiny so that your peer reviewer can download your scripts and run you app locally. Please also deploy your app to the shinyapps.io website or if you are really excited talk to Jenny about deploying to the shinyapps.stat.ubc.ca server.  
 
-In a suitable file and place, probably a `README.md`, describe how the Shiny development work went for you. What's been the hardest? The most rewarding? How do you regard Shiny's strengths / weakness relative to webpages you can create from RMarkdown? What sort of future applications can you see for Shiny? 
+In a suitable file and place, probably a `README.md`, describe how the Shiny development work went for you. What was the hardest part? The most rewarding? How do you regard Shiny's strengths / weakness relative to webpages you can create from RMarkdown? What sort of future applications can you see for Shiny? 
 
 ### Due date
 
@@ -59,7 +59,7 @@ Check minus: There is a problem with some aspect of `server.R` or `ui.R`. The de
 
 Check: App runs! All the required widgets, interactivity and facetting/colour are included. Good work!
 
-Check plus: Exceeded the requirements in number of dimensions. App is deployed on shinyapps.io or on shinyapps.stat.ubc.ca. You have added a pleasant, useful dimension (widget, images, layout, css/html coding) to the app that was not required. Neat! 
+Check plus: Exceeded the requirements in a number of dimensions. App is deployed on shinyapps.io or on shinyapps.stat.ubc.ca. You have added a pleasant, useful dimension (widget, images, layout, css/html coding) to the app that was not required. Neat! 
 
 Recall the [general homework rubric](http://stat545-ubc.github.io/peer-review01_marking-rubric.html).
 
