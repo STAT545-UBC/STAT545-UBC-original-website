@@ -10,7 +10,9 @@ output:
 
 ### When is the course next offered?
 
-September - Dec 2015 *to be confimed, but very likely*
+*Not written in stone yet, but this is info is fairly firm.*
+
+September - Dec 2015, meeting Tuesday/Thursday (note this change from Mon/Wed!) 9:30am - 11am in ESB 2012. Same format as 2014: STAT 545A 1.5 credits + STAT 547M 1.5 credits.
 
 ### Course facts for Sept - Dec 2014 run
 
