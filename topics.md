@@ -109,6 +109,7 @@
   * [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
   * [Store an API key as an environment variable](bit003_api-key-env-var.html)
   * [Workflow for sending email with R and `gmailr`](https://github.com/jennybc/send-email-with-r)
+  * [Make browsing your GitHub repos more rewarding](bit006_github-browsability-wins.html)
 
 ## What's coming
 

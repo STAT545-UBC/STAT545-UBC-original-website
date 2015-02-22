@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>The unreasonable effectiveness of GitHub browsability</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/united.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">The unreasonable effectiveness of GitHub browsability</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#be-savvy-about-your-files">Be savvy about your files</a></li>
+<li><a href="#markdown">Markdown</a></li>
+<li><a href="#readme.md"><code>README.md</code></a></li>
+<li><a href="#html">HTML</a></li>
+<li><a href="#source-code">Source code</a></li>
+<li><a href="#delimited-files">Delimited files</a></li>
+<li><a href="#pngs">PNGs</a></li>
+<li><a href="#linking-to-a-zip-archive-of-your-repo">Linking to a ZIP archive of your repo</a></li>
+<li><a href="#more-stuff-i-could-write-up">More stuff I could write up?</a></li>
+</ul>
+</div>
+
+<p>One of my favorite aspects of GitHub is the ability to inspect a repository’s files in a browser. Certain practices make browsing more rewarding and can postpone the day when you must create a proper website for a project. Perhaps indefinitely.</p>
+<div id="be-savvy-about-your-files" class="section level4">
+<h4>Be savvy about your files</h4>
+<p>Keep files in the plainest, web-friendliest form that is compatible with your main goals. Plain text is the very best. GitHub offers special handling for certain types of files:</p>
+<ul>
+<li>Markdown files, which may be destined for conversion into, e.g., HTML</li>
+<li>Markdown files named <code>README.md</code></li>
+<li>HTML files, often the result of compiling Markdown files</li>
+<li>Source code, such as <code>.R</code> files</li>
+<li>Delimited files, containing data one might bring into R via <code>read.table()</code></li>
+<li>PNG files</li>
+</ul>
+<p>Sidebar: let’s acknowledge the discomfort some people feel about putting downstream products under version control. Specifically, if you’ve got an R Markdown document <code>foo.rmd</code>, it can be <code>knit()</code> to produce the intermediate product <code>foo.md</code>, which can be converted to the ultimate output <code>foo.html</code>. Which of those files are you “allowed” to put under version control? Source-is-real hardliners will say only <code>foo.rmd</code> but pragmatists know this can be a serious bummer in real life. Just because I <em>can</em> rebuild everything from scratch, it doesn’t mean I <em>want</em> to. The taboo of keeping derived products under version control originates from compilation of binary executables from source. In that context, software built on, say, a Mac would not work on, say, Windows and so it made sense to keep these binaries out of the holy source code repository. Also, you could assume the people with access to the repository have a the full development stack and relish opportunities to use it. These arguments are less applicable to the <code>foo.rmd --&gt; foo.md --&gt; foo.html</code> thing. We don’t have to blindly follow traditions from the compilation domain. This is a note about cool things GitHub can do with various file types, if they happen to end up in your repo. I won’t ask you how they got there.</p>
+</div>
+<div id="markdown" class="section level4">
+<h4>Markdown</h4>
+<p>You will quickly discover that GitHub renders Markdown files very nicely. By clicking on <code>foo.md</code>, you’ll get a decent preview of <code>foo.html</code>. Yay!</p>
+<p>Aggressively exploit this handy feature. Make Markdown your default format for narrative text files and use them liberally to embed notes to yourself and others in a repository hosted on Github. It’s an easy way to get pseudo-webpages inside a project “for free”. You may never even compile these files to HTML explicitly; in many cases, the HTML preview offered by GitHub is all you ever need.</p>
+<p><del>Since GitHub does not provide automatic previewing of <em>R Markdown</em> files,</del> it can be handy to include the intermediate Markdown files produced by <code>knitr</code> in your repo, even if you choose to <code>.gitignore</code> the final HTML. Also, don’t use the <code>.rmd</code> extension unless you really have R chunks in your Markdown; if a file is plain Markdown, say that clearly with the <code>.md</code> extension and enjoy the automatic preview. <em>Update: <a href="https://github.com/github/markup/pull/343">GitHub now syntax highlights R markdown nicely</a>, but, of course, the code blocks just sit there un-executed, so my advice about keeping intermediate Markdown still holds. <a href="block007_first-use-rmarkdown.html#step-3-save-the-intermediate-markdown">Here’s how to retain</a> the intermediate Markdown.</em></p>
+<p>For a quick, stand-alone document that doesn’t fit neatly into a repository or project (yet), make it a <a href="https://gist.github.com">Gist</a>. Example: Hadley Wickham’s <a href="https://gist.github.com/hadley/6734639">“first stab at a basic R programming curriculum”</a>. Gists can contain multiple files, so you can still provide the R script or R Markdown source <strong>and</strong> the resulting Markdown, <a href="https://gist.github.com/jennybc/97f2a969e2985f1362f3">as I’ve done here</a>.</p>
+</div>
+<div id="readme.md" class="section level4">
+<h4><code>README.md</code></h4>
+<p>You probably already know that GitHub renders <code>README.md</code> at the top-level of your repo as the <em>de facto</em> landing page. This is analogous to what happens when you point a web browser at a directory instead of a specific web page: if there is a file named <code>index.html</code>, that’s what the server will show you by default. On GitHub, files named <code>README.md</code> play exactly this role for directories in your repo.</p>
+<p>Implication: for any logical group of files or mini project-within-your-project, create a sub-directory in your repository. And then create a <code>README.md</code> file to annotate these files, collect relevant links, etc. Now when you navigate to the sub-directory on GitHub the nicely rendered <code>README.md</code> will simply appear.</p>
+<p>Some repositories consist solely of <code>README.md</code>. Examples: Jeff Leek’s write-ups on <a href="https://github.com/jtleek/datasharing">How to share data with a statistician</a> or <a href="https://github.com/jtleek/rpackages">Developing R packages</a>.</p>
+<p>If you’ve got a directory full of web-friendly figures, such as PNGs, you can use <a href="https://gist.github.com/jennybc/0239f65633e09df7e5f4">code like this</a> to generate a <code>README.md</code> for a quick DIY gallery, as Karl Broman has done with <a href="https://github.com/kbroman/FruitSnacks/blob/master/PhotoGallery.md">his FruitSnacks</a>.</p>
+</div>
+<div id="html" class="section level4">
+<h4>HTML</h4>
+<p>If you have an HTML file in a GitHub repository, simply visiting the file shows the raw HTML. Boo. But if you preface the link with <code>http://htmlpreview.github.com/?</code>, you will see properly rendered HTML. Illustration:</p>
+<ul>
+<li>Visiting an HTML fil on GitHub gets you this:
+<ul>
+<li><a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/bit003_api-key-env-var.html" class="uri">https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/bit003_api-key-env-var.html</a></li>
+</ul></li>
+<li>But if we visit the file in a different way – if we preface the URL as described above – we see it more like a normal webpage:
+<ul>
+<li><a href="http://htmlpreview.github.io/?https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/bit003_api-key-env-var.html" class="uri">http://htmlpreview.github.io/?https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/bit003_api-key-env-var.html</a></li>
+</ul></li>
+</ul>
+<p>This sort of enhanced link might be one of the useful things to put in a <code>README.md</code> or other Markdown file in the repo.</p>
+<p><em>Update: you may also want to check out <a href="http://rawgit.com">rawgit.com</a> or this <a href="https://chrome.google.com/webstore/detail/github-html-preview/cphnnfjainnhgejcpgboeeakfkgbkfek?hl=en">Chrome extension</a>.</em></p>
+</div>
+<div id="source-code" class="section level4">
+<h4>Source code</h4>
+<p>You will notice that GitHub does automatic syntax highlighting for source code. For example, notice the coloring of this <a href="https://github.com/jennybc/swcR_duke/blob/master/code/01_countrySpecificInterceptSlope.R">R script</a>. The file’s extension is the primary determinant for if/how syntax highlighting will be applied. You can see information on recognized languages, the default extensions and more <a href="https://github.com/github/linguist/blob/master/lib/linguist/languages.yml">here</a>. You should be doing it anyway, but let this be another reason to follow convention in your use of file extensions.</p>
+<p>Note you can click on “Raw” in this context as well, to get just the plain text and nothing but the plain text.</p>
+</div>
+<div id="delimited-files" class="section level4">
+<h4>Delimited files</h4>
+<p>GitHub will nicely render “tabular data in the form of <code>.csv</code> (comma-separated) and <code>.tsv</code> (tab-separated) files.” You can read more in the <a href="https://github.com/blog/1601-see-your-csvs">blog post</a> announcing this feature in August 2013 or in <a href="https://help.github.com/articles/rendering-csv-and-tsv-data">this GitHub help page</a>.</p>
+<p>Advice: take advantage of this! If something in your repo can be naturally stored as delimited data, by all means, do so. Make the comma or tab your default delimiter and use the file suffixes GitHub is expecting. I have noticed that GitHub is more easily confused than, say, R about things like quoting, so always inspect the GitHub-rendered <code>.csv</code> or <code>.tsv</code> file in the browser. You may need to do light tidying to get the automagic rendering to work properly.</p>
+<p>Here’s an example of a tab delimited file on GitHub: <a href="https://github.com/jennybc/lotr/blob/master/lotr_clean.tsv">lotr_clean.tsv</a>, originally found <a href="http://www-958.ibm.com/software/data/cognos/manyeyes/datasets/words-spoken-by-character-race-scene/versions/1.txt">here</a>.</p>
+<p>Note you can click on “Raw” in this context as well, to get just the plain text and nothing but the plain text.</p>
+</div>
+<div id="pngs" class="section level4">
+<h4>PNGs</h4>
+<p>PNG is the “no brainer” format in which to store figures for the web. But many of us like a vector-based format, such as PDF, for general purpose figures. Bottom line: PNGs will drive you less crazy than PDFs on GitHub. To reduce the aggravation around viewing figures in the browser, make sure to have a PNG version in the repo.</p>
+<p>Examples:</p>
+<ul>
+<li><a href="https://github.com/jennybc/STAT545A/blob/master/hw06_scaffolds/01_justR/stripplot_wordsByRace_The_Fellowship_Of_The_Ring.png">This PNG figure</a> just shows up in the browser</li>
+<li>The same figure <a href="https://github.com/jennybc/STAT545A/blob/master/r.pch.pdf">stored as PDF</a> produces the dreaded, annoying “View Raw” speed bump. You’ll have to click through and, on my OS + browser, wait for the PDF to appear in an external PDF viewer.</li>
+</ul>
+</div>
+<div id="linking-to-a-zip-archive-of-your-repo" class="section level4">
+<h4>Linking to a ZIP archive of your repo</h4>
+<p>The browsability of GitHub make your work accessible to people who care about your content but who don’t (yet) use Git themselves. What if such a person wants all the files? Yes, there is a clickable “Download ZIP” button offered by GitHub. But what if you want a link to include in, say, an email or other document? If you add <code>/archive/master.zip</code> <em>to the end</em> of the URL for your repo, you construct a link that will download a ZIP archive of your repository. Click here to try this out on a very small repo:</p>
+<p><a href="https://github.com/jennybc/lotr/archive/master.zip" class="uri">https://github.com/jennybc/lotr/archive/master.zip</a></p>
+<p>Go look in your downloads folder!</p>
+</div>
+<div id="more-stuff-i-could-write-up" class="section level4">
+<h4>More stuff I could write up?</h4>
+<p>Internal links, e.g. from a <code>.md</code> file in the repo to another file in the repo. Example: in the top-level <code>README.md</code> you can link to the directory called <code>courseAdmin</code> (and therefore it’s <code>README.md</code>) via <code>../master/courseAdmin</code>. Read more and link to this: <a href="https://help.github.com/articles/relative-links-in-readmes" class="uri">https://help.github.com/articles/relative-links-in-readmes</a>. Variations on this theme:</p>
+<ul>
+<li><p>whether/how internal links work in issues (short answer: not so much, I fear)</p></li>
+<li><p>embedding a PNG from the repo in a <code>.md</code> file; ditto for an issue</p></li>
+</ul>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
