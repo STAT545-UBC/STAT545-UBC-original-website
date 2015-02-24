@@ -87,9 +87,17 @@ The browsability of GitHub make your work accessible to people who care about yo
 
 Go look in your downloads folder!
 
+#### Links
+
+* To link to another page in your repo, just use a relative link: `[admin](courseAdmin/)` will link to the `courseAdmin/` directory inside the current directory. `[admin](/courseAdmin/)` will link to the top-level `courseAdmin/` directory from any where in the repo
+
+* The same idea also works for images. `![](image.png)` will include `image.png` located in the current directory
+
+* You can link to issues with `#` followed by the issue number, e.g. #10.
+
 #### More stuff I could write up?
 
-Internal links, e.g. from a `.md` file in the repo to another file in the repo. Example: in the top-level `README.md` you can link to the directory called `courseAdmin` (and therefore it's `README.md`) via `../master/courseAdmin`. Read more and link to this: <https://help.github.com/articles/relative-links-in-readmes>. Variations on this theme:
+Variations on this theme:
 
   * whether/how internal links work in issues (short answer: not so much, I fear)
 
