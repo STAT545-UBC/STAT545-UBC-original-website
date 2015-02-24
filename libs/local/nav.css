@@ -47,6 +47,12 @@ body {
   cursor: default;
 }
  
+.footer {
+  margin-top: 2em;	
+  padding-top: 1em;
+  border-top: 1px #eee solid;
+}
+
 @media screen and (min-width: 600px) {
   .nav li {
     width: 120px;
