@@ -90,6 +90,7 @@ img {
 <li><a href="#delimited-files">Delimited files</a></li>
 <li><a href="#pngs">PNGs</a></li>
 <li><a href="#linking-to-a-zip-archive-of-your-repo">Linking to a ZIP archive of your repo</a></li>
+<li><a href="#links">Links</a></li>
 <li><a href="#more-stuff-i-could-write-up">More stuff I could write up?</a></li>
 </ul>
 </div>
@@ -165,9 +166,17 @@ img {
 <p><a href="https://github.com/jennybc/lotr/archive/master.zip" class="uri">https://github.com/jennybc/lotr/archive/master.zip</a></p>
 <p>Go look in your downloads folder!</p>
 </div>
+<div id="links" class="section level4">
+<h4>Links</h4>
+<ul>
+<li><p>To link to another page in your repo, just use a relative link: <code>[admin](courseAdmin/)</code> will link to the <code>courseAdmin/</code> directory inside the current directory. <code>[admin](/courseAdmin/)</code> will link to the top-level <code>courseAdmin/</code> directory from any where in the repo</p></li>
+<li><p>The same idea also works for images. <code>![](image.png)</code> will include <code>image.png</code> located in the current directory</p></li>
+<li><p>You can link to issues with <code>#</code> followed by the issue number, e.g. #10.</p></li>
+</ul>
+</div>
 <div id="more-stuff-i-could-write-up" class="section level4">
 <h4>More stuff I could write up?</h4>
-<p>Internal links, e.g. from a <code>.md</code> file in the repo to another file in the repo. Example: in the top-level <code>README.md</code> you can link to the directory called <code>courseAdmin</code> (and therefore it’s <code>README.md</code>) via <code>../master/courseAdmin</code>. Read more and link to this: <a href="https://help.github.com/articles/relative-links-in-readmes" class="uri">https://help.github.com/articles/relative-links-in-readmes</a>. Variations on this theme:</p>
+<p>Variations on this theme:</p>
 <ul>
 <li><p>whether/how internal links work in issues (short answer: not so much, I fear)</p></li>
 <li><p>embedding a PNG from the repo in a <code>.md</code> file; ditto for an issue</p></li>
