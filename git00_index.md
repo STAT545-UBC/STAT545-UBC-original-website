@@ -61,3 +61,6 @@ Long-term, you should understand more about what you are doing. Rote clicking in
     - They also point to [many other resources](https://help.github.com/articles/what-are-other-good-resources-for-learning-git-and-github)
 
   * Find a [powerful Git client](git02_git-clients.html) if you'd like to minimize your usage of Git from the command line.
+  
+  * The [Curated Git Links of 2014](http://thelinell.com/2014/12/23/curated-git-links-of-2014/) collected by Linell Bonnette range "from easy fixes to (mindblown)". They might help you get out of some common pickles as your usage becomes more advanced.
+  
