@@ -71,7 +71,7 @@ PNG is the "no brainer" format in which to store figures for the web. But many o
 Examples:
 
   * [This PNG figure](https://github.com/jennybc/STAT545A/blob/master/hw06_scaffolds/01_justR/stripplot_wordsByRace_The_Fellowship_Of_The_Ring.png) just shows up in the browser
-  * A different figure [stored as PDF](https://github.com/jennybc/STAT545A/blob/master/r.pch.pdf) produces the dreaded, annoying "View Raw" speed bump. You'll have to click through and, on my OS + browser, wait for the PDF to appear in an external PDF viewer.
+  * A different figure [stored as PDF](https://github.com/jennybc/STAT545A/blob/master/r.pch.pdf) ~~produces the dreaded, annoying "View Raw" speed bump. You'll have to click through and, on my OS + browser, wait for the PDF to appear in an external PDF viewer.~~ *2015-06-19 update: since I first wrote this GitHub has [elevated its treament of PDFs](https://github.com/blog/1974-pdf-viewing) so YAY.*
   
 #### Linking to a ZIP archive of your repo
 
