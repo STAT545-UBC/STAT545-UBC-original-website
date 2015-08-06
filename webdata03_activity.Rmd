@@ -162,6 +162,7 @@ movienode
 ## Introducing the Easy Way: `httr`
 
 `httr` is yet another star in the hadleyverse, this one designed to facilitate all things HTTP from within R.  This includes the major HTTP verbs, which are:
+
     * __GET__: fetch an existing resource. The URL contains all the necessary information the server needs to locate and return the resource.
     * __POST__: create a new resource. POST requests usually carry a payload that specifies the data for the new resource.
     * __PUT__: update an existing resource. The payload may contain the updated data for the resource.
