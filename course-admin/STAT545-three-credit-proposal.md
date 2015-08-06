@@ -1,7 +1,4 @@
-*What is this document? I think it's something I wrote early-ish in
- 2014 to describe what I would do in a 3 credit version of 545 versus
- the 1.5 credit version we'd offered in the past. Found it lying
- around in a directory I want to delete.*
+*What is this document? I think it's something I wrote early-ish in 2014 to describe what I would do in a 3 credit version of 545 versus the 1.5 credit version we'd offered in the past. Found it lying around in a directory I want to delete.*
 
 # Data wrangling and exploration
 
