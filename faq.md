@@ -8,54 +8,56 @@ output:
       after_body: include/nothing.html
 ---
 
-### When is the course next offered?
+### When is the course offered?
 
-*Not written in stone yet, but this is info is fairly firm.*
+September - December of each academic year. Typical format: STAT 545A 1.5 credits in September through mid October, followed by STAT 547M 1.5 credits from mid October through early December. Same time slot, same room. This was/is/will be the deal in 2014/2015, 2015/2016 and 2016/2017. 
 
-September - Dec 2015, meeting Tuesday/Thursday (note this change from Mon/Wed!) 9:30am - 11am in ESB 2012. Same format as 2014: STAT 545A 1.5 credits + STAT 547M 1.5 credits.
-
-### Course facts for Sept - Dec 2014 run
+### Course facts for Sept - Dec 2015 run
 
 |          | STAT 545A                       | STAT547M                        |
 |----------|---------------------------------|---------------------------------|
 | title    | Exploratory Data Analysis       | Basic Training for Data Science |
 | SSC link | [STAT 545A][SSC 545A]           | [STAT 547M][SSC 547M]           |
 | credits  | 1.5                             | 1.5                             |
-| dates    | Sep 02, 2014 to Oct 19, 2014    | Oct 20, 2014 to Nov 28, 2014    |
-| meets    | Mon Wed 9:30 - 11am             | Mon Wed 9:30 - 11am             |
-| where    | [GEOG 200][geog200] (new!)      | [GEOG 200][geog200] (new!)      |
+| dates    | Sep 08, 2015 to Oct 22, 2015    | Oct 27, 2015 to Dec 03, 2015    |
+| meets    | Tues Thurs 9:30 - 11am          | Tues Thurs 9:30 - 11am          |
+| where    | [ESB 2012][esb2012]             | [ESB 2012][esb2012]             |
 | pre-req  | none (but see below)            | STAT 545A                       |
 
 [esb1042]: http://www.maps.ubc.ca/?225
-[geog200]: http://www.students.ubc.ca/classroomservices/buildings-and-classrooms/?code=GEOG&room=200
+[esb2012]: https://ssc.adm.ubc.ca/classroomservices/function/viewlocation?userEvent=ShowLocation&buildingID=ESB&roomID=2012
 [SSC 545A]: https://courses.students.ubc.ca/cs/main?pname=subjarea&tname=subjareas&req=5&dept=STAT&course=545A&section=101
 [SSC 547M]: https://courses.students.ubc.ca/cs/main?pname=subjarea&tname=subjareas&req=5&dept=STAT&course=547M&section=101
 
-Up-to-date info on [office hours](https://github.com/STAT545-UBC/Discussion/issues/47)
+Up-to-date info on office hours: go [here](https://github.com/STAT545-UBC/Discussion/issues/85)
 
 ### What's up with the two half courses?
 
-For several years, I have taught STAT 545A as a 1.5 credit course. I -- and many students -- have felt there was alot of great, relevant content that could go into an additional 1.5 credits.
+For several years, I taught STAT 545A as a 1.5 credit course. I -- and many students -- felt there was alot of great, relevant content that could go into an additional 1.5 credits.
 
-Therefore, in 2014/2015, we piloted a full semester on data exploration, visualization, and all-around data wrangling. It was structured as two half courses primarily so that STAT 545A alums could register for STAT 547M and get the "missing half" of the course. We're still figuring out the long term plan re: 2 courses of 1.5 credits vs. 1 course of 3 credits.
+Therefore, in 2014/2015, we piloted a full semester on data exploration, visualization, and all-around data wrangling. It was structured as two half courses primarily so that STAT 545A alums could register for STAT 547M and get the "missing half" of the course. We're still figuring out the long term plan re: 2 courses of 1.5 credits vs. 1 course of 3 credits, but so far, so good.
 
 ### Am I allowed to register in ...?
 
-  * I have taken STAT 545A for 1.5 credits in the past. Can I take STAT 547M?
-    - YES. But STAT 545 has changed to keep current with the R world. It is your responsibility to level up. Examples: the use of Git for version control, GitHub for collaboration, `knitr` and R Markdown for dynamic documents, `ggplot2` for graphics, `plyr` and `dplyr` for data aggregation.
-  * Can I just take the second half, i.e. STAT 547M?
+  * "I have taken STAT 545A for 1.5 credits in the past. Can I take STAT 547M?"
+    - YES. But STAT 545 has changed to keep current with the R world. It is your responsibility to level up. Examples: the use of Git for version control, GitHub for collaboration, `knitr` and R Markdown for dynamic documents, `ggplot2` for graphics, `dplyr` for data aggregation.
+  * "Can I just take the second half, i.e. STAT 547M?"
     - NO, not unless you have taken STAT 545A previously.
-  * Can I take just the first half, i.e. STAT 545A?
+  * "Can I take just the first half, i.e. STAT 545A?"
     - YES. But development is proceeding with the ultimate goal of creating a full 3 credit course. I will try to make each half stand alone reasonably well, but that is not my top priority.
-  * What do you advise I do?
+  * "What do you advise I do?"
     - Take STAT 545A and STAT 547M!
-  * Can I audit?
-    - PROBABLY. Come talk to me.
-    - Official auditing instructions for UBC [undergrads](http://students.ubc.ca/enrolment/courses/academic-planning/audit) and [graduate students](http://www.grad.ubc.ca/current-students/managing-your-program/audit)
-  * I am an unclassified student, SFU student, UBC undergradate, etc. Can I take the course?
-    - PROBABLY. Come talk to me.
-  * What if I've never had a stats class?
-    - There are no official pre-requisites for STAT 545A but most students will have had at least one prior statistics course.
+  * "I am an undergraduate. Can I take this course?"
+    - PROBABLY. Contact me.
+    - [There is a form for this.](https://www.grad.ubc.ca/forms/enrolment-undergraduate-students-graduate-course)
+  * "I am a registered UBC student. Can I audit?"
+    - PROBABLY. Contact me.
+    - If you are a registered UBC student, I will almost certainly require that you audit officially.
+    - There is a form for this: [UBC undergrads](http://students.ubc.ca/enrolment/courses/academic-planning/audit) and [graduate students](http://www.grad.ubc.ca/current-students/managing-your-program/audit)
+  * "I am an unclassified student, SFU student, post-doctoral fellow, etc. Can I sit in the course?"
+    - PROBABLY. Contact me.
+  * "What if I've never had a stats class?"
+    - There are no official pre-requisites for STAT 545A but most students will have had at least one prior statistics course or comparable experience.
 
 ### Should I register in ...?
 
@@ -71,11 +73,11 @@ YES. You absolutely must have access to a computer on which you can install soft
 
 Course mark = 75% homework, 15% peer review, 10% engagement (i.e. attendance, participation in discussion in-class and/or online)
 
-Students submit homework once a week. The end result may still resemble a "final project", but one that has been built up gradually over the term.
+Students submit homework once a week. The end result may still resemble a "final project" or portfolio, but one that has been built up gradually over the term.
 
   * [General guidelines](hw00_homework-guidelines.html) for homework submission
 
-Each homework will be evaluated by 3 peer reviewers. The performance of thoughtful peer review will count as 15% of the overall course mark.
+Each homework will be evaluated by 2 peer reviewers. The performance of thoughtful peer review will count as 15% of the overall course mark.
 
   * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
   * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
