@@ -15,7 +15,7 @@ output:
   * [\@STAT545](https://twitter.com/STAT545), Twitter as STAT 545 instructor
   * [GitHub](https://github.com/jennybc)
 
-Dean Attali, Alpha TA for STAT 545A and STAT 547M
+[Dean Attali](http://deanattali.com), Alpha TA for STAT 545A and STAT 547M
 
   * <daattali@gmail.com>
   * [\@daattali](http://twitter.com/daattali)
