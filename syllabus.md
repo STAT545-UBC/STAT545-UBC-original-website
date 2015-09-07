@@ -2,9 +2,7 @@
 
 
 
-<!--
-Until we truly get rolling, you can also see a chronology of the course [from 2013](http://www.stat.ubc.ca/~jenny/STAT545A/current.html).
--->
+*2015-09-07 NOTE: This is tentative and based on 2014. But it gives a good sense of what we'll cover and approximately when. Mysteriously, the term has two extra class meetings in 2015 vs. 2014, so we have room to add some topics. Placeholders currently at start of STAT 547M but that was arbitrary.*
 
 
 
@@ -18,37 +16,37 @@ table {
 #### STAT 545A
 
 
-date         notes                                                                                                                        
------------  -----------------------------------------------------------------------------------------------------------------------------
-sep-01 mon   no class; Labor Day                                                                                                          
-sep-03 wed   <a href="cm001_course-intro-sw-install-account-signup.html">cm001</a>: Intro to course; S/W install; acct sign-ups           
-sep-08 mon   <a href="cm002_r-rstudio-intro.html">cm002</a>: Deep Thoughts about data analytic work; intro to R and RStudio               
-sep-10 wed   <a href="cm003_r-objects-git-toe-dip.html">cm003</a>: Basic flavors of R objects; Git(Hub) and (R) Markdown crash course     
-sep-15 mon   <a href="cm004_care-feeding-data.html">cm004</a>: Care and feeding of data (data.frames, actually)                           
-sep-17 wed   <a href="cm005_still-data-ggplot2-rmarkdown.html">cm005</a>: Intro to ggplot2; R Markdown                                    
-sep-22 mon   <a href="cm006_q-and-a-more-ggplot2.html">cm006</a>: More on ggplot2; open Q and A on everything so far                      
-sep-24 wed   <a href="cm007_dplyr-intro.html">cm007</a>: Intro to dplyr                                                                   
-sep-29 mon   <a href="cm008_write-function-day1.html">cm008</a>: Writing your own R functions, beginning                                  
-oct-01 wed   <a href="cm009_write-function-data-agg.html">cm009</a>: Writing your own R functions, conclusion; data aggregation with plyr 
-oct-06 mon   <a href="cm010_factors.html">cm010</a>: Be the boss of your factors                                                          
-oct-08 wed   <a href="cm011_files-out-in.html">cm011</a>: Getting data out of R (and back in)                                             
-oct-13 mon   no class; Thanksgiving                                                                                                       
-oct-15 wed   <a href="cm012_effective-graphs.html">cm012</a>: Effective graphs                                                            
+date           notes                                                                       
+-------------  ----------------------------------------------------------------------------
+sep-08 tues    cm001: Intro to course; S/W install; acct sign-ups                          
+sep-10 thurs   cm002: Deep Thoughts about data analytic work; intro to R and RStudio       
+sep-15 tues    cm003: Basic flavors of R objects; Git(Hub) and (R) Markdown crash course   
+sep-17 thurs   cm004: Care and feeding of data (data.frames, actually)                     
+sep-22 tues    cm005: Intro to ggplot2; R Markdown                                         
+sep-24 thurs   cm006: More on ggplot2; open Q and A on everything so far                   
+sep-29 tues    cm007: Intro to dplyr                                                       
+oct-01 thurs   cm008: Writing your own R functions, beginning                              
+oct-06 tues    cm009: Writing your own R functions, conclusion; data aggregation with plyr 
+oct-08 thurs   cm010: Be the boss of your factors                                          
+oct-13 tues    cm011: Getting data out of R (and back in)                                  
+oct-15 thurs   cm012: Effective graphs                                                     
+oct-20 tues    cm013: Practical graphing tips and tidy data                                
+oct-22 thurs   cm014: Tidy data                                                            
 
 #### STAT 547M
 
 
-date         notes                                                                                                
------------  -----------------------------------------------------------------------------------------------------
-oct-20 mon   <a href="cm101_practical-graph-tips-tidy-data.html">cm101</a>: Practical graphing tips and tidy data 
-oct-22 wed   <a href="cm102_data-manipulation-finale.html">cm102</a>: Tidy data                                   
-oct-27 mon   <a href="cm103_regular-expressions.html">cm103</a>: Regular expressions and character data           
-oct-29 wed   <a href="cm104_data-cleaning.html">cm104</a>: Data cleaning: the Gapminder example                   
-nov-03 mon   <a href="cm105_pipelines.html">cm105</a>: Task automation and pipelines, GNU Make                    
-nov-05 wed   <a href="cm106_pipelines.html">cm106</a>: ditto                                                      
-nov-10 mon   <a href="cm107_packages.html">cm107</a>: Build your first R package                                  
-nov-12 wed   <a href="cm108_packages.html">cm108</a>: ditto                                                       
-nov-17 mon   <a href="cm109_shiny.html">cm109</a>: Build your first Shiny app                                     
-nov-19 wed   <a href="cm110_shiny.html">cm110</a>: ditto                                                          
-nov-24 mon   <a href="cm111_data-from-web.html">cm111</a>: Get data from the web                                  
-nov-26 wed   <a href="cm112_data-from-web.html">cm112</a>: ditto                                                  
+date           notes                                               
+-------------  ----------------------------------------------------
+oct-27 tues    cm101: HEY 2015 GIVES ME 2 EXTRA CLASS MEETINGS ?!? 
+oct-29 thurs   cm102: HEY 2015 GIVES ME 2 EXTRA CLASS MEETINGS ?!? 
+nov-03 tues    cm103: Regular expressions and character data       
+nov-05 thurs   cm104: Data cleaning: the Gapminder example         
+nov-10 tues    cm105: Task automation and pipelines, GNU Make      
+nov-12 thurs   cm106: ditto                                        
+nov-17 tues    cm107: Build your first R package                   
+nov-19 thurs   cm108: ditto                                        
+nov-24 tues    cm109: Build your first Shiny app                   
+nov-26 thurs   cm110: ditto                                        
+dec-01 tues    cm111: Get data from the web                        
+dec-03 thurs   cm112: ditto                                        

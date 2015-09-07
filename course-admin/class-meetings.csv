@@ -1,27 +1,1 @@
-cm,course,dow,month,day,raw_notes
-,STAT545A,mon,september,1,no class; Labor Day
-cm001,STAT545A,wed,september,3,Intro to course; S/W install; acct sign-ups
-cm002,STAT545A,mon,september,8,Deep Thoughts about data analytic work; intro to R and RStudio
-cm003,STAT545A,wed,september,10,Basic flavors of R objects; Git(Hub) and (R) Markdown crash course
-cm004,STAT545A,mon,september,15,"Care and feeding of data (data.frames, actually)"
-cm005,STAT545A,wed,september,17,Intro to ggplot2; R Markdown
-cm006,STAT545A,mon,september,22,More on ggplot2; open Q and A on everything so far
-cm007,STAT545A,wed,september,24,Intro to dplyr
-cm008,STAT545A,mon,september,29,"Writing your own R functions, beginning"
-cm009,STAT545A,wed,october,1,"Writing your own R functions, conclusion; data aggregation with plyr"
-cm010,STAT545A,mon,october,6,Be the boss of your factors
-cm011,STAT545A,wed,october,8,Getting data out of R (and back in)
-,STAT545A,mon,october,13,no class; Thanksgiving
-cm012,STAT545A,wed,october,15,Effective graphs
-cm101,STAT547M,mon,october,20,Practical graphing tips and tidy data
-cm102,STAT547M,wed,october,22,Tidy data, more advanced data manipulation and aggregation
-cm103,STAT547M,mon,october,27,Regular expressions and character data
-cm104,STAT547M,wed,october,29,Data cleaning: the Gapminder example
-cm105,STAT547M,mon,november,3,"Task automation and pipelines, GNU Make"
-cm106,STAT547M,wed,november,5,ditto
-cm107,STAT547M,mon,november,10,Build your first R package
-cm108,STAT547M,wed,november,12,ditto
-cm109,STAT547M,mon,november,17,Build your first Shiny app
-cm110,STAT547M,wed,november,19,ditto
-cm111,STAT547M,mon,november,24,Get data from the web
-cm112,STAT547M,wed,november,26,ditto
+cm,course,dow,month,day,raw_notescm001,STAT545A,tues,september,8,Intro to course; S/W install; acct sign-upscm002,STAT545A,thurs,september,10,Deep Thoughts about data analytic work; intro to R and RStudiocm003,STAT545A,tues,september,15,Basic flavors of R objects; Git(Hub) and (R) Markdown crash coursecm004,STAT545A,thurs,september,17,"Care and feeding of data (data.frames, actually)"cm005,STAT545A,tues,september,22,Intro to ggplot2; R Markdowncm006,STAT545A,thurs,september,24,More on ggplot2; open Q and A on everything so farcm007,STAT545A,tues,september,29,Intro to dplyrcm008,STAT545A,thurs,october,1,"Writing your own R functions, beginning"cm009,STAT545A,tues,october,6,"Writing your own R functions, conclusion; data aggregation with plyr"cm010,STAT545A,thurs,october,8,Be the boss of your factorscm011,STAT545A,tues,october,13,Getting data out of R (and back in)cm012,STAT545A,thurs,october,15,Effective graphscm013,STAT545A,tues,october,20,Practical graphing tips and tidy datacm014,STAT545A,thurs,october,22,Tidy datacm101,STAT547M,tues,october,27,HEY 2015 GIVES ME 2 EXTRA CLASS MEETINGS ?!?cm102,STAT547M,thurs,october,29,HEY 2015 GIVES ME 2 EXTRA CLASS MEETINGS ?!?cm103,STAT547M,tues,november,3,Regular expressions and character datacm104,STAT547M,thurs,november,5,Data cleaning: the Gapminder examplecm105,STAT547M,tues,november,10,"Task automation and pipelines, GNU Make"cm106,STAT547M,thurs,november,12,dittocm107,STAT547M,tues,november,17,Build your first R packagecm108,STAT547M,thurs,november,19,dittocm109,STAT547M,tues,november,24,Build your first Shiny appcm110,STAT547M,thurs,november,26,dittocm111,STAT547M,tues,december,1,Get data from the webcm112,STAT547M,thurs,december,3,ditto
