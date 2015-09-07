@@ -19,7 +19,7 @@ We are seeking more TAs for STAT 545A and STAT 547M, September - December 2015. 
     - Full TA for a part of the term
     - Part-time TA all term
     - Part-time TA for a part of the term
-  * In 2014, the course was TA'd by an amazing team of 6 TAs, who worked on different pieces of the course, at different times. It works.
+  * In 2014, the course was TA'd by an [amazing team of 6 TAs](people.html), who worked on different pieces of the course, at different times. It works.
 
 ## Responsibilities
 
