@@ -22,7 +22,7 @@ The options are sort of listed in order of preference. But I realize every situa
 
 #### Basic issue workflow
 
-Example: you are working on homework and some code is not working, despite *your very best efforts to troubleshoot*. Open an issue (*to do: add a screenshot or instructions on where to click?*):
+Example: you are working on homework and some code is not working, despite *your very best efforts to troubleshoot*. Open an issue [on our Discussion repo](https://github.com/STAT545-UBC/Discussion/issues) (more below):
 
   * Give it a specific title.
     - BAD: "aaaaaarrrrrrgh!", "things not working", "i need help"
@@ -44,19 +44,15 @@ Once the problem is resolved, the issue can be closed. Note that closed issues r
   
 #### Our `STAT545-UBC/Discussion` repository
 
-We have created a special repository within the STAT545 GitHub Organization for Discussion:
+We have created a special repository within the STAT545 GitHub Organization for Discussion. It is __public__ so note the world can read it, which is overwhelmingly a good thing.
 
-<https://github.com/STAT545-UBC/Discussion>
-
-It is __public__ so note the world can read it, which is overwhelmingly a good thing.
-
-By default, you should open your help-seeking issues here:
+By default, you should open your help-seeking issues here by clicking "New issue":
 
 <https://github.com/STAT545-UBC/Discussion/issues>
 
 You can provide links to, e.g. specific files or even lines within them, in the body of your issue, so you can still focus your helper's attention on *your repo* (which will remain private, i.e. those links won't work for people outside the STAT545 Organization).
 
-The first issue is a test thread where we've demonstrated some use and you are welcome to practice commenting there.
+There is [an issue](https://github.com/STAT545-UBC/Discussion/issues/86) where you are welcome to post a "Can you hear me now?!?" comment if you wish.
 
 Note how the issue names appear in the [issue list](https://github.com/STAT545-UBC/Discussion/issues) and remember: make it informative! FYI you can edit an issue's title.
 
@@ -69,12 +65,8 @@ Two options:
   * __Public__ Tweet directly at [\@STAT545](https://twitter.com/STAT545) by starting your tweet with `@STAT545`. This is called an `@reply` because it usually occurs when you reply to a tweet but you can also initiate a conversation this way. This conversation __will be public__ but it will only show up in the feed of people who follow both conversants.
     - This method will be great for short questions about, e.g. homework. Basically anything you could hope to handle in 140 character chunks and that others might benefit from.
     - Check this [sample conversation](https://twitter.com/STAT545/status/507627877169242113) between [\@STAT545](https://twitter.com/STAT545) and [\@sjackman](https://twitter.com/sjackman) to see how this looks. If you are following both [\@STAT545](https://twitter.com/STAT545) and [\@sjackman](https://twitter.com/sjackman), you should see an initial tweet from [\@STAT545](https://twitter.com/STAT545), followed by a reply from [\@sjackman](https://twitter.com/sjackman).
-  * __Private__ Direct message [\@STAT545](https://twitter.com/STAT545) by [clicking on the envelope icon in the upper right](https://support.twitter.com/articles/14606-how-to-post-and-delete-direct-messages-dms). This will only work once `@STAT545` is following you. This conversation will be private.
+  * __Private__ Direct message [\@STAT545](https://twitter.com/STAT545) by [clicking on the envelope icon in the upper right](https://support.twitter.com/articles/14606-how-to-post-and-delete-direct-messages-dms). This will only work once `@STAT545` is following you. This conversation will be private. Use this sparingly.
 
 #### Email
 
-On the [People](people.html) page, you see all of our emails. See the GitHub section above about writing a good subject and body.
-
-#### Google Group (not!)
-
-In the past I have run a private Google Group for my classes. But with our use of Twitter and GitHub, I am hoping to avoid any more channels of communication.
+On the [People](people.html) page, you see all of our emails. See the GitHub section above about writing a good subject and body. Use this sparingly.

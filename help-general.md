@@ -2,13 +2,9 @@
 title: "How to get unstuck"
 ---
 
-*this page still under development*
-
-*advice on searching official R documentation will be given elsewhere*
-
 What to do when you are stuck ...
 
-Help yourself or, __maybe__, ~~drag others into your hell~~ ask for help. The links below contains excellent self-help advice.
+Help yourself or, __maybe__, ~~drag others into your hell~~ ask for help. The links below contain excellent self-help advice.
 
 While you are getting started, I recommend you [seek help within the STAT545 community](help-STAT545.html) first, before, e.g. posting to external forums. We are more cuddly.
 
@@ -20,10 +16,9 @@ Here are some good resources to get your head in the right place.
 
   * This stackoverflow thread [How to make a great R reproducible example?](http://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example/5963610#5963610) is fantastic. I find that, in the process of preparing my great reproducible example, I [answer my own question](http://htmlpreview.github.io/?https://gist.githubusercontent.com/jennybc/58466fd018823302f398/raw/4c7059558e1525b482f1ee794a5828ca8999bf98/2014-07-25_wrapper-graphics-dev-open-close.html) 90% of the time. YMMV. So it is a useful exercise even if you aren't ready to call in the experts yet. The process of stripping your problem down to its bare essence often reveals where the root issue lies. __Highly recommended!__
   
-  
   * Search [stackoverflow](http://stackoverflow.com) and include the `[r]` tag. Or the `[ggplot2]` tag. Or the `[plyr]` tag. You get the idea.
 
-  * Check out [The R Inferno](in The R Inferno) (see the 9th circle: "Unhelpfully seeking help").
+  * Check out [The R Inferno][http://www.burns-stat.com/documents/books/the-r-inferno/] (see the 9th circle: "Unhelpfully seeking help").
   
   > If someone has the wit and knowledge to answer your question, they probably have other things they would like to do. Making your message clear, concise and user-friendly gives you the best hope of at least one of those strangers diverting their attention away from their life towards your problem.
   
