@@ -52,7 +52,7 @@ Therefore, in 2014/2015, we piloted a full semester on data exploration, visuali
     - [There is a form for this.](https://www.grad.ubc.ca/forms/enrolment-undergraduate-students-graduate-course)
   * "I am a registered UBC student. Can I audit?"
     - PROBABLY. Contact me.
-    - If you are a registered UBC student, I will almost certainly require that you audit officially.
+    - If you are a registered UBC student and course participation doesn't cost you additional money, I will almost certainly require that you audit officially.
     - There is a form for this: [UBC undergrads](http://students.ubc.ca/enrolment/courses/academic-planning/audit) and [graduate students](http://www.grad.ubc.ca/current-students/managing-your-program/audit)
   * "I am an unclassified student, SFU student, post-doctoral fellow, etc. Can I sit in the course?"
     - PROBABLY. Contact me.
