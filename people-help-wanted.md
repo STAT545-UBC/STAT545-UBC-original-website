@@ -6,7 +6,7 @@ output:
       after_body: include/nothing.html
 ---
 
-We are seeking more TAs for STAT 545A and STAT 547M, September - December 2015. Hang out with [these fine co-instructors](people.html)! *If you would be perfect for this, but you're not a UBC student, go [here](#other-opportunities).*
+We are seeking more TAs for STAT 545A and STAT 547M, September - December 2015. Hang out with [these fine co-instructors](people.html)! *If you would be perfect for this, but you're not a UBC student, there may be [other opportunities](#other-opportunities).*
 
 ## Time commitment and pay
 
