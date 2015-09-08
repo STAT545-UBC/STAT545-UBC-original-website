@@ -26,20 +26,24 @@ cdat <- rawdat %>%
 cdat %>% View
 
 ## link to the class page of any class meetings where such exists
-## 2015-09-08 disabling this for now, but obviously must decide
-## how to retain 2014 stuff w/o preventing 2015 functionality
-# cmdat <-
-#   data.frame(html = list.files(pattern = '^cm.*html$'),
-#              stringsAsFactors = FALSE)
-# cmdat <- cmdat %>% mutate(cm = str_extract(html, "cm[0-9]+"))
-# cdat <- cdat %>% left_join(cmdat)
-# 
-# cdat <- cdat %>%
-#   mutate(html_exists = !is.na(html))
-# cdat$notes[cdat$html_exists] <-
-#   str_replace(cdat$notes[cdat$html_exists],
-#               "(cm[0-9]{3})", '<a href="LINK">\\1</a>')
-# cdat <- cdat %>% mutate(notes = str_replace(notes, "LINK", html))
+## AND I want to link
+## year 1: we just filtered for present of .html file
+## year 2: yes merge those but also filter on link_it for gradual reveal
+cmdat <-
+  data.frame(html = list.files(pattern = '^cm.*html$'),
+             stringsAsFactors = FALSE)
+cmdat <- cmdat %>% mutate(cm = str_extract(html, "cm[0-9]+"))
+cdat <- cdat %>% full_join(cmdat)
+
+## TO DO: rescue placeholders for "Practical graphing tips and tidy data" and
+## "Tidy data"
+
+#cdat <- cdat %>%
+#  mutate(html_exists = !is.na(html)) %>% 
+cdat$notes[cdat$link_it] <-
+  str_replace(cdat$notes[cdat$link_it],
+              "(cm[0-9]{3})", '<a href="LINK">\\1</a>')
+cdat <- cdat %>% mutate(notes = str_replace(notes, "LINK", html))
 dat <- cdat %>% split(cdat$course)
 dat <- lapply(dat, 'rownames<-', NULL)
 ```

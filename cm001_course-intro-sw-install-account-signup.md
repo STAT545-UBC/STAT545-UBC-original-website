@@ -5,19 +5,18 @@ output:
     toc_depth: 4
 ---
 
-### cm001 2014-09-03 Wednesday overview
+### cm001 2015-09-08 Tuesday overview
 
   * Introduction to the course
-  * Students to do for Monday 2014-09-08 (see below)
+  * Students to do for Thurday 2014-09-10 (see below)
     - install software
     - sign up for accounts
-    - note: I advise you do all of that in the order of presentation below
-  * Don't panic if there are glitches. That's normal.
-  * What's coming? We'll help you begin to use all your new toys next week!
+  * Don't panic if there are glitches. That's normal. Come to [office hours]() and start using our [Discussion repo](https://github.com/STAT545-UBC/Discussion/issues) to [ask for help](http://stat545-ubc.github.io/help-STAT545.html).
+  * What's coming? We'll help you begin to use all your new toys on Thursday!
 
 #### Slides and links
 
-Slides available on [slideshare](http://www.slideshare.net/jenniferbryan5811/ubc-stat545-2014-cm001-intro-tocourse)
+Slides available on [slideshare](http://www.slideshare.net/jenniferbryan5811/ubc-stat545-2014-cm001-intro-tocourse) *this will be updated to 2015 but these slides indicative*
 
 <iframe src="http://www.slideshare.net/slideshow/embed_code/38663458" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/jenniferbryan5811/ubc-stat545-2014-cm001-intro-tocourse" title="UBC STAT545 2014 Cm001 intro to-course" target="_blank">UBC STAT545 2014 Cm001 intro to-course</a> </strong> from <strong><a href="http://www.slideshare.net/jenniferbryan5811" target="_blank">Jennifer Bryan</a></strong> </div>
 
@@ -61,16 +60,17 @@ __Do this first!__
     - As with Twitter (see below), think before you set up your public profile. I suggest you use a real name and begin to build a scholarly identity in social media and coding, but it's a decision you should make with intention.
   * We will elicit your GitHub username soon so we can add you to the [STAT 545 GitHub Organization](https://github.com/STAT545-UBC/).
 
-#### Git(Hub) and Git client
-
-  * [Install Git](git01_git-install.html)
-  * Optional but recommended: [Install a Git client](git02_git-clients.html)
-
 #### R and RStudio
 
-Follow [these instructions](block000_r-rstudio-install.html). Stick with it to the bitter end, where you try to get Git and RStudio talking to each other.
+Follow [these instructions](block000_r-rstudio-install.html). Stick with it to the bitter end, where you try to get Git and RStudio talking to each other (see next item about installing Git).
 
-If you have a pre-existing installation of R and/or RStudio, we highly recommend that you reinstall and upgrade to the most recent version. It is very easy and RStudio, specifically, is changing rapidly and positively (written 2014-09). If you upgrade R, you will need to also update any packages you have installed.
+If you have a pre-existing installation of R and/or RStudio, we **highly recommend** that you reinstall and upgrade to the most recent version. It is very easy and RStudio, specifically, is changing rapidly and positively (written 2015-09). If you upgrade R, you will need to also update any packages you have installed.
+
+#### Git(Hub) and Git client
+
+  * **You can wait a couple days to do this if all the rest is overwhelming.** But at least read the pages I link to here and start to prepare your mind.
+  * [Install Git](git01_git-install.html)
+  * Optional but recommended: [Install a Git client](git02_git-clients.html)
 
 #### Twitter
 
@@ -78,7 +78,7 @@ If you have a pre-existing installation of R and/or RStudio, we highly recommend
 
 I will use the [\@STAT545](https://twitter.com/STAT545) Twitter account to make micro-announcements, share interesting links, and facilitate a conversation amongst ourselves __in public__.
 
-In class, we'll talk about Twitter, its scholarly use, and privacy. Some relevant links:
+In class, we talk about Twitter, its scholarly use, and privacy. Some relevant links:
 
   * [Disposable Twitter Accounts for Classroom Use](http://chronicle.com/blogs/profhacker/disposable-twitter-accounts-for-classroom-use/40145) from ProfHacker on the Chronicle of Higher Education
     -  Good quote: "I strongly encourage you to create a disposable account if for any reason you prefer not to share your personal account for classroom activities."
@@ -86,14 +86,13 @@ In class, we'll talk about Twitter, its scholarly use, and privacy. Some relevan
   * [Some advice to young graduate students](http://ivory.idyll.org/blog/advice-to-graduate-students.html) from C. Titus Brown
   * [How to be the grad student your advisor brags about](http://blog.impactstory.org/how-to-be-the-grad-student-your-advisor-brags-about/) from the blog of Impactstory
   * [10 Commandments of Twitter for Academics](http://chronicle.com/article/10-Commandments-of-Twitter-for/131813/) from Do Your Job Better on the Chronicle of Higher Education
-  * [Using Twitter in university research, teaching and
-impact activities: A guide for academics and researchers (PDF)](http://blogs.lse.ac.uk/impactofsocialsciences/files/2011/11/Published-Twitter_Guide_Sept_2011.pdf)
+  * [Using Twitter in university research, teaching and impact activities: A guide for academics and researchers](http://blogs.lse.ac.uk/impactofsocialsciences/files/2011/11/Published-Twitter_Guide_Sept_2011.pdf) *note: links to a PDF*
 
 If you choose not to get a Twitter account, you will want to visit the [\@STAT545 profile page](https://twitter.com/STAT545) regularly to see what's up.
 
 If you set up (or already have a Twitter account), you should follow [\@STAT545](https://twitter.com/STAT545). We will elicit your Twitter handle soon so we can follow you back.
 
-You could also follow me as an individual, an account I use very differently (and sparingly), at [\@JennyBryan](https://twitter.com/JennyBryan). Ditto for the course TAs. You can learn some good people to follow re: data science and R by looking at who we follow and who we have Twitter conversations with.
+You could also follow me as an individual, at [\@JennyBryan](https://twitter.com/JennyBryan). Ditto for the course TAs. You can learn some good people to follow re: data science and R by looking at who we follow and who we have Twitter conversations with.
 
 #### RPubs
 

@@ -16,22 +16,22 @@ table {
 #### STAT 545A
 
 
-date           notes                                                                       
--------------  ----------------------------------------------------------------------------
-sep-08 tues    cm001: Intro to course; S/W install; acct sign-ups                          
-sep-10 thurs   cm002: Deep Thoughts about data analytic work; intro to R and RStudio       
-sep-15 tues    cm003: Basic flavors of R objects; Git(Hub) and (R) Markdown crash course   
-sep-17 thurs   cm004: Care and feeding of data (data.frames, actually)                     
-sep-22 tues    cm005: Intro to ggplot2; R Markdown                                         
-sep-24 thurs   cm006: More on ggplot2; open Q and A on everything so far                   
-sep-29 tues    cm007: Intro to dplyr                                                       
-oct-01 thurs   cm008: Writing your own R functions, beginning                              
-oct-06 tues    cm009: Writing your own R functions, conclusion; data aggregation with plyr 
-oct-08 thurs   cm010: Be the boss of your factors                                          
-oct-13 tues    cm011: Getting data out of R (and back in)                                  
-oct-15 thurs   cm012: Effective graphs                                                     
-oct-20 tues    cm013: Practical graphing tips and tidy data                                
-oct-22 thurs   cm014: Tidy data                                                            
+date           notes                                                                                                              
+-------------  -------------------------------------------------------------------------------------------------------------------
+sep-08 tues    <a href="cm001_course-intro-sw-install-account-signup.html">cm001</a>: Intro to course; S/W install; acct sign-ups 
+sep-10 thurs   cm002: Deep Thoughts about data analytic work; intro to R and RStudio                                              
+sep-15 tues    cm003: Basic flavors of R objects; Git(Hub) and (R) Markdown crash course                                          
+sep-17 thurs   cm004: Care and feeding of data (data.frames, actually)                                                            
+sep-22 tues    cm005: Intro to ggplot2; R Markdown                                                                                
+sep-24 thurs   cm006: More on ggplot2; open Q and A on everything so far                                                          
+sep-29 tues    cm007: Intro to dplyr                                                                                              
+oct-01 thurs   cm008: Writing your own R functions, beginning                                                                     
+oct-06 tues    cm009: Writing your own R functions, conclusion; data aggregation with plyr                                        
+oct-08 thurs   cm010: Be the boss of your factors                                                                                 
+oct-13 tues    cm011: Getting data out of R (and back in)                                                                         
+oct-15 thurs   cm012: Effective graphs                                                                                            
+oct-20 tues    NA                                                                                                                 
+oct-22 thurs   NA                                                                                                                 
 
 #### STAT 547M
 
