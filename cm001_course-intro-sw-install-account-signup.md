@@ -11,7 +11,7 @@ output:
   * Students to do for Thurday 2014-09-10 (see below)
     - install software
     - sign up for accounts
-  * Don't panic if there are glitches. That's normal. Come to [office hours]() and start using our [Discussion repo](https://github.com/STAT545-UBC/Discussion/issues) to [ask for help](http://stat545-ubc.github.io/help-STAT545.html).
+  * Don't panic if there are glitches. That's normal. Come to [office hours](https://github.com/STAT545-UBC/Discussion/issues/85) and start using our [Discussion repo](https://github.com/STAT545-UBC/Discussion/issues) to [ask for help](http://stat545-ubc.github.io/help-STAT545.html).
   * What's coming? We'll help you begin to use all your new toys on Thursday!
 
 #### Slides and links
