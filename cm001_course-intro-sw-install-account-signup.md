@@ -16,9 +16,9 @@ output:
 
 #### Slides and links
 
-Slides available on [slideshare](http://www.slideshare.net/jenniferbryan5811/ubc-stat545-2014-cm001-intro-tocourse) *this will be updated to 2015 but these slides indicative*
+Slides available on [speakerdeck](https://speakerdeck.com/jennybc/ubc-stat545-2015-cm001-intro-to-course)
 
-<iframe src="http://www.slideshare.net/slideshow/embed_code/38663458" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/jenniferbryan5811/ubc-stat545-2014-cm001-intro-tocourse" title="UBC STAT545 2014 Cm001 intro to-course" target="_blank">UBC STAT545 2014 Cm001 intro to-course</a> </strong> from <strong><a href="http://www.slideshare.net/jenniferbryan5811" target="_blank">Jennifer Bryan</a></strong> </div>
+<script async class="speakerdeck-embed" data-id="cd35a9b58cb4403b8dec33d30766b41e" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script> <div style="margin-bottom:5px"> <strong> <a href="https://speakerdeck.com/jennybc/ubc-stat545-2015-cm001-intro-to-course" title="UBC STAT545 2015 cm001 Intro to course" target="_blank">UBC STAT545 2015 cm001 Intro to course</a> </strong> from <strong><a href="https://speakerdeck.com/jennybc" target="_blank">Jennifer Bryan</a></strong> </div>
 
 Selected links from the slides
 
@@ -56,7 +56,7 @@ Selected links from the slides
 
 __Do this first!__
 
-  * Register for a free individual GitHub account and request [the student discount](https://education.github.com). This should give you some free private repositories for a couple of years. Do this ASAP! I think a human vets these requests, so it could take a couple of days.
+  * Register for a free individual GitHub account and request [the student discount](https://education.github.com). This should give you some free private repositories for a couple of years. Do this ASAP! I think a human vets these requests, so it could take a couple of ~~days~~ months.
     - As with Twitter (see below), think before you set up your public profile. I suggest you use a real name and begin to build a scholarly identity in social media and coding, but it's a decision you should make with intention.
   * We will elicit your GitHub username soon so we can add you to the [STAT 545 GitHub Organization](https://github.com/STAT545-UBC/).
 
