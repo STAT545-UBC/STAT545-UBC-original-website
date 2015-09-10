@@ -12,9 +12,9 @@ output:
 
 * Install RStudio's IDE (stands for _integrated development environment_), a powerful user interface for R. Get the Open Source Edition of RStudio Desktop: <http://www.rstudio.com/products/rstudio/>
     - RStudio comes with a __text editor__, so there is no immediate need to install a separate stand-alone editor.
-    - RStudio can __interface with Git(Hub)__. However, you must do all the Git(Hub) set up described elsewhere before you can take advantage of this.
+    - RStudio can __interface with Git(Hub)__. However, you must do all the Git(Hub) set up [described elsewhere](git00_index.html) before you can take advantage of this.
     
-If you have a pre-existing installation of R and/or RStudio, we __highly recommend__ that you reinstall both and upgrade to the most recent version. It is very easy and RStudio, specifically, is changing rapidly and positively (written 2014-11). You may even wish to use the preview version of RStudio (we do!) [available here](http://www.rstudio.com/products/rstudio/download/preview/).
+If you have a pre-existing installation of R and/or RStudio, we __highly recommend__ that you reinstall both and upgrade to the most recent version. It is very easy and RStudio, specifically, is changing rapidly and positively (written 2015-09). You may even wish to use the preview version of RStudio (we do!) [available here](http://www.rstudio.com/products/rstudio/download/preview/).
 
   * If you upgrade R, you will need to update any packages you have installed. The command below should get you started, though you may need to specify more arguments if, e.g., you have been using a non-default library for your packages.
 
@@ -32,17 +32,17 @@ If you have a pre-existing installation of R and/or RStudio, we __highly recomme
 
 ### Add-on packages
 
-R is an extensible system and many people share useful code they have developed as a _package_ via CRAN and GitHub. To install a package from CRAN, for example the [`plyr`](http://plyr.had.co.nz)  package for data aggregation, here is one way to do it in the R console (there are others).
+R is an extensible system and many people share useful code they have developed as a _package_ via CRAN and GitHub. To install a package from CRAN, for example the [`dplyr`](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html)  package for data manipulation, here is one way to do it in the R console (there are others).
 
 ```r
-install.packages("plyr", dependencies = TRUE)
+install.packages("dplyr", dependencies = TRUE)
 ```
 
-By including `dependencies = TRUE`, we are being explicit and extra-careful to install any additional packages the target package, `plyr` in the example above, needs to have around.
+By including `dependencies = TRUE`, we are being explicit and extra-careful to install any additional packages the target package, `dplyr` in the example above, needs to have around.
 
 You could use the above method to install the following packages, all of which we will use:
 
-  * `dplyr`, [package webpage](http://plyr.had.co.nz)
+  * `tidyr`, [package webpage](https://cran.r-project.org/web/packages/tidyr/index.html)
   * `ggplot2` [package webpage](http://docs.ggplot2.org/)
 
 ### Further resources
@@ -50,14 +50,12 @@ You could use the above method to install the following packages, all of which w
 The above will get your basic setup ready but here are some links if you are interested in reading a bit further.
 
   * How to Use RStudio
-    - <https://support.rstudio.com/hc/en-us/categories/200035113-Documentation>
-  * RStudio Troubleshooting and FAQ
-    - <https://support.rstudio.com/hc/en-us/categories/200031758-Knowledge-Base>
+    - <https://support.rstudio.com/hc/en-us>
   * RStudio's leads for learning R
-    - <https://support.rstudio.com/hc/en-us/articles/201141096-Getting-Started-with-R>
-  * R Installation and Administration
-    - <http://cran.r-project.org/doc/manuals/R-admin.html>
+    - <https://support.rstudio.com/hc/en-us/articles/200717153-Getting-Help-with-R>
   * R FAQ:
     - <http://cran.r-project.org/doc/FAQ/R-FAQ.html>
+  * R Installation and Administration
+    - <http://cran.r-project.org/doc/manuals/R-admin.html>
   * More about add-on packages in the R Installation and Administration Manual
-     - <http://cran.r-project.org/doc/manuals/R-admin.html#Add_002don-packages>
+     - <https://cran.r-project.org/doc/manuals/R-admin.html#Add_002don-packages>

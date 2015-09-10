@@ -18,7 +18,7 @@ Here are some good resources to get your head in the right place.
   
   * Search [stackoverflow](http://stackoverflow.com) and include the `[r]` tag. Or the `[ggplot2]` tag. Or the `[plyr]` tag. You get the idea.
 
-  * Check out [The R Inferno][http://www.burns-stat.com/documents/books/the-r-inferno/] (see the 9th circle: "Unhelpfully seeking help").
+  * Check out [The R Inferno](http://www.burns-stat.com/documents/books/the-r-inferno/) (see the 9th circle: "Unhelpfully seeking help").
   
   > If someone has the wit and knowledge to answer your question, they probably have other things they would like to do. Making your message clear, concise and user-friendly gives you the best hope of at least one of those strangers diverting their attention away from their life towards your problem.
   
