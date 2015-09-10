@@ -852,7 +852,7 @@ So you are ready to show you app to the world. What are your options?
 * some students will use Jenny's server
 * volunteers? Jenny will update
 
-## Run apps from public Github repositories.
+## Run apps from public GitHub repositories.
 
 * `runGitHub()` is a way to run an app from github using Rstudio. 
 * to use this push your server.R and ui.R files to a public github repo (in their own folder, remember Shiny is particular). `runGitHub()` takes a few arguments, if I had a public repo in the Stat545 organization called "julia_gustavsen_shiny" and I had pushed my Gapminder app `server.R` and `ui.R` (and any other necessary files) to that repo, we could run my app using `runGitHub("STAT545-UBC/julia_gustavsen_shiny",subdir = "Shiny-apps/Gapminder-app/"). The subdirectory argument refers to the subdirectory in the repository. 

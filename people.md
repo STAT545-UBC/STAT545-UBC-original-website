@@ -32,7 +32,7 @@ These amazing folks are generally still on campus, so you may see them in our vi
 
   * <jgustavsen@eos.ubc.ca>
   * [\@JuliaGustavsen](http://twitter.com/JuliaGustavsen)
-  * [Github](https://github.com/jooolia)
+  * [GitHub](https://github.com/jooolia)
 
 [Shaun Jackman](http://sjackman.ca)
 

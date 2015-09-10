@@ -18,7 +18,7 @@ You will know you have truly succeeded once you have at least one successful pus
 
 Below you will need a functioning test Git repository. One that exists locally and remotely on GitHub, with the local repo tracking the remote.
 
-If you have just completed a [test drive of RStudio and Github](http://stat545-ubc.github.io/git05_first-use-git-rstudio.html), the `helloGithub` repo will do just fine. If have not and you don't know how to create such a testbed for yourself, go [take the test drive](http://stat545-ubc.github.io/git05_first-use-git-rstudio.html) and come back.
+If you have just completed a [test drive of RStudio and GitHub](http://stat545-ubc.github.io/git05_first-use-git-rstudio.html), the `helloGithub` repo will do just fine. If have not and you don't know how to create such a testbed for yourself, go [take the test drive](http://stat545-ubc.github.io/git05_first-use-git-rstudio.html) and come back.
 
 You are ready to proceed when
 

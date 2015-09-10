@@ -1,5 +1,5 @@
 ---
-title: Test drive RStudio and Github
+title: Test drive RStudio and GitHub
 output:
   html_document:
     toc: true
@@ -45,7 +45,7 @@ Before you leave this page, copy the URL of your repo to the clipboard. In the r
 
 **Do this once per new project.** 
 
-  * Go back to RStudio, and start a new Project: File > New Project > Version Control > Git. In the "repository URL" paste the URL of your new Github repository, e.g., `https://github.com/BernhardKonrad/helloGithub`.
+  * Go back to RStudio, and start a new Project: File > New Project > Version Control > Git. In the "repository URL" paste the URL of your new GitHub repository, e.g., `https://github.com/BernhardKonrad/helloGithub`.
 
   * Choose the directory in which you want to put your repository and click "Create Project". This will create a new sub-directory, which will be all of these things: a directory on your computer, a GitHub repository, and an RStudio Project.
 
@@ -95,7 +95,7 @@ To push changes online, hit the green `Push` button. The three most likely outco
 
   2. RStudio asks for your GitHub username and password, then your push is accepted and the online GitHub repository is updated. Learn [how to make git remember your username and password](git06_credential-caching.html) to avoid having to type those every time.
 
-  3. RStudio does not ask for your username and password, but it is not sending them. The push fails and the online Github repository is not updated. This is a bug in RStudio and not your fault. Follow the work-around in step 5, plan B, and/or learn [how to make git remember your username and password](git06_credential-caching.html).
+  3. RStudio does not ask for your username and password, but it is not sending them. The push fails and the online GitHub repository is not updated. This is a bug in RStudio and not your fault. Follow the work-around in step 5, plan B, and/or learn [how to make git remember your username and password](git06_credential-caching.html).
 
 ### Step 5, plan B
 
