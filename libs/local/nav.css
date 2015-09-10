@@ -33,10 +33,14 @@
 }
  
 .nav a:hover {
+  color: #fff;
   background-color: #005f5f;
+  text-decoration: none;
 }
  
 .nav a.active {
+  color: #fff;
+  text-decoration: none;
   background-color: #fff;
   color: #444;
   cursor: default;
