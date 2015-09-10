@@ -62,15 +62,14 @@ __Do this first!__
 
 #### R and RStudio
 
-Follow [these instructions](block000_r-rstudio-install.html). Stick with it to the bitter end, where you try to get Git and RStudio talking to each other (see next item about installing Git).
+Follow [these instructions](block000_r-rstudio-install.html). Eventually we will want you to connect RStudio and Git(Hub) (see next item about installing Git), so if things are going really well, give that a try.
 
 If you have a pre-existing installation of R and/or RStudio, we **highly recommend** that you reinstall and upgrade to the most recent version. It is very easy and RStudio, specifically, is changing rapidly and positively (written 2015-09). If you upgrade R, you will need to also update any packages you have installed.
 
 #### Git(Hub) and Git client
 
   * **You can wait a couple days to do this if all the rest is overwhelming.** But at least read the pages I link to here and start to prepare your mind.
-  * [Install Git](git01_git-install.html)
-  * Optional but recommended: [Install a Git client](git02_git-clients.html)
+  * [Working with RStudio, Git, GitHub](git00_index.html)
 
 #### Twitter
 
