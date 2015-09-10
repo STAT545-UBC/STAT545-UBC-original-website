@@ -1,1 +1,27 @@
-cm,course,dow,month,day,link_it,raw_notescm001,STAT545A,tues,september,8,TRUE,Intro to course; S/W install; acct sign-upscm002,STAT545A,thurs,september,10,FALSE,Deep Thoughts about data analytic work; intro to R and RStudiocm003,STAT545A,tues,september,15,FALSE,Basic flavors of R objects; Git(Hub) and (R) Markdown crash coursecm004,STAT545A,thurs,september,17,FALSE,"Care and feeding of data (data.frames, actually)"cm005,STAT545A,tues,september,22,FALSE,Intro to ggplot2; R Markdowncm006,STAT545A,thurs,september,24,FALSE,More on ggplot2; open Q and A on everything so farcm007,STAT545A,tues,september,29,FALSE,Intro to dplyrcm008,STAT545A,thurs,october,1,FALSE,"Writing your own R functions, beginning"cm009,STAT545A,tues,october,6,FALSE,"Writing your own R functions, conclusion; data aggregation with plyr"cm010,STAT545A,thurs,october,8,FALSE,Be the boss of your factorscm011,STAT545A,tues,october,13,FALSE,Getting data out of R (and back in)cm012,STAT545A,thurs,october,15,FALSE,Effective graphscm013,STAT545A,tues,october,20,FALSE,Practical graphing tips and tidy datacm014,STAT545A,thurs,october,22,FALSE,Tidy datacm101,STAT547M,tues,october,27,FALSE,HEY 2015 GIVES ME 2 EXTRA CLASS MEETINGS ?!?cm102,STAT547M,thurs,october,29,FALSE,HEY 2015 GIVES ME 2 EXTRA CLASS MEETINGS ?!?cm103,STAT547M,tues,november,3,FALSE,Regular expressions and character datacm104,STAT547M,thurs,november,5,FALSE,Data cleaning: the Gapminder examplecm105,STAT547M,tues,november,10,FALSE,"Task automation and pipelines, GNU Make"cm106,STAT547M,thurs,november,12,FALSE,dittocm107,STAT547M,tues,november,17,FALSE,Build your first R packagecm108,STAT547M,thurs,november,19,FALSE,dittocm109,STAT547M,tues,november,24,FALSE,Build your first Shiny appcm110,STAT547M,thurs,november,26,FALSE,dittocm111,STAT547M,tues,december,1,FALSE,Get data from the webcm112,STAT547M,thurs,december,3,FALSE,ditto
+cm,course,dow,month,day,link_it,raw_notes
+cm001,STAT545A,tues,september,8,TRUE,Intro to course; S/W install; acct sign-ups
+cm002,STAT545A,thurs,september,10,TRUE,Deep Thoughts about data analytic work; intro to R and RStudio
+cm003,STAT545A,tues,september,15,FALSE,Basic flavors of R objects; Git(Hub) and (R) Markdown crash course
+cm004,STAT545A,thurs,september,17,FALSE,"Care and feeding of data (data.frames, actually)"
+cm005,STAT545A,tues,september,22,FALSE,Intro to ggplot2; R Markdown
+cm006,STAT545A,thurs,september,24,FALSE,More on ggplot2; open Q and A on everything so far
+cm007,STAT545A,tues,september,29,FALSE,Intro to dplyr
+cm008,STAT545A,thurs,october,1,FALSE,"Writing your own R functions, beginning"
+cm009,STAT545A,tues,october,6,FALSE,"Writing your own R functions, conclusion; data aggregation with plyr"
+cm010,STAT545A,thurs,october,8,FALSE,Be the boss of your factors
+cm011,STAT545A,tues,october,13,FALSE,Getting data out of R (and back in)
+cm012,STAT545A,thurs,october,15,FALSE,Effective graphs
+cm013,STAT545A,tues,october,20,FALSE,Practical graphing tips and tidy data
+cm014,STAT545A,thurs,october,22,FALSE,Tidy data
+cm101,STAT547M,tues,october,27,FALSE,HEY 2015 GIVES ME 2 EXTRA CLASS MEETINGS ?!?
+cm102,STAT547M,thurs,october,29,FALSE,HEY 2015 GIVES ME 2 EXTRA CLASS MEETINGS ?!?
+cm103,STAT547M,tues,november,3,FALSE,Regular expressions and character data
+cm104,STAT547M,thurs,november,5,FALSE,Data cleaning: the Gapminder example
+cm105,STAT547M,tues,november,10,FALSE,"Task automation and pipelines, GNU Make"
+cm106,STAT547M,thurs,november,12,FALSE,ditto
+cm107,STAT547M,tues,november,17,FALSE,Build your first R package
+cm108,STAT547M,thurs,november,19,FALSE,ditto
+cm109,STAT547M,tues,november,24,FALSE,Build your first Shiny app
+cm110,STAT547M,thurs,november,26,FALSE,ditto
+cm111,STAT547M,tues,december,1,FALSE,Get data from the web
+cm112,STAT547M,thurs,december,3,FALSE,ditto

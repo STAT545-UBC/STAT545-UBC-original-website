@@ -19,7 +19,7 @@ table {
 date           notes                                                                                                              
 -------------  -------------------------------------------------------------------------------------------------------------------
 sep-08 tues    <a href="cm001_course-intro-sw-install-account-signup.html">cm001</a>: Intro to course; S/W install; acct sign-ups 
-sep-10 thurs   cm002: Deep Thoughts about data analytic work; intro to R and RStudio                                              
+sep-10 thurs   <a href="cm002_r-rstudio-intro.html">cm002</a>: Deep Thoughts about data analytic work; intro to R and RStudio     
 sep-15 tues    cm003: Basic flavors of R objects; Git(Hub) and (R) Markdown crash course                                          
 sep-17 thurs   cm004: Care and feeding of data (data.frames, actually)                                                            
 sep-22 tues    cm005: Intro to ggplot2; R Markdown                                                                                

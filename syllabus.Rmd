@@ -27,11 +27,9 @@ cdat %>% View
 
 ## link to the class page of any class meetings where such exists
 ## AND I want to link
-## year 1: we just filtered for present of .html file
+## year 1: we just filtered for presence of .html file
 ## year 2: yes merge those but also filter on link_it for gradual reveal
-cmdat <-
-  data.frame(html = list.files(pattern = '^cm.*html$'),
-             stringsAsFactors = FALSE)
+cmdat <- data_frame(html = list.files(pattern = '^cm.*html$'))
 cmdat <- cmdat %>% mutate(cm = str_extract(html, "cm[0-9]+"))
 cdat <- cdat %>% full_join(cmdat)
 
