@@ -6,6 +6,9 @@ output:
   html_document:
     toc: true
     keep_md: true
+    css:
+      - libs/local/main.css
+      - libs/local/nav.css
 ---
 
 ```{r setup, include = FALSE}
