@@ -1,10 +1,5 @@
-body {
-  margin: 0;
-  padding: 0;
-  /* background: #ccc; */
-}
- 
 .nav {
+  font-size: 14px;
   position: relative;
   margin: 10px 0 20px;
 }
@@ -48,9 +43,11 @@ body {
 }
  
 .footer {
-  margin-top: 2em;	
-  padding-top: 1em;
+  font-size: 0.8em;
+  margin: 30px 0 10px;	
+  padding-top: 10px;
   border-top: 1px #eee solid;
+  text-align: center;
 }
 
 @media screen and (min-width: 600px) {
