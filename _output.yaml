@@ -1,7 +1,8 @@
 html_document:
   keep_md: true
-  theme: united
-  css: libs/local/nav.css
+  css:
+    - libs/local/main.css
+    - libs/local/nav.css
   self_contained: false
   lib_dir: libs
   includes:
