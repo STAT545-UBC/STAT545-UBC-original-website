@@ -70,7 +70,7 @@ x[0]
 ## numeric(0)
 ```
 
-R is built to work with vectors. Many operations are *vectorized*, i.e. by default they will happen component-wise when given a vector as input. Newbies often don't internalize or exploit this and they write lots of unnecessary `for` loops.
+R is built to work with vectors. Many operations are *vectorized*, i.e. by default they will happen component-wise when given a vector as input. Novices often don't internalize or exploit this and they write lots of unnecessary `for` loops.
 
 ```r
 x <- 1:4
@@ -104,7 +104,7 @@ rnorm(5, mean = 10^(1:5))
 ```
 
 ```
-## [1]     10.73     99.96   1001.20  10001.47 100000.13
+## [1]     10.73267     99.96217   1001.20301  10001.46980 100000.13369
 ```
 
 ```r
@@ -142,7 +142,8 @@ y + z
 ```
 
 ```
-## Warning: longer object length is not a multiple of shorter object length
+## Warning in y + z: longer object length is not a multiple of shorter object
+## length
 ```
 
 ```
@@ -426,7 +427,7 @@ Here we repeat an assignment from above, using `list()` instead of `c()` to comb
 ## [1] "cabbage"
 ## 
 ## [[2]]
-## [1] 3.142
+## [1] 3.141593
 ## 
 ## [[3]]
 ## [1] TRUE
@@ -491,7 +492,7 @@ a
 ## [1] "cabbage"
 ## 
 ## $dessert
-## [1] 3.142
+## [1] 3.141593
 ## 
 ## $myAim
 ## [1] TRUE
@@ -528,7 +529,7 @@ A slightly more complicated list will make our demos more educational. Now we re
 ## [1] "cabbage"  "eggplant"
 ## 
 ## $tNum
-## [1] 3.142 2.718 1.414
+## [1] 3.141593 2.718282 1.414214
 ## 
 ## $myAim
 ## [1] TRUE
@@ -580,7 +581,7 @@ a[[2]] # index with a positive integer
 ```
 
 ```
-## [1] 3.142 2.718 1.414
+## [1] 3.141593 2.718282 1.414214
 ```
 
 ```r
@@ -604,7 +605,7 @@ a[["tNum"]] # index with length 1 character vector
 ```
 
 ```
-## [1] 3.142 2.718 1.414
+## [1] 3.141593 2.718282 1.414214
 ```
 
 ```r
@@ -629,7 +630,7 @@ a[[c("joeNum", "veg")]] # does not work! can't get > 1 elements! see below
 ```
 
 ```
-## Error: subscript out of bounds
+## Error in a[[c("joeNum", "veg")]]: subscript out of bounds
 ```
 A case when one must use the double bracket approach, as opposed to the dollar sign, is when the indexing object itself is an R object; we show that above.
 
@@ -650,7 +651,7 @@ a[c("tNum", "veg")] # indexing by length 2 character vector
 
 ```
 ## $tNum
-## [1] 3.142 2.718 1.414
+## [1] 3.141593 2.718282 1.414214
 ## 
 ## $veg
 ## [1] "cabbage"  "eggplant"
@@ -756,7 +757,7 @@ class(jDat)
 ## [1] "data.frame"
 ```
 
-> Sidebar: What is `I()`, used when creating the variable $y$ in the above data.frame? Short version: it tells R to do something _quite literally_. Here we are protecting the letters from being coerced to factor. We are ensuring we get a character vector. Note we let character-to-factor conversion happen in creating the $v$ variable above. More about (foiling) R's determination to convert character data to factor can be found [here](block08_bossYourFactors.html).
+> Sidebar: What is `I()`, used when creating the variable $y$ in the above data.frame? Short version: it tells R to do something _quite literally_. Here we are protecting the letters from being coerced to factor. We are ensuring we get a character vector. Note we let character-to-factor conversion happen in creating the $v$ variable above. More about (foiling) R's determination to convert character data to factor can be found [here](http://www.stat.ubc.ca/~jenny/STAT545A/block08_bossYourFactors.html) (Note: links to page from 2013).
 
 data.frames really are lists! Double square brackets can be used to get individual variables. Single square brackets can be used to get one or more variables, returned as a data.frame (though `subset(..., select = ...))` is how I would more likely do in a data analysis).
 
@@ -847,7 +848,7 @@ as.data.frame(qDat) ## does not work! elements don't have same length!
 ```
 
 ```
-## Error: arguments imply differing number of rows: 8, 7
+## Error in data.frame(w = c(-0.62, -2.21, 1.12, -0.04, -0.02, 0.94, 0.82, : arguments imply differing number of rows: 8, 7
 ```
 
 ```r

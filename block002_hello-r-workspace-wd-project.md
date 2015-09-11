@@ -143,7 +143,7 @@ date()
 ```
 
 ```
-## [1] "Mon Jan  5 14:20:26 2015"
+## [1] "Fri Sep 11 15:05:31 2015"
 ```
 
 Now look at your workspace -- in the upper right pane. The workspace is where user-defined objects accumulate. You can also get a listing of these objects with commands:
@@ -293,7 +293,7 @@ y <- a + b * x + rnorm(40, sd = sqrt(sig_sq))
 ```
 
 ```
-## [1] 0.4997209
+## [1] 0.4598551
 ```
 
 ```r
@@ -309,8 +309,8 @@ dev.print(pdf, "toy_line_plot.pdf")
 ```
 
 ```
-## pdf 
-##   2
+## quartz_off_screen 
+##                 2
 ```
 
 Let's say this is a good start of an analysis and your ready to start preserving the logic and code. Visit the History tab of the upper right pane. Select these commands. Click "To Source". Now you have a new pane containing a nascent R script. Click on the floppy disk to save. Give it a name ending in `.R` or `.r`, I used `toy-line.r` and note that, by default, it will go in the directory associated with your project.
