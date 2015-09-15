@@ -28,8 +28,8 @@ Our recommendations vary by operating system, so read the section that applies t
 
 **Option 1** (*recommended*): We concur with [Software Carpentry](http://software-carpentry.org), an organization that "teaches lab skills for scientific computing", and paraphrase their installation instructions:
 
-  * Install [Git for Windows](https://git-for-windows.github.io/), previously known as `msysgit`, to get Git in addition to some other useful tools, such as the Bash shell.
-  * This approach leaves the Git executable in a conventional location, which will help you and other programs, e.g. RStudio, find it and use it. This also supports a transition to more expert use, because `msysgit` installs the Bash shell, which will be useful as you venture outside of R/RStudio.
+  * Install [Git for Windows](https://git-for-windows.github.io/), previously known as `msysgit` or "Git Bash", to get Git in addition to some other useful tools, such as the Bash shell. Yes, all those names are totally confusing.
+  * This approach leaves the Git executable in a conventional location, which will help you and other programs, e.g. RStudio, find it and use it. This also supports a transition to more expert use, because the Bash shell will be useful as you venture outside of R/RStudio.
   * This also leaves you with a Git client, though not a very good one. So check out [Git clients we recommend](git02_git-clients.html).
   
 **Option 2** (*we did not like this in 2014; jury's still out for 2015*): The GitHub hosting site offers [GitHub Desktop for Windows](https://desktop.github.com/) that provides Git itself, a client, and smooth integration with GitHub.

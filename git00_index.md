@@ -10,7 +10,7 @@ This set of instructions was used successfully September 2014, with a group of 4
 
 ### Level 1: Installation
 
-  * [Register a free GitHub account](https://github.com) *request an [educational discount](https://github.com/blog/1775-github-goes-to-school) if you are eligible*
+  * [Register a free GitHub account](https://github.com). If you are eligible, you may want to take advantage of the offers available at [GitHub Education](https://education.github.com).
   * [Install R and RStudio](block000_r-rstudio-install.html)
   * [Install Git](git01_git-install.html)
   * [Install a Git client](git02_git-clients.html) *optional but recommended*
@@ -29,12 +29,21 @@ This set of instructions was used successfully September 2014, with a group of 4
 
   * [STAT545 RStudio and GitHub workflow](git07_git-usage.html)
 
-
 ### Troubleshooting
 
 #### Push/Pull buttons greyed out in RStudio
 
 Are you sure your local repository is tracking a remote repository, e.g. a GitHub repo? Go [here](git07_git-usage.html#step-2-plan-b) for instructions on how to check. There is more discussion of this on an [RStudio Support thread](https://support.rstudio.com/hc/communities/public/questions/200640128-It-seems-that-if-git-remote-was-specified-at-the-command-line-that-it-s-not-reflected-in-the-RStudio-UI).
+
+#### Push fail
+
+Do you get this error in RStudio?
+
+```
+error: unable to read askpass response from 'rpostback-askpass'
+```
+
+Get a successful push from the command line *first*, before pushing through RStudio. Step-by-step instructions are in [GitHub credential caching](git06_credential-caching.html).
 
 #### Push rejected
 

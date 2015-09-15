@@ -69,4 +69,4 @@ Rejoice and close the shell. From now on your "Push" button in RStudio will just
 
 ### More options
 
-* Above we are connecting to GitHub via HTTPS. The (more complicated) alternative is [SSH](https://help.github.com/articles/generating-ssh-keys). Try to get HTTPS working, but you can resort to SSH if need be.
+* Above we are connecting to GitHub via HTTPS. The alternative is [SSH](https://help.github.com/articles/generating-ssh-keys). We follow [GitHub's advice](https://help.github.com/articles/which-remote-url-should-i-use/), which is to prefer HTTPS over SSH, but both are perfectly valid.

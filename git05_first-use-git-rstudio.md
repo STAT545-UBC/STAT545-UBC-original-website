@@ -45,7 +45,7 @@ Before you leave this page, copy the URL of your repo to the clipboard. In the r
 
 **Do this once per new project.** 
 
-  * Go back to RStudio, and start a new Project: File > New Project > Version Control > Git. In the "repository URL" paste the URL of your new GitHub repository, e.g., `https://github.com/BernhardKonrad/helloGithub`.
+  * Go back to RStudio, and start a new Project: *File > New Project > Version Control > Git*. In the "repository URL" paste the URL of your new GitHub repository, e.g., `https://github.com/BernhardKonrad/helloGithub`.
 
   * Choose the directory in which you want to put your repository and click "Create Project". This will create a new sub-directory, which will be all of these things: a directory on your computer, a GitHub repository, and an RStudio Project.
 

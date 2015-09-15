@@ -95,6 +95,7 @@ img {
 <li><a href="#level-4-daily-workflow">Level 4: Daily workflow</a></li>
 <li><a href="#troubleshooting">Troubleshooting</a><ul>
 <li><a href="#pushpull-buttons-greyed-out-in-rstudio">Push/Pull buttons greyed out in RStudio</a></li>
+<li><a href="#push-fail">Push fail</a></li>
 <li><a href="#push-rejected">Push rejected</a></li>
 <li><a href="#rstudio-is-not-making-certain-files-available-for-stagingcommiting">RStudio is not making certain files available for staging/commiting</a></li>
 </ul></li>
@@ -106,7 +107,7 @@ img {
 <div id="level-1-installation" class="section level3">
 <h3>Level 1: Installation</h3>
 <ul>
-<li><a href="https://github.com">Register a free GitHub account</a> <em>request an <a href="https://github.com/blog/1775-github-goes-to-school">educational discount</a> if you are eligible</em></li>
+<li><a href="https://github.com">Register a free GitHub account</a>. If you are eligible, you may want to take advantage of the offers available at <a href="https://education.github.com">GitHub Education</a>.</li>
 <li><a href="block000_r-rstudio-install.html">Install R and RStudio</a></li>
 <li><a href="git01_git-install.html">Install Git</a></li>
 <li><a href="git02_git-clients.html">Install a Git client</a> <em>optional but recommended</em></li>
@@ -137,6 +138,12 @@ img {
 <div id="pushpull-buttons-greyed-out-in-rstudio" class="section level4">
 <h4>Push/Pull buttons greyed out in RStudio</h4>
 <p>Are you sure your local repository is tracking a remote repository, e.g. a GitHub repo? Go <a href="git07_git-usage.html#step-2-plan-b">here</a> for instructions on how to check. There is more discussion of this on an <a href="https://support.rstudio.com/hc/communities/public/questions/200640128-It-seems-that-if-git-remote-was-specified-at-the-command-line-that-it-s-not-reflected-in-the-RStudio-UI">RStudio Support thread</a>.</p>
+</div>
+<div id="push-fail" class="section level4">
+<h4>Push fail</h4>
+<p>Do you get this error in RStudio?</p>
+<pre><code>error: unable to read askpass response from &#39;rpostback-askpass&#39;</code></pre>
+<p>Get a successful push from the command line <em>first</em>, before pushing through RStudio.</p>
 </div>
 <div id="push-rejected" class="section level4">
 <h4>Push rejected</h4>
