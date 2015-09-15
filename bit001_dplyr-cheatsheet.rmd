@@ -10,7 +10,7 @@ output:
 
 #### Why the cheatsheet
 
-Examples for those of us who don't speak SQL so good. There are lots of [Venn diagrams re: SQL joins on the interwebs](http://images.google.com/images?q=sql+join), but I wanted R examples.
+Examples for those of us who don't speak SQL so good. There are lots of [Venn diagrams re: SQL joins on the interwebs](//encrypted.google.com/search?q=sql+join&tbm=isch), but I wanted R examples.
 
 [Full documentation](http://www.rdocumentation.org/packages/dplyr) for the `dplyr` package, which is developed by Hadley Wickham and Romain Francois on [GitHub](https://github.com/hadley/dplyr).
 
