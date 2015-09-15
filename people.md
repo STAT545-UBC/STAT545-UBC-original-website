@@ -22,6 +22,12 @@ output:
   * [GitHub](https://github.com/daattali)
   * STAT 545A/547M alum and veteran TA
 
+[Kieran Samuk](http://ksamuk.github.io), TA for STAT 545A and STAT 547M
+
+  * <samuk@zoology.ubc.ca>
+  * [\@ksamuk](http://twitter.com/ksamuk)
+  * [GitHub](https://github.com/ksamuk)
+
 YOUR NAME COULD BE HERE! SEE [HELP WANTED](people-help-wanted.html)!
 
 ### 2014 staff
