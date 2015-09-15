@@ -25,7 +25,7 @@ If you are not sure where the Git executable lives, try this in a shell:
 
 If Git appears to be installed and findable, launch RStudio. Quit and re-launch RStudio if there's __any doubt in your mind__ about whether you opened RStudio before or after installing Git.
 
-From RStudio, go to *Tools > Global Options > Git* and make sure that the box *Git executable* points to ... the Git executable. It should read something like:
+From RStudio, go to *Tools > Global Options > Git/SVN* and make sure that the box *Git executable* points to ... the Git executable. It should read something like:
   
   * `/usr/bin/git` (Mac, Linux)
 
@@ -35,7 +35,7 @@ From RStudio, go to *Tools > Global Options > Git* and make sure that the box *G
 
     - __WARNING__: On Windows, do __NOT__ use `C:/Program Files (x86)/Git/cmd/git.exe`. The difference between the good and bad paths is `bin` vs. `cmd`.
 
-__Restart__ RStudio if you made any changes. Don't make me stop this car and restart R and RStudio for you in office hours. DO IT.
+__Restart__ RStudio if you made any changes. Don't make me stop this car and restart RStudio for you in office hours. DO IT.
 
 ### Test the communication between RStudio and Git
 
