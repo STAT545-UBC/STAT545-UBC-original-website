@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>The Shell</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/united.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">The Shell</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#what-is-the-shell">What is the Shell?</a></li>
+<li><a href="#getting-started">Getting Started</a></li>
+<li><a href="#navigate-the-file-system">Navigate the file system</a></li>
+<li><a href="#a-few-tips">A few tips</a></li>
+<li><a href="#now-go-explore-the-git-suite">Now go explore the <code>git</code> suite:</a></li>
+<li><a href="#useful-reference">Useful reference:</a></li>
+<li><a href="#want-more-shell">want more shell?</a></li>
+</ul>
+</div>
+
+<div id="what-is-the-shell" class="section level3">
+<h3>What is the Shell?</h3>
+<p>A <a href="https://en.wikipedia.org/wiki/Shell_(computing)"><code>shell</code></a> is an application; just like Microsoft Word or Google Chrome. All of them provide you with services. Word provides services to explore and interact with documents. Chrome provides services to explore and interact with others computers via the internet. Shell applications also provide these services (among many others). In Word and Chrome you interact with these services through a graphical user interface (GUI). By contrast, in a shell you tend to interact with services through a command line interface (CLI).</p>
+<p>The relevant <code>shell</code> applications for us are <code>Terminal</code> on Mac, <code>GitBash</code> on Windows.</p>
+<p>Think of the <code>shell</code> as a program on your computer who’s job is to run other programs. It is a very old program and in a time before the mouse this was the only way to interact with a computer (other than rewiring). It is still extremely popular among programmers because it is very powerful, fast, and can easily be set up to automate repetitive tasks.</p>
+<p>Next, get started with a first exposure working in the shell.</p>
+</div>
+<div id="getting-started" class="section level3">
+<h3>Getting Started</h3>
+<p>In RStudio, go to <code>Tools -&gt; Shell</code>; this opens a shell application in your current directory. Type <code>pwd</code> at the command line and press enter. Compare this to the output of <code>getwd()</code> in RStudio. Can you tell what the <code>pwd</code> command stands for? By default, RStudio opens the shell in your current working directory.</p>
+<p><img src="git08_shell_whats-in-a-command-line.png" alt="whats-in-a-command-line" /></p>
+<blockquote>
+<p>The command line has information about the hostname, the current directory and the username. You type <em>commands</em> at the <em>prompt</em>. Some commands require <em>arguments</em>. Most commands have options.</p>
+</blockquote>
+<p>Now It’s time for a story about football. I like football and so every year when the Super Bowl comes around I watch it with friends. This used to be very stressful. It’s the roman numerals. I just can never seem to read them right. So every year I’d google say “roman numeral XLVIII” to decipher it. But then I learned more terminal and all my worries were solved:</p>
+<pre class="r"><code>npjc-laptop:STAT545-UBC.github.io npjc$ say &quot;Super Bowl XLVIII&quot;</code></pre>
+<blockquote>
+<p>Here give the <code>say</code> <em>command</em> the argument (in the form of a quoted string): “Super Bowl XLVIII” and press enter to execute and voila! If you have a Mac try this for yourself to see what happens! Type <code>man say</code> to see the manual, what else can you do? If you don’t have a Mac find a friend and learn together!</p>
+</blockquote>
+<p>Next explore other commands beyond <code>say</code> and <code>pwd</code> (for print working directory) to navigate the file system.</p>
+</div>
+<div id="navigate-the-file-system" class="section level3">
+<h3>Navigate the file system</h3>
+<p>Execute the following commands in the order provided. The <code>$</code> is there as a reminder that we are at the shell command line and should be omitted!</p>
+<pre class="r"><code>$ ls                       # list directory contents
+$ mkdir tmp                # make directories
+$ cd tmp                   # change directories
+$ ls
+$ touch file.txt           # touch sets the last modified date or creates a file if it doesn&#39;t exist.
+$ ls
+$ rm file.txt              # what does the rm command do? what&#39;s its argument here?
+$ ls
+$ cd ..
+$ ls</code></pre>
+<p>Now try this:</p>
+<pre class="r"><code>$ rm tmp                   # if we try to remove a directory
+rm: tmp2: is a directory   # does not work! check by executing `ls`</code></pre>
+<p>To remove the directory named <code>tmp</code> we need to provide the <code>rm</code> command with an option (also called a flag). Set the option we need with <code>-d</code>:</p>
+<pre class="r"><code>$ rm -d tmp                # we need to provide the additional `-d` option or flag
+$ ls                       # success!</code></pre>
+</div>
+<div id="a-few-tips" class="section level3">
+<h3>A few tips</h3>
+<ul>
+<li>You can drag and drop a file or folder into the shell to the path to that file or folder.</li>
+<li>press <kbd>tab</kbd> for auto-completion. What happens when you do it twice in succession?</li>
+<li>press <kbd>ctrl</kbd>+<kbd>c</kbd> to abort a command and return to the prompt.</li>
+<li>use the arrow keys to navigate your execution history.</li>
+<li><kbd>ctrl</kbd>+<kbd>a</kbd> to move cursor to the start of a line. What does <kbd>ctrl</kbd>+<kbd>e</kbd> do?</li>
+</ul>
+</div>
+<div id="now-go-explore-the-git-suite" class="section level3">
+<h3>Now go explore the <code>git</code> suite:</h3>
+<p>Take a look at the commands below, What’s the command, option and argument for each?</p>
+<pre class="r"><code>$ git config --global user.name &quot;YOUR_FULL_NAME&quot;
+$ git config --global user.email &quot;YOUR_EMAIL_ADDRESS&quot;</code></pre>
+<blockquote>
+<p>git is actually a suite of commands. The git command takes, as an argument, the name of a command within the suite. You always first type “git[space]command”.</p>
+</blockquote>
+<p>You can see the most common git commands with:</p>
+<pre class="r"><code>$ git --help</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">git command</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">add</td>
+<td align="left">Add file contents to the index</td>
+</tr>
+<tr class="even">
+<td align="left">bisect</td>
+<td align="left">Find by binary search the change that introduced a bug</td>
+</tr>
+<tr class="odd">
+<td align="left">branch</td>
+<td align="left">List, create, or delete branches</td>
+</tr>
+<tr class="even">
+<td align="left">checkout</td>
+<td align="left">Checkout a branch or paths to the working tree</td>
+</tr>
+<tr class="odd">
+<td align="left">clone</td>
+<td align="left">Clone a repository into a new directory</td>
+</tr>
+<tr class="even">
+<td align="left">commit</td>
+<td align="left">Record changes to the repository</td>
+</tr>
+<tr class="odd">
+<td align="left">diff</td>
+<td align="left">Show changes between commits, commit and working tree, etc</td>
+</tr>
+<tr class="even">
+<td align="left">fetch</td>
+<td align="left">Download objects and refs from another repository</td>
+</tr>
+<tr class="odd">
+<td align="left">grep</td>
+<td align="left">Print lines matching a pattern</td>
+</tr>
+<tr class="even">
+<td align="left">init</td>
+<td align="left">Create an empty Git repository or reinitialize an existing one</td>
+</tr>
+<tr class="odd">
+<td align="left">log</td>
+<td align="left">Show commit logs</td>
+</tr>
+<tr class="even">
+<td align="left">merge</td>
+<td align="left">Join two or more development histories together</td>
+</tr>
+<tr class="odd">
+<td align="left">mv</td>
+<td align="left">Move or rename a file, a directory, or a symlink</td>
+</tr>
+<tr class="even">
+<td align="left">pull</td>
+<td align="left">Fetch from and integrate with another repository or a local branch</td>
+</tr>
+<tr class="odd">
+<td align="left">push</td>
+<td align="left">Update remote refs along with associated objects</td>
+</tr>
+<tr class="even">
+<td align="left">rebase</td>
+<td align="left">Forward-port local commits to the updated upstream head</td>
+</tr>
+<tr class="odd">
+<td align="left">reset</td>
+<td align="left">Reset current HEAD to the specified state</td>
+</tr>
+<tr class="even">
+<td align="left">rm</td>
+<td align="left">Remove files from the working tree and from the index</td>
+</tr>
+<tr class="odd">
+<td align="left">show</td>
+<td align="left">Show various types of objects</td>
+</tr>
+<tr class="even">
+<td align="left">status</td>
+<td align="left">Show the working tree status</td>
+</tr>
+<tr class="odd">
+<td align="left">tag</td>
+<td align="left">Create, list, delete or verify a tag object signed with GPG</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="useful-reference" class="section level3">
+<h3>Useful reference:</h3>
+<ul>
+<li><a href="http://www.codeproject.com/Articles/457305/Basic-Git-Command-Line-Reference-for-Windows-Users">Basic Git command line for windows users</a></li>
+</ul>
+</div>
+<div id="want-more-shell" class="section level3">
+<h3>want more shell?</h3>
+<ul>
+<li>See <a href="http://practicalcomputing.org/files/PCfB_Appendices.pdf">Appendix 3</a> from the practical computing for biologists book.</li>
+<li><a href="http://ss64.com/bash/">A-Z index of bash command line for linux</a></li>
+</ul>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
