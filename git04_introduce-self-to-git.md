@@ -5,6 +5,16 @@ output: html_document
 
 **You only have to set this up once per machine.**
 
+### TL;DR
+
+``` sh
+git config --global user.name 'Bernhard Konrad'
+git config --global user.email 'bernhard.konrad@gmail.com'
+git config --global --list
+```
+
+In words ...
+
 From RStudio, go to *Tools > Shell* and tell `git` your name and **GitHub email** by typing (use your own name and email):
 
   * `git config --global user.name 'Bernhard Konrad'`
