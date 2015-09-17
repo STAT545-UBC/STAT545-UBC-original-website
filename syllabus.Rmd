@@ -15,7 +15,8 @@ library(readr)
 *2015-09-07 NOTE: This is tentative and based on 2014. But it gives a good sense of what we'll cover and approximately when. Mysteriously, the term has two extra class meetings in 2015 vs. 2014, so we have room to add some topics. Placeholders currently at start of STAT 547M but that was arbitrary.*
 
 ```{r include = FALSE}
-rawdat <- read_csv(file.path("course-admin", "class-meetings.csv"))
+rawdat <-
+  read_csv(file.path("course-admin", "class-meetings", "class-meetings.csv"))
 cdat <- rawdat %>%
   mutate(ugly_date = ISOdate(2015, match(month, tolower(month.name)), day),
          date = sprintf("%s-%02d %s",
@@ -23,7 +24,7 @@ cdat <- rawdat %>%
                         day, dow),
          notes = ifelse(grepl("^cm", cm) & raw_notes != "",
                         sprintf("%s: %s", cm, raw_notes), raw_notes))
-cdat %>% View
+#cdat %>% View
 
 ## link to the class page of any class meetings where such exists
 ## AND I want to link
