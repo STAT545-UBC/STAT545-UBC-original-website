@@ -24,9 +24,9 @@ Keep reading if things don't go so well or you want to know more.
 
 RStudio can only act as a GUI front-end for Git if [Git has been successfully installed](git01_git-install.html) AND RStudio can find it.
 
-A basic test for successful installation of git is to simply enter `git` in the shell. If you get a complaint about git not being found, it means installation was unsuccessful or that it is not being found, i.e. it is not on your `PATH`.
+A basic test for successful installation of git is to simply enter `git` in the [shell](git09_shell.html). If you get a complaint about git not being found, it means installation was unsuccessful or that it is not being found, i.e. it is not on your `PATH`.
 
-If you are not sure where the git executable lives, try this in a shell:
+If you are not sure where the git executable lives, try this in a [shell](git09_shell.html):
   
 * `which git` (Mac, Linux)
 

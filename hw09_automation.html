@@ -13,10 +13,11 @@
 <title>Automating Data-analysis Pipelines</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
-<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -37,6 +38,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
 
 </head>
@@ -48,6 +50,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
 }
 </style>
 <div class="container-fluid main-container">
@@ -120,7 +130,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <pre class="r"><code>downloader::download(&quot;https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.tsv&quot;)
 cat(file = &quot;gapminder.tsv&quot;,
   RCurl::getURL(&quot;https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.tsv&quot;))</code></pre></li>
-<li><p>in a shell script using <code>curl</code> or <code>wget</code>.</p>
+<li><p>in a <a href="git09_shell.html">shell</a> script using <code>curl</code> or <code>wget</code>.</p>
 <pre class="bash"><code>curl -O https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.tsv
 wget https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.tsv</code></pre></li>
 </ul>
@@ -152,7 +162,7 @@ wget https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.t
 <div id="automate-the-pipeline" class="section level2">
 <h2>Automate the pipeline</h2>
 <p>Identify and test a method of running your pipeline non-interactively.</p>
-<p>You could write a master R script that simply <code>source()</code>s the three scripts, one after the other. Tip: you will probably want a second “clean up / reset” script that deletes all the output your scripts leave behind, so you can easily test and refine your strategy, i.e. without repeatedly deleting stuff “by hand”. You can run the master script or the cleaning script from a shell with <code>R CMD BATCH</code> or <code>Rscript</code>.</p>
+<p>You could write a master R script that simply <code>source()</code>s the three scripts, one after the other. Tip: you will probably want a second “clean up / reset” script that deletes all the output your scripts leave behind, so you can easily test and refine your strategy, i.e. without repeatedly deleting stuff “by hand”. You can run the master script or the cleaning script from a <a href="git09_shell.html">shell</a> with <code>R CMD BATCH</code> or <code>Rscript</code>.</p>
 <p>Provide a link to a page that explains how your pipeline works and links to the remaining files. The TAs should be able to go to this landing page and re-run your analysis quickly and easily. Consider including an image showing a graphical view of your pipeline.</p>
 <div id="windows" class="section level3">
 <h3>Windows</h3>
@@ -173,7 +183,7 @@ wget https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.t
 </ul>
 <p>Include some dynamic report generation in your pipeline. That is, create HTML from one or more plain R or R markdown files.</p>
 <ul>
-<li>Example of how to emulate RStudio’s “Compile Notebook” button from a shell: <code>Rscript -e &quot;rmarkdown::render('myAwesomeScript.R')&quot;</code> or using <code>knitr</code> instead of <code>rmarkdown</code> <code>Rscript -e &quot;knitr::stitch_rmd('myAwesomeScript.R')&quot;</code></li>
+<li>Example of how to emulate RStudio’s “Compile Notebook” button from a <a href="git09_shell.html">shell</a>: <code>Rscript -e &quot;rmarkdown::render('myAwesomeScript.R')&quot;</code> or using <code>knitr</code> instead of <code>rmarkdown</code> <code>Rscript -e &quot;knitr::stitch_rmd('myAwesomeScript.R')&quot;</code></li>
 <li>To emulate “Knit HTML”, use <code>rmarkdown::render()</code> or knitr’s <code>knitr::knit2html()</code>.</li>
 <li>See the Makefile in <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/03_automation-example_render-without-rstudio">03_knitWithoutRStudio</a> to see these commands in action</li>
 </ul>

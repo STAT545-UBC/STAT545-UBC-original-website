@@ -14,10 +14,11 @@
 <title>Write your own R package, part 2</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
-<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -38,6 +39,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
 
 </head>
@@ -49,6 +51,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
 }
 </style>
 <div class="container-fluid main-container">
@@ -171,12 +181,12 @@ vignette: &gt;
 </div>
 <div id="connect-local-repo-to-github-repo" class="section level4">
 <h4>Connect local repo to GitHub repo</h4>
-<p>We have to inform our local Git repository about its companion on GitHub. In Git vocabulary, we need to <em>add a remote</em>. For this, we have to go back to the <em>Shell</em>:</p>
+<p>We have to inform our local Git repository about its companion on GitHub. In Git vocabulary, we need to <em>add a remote</em>. For this, we have to go back to the <em><a href="git09_shell.html">shell</a></em>:</p>
 <ol style="list-style-type: decimal">
 <li><em>Tools &gt; Shell…</em>.</li>
 <li>We will add the GitHub repository as a remote, using the traditional nickname <code>origin</code>: <code>git remote add origin https://github.com/BernhardKonrad/gameday</code>.</li>
 <li>Push your local work, on branch <code>master</code> to the new <code>origin</code> remote and set this remote as the new default: <code>git push -u origin master</code>.</li>
-<li>Close the shell, you will now be able to push and pull directly from RStudio.</li>
+<li>Close the <a href="git09_shell.html">shell</a>, you will now be able to push and pull directly from RStudio.</li>
 <li>Your package is now publicly (and freely, remember the License) available to the world.</li>
 <li><p>It gets better: You can actually install your package from GitHub directly:</p>
 <pre><code>library(devtools)

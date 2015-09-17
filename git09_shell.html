@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>The Shell</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">The Shell</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#what-is-the-shell">What is the Shell?</a></li>
+<li><a href="#starting-the-shell">Starting the shell</a></li>
+<li><a href="#using-the-shell">Using the shell</a></li>
+</ul>
+</div>
+
+<div id="what-is-the-shell" class="section level3">
+<h3>What is the Shell?</h3>
+<p>The <code>shell</code> (or <code>bash</code> or <code>terminal</code>) is a program on your computer who’s job is to run other programs, rather than do calculations itself. The <code>shell</code> is a very old program and in a time before the mouse it was the only way to interact with a computer (other than rewiring). It is still extremely popular among programmers because it is very powerful, fast, and is particularly powerful at automating repetitive tasks.</p>
+<p>Here we use the <code>shell</code> for a more moderate goal: To navigate the file system, confirm the present working directory, and confirm the <code>git</code> to <code>GitHub</code> connection.</p>
+</div>
+<div id="starting-the-shell" class="section level3">
+<h3>Starting the shell</h3>
+<p>In RStudio, go to <code>Tools -&gt; Shell</code>. This should take you to the shell (on Mac: Terminal, on Windows: GitBash or equivalent). It should be a simple blinking cursor, waiting for input and looks similar to this (white text on black background, or black text on white background):</p>
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Bash_screenshot.png/440px-Bash_screenshot.png" /></p>
+</div>
+<div id="using-the-shell" class="section level3">
+<h3>Using the shell</h3>
+<p>The most basic commands are listed below:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Pwd"><code>pwd</code></a> (<strong>p</strong>rint <strong>w</strong>orkging <strong>d</strong>irectory). Shows the folder you are currently operating in. This is not necessarily the same as the <code>R</code> working directory you get from <code>getwd()</code>.</li>
+<li><a href="https://en.wikipedia.org/wiki/Ls"><code>ls</code></a> (<strong>l</strong>i<strong>s</strong>t all files). Shows all files in the current working directory. This is equivalent to looking at the files in your Finder/Explorer/File Manager. Use <code>ls -a</code> to also list hidden files, such as <code>.Rhistory</code> and <code>.git</code>.</li>
+<li><a href="https://en.wikipedia.org/wiki/Cd_(command)"><code>cd</code></a> (<strong>c</strong>hange <strong>d</strong>irectory). Allows you to navigate through your folders by changing the shell’s working directory. You can navigate like so:
+<ul>
+<li>go to subfolder <code>foo</code> of current working directory: <code>cd foo</code></li>
+<li>go to parent folder of current working directory: <code>cd ..</code></li>
+<li>go to home folder: <a href="http://tilde.club/~ford/tildepoint.jpg"><code>cd ~</code></a> or simply <code>cd</code></li>
+<li>go to folder using absolute path, works regardless of your current working directory: <code>cd /home/my_username/Desktop</code>. Windows uses a slightly different syntax with the slashes between the folder names reversed, <code>\</code>, e.g. <code>cd C:\Users\MY_USERNAME\Desktop</code>.</li>
+<li>Pro tip 1: Dragging and dropping a file or folder into the terminal window will paste the absolute path into the window.</li>
+<li>Pro tip 2: Use the <code>tab</code> key to autocomplete unambiguous folder and file names. Hit <code>tab</code> twice to see all ambiguous options.</li>
+</ul></li>
+<li>Use arrow-up and arrow-down to repeat previous commands. Or search for previous commands with <code>CTRL</code>+<code>r</code>.</li>
+<li><code>git status</code> is the most used git command and informs you of your current branch, any changes or untracked files, and whether you are in sync with your remotes.</li>
+<li><code>git remote -v</code> lists all remotes. Very useful for making sure <code>git</code> knows about your remote and that the remote address is correct.</li>
+<li><code>git remote add origin GITHUB_URL</code> adds the remote <code>GITHUB_URL</code> with nickname <code>origin</code>.</li>
+<li><code>git remote set-url origin GITHUB_URL</code> changes the remote url of <code>origin</code> to <code>GITHUB_URL</code>. This way you can fix typos in the remote url.</li>
+</ul>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

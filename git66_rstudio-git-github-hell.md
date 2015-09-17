@@ -10,7 +10,7 @@ output:
 
 When you install Git, try to control or record where it is being installed! Make a mental or physical note of these things.
 
-You may be able to find Git after the fact with these commands in the shell:
+You may be able to find Git after the fact with these commands in the [shell](git09_shell.html):
 
 * `which git` (Mac, Linux)
 
@@ -24,7 +24,7 @@ It is not entirely crazy to just re-install Git, using a method that leaves it i
 
 #### Push/Pull buttons greyed out in RStudio
 
-Are you sure your local repository is tracking a remote repository, e.g. a GitHub repo? In a shell with working directory set to the local Git repo, enter these commands:
+Are you sure your local repository is tracking a remote repository, e.g. a GitHub repo? In a [shell](git09_shell.html) with working directory set to the local Git repo, enter these commands:
   
 ``` shell
 jenny@2015-mbp myrepo $ git remote -v
@@ -37,7 +37,7 @@ jenny@2015-mbp myrepo $ git branch -vv
 
 We want to see that fetch and push are set to remote URLs that point to the remote repo. We also want to see that your local master branch has your GitHub master branch as upstream remote.
 
-If you discover you still need to set a remote, go to the shell and get into the working directory of the RStudio Project and Git repo of interest.
+If you discover you still need to set a remote, go to the [shell](git09_shell.html) and get into the working directory of the RStudio Project and Git repo of interest.
 
   * Initiate the "upstream" or "tracking" relationship by adding a remote. Substitute the HTTPS URL for **your GitHub repo**.
 
@@ -68,7 +68,7 @@ Do you get this error in RStudio?
 error: unable to read askpass response from 'rpostback-askpass'
 ```
 
-Open the shell: *Tools > Shell*.
+Open the [shell](git09_shell.html): *Tools > Shell*.
 
 ``` shell
 git push -u origin master
