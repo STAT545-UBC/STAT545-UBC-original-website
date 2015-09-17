@@ -8,8 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
-
-
 <title>Make sure you can communicate with GitHub</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
@@ -126,7 +124,7 @@ Checking connectivity... done.</code></pre>
 <p>Make this new repo your working directory, list its files, display the README, and get some information on its connection to GitHub:</p>
 <pre class="bash"><code>cd myrepo
 ls
-more README.md
+less README.md
 git remote show origin</code></pre>
 <p>This should look something like this:</p>
 <pre class="bash"><code>jenny@2015-mbp ~ $ cd myrepo
@@ -134,7 +132,7 @@ git remote show origin</code></pre>
 jenny@2015-mbp myrepo $ ls
 README.md
 
-jenny@2015-mbp myrepo $ more README.md 
+jenny@2015-mbp myrepo $ less README.md 
 # myrepo
 tutorial development
 

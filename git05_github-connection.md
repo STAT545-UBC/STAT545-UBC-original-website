@@ -52,7 +52,7 @@ Make this new repo your working directory, list its files, display the README, a
 ``` bash
 cd myrepo
 ls
-more README.md
+less README.md
 git remote show origin
 ```
 
@@ -64,7 +64,7 @@ jenny@2015-mbp ~ $ cd myrepo
 jenny@2015-mbp myrepo $ ls
 README.md
 
-jenny@2015-mbp myrepo $ more README.md 
+jenny@2015-mbp myrepo $ less README.md 
 # myrepo
 tutorial development
 
