@@ -1,33 +1,46 @@
 ---
-title: Automatic GitHub authentication
+title: Caching your GitHub credentials
 output:
   html_document:
     toc: true
     toc_depth: 4
 ---
 
-### Overview
+### Why do we want to cache credentials?
 
-You need to get Git to remember your GitHub username and password, so that every time you, e.g., push, you do NOT have to authenticate yourself interactively.
+You need to get Git to remember your GitHub username and password, so that every time you push, you do NOT have to authenticate yourself interactively.
 
 **You only have to set this up once every couple of months or once per computer.**
 
 You will know you have truly succeeded once you have at least one successful push to GitHub in which you are NOT challenged for your user name and password.
 
-### Get yourself a test repository
+### Get a test repository
 
-Below you will need a functioning test Git repository. One that exists locally and remotely on GitHub, with the local repo tracking the remote.
+You need a functioning test Git repository. One that exists locally and remotely on GitHub, with the local repo tracking the remote.
 
-If you have just completed a [test drive of RStudio and GitHub](http://stat545-ubc.github.io/git05_first-use-git-rstudio.html), the `helloGithub` repo will do just fine. If have not and you don't know how to create such a testbed for yourself, go [take the test drive](http://stat545-ubc.github.io/git05_first-use-git-rstudio.html) and come back.
+If you have just [verified that you can interact with GitHub](git05_github-connection.html) from your local computer, that test repo will be perfect.
 
-You are ready to proceed when
+If you are [testing that you can work with GitHub from RStudio](git06_git-github-rstudio.html), that test repo will be perfect.
+
+You may proceed when
 
   * You have a test repo.
   * You know where it lives on your local computer. Example:
-    - `/home/jenny/tmp/helloGithub`
+    - `/home/jenny/tmp/myrepo`
   * You know where it lives on GitHub. Example:
-    - `https://github.com/jennybc/helloGithub`
-  * You know local is tracking remote. In a shell with working directory set to the local Git repo, enter `git remote -v`. You want to see the URL for the GitHub repo (it will probably have `.git` added to the end).
+    - `https://github.com/jennybc/myrepo`
+  * You know local is tracking remote. In a shell with working directory set to the local Git repo, enter these commands:
+  
+``` shell
+jenny@2015-mbp myrepo $ git remote -v
+origin	https://github.com/jennybc/myrepo (fetch)
+origin	https://github.com/jennybc/myrepo (push)
+
+jenny@2015-mbp myrepo $ git branch -vv
+* master b8e03e3 [origin/master] line added locally
+```
+  
+We want to see that fetch and push are set to remote URLs that point to your GitHub repo. We also want to see that your local master branch has your GitHub master branch as upstream remote. Gibberish? Just check that your output looks similar to mine.
 
 ### Verify that your Git is new enough to have a credential helper
 
@@ -61,9 +74,29 @@ In the shell, enter `git config --global credential.helper 'cache --timeout=1000
 
 ### Trigger a username / password challenge
 
-In a shell with working directory set to the local test Git repo, enter `git push -u origin master`. One last time you will be asked for your username and password.
+Change a file in your local repo and commit it. Do that however you wish. Here are shell commands that will work:
+
+``` shell
+echo "adding a line" >> README.md
+git add -A
+git commit -m "A commit from my local computer"
+```
+
+Now push!
+
+``` shell
+git push -u origin master
+```
+
+One last time you will be asked for your username and password, which hopefully will be cached.
+
+Now push AGAIN.
+
+``` shell
+git push
+```
   
-Enter `git push -u origin master` again. You should not be asked for your username and password, instead you should see "Everything up-to-date".
+You should NOT be asked for your username and password, instead you should see `Everything up-to-date`.
   
 Rejoice and close the shell. From now on your "Push" button in RStudio will just work.
 

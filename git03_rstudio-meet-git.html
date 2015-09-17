@@ -100,7 +100,7 @@ img {
 <p>Make sure RStudio can find the git executable.</p>
 <ul>
 <li><em>File &gt; New Project…</em> Do you see an option to create from Version Control? If yes, good.</li>
-<li>Select <em>New Directory</em> &gt; <em>Empty Project</em>. Do you see a checkbox “Create a git repository”? If yes, good.</li>
+<li>Select <em>New Directory</em> &gt; <em>Empty Project</em>. Do you see a checkbox “Create a git repository”? If yes, good, CHECK IT.</li>
 <li>Give this disposable test project a name and click <em>Create Project</em>. Do you see a “Git” tab in the upper right pane, the same one that has “Environment” and “History”? If yes, good.</li>
 </ul>
 <p>If all looks good, you can delete this project. Looks like RStudio and git are talking to each other. YAY.</p>
@@ -109,8 +109,8 @@ img {
 <div id="find-git" class="section level3">
 <h3>Find Git</h3>
 <p>RStudio can only act as a GUI front-end for Git if <a href="git01_git-install.html">Git has been successfully installed</a> AND RStudio can find it.</p>
-<p>A basic test for successful installation of Git is to simply enter <code>git</code> in the shell. If you get a complaint about Git not being found, it means installation was unsuccessful or that it is not being found, i.e. it is not on your <code>PATH</code>.</p>
-<p>If you are not sure where the Git executable lives, try this in a shell:</p>
+<p>A basic test for successful installation of git is to simply enter <code>git</code> in the shell. If you get a complaint about git not being found, it means installation was unsuccessful or that it is not being found, i.e. it is not on your <code>PATH</code>.</p>
+<p>If you are not sure where the git executable lives, try this in a shell:</p>
 <ul>
 <li><p><code>which git</code> (Mac, Linux)</p></li>
 <li><p><code>where git</code> (most versions of Windows)</p></li>
@@ -130,7 +130,7 @@ img {
 <p>Do the steps at the top of the page to see if RStudio and git are communicating now.</p>
 <p>No joy?</p>
 <ul>
-<li><p>If you installed git via GitHub for Windows, it is possible the git executable is really well hidden. Get our help or install git another way.</p></li>
+<li><p>If you installed git via GitHub for Windows, it is possible the git executable is really well hidden. Get our help or install Git another way.</p></li>
 <li><p>I’ve seen this help: With your Project open, go to <code>Tools &gt; Project Options...</code>. If available, click on “Git/SVN” and select “Git” in the Version control system dropdown menu. Answer “yes” to the “Confirm New Git Repository” pop up. Answer “yes” to the “Confirm Restart RStudio” pop up.</p></li>
 <li><p>Get our help.</p></li>
 </ul>

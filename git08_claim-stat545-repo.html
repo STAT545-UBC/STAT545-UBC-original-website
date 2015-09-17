@@ -10,7 +10,7 @@
 
 
 
-<title>Homework 01: Edit README.md</title>
+<title>Claim your private STAT 545 repository</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -84,58 +84,53 @@ img {
 </header>
 
 <div id="header">
-<h1 class="title">Homework 01: Edit README.md</h1>
+<h1 class="title">Claim your private STAT 545 repository</h1>
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#overview">Overview</a></li>
-<li><a href="#edit-readme.md">Edit <code>README.md</code></a></li>
-<li><a href="#report-your-process">Report your process</a></li>
-<li><a href="#submit-the-assignment">Submit the assignment</a></li>
-<li><a href="#rubric">Rubric</a></li>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#outline">Outline</a></li>
 </ul>
 </div>
 
-<div id="overview" class="section level3">
-<h3>Overview</h3>
-<p>Consult the <a href="hw00_homework-guidelines.html">general homework guidelines</a>, although much does not to apply to this simple assignment.</p>
-<p>Recall the <a href="git07_git-github-rstudio.html">tutorial</a> where we test drive your software installation and account configuration.</p>
-<p>Due before class Monday 2014-09-15. Or later that day, if terrible things happen, and you need a consultation during class or office hours. This is the last time we’ll flex on due date because of software and configuration issues. SORT THIS OUT ASAP.</p>
-<p>The goal is to test your software installation, our GitHub setup, and our homework submission process via an Issue.</p>
-</div>
-<div id="edit-readme.md" class="section level3">
-<h3>Edit <code>README.md</code></h3>
-<p>We created this repository for you but it is empty. When you first visit, you should see a screen like <a href="img/screenshot-empty-repo.png">this</a>. You need to create a <code>README.md</code> file to welcome your visitors (you, STAT545 instructor/TAs, STAT545 peers).</p>
-<p>If you are already familiar with GitHub, edit the <code>README.md</code> any way you wish.</p>
-<p>If you are new to Git and GitHub, click on the <code>README</code> link in “We recommend every repository include a README …” and you will be able to edit <code>README.md</code> in the browser and make your first commit. If you are still mystified by Git(Hub), you can use this browser-based method to edit <code>README.md</code> until you get more comfortable with using Git locally and pushing to GitHub. <strong>However, if at all possible</strong>, we want you to practice this workflow:</p>
+<div id="prerequisites" class="section level3">
+<h3>Prerequisites</h3>
+<p>We assume the following:</p>
 <ul>
-<li>pull from GitHub (just an empty precaution now, but will matter when you collaborate with others)</li>
-<li>make changes locally to local files</li>
-<li>save your changes</li>
-<li>commit your changes to your repo</li>
-<li>push the commit to GitHub</li>
+<li>You’ve already <a href="git01_git-install.html">installed Git</a> and (possibly) <a href="git02_git-clients.html">a Git client</a>.</li>
+<li>You’ve already <a href="cm001_course-intro-sw-install-account-signup.html#register-a-github-account">registered a free GitHub account</a>.</li>
+<li>You’ve already <a href="git04_introduce-self-to-git.html">introduced yourself to Git</a></li>
+<li>You’ve confirmed that you can <a href="git05_github-connection.html">push to / pull from GitHub from the command line</a></li>
+<li>You’ve already <a href="block000_r-rstudio-install.html">installed R and RStudio</a>.</li>
+<li>You’ve proven that you can <a href="git07_git-github-rstudio.html">push to / pull from GitHub from RStudio</a>.</li>
+<li>You are no longer being challenged for your GitHub username and password because <a href="git06_credential-caching.html">your credentials have been cached</a>.</li>
 </ul>
-<p><strong>At the very least</strong>, change <code>README.md</code> to something like “This is the repository of Jenny Bryan,” just to prove you have been there. Practice making a link, for example, to the <a href="http://stat545-ubc.github.io">main STAT545 webpage</a>. Much better is to introduce yourself to the class; this page is private to STAT 545 but will be visible to all students and staff. Feel free to read up on Markdown and practice with some of the syntax. Here’s a <a href="https://github.com/jennybc/2013-11_sfu/blob/master/simple-markdown.md">simple example file</a>, as automatically rendered by GitHub, and here is the <a href="https://raw.githubusercontent.com/jennybc/2013-11_sfu/master/simple-markdown.md">raw source</a>.</p>
 </div>
-<div id="report-your-process" class="section level3">
-<h3>Report your process</h3>
-<p>Include a description of how you got the changes into <code>README.md</code> on GitHub.</p>
+<div id="outline" class="section level3">
+<h3>Outline</h3>
+<p>This will be brief. You’ve done all of this before, in the set-up and test drives above.</p>
+<p>Accept my invitation to join the STAT 545 Organization. Check your email.</p>
+<p>Note that I have added you to a private repository that belongs only to you. Other students can <em>see</em> this repo, but they cannot edit it. The rest of the world cannot even see it. The TAs and I can see and can write to it, but we probably won’t.</p>
+<p>Go to that repository in the browser.</p>
+<p>Copy the HTTPS URL. It will be something like this:</p>
+<pre><code>https://github.com/STAT545-UBC/zz_jennifer_bryan-coursework</code></pre>
+<p>In RStudio, start a new Project:</p>
 <ul>
-<li>Did you edit in the browser at github.com?</li>
-<li>Did you pull, edit locally, save, commit, push to github.com?</li>
+<li><em>File &gt; New Project &gt; Version Control &gt; Git</em>. In the “repository URL” paste the URL of your new GitHub repository.</li>
+<li>Take charge of – or at least notice! – the local directory for the Project. This will be the main folder for your coursework. This will create a new sub-directory, which will be all of these things:
+<ul>
+<li>a directory on your computer</li>
+<li>a Git repository, linked to a remote GitHub repository</li>
+<li>an RStudio Project</li>
+</ul></li>
+<li>Create the Project … you should get a pre-existing skeleton <code>README.md</code> that I created for you.</li>
 </ul>
-<p>You’re encouraged to reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc.</p>
-</div>
-<div id="submit-the-assignment" class="section level3">
-<h3>Submit the assignment</h3>
-<p>Follow instructions on <a href="hw00_homework-guidelines.html#how-to-submit-homework">How to submit homework</a></p>
-</div>
-<div id="rubric" class="section level3">
-<h3>Rubric</h3>
-<p>Check minus: <code>README.md</code> says equivalent of “This is the repository of Jenny Bryan”. All work done via browser at github.com … but that’s just a guess, because student doesn’t actually say how it was done.</p>
-<p>Check: something in between</p>
-<p>Check plus: <code>README.md</code> provides a proper introduction of student to the class. It also demonstrates experimentation with 4 or more aspects of the Markdown syntax. Examples: section headers, links, bold, italic, bullet points, image embed, etc. The student describes how they got the changes into <code>README.md</code> and offers a few reflections on their GitHub workflow and their experience with Markdown.</p>
+<p>Make a local edit, e.g. edit files, add files.</p>
+<p>Commit these changes to your local repo.</p>
+<p>Pull from GitHub (I’m just trying to help you establish this habit).</p>
+<p>Push to GitHub.</p>
+<p>Repeat <em>ad nauseum</em> as you do your coursework.</p>
 </div>
 
 <div class="footer">

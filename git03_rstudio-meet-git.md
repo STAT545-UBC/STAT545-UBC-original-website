@@ -13,7 +13,7 @@ output:
 Make sure RStudio can find the git executable.
 
   * *File > New Project...* Do you see an option to create from Version Control? If yes, good.
-  * Select *New Directory* > *Empty Project*. Do you see a checkbox "Create a git repository"? If yes, good.
+  * Select *New Directory* > *Empty Project*. Do you see a checkbox "Create a git repository"? If yes, good, CHECK IT.
   * Give this disposable test project a name and click *Create Project*. Do you see a "Git" tab in the upper right pane, the same one that has "Environment" and "History"? If yes, good.
   
 If all looks good, you can delete this project. Looks like RStudio and git are talking to each other. YAY.
@@ -24,9 +24,9 @@ Keep reading if things don't go so well or you want to know more.
 
 RStudio can only act as a GUI front-end for Git if [Git has been successfully installed](git01_git-install.html) AND RStudio can find it.
 
-A basic test for successful installation of Git is to simply enter `git` in the shell. If you get a complaint about Git not being found, it means installation was unsuccessful or that it is not being found, i.e. it is not on your `PATH`.
+A basic test for successful installation of git is to simply enter `git` in the shell. If you get a complaint about git not being found, it means installation was unsuccessful or that it is not being found, i.e. it is not on your `PATH`.
 
-If you are not sure where the Git executable lives, try this in a shell:
+If you are not sure where the git executable lives, try this in a shell:
   
 * `which git` (Mac, Linux)
 
@@ -52,7 +52,7 @@ Do the steps at the top of the page to see if RStudio and git are communicating 
 
 No joy?
 
-  * If you installed git via GitHub for Windows, it is possible the git executable is really well hidden. Get our help or install git another way.
+  * If you installed git via GitHub for Windows, it is possible the git executable is really well hidden. Get our help or install Git another way.
 
   * I've seen this help: With your Project open, go to `Tools > Project Options...`. If available, click on "Git/SVN" and select "Git" in the Version control system dropdown menu. Answer "yes" to the "Confirm New Git Repository" pop up. Answer "yes" to the "Confirm Restart RStudio" pop up.
   

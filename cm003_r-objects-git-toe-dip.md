@@ -10,7 +10,7 @@ output:
   * Voluntary: give us your name, email, GitHub username, Twitter handle (via a Shiny app!); survey URL and username/password given in class
   * Basics of R objects (TBC in future classes)
   * Just enough Git and Markdown knowledge for you to submit homework
-    - NEW Here is the hands-on activity Bernhard lead, [testing your installation and configuration of Git, GitHub, and RStudio](git05_first-use-git-rstudio.html)
+    - Hands-on activity Bernhard lead, testing your installation and configuration of Git, GitHub, and RStudio
     - See the block on [configuring Git to communicate with GitHub](git06_credential-caching.html), if you are still struggling. This is one-time pain (or once-per-computer pain), so don't despair.
     - Homework will be due before class Monday 2014-09-15. ~~Not posted yet but will be creating a basic (R?) Markdown document and posting to GitHub.~~
     - NEW Read the [General Homework Guidelines](hw00_homework-guidelines.html)

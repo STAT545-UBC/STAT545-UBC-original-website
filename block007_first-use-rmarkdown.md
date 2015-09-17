@@ -21,7 +21,7 @@ We assume the following
   * You've already [installed Git](git01_git-install.html) and (probably) [a Git client](git02_git-clients.html).
   * You've already [registered a free GitHub account](cm001_course-intro-sw-install-account-signup.html#register-a-github-account).
   * You've already [installed R and RStudio](block000_r-rstudio-install.html).
-  * You've [tested your installation and configuration of Git, GitHub, and RStudio](git05_first-use-git-rstudio.html)
+  * You've [tested your installation and configuration of Git, GitHub, and RStudio](git07_git-github-rstudio.html)
   * You've completed [Homework 01](hw01_edit-README.html) or an equivalent exercise to truly test all of the above and to introduce you to Markdown.
 
 ### Step 1: Get ready to work

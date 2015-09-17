@@ -10,7 +10,7 @@
 
 
 
-<title>Homework 01: Edit README.md</title>
+<title>RStudio, Git, GitHub Hell</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -84,58 +84,75 @@ img {
 </header>
 
 <div id="header">
-<h1 class="title">Homework 01: Edit README.md</h1>
+<h1 class="title">RStudio, Git, GitHub Hell</h1>
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#overview">Overview</a></li>
-<li><a href="#edit-readme.md">Edit <code>README.md</code></a></li>
-<li><a href="#report-your-process">Report your process</a></li>
-<li><a href="#submit-the-assignment">Submit the assignment</a></li>
-<li><a href="#rubric">Rubric</a></li>
+<li><a href="#i-think-i-have-installed-git-but-damn-if-i-can-find-it">I think I have installed Git but damn if I can find it</a></li>
+<li><a href="#pushpull-buttons-greyed-out-in-rstudio">Push/Pull buttons greyed out in RStudio</a></li>
+<li><a href="#i-have-no-idea-if-my-local-repo-and-my-remote-repo-are-connected.">I have no idea if my local repo and my remote repo are connected.</a></li>
+<li><a href="#push-fail-at-the-rstudio-level">Push fail at the RStudio level</a></li>
+<li><a href="#push-rejected-i.e.fail-at-the-gitgithub-level">Push rejected, i.e. fail at the Git/GitHub level</a></li>
+<li><a href="#rstudio-is-not-making-certain-files-available-for-stagingcommiting">RStudio is not making certain files available for staging/commiting</a></li>
 </ul>
 </div>
 
-<div id="overview" class="section level3">
-<h3>Overview</h3>
-<p>Consult the <a href="hw00_homework-guidelines.html">general homework guidelines</a>, although much does not to apply to this simple assignment.</p>
-<p>Recall the <a href="git07_git-github-rstudio.html">tutorial</a> where we test drive your software installation and account configuration.</p>
-<p>Due before class Monday 2014-09-15. Or later that day, if terrible things happen, and you need a consultation during class or office hours. This is the last time we’ll flex on due date because of software and configuration issues. SORT THIS OUT ASAP.</p>
-<p>The goal is to test your software installation, our GitHub setup, and our homework submission process via an Issue.</p>
-</div>
-<div id="edit-readme.md" class="section level3">
-<h3>Edit <code>README.md</code></h3>
-<p>We created this repository for you but it is empty. When you first visit, you should see a screen like <a href="img/screenshot-empty-repo.png">this</a>. You need to create a <code>README.md</code> file to welcome your visitors (you, STAT545 instructor/TAs, STAT545 peers).</p>
-<p>If you are already familiar with GitHub, edit the <code>README.md</code> any way you wish.</p>
-<p>If you are new to Git and GitHub, click on the <code>README</code> link in “We recommend every repository include a README …” and you will be able to edit <code>README.md</code> in the browser and make your first commit. If you are still mystified by Git(Hub), you can use this browser-based method to edit <code>README.md</code> until you get more comfortable with using Git locally and pushing to GitHub. <strong>However, if at all possible</strong>, we want you to practice this workflow:</p>
+<div id="i-think-i-have-installed-git-but-damn-if-i-can-find-it" class="section level4">
+<h4>I think I have installed Git but damn if I can find it</h4>
+<p>When you install Git, try to control or record where it is being installed! Make a mental or physical note of these things.</p>
+<p>You may be able to find Git after the fact with these commands in the shell:</p>
 <ul>
-<li>pull from GitHub (just an empty precaution now, but will matter when you collaborate with others)</li>
-<li>make changes locally to local files</li>
-<li>save your changes</li>
-<li>commit your changes to your repo</li>
-<li>push the commit to GitHub</li>
+<li><p><code>which git</code> (Mac, Linux)</p></li>
+<li><p><code>where git</code> (most versions of Windows)</p></li>
+<li><p><code>whereis git.exe</code> (some other versions of Windows)</p></li>
 </ul>
-<p><strong>At the very least</strong>, change <code>README.md</code> to something like “This is the repository of Jenny Bryan,” just to prove you have been there. Practice making a link, for example, to the <a href="http://stat545-ubc.github.io">main STAT545 webpage</a>. Much better is to introduce yourself to the class; this page is private to STAT 545 but will be visible to all students and staff. Feel free to read up on Markdown and practice with some of the syntax. Here’s a <a href="https://github.com/jennybc/2013-11_sfu/blob/master/simple-markdown.md">simple example file</a>, as automatically rendered by GitHub, and here is the <a href="https://raw.githubusercontent.com/jennybc/2013-11_sfu/master/simple-markdown.md">raw source</a>.</p>
+<p>It is not entirely crazy to just re-install Git, using a method that leaves it in a more conventional location, and to pay very close attention to where it’s being installed. Live and learn.</p>
+<p><em>I want to add something here about PATH … inspecting it … changing what’s on it … changing the order … etc.</em></p>
 </div>
-<div id="report-your-process" class="section level3">
-<h3>Report your process</h3>
-<p>Include a description of how you got the changes into <code>README.md</code> on GitHub.</p>
+<div id="pushpull-buttons-greyed-out-in-rstudio" class="section level4">
+<h4>Push/Pull buttons greyed out in RStudio</h4>
+<p>Are you sure your local repository is tracking a remote repository, e.g. a GitHub repo? In a shell with working directory set to the local Git repo, enter these commands:</p>
+<pre class="shell"><code>jenny@2015-mbp myrepo $ git remote -v
+origin  https://github.com/jennybc/myrepo (fetch)
+origin  https://github.com/jennybc/myrepo (push)
+
+jenny@2015-mbp myrepo $ git branch -vv
+* master b8e03e3 [origin/master] line added locally</code></pre>
+<p>We want to see that fetch and push are set to remote URLs that point to the remote repo. We also want to see that your local master branch has your GitHub master branch as upstream remote.</p>
+<p>If you discover you still need to set a remote, go to the shell and get into the working directory of the RStudio Project and Git repo of interest.</p>
 <ul>
-<li>Did you edit in the browser at github.com?</li>
-<li>Did you pull, edit locally, save, commit, push to github.com?</li>
+<li>Initiate the “upstream” or “tracking” relationship by adding a remote. Substitute the HTTPS URL for <strong>your GitHub repo</strong>.</li>
 </ul>
-<p>You’re encouraged to reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc.</p>
+<pre class="shell"><code>git remote add origin https://github.com/jennybc/myrepo.git</code></pre>
+<ul>
+<li>Download all the files from the online GitHub repository and deal with any conflicts.</li>
+</ul>
+<pre class="shell"><code>git pull origin master</code></pre>
+<ul>
+<li>Cement the tracking relationship between your GitHub repository and the local repo by pushing and setting the “upstream” remote:</li>
+</ul>
+<pre class="shell"><code>git push -u origin master</code></pre>
 </div>
-<div id="submit-the-assignment" class="section level3">
-<h3>Submit the assignment</h3>
-<p>Follow instructions on <a href="hw00_homework-guidelines.html#how-to-submit-homework">How to submit homework</a></p>
+<div id="i-have-no-idea-if-my-local-repo-and-my-remote-repo-are-connected." class="section level4">
+<h4>I have no idea if my local repo and my remote repo are connected.</h4>
+<p>See the above section on “Push/Pull buttons greyed out in RStudio.”</p>
 </div>
-<div id="rubric" class="section level3">
-<h3>Rubric</h3>
-<p>Check minus: <code>README.md</code> says equivalent of “This is the repository of Jenny Bryan”. All work done via browser at github.com … but that’s just a guess, because student doesn’t actually say how it was done.</p>
-<p>Check: something in between</p>
-<p>Check plus: <code>README.md</code> provides a proper introduction of student to the class. It also demonstrates experimentation with 4 or more aspects of the Markdown syntax. Examples: section headers, links, bold, italic, bullet points, image embed, etc. The student describes how they got the changes into <code>README.md</code> and offers a few reflections on their GitHub workflow and their experience with Markdown.</p>
+<div id="push-fail-at-the-rstudio-level" class="section level4">
+<h4>Push fail at the RStudio level</h4>
+<p>Do you get this error in RStudio?</p>
+<pre><code>error: unable to read askpass response from &#39;rpostback-askpass&#39;</code></pre>
+<p>Open the shell: <em>Tools &gt; Shell</em>.</p>
+<pre class="shell"><code>git push -u origin master</code></pre>
+</div>
+<div id="push-rejected-i.e.fail-at-the-gitgithub-level" class="section level4">
+<h4>Push rejected, i.e. fail at the Git/GitHub level</h4>
+<p>You might have changes on the remote AND on your local repo. Just because you don’t remember making any edits in the browser doesn’t mean you didn’t. Humor me.</p>
+<p>Pull first. Resolve any conflicts. Then try your push again.</p>
+</div>
+<div id="rstudio-is-not-making-certain-files-available-for-stagingcommiting" class="section level4">
+<h4>RStudio is not making certain files available for staging/commiting</h4>
+<p>Do you have spaces in your directory or file names? I told you that was a terrible idea. Get rid of them. If that doesn’t fix it, I also highly recommend you have a <a href="git02_git-clients.html">more powerful Git(Hub) client</a> installed for these situations.</p>
 </div>
 
 <div class="footer">
