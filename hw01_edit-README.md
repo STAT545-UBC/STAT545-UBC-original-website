@@ -12,9 +12,13 @@ Consult the [general homework guidelines](hw00_homework-guidelines.html), althou
 
 Recall the [tutorial](git07_git-github-rstudio.html) where we test drive your software installation and account configuration.
 
-Due before class Monday 2014-09-15. Or later that day, if terrible things happen, and you need a consultation during class or office hours. This is the last time we'll flex on due date because of software and configuration issues. SORT THIS OUT ASAP.
+[Take possession of your STAT 545 private repository](git08_claim-stat545-repo.html).
+
+Due before class Tuesday 2014-09-22. Or later that day, if terrible things happen, and you need a consultation during class or office hours. This is the last time we'll flex on due date just because of software and configuration issues. SORT THIS OUT ASAP.
 
 The goal is to test your software installation, our GitHub setup, and our homework submission process via an Issue.
+
+  * Honestly, the above is the only reason this homework even exists.
 
 ### Edit `README.md`
 
