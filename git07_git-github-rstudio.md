@@ -62,7 +62,7 @@ This workflow is the reverse of the above and cannot be executed from within R/R
   
     - Do you NOT have a checkbox to request a Git repository? Go [here](git03_rstudio-meet-git.html) for tips on how to help RStudio find Git.
 
-  * Initiate the "upstream" or "tracking" relationship by adding a remote. Go to *Tools > Shell* and do this, substitute the HTTPS URL for **your GitHub repo**.
+  * Initiate the "upstream" or "tracking" relationship by adding a remote. Go to *Tools > [shell](git09_shell.html)* and do this, substitute the HTTPS URL for **your GitHub repo**.
 
 ``` shell
 git remote add origin https://github.com/jennybc/myrepo.git

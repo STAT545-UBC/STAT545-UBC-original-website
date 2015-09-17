@@ -30,3 +30,4 @@ These commands return nothing. You can check that `git` understood what you type
 Resources:
 
 * [GitHub's advice](https://help.github.com/articles/set-up-git).
+* [Quick primer on the shell](git09_shell.html)

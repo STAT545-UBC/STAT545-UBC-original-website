@@ -14,10 +14,11 @@
 <title>make: Special considerations for Windows</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
-<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -38,6 +39,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
 
 </head>
@@ -49,6 +51,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
 }
 </style>
 <div class="container-fluid main-container">
@@ -77,7 +87,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="install-make-on-microsoft-windows" class="section level3">
 <h3>Install <code>make</code> on Microsoft Windows</h3>
 <p>We are still working out the best way to install <code>make</code> on Windows. Our current best recommendation is to install <em>msysGit</em>, which includes <code>make</code> as well as <code>git</code> and <code>bash</code>.</p>
-<p>Download and <a href="https://github.com/msysgit/msysgit/releases/download/Git-1.9.4-preview20140929/msysGit-netinstall-1.9.4-preview20140929.exe">install msysGit</a>. The two software packages <a href="https://github.com/msysgit/msysgit">msysGit</a> and <a href="http://msysgit.github.io/">Git for Windows</a> are related. Both install <code>git</code> and <code>bash</code>, but only <em>msysGit</em> installs <code>make</code>. The programs installed by <em>msysGit</em> are found by default in <code>C:\msysGit\bin</code>. Here is the <a href="https://github.com/msysgit/msysgit/tree/master/bin">complete list</a> of programs included with <em>msysGit</em>. For this activity, RStudio needs to be able to find in your <code>PATH</code> environment variable the program <code>make</code>, the shell <code>bash</code>, other utilities like <code>rm</code> and <code>cp</code>, and <code>Rscript</code>.</p>
+<p>Download and <a href="https://github.com/msysgit/msysgit/releases/download/Git-1.9.4-preview20140929/msysGit-netinstall-1.9.4-preview20140929.exe">install msysGit</a>. The two software packages <a href="https://github.com/msysgit/msysgit">msysGit</a> and <a href="http://msysgit.github.io/">Git for Windows</a> are related. Both install <code>git</code> and <code>bash</code>, but only <em>msysGit</em> installs <code>make</code>. The programs installed by <em>msysGit</em> are found by default in <code>C:\msysGit\bin</code>. Here is the <a href="https://github.com/msysgit/msysgit/tree/master/bin">complete list</a> of programs included with <em>msysGit</em>. For this activity, RStudio needs to be able to find in your <code>PATH</code> environment variable the program <code>make</code>, the <a href="git09_shell.html">shell</a> <code>bash</code>, other utilities like <code>rm</code> and <code>cp</code>, and <code>Rscript</code>.</p>
 <p>Here is another alternative for installing <code>make</code> alone:</p>
 <ul>
 <li>Go to the <a href="http://gnuwin32.sourceforge.net/packages/make.htm">Make for Windows</a> web site</li>
@@ -115,9 +125,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>See <a href="https://github.com/STAT545-UBC/Discussion/issues/58">issue 58</a> for what seems to be the most comprehensive statement of the Windows situation.</p>
 <p>What are the tricky bits?</p>
 <ul>
-<li>Getting the same <code>Makefile</code> to “work” via RStudio’s Build buttons/menus and in the shell. And, for that matter, which shell? Git Bash or ???</li>
+<li>Getting the same <code>Makefile</code> to “work” via RStudio’s Build buttons/menus and in the <a href="git09_shell.html">shell</a>. And, for that matter, which <a href="git09_shell.html">shell</a>? Git Bash or ???</li>
 <li>Ensuring <code>make</code>, <code>Rscript</code>, <code>pandoc</code>, <code>rm</code>, etc. can be found = updating <code>PATH</code>.</li>
-<li>Getting <code>make</code> to use the correct shell.
+<li>Getting <code>make</code> to use the correct <a href="git09_shell.html">shell</a>.
 <ul>
 <li>See <a href="https://github.com/STAT545-UBC/Discussion/issues/54">issue 54</a> on the Discussion repo.</li>
 </ul></li>

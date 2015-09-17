@@ -11,6 +11,7 @@
     - [When RStudio can't find Git](git03_rstudio-meet-git.html)
     - [Take possession of your STAT 545 repo](git08_claim-stat545-repo.html)
     - [Troubleshooting](git66_rstudio-git-github-hell.html)
+    - [The Shell](git09_shell.html)
   * [Basic R and RStudio, workspace, working directory, RStudio Project](block002_hello-r-workspace-wd-project.html)
   * [Basic care and feeding of data in R](block006_care-feeding-data.html)
   * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)

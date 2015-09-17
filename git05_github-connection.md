@@ -8,7 +8,7 @@ output:
 
 **You only have to set this up once per machine.**
 
-**I do not explain all the shell and Git commands in detail. This is sort of black box diagnostic / configuration exercise.**
+**I do not explain all the [shell](git09_shell.html) and Git commands in detail. This is sort of black box diagnostic / configuration exercise.**
 
 ### Make a repo on GitHub
 
@@ -26,11 +26,11 @@ Copy the HTTPS clone URL. It's near the bottom of the right sidebar.
 
 ### Clone the repo to your local computer
 
-Go to the shell.
+Go to the [shell](git09_shell.html).
 
 Take charge of -- or at least notice! -- what directory you're in. `pwd` to display working directory. `cd` to move around. Personally, I would do this sort of thing in `~/tmp`.
 
-Clone `myrepo` from GitHub to your computer. This URL should have **your GitHub username** and the name of **your practice repo**. If your shell cooperates, you should be able to paste the whole `https://....` bit that we copied above. But some shells are not (immediately) clipboard aware. Type it. Accurately.
+Clone `myrepo` from GitHub to your computer. This URL should have **your GitHub username** and the name of **your practice repo**. If your [shell](git09_shell.html) cooperates, you should be able to paste the whole `https://....` bit that we copied above. But some shells are not (immediately) clipboard aware. Type it. Accurately.
 
 ``` bash
 git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
@@ -157,7 +157,7 @@ Now is the perfect time to go there, since you have a functioning test repo.
 
 ### Clean up
 
-When you're read to clean up, delete the local repo in the shell:
+When you're read to clean up, delete the local repo in the [shell](git09_shell.html):
 
 ``` bash
 cd ..

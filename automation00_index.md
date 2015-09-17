@@ -24,7 +24,7 @@ Why and how we automate data analyses + examples.
 
 [Test drive of `make`](automation03_make-test-drive.html).
 
-Walk before you run! Prove that `make` is actually installed and that it can be found and executed from the shell and from RStudio. It is also important to tell RStudio to NOT substitute spaces for tabs when editing a `Makefile` (applies to any text editor).
+Walk before you run! Prove that `make` is actually installed and that it can be found and executed from the [shell](git09_shell.html) and from RStudio. It is also important to tell RStudio to NOT substitute spaces for tabs when editing a `Makefile` (applies to any text editor).
 
 ### Hands-on activity
 
@@ -40,7 +40,7 @@ Walk before you run! Prove that `make` is actually installed and that it can be 
     - run an entire R script
     - render an R Markdown document (or R script)
   * The interface between RStudio and `make`
-  * How to use `make` from the shell
+  * How to use `make` from the [shell](git09_shell.html)
   * How Git facilitates the process of building a pipeline
 
 ### More examples

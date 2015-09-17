@@ -29,7 +29,7 @@ You may proceed when
     - `/home/jenny/tmp/myrepo`
   * You know where it lives on GitHub. Example:
     - `https://github.com/jennybc/myrepo`
-  * You know local is tracking remote. In a shell with working directory set to the local Git repo, enter these commands:
+  * You know local is tracking remote. In a [shell](git09_shell.html) with working directory set to the local Git repo, enter these commands:
   
 ``` shell
 jenny@2015-mbp myrepo $ git remote -v
@@ -44,7 +44,7 @@ We want to see that fetch and push are set to remote URLs that point to your Git
 
 ### Verify that your Git is new enough to have a credential helper
 
-In a shell, enter `git --version` and verify that you have 1.7.10 or newer. If you don't, [update Git](git01_git-install.html).
+In a [shell](git09_shell.html), enter `git --version` and verify that you have 1.7.10 or newer. If you don't, [update Git](git01_git-install.html).
   
 ### Turn on the credential helper
 
@@ -63,18 +63,18 @@ If that doesn't seem to work, install an external credential helper.
 
 #### Mac
 
-Find out if the credential helper is already installed. In the shell, enter `git credential-osxkeychain`. You should see something like this: `Usage: git credential-osxkeychain <get|store|erase>`. If you do **not**, follow steps 2 and 3 on [the github help](https://help.github.com/articles/caching-your-github-password-in-git#platform-mac).
+Find out if the credential helper is already installed. In the [shell](git09_shell.html), enter `git credential-osxkeychain`. You should see something like this: `Usage: git credential-osxkeychain <get|store|erase>`. If you do **not**, follow steps 2 and 3 on [the github help](https://help.github.com/articles/caching-your-github-password-in-git#platform-mac).
 
 Once you've confirmed you have the credential helper, enter `git config --global credential.helper osxkeychain`.
 
 #### Linux
 
-In the shell, enter `git config --global credential.helper 'cache --timeout=10000000'` to store your password for ten million seconds (that's 16 weeks, enough for a full term).
+In the [shell](git09_shell.html), enter `git config --global credential.helper 'cache --timeout=10000000'` to store your password for ten million seconds (that's 16 weeks, enough for a full term).
   
 
 ### Trigger a username / password challenge
 
-Change a file in your local repo and commit it. Do that however you wish. Here are shell commands that will work:
+Change a file in your local repo and commit it. Do that however you wish. Here are [shell](git09_shell.html) commands that will work:
 
 ``` shell
 echo "adding a line" >> README.md
@@ -98,7 +98,7 @@ git push
   
 You should NOT be asked for your username and password, instead you should see `Everything up-to-date`.
   
-Rejoice and close the shell. From now on your "Push" button in RStudio will just work.
+Rejoice and close the [shell](git09_shell.html). From now on your "Push" button in RStudio will just work.
 
 ### More options
 

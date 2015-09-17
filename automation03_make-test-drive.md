@@ -8,7 +8,7 @@ output:
     pandoc_args: "--preserve-tabs"
 ---
 
-Before we use `make` for real work, we want to prove beyond a shadow of a doubt that it's installed and findable from RStudio and/or the shell.
+Before we use `make` for real work, we want to prove beyond a shadow of a doubt that it's installed and findable from RStudio and/or the [shell](git09_shell.html).
 
 ### Create a temporary RStudio Project
 
@@ -91,9 +91,9 @@ Build all
 
 This proves that `make` is installed and working from RStudio.
 
-### Run `make` from the shell
+### Run `make` from the [shell](git09_shell.html)
 
-RStudio only provides access to a very limited bit of `make` -- it's even more limited than the RStudio Git client. In the long run, it's important to be able to run `make` from the shell.
+RStudio only provides access to a very limited bit of `make` -- it's even more limited than the RStudio Git client. In the long run, it's important to be able to run `make` from the [shell](git09_shell.html).
 
   * Select *Tools > Shell*
   * Run
