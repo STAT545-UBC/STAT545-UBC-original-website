@@ -10,20 +10,12 @@ output:
 
 We assume the following
 
-  * You've already [installed Git](git01_git-install.html) and (probably) [a Git client](git02_git-clients.html).
-  * You've already [registered a free GitHub account](cm001_course-intro-sw-install-account-signup.html#register-a-github-account). And provided your username to us.
-  * You've confirmed that you can use command line Git and/or your Git client -- perhaps even RStudio! -- to [push, pull, etc. to/from GitHub](git07_git-github-rstudio.html).
-  * You've logged in to [GitHub](https://github.com) ...
-    - [switched over to the STAT545 Organization](https://help.github.com/articles/how-do-i-access-my-organization-account) ...
-    - and confirmed that you can access a repository with your name on it. Example: a student named Jennifer Bryan should be able to access a repository named `zz_jennifer_bryan-coursework`.
-
-This is the repository where you put your homework.
-
-DO NOT PASS GO until all of the above is DONE.
+  * You can [pull from and push to GitHub from RStudio](git07_git-github-rstudio.html) RStudio.
+  * You've [taken possession of your STAT 545 private repository](git08_claim-stat545-repo.html).
 
 ### Have a decent `README.md`
 
-In the [first homework](hw01_edit-README.html) you have created a top-level `README.md` for your repository. Keep it in good shape!
+In the [first homework](hw01_edit-README.html) you created a top-level `README.md` for your repository. Keep it in good shape! You are allowed to edit it!
 
 ### Authoring Markdown files
 
@@ -44,11 +36,13 @@ Here is our introductory [tutorial on rendering R Markdown](block007_first-use-r
 
 ### Organization of your coursework repository
 
-As the course goes on, you will accumulate many files in your repository. In due course, we will offer guidelines on using sub-directories to organize things.
+As the course goes on, you will accumulate many files in your repository. In due course, we will discuss the of use sub-directories to organize things.
 
 BTW we truly mean [directories or "folders"](http://en.wikipedia.org/wiki/Directory_(computing)) -- NOT a [Git branch](http://git-scm.com/book/en/Git-Branching) or anything fancy like that!
 
 You have a top-level `README.md` for your repository. Once you create sub-directories, you may also want to have a `README.md` file in each sub-directory to serve as a landing pages for, e.g., a homework assignment or a data directory.
+
+As you get more advanced, here is more advice about [making your GitHub repo](bit006_github-browsability-wins.html) very browsable.
 
 ### Which files to commit 
 
@@ -71,7 +65,7 @@ You have a top-level `README.md` for your repository. Once you create sub-direct
     - Just above the file list, look for "latest commit" followed by ten numbers and letters (called the revision SHA) and a clipboard icon.
     - Click the clipboard icon to copy the revision SHA to your clipboard.
     - Click on "Issues", then on "New Issue". Name the issue "Mark homework x of *firstname-lastname*", where *x* is, 1, 2, ....
-    - In the issue description, tag Jenny by including the text `@jennybc`, and paste the revision SHA. Include a link to exactly where you want a reviewer to go! (The "markers" tagging experiment failed -- not supported by GitHub.)
+    - In the issue description, tag Jenny by including the text `@jennybc`, and paste the revision SHA. Include a link to exactly where you want a reviewer to go.
      - Click "Submit new issue". You're done! Congratulations!
   
 ### Make your work shine!
@@ -87,8 +81,6 @@ Reduce the friction for TAs and profs to get the hard-working source code (the R
     - Your main R markdown document.
     - The intermediate Markdown product that comes from knitting your main R markdown document. Remember GitHub will render this into pseudo-HTML automagically. Remember the figures in `figures/` need to be available in the repo in order appear here.
     - The final pretty HTML report. Read instructions below on how access the pretty, not the ugly source.
-    
-> You could link to an HTML report on RPubs, but a GitHub-only solution is preferred. RPubs isn't really necessary once your work is hosted on GitHub. Plus it's kinda nice to keep this private.
 
 If you want to see an example of a `README.md` that links to and explains a bunch of files in the same repo + subdirectory, you can look at [this example](https://github.com/jennybc/STAT545A/tree/master/hw06_scaffolds/02_rAndMake) from STAT 545A 2013.
 
@@ -115,4 +107,3 @@ Instead of just printing an object with R, you could format the info in an attra
   * The `kable()` function from `knitr`.
   * Also look into the packages `xtable`, `pander`.
   * [Great flowchart](https://twitter.com/polesasunder/status/464132152347475968) from Andrew MacDonald [\@polesasunder](https://twitter.com/polesasunder)
-  
