@@ -5,19 +5,18 @@ output:
     toc_depth: 4
 ---
 
-### cm003 2014-09-10 Wednesday overview
+### cm003 2015-09-15 Tuesday overview
 
-  * Voluntary: give us your name, email, GitHub username, Twitter handle (via a Shiny app!); survey URL and username/password given in class
-  * Basics of R objects (TBC in future classes)
-  * Just enough Git and Markdown knowledge for you to submit homework
-    - Hands-on activity Bernhard lead, testing your installation and configuration of Git, GitHub, and RStudio
-    - See the block on [configuring Git to communicate with GitHub](git06_credential-caching.html), if you are still struggling. This is one-time pain (or once-per-computer pain), so don't despair.
-    - Homework will be due before class Monday 2014-09-15. ~~Not posted yet but will be creating a basic (R?) Markdown document and posting to GitHub.~~
-    - NEW Read the [General Homework Guidelines](hw00_homework-guidelines.html)
-    - NEW See the assignment [Homework 01](hw01_edit-README.html)
-    - ~~Procedure will be a __modified__ version of [the one used in STAT 540](http://www.ugrad.stat.ubc.ca/%7Estat540/homework/hw_submission-instructions.html); I said __modified__ ... please wait for the STAT 545A instructions!~~
-    
-  * What's next?
+  * Please take this survey (yes of course it's a Shiny app!):
+    - <http://shiny.stat.ubc.ca/STAT545/stat545-basic-info/>
+    - this is how we get your GitHub username, match you against the course list, and give you a private course repository within the [STAT 545 Organization](https://github.com/STAT545-UBC)
+    - username and password for survey given in class
+  * Hands-on work
+    - run a `.R` script or an `.Rmd` document, while also converting it to `.html`
+    - continued work installing and configuring Git + GitHub + RStudio
+    - go to the [landing page for links](git00_index.html)
+    - continued encouragement to learn [RStudio keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts) ... lots of "wait, how are you doing that so fast?"
+  * What's coming?
     - DATA!!
     - Exploring the Gapminder data
     - `data.frame`
@@ -34,10 +33,6 @@ You did finish working through: [R basics, workspace and working directory, RStu
   * Because I assume you've got a little script like [toy-line.r](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/block002_toy-line.r) written by now. We've probably used it in class today.
   * That also contained helpful information on sending R code to the Console from the script editor. Important!
   
-We will start to talk about R objects today
-
-  * [The many flavors of R objects](block004_basic-r-objects.html)
-
 #### For those familiar with R
 
 Check out [swirl](http://swirlstats.com). Work through one or more interactive courses with the goal of writing a short review (include in homework?). Feeling more ambitious? Check out `swirlify` and [create a new lesson](http://swirlstats.com/instructors.html). I'd be happy to help think up topics.
@@ -73,8 +68,3 @@ Example YAML frontmatter to cause intermediate Markdown to be saved when renderi
 #'     keep_md: TRUE
 #' ---
 ```
-
-Sample files I created originally for a [talk and mini workshop at SFU](https://github.com/jennybc/2013-11_sfu), in case you want to practice with something other than RStudio's default:
-
-  * [Simple Markdown](https://github.com/jennybc/2013-11_sfu/blob/master/simple-markdown.md)
-  * [Simple __R__ Markdown](https://github.com/jennybc/2013-11_sfu/blob/master/simple-r-markdown.rmd) and the associated [intermediate Markdown file](https://github.com/jennybc/2013-11_sfu/blob/master/simple-r-markdown.md)
