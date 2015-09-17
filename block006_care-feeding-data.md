@@ -245,7 +245,7 @@ In the figures below, we see how factors can be put to work in figures. The `con
 
 ```r
 ## install ggplot2 if you don't have it!
-## install.packages(ggplot2)
+## install.packages("ggplot2")
 library(ggplot2)
 p <- ggplot(subset(gapminder, continent != "Oceania"),
             aes(x = gdpPercap, y = lifeExp)) # just initializes
@@ -254,7 +254,12 @@ p + geom_point() # scatterplot
 p + geom_point(aes(color = continent)) # map continent to color
 p + geom_point(alpha = (1/3), size = 3) + geom_smooth(lwd = 3, se = FALSE)
 ## geom_smooth: method="auto" and size of largest group is >=1000, so using gam with formula: y ~ s(x, bs = "cs"). Use 'method = x' to change the smoothing method.
-p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent)
+p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent) +
+  geom_smooth(lwd = 1.5, se = FALSE)
+## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
+## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
+## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
+## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
 ```
 
 <img src="block006_care-feeding-data_files/figure-html/factors-nice-for-plots-1.png" title="" alt="" width="49%" /><img src="block006_care-feeding-data_files/figure-html/factors-nice-for-plots-2.png" title="" alt="" width="49%" /><img src="block006_care-feeding-data_files/figure-html/factors-nice-for-plots-3.png" title="" alt="" width="49%" /><img src="block006_care-feeding-data_files/figure-html/factors-nice-for-plots-4.png" title="" alt="" width="49%" />

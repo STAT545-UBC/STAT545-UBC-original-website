@@ -258,7 +258,7 @@ barplot(table(gapminder$continent))</code></pre>
 <p><img src="block006_care-feeding-data_files/figure-html/tabulate-continent-1.png" alt="" /></p>
 <p>In the figures below, we see how factors can be put to work in figures. The <code>continent</code> factor is easily mapped into “facets” or colors and a legend by the <code>ggplot2</code> package. <em>Making figures with <code>ggplot2</code> is covered elsewhere so feel free to just sit back and enjoy these plots or blindly copy/paste.</em></p>
 <pre class="r"><code>## install ggplot2 if you don&#39;t have it!
-## install.packages(ggplot2)
+## install.packages(&quot;ggplot2&quot;)
 library(ggplot2)
 p &lt;- ggplot(subset(gapminder, continent != &quot;Oceania&quot;),
             aes(x = gdpPercap, y = lifeExp)) # just initializes
@@ -267,7 +267,12 @@ p + geom_point() # scatterplot
 p + geom_point(aes(color = continent)) # map continent to color
 p + geom_point(alpha = (1/3), size = 3) + geom_smooth(lwd = 3, se = FALSE)
 ## geom_smooth: method=&quot;auto&quot; and size of largest group is &gt;=1000, so using gam with formula: y ~ s(x, bs = &quot;cs&quot;). Use &#39;method = x&#39; to change the smoothing method.
-p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent)</code></pre>
+p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent) +
+  geom_smooth(lwd = 1.5, se = FALSE)
+## geom_smooth: method=&quot;auto&quot; and size of largest group is &lt;1000, so using loess. Use &#39;method = x&#39; to change the smoothing method.
+## geom_smooth: method=&quot;auto&quot; and size of largest group is &lt;1000, so using loess. Use &#39;method = x&#39; to change the smoothing method.
+## geom_smooth: method=&quot;auto&quot; and size of largest group is &lt;1000, so using loess. Use &#39;method = x&#39; to change the smoothing method.
+## geom_smooth: method=&quot;auto&quot; and size of largest group is &lt;1000, so using loess. Use &#39;method = x&#39; to change the smoothing method.</code></pre>
 <p><img src="block006_care-feeding-data_files/figure-html/factors-nice-for-plots-1.png" title="" alt="" width="49%" /><img src="block006_care-feeding-data_files/figure-html/factors-nice-for-plots-2.png" title="" alt="" width="49%" /><img src="block006_care-feeding-data_files/figure-html/factors-nice-for-plots-3.png" title="" alt="" width="49%" /><img src="block006_care-feeding-data_files/figure-html/factors-nice-for-plots-4.png" title="" alt="" width="49%" /></p>
 </div>
 <div id="subset-is-a-nice-way-to-isolate-bits-of-data.frames-and-other-things" class="section level3">
