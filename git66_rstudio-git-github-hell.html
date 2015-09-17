@@ -61,9 +61,9 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
 }
 </style>
 <div class="container-fluid main-container">
@@ -122,17 +122,13 @@ jenny@2015-mbp myrepo $ git branch -vv
 <p>We want to see that fetch and push are set to remote URLs that point to the remote repo. We also want to see that your local master branch has your GitHub master branch as upstream remote.</p>
 <p>If you discover you still need to set a remote, go to the shell and get into the working directory of the RStudio Project and Git repo of interest.</p>
 <ul>
-<li>Initiate the “upstream” or “tracking” relationship by adding a remote. Substitute the HTTPS URL for <strong>your GitHub repo</strong>.</li>
+<li><p>Initiate the “upstream” or “tracking” relationship by adding a remote. Substitute the HTTPS URL for <strong>your GitHub repo</strong>.</p>
+<pre class="shell"><code>git remote add origin https://github.com/jennybc/myrepo.git</code></pre></li>
+<li><p>Download all the files from the online GitHub repository and deal with any conflicts.</p>
+<pre class="shell"><code>git pull origin master</code></pre></li>
+<li><p>Cement the tracking relationship between your GitHub repository and the local repo by pushing and setting the “upstream” remote:</p>
+<pre class="shell"><code>git push -u origin master</code></pre></li>
 </ul>
-<pre class="shell"><code>git remote add origin https://github.com/jennybc/myrepo.git</code></pre>
-<ul>
-<li>Download all the files from the online GitHub repository and deal with any conflicts.</li>
-</ul>
-<pre class="shell"><code>git pull origin master</code></pre>
-<ul>
-<li>Cement the tracking relationship between your GitHub repository and the local repo by pushing and setting the “upstream” remote:</li>
-</ul>
-<pre class="shell"><code>git push -u origin master</code></pre>
 </div>
 <div id="i-have-no-idea-if-my-local-repo-and-my-remote-repo-are-connected." class="section level4">
 <h4>I have no idea if my local repo and my remote repo are connected.</h4>

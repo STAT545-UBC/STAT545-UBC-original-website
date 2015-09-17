@@ -41,20 +41,20 @@ If you discover you still need to set a remote, go to the shell and get into the
 
   * Initiate the "upstream" or "tracking" relationship by adding a remote. Substitute the HTTPS URL for **your GitHub repo**.
 
-``` shell
-git remote add origin https://github.com/jennybc/myrepo.git
-```
+    ``` shell
+    git remote add origin https://github.com/jennybc/myrepo.git
+    ```
   * Download all the files from the online GitHub repository and deal with any conflicts.
   
-``` shell
-git pull origin master
-```
+    ``` shell
+    git pull origin master
+    ```
 
   * Cement the tracking relationship between your GitHub repository and the local repo by pushing and setting the "upstream" remote:
   
-``` shell
-git push -u origin master
-```
+    ``` shell
+    git push -u origin master
+    ```
 
 #### I have no idea if my local repo and my remote repo are connected.
 
