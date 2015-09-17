@@ -44,7 +44,7 @@ Where we know the OS, here's the breakdown:
   
 ### Level 666: Troubleshooting
 
-  * [RStudio, Git, GitHub Hell](git66_git-hell.html)
+  * [RStudio, Git, GitHub Hell](git66_rstudio-git-github-hell.html)
 
 ### Resources
 
