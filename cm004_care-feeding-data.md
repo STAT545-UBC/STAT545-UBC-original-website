@@ -5,9 +5,9 @@ output:
     toc_depth: 4
 ---
 
-### cm004 2054-09-17 Thursday overview
+### cm004 2015-09-17 Thursday overview
 
-  * Expect an email re: invitation to join the [STAT 545 Organization](https://github.com/STAT545-UBC) and then expect to be granted your own private repository ...um, before you wake up tomorrow?
+  * Expect an email re: invitation to join the [STAT 545 Organization](https://github.com/STAT545-UBC) and then expect to be granted your own private repository ... ~~um, before you wake up tomorrow?~~ ok that took a little longer than I planned but it's DONE NOW.
   * All about R and data today
     - DATA!! You get to touch some!
     - Exploring a Gapminder excerpt
@@ -20,16 +20,15 @@ output:
     - Read the [General Homework Guidelines](hw00_homework-guidelines.html) for instructions on submission mechanics
   * What's next week?
     - Tuesday we might return to Git(Hub) and (R) Markdown, now that [Homework 01](hw01_edit-README.html) has gotten your attention.
-    - We'll probably talk a bit about non-data.frame data structures
-    - Then we'll head into `dplyr`
+    - Then we'll start `ggplot2` in earnest.
     
 #### Slides and links
 
-*will link later if I show slides*
+*no slides*
 
 #### For R novices
 
-You should have finished working through these by now:
+You should have finished working through this by now:
 
   * [R basics, workspace and working directory, RStudio projects](block002_hello-r-workspace-wd-project.html)
   

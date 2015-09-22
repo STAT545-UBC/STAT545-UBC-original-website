@@ -31,7 +31,7 @@ Go to that repository in the browser.
 Copy the HTTPS URL. It will be something like this:
 
 ```
-https://github.com/STAT545-UBC/zz_jennifer_bryan-coursework
+https://github.com/STAT545-UBC/jennifer_bryan
 ```
 
 In RStudio, start a new Project:

@@ -10,9 +10,9 @@ output:
 
 Consult the [general homework guidelines](hw00_homework-guidelines.html), although much does not to apply to this simple assignment.
 
-Recall the [tutorial](git07_git-github-rstudio.html) where we test drive your software installation and account configuration.
+Recall the [tutorial](git07_git-github-rstudio.html) where we test drive your software installation and account configuration. DO IT.
 
-[Take possession of your STAT 545 private repository](git08_claim-stat545-repo.html).
+Make sure you've accepted my invitation to join the STAT 545 GitHub Organization.
 
 Due before class Tuesday 2014-09-22. Or later that day, if terrible things happen, and you need a consultation during class or office hours. This is the last time we'll flex on due date just because of software and configuration issues. SORT THIS OUT ASAP.
 
@@ -22,17 +22,19 @@ The goal is to test your software installation, our GitHub setup, and our homewo
 
 ### Edit `README.md`
 
-We created this repository for you but it is empty. When you first visit, you should see a screen like [this](img/screenshot-empty-repo.png). You need to create a `README.md` file to welcome your visitors (you, STAT545 instructor/TAs, STAT545 peers).
+We created this repository for you but it is empty. When you first visit, you should see a screen like [this](img/screenshot-new-repo-with-readme.png). You need to edit your `README.md` file to welcome your visitors (you, STAT545 instructor/TAs, STAT545 peers).
 
 If you are already familiar with GitHub, edit the `README.md` any way you wish.
 
-If you are new to Git and GitHub, click on the `README` link in "We recommend every repository include a README ..." and you will be able to edit `README.md` in the browser and make your first commit. If you are still mystified by Git(Hub), you can use this browser-based method to edit `README.md` until you get more comfortable with using Git locally and pushing to GitHub. __However, if at all possible__, we want you to practice this workflow:
+If you are new to Git and GitHub, click on the `README` link in the area that looks like a file browser. Click on the pencil and make an edit. Then head down to "Commit changes". Enter a short *commit message*. Then click "Commit changes". This is how you can edit files in GitHub repository through the browser. If you are still mystified by Git(Hub), you can use this browser-based method to edit `README.md` until you get more comfortable with using Git locally and pushing to GitHub. __However, if at all possible__, we want you to pilot a more powerful workflow:
 
   - pull from GitHub (just an empty precaution now, but will matter when you collaborate with others)
   - make changes locally to local files
   - save your changes
   - commit your changes to your repo
   - push the commit to GitHub
+
+Go [take possession of your STAT 545 private repository](git08_claim-stat545-repo.html) and have at it.
 
 __At the very least__, change `README.md` to something like "This is the repository of Jenny Bryan," just to prove you have been there. Practice making a link, for example, to the [main STAT545 webpage](http://stat545-ubc.github.io). Much better is to introduce yourself to the class; this page is private to STAT 545 but will be visible to all students and staff. Feel free to read up on Markdown and practice with some of the syntax. Here's a [simple example file](https://github.com/jennybc/2013-11_sfu/blob/master/simple-markdown.md), as automatically rendered by GitHub, and here is the [raw source](https://raw.githubusercontent.com/jennybc/2013-11_sfu/master/simple-markdown.md).
 
