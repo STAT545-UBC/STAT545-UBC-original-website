@@ -5,19 +5,19 @@ output:
     toc_depth: 4
 ---
 
-### cm005 2014-09-17 Wednesday overview
+### cm005 2015-09-22 Tuesday overview
 
-  * Peer review has been set in motion
-    - you should have been assigned 3 issues, one for each peer you are to review
-    - all instructions are IN the issue
-    - finish by midday Friday; should take less than an hour total
-  * Making progress on data and R
-    - More exploring the Gapminder data
-    - Introductory words re `ggplot2`
-  * R Markdown
-  * What's next?
-    - [HW 2](hw02_explore-gapminder-use-rmarkdown.html) due before class Monday 2014-09-22
-    - Next week we begin serious data wrangling and aggregation with apply functions, `plyr` and `dplyr`
+  * You should submit [Homework 01](hw01_edit-README.html) today!
+    - Show me that you've worked through [your Git + GitHub + RStudio agony](git00_index.html).
+    - Get help in class [office hours](https://github.com/STAT545-UBC/Discussion/issues/85) if you're struggling.
+  * Peer review will be set in motion soon via Issues. I'll announce via [Discussion](https://github.com/STAT545-UBC/Discussion/issues) so you'll know when to look for notification.
+  * [Homework 02](hw02_explore-gapminder-use-rmarkdown.html) due before class next Tuesday 2015-09-29.
+  * Today
+    - Introduction to `ggplot2`
+    - (we return to `ggplot2` again in a couple weeks)
+  * R Markdown, maybe? [Test drive R Markdown](block007_first-use-rmarkdown.html)
+  * Or start to talk about [the many different flavors of R objects](block004_basic-r-objects.html)?
+  * Next week we begin serious [data.frame wrangling with `dplyr`](block009_dplyr-intro.html).
     
 #### Slides and links
 
@@ -35,49 +35,15 @@ Links and notes related to the slides
     - The [graphs section](http://www.cookbook-r.com/Graphs/) of Winston Chang's website Cookbook for R. The book listed above contains much more material, but the website is good too.
     - [ggplot2: Elegant Graphics for Data Analysis](http://www.amazon.com/dp/0387981403/ref=cm_sw_su_dp?tag=ggplot2-20) by Hadley Wickham. [Book's companion website](http://ggplot2.org/book/) offers one R script per chapter, providing the code used in the book.
     - [A quick introduction to ggplot2](http://inundata.org/2013/04/10/a-quick-introduction-to-ggplot2/) by Karthik Ram. Slides and code from a 2 hour talk/hands on presentation for ggplot2 beginners.
-  * Nine simple ways to make it easier to (re)use your data by Ethan P White, Elita Baldridge, Zachary T. Brym, Kenneth J. Locey, Daniel J. McGlinn, Sarah R. Supp. Ideas in Ecology and Evolution 6(2): 1–10, 2013. doi:10.4033/iee.2013.6b.6.f <http://library.queensu.ca/ojs/index.php/IEE/article/view/4608>. Section 4 "Use Standard Data Formats" is especially good reading. Keeping data in the right format is __critical__ to the process of making figures.
-  * [Tidy data by Hadley Wickham](http://www.jstatsoft.org/v59/i10). Journal of Statistical Software 59(10) 2014.  
-  * Packages to keep data in tip-top shape for making graphs and more
-    - [`tidyr`](https://github.com/hadley/tidyr)
-    - [Lesson I contributed](bit002_tidying-lotr-data.html) to [Data Carpentry](http://software-carpentry.org/blog/2014/05/our-first-data-carpentry-workshop.html) on tidying data with `tidyr`
-    - `reshape2` package: on [GitHub](https://github.com/hadley/reshape)
-    - `dplyr` package: on [GitHub](https://github.com/hadley/dplyr) | an [introduction vignette](http://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html)
 
 #### For R novices
 
 You should have finished working through these by now:
 
   * [R basics, workspace and working directory, RStudio projects](block002_hello-r-workspace-wd-project.html)
-  * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
   * [Basic care and feeding of data in R](block006_care-feeding-data.html)
 
-#### Did anyone work with `swirl`?
+You should be looking at this, so that you can ask questions when we cover in class (soon):
 
-I want to check in with people who looked at [swirl](http://swirlstats.com).
+  * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
 
-Please chime in this [issue](https://github.com/STAT545-UBC/Discussion/issues/10) I've opened in our [Discussion repo](https://github.com/STAT545-UBC/Discussion).
-
-#### Short intro to `ggplot2`
-
-This week's goal is just to introduce `ggplot2`, so your HW02 about exploring data can contain some figures: "Start the way you mean to finish ... which is with lots of figures!"
-
-All of this will be eventually ported over into STAT545 materials but will go ahead and link now.
-
-  * A `ggplot2` [tutorial](https://github.com/jennybc/ggplot2-tutorial) I taught May 2013
-
-#### R Markdown
-
-This week's goal is for you to report on your data exploration by authoring an R Markdown document.
-
-Here is a write-up of my hands-on demo of R Markdown:
-
-  * [Test your ability to author an R Markdown report](block007_first-use-rmarkdown.html)
-  
-Here is a recap on the combined usage of RStudio (and a Project), a Git repo linked to a remote repo on GitHub, and an R Markdown report:
-
-  * [Git(Hub) usage](block008_git-usage.html)
-
-Here is material from a talk and short workshop I gave at SFU in November 2013
-
-  * <https://github.com/jennybc/2013-11_sfu>
-  

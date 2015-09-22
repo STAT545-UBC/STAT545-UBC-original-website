@@ -22,11 +22,11 @@ sep-08 tues    <a href="cm001_course-intro-sw-install-account-signup.html">cm001
 sep-10 thurs   <a href="cm002_r-rstudio-intro.html">cm002</a>: Deep Thoughts about data analytic work; intro to R and RStudio     
 sep-15 tues    <a href="cm003_r-objects-git-toe-dip.html">cm003</a>: Git(Hub) and (R) Markdown crash course                       
 sep-17 thurs   <a href="cm004_care-feeding-data.html">cm004</a>: Care and feeding of data (data.frames, actually)                 
-sep-22 tues    cm005: Basic flavors of R objects; Post mortem re: HW and workflow issues                                          
-sep-24 thurs   cm006: Intro to ggplot2                                                                                            
+sep-22 tues    <a href="cm005_still-data-ggplot2-rmarkdown.html">cm005</a>: Intro to ggplot2                                      
+sep-24 thurs   cm006: Basic flavors of R objects and R Markdown                                                                   
 sep-29 tues    cm007: Intro to dplyr                                                                                              
 oct-01 thurs   cm008: Writing your own R functions, beginning                                                                     
-oct-06 tues    cm009: Writing your own R functions, conclusion; data aggregation with plyr                                        
+oct-06 tues    cm009: Writing your own R functions, conclusion; data aggregation                                                  
 oct-08 thurs   cm010: Be the boss of your factors                                                                                 
 oct-13 tues    cm011: Getting data out of R (and back in)                                                                         
 oct-15 thurs   cm012: Effective graphs                                                                                            

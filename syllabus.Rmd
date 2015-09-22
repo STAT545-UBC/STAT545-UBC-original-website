@@ -16,7 +16,8 @@ library(readr)
 
 ```{r include = FALSE}
 rawdat <-
-  read_csv(file.path("course-admin", "class-meetings", "class-meetings.csv"))
+  read_csv(file.path("course-admin", "class-meetings", "class-meetings.csv"),
+          col_types = "cc?????")
 cdat <- rawdat %>%
   mutate(ugly_date = ISOdate(2015, match(month, tolower(month.name)), day),
          date = sprintf("%s-%02d %s",

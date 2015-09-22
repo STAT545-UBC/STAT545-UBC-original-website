@@ -3,11 +3,11 @@ cm001,STAT545A,tues,september,8,TRUE,Intro to course; S/W install; acct sign-ups
 cm002,STAT545A,thurs,september,10,TRUE,Deep Thoughts about data analytic work; intro to R and RStudio
 cm003,STAT545A,tues,september,15,TRUE,Git(Hub) and (R) Markdown crash course
 cm004,STAT545A,thurs,september,17,TRUE,"Care and feeding of data (data.frames, actually)"
-cm005,STAT545A,tues,september,22,FALSE,"Basic flavors of R objects; Post mortem re: HW and workflow issues"
-cm006,STAT545A,thurs,september,24,FALSE,Intro to ggplot2
+cm005,STAT545A,tues,september,22,TRUE,Intro to ggplot2
+cm006,STAT545A,thurs,september,24,FALSE,Basic flavors of R objects and R Markdown
 cm007,STAT545A,tues,september,29,FALSE,Intro to dplyr
 cm008,STAT545A,thurs,october,1,FALSE,"Writing your own R functions, beginning"
-cm009,STAT545A,tues,october,6,FALSE,"Writing your own R functions, conclusion; data aggregation with plyr"
+cm009,STAT545A,tues,october,6,FALSE,"Writing your own R functions, conclusion; data aggregation"
 cm010,STAT545A,thurs,october,8,FALSE,Be the boss of your factors
 cm011,STAT545A,tues,october,13,FALSE,Getting data out of R (and back in)
 cm012,STAT545A,thurs,october,15,FALSE,Effective graphs
