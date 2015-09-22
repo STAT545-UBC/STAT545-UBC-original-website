@@ -15,13 +15,16 @@ output:
 </style>
 
 Instructions used successfully in STAT 545 in 2014 and 2015.  
-Where we know the OS, here's the breakdown:
+Where we know the OS, here's the breakdown:  
+half Mac, just under half Windows (various flavours), a dash of Linux 
 
-|         | 2014     | 2015   |
-|---------|----------|--------|
-| Mac     | 16 (45%) | ? (?%) |
-| Windows | 18 (51%) | ? (?%) |
-| Linux   | 1 (3%)   | ? (?%) |
+|            |     2014 |     2015 |
+|-----------:|---------:|---------:|
+|        Mac | 16 (41%) | 34 (51%) |
+| Windows 10 |   0 (0%) |  7 (10%) |
+|  Windows 8 | 12 (30%) |  9 (13%) |
+|  Windows 7 |  9 (23%) | 12 (18%) |
+|      Linux |   2 (5%) |   4 (6%) |
 
 ### Level 1: Installation
 
