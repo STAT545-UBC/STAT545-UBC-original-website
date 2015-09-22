@@ -8,13 +8,16 @@ output:
 
 ### R and RStudio
 
-* Install [R, a free software environment for statistical computing and graphics](http://www.r-project.org) from [CRAN](http://cran.rstudio.com), the Comprehensive R Archive Network. It is __highly recommended__ to install a precompiled binary distribution for your operating system -- use the links up at the top of the CRAN page linked above!
+  * Install [R, a free software environment for statistical computing and graphics](http://www.r-project.org) from [CRAN](http://cran.rstudio.com), the Comprehensive R Archive Network. I __highly recommend__ you install a precompiled binary distribution for your operating system -- use the links up at the top of the CRAN page linked above!
 
-* Install RStudio's IDE (stands for _integrated development environment_), a powerful user interface for R. Get the Open Source Edition of RStudio Desktop: <http://www.rstudio.com/products/rstudio/>
+  * Install RStudio's IDE (stands for _integrated development environment_), a powerful user interface for R. Get the Open Source Edition of RStudio Desktop.
+
+    - I __highly recommend__ your run the [Preview version](https://www.rstudio.com/products/rstudio/download/preview/). I find these quite stable and you'll get the cool new features! Update to new Preview versions often.
+    - Of course, there are also official releases available here: <http://www.rstudio.com/products/rstudio/>
     - RStudio comes with a __text editor__, so there is no immediate need to install a separate stand-alone editor.
     - RStudio can __interface with Git(Hub)__. However, you must do all the Git(Hub) set up [described elsewhere](git00_index.html) before you can take advantage of this.
     
-If you have a pre-existing installation of R and/or RStudio, we __highly recommend__ that you reinstall both and upgrade to the most recent version. It is very easy and RStudio, specifically, is changing rapidly and positively (written 2015-09). You may even wish to use the preview version of RStudio (we do!) [available here](http://www.rstudio.com/products/rstudio/download/preview/).
+If you have a pre-existing installation of R and/or RStudio, we __highly recommend__ that you reinstall both and get as current as possible. It can be considerably harder to run old software than new.
 
   * If you upgrade R, you will need to update any packages you have installed. The command below should get you started, though you may need to specify more arguments if, e.g., you have been using a non-default library for your packages.
 
