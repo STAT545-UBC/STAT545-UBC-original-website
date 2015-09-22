@@ -18,6 +18,8 @@ output:
   * R Markdown, maybe? [Test drive R Markdown](block007_first-use-rmarkdown.html)
   * Or start to talk about [the many different flavors of R objects](block004_basic-r-objects.html)?
   * Next week we begin serious [data.frame wrangling with `dplyr`](block009_dplyr-intro.html).
+  * Link to some enrollment data we could try to plot
+    - [2015_stat545_enrollment-csv](https://gist.github.com/jennybc/924fe242a31e0239762f#file-2015_stat545_enrollment-csv)
     
 #### Slides
 
