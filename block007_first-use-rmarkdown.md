@@ -32,16 +32,16 @@ Launch RStudio, probably in the Project that corresponds to the repository where
 
 I am modelling "walk before you run" here. It is best, especially for novices, to increase complexity in small increments. We will test our system's ability to render the ["hello world"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) of R Markdown documents before we muddy the waters with our own, probably buggy, documents.
 
-Do this: File > New File > R Markdown ...
+Do this: *File > New File > R Markdown ...*
 
   - Give it an informative title. This will appear in the document but does not necessarily have anything to do with the file's name. But the title and filename should be similar! The title is for human eyeballs, so it can contain spaces and punctuation. The filename is for humans and computers, so it should have similar words in it but no spaces and no punctuation.
   - Accept the default Author or edit if you wish.
   - Accept the default output format of HTML.
   - Click OK.
   
-Save this document to a reasonable filename and location. The filename should end in `.rmd` or `.Rmd`. I highly recommend saving in the top-level of the directory that is also also a Git repository for your coursework and that is also an RStudio project and that is also current working directory.
+Save this document to a reasonable filename and location. The filename should end in `.rmd` or `.Rmd`. I **highly recommend** saving in the top-level of the directory that is also also a Git repository for your coursework and that is also an RStudio project and that is also current working directory. Trust me on this.
 
-Click on "Knit HTML" or do File > Knit. RStudio should display a preview of the resulting HTML. Also look at the file browser (which should be pointed at the directory where you saved the `.rmd` file). You should see the R Markdown document, i.e. `foo.rmd` AND the resulting HTML `foo.html`.
+Click on "Knit HTML" or do *File > Knit Document*. RStudio should display a preview of the resulting HTML. Also look at the file browser (which should be pointed at the directory where you saved the `.rmd` file). You should see the R Markdown document, i.e. `foo.rmd` AND the resulting HTML `foo.html`.
 
 Congratulations, you've just made your first reproducible report with R Markdown.
 
@@ -51,7 +51,7 @@ Congratulations, you've just made your first reproducible report with R Markdown
 
 It will have nice side effects on GitHub if we save the intermediate Markdown file that is produced when compiling to HTML. The magical process is like so: `foo.rmd --> foo.md --> foo.html`. By default RStudio discards `foo.md` but it's easy to request that it be kept. This is one of the many things we can control in the YAML frontmatter -- the text at the top of your file between leading and trailing lines of `---`. Two approaches:
 
-  * RStudio GUI: click on the "gear" in the top bar of the source editor, near the "Knit HTML" button. Go to the Advanced tab and check "Keep markdown source file."
+  * RStudio GUI: click on the "gear" in the top bar of the source editor, near the "Knit HTML" button. Select "Output options" and go to the Advanced tab and check "Keep markdown source file."
   
   * "By hand:" Make your YAML frontmatter look something like this:
   
@@ -59,7 +59,7 @@ It will have nice side effects on GitHub if we save the intermediate Markdown fi
    ---  
    title: "Something fascinating"  
    author: "Jenny Bryan"  
-   date: "10 September, 2014"  
+   date: "10 September, 2015"  
    output:  
      html_document:  
        keep_md: true  
@@ -106,9 +106,9 @@ HTML files, such as `foo.html`, are not immediately useful on GitHub (though you
 
 ### Troubleshooting
 
-__Make sure RStudio and the `rmarkdown` package (and its dependencies) are up-to-date.__ In case of catastrophic failure to render R Markdown, consider that your software may be too old. R Markdown has been developing rapidly (written 2014-09), so you need a very current version of RStudio and `rmarkdown` to enjoy all the goodies we describe here.
+__Make sure RStudio and the `rmarkdown` package (and its dependencies) are up-to-date.__ In case of catastrophic failure to render R Markdown, consider that your software may be too old. R Markdown has been developing rapidly (written 2015-09), so you need a very current version of RStudio and `rmarkdown` to enjoy all the goodies we describe in this course.
 
-__Get rid of your `.Rprofile`__, at least temporarily. I have found that a "mature" `.Rprofile` that has accumulated haphazardly over the years can cause trouble. Specifically, if you've got anything in there relating to `knitr`, `markdown`, `rmarkdown` and RStudio stuff, it may be preventing the installation or usage of the most recent goodies (see above). Comment the whole file out or rename it something else and relaunch or reinstall RStudio.
+__Get rid of your `.Rprofile`__, at least temporarily. I have found that a "mature" `.Rprofile` that has accumulated haphazardly over the years can cause trouble. Specifically, if you've got anything in there relating to `knitr`, `markdown`, `rmarkdown` and RStudio stuff, it may be preventing the installation or usage of the most recent goodies (see above). Comment the whole file out or rename it something else and relaunch or re-install RStudio.
 
 __Insert a chunk in your `.rmd` document so that it renders even when there are errors.__ Some errors are easier to diagnose if you can execute specific R statements during rendering and leave more evidence behind for forensic examination. Put [this chunk](https://gist.github.com/jennybc/679ea117b61c9126034a):
 
