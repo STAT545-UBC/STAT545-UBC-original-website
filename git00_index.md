@@ -59,10 +59,10 @@ Long-term, you should understand more about what you are doing. Rote clicking in
 
   * The book [Pro Git](http://git-scm.com/book) is fantastic and comprehensive.
 
-  * [GitHub's own training materials](http://training.github.com/kit/) may be helpful.
-
-    - They also point to [many other resources](https://help.github.com/articles/what-are-other-good-resources-for-learning-git-and-github)
+  * [GitHub's own training materials](http://training.github.com/kit/) may be helpful. They also point to [many other resources](https://help.github.com/articles/what-are-other-good-resources-for-learning-git-and-github)
 
   * Find a [powerful Git client](git02_git-clients.html) if you'd like to minimize your usage of Git from the command line.
+  
+  * Hadley Wickham's book [R Packages](http://r-pkgs.had.co.nz) has an excellent [chapter on the use of Git, GitHub, and RStudio](http://r-pkgs.had.co.nz/git.html) in R package development. He covers more advanced usage, such as commit best practices, issues, branching, and pull requests.
   
   * It's not you, it's Git! If you're not crying already, these fictional-but-realistic Git man pages should do the trick: [git-man-page-generator](http://git-man-page-generator.lokaltog.net).
