@@ -6,8 +6,6 @@ output:
     toc_depth: 4
 ---
 
-**Do this once per new project.**
-
 ### Prerequisites
 
 This is the big moment where we bring everything together. We assume the following: 
@@ -19,6 +17,8 @@ This is the big moment where we bring everything together. We assume the followi
   * You've already [installed R and RStudio](block000_r-rstudio-install.html).
 
 ### Step 1: Make a new repo on GitHub
+
+**Do this once per new project.**
 
 Go to <https://github.com> and make sure you are logged in.
 
@@ -43,6 +43,7 @@ In RStudio, start a new Project:
     - a directory on your computer
     - a Git repository, linked to a remote GitHub repository
     - an RStudio Project
+  * In the absence of other constraints, I suggest that all of your R projects have exactly this set-up.
 
 This should download the `README.md` file that we created on GitHub in the previous step. Look in RStudio's file browser pane for the `README.md` file.
 
@@ -64,20 +65,21 @@ This workflow is the reverse of the above and cannot be executed from within R/R
 
   * Initiate the "upstream" or "tracking" relationship by adding a remote. Go to *Tools > [shell](git09_shell.html)* and do this, substitute the HTTPS URL for **your GitHub repo**.
 
-``` shell
-git remote add origin https://github.com/jennybc/myrepo.git
-```
+    ``` shell
+    git remote add origin https://github.com/jennybc/myrepo.git
+    ```
+    
   * Download all the files from the online GitHub repository (possibly just `README.md`, at this point).
   
-``` shell
-git pull origin master
-```
+    ``` shell
+    git pull origin master
+    ```
 
   * Cement the tracking relationship between your GitHub repository and the local repo by pushing and setting the "upstream" remote:
   
-``` shell
-git push -u origin master
-```
+    ``` shell
+    git push -u origin master
+    ```
 
 It is possible you will be challenged for username and password here, but that means you should read up on [caching your credentials](git06_credential-caching.html) so this stops happening.
 
@@ -93,7 +95,7 @@ From RStudio:
 
   * Click the "Git" tab in upper right pane
   * Check "Staged" box for any files whose existence or modifications you want to commit.
-    - To see more detail on what's changed in file since you last committed, click on "Diff" for a Git pop-up
+    - To see more detail on what's changed in file since the last commit, click on "Diff" for a Git pop-up
   * If you're not already in the Git pop-up, click "Commit"
   * Type a message in "Commit message"
   * Click "Commit"
@@ -112,7 +114,7 @@ Click the blue "Pull" button in the "Git" tab in RStudio. I doubt anything will 
 
 Click the green "Push" button to send you local changes to GitHub. You should see some message along these lines.
 
-```sh
+``` shell
 [master dc671f0] blah
  3 files changed, 22 insertions(+)
  create mode 100644 .gitignore
@@ -122,3 +124,5 @@ Click the green "Push" button to send you local changes to GitHub. You should se
 ### The end
 
 Now just ... repeat. Do work somewhere. Commit it. Push it or pull it depending on where you did it, but get local and remote "synced up". Repeat.
+
+Go back to the [index for the all the Git stuff](git00_index.html).

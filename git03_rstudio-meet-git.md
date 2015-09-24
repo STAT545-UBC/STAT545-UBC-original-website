@@ -22,7 +22,7 @@ Keep reading if things don't go so well or you want to know more.
 
 ### Find Git
 
-RStudio can only act as a GUI front-end for Git if [Git has been successfully installed](git01_git-install.html) AND RStudio can find it.
+RStudio can only act as a GUI front-end for Git if [Git has been successfully installed](git01_git-install.html) **AND RStudio can find it**.
 
 A basic test for successful installation of git is to simply enter `git` in the [shell](git09_shell.html). If you get a complaint about git not being found, it means installation was unsuccessful or that it is not being found, i.e. it is not on your `PATH`.
 
@@ -46,7 +46,7 @@ From RStudio, go to *Tools > Global Options > Git/SVN* and make sure that the bo
 
     - __WARNING__: On Windows, do __NOT__ use `C:/Program Files (x86)/Git/cmd/git.exe`. `bin` is GOOD YES! `cmd` is BAD NO!
 
-__Restart__ RStudio if you make any changes. Don't make me stop this car again and restart RStudio for you in office hours. DO IT.
+**Restart RStudio if you make any changes.** Don't make me stop this car again and restart RStudio for you in office hours. DO IT.
 
 Do the steps at the top of the page to see if RStudio and git are communicating now.
 
@@ -57,3 +57,5 @@ No joy?
   * I've seen this help: With your Project open, go to `Tools > Project Options...`. If available, click on "Git/SVN" and select "Git" in the Version control system dropdown menu. Answer "yes" to the "Confirm New Git Repository" pop up. Answer "yes" to the "Confirm Restart RStudio" pop up.
   
   * Get our help.
+
+Go back to the [index for the all the Git stuff](git00_index.html).

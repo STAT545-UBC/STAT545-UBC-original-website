@@ -28,10 +28,10 @@ half Mac, just under half Windows (various flavours), a dash of Linux
 
 ### Level 1: Installation
 
-  * [Register a free GitHub account](https://github.com). If you are eligible, you may want to take advantage of the offers available at [GitHub Education](https://education.github.com).
-  * [Install R and RStudio](block000_r-rstudio-install.html)
+  * [Register a free GitHub account](https://github.com). If eligible, check the offers at [GitHub Education](https://education.github.com).
+  * [Install or upgrade R and RStudio](block000_r-rstudio-install.html). Get current, people.
   * [Install Git](git01_git-install.html)
-  * [Install a Git client](git02_git-clients.html) *optional but recommended*
+  * [Install a Git client](git02_git-clients.html). Optional but recommended.
 
 ### Level 2: Git and GitHub configuration
 
@@ -65,7 +65,4 @@ Long-term, you should understand more about what you are doing. Rote clicking in
 
   * Find a [powerful Git client](git02_git-clients.html) if you'd like to minimize your usage of Git from the command line.
   
-  * The [Curated Git Links of 2014](http://thelinell.com/2014/12/23/curated-git-links-of-2014/) collected by Linell Bonnette range "from easy fixes to (mindblown)". They might help you get out of some common pickles as your usage becomes more advanced.
-  
-  * It's not you, it's Git! If you're not crying already, these fictional-but-realistic Git man pages should do the trick: [git-man-page-generator](http://git-man-page-generator.lokaltog.net)
-  
+  * It's not you, it's Git! If you're not crying already, these fictional-but-realistic Git man pages should do the trick: [git-man-page-generator](http://git-man-page-generator.lokaltog.net).

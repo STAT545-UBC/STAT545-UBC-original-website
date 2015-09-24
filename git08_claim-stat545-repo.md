@@ -30,7 +30,7 @@ Go to that repository in the browser.
 
 Copy the HTTPS URL. It will be something like this:
 
-```
+``` shell
 https://github.com/STAT545-UBC/jennifer_bryan
 ```
 
@@ -43,7 +43,7 @@ In RStudio, start a new Project:
     - an RStudio Project
   * Create the Project ... you should get a pre-existing skeleton `README.md` that I created for you.
 
-Make a local edit, e.g. edit files, add files.
+Make some local changes, e.g. edit or add files.
 
 Commit these changes to your local repo.
 
@@ -52,3 +52,5 @@ Pull from GitHub (I'm just trying to help you establish this habit).
 Push to GitHub.
 
 Repeat *ad nauseum* as you do your coursework.
+
+Go back to the [index for the all the Git stuff](git00_index.html).

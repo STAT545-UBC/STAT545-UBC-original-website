@@ -31,14 +31,14 @@ You may proceed when
     - `https://github.com/jennybc/myrepo`
   * You know local is tracking remote. In a [shell](git09_shell.html) with working directory set to the local Git repo, enter these commands:
   
-``` shell
-jenny@2015-mbp myrepo $ git remote -v
-origin	https://github.com/jennybc/myrepo (fetch)
-origin	https://github.com/jennybc/myrepo (push)
-
-jenny@2015-mbp myrepo $ git branch -vv
-* master b8e03e3 [origin/master] line added locally
-```
+    ``` shell
+    jenny@2015-mbp myrepo $ git remote -v
+    origin	https://github.com/jennybc/myrepo (fetch)
+    origin	https://github.com/jennybc/myrepo (push)
+    
+    jenny@2015-mbp myrepo $ git branch -vv
+    * master b8e03e3 [origin/master] line added locally
+    ```
   
 We want to see that fetch and push are set to remote URLs that point to your GitHub repo. We also want to see that your local master branch has your GitHub master branch as upstream remote. Gibberish? Just check that your output looks similar to mine.
 
@@ -103,3 +103,5 @@ Rejoice and close the [shell](git09_shell.html). From now on your "Push" button 
 ### More options
 
 * Above we are connecting to GitHub via HTTPS. The alternative is [SSH](https://help.github.com/articles/generating-ssh-keys). We follow [GitHub's advice](https://help.github.com/articles/which-remote-url-should-i-use/), which is to prefer HTTPS over SSH, but both are perfectly valid.
+
+Go back to the [index for the all the Git stuff](git00_index.html).

@@ -30,7 +30,7 @@ Go to the [shell](git09_shell.html).
 
 Take charge of -- or at least notice! -- what directory you're in. `pwd` to display working directory. `cd` to move around. Personally, I would do this sort of thing in `~/tmp`.
 
-Clone `myrepo` from GitHub to your computer. This URL should have **your GitHub username** and the name of **your practice repo**. If your [shell](git09_shell.html) cooperates, you should be able to paste the whole `https://....` bit that we copied above. But some shells are not (immediately) clipboard aware. Type it. Accurately.
+Clone `myrepo` from GitHub to your computer. This URL should have **your GitHub username** and the name of **your practice repo**. If your [shell](git09_shell.html) cooperates, you should be able to paste the whole `https://....` bit that we copied above. But some shells are not (immediately) clipboard aware. Type it. **Accurately.**
 
 ``` bash
 git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
@@ -145,7 +145,7 @@ You should see the new "A line I wrote on my local computer" in the README.
 
 If you click on "commits," you should see one with the message "A commit from my local computer."
 
-If you have made it this far, you are ready to graduate to using Git and GitHub with RStudio. But first ...
+If you have made it this far, you are ready to graduate to [using Git and GitHub with RStudio](git07_git-github-rstudio.html). But first ...
 
 ### Am I really going to type GitHub username and password on each push?
 
@@ -167,3 +167,5 @@ rm -rf myrepo/
 In the browser, viewing your repo's landing page on GitHub, click on "Settings", near the bottom or the right sidebar.
 
 Scroll down, click on "delete repository," and do as it asks.
+
+Go back to the [index for the all the Git stuff](git00_index.html).

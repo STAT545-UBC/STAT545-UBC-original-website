@@ -20,7 +20,21 @@ You may be able to find Git after the fact with these commands in the [shell](gi
 
 It is not entirely crazy to just re-install Git, using a method that leaves it in a more conventional location, and to pay very close attention to where it's being installed. Live and learn.
 
-*I want to add something here about PATH ... inspecting it ... changing what's on it ... changing the order ... etc.*
+#### Dysfunctional PATH
+
+I'm pretty sure that most cases of RStudio *not* automatically detecting the Git executable stem from problems with `PATH`. This is the set of directories where your computer will look for executables, such as Git (today) or `make` (later in this course). Certain methods of Git installation, especially on Windows and/or older OSes, have a higher tendency to put Git in an unconventional location or to fail to add the relevant directory to `PATH`.
+
+How to see your `PATH`?
+
+In the [shell](git09_shell.html):
+
+``` shell
+echo $PATH
+```
+
+Take a good hard look at this. See the point above about finding your Git executable or re-installing it while you are **wide awake**. Is the host directory in your `PATH`? No? **Fix that.**
+
+Go [here](http://www.troubleshooters.com/linux/prepostpath.htm) for instructions on what to put in your `.bash_profile` in order to add a directory to `PATH`.
 
 #### Push/Pull buttons greyed out in RStudio
 
@@ -83,3 +97,5 @@ Pull first. Resolve any conflicts. Then try your push again.
 #### RStudio is not making certain files available for staging/commiting
 
 Do you have spaces in your directory or file names? I told you that was a terrible idea. Get rid of them. If that doesn't fix it, I also highly recommend you have a [more powerful Git(Hub) client](git02_git-clients.html) installed for these situations.
+
+Go back to the [index for the all the Git stuff](git00_index.html).
