@@ -90,7 +90,11 @@ Now render the whole document via "Knit HTML." Voilà!
 
 ### Step 5: Develop your report
 
-In this incremental manner, develop your report. Add code to this chunk. Refine it. Add new chunks. Go crazy! But keep running the code "manually" to make sure it works. If it doesn't work with you babysitting it, I can guarantee you it will fail, in a more spectacular and cryptic way, when run at arms-length via "Knit HTML" or `rmarkdown::render()`. Clean out your workspace and restart R and re-run everything periodically, if things get weird. There are lots of chunk menu items and keyboard shortcuts to accelerate this workflow. Render the whole document often to catch errors when they're easy to pinpoint and fix. Save often and commit every time you reach a point that you'd like as a "fall back" position.
+In this incremental manner, develop your report. Add code to this chunk. Refine it. Add new chunks. Go crazy! But keep running the code "manually" to make sure it works.
+
+If it doesn't work with you babysitting it, I can guarantee you it will fail, in a more spectacular and cryptic way, when run at arms-length via "Knit HTML" or `rmarkdown::render()`.
+
+Clean out your workspace and restart R and re-run everything periodically, if things get weird. There are lots of chunk menu items and keyboard shortcuts to accelerate this workflow. Render the whole document often to catch errors when they're easy to pinpoint and fix. Save often and commit every time you reach a point that you'd like as a "fall back" position.
 
 You'll develop your own mojo soon, but this should give you your first successful R Markdown experience.
 
@@ -108,21 +112,32 @@ HTML files, such as `foo.html`, are not immediately useful on GitHub (though you
 
 __Make sure RStudio and the `rmarkdown` package (and its dependencies) are up-to-date.__ In case of catastrophic failure to render R Markdown, consider that your software may be too old. R Markdown has been developing rapidly (written 2015-09), so you need a very current version of RStudio and `rmarkdown` to enjoy all the goodies we describe in this course.
 
-__Get rid of your `.Rprofile`__, at least temporarily. I have found that a "mature" `.Rprofile` that has accumulated haphazardly over the years can cause trouble. Specifically, if you've got anything in there relating to `knitr`, `markdown`, `rmarkdown` and RStudio stuff, it may be preventing the installation or usage of the most recent goodies (see above). Comment the whole file out or rename it something else and relaunch or re-install RStudio.
+__Get rid of your `.Rprofile`__, at least temporarily. I have found that a "mature" `.Rprofile` that has accumulated haphazardly over the years can cause trouble. Specifically, if you've got anything in there relating to `knitr`, `markdown`, `rmarkdown` and RStudio stuff, it may be preventing the installation or usage of the most recent goodies (see above). Comment the whole file out or rename it something else and relaunch or even re-install RStudio.
 
-__Insert a chunk in your `.rmd` document so that it renders even when there are errors.__ Some errors are easier to diagnose if you can execute specific R statements during rendering and leave more evidence behind for forensic examination. Put [this chunk](https://gist.github.com/jennybc/679ea117b61c9126034a):
+__Insert a chunk in your `.Rmd` document so that it renders even when there are errors.__ Some errors are easier to diagnose if you can execute specific R statements during rendering and leave more evidence behind for forensic examination. Put [this chunk](https://gist.github.com/jennybc/679ea117b61c9126034a):
 
-<pre><code>```{r setup, include = FALSE, cache = FALSE}
-knitr::opts_chunk$set(error = TRUE)
-```</code></pre>
-
+    ```{r setup, include = FALSE, cache = FALSE}  
+    knitr::opts_chunk$set(error = TRUE)  
+    ```
+    
 near the top of your R Markdown document if you want to soldier on through errors, i.e. turn `foo.rmd` into `foo.md` and/or `foo.html` no matter what. This is also helpful if you are writing a tutorial and want to demo code that throws an error.
+
+__Tolerate errors in one specific chunk.__ If it's undesirable to globally accept errors, you can do this for a specific chunk by using a chunk option:
+
+    ```{r wing-and-a-prayer, error = FALSE}  
+    ## your sketchy code goes here ;) 
+    ```
 
 __Check your working directory.__ It's going to break your heart as you learn how often your mistakes are really mundane and basic. Ask me how I know. When things go wrong consider:
 
   * What is the working directory?
   * Is that file I want to read/write actually where I think it is?
   
-Drop these commands into R chunks to check the above: `getwd()` will display working directory at __run time__. If you monkeyed around with working directory with, e.g., the mouse, maybe it's set to one place for your interactive development and another when "Knit HTML" takes over. `list.files()` is also handy for brute force checking of which files are lying around within arm's reach.
+Drop these commands into R chunks to check the above:
 
-[Don't try to change working directory within an R Markdown document](https://github.com/yihui/knitr/blob/master/FAQ.md). Just don't. And don't be in a hurry to create a complicated sub-directory structure. RStudio/`knitr`/`rmarkdown` (which bring you the "Knit HTML" button) are rather opinionated about the working directory being set to the `.rmd` file's location and about all files living together in one big happy directory. This can all be worked around. But not today.
+  * `getwd()` will display working directory at __run time__. If you monkeyed around with working directory with, e.g., the mouse, maybe it's set to one place for your interactive development and another when "Knit HTML" takes over?
+  * `list.files()` will list the files in working directory. Is the file you want even there?
+
+__Don't try to change working directory within an R Markdown document__. [Just don't](https://github.com/yihui/knitr/blob/master/FAQ.md). That is all.
+
+__Don't be in a hurry to create a complicated sub-directory structure.__ RStudio/`knitr`/`rmarkdown` (which bring you the "Knit HTML" button) are rather opinionated about the working directory being set to the `.Rmd` file's location and about all files living together in one big happy directory. This can all be worked around. But not today.
