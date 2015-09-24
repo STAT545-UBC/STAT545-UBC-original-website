@@ -31,3 +31,5 @@ Resources:
 
 * [GitHub's advice](https://help.github.com/articles/set-up-git).
 * [Quick primer on the shell](git09_shell.html)
+
+Go back to the [index for the all the Git stuff](git00_index.html).
