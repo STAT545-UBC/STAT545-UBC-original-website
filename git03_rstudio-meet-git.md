@@ -52,7 +52,7 @@ No joy?
 
   * I've seen this help: With your Project open, go to `Tools > Project Options...`. If available, click on "Git/SVN" and select "Git" in the Version control system dropdown menu. Answer "yes" to the "Confirm New Git Repository" pop up. Answer "yes" to the "Confirm Restart RStudio" pop up.
 
-  * If you installed git via GitHub for Windows, it is possible the git executable is really well hidden. Get our help or install Git another way.
+  * If you installed Git via GitHub for Windows, it is possible the Git executable is really well hidden. Get our help or install Git another way.
 
   * Your `PATH` is probably not set up correctly and/or you should re-install Git and control/notice where it's going. Read more in [troubleshooting](git66_rstudio-git-github-hell.html).
 

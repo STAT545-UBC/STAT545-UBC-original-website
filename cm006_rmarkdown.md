@@ -8,7 +8,7 @@ output:
 ### cm006 2015-09-24 Thursday overview
 
   * Peer review closes today for [Homework 01](hw01_edit-README.html). TAs will then come through through your repos and comment. We send marks via email using the email you provided in the class survey.
-  * [Homework 02](hw02_explore-gapminder-use-rmarkdown.html) due before class next Tuesday 2015-09-29.
+  * [Homework 02](hw02_explore-gapminder-use-rmarkdown.html) due sometime next Tuesday 2015-09-29.
     - Explore the `gapminder` data.frame
     - Make some figures with `ggplot2`.
     - Practice writing R Markdown.

@@ -12,7 +12,7 @@ output:
 
   * Install RStudio's IDE (stands for _integrated development environment_), a powerful user interface for R. Get the Open Source Edition of RStudio Desktop.
 
-    - I __highly recommend__ your run the [Preview version](https://www.rstudio.com/products/rstudio/download/preview/). I find these quite stable and you'll get the cool new features! Update to new Preview versions often.
+    - I __highly recommend__ you run the [Preview version](https://www.rstudio.com/products/rstudio/download/preview/). I find these quite stable and you'll get the cool new features! Update to new Preview versions often.
     - Of course, there are also official releases available here: <http://www.rstudio.com/products/rstudio/>
     - RStudio comes with a __text editor__, so there is no immediate need to install a separate stand-alone editor.
     - RStudio can __interface with Git(Hub)__. However, you must do all the Git(Hub) set up [described elsewhere](git00_index.html) before you can take advantage of this.

@@ -65,7 +65,7 @@ If that doesn't seem to work, install an external credential helper.
 
 Find out if the credential helper is already installed. In the [shell](git09_shell.html), enter `git credential-osxkeychain`. You should see something like this: `Usage: git credential-osxkeychain <get|store|erase>`. If you do **not**, follow steps 2 and 3 on [the github help](https://help.github.com/articles/caching-your-github-password-in-git#platform-mac).
 
-Once you've confirmed you have the credential helper, enter `git config --global credential.helper osxkeychain`.
+Once you've confirmed you have the credential helper, enter `git config --global credential.helper osxkeychain`
 
 #### Linux
 
