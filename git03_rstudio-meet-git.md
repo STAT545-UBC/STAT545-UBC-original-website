@@ -32,8 +32,6 @@ If you are not sure where the git executable lives, try this in a [shell](git09_
 
 * `where git` (most versions of Windows)
 
-* `whereis git.exe` (some other versions of Windows)
-
 If Git appears to be installed and findable, launch RStudio. Quit and re-launch RStudio if there's __any doubt in your mind__ about whether you opened RStudio before or after installing Git. Don't make me stop this car and restart RStudio for you in office hours. DO IT.
 
 From RStudio, go to *Tools > Global Options > Git/SVN* and make sure that the box *Git executable* points to ... the Git executable. It should read something like:
@@ -52,10 +50,12 @@ Do the steps at the top of the page to see if RStudio and git are communicating 
 
 No joy?
 
+  * I've seen this help: With your Project open, go to `Tools > Project Options...`. If available, click on "Git/SVN" and select "Git" in the Version control system dropdown menu. Answer "yes" to the "Confirm New Git Repository" pop up. Answer "yes" to the "Confirm Restart RStudio" pop up.
+
   * If you installed git via GitHub for Windows, it is possible the git executable is really well hidden. Get our help or install Git another way.
 
-  * I've seen this help: With your Project open, go to `Tools > Project Options...`. If available, click on "Git/SVN" and select "Git" in the Version control system dropdown menu. Answer "yes" to the "Confirm New Git Repository" pop up. Answer "yes" to the "Confirm Restart RStudio" pop up.
-  
+  * Your `PATH` is probably not set up correctly and/or you should re-install Git and control/notice where it's going. Read more in [troubleshooting](git66_rstudio-git-github-hell.html).
+
   * Get our help.
 
 Go back to the [index for the all the Git stuff](git00_index.html).
