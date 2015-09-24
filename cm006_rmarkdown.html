@@ -84,130 +84,71 @@ img {
 </header>
 
 
+<div id="TOC">
+<ul>
+<li><a href="#cm006-2015-09-24-thursday-overview">cm006 2015-09-24 Thursday overview</a><ul>
+<li><a href="#slides-and-links">Slides and links</a></li>
+<li><a href="#q-and-a-from-2014">Q and A from 2014</a></li>
+</ul></li>
+</ul>
+</div>
 
-<div id="topic-list" class="section level2">
-<h2>Topic list</h2>
+<div id="cm006-2015-09-24-thursday-overview" class="section level3">
+<h3>cm006 2015-09-24 Thursday overview</h3>
 <ul>
-<li><a href="block000_r-rstudio-install.html">Install R and Rstudio</a></li>
-<li><a href="git00_index.html">All the Git and GitHub (and RStudio) things</a>
+<li>Peer review closes today for <a href="hw01_edit-README.html">Homework 01</a>. TAs will then come through through your repos and comment. We send marks via email using the email you provided in the class survey.</li>
+<li><a href="hw02_explore-gapminder-use-rmarkdown.html">Homework 02</a> due before class next Tuesday 2015-09-29.
 <ul>
-<li><a href="git01_git-install.html">Install Git</a></li>
-<li><a href="git02_git-clients.html">Install a Git client</a> <em>optional but recommended</em></li>
-<li><a href="git04_introduce-self-to-git.html">Introduce yourself to Git</a></li>
-<li><a href="git05_github-connection.html">GitHub, can you hear me?</a></li>
-<li><a href="git07_git-github-rstudio.html">Test connection between RStudio and GitHub</a></li>
-<li><a href="git06_credential-caching.html">GitHub credential caching</a></li>
-<li><a href="git03_rstudio-meet-git.html">When RStudio can’t find Git</a></li>
-<li><a href="git08_claim-stat545-repo.html">Take possession of your STAT 545 repo</a></li>
-<li><a href="git66_rstudio-git-github-hell.html">Troubleshooting</a></li>
-<li><a href="git09_shell.html">The Shell</a></li>
+<li>Explore the <code>gapminder</code> data.frame</li>
+<li>Make some figures with <code>ggplot2</code>.</li>
+<li>Practice writing R Markdown.</li>
 </ul></li>
-<li><a href="block002_hello-r-workspace-wd-project.html">Basic R and RStudio, workspace, working directory, RStudio Project</a></li>
-<li><a href="block006_care-feeding-data.html">Basic care and feeding of data in R</a></li>
-<li><a href="block004_basic-r-objects.html">R objects (beyond data.frames) and indexing</a></li>
+<li>Today we’ll handle the last mechanical bit: R Markdown.
+<ul>
+<li>By end of class, you’ll have seen all the course mechanics: Git(Hub), (R) Markdown, HW submission, peer review, Discussion, etc.</li>
+<li>Questions? Comments?</li>
+</ul></li>
 <li><a href="block007_first-use-rmarkdown.html">Test drive R Markdown</a></li>
-<li><a href="graph00_index.html">All the graph things</a>, an annotated index
+<li>In class exercise:
 <ul>
-<li>R graphics landscape <em><a href="http://www.slideshare.net/jenniferbryan5811/cm005-intro-ggplot2">slides</a></em></li>
-<li><a href="https://github.com/jennybc/ggplot2-tutorial"><code>ggplot2</code> tutorial</a>, heavy on code and examples</li>
-<li><a href="block015_graph-dos-donts.html">Do’s and don’ts of making effective graphs</a></li>
-<li><a href="http://shinyapps.stat.ubc.ca/r-graph-catalog/">R Graph Catalog</a>, a visual, clickable index of 100+ figures + <code>ggplot2</code> code to make them</li>
-<li><a href="block018_colors.html">Using colors in R</a></li>
-<li><a href="block019_enforce-color-scheme.html">Taking control of qualitative colors in <code>ggplot2</code></a></li>
-<li><a href="block016_secrets-happy-graphing.html">Secrets of a happy graphing life</a></li>
-<li><a href="block017_write-figure-to-file.html">Writing figures to file</a></li>
-<li><a href="block020_multiple-plots-on-a-page.html">Multiple plots on a page</a></li>
+<li>Make a plot of <a href="https://gist.github.com/jennybc/924fe242a31e0239762f#file-2015_stat545_enrollment-csv">our enrollment data</a> in and R Markdown document.</li>
+<li><p>How to bring that into R?</p>
+<pre class="r"><code>read.csv(&quot;https://gist.githubusercontent.com/jennybc/924fe242a31e0239762f/raw/ea615f4a811a6e9e8a1fe95020a4407785181a21/2015_STAT545_enrollment.csv&quot;)</code></pre></li>
 </ul></li>
-<li>The <code>dplyr</code> package for data manipulation
+<li>What’s next?
 <ul>
-<li><a href="block009_dplyr-intro.html">Introduction to dplyr</a></li>
-<li><a href="block010_dplyr-end-single-table.html"><code>dplyr</code> functions for a single dataset</a></li>
-<li><a href="bit001_dplyr-cheatsheet.html">Cheatsheet</a> for <code>dplyr</code> join functions</li>
+<li>Next week we’ll move on to <code>dplyr</code> and understanding the different flavours of R objects</li>
 </ul></li>
-<li>Writing your own R functions
+</ul>
+<div id="slides-and-links" class="section level4">
+<h4>Slides and links</h4>
+<p><em>there were no slides</em></p>
+</div>
+<div id="q-and-a-from-2014" class="section level4">
+<h4>Q and A from 2014</h4>
+<p>R Markdown is not the only way to get a pretty report. You can also get one from an <strong>R script</strong>.</p>
 <ul>
-<li><a href="block011_write-your-own-function-01.html">Part 1</a>: get something that works, check arguments</li>
-<li><a href="block011_write-your-own-function-02.html">Part 2</a>: generalize, set default argument values</li>
-<li><a href="block011_write-your-own-function-03.html">Part 3</a>:<code>NA</code> handling, <code>...</code>, unit test</li>
-<li><a href="block012_function-regress-lifeexp-on-year.html">Function-writing Practicum</a>: fit a linear model and return estimated coefficients</li>
-</ul></li>
-<li>The <code>plyr</code> package for split-apply-combine
+<li>When editing a <code>.R</code> file, RStudio offers a button for this is the spiral bound notebook icon, near where the “Knit HTML” button appears for <code>.Rmd</code>. Click and you get “Compile Notebook”.</li>
+<li>Under the hood, you are using a function called <code>spin()</code> from the <code>knitr</code> package.</li>
+<li>Jenny’s <a href="https://github.com/jennybc/ggplot2-tutorial"><code>ggplot2</code> tutorial</a> includes alot of Markdown that was made this way, i.e. from <code>.R</code> not <code>.Rmd</code>
 <ul>
-<li>Data aggregation overview <a href="http://www.slideshare.net/jenniferbryan5811/cm009-data-aggregation"><em>slides</em></a></li>
-<li><a href="block013_plyr-ddply.html">Using <code>plyr</code> with data.frames</a></li>
+<li>look at source vs. rendered to get a feel for this</li>
+<li>download the source and render yourself!</li>
 </ul></li>
-<li><a href="block014_factors.html">Be the boss of your factors</a></li>
-<li>Writing and reading files
+<li>Basically, the special comment prefix <code>#'</code> becomes very important</li>
+<li>R Markdown: prose is queen, R code is sequestered in special chunks</li>
+<li>R script: code is queen, prose is sequestered in special comments</li>
+<li>You can get virtually same HTML report either way. Which to choose? Depends whether the report is primary goal (choose <code>.Rmd</code>) or a by-product (choose <code>.R</code>).</li>
+</ul>
+<p>I passed around hard copies of these 5 books (note: some links to eBooks and repositories are tuned to UBC users):</p>
 <ul>
-<li><a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm011_files-out-in-script.r">Indicative code from hands on activities</a></li>
-<li><a href="http://www.stat.ubc.ca/~jenny/STAT545A/block05_getNumbersOut.html">2013 lesson</a> <em>2014 update: do data manipulation with <code>dplyr</code></em></li>
-</ul></li>
-<li><a href="bit002_tidying-lotr-data.html">Why and how to tidy data</a></li>
-<li><a href="block022_regular-expression.html">Regular expressions</a> and more about character data</li>
-<li><a href="automation00_index.html">All the automation things</a>
-<ul>
-<li><a href="automation01_slides/index.html" target="_blank">slides</a></li>
-<li><a href="automation02_windows.html">Special considerations for Windows</a></li>
-<li><a href="automation03_make-test-drive.html">Test drive <code>Make</code></a> from a shell and RStudio</li>
-<li><a href="automation04_make-activity.html">Hands-on activity</a></li>
-<li><a href="automation00_index.html#more-examples">Example pipelines</a></li>
-</ul></li>
-<li><a href="packages00_index.html">All the package things</a>
-<ul>
-<li><a href="https://speakerdeck.com/jennybc/ubc-stat545-2014-cm107-context-for-writing-your-first-r-package-week">slides</a></li>
-<li><a href="packages01_system-prep.html">System preparation for package development</a></li>
-<li><a href="packages02_activity.html">Hands-on activity, part 1</a></li>
-<li><a href="packages02_activity_part2.html">Hands-on activity, part 2</a></li>
-</ul></li>
-<li><a href="shiny00_index.html">All the Shiny things</a>
-<ul>
-<li><a href="shiny01_slides.pdf">slides</a></li>
-<li><a href="shiny02_setup.html">Getting your system set up for Shiny</a></li>
-<li><a href="shiny03_activity.html">Hands-on activity-build a shiny app</a></li>
-<li><a href="shiny04_links.html">Shiny and other interactive plotting links</a></li>
-</ul></li>
-<li>Get data from the web
-<ul>
-<li><em>make usual landing page and add bullet points</em></li>
-<li>class meeting <a href="cm111_data-from-web.html">one</a> and <a href="cm112_data-from-web.html">two</a></li>
-</ul></li>
+<li><p><a href="http://shop.oreilly.com/product/0636920023135.do">R Graphics Cookbook</a> by Winston Chang, O’Reilly (2013). The <a href="http://www.cookbook-r.com/Graphs/">graphs section</a> of his <a href="http://www.cookbook-r.com">Cookbook for R website</a> will give you a good sense of the book, which contains more material in greater detail.</p></li>
+<li><p>ggplot2: Elegant Graphics for Data Analysis <a href="http://ezproxy.library.ubc.ca/login?url=http://link.springer.com.ezproxy.library.ubc.ca/book/10.1007/978-0-387-98141-3/page/1">available via SpringerLink</a> by Hadley Wickham, Springer (2009) | <a href="http://docs.ggplot2.org/current/">online docs (nice!)</a> | <a href="http://ggplot2.org/book/">author’s website for the book</a>, including all the code | <a href="http://ggplot2.org">author’s landing page for the package</a></p></li>
+<li><p>R Graphics, 2nd edition <a href="http://ezproxy.library.ubc.ca/login?url=http://www.crcnetbase.com.ezproxy.library.ubc.ca/ISBN/978-1-4398-3176-2">available via StatsNetbase</a> by Paul Murrell, Chapman &amp; Hall/CRC Press (2011) | <a href="http://www.stat.auckland.ac.nz/~paul/RG2e/">author’s webpage for the book</a> | <a href="http://books.google.ca/books?id=uacCQgAACAAJ&amp;source=gbs_book_other_versions">GoogleBooks search</a> | <a href="http://cran.r-project.org/web/packages/RGraphics/index.html">companion R package, RGraphics, on CRAN</a></p></li>
+<li><p><a href="http://www.amazon.com/Dynamic-Documents-knitr-Chapman-Series/dp/1482203537">Dynamic documents with R and <code>knitr</code></a> by Yihui Xie, part of the CRC Press / Chapman &amp; Hall R Series (2013). ISBN: 9781482203530. <em>No online access (yet?).</em></p></li>
+<li><p><a href="http://www.amazon.com/Reproducible-Research-RStudio-Chapman-Series/dp/1466572841">Reproducible Research with R &amp; RStudio</a> by Christopher Gandrud, part of the CRC Press / Chapman &amp; Hall R Series (2013). ISBN: 978-1466572843. <a href="http://christophergandrud.github.io/RepResR-RStudio/">Book website</a> | <a href="https://github.com/christophergandrud/Rep-Res-Examples">Examples and code</a> | <a href="https://github.com/christophergandrud/Rep-Res-Book">Book source</a>. <em>No online access (yet?).</em></p></li>
 </ul>
 </div>
-<div id="course-specific-material" class="section level2">
-<h2>Course-specific material</h2>
-<p>This is just an index very course-specific stuff, like homework, or class landing pages that eventually lead to the same content that’s listed above.</p>
-<ul>
-<li><a href="cm001_course-intro-sw-install-account-signup.html">Class meeting 001</a> deals with “What is data science? What is data carpentry?” and includes links re: use of Twitter in academia.</li>
-<li><a href="cm002_r-rstudio-intro.html">Class meeting 002</a> provides some Deep Thoughts about data analytic work, then shifts into a hands-on intro to R and RStudio.</li>
-<li><a href="cm003_r-objects-git-toe-dip.html">Class meeting 003</a> Git(Hub) and (R) Markdown crash course so first homework can be submitted. All hands-on.</li>
-<li><a href="cm004_care-feeding-data.html">Class meeting 004</a> Data.frames are awesome. Let’s explore one (Gapminder).</li>
-<li><a href="cm005_ggplot2.html">Class meeting 005</a> The R graphics landscape and intro to <code>ggplot2</code></li>
-<li><a href="cm006_rmarkdown.html">Class meeting 006</a> R Markdown</li>
-<li><a href="peer-review01_marking-rubric.html">General homework rubric</a> to apply in peer review</li>
-<li><a href="peer-review02_peer-evaluation-guidelines.html">Evaluation of peer review</a></li>
-<li><a href="hw01_edit-README.html">Homework 01</a> Edit <code>README.md</code></li>
-<li><a href="hw02_explore-gapminder-use-rmarkdown.html">Homework 02</a> Explore Gapminder and use R markdown</li>
-<li><a href="hw03_dplyr-and-more-ggplot2.html">Homework 03</a> Manipulate and summarize the Gapminder data with <code>dplyr</code>; make companion figs with <code>ggplot2</code></li>
-<li><a href="http://stat545-ubc.github.io/hw04_write-function-use-plyr.html">Homework 04</a> Manipulate and summarize the Gapminder data with custom functions and <code>plyr</code></li>
-<li><a href="hw05_factor-boss-files-out-in.html">Homework 05</a> Prove you are in control of factors by writing and reading files</li>
-<li><a href="hw06_repo-hygiene-figure-boss.html">Homework 06</a> <em>Optional, unmarked</em> activities for the STAT 545A / STAT 547M transition</li>
-<li><a href="hw07_data-wrangling-grand-finale.html">Homework 07</a> Data wrangling Grand Finale</li>
-<li><a href="hw08_data-cleaning.html">Homework 08</a> re: handling character data and data cleaning</li>
-<li><a href="hw09_automation.html">Homework 09</a> Automating Data-analysis Pipelines</li>
-<li><a href="hw10_package.html">Homework 10</a> Write an R package</li>
-<li><a href="hw11_build-shiny-app">Homework 11</a> Build a Shiny app</li>
-<li><a href="hw12_data-from-web">Homework 12</a> Get data from the web</li>
-</ul>
-</div>
-<div id="short-random-things" class="section level2">
-<h2>Short random things</h2>
-<ul>
-<li><a href="bit002_tidying-lotr-data.html">Lesson I contributed</a> to <a href="http://software-carpentry.org/blog/2014/05/our-first-data-carpentry-workshop.html">Data Carpentry</a> on tidying data</li>
-<li><a href="bit001_dplyr-cheatsheet.html">Cheatsheet</a> for <code>dplyr</code> join functions</li>
-<li><a href="bit003_api-key-env-var.html">Store an API key as an environment variable</a></li>
-<li><a href="https://github.com/jennybc/send-email-with-r">Workflow for sending email with R and <code>gmailr</code></a></li>
-<li><a href="bit006_github-browsability-wins.html">Make browsing your GitHub repos more rewarding</a></li>
-</ul>
 </div>
 
 <div class="footer">
