@@ -14,9 +14,7 @@ You may be able to find Git after the fact with these commands in the [shell](gi
 
 * `which git` (Mac, Linux)
 
-* `where git` (most versions of Windows)
-
-* `whereis git.exe` (some other versions of Windows)
+* `where git` (Windows)
 
 It is not entirely crazy to just re-install Git, using a method that leaves it in a more conventional location, and to pay very close attention to where it's being installed. Live and learn.
 
