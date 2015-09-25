@@ -114,14 +114,14 @@ img {
 <h3>Git installation: Windows</h3>
 <p><strong>Option 1</strong> (<em>recommended</em>): We concur with <a href="http://software-carpentry.org">Software Carpentry</a>, an organization that “teaches lab skills for scientific computing”, and paraphrase their installation instructions:</p>
 <ul>
-<li>Install <a href="https://git-for-windows.github.io/">Git for Windows</a>, previously known as <code>msysgit</code> or “Git Bash”, to get Git in addition to some other useful tools, such as the Bash shell. Yes, all those names are totally confusing.</li>
-<li>This approach leaves the Git executable in a conventional location, which will help you and other programs, e.g. RStudio, find it and use it. This also supports a transition to more expert use, because the Bash shell will be useful as you venture outside of R/RStudio.</li>
+<li>Install <a href="https://git-for-windows.github.io/">Git for Windows</a>, previously known as <code>msysgit</code> or “Git Bash”, to get Git in addition to some other useful tools, such as the Bash <a href="git09_shell.html">shell</a>. Yes, all those names are totally confusing.</li>
+<li>This approach leaves the Git executable in a conventional location, which will help you and other programs, e.g. RStudio, find it and use it. This also supports a transition to more expert use, because the Bash <a href="git09_shell.html">shell</a> will be useful as you venture outside of R/RStudio.</li>
 <li>This also leaves you with a Git client, though not a very good one. So check out <a href="git02_git-clients.html">Git clients we recommend</a>.</li>
 </ul>
-<p><strong>Option 2</strong> (<em>we did not like this in 2014; jury’s still out for 2015</em>): The GitHub hosting site offers <a href="https://desktop.github.com/">GitHub Desktop for Windows</a> that provides Git itself, a client, and smooth integration with GitHub.</p>
+<p><strong>Option 2</strong> (<em>we did not like this in 2014; nothing we’ve seen in 2015 changes our opinion</em>): The GitHub hosting site offers <a href="https://desktop.github.com/">GitHub Desktop for Windows</a> that provides Git itself, a client, and smooth integration with GitHub.</p>
 <ul>
 <li><a href="https://help.github.com/articles/set-up-git#platform-windows">Their Windows set-up instructions</a> recommend this method of Git installation.</li>
-<li>Why we don’t like it: We had several instances of GitHub Desktop for Windows installing Git in suboptimal locations, such as <code>~/AppData/Local</code>, and in other places we could never find. If you were <strong>only</strong> going to interact with GitHub via this app, maybe that’s OK, but that’s not the case for us. Therefore, we recommend option 1 instead.</li>
+<li>Why don’t we like it? We’ve seen GitHub Desktop for Windows lead to Git installation in suboptimal locations, such as <code>~/AppData/Local</code>, and in other places we could never find. If you were <strong>only</strong> going to interact with GitHub via this app, maybe that’s OK, but that does not apply to you. Therefore, we recommend option 1 instead.</li>
 </ul>
 <p>After installation, you still need to <a href="git04_introduce-self-to-git.html">introduce yourself to Git</a> and <a href="git06_credential-caching.html">get it to remember your GitHub username and password</a>. If your Git client guides you through this, seize that opportunity! Otherwise follow the links for some assistance.</p>
 </div>
@@ -131,7 +131,7 @@ img {
 <ul>
 <li>The GitHub home for this project is here: <a href="https://github.com/timcharper/git_osx_installer" class="uri">https://github.com/timcharper/git_osx_installer</a>.</li>
 <li>This arguably sets you up the best for the future and should “just work” for most people. It will certainly get you the latest version of Git of all approaches described here. It is the most widely recommended installation method.</li>
-<li>Let us know if you get errors about having “no developer tools” or Xcode and we can link to some solutions.</li>
+<li>Here’s a list of maintained builds for various combinations of Git and Mac OS version: <a href="http://sourceforge.net/projects/git-osx-installer/files/?source=navbar"><code>git-osx-installer</code> on sourceforge</a>. If your OS version is not there – I’m talking to you 10.7 Lion people – we’ve had recent success with binaries found here: <a href="https://www.wandisco.com/git/download" class="uri">https://www.wandisco.com/git/download</a>.</li>
 <li>This leaves you with NO Git client! So check out <a href="git02_git-clients.html">Git clients we recommend</a>.</li>
 </ul>
 <p><strong>Option 2</strong>: The GitHub hosting site offers <a href="https://desktop.github.com/">GitHub Desktop for Mac</a> that provides <em>the option</em> to install Git itself, a client, and smooth integration with GitHub..</p>
@@ -139,18 +139,18 @@ img {
 <li>This is an OK choice for novices in scientific computing, because it’s more likely to “just work”. You may eventually outgrow it, but you can cross that bridge when you come to it.</li>
 <li>We are more keen on GitHub Desktop for Mac than for Windows, which is not saying much.</li>
 </ul>
-<p><strong>Option 3</strong>: If you anticipate getting heavily into scientific computing, you’re going to be installing and updating lots of software. You should check out <a href="http://brew.sh">homebrew</a>, “the missing package manager for OS X”. Among many other things, it can install Git for you. Previous STAT 545 TA <a href="https://github.com/sjackman">Shaun Jackman</a> works on <a href="https://github.com/Homebrew/homebrew-science">homebrew-science</a>, so bring up any problems over in <a href="https://github.com/STAT545-UBC/Discussion/issues">Discussion</a> and he probably won’t be able to resist answering.</p>
-<p><strong>Option 4</strong>: You can also get Git from Apple’s developer tools. <em>Exactly how to do this varies quite a bit across different OS X versions, plus it seems to be inferior to the other approaches I present. Will not flesh out unless this changes.</em></p>
+<p><strong>Option 3</strong>: If you anticipate getting heavily into scientific computing, you’re going to be installing and updating lots of software. You should check out <a href="http://brew.sh">homebrew</a>, “the missing package manager for OS X”. Among many other things, it can install Git for you. Previous STAT 545 TA <a href="https://github.com/sjackman">Shaun Jackman</a> is one of the maintainers of <a href="https://github.com/Homebrew/homebrew-science">homebrew-science</a>, so bring up any problems over in <a href="https://github.com/STAT545-UBC/Discussion/issues">Discussion</a> and he probably won’t be able to resist answering.</p>
 <p>After installation, you still need to <a href="git04_introduce-self-to-git.html">introduce yourself to Git</a> and <a href="git06_credential-caching.html">get it to remember your GitHub username and password</a>. If your Git client guides you through this, seize that opportunity! Otherwise follow the links for some assistance.</p>
 </div>
 <div id="git-installation-linux" class="section level3">
 <h3>Git installation: Linux</h3>
-<p>If Git is not already available on your machine you can try to install it via your distro’s package manager (e.g. <code>apt-get</code> or <code>yum</code>).</p>
+<p>If Git is not already available on your machine you can install it via your distro’s package manager (e.g. <code>apt-get</code> or <code>yum</code>).</p>
 <p>Ubuntu or Debian Linux</p>
 <pre class="sh"><code>sudo apt-get install git</code></pre>
 <p>Fedora or RedHat Linux</p>
 <pre class="sh"><code>sudo yum install git</code></pre>
 <p>After installation, you still need to <a href="git04_introduce-self-to-git.html">introduce yourself to Git</a> and <a href="git06_credential-caching.html">get it to remember your GitHub username and password</a>.</p>
+<p>Go back to the <a href="git00_index.html">index for the all the Git stuff</a>.</p>
 </div>
 
 <div class="footer">

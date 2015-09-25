@@ -8,22 +8,31 @@ output:
 
 **You only have to set this up once per machine.**
 
+### TL;DR
+
+Make sure RStudio can find the git executable.
+
+  * *File > New Project...* Do you see an option to create from Version Control? If yes, good.
+  * Select *New Directory* > *Empty Project*. Do you see a checkbox "Create a git repository"? If yes, good, CHECK IT.
+  * Give this disposable test project a name and click *Create Project*. Do you see a "Git" tab in the upper right pane, the same one that has "Environment" and "History"? If yes, good.
+  
+If all looks good, you can delete this project. Looks like RStudio and git are talking to each other. YAY.
+
+Keep reading if things don't go so well or you want to know more.
+
 ### Find Git
 
+RStudio can only act as a GUI front-end for Git if [Git has been successfully installed](git01_git-install.html) **AND RStudio can find it**.
 
-RStudio can only act as a GUI front-end for Git if [Git has been successfully installed](git01_git-install.html) AND RStudio can find it.
+A basic test for successful installation of git is to simply enter `git` in the [shell](git09_shell.html). If you get a complaint about git not being found, it means installation was unsuccessful or that it is not being found, i.e. it is not on your `PATH`.
 
-A basic test for successful installation of Git is to simply enter `git` in the shell. If you get a complaint about Git not being found, it means installation was unsuccessful or that it is not being found, i.e. it is not on your `PATH`.
-
-If you are not sure where the Git executable lives, try this in a shell:
+If you are not sure where the git executable lives, try this in a [shell](git09_shell.html):
   
 * `which git` (Mac, Linux)
 
 * `where git` (most versions of Windows)
 
-* `whereis git.exe` (some other versions of Windows)
-
-If Git appears to be installed and findable, launch RStudio. Quit and re-launch RStudio if there's __any doubt in your mind__ about whether you opened RStudio before or after installing Git.
+If Git appears to be installed and findable, launch RStudio. Quit and re-launch RStudio if there's __any doubt in your mind__ about whether you opened RStudio before or after installing Git. Don't make me stop this car and restart RStudio for you in office hours. DO IT.
 
 From RStudio, go to *Tools > Global Options > Git/SVN* and make sure that the box *Git executable* points to ... the Git executable. It should read something like:
   
@@ -33,24 +42,20 @@ From RStudio, go to *Tools > Global Options > Git/SVN* and make sure that the bo
 
     Here is a [screenshot](http://www.molecularecologist.com/wp-content/uploads/2013/11/Screenshot-2013-11-12-09.53.56-Copy1.png) of someone doing this on a Windows machine.
 
-    - __WARNING__: On Windows, do __NOT__ use `C:/Program Files (x86)/Git/cmd/git.exe`. The difference between the good and bad paths is `bin` vs. `cmd`.
+    - __WARNING__: On Windows, do __NOT__ use `C:/Program Files (x86)/Git/cmd/git.exe`. `bin` is GOOD YES! `cmd` is BAD NO!
 
-__Restart__ RStudio if you made any changes. Don't make me stop this car and restart RStudio for you in office hours. DO IT.
+**Restart RStudio if you make any changes.** Don't make me stop this car again and restart RStudio for you in office hours. DO IT.
 
-### Test the communication between RStudio and Git
+Do the steps at the top of the page to see if RStudio and git are communicating now.
 
-We will create a new dummy "Project" and direct RStudio to put it under version control
+No joy?
 
-  - Do `File > New Project...`. You should see a pop up [like this](http://www.rstudio.com/images/screenshots/rstudio-projects_new.png).
-  - Select "New Directory: Start a project in a brand new working directory".
-  - Select "Empty Project: Create a new project in an empty directory".
-  - Create a new directory for this project anywhere you wish, perhaps with a name like `test`. You can delete this very soon.
-  - If you see a checkbox "Create a git repository", that is a very good sign! Check it. **If you do not see this checkbox, Git was not successfully installed or RStudio cannot find Git. Restart RStudio, if that doesn't work, return to the previous section and, perhaps, reinstall Git using a different method that leaves Git in a conventional location.**
-  - After RStudio opens your test Project, the upper right pane should have a "Git" tab, typically along with "Environment", "History", etc. You can see an example [in this screenshot](http://www.rstudio.com/images/screenshots/rstudio-vcs.png).
-  - If this has gone well, it looks like Git and RStudio are ready to work together! Feel free to quit RStudio and delete the `test` directory/Project.
+  * I've seen this help: With your Project open, go to `Tools > Project Options...`. If available, click on "Git/SVN" and select "Git" in the Version control system dropdown menu. Answer "yes" to the "Confirm New Git Repository" pop up. Answer "yes" to the "Confirm Restart RStudio" pop up.
 
-If this has not gone well, here is another thing to try:
+  * If you installed Git via GitHub for Windows, it is possible the Git executable is really well hidden. Get our help or install Git another way.
 
-  - With your Project open, go to `Tools > Project Options...`. If available, click on "Git/SVN" and select "Git" in the Version control system dropdown menu. Answer "yes" to the "Confirm New Git Repository" pop up. Answer "yes" to the "Confirm Restart RStudio" pop up.
+  * Your `PATH` is probably not set up correctly and/or you should re-install Git and control/notice where it's going. Read more in [troubleshooting](git66_rstudio-git-github-hell.html).
 
-If none of this works, get help from us.
+  * Get our help.
+
+Go back to the [index for the all the Git stuff](git00_index.html).

@@ -4,7 +4,7 @@
 
 ### Where were we? Where are we going?
 
-In [part 1](block011_write-your-own-function-01.html) we wrote our first R function to take the difference between the max and min of a numeric vector. We checked the validity of the function's only argument and, informally, we verified that it worked pretty well.
+In [part 1](block011_write-your-own-function-01.html) we wrote our first R function to compute the difference between the max and min of a numeric vector. We checked the validity of the function's only argument and, informally, we verified that it worked pretty well.
 
 In this part, we generalize this function, learn more technical details about R functions, and set default values for some arguments.
 
@@ -14,18 +14,7 @@ As usual, load the Gapminder excerpt.
 
 
 ```r
-gDat <- read.delim("gapminderDataFiveYear.txt")
-str(gDat)
-## 'data.frame':	1704 obs. of  6 variables:
-##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
-##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ gdpPercap: num  779 821 853 836 740 ...
-## or do this if the file isn't lying around already
-## gd_url <- "http://tiny.cc/gapminder"
-## gDat <- read.delim(gd_url)
+library(gapminder)
 ```
 
 ### Load assertthat and our max minus min function
@@ -38,7 +27,7 @@ library(assertthat)
 mmm <- function(x) {
   assert_that(is.numeric(x))
   max(x) - min(x)
-  }
+}
 ```
 
 ### Generalize our function to other quantiles
@@ -63,18 +52,18 @@ First, play around with the `quantile()` function. Convince yourself you know ho
 
 
 ```r
-quantile(gDat$lifeExp)
+quantile(gapminder$lifeExp)
 ##      0%     25%     50%     75%    100% 
 ## 23.5990 48.1980 60.7125 70.8455 82.6030
-quantile(gDat$lifeExp, probs = 0.5)
+quantile(gapminder$lifeExp, probs = 0.5)
 ##     50% 
 ## 60.7125
-median(gDat$lifeExp)
+median(gapminder$lifeExp)
 ## [1] 60.7125
-quantile(gDat$lifeExp, probs = c(0.25, 0.75))
+quantile(gapminder$lifeExp, probs = c(0.25, 0.75))
 ##     25%     75% 
 ## 48.1980 70.8455
-boxplot(gDat$lifeExp, plot = FALSE)$stats
+boxplot(gapminder$lifeExp, plot = FALSE)$stats
 ##         [,1]
 ## [1,] 23.5990
 ## [2,] 48.1850
@@ -88,10 +77,10 @@ Now write a code snippet that takes the difference between two quantiles.
 
 ```r
 the_probs <- c(0.25, 0.75)
-the_quantiles <- quantile(gDat$lifeExp, probs = the_probs)
+the_quantiles <- quantile(gapminder$lifeExp, probs = the_probs)
 max(the_quantiles) - min(the_quantiles)
 ## [1] 22.6475
-IQR(gDat$lifeExp) # hey, we've reinvented IQR
+IQR(gapminder$lifeExp) # hey, we've reinvented IQR
 ## [1] 22.6475
 ```
 
@@ -107,11 +96,11 @@ qdiff1 <- function(x, probs) {
   the_quantiles <- quantile(x = x, probs = probs)
   max(the_quantiles) - min(the_quantiles)
 }
-qdiff1(gDat$lifeExp, probs = c(0.25, 0.75))
+qdiff1(gapminder$lifeExp, probs = c(0.25, 0.75))
 ## [1] 22.6475
-qdiff1(gDat$lifeExp, probs = c(0, 1))
+qdiff1(gapminder$lifeExp, probs = c(0, 1))
 ## [1] 59.004
-mmm(gDat$lifeExp)
+mmm(gapminder$lifeExp)
 ## [1] 59.004
 ```
 
@@ -119,7 +108,7 @@ Again we do some informal tests against familiar results.
 
 ### Argument names: freedom and conventions
 
-I want you to understand the import of argument names.
+I want you to understand the importance of argument names.
 
 I can name my arguments almost anything I like. Proof:
 
@@ -130,7 +119,7 @@ qdiff2 <- function(zeus, hera) {
   the_quantiles <- quantile(x = zeus, probs = hera)
   return(max(the_quantiles) - min(the_quantiles))
 }
-qdiff2(zeus = gDat$lifeExp, hera = 0:1)
+qdiff2(zeus = gapminder$lifeExp, hera = 0:1)
 ## [1] 59.004
 ```
 
@@ -145,11 +134,11 @@ qdiff3 <- function(my_x, my_probs) {
   the_quantiles <- quantile(x = my_x, probs = my_probs)
   return(max(the_quantiles) - min(the_quantiles))
 }
-qdiff3(my_x = gDat$lifeExp, my_probs = 0:1)
+qdiff3(my_x = gapminder$lifeExp, my_probs = 0:1)
 ## [1] 59.004
 ```
 
-If you are going to pass the arguments of your function as arguments of a built-in function, consider copying the argument names. Again, the reason is to reduce your cognitive load. This is what I've been doing all along and now you now why:
+If you are going to pass the arguments of your function as arguments of a built-in function, consider copying the argument names. Again, the reason is to reduce your cognitive load. This is what I've been doing all along and now you know why:
 
 
 ```r
@@ -182,11 +171,11 @@ What happens if we call our function but neglect to specify the probabilities?
 
 
 ```r
-qdiff1(gDat$lifeExp)
-## Error: argument "probs" is missing, with no default
+qdiff1(gapminder$lifeExp)
+## Error in quantile.default(x = x, probs = probs): argument "probs" is missing, with no default
 ```
 
-Oops! At the moment, this causes a fatal error. It can be nice to provide some reasonable default values, for certain arguments. In our case, it would be crazy to specify a default value for the primary input `x` but very kind to specify a default for `probs`.
+Oops! At the moment, this causes a fatal error. It can be nice to provide some reasonable default values for certain arguments. In our case, it would be crazy to specify a default value for the primary input `x`, but very kind to specify a default for `probs`.
 
 We started by focusing on the max and the min, so I think those make reasonable defaults. Here's how to specify that in a function definition.
 
@@ -203,11 +192,11 @@ Again we check how the function works, in old examples and new, specifying the `
 
 
 ```r
-qdiff4(gDat$lifeExp)
+qdiff4(gapminder$lifeExp)
 ## [1] 59.004
-mmm(gDat$lifeExp)
+mmm(gapminder$lifeExp)
 ## [1] 59.004
-qdiff4(gDat$lifeExp, c(0.1, 0.9))
+qdiff4(gapminder$lifeExp, c(0.1, 0.9))
 ## [1] 33.5862
 ```
 
@@ -252,10 +241,10 @@ Packages
   * [`ensurer` package](https://github.com/smbache/ensurer)
   * [`testthat` package](https://github.com/hadley/testthat)
 
-Hadley Wickham's forthcoming book [Advanced R](http://adv-r.had.co.nz)
+Hadley Wickham's book [Advanced R](http://adv-r.had.co.nz)
 
   * Section on [defensive programming](http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming)
   
-Hadley Wickham's forthcoming book [R packages](http://r-pkgs.had.co.nz)
+Hadley Wickham's book [R packages](http://r-pkgs.had.co.nz)
 
   * [Testing chapter](http://r-pkgs.had.co.nz/tests.html)

@@ -69,14 +69,14 @@ Suggested workflow:
   * Submit the above `download.file()` command in the R Console to make sure it works.
   * Inspect the downloaded words file any way you know how; make sure it's not garbage. Size should be about 2.4MB.
   * Delete `words.txt`.
-  * Put the above rule into your `Makefile`. From the shell, enter `make words.txt` to verify rule works. Reinspect the words file.
+  * Put the above rule into your `Makefile`. From the [shell](git09_shell.html), enter `make words.txt` to verify rule works. Reinspect the words file.
   * Git folks: commit `Makefile` and `words.txt`.
   
 See the sample Project at this point in [this commit](https://github.com/STAT545-UBC/make-activity/tree/c30ecc9c890a2f2261eb94118997f0774012eeb8).
 
 #### Copy the dictionary
 
-On Mac or Linux systems, rather than download the dictionary, we can simply copy the file `/usr/share/dict/words` that comes with the operating system. In this alternative rule, we use the shell command `cp` to copy the file.
+On Mac or Linux systems, rather than download the dictionary, we can simply copy the file `/usr/share/dict/words` that comes with the operating system. In this alternative rule, we use the [shell](git09_shell.html) command `cp` to copy the file.
 
 ```makefile
 words.txt: /usr/share/dict/words
@@ -94,10 +94,10 @@ Suggested workflow:
 
   * Git folks: commit anything new/modified. Start with a clean working tree.
   * Remove `words.txt` if you succeeded with the download approach.
-  * Submit the above `cp` command in the shell to make sure it works.
+  * Submit the above `cp` command in the [shell](git09_shell.html) to make sure it works.
   * Inspect the copied words file any way you know how; make sure it's not garbage. Size should be about 2.4MB.
   * Delete `words.txt`.
-  * Put the above rule into your `Makefile`. From the shell, enter `make words.txt` to verify rule works. Reinspect the words file.
+  * Put the above rule into your `Makefile`. From the [shell](git09_shell.html), enter `make words.txt` to verify rule works. Reinspect the words file.
   * Git folks: look at the diff. You should see how your `words.txt` rule has changed and you might also see some differences between the local and remote words files. Interesting! Commit `Makefile` and `words.txt`.
 
 See the sample Project at this point in [this commit](https://github.com/STAT545-UBC/make-activity/tree/1131791548e0c5bbc5104eebb19710ed435146e3).
@@ -141,7 +141,7 @@ histogram.tsv: histogram.r words.txt
 	Rscript $<
 ```
 
-FYI: `Rscript` allows you to execute R scripts from the shell. It is a more modern replacement for `R CMD BATCH` (don't worry if you've never heard of that).
+FYI: `Rscript` allows you to execute R scripts from the [shell](git09_shell.html). It is a more modern replacement for `R CMD BATCH` (don't worry if you've never heard of that).
 
 Create the R script `histogram.r` that reads the list of words from `words.txt` and writes the table of word length frequency to `histogram.tsv`. It should be a tab-delimited TSV file with a header and two columns, named `Length` and `Freq`. Hint: you can accomplish this task using four functions: `readLines`, `nchar`, `table` and `write.table`. Here's [one solution](https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/automation10_holding-area/activity/histogram.r), but try not to peek until you've attempted this task yourself.
 
@@ -150,7 +150,7 @@ Suggested workflow:
   * Develop your `histogram.r` script interactively. Make sure it works when you step through it line-by-line. Debugging only gets harder once you're running entire scripts at arm's length via `make`!
   * Remove `histogram.tsv`. Clean out the workspace and restart R. Run `histogram.r` via `source()` or using RStudio's Source button. Make sure it works!
   * Add the `histogram.tsv` rule to your `Makefile`.
-  * Remove `histogram.tsv` and regenerate it via `make histogram.tsv` from the shell.
+  * Remove `histogram.tsv` and regenerate it via `make histogram.tsv` from the [shell](git09_shell.html).
   * Git folks: Commit.
   
 See the sample Project at this point in [this commit](https://github.com/STAT545-UBC/make-activity/tree/889e01a3d610e900c7e58ebd32a0506c61543fd9).

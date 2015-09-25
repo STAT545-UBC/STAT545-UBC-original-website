@@ -8,14 +8,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
-<meta name="author" content="Gloria Li and Jenny Bryan" />
 
-<meta name="date" content="2014-10-19" />
 
-<title>Regular Expression in R</title>
+<title></title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
@@ -40,8 +38,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
-<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
 
 </head>
 
@@ -52,6 +50,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
 }
 </style>
 <div class="container-fluid main-container">
@@ -71,34 +77,11 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   </div>
 </header>
 
-<div id="header">
-<h1 class="title">Regular Expression in R</h1>
-<h4 class="author"><em>Gloria Li and Jenny Bryan</em></h4>
-<h4 class="date"><em>October 19, 2014</em></h4>
-</div>
 
-<div id="TOC">
-<ul>
-<li><a href="#string-functions-related-to-regular-expression">String functions related to regular expression</a></li>
-<li><a href="#regular-expression-syntax">Regular expression syntax</a><ul>
-<li><a href="#escape-sequences">Escape sequences</a></li>
-<li><a href="#quantifiers">Quantifiers</a></li>
-<li><a href="#position-of-pattern-within-the-string">Position of pattern within the string</a></li>
-<li><a href="#operators">Operators</a></li>
-<li><a href="#character-classes">Character classes</a></li>
-</ul></li>
-<li><a href="#general-modes-for-patterns">General modes for patterns</a><ul>
-<li><a href="#exercise-2">Exercise</a></li>
-</ul></li>
-<li><a href="#examples">Examples</a><ul>
-<li><a href="#some-more-advanced-string-functions">Some more advanced string functions</a></li>
-<li><a href="#exercise-3">Exercise</a></li>
-</ul></li>
-<li><a href="#regular-expression-vs-shell-globbing">Regular expression vs shell globbing</a></li>
-<li><a href="#resources">Resources</a></li>
-</ul>
-</div>
 
+<div id="regular-expression-in-r" class="section level1">
+<h1>Regular Expression in R</h1>
+<p>Gloria Li and Jenny Bryan<br />October 19, 2014</p>
 <p>In this tutorial, we will use the Gapminder data and file names in our <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io">class repository</a> as examples to demonstrate using regular expression in R. First, let’s start off by cloning the class repository, getting the list of file names with <code>list.files()</code>, and load the Gapminder dataset into R.</p>
 <p>We will also need to use some functions from the <a href="https://github.com/hadley/stringr">stringr</a> package. It provids a clean, modern alternative to common string operations, and is sometimes easier to remember and use than R basic string functions. If you have not done so yet, install the package.</p>
 <pre class="r"><code>install.packages(&quot;stringr&quot;)</code></pre>
@@ -399,8 +382,6 @@ grep(pattern, files, value = TRUE)</code></pre>
 <p>There are some more advanced string functions that are somewhat related to regular expression, like splitting a string, get a subset of a string, pasting strings together etc. These functions are very useful for data cleaning, and we will get into more details about them later this week. Here is a short introduction with above example.</p>
 <p>From above example, we got two topics on <code>dplyr</code>: . We can use <code>strsplit()</code> function to split the second one, , into words. The second argument <code>split</code> is a regular expression used for splitting, and the function will return a list. We can use <code>unlist()</code> function to convert the list into a character vector. Or an alternative function <code>str_split_fixed()</code> will return a data frame.</p>
 <!-- *JB: what about something based on `strsplit(dplyr_file, "_")`?* -->
-
-
 <pre class="r"><code>(topic_split &lt;- unlist(strsplit(dplyr_topic[2], &quot;-&quot;)))</code></pre>
 <pre><code>## [1] &quot;end&quot;    &quot;single&quot; &quot;table&quot;</code></pre>
 <pre class="r"><code>(topic_split &lt;- str_split_fixed(dplyr_topic[2], &quot;-&quot;, 3)[1, ])</code></pre>
@@ -422,8 +403,8 @@ grep(pattern, files, value = TRUE)</code></pre>
 </div>
 </div>
 <div id="regular-expression-vs-shell-globbing" class="section level2">
-<h2>Regular expression vs shell globbing</h2>
-<p>The term globbing in shell or Unix-like environment refers to pattern matching based on wildcard characters. A wildcard character can be used to substitute for any other character or characters in a string. Globbing is commonly used for matching file names or paths, and has a much simpler syntax. It is somewhat similar to regular expressions, and that’s why people are often confused between them. Here is a list of globbing syntax and their comparisons to regular expression:</p>
+<h2>Regular expression vs <a href="git09_shell.html">shell</a> globbing</h2>
+<p>The term globbing in <a href="git09_shell.html">shell</a> or Unix-like environment refers to pattern matching based on wildcard characters. A wildcard character can be used to substitute for any other character or characters in a string. Globbing is commonly used for matching file names or paths, and has a much simpler syntax. It is somewhat similar to regular expressions, and that’s why people are often confused between them. Here is a list of globbing syntax and their comparisons to regular expression:</p>
 <ul>
 <li><code>*</code>: matches any number of unknown characters, same as <code>.*</code> in regular expression.<br /></li>
 <li><code>?</code>: matches one unknown character, same as <code>.</code> in regular expression.<br /></li>
@@ -432,7 +413,6 @@ grep(pattern, files, value = TRUE)</code></pre>
 <li><code>[!...]</code>: same as <code>[^...]</code> in regular expression.</li>
 </ul>
 <!-- *JB: I know that I've been burned by confusing regular expressions and globbing. Can you recall where this can hurt you? I can't right now! But we included this to alert them to something and I wish we could clarify what to watch out for.*  -->
-
 </div>
 <div id="resources" class="section level2">
 <h2>Resources</h2>
@@ -445,6 +425,7 @@ grep(pattern, files, value = TRUE)</code></pre>
 <li><a href="http://regexpal.com/">regexpal</a><br /></li>
 <li><a href="http://www.regexr.com/">RegExr</a></li>
 </ul>
+</div>
 </div>
 
 <div class="footer">

@@ -10,21 +10,15 @@ output:
 knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
 ```
 
-*WARNING: STILL UNDER CONSTRUCTION. Here's a [link to some 2013 content](http://stat545-ubc.github.io/block014_factors.html) which has been partially ported. So far, it has more big picture and this has more Gapminder examples. Sort of.*
-
 ### Load the Gapminder data
 
 As usual, load the Gapminder excerpt. Load the `plyr`, `dplyr` (__in that order__), and `ggplot2` packages.
 
 ```{r}
+library(gapminder)
 library(plyr)
 suppressPackageStartupMessages(library(dplyr))
 library(ggplot2)
-gDat <- read.delim("gapminderDataFiveYear.txt")
-str(gDat)
-## or do this if the file isn't lying around already
-## gd_url <- "http://tiny.cc/gapminder"
-## gDat <- read.delim(gd_url)
 ```
 
 ### Model life expectancy as a function of year
@@ -32,10 +26,11 @@ str(gDat)
 For each country, retain estimated intercept and slope from a linear fit -- regressing life expectancy on year. I include `country` AND `continent` in the factors on which to split, so that the `continent` factor appears in my result.
 
 ```{r}
-j_coefs <- ddply(gDat, ~ country + continent, function(dat, offset = 1952) {
-  the_fit <- lm(lifeExp ~ I(year - offset), dat)
-  setNames(coef(the_fit), c("intercept", "slope"))
-})
+j_coefs <- ddply(gapminder, ~ country + continent,
+                 function(dat, offset = 1952) {
+                   the_fit <- lm(lifeExp ~ I(year - offset), dat)
+                   setNames(coef(the_fit), c("intercept", "slope"))
+                 })
 ```
 
 ### Get to know the country factor
@@ -77,7 +72,7 @@ Many demos will be clearer if we create a smaller dataset with just a few countr
 
 ```{r include = FALSE, eval = FALSE}
 ## used interactively to find a set of 5 countries to make my point
-hDat <- gDat %>%
+hDat <- gapminder %>%
   group_by(country) %>%
   summarize(max_le = max(lifeExp)) %>%
   mutate(max_le_rk = min_rank(max_le))
@@ -91,7 +86,7 @@ Let's look at these five countries: Egypt, Haiti, Romania, Thailand, Venezuela.
 
 ```{r}
 h_countries <- c("Egypt", "Haiti", "Romania", "Thailand", "Venezuela")
-hDat <- gDat %>%
+hDat <- gapminder %>%
   filter(country %in% h_countries)
 hDat %>% str
 ```
@@ -181,14 +176,15 @@ Reorder the `continent` factor, according to the estimated intercepts.
 To review, here's where to pick up the story:
 
 ```{r}
-j_coefs <- ddply(gDat, ~ country + continent, function(dat, offset = 1952) {
-  the_fit <- lm(lifeExp ~ I(year - offset), dat)
-  setNames(coef(the_fit), c("intercept", "slope"))
-})
+j_coefs <- ddply(gapminder, ~ country + continent,
+                 function(dat, offset = 1952) {
+                   the_fit <- lm(lifeExp ~ I(year - offset), dat)
+                   setNames(coef(the_fit), c("intercept", "slope"))
+                 })
 head(j_coefs)
 ```
 
-The figure on the left gives a stripplot of estimate intecepts, by continent, with continent in alpabetical order. The line connects continent-specific averages of the intercepts (approx. equal to life expectancy in 1952). The figure on the right gives same plot after the continents have been reordered by average estimated intercept.
+The figure on the left gives a stripplot of estimate intercepts, by continent, with continent in alphabetical order. The line connects continent-specific averages of the intercepts (approx. equal to life expectancy in 1952). The figure on the right gives same plot after the continents have been reordered by average estimated intercept.
 
 ```{r continent-reorder-exercise, fig.show = 'hold', out.width = '49%', echo = FALSE}
 p <- ggplot(j_coefs, aes(x = continent, y = intercept, group = 1))
@@ -208,7 +204,7 @@ What if you want to recode factor levels? I usually use the `revalue()` function
 
 ```{r}
 k_countries <- c("Australia", "Korea, Dem. Rep.", "Korea, Rep.")
-kDat <- gDat %>%
+kDat <- gapminder %>%
   filter(country %in% k_countries & year > 2000) %>%
   droplevels
 kDat
@@ -227,10 +223,10 @@ kDat
 Try to avoid this. If you must `rbind()`ing data.frames works much better than `c()`ing vectors.
 
 ```{r}
-usa <- gDat %>%
+usa <- gapminder %>%
   filter(country == "United States" & year > 2000) %>%
   droplevels
-mex <- gDat %>%
+mex <- gapminder %>%
   filter(country == "Mexico" & year > 2000) %>%
   droplevels
 str(usa)

@@ -2,29 +2,16 @@
 
 
 
-*WARNING: STILL UNDER CONSTRUCTION. Here's a [link to some 2013 content](http://stat545-ubc.github.io/block014_factors.html) which has been partially ported. So far, it has more big picture and this has more Gapminder examples. Sort of.*
-
 ### Load the Gapminder data
 
 As usual, load the Gapminder excerpt. Load the `plyr`, `dplyr` (__in that order__), and `ggplot2` packages.
 
 
 ```r
+library(gapminder)
 library(plyr)
 suppressPackageStartupMessages(library(dplyr))
 library(ggplot2)
-gDat <- read.delim("gapminderDataFiveYear.txt")
-str(gDat)
-## 'data.frame':	1704 obs. of  6 variables:
-##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
-##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ gdpPercap: num  779 821 853 836 740 ...
-## or do this if the file isn't lying around already
-## gd_url <- "http://tiny.cc/gapminder"
-## gDat <- read.delim(gd_url)
 ```
 
 ### Model life expectancy as a function of year
@@ -33,10 +20,11 @@ For each country, retain estimated intercept and slope from a linear fit -- regr
 
 
 ```r
-j_coefs <- ddply(gDat, ~ country + continent, function(dat, offset = 1952) {
-  the_fit <- lm(lifeExp ~ I(year - offset), dat)
-  setNames(coef(the_fit), c("intercept", "slope"))
-})
+j_coefs <- ddply(gapminder, ~ country + continent,
+                 function(dat, offset = 1952) {
+                   the_fit <- lm(lifeExp ~ I(year - offset), dat)
+                   setNames(coef(the_fit), c("intercept", "slope"))
+                 })
 ```
 
 ### Get to know the country factor
@@ -137,7 +125,7 @@ ggplot(j_coefs, aes(x = slope, y = reorder(country, slope))) +
   geom_point(size = 3)
 ```
 
-<img src="./block014_factors_files/figure-html/alpha-order-silly1.png" title="" alt="" width="49%" /><img src="./block014_factors_files/figure-html/alpha-order-silly2.png" title="" alt="" width="49%" />
+<img src="block014_factors_files/figure-html/alpha-order-silly-1.png" title="" alt="" width="49%" /><img src="block014_factors_files/figure-html/alpha-order-silly-2.png" title="" alt="" width="49%" />
 
 Which figure do you find easier to navigate? Which is more interesting? The unsorted, i.e. alphabetical, is an example of visual [data puke](http://junkcharts.typepad.com/numbersruleyourworld/2014/09/dont-data-puke-says-avinash-kaushik.html), because there is no effort to help the viewer learn anything from the plot, even though it is really easy to do so. At the very least, always consider sorting your factor levels in some principled way.
 
@@ -166,15 +154,15 @@ Let's look at these five countries: Egypt, Haiti, Romania, Thailand, Venezuela.
 
 ```r
 h_countries <- c("Egypt", "Haiti", "Romania", "Thailand", "Venezuela")
-hDat <- gDat %>%
+hDat <- gapminder %>%
   filter(country %in% h_countries)
 hDat %>% str
 ## 'data.frame':	60 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 39 39 39 39 39 39 39 39 39 39 ...
-##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ pop      : num  22223309 25009741 28173309 31681188 34807417 ...
 ##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ year     : num  1952 1957 1962 1967 1972 ...
 ##  $ lifeExp  : num  41.9 44.4 47 49.3 51.1 ...
+##  $ pop      : num  22223309 25009741 28173309 31681188 34807417 ...
 ##  $ gdpPercap: num  1419 1459 1693 1815 2024 ...
 ```
 
@@ -198,10 +186,10 @@ iDat  <- hDat %>% droplevels ## of droplevels(hDat)
 iDat %>% str
 ## 'data.frame':	60 obs. of  6 variables:
 ##  $ country  : Factor w/ 5 levels "Egypt","Haiti",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ pop      : num  22223309 25009741 28173309 31681188 34807417 ...
 ##  $ continent: Factor w/ 4 levels "Africa","Americas",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ year     : num  1952 1957 1962 1967 1972 ...
 ##  $ lifeExp  : num  41.9 44.4 47 49.3 51.1 ...
+##  $ pop      : num  22223309 25009741 28173309 31681188 34807417 ...
 ##  $ gdpPercap: num  1419 1459 1693 1815 2024 ...
 table(iDat$country)
 ## 
@@ -226,6 +214,7 @@ i_le_max
 ## Source: local data frame [5 x 2]
 ## 
 ##     country max_le
+##      (fctr)  (dbl)
 ## 1     Egypt 71.338
 ## 2     Haiti 60.916
 ## 3   Romania 72.476
@@ -241,7 +230,7 @@ ggplot(iDat, aes(x = year, y = lifeExp, group = country)) +
   geom_line(aes(color = country))
 ```
 
-<img src="./block014_factors_files/figure-html/factor-order-example-before1.png" title="" alt="" width="49%" /><img src="./block014_factors_files/figure-html/factor-order-example-before2.png" title="" alt="" width="49%" />
+<img src="block014_factors_files/figure-html/factor-order-example-before-1.png" title="" alt="" width="49%" /><img src="block014_factors_files/figure-html/factor-order-example-before-2.png" title="" alt="" width="49%" />
 
 Here's a plot of the max life expectancies and a spaghetti plot of life expectancy over time. Notice how the first plot jumps around? Notice how the legend of the second plot is completely out of order with the data?
 
@@ -282,7 +271,7 @@ ggplot(jDat, aes(x = year, y = lifeExp)) +
   guides(color = guide_legend(reverse = TRUE))
 ```
 
-<img src="./block014_factors_files/figure-html/factor-order-example-after1.png" title="" alt="" width="49%" /><img src="./block014_factors_files/figure-html/factor-order-example-after2.png" title="" alt="" width="49%" />
+<img src="block014_factors_files/figure-html/factor-order-example-after-1.png" title="" alt="" width="49%" /><img src="block014_factors_files/figure-html/factor-order-example-after-2.png" title="" alt="" width="49%" />
 
 Conclusion: Use `reorder()` to reorder a factor according to a quantitative variable. A simple call like this:
 
@@ -303,10 +292,11 @@ To review, here's where to pick up the story:
 
 
 ```r
-j_coefs <- ddply(gDat, ~ country + continent, function(dat, offset = 1952) {
-  the_fit <- lm(lifeExp ~ I(year - offset), dat)
-  setNames(coef(the_fit), c("intercept", "slope"))
-})
+j_coefs <- ddply(gapminder, ~ country + continent,
+                 function(dat, offset = 1952) {
+                   the_fit <- lm(lifeExp ~ I(year - offset), dat)
+                   setNames(coef(the_fit), c("intercept", "slope"))
+                 })
 head(j_coefs)
 ##       country continent intercept     slope
 ## 1 Afghanistan      Asia  29.90729 0.2753287
@@ -317,9 +307,9 @@ head(j_coefs)
 ## 6   Australia   Oceania  68.40051 0.2277238
 ```
 
-The figure on the left gives a stripplot of estimate intecepts, by continent, with continent in alpabetical order. The line connects continent-specific averages of the intercepts (approx. equal to life expectancy in 1952). The figure on the right gives same plot after the continents have been reordered by average estimated intercept.
+The figure on the left gives a stripplot of estimate intercepts, by continent, with continent in alphabetical order. The line connects continent-specific averages of the intercepts (approx. equal to life expectancy in 1952). The figure on the right gives same plot after the continents have been reordered by average estimated intercept.
 
-<img src="./block014_factors_files/figure-html/continent-reorder-exercise1.png" title="" alt="" width="49%" /><img src="./block014_factors_files/figure-html/continent-reorder-exercise2.png" title="" alt="" width="49%" />
+<img src="block014_factors_files/figure-html/continent-reorder-exercise-1.png" title="" alt="" width="49%" /><img src="block014_factors_files/figure-html/continent-reorder-exercise-2.png" title="" alt="" width="49%" />
 
 Write the `reorder()` statement to do this.
 
@@ -330,17 +320,17 @@ What if you want to recode factor levels? I usually use the `revalue()` function
 
 ```r
 k_countries <- c("Australia", "Korea, Dem. Rep.", "Korea, Rep.")
-kDat <- gDat %>%
+kDat <- gapminder %>%
   filter(country %in% k_countries & year > 2000) %>%
   droplevels
 kDat
-##            country year      pop continent lifeExp gdpPercap
-## 1        Australia 2002 19546792   Oceania  80.370 30687.755
-## 2        Australia 2007 20434176   Oceania  81.235 34435.367
-## 3 Korea, Dem. Rep. 2002 22215365      Asia  66.662  1646.758
-## 4 Korea, Dem. Rep. 2007 23301725      Asia  67.297  1593.065
-## 5      Korea, Rep. 2002 47969150      Asia  77.045 19233.988
-## 6      Korea, Rep. 2007 49044790      Asia  78.623 23348.140
+##            country continent year lifeExp      pop gdpPercap
+## 1        Australia   Oceania 2002  80.370 19546792 30687.755
+## 2        Australia   Oceania 2007  81.235 20434176 34435.367
+## 3 Korea, Dem. Rep.      Asia 2002  66.662 22215365  1646.758
+## 4 Korea, Dem. Rep.      Asia 2007  67.297 23301725  1593.065
+## 5      Korea, Rep.      Asia 2002  77.045 47969150 19233.988
+## 6      Korea, Rep.      Asia 2007  78.623 49044790 23348.140
 levels(kDat$country)
 ## [1] "Australia"        "Korea, Dem. Rep." "Korea, Rep."
 kDat <- kDat %>%
@@ -354,13 +344,13 @@ data.frame(levels(kDat$country), levels(kDat$new_country))
 ## 2     Korea, Dem. Rep.              North Korea
 ## 3          Korea, Rep.              South Korea
 kDat
-##            country year      pop continent lifeExp gdpPercap new_country
-## 1        Australia 2002 19546792   Oceania  80.370 30687.755          Oz
-## 2        Australia 2007 20434176   Oceania  81.235 34435.367          Oz
-## 3 Korea, Dem. Rep. 2002 22215365      Asia  66.662  1646.758 North Korea
-## 4 Korea, Dem. Rep. 2007 23301725      Asia  67.297  1593.065 North Korea
-## 5      Korea, Rep. 2002 47969150      Asia  77.045 19233.988 South Korea
-## 6      Korea, Rep. 2007 49044790      Asia  78.623 23348.140 South Korea
+##            country continent year lifeExp      pop gdpPercap new_country
+## 1        Australia   Oceania 2002  80.370 19546792 30687.755          Oz
+## 2        Australia   Oceania 2007  81.235 20434176 34435.367          Oz
+## 3 Korea, Dem. Rep.      Asia 2002  66.662 22215365  1646.758 North Korea
+## 4 Korea, Dem. Rep.      Asia 2007  67.297 23301725  1593.065 North Korea
+## 5      Korea, Rep.      Asia 2002  77.045 47969150 19233.988 South Korea
+## 6      Korea, Rep.      Asia 2007  78.623 49044790 23348.140 South Korea
 ```
 
 ### Grow a factor object
@@ -369,36 +359,36 @@ Try to avoid this. If you must `rbind()`ing data.frames works much better than `
 
 
 ```r
-usa <- gDat %>%
+usa <- gapminder %>%
   filter(country == "United States" & year > 2000) %>%
   droplevels
-mex <- gDat %>%
+mex <- gapminder %>%
   filter(country == "Mexico" & year > 2000) %>%
   droplevels
 str(usa)
 ## 'data.frame':	2 obs. of  6 variables:
 ##  $ country  : Factor w/ 1 level "United States": 1 1
-##  $ year     : int  2002 2007
-##  $ pop      : num  2.88e+08 3.01e+08
 ##  $ continent: Factor w/ 1 level "Americas": 1 1
+##  $ year     : num  2002 2007
 ##  $ lifeExp  : num  77.3 78.2
+##  $ pop      : num  2.88e+08 3.01e+08
 ##  $ gdpPercap: num  39097 42952
 str(mex)
 ## 'data.frame':	2 obs. of  6 variables:
 ##  $ country  : Factor w/ 1 level "Mexico": 1 1
-##  $ year     : int  2002 2007
-##  $ pop      : num  1.02e+08 1.09e+08
 ##  $ continent: Factor w/ 1 level "Americas": 1 1
+##  $ year     : num  2002 2007
 ##  $ lifeExp  : num  74.9 76.2
+##  $ pop      : num  1.02e+08 1.09e+08
 ##  $ gdpPercap: num  10742 11978
 usa_mex <- rbind(usa, mex)
 str(usa_mex)
 ## 'data.frame':	4 obs. of  6 variables:
 ##  $ country  : Factor w/ 2 levels "United States",..: 1 1 2 2
-##  $ year     : int  2002 2007 2002 2007
-##  $ pop      : num  2.88e+08 3.01e+08 1.02e+08 1.09e+08
 ##  $ continent: Factor w/ 1 level "Americas": 1 1 1 1
+##  $ year     : num  2002 2007 2002 2007
 ##  $ lifeExp  : num  77.3 78.2 74.9 76.2
+##  $ pop      : num  2.88e+08 3.01e+08 1.02e+08 1.09e+08
 ##  $ gdpPercap: num  39097 42952 10742 11978
 
 (oops <- c(usa$country, mex$country))
