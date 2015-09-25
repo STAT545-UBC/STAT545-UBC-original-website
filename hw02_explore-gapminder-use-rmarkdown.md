@@ -22,11 +22,8 @@ Remember the [sampler concept](http://en.wikipedia.org/wiki/Sampler_(needlework)
 
 Work with the [Gapminder excerpt](http://tiny.cc/gapminder) introduced this week. *If you really, really want to, you can explore a different dataset but get permission from Jenny.*
 
-Import the data with `read.delim()` and with `read.table()`. FYI: `read.delim()` is just a wrapper around `read.table()` with specific arguments set to certain values. [Read the documentation!](http://www.rdocumentation.org/packages/utils/functions/read.table)
+Import the data with the gapminder package. If it's not installed, just type `install.packages("gapminder")` in the R shell. To use the gapminder dataset, we need to import this package by the command `library(gapminder)`. Then you can start using the gapminder data.frame, though it's not shown in the environment block in RStudio.
 
-  * Load the Gapminder data with both functions without specifying args other than `file`. Do you get the same resulting object in your workspace? Use all the ways we've learned to inspect an object to back up your claims with hard facts.
-  * If you're not getting the same object, why not?
-  * Develop the call to `read.table()` that is equivalent to `read.delim()`, i.e. how do you need to set various arguments and describe this in prose as well.
 
 #### Smell test the data
 
