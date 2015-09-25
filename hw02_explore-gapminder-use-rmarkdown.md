@@ -20,17 +20,17 @@ Remember the [sampler concept](http://en.wikipedia.org/wiki/Sampler_(needlework)
 
 #### Bring rectangular data in
 
-Work with the [Gapminder excerpt](http://tiny.cc/gapminder) introduced this week. *If you really, really want to, you can explore a different dataset but get permission from Jenny.*
+Work with the gapminder data excerpt introduced this week. *If you really, really want to, you can explore a different dataset but get permission from Jenny.*
 
-Import the data with `read.delim()` and with `read.table()`. FYI: `read.delim()` is just a wrapper around `read.table()` with specific arguments set to certain values. [Read the documentation!](http://www.rdocumentation.org/packages/utils/functions/read.table)
+The excerpt is distributed as an R package from [CRAN](https://cran.r-project.org/web/packages/gapminder/index.html). 
 
-  * Load the Gapminder data with both functions without specifying args other than `file`. Do you get the same resulting object in your workspace? Use all the ways we've learned to inspect an object to back up your claims with hard facts.
-  * If you're not getting the same object, why not?
-  * Develop the call to `read.table()` that is equivalent to `read.delim()`, i.e. how do you need to set various arguments and describe this in prose as well.
+1. Install the `gapminder` pkg.
+2. Load the pkg which makes the `gapminder` object available.
+3. Read the help docs for `gapminder`.
 
 #### Smell test the data
 
-Explore your new data.frame.
+Explore the `gapminder` object:
 
   * Is it a data.frame, a matrix, a vector, a list?
   * What's its mode, class?
@@ -55,11 +55,6 @@ Play with this visual tool for exploring tabular data:
 
   * <http://setosa.io/blog/2014/08/03/csv-fingerprints/>
   * Yeah, you might need to get the Gapminder excerpt into comma delimited form to use the tool. See above re: being optional.
-  
-Check out the [`testdat`](https://github.com/ropensci/testdat) package. Does it ease the pain of getting your `read.table()` arguments "just right"?
-
-  * <https://github.com/ropensci/testdat>
-  * Yeah, you will have to install from GitHub instead of CRAN. See above re: being optional.
   
 Read [What I do when I get a new data set as told through tweets](http://simplystatistics.org/2014/06/13/what-i-do-when-i-get-a-new-data-set-as-told-through-tweets/) from [SimplyStatistics](http://simplystatistics.org) to get some ideas!
   
