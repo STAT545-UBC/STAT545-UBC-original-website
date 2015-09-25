@@ -93,6 +93,7 @@ img {
 <li><a href="#bring-rectangular-data-in">Bring rectangular data in</a></li>
 <li><a href="#smell-test-the-data">Smell test the data</a></li>
 <li><a href="#explore-individual-variables">Explore individual variables</a></li>
+<li><a href="#explore-various-plot-types">Explore various plot types</a></li>
 <li><a href="#but-i-want-to-do-more">But I want to do more!</a></li>
 </ul></li>
 <li><a href="#report-your-process">Report your process</a></li>
@@ -103,55 +104,47 @@ img {
 
 <div id="overview" class="section level3">
 <h3>Overview</h3>
-<p><strong>2015-09-22: I’m going to refresh this for 2015 but this is 95% current. Want to switch to use the <code>gapminder</code> data package and to change the “play around” optional stretch goals.</strong></p>
 <p>Consult the <a href="hw00_homework-guidelines.html">general homework guidelines</a>.</p>
-<p>Due before class Tuesday 2015-09-29.</p>
-<p>The goal is to explore a newly imported a dataset. In particular, to establish workflows based on <code>data.frame</code>. You will make a couple of figures with <code>ggplot2</code>. You will learn how to author a dynamic report in R Markdown and share it on the web.</p>
+<p>Due sometime Tuesday 2015-09-29. Before class is better but get help in class or office hours of you need it.</p>
+<p>The goal is to explore a new-to-you dataset. In particular, to establish workflows based on <code>data.frame</code>. You will make several figures with <code>ggplot2</code>. You will learn how to author a dynamic report in R Markdown and share it on the web.</p>
 <p>Remember the <a href="http://en.wikipedia.org/wiki/Sampler_(needlework)">sampler concept</a>. Your homework should serve as your own personal cheatsheet in the future for things to do with a new dataset. Give yourself the cheatsheet you deserve!</p>
 <div id="bring-rectangular-data-in" class="section level4">
 <h4>Bring rectangular data in</h4>
-<p>Work with the <a href="http://tiny.cc/gapminder">Gapminder excerpt</a> introduced this week. <em>If you really, really want to, you can explore a different dataset but get permission from Jenny.</em></p>
-<p>Import the data with <code>read.delim()</code> and with <code>read.table()</code>. FYI: <code>read.delim()</code> is just a wrapper around <code>read.table()</code> with specific arguments set to certain values. <a href="http://www.rdocumentation.org/packages/utils/functions/read.table">Read the documentation!</a></p>
-<ul>
-<li>Load the Gapminder data with both functions without specifying args other than <code>file</code>. Do you get the same resulting object in your workspace? Use all the ways we’ve learned to inspect an object to back up your claims with hard facts.</li>
-<li>If you’re not getting the same object, why not?</li>
-<li>Develop the call to <code>read.table()</code> that is equivalent to <code>read.delim()</code>, i.e. how do you need to set various arguments and describe this in prose as well.</li>
-</ul>
+<p>Work with the <code>gapminder</code> data we explored in class. <em>If you really want to, you can explore a different dataset but get permission from Jenny. Self-assess the suitability of your dataset by reading <a href="https://github.com/STAT545-UBC/Discussion/issues/115">this issue</a>.</em></p>
+<p>The Gapminder data is distributed as an R package from <a href="https://cran.r-project.org/web/packages/gapminder/index.html">CRAN</a>.</p>
+<p>Install it if you have not done so already and remember to load it.</p>
+<pre class="r"><code>install.packages(&quot;gapminder&quot;)
+library(gapminder)</code></pre>
 </div>
 <div id="smell-test-the-data" class="section level4">
 <h4>Smell test the data</h4>
-<p>Explore your new data.frame.</p>
+<p>Explore the <code>gapminder</code> object:</p>
 <ul>
 <li>Is it a data.frame, a matrix, a vector, a list?</li>
 <li>What’s its mode, class?</li>
-<li>How many variables?</li>
+<li>How many variables/columns?</li>
 <li>How many rows/observations?</li>
 <li>Can you get these facts about “extent” or “size” in more than one way? Can you imagine different functions being useful in different contexts?</li>
-<li>What flavor is each the variable?</li>
+<li>What flavor is each variable?</li>
 </ul>
 </div>
 <div id="explore-individual-variables" class="section level4">
 <h4>Explore individual variables</h4>
-<p>Pick <strong>at least</strong> one categorical variable and at least one quantitiative variable to explore.</p>
+<p>Pick <strong>at least</strong> one categorical variable and at least one quantitative variable to explore.</p>
 <ul>
 <li>Characterize what’s possible, i.e. all possible values or max vs. min … whatever’s appropriate.</li>
 <li>What’s typical? What’s the spread? What’s the distribution? Etc., tailored to the variable at hand.</li>
 <li>Feel free to use summary stats, tables, figures. We’re NOT expecting high production value (yet).</li>
 </ul>
 </div>
+<div id="explore-various-plot-types" class="section level4">
+<h4>Explore various plot types</h4>
+<p>See the <a href="https://github.com/jennybc/ggplot2-tutorial"><code>ggplot2</code> tutorial</a>, which also uses the <code>gapminder</code> data for ideas. But I want to see you exploring multiple types of plot.</p>
+</div>
 <div id="but-i-want-to-do-more" class="section level4">
 <h4>But I want to do more!</h4>
 <p><em>This is just for people who want to take things further! NOT REQUIRED!</em></p>
-<p>Play with this visual tool for exploring tabular data:</p>
-<ul>
-<li><a href="http://setosa.io/blog/2014/08/03/csv-fingerprints/" class="uri">http://setosa.io/blog/2014/08/03/csv-fingerprints/</a></li>
-<li>Yeah, you might need to get the Gapminder excerpt into comma delimited form to use the tool. See above re: being optional.</li>
-</ul>
-<p>Check out the <a href="https://github.com/ropensci/testdat"><code>testdat</code></a> package. Does it ease the pain of getting your <code>read.table()</code> arguments “just right”?</p>
-<ul>
-<li><a href="https://github.com/ropensci/testdat" class="uri">https://github.com/ropensci/testdat</a></li>
-<li>Yeah, you will have to install from GitHub instead of CRAN. See above re: being optional.</li>
-</ul>
+<p>Do more statistical summarization and visual exploration. For example, start to look at the relationships between variables.</p>
 <p>Read <a href="http://simplystatistics.org/2014/06/13/what-i-do-when-i-get-a-new-data-set-as-told-through-tweets/">What I do when I get a new data set as told through tweets</a> from <a href="http://simplystatistics.org">SimplyStatistics</a> to get some ideas!</p>
 </div>
 </div>
@@ -165,7 +158,7 @@ img {
 </div>
 <div id="rubric" class="section level3">
 <h3>Rubric</h3>
-<p><strong>Start using our <a href="peer-review01_marking-rubric.html">general rubric</a> for specifics to evaluate, but be gentle this week!</strong></p>
+<p>Our <a href="peer-review01_marking-rubric.html">general rubric</a> applies, but also …</p>
 <p>Check minus: Hits the elements listed above in a really minimal or rote way, maybe even with a few mistakes/omissions. And/or it’s hard to figure out which file I’m even supposed to be looking at.</p>
 <p>Check: Hits all the elements. No obvious mistakes. Pleasant to read. No heroic detective work required. Solid.</p>
 <p>Check plus: Some “above and beyond”, creativity, etc. You learned something new from reviewing their work and you’re eager to incorporate it into your work now.</p>
