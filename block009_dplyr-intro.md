@@ -52,12 +52,12 @@ head(gdf)
 
 ```
 ##       country year      pop continent lifeExp gdpPercap
-## 1 Afghanistan 1952  8425333      Asia   28.80     779.4
-## 2 Afghanistan 1957  9240934      Asia   30.33     820.9
-## 3 Afghanistan 1962 10267083      Asia   32.00     853.1
-## 4 Afghanistan 1967 11537966      Asia   34.02     836.2
-## 5 Afghanistan 1972 13079460      Asia   36.09     740.0
-## 6 Afghanistan 1977 14880372      Asia   38.44     786.1
+## 1 Afghanistan 1952  8425333      Asia  28.801  779.4453
+## 2 Afghanistan 1957  9240934      Asia  30.332  820.8530
+## 3 Afghanistan 1962 10267083      Asia  31.997  853.1007
+## 4 Afghanistan 1967 11537966      Asia  34.020  836.1971
+## 5 Afghanistan 1972 13079460      Asia  36.088  739.9811
+## 6 Afghanistan 1977 14880372      Asia  38.438  786.1134
 ```
 
 ### Meet `tbl_df`, an upgrade to `data.frame`
@@ -71,18 +71,19 @@ gtbl
 ```
 ## Source: local data frame [1,704 x 6]
 ## 
-##        country year      pop continent lifeExp gdpPercap
-## 1  Afghanistan 1952  8425333      Asia   28.80     779.4
-## 2  Afghanistan 1957  9240934      Asia   30.33     820.9
-## 3  Afghanistan 1962 10267083      Asia   32.00     853.1
-## 4  Afghanistan 1967 11537966      Asia   34.02     836.2
-## 5  Afghanistan 1972 13079460      Asia   36.09     740.0
-## 6  Afghanistan 1977 14880372      Asia   38.44     786.1
-## 7  Afghanistan 1982 12881816      Asia   39.85     978.0
-## 8  Afghanistan 1987 13867957      Asia   40.82     852.4
-## 9  Afghanistan 1992 16317921      Asia   41.67     649.3
-## 10 Afghanistan 1997 22227415      Asia   41.76     635.3
-## ..         ...  ...      ...       ...     ...       ...
+##        country  year      pop continent lifeExp gdpPercap
+##         (fctr) (int)    (dbl)    (fctr)   (dbl)     (dbl)
+## 1  Afghanistan  1952  8425333      Asia  28.801  779.4453
+## 2  Afghanistan  1957  9240934      Asia  30.332  820.8530
+## 3  Afghanistan  1962 10267083      Asia  31.997  853.1007
+## 4  Afghanistan  1967 11537966      Asia  34.020  836.1971
+## 5  Afghanistan  1972 13079460      Asia  36.088  739.9811
+## 6  Afghanistan  1977 14880372      Asia  38.438  786.1134
+## 7  Afghanistan  1982 12881816      Asia  39.854  978.0114
+## 8  Afghanistan  1987 13867957      Asia  40.822  852.3959
+## 9  Afghanistan  1992 16317921      Asia  41.674  649.3414
+## 10 Afghanistan  1997 22227415      Asia  41.763  635.3414
+## ..         ...   ...      ...       ...     ...       ...
 ```
 
 ```r
@@ -90,13 +91,14 @@ glimpse(gtbl)
 ```
 
 ```
-## Variables:
+## Observations: 1,704
+## Variables: 6
 ## $ country   (fctr) Afghanistan, Afghanistan, Afghanistan, Afghanistan,...
 ## $ year      (int) 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992...
 ## $ pop       (dbl) 8425333, 9240934, 10267083, 11537966, 13079460, 1488...
 ## $ continent (fctr) Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asi...
-## $ lifeExp   (dbl) 28.80, 30.33, 32.00, 34.02, 36.09, 38.44, 39.85, 40....
-## $ gdpPercap (dbl) 779.4, 820.9, 853.1, 836.2, 740.0, 786.1, 978.0, 852...
+## $ lifeExp   (dbl) 28.801, 30.332, 31.997, 34.020, 36.088, 38.438, 39.8...
+## $ gdpPercap (dbl) 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 78...
 ```
 
 A `tbl_df` is basically an improved data.frame, for which `dplyr` provides nice methods for high-level inspection. Specifically, these methods do something sensible for datasets with many observations and/or variables. You do __NOT__ need to turn your data.frames into `tbl_df`s to use `plyr`. I do so here for demonstration purposes only.
@@ -112,18 +114,18 @@ If you feel the urge to store a little snippet of your data:
 
 ```
 ##     country year      pop continent lifeExp gdpPercap
-## 241  Canada 1952 14785584  Americas   68.75     11367
-## 242  Canada 1957 17010154  Americas   69.96     12490
-## 243  Canada 1962 18985849  Americas   71.30     13462
-## 244  Canada 1967 20819767  Americas   72.13     16077
-## 245  Canada 1972 22284500  Americas   72.88     18971
-## 246  Canada 1977 23796400  Americas   74.21     22091
-## 247  Canada 1982 25201900  Americas   75.76     22899
-## 248  Canada 1987 26549700  Americas   76.86     26627
-## 249  Canada 1992 28523502  Americas   77.95     26343
-## 250  Canada 1997 30305843  Americas   78.61     28955
-## 251  Canada 2002 31902268  Americas   79.77     33329
-## 252  Canada 2007 33390141  Americas   80.65     36319
+## 241  Canada 1952 14785584  Americas  68.750  11367.16
+## 242  Canada 1957 17010154  Americas  69.960  12489.95
+## 243  Canada 1962 18985849  Americas  71.300  13462.49
+## 244  Canada 1967 20819767  Americas  72.130  16076.59
+## 245  Canada 1972 22284500  Americas  72.880  18970.57
+## 246  Canada 1977 23796400  Americas  74.210  22090.88
+## 247  Canada 1982 25201900  Americas  75.760  22898.79
+## 248  Canada 1987 26549700  Americas  76.860  26626.52
+## 249  Canada 1992 28523502  Americas  77.950  26342.88
+## 250  Canada 1997 30305843  Americas  78.610  28954.93
+## 251  Canada 2002 31902268  Americas  79.770  33328.97
+## 252  Canada 2007 33390141  Americas  80.653  36319.24
 ```
 
 Stop and ask yourself ...
@@ -150,9 +152,10 @@ filter(gtbl, lifeExp < 29)
 ```
 ## Source: local data frame [2 x 6]
 ## 
-##       country year     pop continent lifeExp gdpPercap
-## 1 Afghanistan 1952 8425333      Asia    28.8     779.4
-## 2      Rwanda 1992 7290203    Africa    23.6     737.1
+##       country  year     pop continent lifeExp gdpPercap
+##        (fctr) (int)   (dbl)    (fctr)   (dbl)     (dbl)
+## 1 Afghanistan  1952 8425333      Asia  28.801  779.4453
+## 2      Rwanda  1992 7290203    Africa  23.599  737.0686
 ```
 
 ```r
@@ -162,19 +165,20 @@ filter(gtbl, country == "Rwanda")
 ```
 ## Source: local data frame [12 x 6]
 ## 
-##    country year     pop continent lifeExp gdpPercap
-## 1   Rwanda 1952 2534927    Africa   40.00     493.3
-## 2   Rwanda 1957 2822082    Africa   41.50     540.3
-## 3   Rwanda 1962 3051242    Africa   43.00     597.5
-## 4   Rwanda 1967 3451079    Africa   44.10     511.0
-## 5   Rwanda 1972 3992121    Africa   44.60     590.6
-## 6   Rwanda 1977 4657072    Africa   45.00     670.1
-## 7   Rwanda 1982 5507565    Africa   46.22     881.6
-## 8   Rwanda 1987 6349365    Africa   44.02     848.0
-## 9   Rwanda 1992 7290203    Africa   23.60     737.1
-## 10  Rwanda 1997 7212583    Africa   36.09     589.9
-## 11  Rwanda 2002 7852401    Africa   43.41     785.7
-## 12  Rwanda 2007 8860588    Africa   46.24     863.1
+##    country  year     pop continent lifeExp gdpPercap
+##     (fctr) (int)   (dbl)    (fctr)   (dbl)     (dbl)
+## 1   Rwanda  1952 2534927    Africa  40.000  493.3239
+## 2   Rwanda  1957 2822082    Africa  41.500  540.2894
+## 3   Rwanda  1962 3051242    Africa  43.000  597.4731
+## 4   Rwanda  1967 3451079    Africa  44.100  510.9637
+## 5   Rwanda  1972 3992121    Africa  44.600  590.5807
+## 6   Rwanda  1977 4657072    Africa  45.000  670.0806
+## 7   Rwanda  1982 5507565    Africa  46.218  881.5706
+## 8   Rwanda  1987 6349365    Africa  44.020  847.9912
+## 9   Rwanda  1992 7290203    Africa  23.599  737.0686
+## 10  Rwanda  1997 7212583    Africa  36.087  589.9445
+## 11  Rwanda  2002 7852401    Africa  43.413  785.6538
+## 12  Rwanda  2007 8860588    Africa  46.242  863.0885
 ```
 
 ```r
@@ -184,31 +188,19 @@ filter(gtbl, country %in% c("Rwanda", "Afghanistan"))
 ```
 ## Source: local data frame [24 x 6]
 ## 
-##        country year      pop continent lifeExp gdpPercap
-## 1  Afghanistan 1952  8425333      Asia   28.80     779.4
-## 2  Afghanistan 1957  9240934      Asia   30.33     820.9
-## 3  Afghanistan 1962 10267083      Asia   32.00     853.1
-## 4  Afghanistan 1967 11537966      Asia   34.02     836.2
-## 5  Afghanistan 1972 13079460      Asia   36.09     740.0
-## 6  Afghanistan 1977 14880372      Asia   38.44     786.1
-## 7  Afghanistan 1982 12881816      Asia   39.85     978.0
-## 8  Afghanistan 1987 13867957      Asia   40.82     852.4
-## 9  Afghanistan 1992 16317921      Asia   41.67     649.3
-## 10 Afghanistan 1997 22227415      Asia   41.76     635.3
-## 11 Afghanistan 2002 25268405      Asia   42.13     726.7
-## 12 Afghanistan 2007 31889923      Asia   43.83     974.6
-## 13      Rwanda 1952  2534927    Africa   40.00     493.3
-## 14      Rwanda 1957  2822082    Africa   41.50     540.3
-## 15      Rwanda 1962  3051242    Africa   43.00     597.5
-## 16      Rwanda 1967  3451079    Africa   44.10     511.0
-## 17      Rwanda 1972  3992121    Africa   44.60     590.6
-## 18      Rwanda 1977  4657072    Africa   45.00     670.1
-## 19      Rwanda 1982  5507565    Africa   46.22     881.6
-## 20      Rwanda 1987  6349365    Africa   44.02     848.0
-## 21      Rwanda 1992  7290203    Africa   23.60     737.1
-## 22      Rwanda 1997  7212583    Africa   36.09     589.9
-## 23      Rwanda 2002  7852401    Africa   43.41     785.7
-## 24      Rwanda 2007  8860588    Africa   46.24     863.1
+##        country  year      pop continent lifeExp gdpPercap
+##         (fctr) (int)    (dbl)    (fctr)   (dbl)     (dbl)
+## 1  Afghanistan  1952  8425333      Asia  28.801  779.4453
+## 2  Afghanistan  1957  9240934      Asia  30.332  820.8530
+## 3  Afghanistan  1962 10267083      Asia  31.997  853.1007
+## 4  Afghanistan  1967 11537966      Asia  34.020  836.1971
+## 5  Afghanistan  1972 13079460      Asia  36.088  739.9811
+## 6  Afghanistan  1977 14880372      Asia  38.438  786.1134
+## 7  Afghanistan  1982 12881816      Asia  39.854  978.0114
+## 8  Afghanistan  1987 13867957      Asia  40.822  852.3959
+## 9  Afghanistan  1992 16317921      Asia  41.674  649.3414
+## 10 Afghanistan  1997 22227415      Asia  41.763  635.3414
+## ..         ...   ...      ...       ...     ...       ...
 ```
 
 Compare with some base R code to accomplish the same things
@@ -235,12 +227,12 @@ gdf %>% head
 
 ```
 ##       country year      pop continent lifeExp gdpPercap
-## 1 Afghanistan 1952  8425333      Asia   28.80     779.4
-## 2 Afghanistan 1957  9240934      Asia   30.33     820.9
-## 3 Afghanistan 1962 10267083      Asia   32.00     853.1
-## 4 Afghanistan 1967 11537966      Asia   34.02     836.2
-## 5 Afghanistan 1972 13079460      Asia   36.09     740.0
-## 6 Afghanistan 1977 14880372      Asia   38.44     786.1
+## 1 Afghanistan 1952  8425333      Asia  28.801  779.4453
+## 2 Afghanistan 1957  9240934      Asia  30.332  820.8530
+## 3 Afghanistan 1962 10267083      Asia  31.997  853.1007
+## 4 Afghanistan 1967 11537966      Asia  34.020  836.1971
+## 5 Afghanistan 1972 13079460      Asia  36.088  739.9811
+## 6 Afghanistan 1977 14880372      Asia  38.438  786.1134
 ```
 
 This is equivalent to `head(gdf)`. This pipe operator takes the thing on the left-hand-side and __pipes__ it into the function call on the right-hand-side -- literally, drops it in as the first argument.
@@ -254,9 +246,9 @@ gdf %>% head(3)
 
 ```
 ##       country year      pop continent lifeExp gdpPercap
-## 1 Afghanistan 1952  8425333      Asia   28.80     779.4
-## 2 Afghanistan 1957  9240934      Asia   30.33     820.9
-## 3 Afghanistan 1962 10267083      Asia   32.00     853.1
+## 1 Afghanistan 1952  8425333      Asia  28.801  779.4453
+## 2 Afghanistan 1957  9240934      Asia  30.332  820.8530
+## 3 Afghanistan 1962 10267083      Asia  31.997  853.1007
 ```
 
 I've advised you to think "gets" whenever you see the assignment operator, `<-`. Similary, you should think "then" whenever you see the pipe operator, `%>%`.
@@ -277,18 +269,19 @@ select(gtbl, year, lifeExp) ## tbl_df prevents TMI from printing
 ```
 ## Source: local data frame [1,704 x 2]
 ## 
-##    year lifeExp
-## 1  1952   28.80
-## 2  1957   30.33
-## 3  1962   32.00
-## 4  1967   34.02
-## 5  1972   36.09
-## 6  1977   38.44
-## 7  1982   39.85
-## 8  1987   40.82
-## 9  1992   41.67
-## 10 1997   41.76
-## ..  ...     ...
+##     year lifeExp
+##    (int)   (dbl)
+## 1   1952  28.801
+## 2   1957  30.332
+## 3   1962  31.997
+## 4   1967  34.020
+## 5   1972  36.088
+## 6   1977  38.438
+## 7   1982  39.854
+## 8   1987  40.822
+## 9   1992  41.674
+## 10  1997  41.763
+## ..   ...     ...
 ```
 
 And here's similar operation, but written with the pipe operator and piped through `head`:
@@ -302,11 +295,12 @@ gtbl %>%
 ```
 ## Source: local data frame [4 x 2]
 ## 
-##   year lifeExp
-## 1 1952   28.80
-## 2 1957   30.33
-## 3 1962   32.00
-## 4 1967   34.02
+##    year lifeExp
+##   (int)   (dbl)
+## 1  1952  28.801
+## 2  1957  30.332
+## 3  1962  31.997
+## 4  1967  34.020
 ```
 
 Think: "Take `gtbl`, then select the variables year and lifeExp, then show the first 4 rows."
@@ -325,19 +319,20 @@ gtbl %>%
 ```
 ## Source: local data frame [12 x 2]
 ## 
-##    year lifeExp
-## 1  1952   39.42
-## 2  1957   41.37
-## 3  1962   43.41
-## 4  1967   45.41
-## 5  1972   40.32
-## 6  1977   31.22
-## 7  1982   50.96
-## 8  1987   53.91
-## 9  1992   55.80
-## 10 1997   56.53
-## 11 2002   56.75
-## 12 2007   59.72
+##     year lifeExp
+##    (int)   (dbl)
+## 1   1952  39.417
+## 2   1957  41.366
+## 3   1962  43.415
+## 4   1967  45.415
+## 5   1972  40.317
+## 6   1977  31.220
+## 7   1982  50.957
+## 8   1987  53.914
+## 9   1992  55.803
+## 10  1997  56.534
+## 11  2002  56.752
+## 12  2007  59.723
 ```
 
 and what a typical base R call would look like:
@@ -349,18 +344,18 @@ gdf[gdf$country == "Cambodia", c("year", "lifeExp")]
 
 ```
 ##     year lifeExp
-## 217 1952   39.42
-## 218 1957   41.37
-## 219 1962   43.41
-## 220 1967   45.41
-## 221 1972   40.32
-## 222 1977   31.22
-## 223 1982   50.96
-## 224 1987   53.91
-## 225 1992   55.80
-## 226 1997   56.53
-## 227 2002   56.75
-## 228 2007   59.72
+## 217 1952  39.417
+## 218 1957  41.366
+## 219 1962  43.415
+## 220 1967  45.415
+## 221 1972  40.317
+## 222 1977  31.220
+## 223 1982  50.957
+## 224 1987  53.914
+## 225 1992  55.803
+## 226 1997  56.534
+## 227 2002  56.752
+## 228 2007  59.723
 ```
 
 or, possibly?, a nicer look using base R's `subset()` function:
@@ -372,18 +367,18 @@ subset(gdf, country == "Cambodia", select = c(year, lifeExp))
 
 ```
 ##     year lifeExp
-## 217 1952   39.42
-## 218 1957   41.37
-## 219 1962   43.41
-## 220 1967   45.41
-## 221 1972   40.32
-## 222 1977   31.22
-## 223 1982   50.96
-## 224 1987   53.91
-## 225 1992   55.80
-## 226 1997   56.53
-## 227 2002   56.75
-## 228 2007   59.72
+## 217 1952  39.417
+## 218 1957  41.366
+## 219 1962  43.415
+## 220 1967  45.415
+## 221 1972  40.317
+## 222 1977  31.220
+## 223 1982  50.957
+## 224 1987  53.914
+## 225 1992  55.803
+## 226 1997  56.534
+## 227 2002  56.752
+## 228 2007  59.723
 ```
 
 ### Pause to reflect

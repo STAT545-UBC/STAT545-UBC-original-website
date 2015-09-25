@@ -52,7 +52,7 @@ Download the raw data for our example, [gapminder.tsv][].
       RCurl::getURL("https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.tsv"))
     ```
 
-+ in a shell script using `curl` or `wget`.
++ in a [shell](git09_shell.html) script using `curl` or `wget`.
 
     ```bash
     curl -O https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.tsv
@@ -92,7 +92,7 @@ Automate the pipeline
 
 Identify and test a method of running your pipeline non-interactively.
 
-You could write a master R script that simply `source()`s the three scripts, one after the other. Tip: you will probably want a second "clean up / reset" script that deletes all the output your scripts leave behind, so you can easily test and refine your strategy, i.e. without repeatedly  deleting stuff "by hand". You can run the master script or the cleaning script from a shell with `R CMD BATCH` or `Rscript`.
+You could write a master R script that simply `source()`s the three scripts, one after the other. Tip: you will probably want a second "clean up / reset" script that deletes all the output your scripts leave behind, so you can easily test and refine your strategy, i.e. without repeatedly  deleting stuff "by hand". You can run the master script or the cleaning script from a [shell](git09_shell.html) with `R CMD BATCH` or `Rscript`.
 
 Provide a link to a page that explains how your pipeline works and links to the remaining files. The TAs should be able to go to this landing page and re-run your analysis quickly and easily. Consider including an image showing a graphical view of your pipeline.
 
@@ -119,7 +119,7 @@ This means you'll need to spend more time on data cleaning and sanity checking. 
 
 Include some dynamic report generation in your pipeline. That is, create HTML from one or more plain R or R markdown files.
 
-+ Example of how to emulate RStudio's "Compile Notebook" button from a shell:
++ Example of how to emulate RStudio's "Compile Notebook" button from a [shell](git09_shell.html):
   `Rscript -e "rmarkdown::render('myAwesomeScript.R')"`
   or using `knitr` instead of `rmarkdown`
   `Rscript -e "knitr::stitch_rmd('myAwesomeScript.R')"`

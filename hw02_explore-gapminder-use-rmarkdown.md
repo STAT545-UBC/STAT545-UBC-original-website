@@ -8,9 +8,11 @@ output:
 
 ### Overview
 
+**2015-09-22: I'm going to refresh this for 2015 but this is 95% current. Want to switch to use the `gapminder` data package and to change the "play around" optional stretch goals.**
+
 Consult the [general homework guidelines](hw00_homework-guidelines.html).
 
-Due before class Monday 2014-09-22.
+Due before class Tuesday 2015-09-29.
 
 The goal is to explore a newly imported a dataset. In particular, to establish workflows based on `data.frame`. You will make a couple of figures with `ggplot2`. You will learn how to author a dynamic report in R Markdown and share it on the web.
 

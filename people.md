@@ -15,22 +15,26 @@ output:
   * [\@STAT545](https://twitter.com/STAT545), Twitter as STAT 545 instructor
   * [GitHub](https://github.com/jennybc)
 
-[Dean Attali](http://deanattali.com), Alpha TA for STAT 545A and STAT 547M
+[Dean Attali](http://deanattali.com), co-lead TA for STAT 545A and STAT 547M
 
   * <daattali@gmail.com>
   * [\@daattali](http://twitter.com/daattali)
   * [GitHub](https://github.com/daattali)
-  * STAT 545A/547M alum and veteran TA
 
-[Kieran Samuk](http://ksamuk.github.io), TA for STAT 545A and STAT 547M
+[Kieran Samuk](http://ksamuk.github.io), co-lead TA for STAT 545A and STAT 547M
 
   * <samuk@zoology.ubc.ca>
   * [\@ksamuk](http://twitter.com/ksamuk)
   * [GitHub](https://github.com/ksamuk)
   
-  
+Additional TAs (links coming soon)
 
-YOUR NAME COULD BE HERE! SEE [HELP WANTED](people-help-wanted.html)!
+  * Derek Chiu, Statistics MSc
+  * Ogan Mancarci, Bioinformatics MSc
+  * Chen Yang, Bioinformatics PhD
+  * Erica Acton, Genome Science and Technology PhD
+  * Nicolas Coutin, Biochemistry and Molecular Biology PhD
+  * Magda Price, Reproductive and Developmental Sciences Program PhD
 
 ### 2014 staff
 

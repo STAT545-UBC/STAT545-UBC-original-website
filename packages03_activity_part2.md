@@ -108,12 +108,12 @@ We will now make our package publicly available on GitHub. If we want others to 
 
 #### Connect local repo to GitHub repo
 
-We have to inform our local Git repository about its companion on GitHub. In Git vocabulary, we need to *add a remote*. For this, we have to go back to the *Shell*:
+We have to inform our local Git repository about its companion on GitHub. In Git vocabulary, we need to *add a remote*. For this, we have to go back to the *[shell](git09_shell.html)*:
 
 1. *Tools > Shell...*.
 2. We will add the GitHub repository as a remote, using the traditional nickname `origin`: `git remote add origin https://github.com/BernhardKonrad/gameday`.
 3. Push your local work, on branch `master` to the new `origin` remote and set this remote as the new default: `git push -u origin master`.
-4. Close the shell, you will now be able to push and pull directly from RStudio.
+4. Close the [shell](git09_shell.html), you will now be able to push and pull directly from RStudio.
 5. Your package is now publicly (and freely, remember the License) available to the world.
 6. It gets better: You can actually install your package from GitHub directly:
 

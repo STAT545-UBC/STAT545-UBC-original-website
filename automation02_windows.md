@@ -12,7 +12,7 @@ output:
 
 We are still working out the best way to install `make` on Windows. Our current best recommendation is to install *msysGit*, which includes `make` as well as `git` and `bash`.
 
-Download and [install msysGit](https://github.com/msysgit/msysgit/releases/download/Git-1.9.4-preview20140929/msysGit-netinstall-1.9.4-preview20140929.exe). The two software packages [msysGit](https://github.com/msysgit/msysgit) and [Git for Windows](http://msysgit.github.io/) are related. Both install `git` and `bash`, but only *msysGit* installs `make`. The programs installed by *msysGit* are found by default in `C:\msysGit\bin`. Here is the [complete list](https://github.com/msysgit/msysgit/tree/master/bin) of programs included with *msysGit*. For this activity, RStudio needs to be able to find in your `PATH` environment variable the program `make`, the shell `bash`, other utilities like `rm` and `cp`, and `Rscript`.
+Download and [install msysGit](https://github.com/msysgit/msysgit/releases/download/Git-1.9.4-preview20140929/msysGit-netinstall-1.9.4-preview20140929.exe). The two software packages [msysGit](https://github.com/msysgit/msysgit) and [Git for Windows](http://msysgit.github.io/) are related. Both install `git` and `bash`, but only *msysGit* installs `make`. The programs installed by *msysGit* are found by default in `C:\msysGit\bin`. Here is the [complete list](https://github.com/msysgit/msysgit/tree/master/bin) of programs included with *msysGit*. For this activity, RStudio needs to be able to find in your `PATH` environment variable the program `make`, the [shell](git09_shell.html) `bash`, other utilities like `rm` and `cp`, and `Rscript`.
 
 Here is another alternative for installing `make` alone:
 
@@ -47,7 +47,7 @@ See [issue 58](https://github.com/STAT545-UBC/Discussion/issues/58) for what see
 
 What are the tricky bits?
 
-  * Getting the same `Makefile` to "work" via RStudio's Build buttons/menus and in the shell. And, for that matter, which shell? Git Bash or ???
+  * Getting the same `Makefile` to "work" via RStudio's Build buttons/menus and in the [shell](git09_shell.html). And, for that matter, which [shell](git09_shell.html)? Git Bash or ???
   * Ensuring `make`, `Rscript`, `pandoc`, `rm`, etc. can be found = updating `PATH`.
-  * Getting `make` to use the correct shell.
+  * Getting `make` to use the correct [shell](git09_shell.html).
     - See [issue 54](https://github.com/STAT545-UBC/Discussion/issues/54) on the Discussion repo.

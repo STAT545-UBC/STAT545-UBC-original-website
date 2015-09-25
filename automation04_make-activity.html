@@ -15,10 +15,11 @@
 <title>Automating Data-analysis Pipelines</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
-<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -39,6 +40,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
 
 </head>
@@ -50,6 +52,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
 }
 </style>
 <div class="container-fluid main-container">
@@ -142,14 +152,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>Submit the above <code>download.file()</code> command in the R Console to make sure it works.</li>
 <li>Inspect the downloaded words file any way you know how; make sure it’s not garbage. Size should be about 2.4MB.</li>
 <li>Delete <code>words.txt</code>.</li>
-<li>Put the above rule into your <code>Makefile</code>. From the shell, enter <code>make words.txt</code> to verify rule works. Reinspect the words file.</li>
+<li>Put the above rule into your <code>Makefile</code>. From the <a href="git09_shell.html">shell</a>, enter <code>make words.txt</code> to verify rule works. Reinspect the words file.</li>
 <li>Git folks: commit <code>Makefile</code> and <code>words.txt</code>.</li>
 </ul>
 <p>See the sample Project at this point in <a href="https://github.com/STAT545-UBC/make-activity/tree/c30ecc9c890a2f2261eb94118997f0774012eeb8">this commit</a>.</p>
 </div>
 <div id="copy-the-dictionary" class="section level4">
 <h4>Copy the dictionary</h4>
-<p>On Mac or Linux systems, rather than download the dictionary, we can simply copy the file <code>/usr/share/dict/words</code> that comes with the operating system. In this alternative rule, we use the shell command <code>cp</code> to copy the file.</p>
+<p>On Mac or Linux systems, rather than download the dictionary, we can simply copy the file <code>/usr/share/dict/words</code> that comes with the operating system. In this alternative rule, we use the <a href="git09_shell.html">shell</a> command <code>cp</code> to copy the file.</p>
 <pre class="makefile"><code>words.txt: /usr/share/dict/words
 	cp /usr/share/dict/words words.txt</code></pre>
 <p>This rule copies the input file <code>/usr/share/dict/words</code> to create the output file <code>words.txt</code>. We then repeat these file names in the command rule, which is redundant and leaves us vulnerable to typos. <code>make</code> offers many automatic variables, so the revised rule below uses <code>$&lt;</code> and <code>$@</code> to represent the input file and output file, respectively.</p>
@@ -159,10 +169,10 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <ul>
 <li>Git folks: commit anything new/modified. Start with a clean working tree.</li>
 <li>Remove <code>words.txt</code> if you succeeded with the download approach.</li>
-<li>Submit the above <code>cp</code> command in the shell to make sure it works.</li>
+<li>Submit the above <code>cp</code> command in the <a href="git09_shell.html">shell</a> to make sure it works.</li>
 <li>Inspect the copied words file any way you know how; make sure it’s not garbage. Size should be about 2.4MB.</li>
 <li>Delete <code>words.txt</code>.</li>
-<li>Put the above rule into your <code>Makefile</code>. From the shell, enter <code>make words.txt</code> to verify rule works. Reinspect the words file.</li>
+<li>Put the above rule into your <code>Makefile</code>. From the <a href="git09_shell.html">shell</a>, enter <code>make words.txt</code> to verify rule works. Reinspect the words file.</li>
 <li>Git folks: look at the diff. You should see how your <code>words.txt</code> rule has changed and you might also see some differences between the local and remote words files. Interesting! Commit <code>Makefile</code> and <code>words.txt</code>.</li>
 </ul>
 <p>See the sample Project at this point in <a href="https://github.com/STAT545-UBC/make-activity/tree/1131791548e0c5bbc5104eebb19710ed435146e3">this commit</a>.</p>
@@ -201,14 +211,14 @@ words.txt: /usr/share/dict/words
 <p>This rule will read the list of words and generate a table of word length frequency, stored in a tab-separated-values (TSV) file. This R script is a little longer, so we’ll put it in its own file, named <code>histogram.r</code>. If either the script <code>histogram.r</code> or the data file <code>words.txt</code> were to change, we’d need to rerun this command to get up-to-date results, so both files are dependencies of this rule. The input-file variable <code>$&lt;</code> refers to the <em>first</em> dependency, <code>histogram.r</code>.</p>
 <pre class="makefile"><code>histogram.tsv: histogram.r words.txt
 	Rscript $&lt;</code></pre>
-<p>FYI: <code>Rscript</code> allows you to execute R scripts from the shell. It is a more modern replacement for <code>R CMD BATCH</code> (don’t worry if you’ve never heard of that).</p>
+<p>FYI: <code>Rscript</code> allows you to execute R scripts from the <a href="git09_shell.html">shell</a>. It is a more modern replacement for <code>R CMD BATCH</code> (don’t worry if you’ve never heard of that).</p>
 <p>Create the R script <code>histogram.r</code> that reads the list of words from <code>words.txt</code> and writes the table of word length frequency to <code>histogram.tsv</code>. It should be a tab-delimited TSV file with a header and two columns, named <code>Length</code> and <code>Freq</code>. Hint: you can accomplish this task using four functions: <code>readLines</code>, <code>nchar</code>, <code>table</code> and <code>write.table</code>. Here’s <a href="https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/automation10_holding-area/activity/histogram.r">one solution</a>, but try not to peek until you’ve attempted this task yourself.</p>
 <p>Suggested workflow:</p>
 <ul>
 <li>Develop your <code>histogram.r</code> script interactively. Make sure it works when you step through it line-by-line. Debugging only gets harder once you’re running entire scripts at arm’s length via <code>make</code>!</li>
 <li>Remove <code>histogram.tsv</code>. Clean out the workspace and restart R. Run <code>histogram.r</code> via <code>source()</code> or using RStudio’s Source button. Make sure it works!</li>
 <li>Add the <code>histogram.tsv</code> rule to your <code>Makefile</code>.</li>
-<li>Remove <code>histogram.tsv</code> and regenerate it via <code>make histogram.tsv</code> from the shell.</li>
+<li>Remove <code>histogram.tsv</code> and regenerate it via <code>make histogram.tsv</code> from the <a href="git09_shell.html">shell</a>.</li>
 <li>Git folks: Commit.</li>
 </ul>
 <p>See the sample Project at this point in <a href="https://github.com/STAT545-UBC/make-activity/tree/889e01a3d610e900c7e58ebd32a0506c61543fd9">this commit</a>.</p>

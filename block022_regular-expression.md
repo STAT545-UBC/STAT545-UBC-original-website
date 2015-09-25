@@ -620,9 +620,9 @@ Get all markdown documents on peer review and extract the specific topics.
 ## marking-rubric,  peer-evaluation-guidelines
 ```
 
-## Regular expression vs shell globbing
+## Regular expression vs [shell](git09_shell.html) globbing
 
-The term globbing in shell or Unix-like environment refers to pattern matching based on wildcard characters. A wildcard character can be used to substitute for any other character or characters in a string. Globbing is commonly used for matching file names or paths, and has a much simpler syntax. It is somewhat similar to regular expressions, and that's why people are often confused between them. Here is a list of globbing syntax and their comparisons to regular expression:   
+The term globbing in [shell](git09_shell.html) or Unix-like environment refers to pattern matching based on wildcard characters. A wildcard character can be used to substitute for any other character or characters in a string. Globbing is commonly used for matching file names or paths, and has a much simpler syntax. It is somewhat similar to regular expressions, and that's why people are often confused between them. Here is a list of globbing syntax and their comparisons to regular expression:   
 
   * `*`: matches any number of unknown characters, same as `.*` in regular expression.  
   * `?`: matches one unknown character, same as `.` in regular expression.  
