@@ -10,7 +10,7 @@
 
 Have no idea what I'm talking about? Not sure if you care? If you use these base R functions: `subset()`, `apply()`, `[sl]apply()`, `tapply()`, `aggregate()`, `split()`, `do.call()`, then you should keep reading.
 
-#### Load `dplyr`
+#### Load `dplyr` and `gapminder`
 
 
 ```r
@@ -23,6 +23,7 @@ Have no idea what I'm talking about? Not sure if you care? If you use these base
 ## devtools::install_github("hadley/lazyeval")
 ## devtools::install_github("hadley/dplyr")
 suppressPackageStartupMessages(library(dplyr))
+library(gapminder)
 ```
 
 #### Load the Gapminder data
@@ -31,59 +32,57 @@ An excerpt of the Gapminder data which we work with alot.
 
 
 ```r
-gd_url <- "http://tiny.cc/gapminder"
-gdf <- read.delim(file = gd_url)
-str(gdf)
+str(gapminder)
 ```
 
 ```
 ## 'data.frame':	1704 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
 ##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ year     : num  1952 1957 1962 1967 1972 ...
 ##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
 ##  $ gdpPercap: num  779 821 853 836 740 ...
 ```
 
 ```r
-head(gdf)
+head(gapminder)
 ```
 
 ```
-##       country year      pop continent lifeExp gdpPercap
-## 1 Afghanistan 1952  8425333      Asia  28.801  779.4453
-## 2 Afghanistan 1957  9240934      Asia  30.332  820.8530
-## 3 Afghanistan 1962 10267083      Asia  31.997  853.1007
-## 4 Afghanistan 1967 11537966      Asia  34.020  836.1971
-## 5 Afghanistan 1972 13079460      Asia  36.088  739.9811
-## 6 Afghanistan 1977 14880372      Asia  38.438  786.1134
+##       country continent year lifeExp      pop gdpPercap
+## 1 Afghanistan      Asia 1952  28.801  8425333  779.4453
+## 2 Afghanistan      Asia 1957  30.332  9240934  820.8530
+## 3 Afghanistan      Asia 1962  31.997 10267083  853.1007
+## 4 Afghanistan      Asia 1967  34.020 11537966  836.1971
+## 5 Afghanistan      Asia 1972  36.088 13079460  739.9811
+## 6 Afghanistan      Asia 1977  38.438 14880372  786.1134
 ```
 
 ### Meet `tbl_df`, an upgrade to `data.frame`
 
 
 ```r
-gtbl <- tbl_df(gdf)
+gtbl <- tbl_df(gapminder)
 gtbl
 ```
 
 ```
 ## Source: local data frame [1,704 x 6]
 ## 
-##        country  year      pop continent lifeExp gdpPercap
-##         (fctr) (int)    (dbl)    (fctr)   (dbl)     (dbl)
-## 1  Afghanistan  1952  8425333      Asia  28.801  779.4453
-## 2  Afghanistan  1957  9240934      Asia  30.332  820.8530
-## 3  Afghanistan  1962 10267083      Asia  31.997  853.1007
-## 4  Afghanistan  1967 11537966      Asia  34.020  836.1971
-## 5  Afghanistan  1972 13079460      Asia  36.088  739.9811
-## 6  Afghanistan  1977 14880372      Asia  38.438  786.1134
-## 7  Afghanistan  1982 12881816      Asia  39.854  978.0114
-## 8  Afghanistan  1987 13867957      Asia  40.822  852.3959
-## 9  Afghanistan  1992 16317921      Asia  41.674  649.3414
-## 10 Afghanistan  1997 22227415      Asia  41.763  635.3414
-## ..         ...   ...      ...       ...     ...       ...
+##        country continent  year lifeExp      pop gdpPercap
+##         (fctr)    (fctr) (dbl)   (dbl)    (dbl)     (dbl)
+## 1  Afghanistan      Asia  1952  28.801  8425333  779.4453
+## 2  Afghanistan      Asia  1957  30.332  9240934  820.8530
+## 3  Afghanistan      Asia  1962  31.997 10267083  853.1007
+## 4  Afghanistan      Asia  1967  34.020 11537966  836.1971
+## 5  Afghanistan      Asia  1972  36.088 13079460  739.9811
+## 6  Afghanistan      Asia  1977  38.438 14880372  786.1134
+## 7  Afghanistan      Asia  1982  39.854 12881816  978.0114
+## 8  Afghanistan      Asia  1987  40.822 13867957  852.3959
+## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414
+## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
+## ..         ...       ...   ...     ...      ...       ...
 ```
 
 ```r
@@ -94,10 +93,10 @@ glimpse(gtbl)
 ## Observations: 1,704
 ## Variables: 6
 ## $ country   (fctr) Afghanistan, Afghanistan, Afghanistan, Afghanistan,...
-## $ year      (int) 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992...
-## $ pop       (dbl) 8425333, 9240934, 10267083, 11537966, 13079460, 1488...
 ## $ continent (fctr) Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asi...
+## $ year      (dbl) 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992...
 ## $ lifeExp   (dbl) 28.801, 30.332, 31.997, 34.020, 36.088, 38.438, 39.8...
+## $ pop       (dbl) 8425333, 9240934, 10267083, 11537966, 13079460, 1488...
 ## $ gdpPercap (dbl) 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 78...
 ```
 
@@ -109,23 +108,23 @@ If you feel the urge to store a little snippet of your data:
 
 
 ```r
-(snippet <- subset(gdf, country == "Canada"))
+(snippet <- subset(gapminder, country == "Canada"))
 ```
 
 ```
-##     country year      pop continent lifeExp gdpPercap
-## 241  Canada 1952 14785584  Americas  68.750  11367.16
-## 242  Canada 1957 17010154  Americas  69.960  12489.95
-## 243  Canada 1962 18985849  Americas  71.300  13462.49
-## 244  Canada 1967 20819767  Americas  72.130  16076.59
-## 245  Canada 1972 22284500  Americas  72.880  18970.57
-## 246  Canada 1977 23796400  Americas  74.210  22090.88
-## 247  Canada 1982 25201900  Americas  75.760  22898.79
-## 248  Canada 1987 26549700  Americas  76.860  26626.52
-## 249  Canada 1992 28523502  Americas  77.950  26342.88
-## 250  Canada 1997 30305843  Americas  78.610  28954.93
-## 251  Canada 2002 31902268  Americas  79.770  33328.97
-## 252  Canada 2007 33390141  Americas  80.653  36319.24
+##     country continent year lifeExp      pop gdpPercap
+## 241  Canada  Americas 1952  68.750 14785584  11367.16
+## 242  Canada  Americas 1957  69.960 17010154  12489.95
+## 243  Canada  Americas 1962  71.300 18985849  13462.49
+## 244  Canada  Americas 1967  72.130 20819767  16076.59
+## 245  Canada  Americas 1972  72.880 22284500  18970.57
+## 246  Canada  Americas 1977  74.210 23796400  22090.88
+## 247  Canada  Americas 1982  75.760 25201900  22898.79
+## 248  Canada  Americas 1987  76.860 26549700  26626.52
+## 249  Canada  Americas 1992  77.950 28523502  26342.88
+## 250  Canada  Americas 1997  78.610 30305843  28954.93
+## 251  Canada  Americas 2002  79.770 31902268  33328.97
+## 252  Canada  Americas 2007  80.653 33390141  36319.24
 ```
 
 Stop and ask yourself ...
@@ -152,10 +151,10 @@ filter(gtbl, lifeExp < 29)
 ```
 ## Source: local data frame [2 x 6]
 ## 
-##       country  year     pop continent lifeExp gdpPercap
-##        (fctr) (int)   (dbl)    (fctr)   (dbl)     (dbl)
-## 1 Afghanistan  1952 8425333      Asia  28.801  779.4453
-## 2      Rwanda  1992 7290203    Africa  23.599  737.0686
+##       country continent  year lifeExp     pop gdpPercap
+##        (fctr)    (fctr) (dbl)   (dbl)   (dbl)     (dbl)
+## 1 Afghanistan      Asia  1952  28.801 8425333  779.4453
+## 2      Rwanda    Africa  1992  23.599 7290203  737.0686
 ```
 
 ```r
@@ -165,20 +164,20 @@ filter(gtbl, country == "Rwanda")
 ```
 ## Source: local data frame [12 x 6]
 ## 
-##    country  year     pop continent lifeExp gdpPercap
-##     (fctr) (int)   (dbl)    (fctr)   (dbl)     (dbl)
-## 1   Rwanda  1952 2534927    Africa  40.000  493.3239
-## 2   Rwanda  1957 2822082    Africa  41.500  540.2894
-## 3   Rwanda  1962 3051242    Africa  43.000  597.4731
-## 4   Rwanda  1967 3451079    Africa  44.100  510.9637
-## 5   Rwanda  1972 3992121    Africa  44.600  590.5807
-## 6   Rwanda  1977 4657072    Africa  45.000  670.0806
-## 7   Rwanda  1982 5507565    Africa  46.218  881.5706
-## 8   Rwanda  1987 6349365    Africa  44.020  847.9912
-## 9   Rwanda  1992 7290203    Africa  23.599  737.0686
-## 10  Rwanda  1997 7212583    Africa  36.087  589.9445
-## 11  Rwanda  2002 7852401    Africa  43.413  785.6538
-## 12  Rwanda  2007 8860588    Africa  46.242  863.0885
+##    country continent  year lifeExp     pop gdpPercap
+##     (fctr)    (fctr) (dbl)   (dbl)   (dbl)     (dbl)
+## 1   Rwanda    Africa  1952  40.000 2534927  493.3239
+## 2   Rwanda    Africa  1957  41.500 2822082  540.2894
+## 3   Rwanda    Africa  1962  43.000 3051242  597.4731
+## 4   Rwanda    Africa  1967  44.100 3451079  510.9637
+## 5   Rwanda    Africa  1972  44.600 3992121  590.5807
+## 6   Rwanda    Africa  1977  45.000 4657072  670.0806
+## 7   Rwanda    Africa  1982  46.218 5507565  881.5706
+## 8   Rwanda    Africa  1987  44.020 6349365  847.9912
+## 9   Rwanda    Africa  1992  23.599 7290203  737.0686
+## 10  Rwanda    Africa  1997  36.087 7212583  589.9445
+## 11  Rwanda    Africa  2002  43.413 7852401  785.6538
+## 12  Rwanda    Africa  2007  46.242 8860588  863.0885
 ```
 
 ```r
@@ -188,26 +187,26 @@ filter(gtbl, country %in% c("Rwanda", "Afghanistan"))
 ```
 ## Source: local data frame [24 x 6]
 ## 
-##        country  year      pop continent lifeExp gdpPercap
-##         (fctr) (int)    (dbl)    (fctr)   (dbl)     (dbl)
-## 1  Afghanistan  1952  8425333      Asia  28.801  779.4453
-## 2  Afghanistan  1957  9240934      Asia  30.332  820.8530
-## 3  Afghanistan  1962 10267083      Asia  31.997  853.1007
-## 4  Afghanistan  1967 11537966      Asia  34.020  836.1971
-## 5  Afghanistan  1972 13079460      Asia  36.088  739.9811
-## 6  Afghanistan  1977 14880372      Asia  38.438  786.1134
-## 7  Afghanistan  1982 12881816      Asia  39.854  978.0114
-## 8  Afghanistan  1987 13867957      Asia  40.822  852.3959
-## 9  Afghanistan  1992 16317921      Asia  41.674  649.3414
-## 10 Afghanistan  1997 22227415      Asia  41.763  635.3414
-## ..         ...   ...      ...       ...     ...       ...
+##        country continent  year lifeExp      pop gdpPercap
+##         (fctr)    (fctr) (dbl)   (dbl)    (dbl)     (dbl)
+## 1  Afghanistan      Asia  1952  28.801  8425333  779.4453
+## 2  Afghanistan      Asia  1957  30.332  9240934  820.8530
+## 3  Afghanistan      Asia  1962  31.997 10267083  853.1007
+## 4  Afghanistan      Asia  1967  34.020 11537966  836.1971
+## 5  Afghanistan      Asia  1972  36.088 13079460  739.9811
+## 6  Afghanistan      Asia  1977  38.438 14880372  786.1134
+## 7  Afghanistan      Asia  1982  39.854 12881816  978.0114
+## 8  Afghanistan      Asia  1987  40.822 13867957  852.3959
+## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414
+## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
+## ..         ...       ...   ...     ...      ...       ...
 ```
 
 Compare with some base R code to accomplish the same things
 
 ```r
-gdf[gdf$lifeExp < 29, ] ## repeat `gdf`, [i, j] indexing is distracting
-subset(gdf, country == "Rwanda") ## almost same as filter ... but wait ...
+gapminder[gapminder$lifeExp < 29, ] ## repeat `gapminder`, [i, j] indexing is distracting
+subset(gapminder, country == "Rwanda") ## almost same as filter ... but wait ...
 ```
 
 ### Meet the new pipe operator
@@ -222,33 +221,33 @@ Let's demo then I'll explain:
 
 
 ```r
-gdf %>% head
+gapminder %>% head
 ```
 
 ```
-##       country year      pop continent lifeExp gdpPercap
-## 1 Afghanistan 1952  8425333      Asia  28.801  779.4453
-## 2 Afghanistan 1957  9240934      Asia  30.332  820.8530
-## 3 Afghanistan 1962 10267083      Asia  31.997  853.1007
-## 4 Afghanistan 1967 11537966      Asia  34.020  836.1971
-## 5 Afghanistan 1972 13079460      Asia  36.088  739.9811
-## 6 Afghanistan 1977 14880372      Asia  38.438  786.1134
+##       country continent year lifeExp      pop gdpPercap
+## 1 Afghanistan      Asia 1952  28.801  8425333  779.4453
+## 2 Afghanistan      Asia 1957  30.332  9240934  820.8530
+## 3 Afghanistan      Asia 1962  31.997 10267083  853.1007
+## 4 Afghanistan      Asia 1967  34.020 11537966  836.1971
+## 5 Afghanistan      Asia 1972  36.088 13079460  739.9811
+## 6 Afghanistan      Asia 1977  38.438 14880372  786.1134
 ```
 
-This is equivalent to `head(gdf)`. This pipe operator takes the thing on the left-hand-side and __pipes__ it into the function call on the right-hand-side -- literally, drops it in as the first argument.
+This is equivalent to `head(gapminder)`. This pipe operator takes the thing on the left-hand-side and __pipes__ it into the function call on the right-hand-side -- literally, drops it in as the first argument.
 
-Never fear, you can still specify other arguments to this function! To see the first 3 rows of Gapminder, we could say `head(gdf, 3)` or this:
+Never fear, you can still specify other arguments to this function! To see the first 3 rows of Gapminder, we could say `head(gapminder, 3)` or this:
 
 
 ```r
-gdf %>% head(3)
+gapminder %>% head(3)
 ```
 
 ```
-##       country year      pop continent lifeExp gdpPercap
-## 1 Afghanistan 1952  8425333      Asia  28.801  779.4453
-## 2 Afghanistan 1957  9240934      Asia  30.332  820.8530
-## 3 Afghanistan 1962 10267083      Asia  31.997  853.1007
+##       country continent year lifeExp      pop gdpPercap
+## 1 Afghanistan      Asia 1952  28.801  8425333  779.4453
+## 2 Afghanistan      Asia 1957  30.332  9240934  820.8530
+## 3 Afghanistan      Asia 1962  31.997 10267083  853.1007
 ```
 
 I've advised you to think "gets" whenever you see the assignment operator, `<-`. Similary, you should think "then" whenever you see the pipe operator, `%>%`.
@@ -270,7 +269,7 @@ select(gtbl, year, lifeExp) ## tbl_df prevents TMI from printing
 ## Source: local data frame [1,704 x 2]
 ## 
 ##     year lifeExp
-##    (int)   (dbl)
+##    (dbl)   (dbl)
 ## 1   1952  28.801
 ## 2   1957  30.332
 ## 3   1962  31.997
@@ -296,7 +295,7 @@ gtbl %>%
 ## Source: local data frame [4 x 2]
 ## 
 ##    year lifeExp
-##   (int)   (dbl)
+##   (dbl)   (dbl)
 ## 1  1952  28.801
 ## 2  1957  30.332
 ## 3  1962  31.997
@@ -320,7 +319,7 @@ gtbl %>%
 ## Source: local data frame [12 x 2]
 ## 
 ##     year lifeExp
-##    (int)   (dbl)
+##    (dbl)   (dbl)
 ## 1   1952  39.417
 ## 2   1957  41.366
 ## 3   1962  43.415
@@ -339,7 +338,7 @@ and what a typical base R call would look like:
 
 
 ```r
-gdf[gdf$country == "Cambodia", c("year", "lifeExp")]
+gapminder[gapminder$country == "Cambodia", c("year", "lifeExp")]
 ```
 
 ```
@@ -362,7 +361,7 @@ or, possibly?, a nicer look using base R's `subset()` function:
 
 
 ```r
-subset(gdf, country == "Cambodia", select = c(year, lifeExp))
+subset(gapminder, country == "Cambodia", select = c(year, lifeExp))
 ```
 
 ```

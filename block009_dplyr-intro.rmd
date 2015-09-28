@@ -18,7 +18,7 @@ knitr::opts_chunk$set(error = TRUE)
 
 Have no idea what I'm talking about? Not sure if you care? If you use these base R functions: `subset()`, `apply()`, `[sl]apply()`, `tapply()`, `aggregate()`, `split()`, `do.call()`, then you should keep reading.
 
-#### Load `dplyr`
+#### Load `dplyr` and `gapminder`
 
 ```{r}
 ## install if you do not already have
@@ -30,6 +30,7 @@ Have no idea what I'm talking about? Not sure if you care? If you use these base
 ## devtools::install_github("hadley/lazyeval")
 ## devtools::install_github("hadley/dplyr")
 suppressPackageStartupMessages(library(dplyr))
+library(gapminder)
 ```
 
 #### Load the Gapminder data
@@ -37,16 +38,15 @@ suppressPackageStartupMessages(library(dplyr))
 An excerpt of the Gapminder data which we work with alot.
 
 ```{r}
-gd_url <- "http://tiny.cc/gapminder"
-gdf <- read.delim(file = gd_url)
-str(gdf)
-head(gdf)
+
+str(gapminder)
+head(gapminder)
 ```
 
 ### Meet `tbl_df`, an upgrade to `data.frame`
 
 ```{r}
-gtbl <- tbl_df(gdf)
+gtbl <- tbl_df(gapminder)
 gtbl
 glimpse(gtbl)
 ```
@@ -58,7 +58,7 @@ A `tbl_df` is basically an improved data.frame, for which `dplyr` provides nice 
 If you feel the urge to store a little snippet of your data:
 
 ```{r}
-(snippet <- subset(gdf, country == "Canada"))
+(snippet <- subset(gapminder, country == "Canada"))
 ```
 
 Stop and ask yourself ...
@@ -85,8 +85,8 @@ filter(gtbl, country %in% c("Rwanda", "Afghanistan"))
 
 Compare with some base R code to accomplish the same things
 ```{r eval = FALSE}
-gdf[gdf$lifeExp < 29, ] ## repeat `gdf`, [i, j] indexing is distracting
-subset(gdf, country == "Rwanda") ## almost same as filter ... but wait ...
+gapminder[gapminder$lifeExp < 29, ] ## repeat `gapminder`, [i, j] indexing is distracting
+subset(gapminder, country == "Rwanda") ## almost same as filter ... but wait ...
 ```
 
 ### Meet the new pipe operator
@@ -100,15 +100,15 @@ Here's what it looks like: `%>%`. The RStudio keyboard shortcut: Ctrl + Shift + 
 Let's demo then I'll explain:
 
 ```{r}
-gdf %>% head
+gapminder %>% head
 ```
 
-This is equivalent to `head(gdf)`. This pipe operator takes the thing on the left-hand-side and __pipes__ it into the function call on the right-hand-side -- literally, drops it in as the first argument.
+This is equivalent to `head(gapminder)`. This pipe operator takes the thing on the left-hand-side and __pipes__ it into the function call on the right-hand-side -- literally, drops it in as the first argument.
 
-Never fear, you can still specify other arguments to this function! To see the first 3 rows of Gapminder, we could say `head(gdf, 3)` or this:
+Never fear, you can still specify other arguments to this function! To see the first 3 rows of Gapminder, we could say `head(gapminder, 3)` or this:
 
 ```{r}
-gdf %>% head(3)
+gapminder %>% head(3)
 ```
 
 I've advised you to think "gets" whenever you see the assignment operator, `<-`. Similary, you should think "then" whenever you see the pipe operator, `%>%`.
@@ -147,13 +147,13 @@ gtbl %>%
 and what a typical base R call would look like:
 
 ```{r}
-gdf[gdf$country == "Cambodia", c("year", "lifeExp")]
+gapminder[gapminder$country == "Cambodia", c("year", "lifeExp")]
 ```
 
 or, possibly?, a nicer look using base R's `subset()` function:
 
 ```{r}
-subset(gdf, country == "Cambodia", select = c(year, lifeExp))
+subset(gapminder, country == "Cambodia", select = c(year, lifeExp))
 ```
 
 ### Pause to reflect
