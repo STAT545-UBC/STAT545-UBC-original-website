@@ -100,7 +100,7 @@ img {
 
 <p>Problem: You’re using an API and you need to provide your key or token to authenticate yourself. You don’t want to do this interactively and repeatedly. You don’t want to store the key in your scripts or push it to GitHub by mistake.</p>
 <p>Solution: Store it as an environment variable and retrieve it with <code>Sys.getenv()</code> in an R script or an RMarkdown document.</p>
-<p>Motivating example: I use this method to interact with GitHub via the <a href="https://github.com/cscheid/rgithub"><code>github</code> R package</a>, a wrapper around the Github v3 API.</p>
+<p>Motivating example: I use this method to interact with GitHub via the <a href="https://github.com/cscheid/rgithub"><code>github</code> R package</a>, a wrapper around the GitHub v3 API.</p>
 <p>Source: The <a href="https://github.com/hadley/httr"><code>httr</code> package</a> has a vignette, <a href="http://cran.r-project.org/web/packages/httr/vignettes/api-packages.html">Best practices for writing an API package</a>, that advocates this approach (but lacks this excruciating detail).</p>
 <p>How to do it:</p>
 <ul>

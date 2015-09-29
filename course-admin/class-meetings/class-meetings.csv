@@ -12,7 +12,7 @@ cm010,STAT545A,thurs,october,8,FALSE,"Split-Apply-Combine, Writing your own R fu
 cm011,STAT545A,tues,october,13,FALSE,Tidy data and reshaping
 cm012,STAT545A,thurs,october,15,FALSE,Be the boss of your factors
 cm013,STAT545A,tues,october,20,FALSE,Practical graphing tips
-cm014,STAT545A,thurs,october,22,FALSE,"Visualization Analysis and Design: guest lecture from the awesome Tamara Munzer"
+cm014,STAT545A,thurs,october,22,TRUE,"Visualization Analysis and Design: guest lecture from the awesome Tamara Munzer"
 cm101,STAT547M,tues,october,27,FALSE,Getting data out of R (and back in)
 cm102,STAT547M,thurs,october,29,FALSE,Regular expressions and character data
 cm103,STAT547M,tues,november,3,FALSE,Data cleaning
