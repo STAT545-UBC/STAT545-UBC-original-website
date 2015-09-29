@@ -26,8 +26,8 @@ We use an excerpt of the Gapminder data and store it as a `tbl_df` object, basic
 
 ```{r}
 suppressPackageStartupMessages(library(dplyr))
-gd_url <- "http://tiny.cc/gapminder"
-gtbl <- gd_url %>% read.delim %>% tbl_df
+library(gapminder)
+gtbl <- gapminder %>% tbl_df
 gtbl %>% glimpse
 ```
 

@@ -6,5 +6,6 @@ html_document:
   self_contained: false
   lib_dir: libs
   includes:
+    in_header: include/google_analytics.html
     before_body: include/nav.html
     after_body: include/license-footer.html
