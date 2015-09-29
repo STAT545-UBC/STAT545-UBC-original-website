@@ -27,7 +27,14 @@ output:
 
 #### Slides and links
 
-*there were no slides*
+I've given two talks this year that discuss the importance of R Markdown in an analytical workflow and how nicely it plays with GitHub. We looked at *some* of these slides.
+
+  * New tools and workflows for data analysis, Workshop on Visualization for Big Data: Strategies and Principles, Fields Institute, February 2015
+    - GitHub repo with links and slides: [jennybc/2015-02-23_bryan-fields-talk](https://github.com/jennybc/2015-02-23_bryan-fields-talk)
+    - Slides on [speakerdeck](https://speakerdeck.com/jennybc/new-tools-and-workflows-for-data-analysis)
+  * How R Markdown + Git + GitHub changed my (teaching?) life, R Summit, June 2015
+    - GitHub repo with links and slides: [jennybc/2015-06-28_r-summit-talk](https://github.com/jennybc/2015-06-28_r-summit-talk)
+    - Slides on [speakerdeck](https://speakerdeck.com/jennybc/talk-at-r-summit-and-workshop-about-using-r-markdown-and-github-in-your-workflow)
 
 #### Q and A from 2014
 
