@@ -126,7 +126,7 @@ near the top of your R Markdown document if you want to soldier on through error
 
 __Tolerate errors in one specific chunk.__ If it's undesirable to globally accept errors, you can still do this for a specific chunk like so:
 
-    ```{r wing-and-a-prayer, error = FALSE}  
+    ```{r wing-and-a-prayer, error = TRUE}  
     ## your sketchy code goes here ;) 
     ```
 

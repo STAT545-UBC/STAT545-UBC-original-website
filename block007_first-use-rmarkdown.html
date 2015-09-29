@@ -204,7 +204,7 @@ knitr::opts_chunk$set(error = TRUE)
 ```</code></pre>
 <p>near the top of your R Markdown document if you want to soldier on through errors, i.e. turn <code>foo.Rmd</code> into <code>foo.md</code> and/or <code>foo.html</code> no matter what. This is also helpful if you are writing a tutorial and want to demo code that throws an error. You might want to keep this as an <a href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets">RStudio snippet</a> for easy insertion.</p>
 <p><strong>Tolerate errors in one specific chunk.</strong> If it’s undesirable to globally accept errors, you can still do this for a specific chunk like so:</p>
-<pre><code>```{r wing-and-a-prayer, error = FALSE}  
+<pre><code>```{r wing-and-a-prayer, error = TRUE}  
 ## your sketchy code goes here ;) 
 ```</code></pre>
 <p><strong>Check your working directory.</strong> It’s going to break your heart as you learn how often your mistakes are really mundane and basic. Ask me how I know. When things go wrong consider:</p>
