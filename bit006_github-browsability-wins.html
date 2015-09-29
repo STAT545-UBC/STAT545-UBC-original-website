@@ -141,7 +141,7 @@ img {
 <pre class="yaml"><code>---
 title: &quot;Something fascinating&quot;
 author: &quot;Jenny Bryan&quot;
-date: &quot;2015-09-29&quot;
+date: &quot;`r format(Sys.Date())`&quot;
 output:
   html_document:
     keep_md: TRUE
@@ -150,12 +150,12 @@ output:
 <pre class="yaml"><code>#&#39; ---
 #&#39; title: &quot;Something fascinating&quot;
 #&#39; author: &quot;Jenny Bryan&quot;
-#&#39; date: &quot;2015-09-29&quot;
+#&#39; date: &quot;`r format(Sys.Date())`&quot;
 #&#39; output:
 #&#39;   html_document:
 #&#39;     keep_md: TRUE
 #&#39; ---</code></pre>
-<p>In RStudio, when editing <code>.Rmd</code>, click on the great next to “Knit HTML” for YAML authoring tools.</p>
+<p>In RStudio, when editing <code>.Rmd</code>, click on the gear next to “Knit HTML” for YAML authoring help</p>
 <p>For a quick, stand-alone document that doesn’t fit neatly into a repository or project (yet), make it a <a href="https://gist.github.com">Gist</a>. Example: Hadley Wickham’s <a href="https://gist.github.com/hadley/820f09ded347c62c2864">advise on what you need to do to become a data scientist</a>. Gists can contain multiple files, so you can still provide the R script or R Markdown source <strong>and</strong> the resulting Markdown, as I’ve done in this write-up of <a href="https://gist.github.com/jennybc/04b71bfaaf0f88d9d2eb">Twitter-sourced tips for cross-tabulation</a>.</p>
 </div>
 <div id="readme.md" class="section level4">
@@ -190,7 +190,7 @@ output:
 <h4>Delimited files</h4>
 <p>GitHub will nicely render tabular data in the form of <code>.csv</code> (comma-separated) and <code>.tsv</code> (tab-separated) files.&quot; You can read more in the <a href="https://github.com/blog/1601-see-your-csvs">blog post</a> announcing this feature in August 2013 or in <a href="https://help.github.com/articles/rendering-csv-and-tsv-data">this GitHub help page</a>.</p>
 <p>Advice: take advantage of this! If something in your repo can be naturally stored as delimited data, by all means, do so. Make the comma or tab your default delimiter and use the file suffixes GitHub is expecting. I have noticed that GitHub is more easily confused than, say, R about things like quoting, so always inspect the GitHub-rendered <code>.csv</code> or <code>.tsv</code> file in the browser. You may need to do light tidying to get the automagic rendering to work properly. Think of it as yet another way to learn about imperfections in your data.</p>
-<p>Here’s an example of a tab delimited file on GitHub: <a href="https://github.com/jennybc/lotr/blob/master/lotr_clean.tsv">lotr_clean.tsv</a>, originally found <a href="http://www-958.ibm.com/software/data/cognos/manyeyes/datasets/words-spoken-by-character-race-scene/versions/1.txt">here</a>.</p>
+<p>Here’s an example of a tab delimited file on GitHub: <a href="https://github.com/jennybc/lotr/blob/master/lotr_clean.tsv">lotr_clean.tsv</a>, originally found <del>here</del> (nope, IBM shut down manyeyes July 2015).</p>
 <p>Note you can click on “Raw” in this context as well, to get just the plain text and nothing but the plain text.</p>
 </div>
 <div id="pngs" class="section level4">

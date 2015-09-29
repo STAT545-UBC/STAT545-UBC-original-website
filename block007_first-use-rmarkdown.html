@@ -156,14 +156,14 @@ img {
 <li><p>RStudio GUI: click on the “gear” in the top bar of the source editor, near the “Knit HTML” button. Select “Output options” and go to the Advanced tab and check “Keep markdown source file.”</p></li>
 <li><p>“By hand:” Make your YAML frontmatter look something like this:</p></li>
 </ul>
-<pre class="sh"><code>   ---  
-   title: &quot;Something fascinating&quot;  
-   author: &quot;Jenny Bryan&quot;  
-   date: &quot;10 September, 2015&quot;  
-   output:  
-     html_document:  
-       keep_md: true  
-   ---  </code></pre>
+<pre class="yaml"><code>    ---  
+    title: &quot;Something fascinating&quot;  
+    author: &quot;Jenny Bryan&quot;  
+    date: &quot;`r format(Sys.Date())`&quot;
+    output:  
+      html_document:  
+        keep_md: true  
+    ---  </code></pre>
 <p>Save! Render via “Knit HTML” button.</p>
 <p>Now revisit the file browser. In addition to <code>foo.Rmd</code> and <code>foo.html</code>, you should now see <code>foo.md</code> and a directory <code>foo_files</code>, where any figures created by the document will live.</p>
 </div>

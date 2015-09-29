@@ -54,16 +54,16 @@ It will have nice side effects on GitHub if we save the intermediate Markdown fi
   * RStudio GUI: click on the "gear" in the top bar of the source editor, near the "Knit HTML" button. Select "Output options" and go to the Advanced tab and check "Keep markdown source file."
   
   * "By hand:" Make your YAML frontmatter look something like this:
-  
-```sh
-   ---  
-   title: "Something fascinating"  
-   author: "Jenny Bryan"  
-   date: "10 September, 2015"  
-   output:  
-     html_document:  
-       keep_md: true  
-   ---  
+
+``` yaml
+    ---  
+    title: "Something fascinating"  
+    author: "Jenny Bryan"  
+    date: "`r format(Sys.Date())`"
+    output:  
+      html_document:  
+        keep_md: true  
+    ---  
 ```
 
 Save! Render via "Knit HTML" button.

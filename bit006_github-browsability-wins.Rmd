@@ -37,11 +37,18 @@ Aggressively exploit this handy feature. Make Markdown your default format for n
 
 What does this mean for R Markdown files? **Keep intermediate Markdown.** Commit both `foo.Rmd` and `foo.md`, even if you choose to `.gitignore` the final `foo.html`. As of [September 2014](https://github.com/github/markup/pull/343), GitHub renders R Markdown files nicely, like Markdown, and with proper syntax highlighting, which is great. But, of course, the code blocks just sit there un-executed, so my advice about keeping intermediate Markdown still holds. You want YAML frontmatter that looks something like [this](https://gist.github.com/jennybc/402761e30b9be8023af9#file-yaml_frontmatter_rmd_keep_md-yml) for `.Rmd`:
 
+```{r include = FALSE}
+rinline <- function(code) {
+  sprintf('`r %s`', code)
+}
+```
+
+
 ``` yaml
 ---
 title: "Something fascinating"
 author: "Jenny Bryan"
-date: "`r format(Sys.Date())`"
+date: "`r rinline("format(Sys.Date())")`"
 output:
   html_document:
     keep_md: TRUE
@@ -54,14 +61,14 @@ or like [this](https://gist.github.com/jennybc/402761e30b9be8023af9#file-yaml_fr
 #' ---
 #' title: "Something fascinating"
 #' author: "Jenny Bryan"
-#' date: "`r format(Sys.Date())`"
+#' date: "`r rinline("format(Sys.Date())")`"
 #' output:
 #'   html_document:
 #'     keep_md: TRUE
 #' ---
 ```
 
-In RStudio, when editing `.Rmd`, click on the great next to "Knit HTML" for YAML authoring tools.
+In RStudio, when editing `.Rmd`, click on the gear next to "Knit HTML" for YAML authoring help
 
 For a quick, stand-alone document that doesn't fit neatly into a repository or project (yet), make it a [Gist](https://gist.github.com). Example: Hadley Wickham's [advise on what you need to do to become a data scientist](https://gist.github.com/hadley/820f09ded347c62c2864). Gists can contain multiple files, so you can still provide the R script or R Markdown source __and__ the resulting Markdown, as I've done in this write-up of [Twitter-sourced tips for cross-tabulation](https://gist.github.com/jennybc/04b71bfaaf0f88d9d2eb).
 
@@ -100,7 +107,7 @@ GitHub will nicely render tabular data in the form of `.csv` (comma-separated) a
 
 Advice: take advantage of this! If something in your repo can be naturally stored as delimited data, by all means, do so. Make the comma or tab your default delimiter and use the file suffixes GitHub is expecting. I have noticed that GitHub is more easily confused than, say, R about things like quoting, so always inspect the GitHub-rendered `.csv` or `.tsv` file in the browser. You may need to do light tidying to get the automagic rendering to work properly. Think of it as yet another way to learn about imperfections in your data.
 
-Here's an example of a tab delimited file on GitHub: [lotr_clean.tsv](https://github.com/jennybc/lotr/blob/master/lotr_clean.tsv), originally found [here](http://www-958.ibm.com/software/data/cognos/manyeyes/datasets/words-spoken-by-character-race-scene/versions/1.txt).
+Here's an example of a tab delimited file on GitHub: [lotr_clean.tsv](https://github.com/jennybc/lotr/blob/master/lotr_clean.tsv), originally found ~~here~~ (nope, IBM shut down manyeyes July 2015).
 
 Note you can click on "Raw" in this context as well, to get just the plain text and nothing but the plain text.
 
