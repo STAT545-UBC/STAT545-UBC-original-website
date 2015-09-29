@@ -19,7 +19,15 @@ Keep files in the plainest, web-friendliest form that is compatible with your ma
   * Delimited files, containing data one might bring into R via `read.table()`
   * PNG files
   
-Sidebar: let's acknowledge the discomfort some people feel about putting downstream products under version control. Specifically, if you've got an R Markdown document `foo.rmd`, it can be `knit()` to produce the intermediate product `foo.md`, which can be converted to the ultimate output `foo.html`. Which of those files are you "allowed" to put under version control? Source-is-real hardliners will say only `foo.rmd` but pragmatists know this can be a serious bummer in real life. Just because I *can* rebuild everything from scratch, it doesn't mean I *want* to. The taboo of keeping derived products under version control originates from compilation of binary executables from source. In that context, software built on, say, a Mac would not work on, say, Windows and so it made sense to keep these binaries out of the holy source code repository. Also, you could assume the people with access to the repository have the full development stack and relish opportunities to use it. These arguments are less applicable to the `foo.rmd --> foo.md --> foo.html` thing. We don't have to blindly follow traditions from the compilation domain. This is a note about cool things GitHub can do with various file types, if they happen to end up in your repo. I won't ask you how they got there.
+#### Get over your hang ups re: committing derived products
+  
+Let's acknowledge the discomfort some people feel about putting derived products under version control. Specifically, if you've got an R Markdown document `foo.Rmd`, it can be `knit()` to produce the intermediate product `foo.md`, which can be converted to the ultimate output `foo.html`. Which of those files are you "allowed" to put under version control? Source-is-real hardliners will say only `foo.Rmd` but pragmatists know this can be a serious bummer in real life. Just because I *can* rebuild everything from scratch, it doesn't mean I *want* to.
+
+The taboo of keeping derived products under version control originates from compilation of binary executables from source. Software built on a Mac would not work on Windows and so it made sense to keep these binaries out of the holy source code repository. Also, you could assume the people with access to the repository have the full development stack and relish opportunities to use it. None of these arguments really apply to the `foo.Rmd --> foo.md --> foo.html` workflow. We don't have to blindly follow traditions from the compilation domain!
+
+In fact, looking at the diffs for `foo.md` or `foo-figure-01.png` can be extremely informative in data analytic projects! Sometimes you see changes you did not expect, which can tip you off to changes in the underlying data and/or the packages you depend on.
+
+This is a note about cool things GitHub can do with various file types, if they happen to end up in your repo. I won't ask you how they got there.
   
 #### Markdown
 
@@ -27,9 +35,35 @@ You will quickly discover that GitHub renders Markdown files very nicely. By cli
 
 Aggressively exploit this handy feature. Make Markdown your default format for narrative text files and use them liberally to embed notes to yourself and others in a repository hosted on Github. It's an easy way to get pseudo-webpages inside a project "for free". You may never even compile these files to HTML explicitly; in many cases, the HTML preview offered by GitHub is all you ever need.
 
-~~Since GitHub does not provide automatic previewing of *R Markdown* files,~~ it can be handy to include the intermediate Markdown files produced by `knitr` in your repo, even if you choose to `.gitignore` the final HTML. Also, don't use the `.rmd` extension unless you really have R chunks in your Markdown; if a file is plain Markdown, say that clearly with the `.md` extension and enjoy the automatic preview. *Update: [GitHub now syntax highlights R markdown nicely](https://github.com/github/markup/pull/343), but, of course, the code blocks just sit there un-executed, so my advice about keeping intermediate Markdown still holds. [Here's how to retain](block007_first-use-rmarkdown.html#step-3-save-the-intermediate-markdown) the intermediate Markdown.*
+What does this mean for R Markdown files? **Keep intermediate Markdown.** Commit both `foo.Rmd` and `foo.md`, even if you choose to `.gitignore` the final `foo.html`. As of [September 2014](https://github.com/github/markup/pull/343), GitHub renders R Markdown files nicely, like Markdown, and with proper syntax highlighting, which is great. But, of course, the code blocks just sit there un-executed, so my advice about keeping intermediate Markdown still holds. You want YAML frontmatter that looks something like [this](https://gist.github.com/jennybc/402761e30b9be8023af9#file-yaml_frontmatter_rmd_keep_md-yml) for `.Rmd`:
 
-For a quick, stand-alone document that doesn't fit neatly into a repository or project (yet), make it a [Gist](https://gist.github.com). Example: Hadley Wickham's ["first stab at a basic R programming curriculum"](https://gist.github.com/hadley/6734639). Gists can contain multiple files, so you can still provide the R script or R Markdown source __and__ the resulting Markdown, [as I've done here](https://gist.github.com/jennybc/97f2a969e2985f1362f3).
+``` yaml
+---
+title: "Something fascinating"
+author: "Jenny Bryan"
+date: "`r format(Sys.Date())`"
+output:
+  html_document:
+    keep_md: TRUE
+---
+```
+
+or like [this](https://gist.github.com/jennybc/402761e30b9be8023af9#file-yaml_frontmatter_r_keep_md-yml) for `.R`:
+
+``` yaml
+#' ---
+#' title: "Something fascinating"
+#' author: "Jenny Bryan"
+#' date: "`r format(Sys.Date())`"
+#' output:
+#'   html_document:
+#'     keep_md: TRUE
+#' ---
+```
+
+In RStudio, when editing `.Rmd`, click on the great next to "Knit HTML" for YAML authoring tools.
+
+For a quick, stand-alone document that doesn't fit neatly into a repository or project (yet), make it a [Gist](https://gist.github.com). Example: Hadley Wickham's [advise on what you need to do to become a data scientist](https://gist.github.com/hadley/820f09ded347c62c2864). Gists can contain multiple files, so you can still provide the R script or R Markdown source __and__ the resulting Markdown, as I've done in this write-up of [Twitter-sourced tips for cross-tabulation](https://gist.github.com/jennybc/04b71bfaaf0f88d9d2eb).
 
 #### `README.md`
 
@@ -45,7 +79,7 @@ If you've got a directory full of web-friendly figures, such as PNGs, you can us
 
 If you have an HTML file in a GitHub repository, simply visiting the file shows the raw HTML. Boo. But if you preface the link with `http://htmlpreview.github.com/?`, you will see properly rendered HTML. Illustration:
 
-  * Visiting an HTML fil on GitHub gets you this:
+  * Visiting an HTML file on GitHub gets you this:
     - <https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/bit003_api-key-env-var.html>
   * But if we visit the file in a different way -- if we preface the URL as described above -- we see it more like a normal webpage:
     - <http://htmlpreview.github.io/?https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/bit003_api-key-env-var.html>
@@ -56,15 +90,15 @@ This sort of enhanced link might be one of the useful things to put in a `README
 
 #### Source code
 
-You will notice that GitHub does automatic syntax highlighting for source code. For example, notice the coloring of this [R script](https://github.com/jennybc/swcR_duke/blob/master/code/01_countrySpecificInterceptSlope.R). The file's extension is the primary determinant for if/how syntax highlighting will be applied. You can see information on recognized languages, the default extensions and more [here](https://github.com/github/linguist/blob/master/lib/linguist/languages.yml). You should be doing it anyway, but let this be another reason to follow convention in your use of file extensions.
+You will notice that GitHub does automatic syntax highlighting for source code. For example, notice the coloring of this [R script](https://github.com/jennybc/ggplot2-tutorial/blob/master/gapminder-ggplot2-stripplot.r). The file's extension is the primary determinant for if/how syntax highlighting will be applied. You can see information on recognized languages, the default extensions and more at [github/linguist](https://github.com/github/linguist/blob/master/lib/linguist/languages.yml). You should be doing it anyway, but let this be another reason to follow convention in your use of file extensions.
 
 Note you can click on "Raw" in this context as well, to get just the plain text and nothing but the plain text.
     
 #### Delimited files
 
-GitHub will nicely render "tabular data in the form of `.csv` (comma-separated) and `.tsv` (tab-separated) files." You can read more in the [blog post](https://github.com/blog/1601-see-your-csvs) announcing this feature in August 2013 or in [this GitHub help page](https://help.github.com/articles/rendering-csv-and-tsv-data).
+GitHub will nicely render tabular data in the form of `.csv` (comma-separated) and `.tsv` (tab-separated) files." You can read more in the [blog post](https://github.com/blog/1601-see-your-csvs) announcing this feature in August 2013 or in [this GitHub help page](https://help.github.com/articles/rendering-csv-and-tsv-data).
 
-Advice: take advantage of this! If something in your repo can be naturally stored as delimited data, by all means, do so. Make the comma or tab your default delimiter and use the file suffixes GitHub is expecting. I have noticed that GitHub is more easily confused than, say, R about things like quoting, so always inspect the GitHub-rendered `.csv` or `.tsv` file in the browser. You may need to do light tidying to get the automagic rendering to work properly.
+Advice: take advantage of this! If something in your repo can be naturally stored as delimited data, by all means, do so. Make the comma or tab your default delimiter and use the file suffixes GitHub is expecting. I have noticed that GitHub is more easily confused than, say, R about things like quoting, so always inspect the GitHub-rendered `.csv` or `.tsv` file in the browser. You may need to do light tidying to get the automagic rendering to work properly. Think of it as yet another way to learn about imperfections in your data.
 
 Here's an example of a tab delimited file on GitHub: [lotr_clean.tsv](https://github.com/jennybc/lotr/blob/master/lotr_clean.tsv), originally found [here](http://www-958.ibm.com/software/data/cognos/manyeyes/datasets/words-spoken-by-character-race-scene/versions/1.txt).
 
@@ -77,28 +111,40 @@ PNG is the "no brainer" format in which to store figures for the web. But many o
 Examples:
 
   * [This PNG figure](https://github.com/jennybc/STAT545A/blob/master/hw06_scaffolds/01_justR/stripplot_wordsByRace_The_Fellowship_Of_The_Ring.png) just shows up in the browser
-  * A different figure [stored as PDF](https://github.com/jennybc/STAT545A/blob/master/r.pch.pdf) ~~produces the dreaded, annoying "View Raw" speed bump. You'll have to click through and, on my OS + browser, wait for the PDF to appear in an external PDF viewer.~~ *2015-06-19 update: since I first wrote this GitHub has [elevated its treament of PDFs](https://github.com/blog/1974-pdf-viewing) so YAY.*
+  * A different figure [stored as PDF](https://github.com/jennybc/ggplot2-tutorial/blob/master/gapminder-country-colors.pdf) ~~produces the dreaded, annoying "View Raw" speed bump. You'll have to click through and, on my OS + browser, wait for the PDF to appear in an external PDF viewer.~~ *2015-06-19 update: since I first wrote this GitHub has [elevated its treament of PDFs](https://github.com/blog/1974-pdf-viewing) so YAY.*
   
 #### Linking to a ZIP archive of your repo
 
-The browsability of GitHub make your work accessible to people who care about your content but who don't (yet) use Git themselves. What if such a person wants all the files? Yes, there is a clickable "Download ZIP" button offered by GitHub. But what if you want a link to include in, say, an email or other document? If you add `/archive/master.zip` *to the end* of the URL for your repo, you construct a link that will download a ZIP archive of your repository. Click here to try this out on a very small repo:
+The browsability of GitHub makes your work accessible to people who care about your content but who don't (yet) use Git themselves. What if such a person wants all the files? Yes, there is a clickable "Download ZIP" button offered by GitHub. But what if you want a link to include in an email or other document? If you add `/archive/master.zip` *to the end* of the URL for your repo, you construct a link that will download a ZIP archive of your repository. Click here to try this out on a very small repo:
 
 <https://github.com/jennybc/lotr/archive/master.zip>
 
 Go look in your downloads folder!
 
-#### Links
+#### Links and embedded figures
 
 * To link to another page in your repo, just use a relative link: `[admin](courseAdmin/)` will link to the `courseAdmin/` directory inside the current directory. `[admin](/courseAdmin/)` will link to the top-level `courseAdmin/` directory from any where in the repo
 
 * The same idea also works for images. `![](image.png)` will include `image.png` located in the current directory
 
-* You can link to issues with `#` followed by the issue number, e.g. #10.
+#### Let people correct you on the internet
 
-#### More stuff I could write up?
+They love that!
 
-Variations on this theme:
+You can create a link that takes people directly to an editing interface in the browser. Behind the scenes, assuming the clicker is signed into GitHub but is not you, this will create a fork in their account and send you a pull request. When I click the link below, I am able to actually commit directly to `master` for this repo.
 
-  * whether/how internal links work in issues (short answer: not so much, I fear)
+[CLICK HERE to suggest an edit to this page!](https://github.com/STAT545-UBC/STAT545-UBC.github.io/edit/master/bit006_github-browsability-wins.md)
 
-  * embedding a PNG from the repo in a `.md` file; ditto for an issue
+Here's what that link looks like in the Markdown source:
+
+```
+[CLICK HERE to suggest an edit to this page!](https://github.com/STAT545-UBC/STAT545-UBC.github.io/edit/master/bit006_github-browsability-wins.md)
+```
+
+and here it is with placeholders:
+
+```
+[INVITATION TO EDIT](<URL to your repo>/edit/master/<name of your md file>)
+```
+
+AFAIK, to do that in a slick automatic way across an entire repo/site, you need to be using Jekyll or some other automated system. But you could easily handcode such links on a small scale.
