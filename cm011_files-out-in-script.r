@@ -13,7 +13,9 @@ library(ggplot2)
 library(dplyr)
 
 ## bring in Gapminder data
-gDat <- read.delim("gapminderDataFiveYear.txt")
+library(gapminder)
+gap_tsv <- system.file("gapminder.tsv", package = "gapminder")
+gDat <- read.delim(gap_tsv)
 dim(gDat)
 
 ## optional: subset the Gapminder data drastically ... maybe use same 5

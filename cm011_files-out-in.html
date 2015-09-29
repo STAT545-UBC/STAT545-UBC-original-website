@@ -13,10 +13,21 @@
 <title></title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
-<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -37,7 +48,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
-<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="libs\local\main.css" type="text/css" />
+<link rel="stylesheet" href="libs\local\nav.css" type="text/css" />
 
 </head>
 
@@ -48,6 +60,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
 }
 </style>
 <div class="container-fluid main-container">
@@ -70,36 +90,18 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="TOC">
 <ul>
-<li><a href="#cm011-2014-10-08-wednesday-overview">cm011 2014-10-08 Wednesday overview</a></li>
+<li><a href="#cm101-2015-10-27-tuesday-overview">cm101 2015-10-27 Tuesday overview</a></li>
 </ul>
 </div>
 
-<div id="cm011-2014-10-08-wednesday-overview" class="section level3">
-<h3>cm011 2014-10-08 Wednesday overview</h3>
+<div id="cm101-2015-10-27-tuesday-overview" class="section level3">
+<h3>cm101 2015-10-27 Tuesday overview</h3>
 <ul>
-<li><a href="hw05_factor-boss-files-out-in.html">HW05</a> will be due Thursday 2014-10-16. Will cover reordering factors and data; verifying differences in tables/figs before vs after, and how such things interact with different methods of storing data to file.</li>
-<li>Expect an optional, non-marked homework around the STAT545 –&gt; STAT547 transition
-<ul>
-<li>clean up your <code>README.md</code></li>
-<li>create a useful index into your homework / entire repo</li>
-<li>identify some non-Gapminder data that interests you and might interest others</li>
-</ul></li>
-<li>I’m still thinking about Wednesday vs Thursday vs Friday as HW submission day for next half of term….</li>
 <li>Today
 <ul>
-<li>HW02 observations <em>I will post what I showed somewhere private to us and publicize a link</em></li>
 <li>Writing (derived) data to file: when to do it which way</li>
 <li><a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm011_files-out-in-script.r">Indicative code from our hands on activities</a></li>
 <li><a href="http://www.stat.ubc.ca/~jenny/STAT545A/block05_getNumbersOut.html">2013 lesson</a> <em>will be brought into 2014 repo; no major content change but will, e.g., switch over to <code>dplyr</code></em></li>
-</ul></li>
-<li>Monday 2014-10-13
-<ul>
-<li>NO CLASS. THANKSGIVING HOLIDAY.</li>
-</ul></li>
-<li>Wednesday 2014-10-15
-<ul>
-<li>Back to figs: effective graphs, be the boss of colors</li>
-<li>I’m taking suggestions over on the <a href="https://github.com/STAT545-UBC/Discussion/issues/36">Discussion repo</a>. Can’t promise to cover everything in class, but will provide some response if possible.</li>
 </ul></li>
 </ul>
 </div>
