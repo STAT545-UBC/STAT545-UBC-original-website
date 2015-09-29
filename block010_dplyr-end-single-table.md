@@ -62,9 +62,12 @@ Hmmmm ... those GDP numbers are almost uselessly large and abstract. Consider th
 
 
 ```r
-just_canada <- gtbl %>% filter(country == "Canada")
+just_canada <- gtbl %>%
+  filter(country == "Canada")
+## this is a dangerous way to add this variable
+## doing it this way so we don't get too fancy yet
 gtbl <- gtbl %>%
-  mutate(canada = just_canada$gdpPercap[match(year, just_canada$year)],
+  mutate(canada = rep(just_canada$gdpPercap, nlevels(country)),
          gdpPercapRel = gdpPercap / canada)
 gtbl %>%
   select(country, year, gdpPercap, canada, gdpPercapRel)
@@ -104,7 +107,7 @@ gtbl %>%
 ##  Max.   :9.534690
 ```
 
-Note that, `mutate()` builds new variables sequentially so you can reference earlier ones (like `canada`) when defining later ones (like `gdpPercapRel`). (I got a little off topic here using `match()` to do table look up, but [you can figure that out](http://www.rdocumentation.org/packages/base/functions/match).)
+Note that, `mutate()` builds new variables sequentially so you can reference earlier ones (like `canada`) when defining later ones (like `gdpPercapRel`).
 
 The relative GDP per capita numbers are, in general, well below 1. We see that most of the countries covered by this dataset have substantially lower GDP per capita, relative to Canada, across the entire time period.
 
@@ -197,9 +200,7 @@ I advise that your analyses NEVER rely on rows or variables being in a specific 
 
 ### Use `rename()` to rename variables
 
-*NOTE: I am using the development version of `dplyr` which will soon become the official release 0.3. If `rename()` does not work for you, try `rename_vars()`, which is what this function is called in version 0.2 on CRAN. You could also use `plyr::rename()`, but then you have to be careful to always load `plyr` before `dplyr`.*
-
-I am in the awkward life stage of switching from [`camelCase`](http://en.wikipedia.org/wiki/CamelCase) to [`snake_case`](http://en.wikipedia.org/wiki/Snake_case), so I am vexed by the variable names I chose when I cleaned this data years ago. Let's rename some variables!
+When I first cleaned this Gapminder excerpt, I was a [`camelCase`](http://en.wikipedia.org/wiki/CamelCase) person, but now I'm all about [`snake_case`](http://en.wikipedia.org/wiki/Snake_case). So I am vexed by the variable names I chose when I cleaned this data years ago. Let's rename some variables!
 
 
 ```r
@@ -238,6 +239,7 @@ I have found friends and family love to ask seemingly innocuous questions like, 
   * `group_by()` adds extra structure to your dataset -- grouping information -- which lays the groundwork for computations within the groups.
   * `summarize()` takes a dataset with $n$ observations, computes requested summaries, and returns a dataset with 1 observation.
   * window functions take a dataset with $n$ observations and return a dataset with $n$ observations.
+  * `do()` is the most general function you will use in a grouped data situation.
   
 Combined with the verbs you already know, these new tools allow you to solve an extremely diverse set of problems with relative ease.
 

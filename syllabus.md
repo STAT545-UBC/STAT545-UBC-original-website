@@ -24,14 +24,14 @@ sep-15 tues    <a href="cm003_r-objects-git-toe-dip.html">cm003</a>: Git(Hub) an
 sep-17 thurs   <a href="cm004_care-feeding-data.html">cm004</a>: Care and feeding of data (data.frames, actually)                 
 sep-22 tues    <a href="cm005_ggplot2-intro.html">cm005</a>: Intro to ggplot2                                                     
 sep-24 thurs   <a href="cm006_rmarkdown.html">cm006</a>: R Markdown                                                               
-sep-29 tues    cm007: dplyr: single table verbs, Basic flavors of R objects                                                       
+sep-29 tues    <a href="cm007_dplyr-intro.html">cm007</a>: dplyr: the pipe and single table verbs                                 
 oct-01 thurs   cm008: dplyr: joins, Basic flavors of R objects                                                                    
 oct-06 tues    cm009: Split-Apply-Combine, Writing your own R functions                                                           
 oct-08 thurs   cm010: Split-Apply-Combine, Writing your own R functions                                                           
 oct-13 tues    cm011: Tidy data and reshaping                                                                                     
 oct-15 thurs   cm012: Be the boss of your factors                                                                                 
-oct-20 tues    cm013: Effective graphs                                                                                            
-oct-22 thurs   cm014: Practical graphing tips                                                                                     
+oct-20 tues    cm013: Practical graphing tips                                                                                     
+oct-22 thurs   cm014: Visualization Analysis and Design: guest lecture from the awesome Tamara Munzer                             
 
 #### STAT 547M
 

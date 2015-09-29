@@ -10,7 +10,7 @@ output:
 
 Consult the [general homework guidelines](hw00_homework-guidelines.html).
 
-Due before class Monday 2014-09-29.
+Due sometime Tuesday 2015-10-06.
 
 The goal is to manipulate and explore a dataset with the `dplyr` package, complemented by visualizations made with `ggplot2`. In particular, we keep our focus on working with a `data.frame` (but note: `dplyr` can work with other data storage formats seamlessly).
 
@@ -68,8 +68,10 @@ Notice which figures are easy/hard to make, which data formats make better input
 
 ### But I want to do more!
 
-I've always wanted to get a two-column layout, but only in certain parts of a document. The idea would be to put a figure and relevant table right next to each other. Anyone who figures that out in our report-making workflow would be a hero. But this is low priority and only for a keener.
-  
+Layout stretch goal: get table and figure side-by-side. I'll share some tricks.
+
+Table stretch goal: there are some really nice fancy table helper packages. I'll add some links.
+
 ### Report your process
 
 You're encouraged to reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc. Give credit to your sources, whether it's a blog post, a fellow student, an online tutorial, etc.
