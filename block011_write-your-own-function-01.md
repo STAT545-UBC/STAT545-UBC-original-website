@@ -15,6 +15,14 @@ As usual, load the Gapminder excerpt.
 
 ```r
 library(gapminder)
+str(gapminder)
+## 'data.frame':	1704 obs. of  6 variables:
+##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ year     : num  1952 1957 1962 1967 1972 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...
 ```
 
 ### Max - min
@@ -88,7 +96,7 @@ Pick some new artificial inputs where you know (at least approximately) what you
 max_minus_min(1:10)
 ## [1] 9
 max_minus_min(runif(1000))
-## [1] 0.9980497
+## [1] 0.9980762
 ```
 
 I know that 10 minus 1 is 9. I know that random uniform [0, 1] variates will be between 0 and 1. Therefore max - min should be less than 1. If I take LOTS of them, max - min should be pretty close to 1.
@@ -116,7 +124,7 @@ Now we try to break our function. Don't get truly diabolical (yet). Just make th
 
 ```r
 max_minus_min(gapminder) ## hey sometimes things "just work" on data.frames!
-## Error in FUN(X[[i]], ...): only defined on a data frame with all numeric variables
+## Error in FUN(X[[1L]], ...): only defined on a data frame with all numeric variables
 max_minus_min(gapminder$country) ## factors are kind of like integer vectors, no?
 ## Error in Summary.factor(structure(c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, : 'max' not meaningful for factors
 max_minus_min("eggplants are purple") ## i have no excuse for this one
@@ -187,8 +195,6 @@ mmm2(gapminder)
 
 In addition to offering an apology, note the error raised also contains helpful info on *which* function threw the error. Nice touch.
 
-*Note: the above is true when run interactively but currently not true in the rendered document. That is a glitch in `knitr` that is getting straightened out.*
-
 ### Packages for formal checks at run time
 
 The [`assertthat` package](https://github.com/hadley/assertthat) "provides a drop in replacement for `stopifnot()`." That is quite literally true. The function `mmm3` differs from `mmm2` only in the replacement of `stopifnot()` by `assert_that()`.
@@ -212,7 +218,7 @@ The [`ensurer` package](https://github.com/smbache/ensurer) is another, newer pa
 
 #### Sidebar: other uses for `assertthat` or `ensurer`
 
-Another good use of these packages is to leave checks behind in data analytical scripts. Consider our repetitive use of Gapminder. Every time we load this data, we inspect it, e.g., with `str()`. Informally, we're checking that it still has 1704 rows. But we could, and probably should, formalize that with a call like `assert_that(nrow(gapminder) == 1704)`. This would tell us if the data suddenly changed, alerting us to a problem with the data file or the import. This can be a useful wake-up call in scripts that you re-run alot as you build a pipeline, where it's easy to zone out and stop paying attention.
+Another good use of these packages is to leave checks behind in data analytical scripts. Consider our repetitive use of Gapminder. Every time we load this data, we inspect it, e.g., with `str()`. Informally, we're checking that it still has 1704 rows. But we could, and probably should, formalize that with a call like `assert_that(nrow(gapminder) == 1704)`. This would alert us if the data suddenly changed, which can be a useful wake-up call in scripts that you re-run often as you build a pipeline, where it's easy to zone out and stop paying attention.
 
 ### Wrap-up and what's next?
 

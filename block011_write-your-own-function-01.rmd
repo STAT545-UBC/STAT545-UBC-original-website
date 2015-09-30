@@ -22,6 +22,7 @@ As usual, load the Gapminder excerpt.
 
 ```{r}
 library(gapminder)
+str(gapminder)
 ```
 
 ### Max - min
@@ -162,8 +163,6 @@ mmm2(gapminder)
 
 In addition to offering an apology, note the error raised also contains helpful info on *which* function threw the error. Nice touch.
 
-*Note: the above is true when run interactively but currently not true in the rendered document. That is a glitch in `knitr` that is getting straightened out.*
-
 ### Packages for formal checks at run time
 
 The [`assertthat` package](https://github.com/hadley/assertthat) "provides a drop in replacement for `stopifnot()`." That is quite literally true. The function `mmm3` differs from `mmm2` only in the replacement of `stopifnot()` by `assert_that()`.
@@ -194,7 +193,7 @@ mmm4(gapminder)
 
 #### Sidebar: other uses for `assertthat` or `ensurer`
 
-Another good use of these packages is to leave checks behind in data analytical scripts. Consider our repetitive use of Gapminder. Every time we load this data, we inspect it, e.g., with `str()`. Informally, we're checking that it still has `r nrow(gapminder)` rows. But we could, and probably should, formalize that with a call like `assert_that(nrow(gapminder) == 1704)`. This would tell us if the data suddenly changed, alerting us to a problem with the data file or the import. This can be a useful wake-up call in scripts that you re-run alot as you build a pipeline, where it's easy to zone out and stop paying attention.
+Another good use of these packages is to leave checks behind in data analytical scripts. Consider our repetitive use of Gapminder. Every time we load this data, we inspect it, e.g., with `str()`. Informally, we're checking that it still has `r nrow(gapminder)` rows. But we could, and probably should, formalize that with a call like `assert_that(nrow(gapminder) == 1704)`. This would alert us if the data suddenly changed, which can be a useful wake-up call in scripts that you re-run often as you build a pipeline, where it's easy to zone out and stop paying attention.
 
 ### Wrap-up and what's next?
 
