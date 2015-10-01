@@ -176,19 +176,26 @@ output:
 </div>
 <div id="html" class="section level4">
 <h4>HTML</h4>
-<p>If you have an HTML file in a GitHub repository, simply visiting the file shows the raw HTML. Boo. But if you preface the link with <code>http://htmlpreview.github.com/?</code>, you will see properly rendered HTML. Illustration:</p>
-<ul>
-<li>Visiting an HTML file on GitHub gets you this:
+<p>If you have an HTML file in a GitHub repository, simply visiting the file shows the raw HTML. Here’s a nice ugly example:</p>
 <ul>
 <li><a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/bit003_api-key-env-var.html" class="uri">https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/bit003_api-key-env-var.html</a></li>
-</ul></li>
-<li>But if we visit the file in a different way – if we preface the URL as described above – we see it more like a normal webpage:
+</ul>
+<p>No one wants to look at that. You can provide this URL to <a href="http://rawgit.com">rawgit.com</a> to serve this HTML more properly and get a decent preview.</p>
+<p>You can form two different types of URLs with <a href="http://rawgit.com">rawgit.com</a>:</p>
 <ul>
-<li><a href="http://htmlpreview.github.io/?https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/bit003_api-key-env-var.html" class="uri">http://htmlpreview.github.io/?https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/bit003_api-key-env-var.html</a></li>
+<li>For sharing low-traffic, temporary examples or demos with small numbers of people, do this:
+<ul>
+<li><a href="https://rawgit.com/STAT545-UBC/STAT545-UBC.github.io/master/bit003_api-key-env-var.html" class="uri">https://rawgit.com/STAT545-UBC/STAT545-UBC.github.io/master/bit003_api-key-env-var.html</a></li>
+<li>Basically: replace <code>https://github.com/</code> with <code>https://rawgit.com/</code></li>
+</ul></li>
+<li>For use on production websites with any amount of traffic, do this:
+<ul>
+<li><a href="https://cdn.rawgit.com/STAT545-UBC/STAT545-UBC.github.io/master/bit003_api-key-env-var.html" class="uri">https://cdn.rawgit.com/STAT545-UBC/STAT545-UBC.github.io/master/bit003_api-key-env-var.html</a></li>
+<li>Basically: replace <code>https://github.com/</code> with <code>https://cdn.rawgit.com/</code></li>
 </ul></li>
 </ul>
 <p>This sort of enhanced link might be one of the useful things to put in a <code>README.md</code> or other Markdown file in the repo.</p>
-<p><em>Update: you may also want to check out <a href="http://rawgit.com">rawgit.com</a> or this <a href="https://chrome.google.com/webstore/detail/github-html-preview/cphnnfjainnhgejcpgboeeakfkgbkfek?hl=en">Chrome extension</a>.</em></p>
+<p>You may also want to check out this <a href="https://chrome.google.com/webstore/detail/github-html-preview/cphnnfjainnhgejcpgboeeakfkgbkfek?hl=en">Chrome extension</a> or <a href="https://htmlpreview.github.io">GitHub &amp; BitBucket HTML Preview</a>, though recently I’ve more success with <a href="http://rawgit.com">rawgit.com</a>.</p>
 </div>
 <div id="source-code" class="section level4">
 <h4>Source code</h4>

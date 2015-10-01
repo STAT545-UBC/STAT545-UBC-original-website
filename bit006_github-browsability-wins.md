@@ -81,16 +81,24 @@ OK these are pure GitHub tips but if you've made it this far, you're obviously a
 
 #### HTML
 
-If you have an HTML file in a GitHub repository, simply visiting the file shows the raw HTML. Boo. But if you preface the link with `http://htmlpreview.github.com/?`, you will see properly rendered HTML. Illustration:
+If you have an HTML file in a GitHub repository, simply visiting the file shows the raw HTML. Here's a nice ugly example:
 
-  * Visiting an HTML file on GitHub gets you this:
-    - <https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/bit003_api-key-env-var.html>
-  * But if we visit the file in a different way -- if we preface the URL as described above -- we see it more like a normal webpage:
-    - <http://htmlpreview.github.io/?https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/bit003_api-key-env-var.html>
+  * <https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/bit003_api-key-env-var.html>
+
+No one wants to look at that. You can provide this URL to [rawgit.com](http://rawgit.com) to serve this HTML more properly and get a decent preview.
+
+You can form two different types of URLs with [rawgit.com](http://rawgit.com):
+
+  * For sharing low-traffic, temporary examples or demos with small numbers of people, do this:
+    - <https://rawgit.com/STAT545-UBC/STAT545-UBC.github.io/master/bit003_api-key-env-var.html>
+    - Basically: replace `https://github.com/` with `https://rawgit.com/`
+  * For use on production websites with any amount of traffic, do this:
+    - <https://cdn.rawgit.com/STAT545-UBC/STAT545-UBC.github.io/master/bit003_api-key-env-var.html>
+    - Basically: replace `https://github.com/` with `https://cdn.rawgit.com/`
     
 This sort of enhanced link might be one of the useful things to put in a `README.md` or other Markdown file in the repo.
 
-*Update: you may also want to check out [rawgit.com](http://rawgit.com) or this [Chrome extension](https://chrome.google.com/webstore/detail/github-html-preview/cphnnfjainnhgejcpgboeeakfkgbkfek?hl=en).*
+You may also want to check out this [Chrome extension](https://chrome.google.com/webstore/detail/github-html-preview/cphnnfjainnhgejcpgboeeakfkgbkfek?hl=en) or [GitHub & BitBucket HTML Preview](https://htmlpreview.github.io), though recently I've more success with [rawgit.com](http://rawgit.com).
 
 #### Source code
 
