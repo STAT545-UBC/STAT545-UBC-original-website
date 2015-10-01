@@ -94,6 +94,10 @@ Pull first. Resolve any conflicts. Then try your push again.
 
 #### RStudio is not making certain files available for staging/commiting
 
-Do you have spaces in your directory or file names? I told you that was a terrible idea. Get rid of them. If that doesn't fix it, I also highly recommend you have a [more powerful Git(Hub) client](git02_git-clients.html) installed for these situations.
+Do you have spaces in your directory or file names? I told you that was a terrible idea. Get rid of them.
+
+Is your Git repo / RStudio Project inside a folder that ... eventually rolls up to Google Drive or DropBox or a network drive? If yes, I recommend you move the repo/Project into a plain old directory that lives directly on your computer and that is not managed by, e.g., Google Drive.
+
+If you cannot deal with the two root causes identified above, then it is possible that a [more powerful Git(Hub) client](git02_git-clients.html) will be able to cope with these situations. But I make no promises. You should also try Git operations from the command line.
 
 Go back to the [index for the all the Git stuff](git00_index.html).
