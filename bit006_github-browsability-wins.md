@@ -72,6 +72,13 @@ Some repositories consist solely of `README.md`. Examples: Jeff Leek's write-ups
 
 If you've got a directory full of web-friendly figures, such as PNGs, you can use [code like this](https://gist.github.com/jennybc/0239f65633e09df7e5f4) to generate a `README.md` for a quick DIY gallery, as Karl Broman has done with [his FruitSnacks](https://github.com/kbroman/FruitSnacks/blob/master/PhotoGallery.md). I have also used this device to share Keynote slides on GitHub (*mea culpa!*). Export them as PNGs images and throw 'em into a README gallery: slides on [file organization](https://github.com/Reproducible-Science-Curriculum/rr-organization1/tree/27883c8fc4cdd4dcc6a8232f1fe5c726e96708a0/slides/organization-slides) and some on [file naming](https://github.com/Reproducible-Science-Curriculum/rr-organization1/tree/27883c8fc4cdd4dcc6a8232f1fe5c726e96708a0/slides/naming-slides).
 
+#### Finding stuff
+
+OK these are pure GitHub tips but if you've made it this far, you're obviously a keener.
+
+  * Press `t` to activate [the file finder](https://github.com/blog/793-introducing-the-file-finder) whenever you're in a repo's file and directory view. AWESOME, especially when there are files tucked into lots of subdirectories.
+  * Press `y` to [get a permanent link](https://help.github.com/articles/getting-permanent-links-to-files/) when you're viewing a specific file. Watch what changes in the URL. This is important if you are about to *link* to a file or to specific lines. Otherwise your links will break easily in the future. If the file is deleted or renamed or if lines get inserted or deleted, your links will no longer point to what you intended. Use `y` to get links that include a specific commit in the URL.
+
 #### HTML
 
 If you have an HTML file in a GitHub repository, simply visiting the file shows the raw HTML. Boo. But if you preface the link with `http://htmlpreview.github.com/?`, you will see properly rendered HTML. Illustration:
