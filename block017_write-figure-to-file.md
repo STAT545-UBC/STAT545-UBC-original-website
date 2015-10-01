@@ -126,8 +126,8 @@ Edit your source code in the following way: Precede the figure-making code by op
 pdf("test-fig-proper.pdf") # starts writing a PDF to file
 plot(1:10)                    # makes the actual plot
 dev.off()                     # closes the PDF file
-## pdf 
-##   2
+## quartz_off_screen 
+##                 2
 ```
 
 You will see there's a new file in the working directory:
@@ -149,13 +149,13 @@ If you are staring at a plot you just made on your screen, here's a handy short 
 plot(1:10)            # makes the actual plot
 ```
 
-![](./block017_write-figure-to-file_files/figure-html/dev-print-demo.png) 
+![](block017_write-figure-to-file_files/figure-html/dev-print-demo-1.png) 
 
 ```r
 dev.print(pdf,        # copies the plot to a the PDF file
           "test-fig-quick-dirty.pdf")             
-## pdf 
-##   2
+## quartz_off_screen 
+##                 2
 ```
 
 You will see there's now another new file in the working directory:
@@ -256,8 +256,10 @@ And it will lead to the creation of a suitably named figure file (you may see ot
 
 ```r
 list.files("block017_write-figure-to-file_files/", recursive = TRUE)
-## [1] "figure-html/dev-print-demo.png"             
-## [2] "figure-html/scatterplot-lifeExp-vs-year.png"
+## [1] "figure-html/dev-print-demo-1.png"             
+## [2] "figure-html/dev-print-demo.png"               
+## [3] "figure-html/scatterplot-lifeExp-vs-year-1.png"
+## [4] "figure-html/scatterplot-lifeExp-vs-year.png"
 ```
 
 If you have concrete plans to use a figure elsewhere, you should probably write it to file using an explicit method described above. But the chunk-naming trick is a nice way to avoid that work, while maintaining flexibility for the future.
