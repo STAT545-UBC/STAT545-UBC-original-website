@@ -6,8 +6,8 @@ cm004,STAT545A,thurs,september,17,TRUE,"Care and feeding of data (data.frames, a
 cm005,STAT545A,tues,september,22,TRUE,Intro to ggplot2
 cm006,STAT545A,thurs,september,24,TRUE,R Markdown
 cm007,STAT545A,tues,september,29,TRUE,"dplyr: the pipe and single table verbs"
-cm008,STAT545A,thurs,october,1,FALSE,"dplyr: joins, Basic flavors of R objects"
-cm009,STAT545A,tues,october,6,FALSE,"Split-Apply-Combine, Writing your own R functions"
+cm008,STAT545A,thurs,october,1,TRUE,"dplyr: group_by, Basic flavors of R objects"
+cm009,STAT545A,tues,october,6,FALSE,"dplyr: joins, Basic flavors of R objects"
 cm010,STAT545A,thurs,october,8,FALSE,"Split-Apply-Combine, Writing your own R functions"
 cm011,STAT545A,tues,october,13,FALSE,Tidy data and reshaping
 cm012,STAT545A,thurs,october,15,FALSE,Be the boss of your factors
@@ -17,11 +17,11 @@ cm101,STAT547M,tues,october,27,FALSE,Getting data out of R (and back in)
 cm102,STAT547M,thurs,october,29,FALSE,Regular expressions and character data
 cm103,STAT547M,tues,november,3,FALSE,Data cleaning
 cm104,STAT547M,thurs,november,5,FALSE,TBA
-cm105,STAT547M,tues,november,10,FALSE,"Task automation and pipelines, GNU Make"
+cm105,STAT547M,tues,november,10,FALSE,Build your first R package
 cm106,STAT547M,thurs,november,12,FALSE,ditto
-cm107,STAT547M,tues,november,17,FALSE,Build your first R package
+cm107,STAT547M,tues,november,17,FALSE,"Task automation and pipelines, GNU Make"
 cm108,STAT547M,thurs,november,19,FALSE,ditto
-cm109,STAT547M,tues,november,24,FALSE,Build your first Shiny app
+cm109,STAT547M,tues,november,24,FALSE,Get data from the web
 cm110,STAT547M,thurs,november,26,FALSE,ditto
-cm111,STAT547M,tues,december,1,FALSE,Get data from the web
+cm111,STAT547M,tues,december,1,FALSE,Build your first Shiny app
 cm112,STAT547M,thurs,december,3,FALSE,ditto

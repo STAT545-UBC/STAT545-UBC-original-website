@@ -10,7 +10,7 @@
 
 
 
-<title>Store an API key as an environment variable</title>
+<title></title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -93,38 +93,45 @@ img {
   </div>
 </header>
 
-<div id="header">
-<h1 class="title">Store an API key as an environment variable</h1>
+
+<div id="TOC">
+<ul>
+<li><a href="#cm008-2015-10-01-thursday-overview">cm008 2015-10-01 Thursday overview</a><ul>
+<li><a href="#slides-and-links">Slides and links</a></li>
+</ul></li>
+</ul>
 </div>
 
-
-<p>Problem: You’re using an API and you need to provide your key or token to authenticate yourself. You don’t want to do this interactively and repeatedly. You don’t want to store the key in your scripts or push it to GitHub by mistake.</p>
-<p>Solution: Store it as an environment variable and retrieve it with <code>Sys.getenv()</code> in an R script or an RMarkdown document.</p>
-<p>Motivating example: I use this method to interact with GitHub via the <a href="https://github.com/cscheid/rgithub"><code>github</code> R package</a>, a wrapper around the GitHub v3 API.</p>
-<p>Source: The <a href="https://github.com/hadley/httr"><code>httr</code> package</a> has a vignette, <a href="http://cran.r-project.org/web/packages/httr/vignettes/api-packages.html">Best practices for writing an API package</a>, that advocates this approach (<del>but lacks this excruciating detail</del> <em>ok now this content is there</em>).</p>
-<p>How to do it:</p>
+<div id="cm008-2015-10-01-thursday-overview" class="section level3">
+<h3>cm008 2015-10-01 Thursday overview</h3>
 <ul>
-<li><p>Create the username, password, key, token or whatever secret thing your API demands. Copy it to the clipboard.</p>
+<li>Homework
 <ul>
-<li>Example: To use the GitHub API, you must create a personal access token in the <a href="https://github.com/settings/applications">Applications area</a> of your GitHub personal settings.</li>
+<li>HW01: marking almost done. We will email you a mark for your HW and your peer reviews. Assuming you gave me a valid email address in the survey…. Hmmm, are you better at typing email addresses than GitHub usernames? We’ll see!</li>
+<li>HW02: Peer review underway. Try to do that today. Marking will start almost immediately – we want the feedback cycle to be faster.</li>
+<li>HW03: will be due Tuesday 2015-10-06; here’s how it looked last year but give me a chance to refresh – <a href="hw03_dplyr-and-more-ggplot2.html">Homework 3</a></li>
 </ul></li>
-<li><p>Identify your home directory. Not sure? Enter <code>normalizePath(&quot;~/&quot;)</code> in the R console.</p></li>
-<li><p>Create a new text file. If in RStudio, do <em>File &gt; New File &gt; Text file.</em></p></li>
-<li><p>Put a line like this for the key you wish to store:</p>
-<pre><code>GITHUB_TOKEN=blahblahblahblahblahblah</code></pre>
-<p>where <code>GITHUB_TOKEN</code> is a name relevant to the API you’re accessing and <code>blahblahblahblahblahblah</code> is your actual key.</p></li>
-<li><p>Put a line break at the end! If you’re using an editor that shows line numbers, there should be two lines, where the second one is empty.</p></li>
-<li><p>Save in your home directory with the filename <code>.Renviron</code>. If questioned, YES you do want to use a filename that begins with a dot <code>.</code>.</p></li>
-<li><p>Note that by default <a href="http://linux.about.com/cs/linux101/g/dot_file.htm">dotfiles</a> are usually hidden. But within RStudio, the file browser will make <code>.Renviron</code> visible and therefore easy to edit in the future.</p></li>
-<li><p>Restart R! <code>.Renviron</code> is processed only <a href="http://stat.ethz.ch/R-manual/R-patched/library/base/html/Startup.html">at the start of an R session</a>.</p></li>
-<li><p>Use <code>Sys.getenv()</code> to access your API-key-stored-as-environment-variable and provide to your API wrapper of choice. For example, here’s how I use my <code>GITHUB_TOKEN</code> with the <code>github</code> package:</p>
-<pre><code>library(github)
-ctx &lt;- create.github.context(access_token = Sys.getenv(&quot;GITHUB_TOKEN&quot;))
-# ... proceed to use other package functions to open issues, etc.</code></pre>
-<p>The details of how your API wrapper wants you to provide your key will vary by the package but hopefully this helps!</p></li>
+<li>Hello <code>dplyr</code>!
+<ul>
+<li>Part 1: <a href="block009_dplyr-intro.html">Introduction to dplyr</a> <em>did this Tuesday</em></li>
+<li>Part 2: <a href="block010_dplyr-end-single-table.html"><code>dplyr</code> functions for a single dataset</a> <em>doing this today</em></li>
+</ul></li>
+<li>Data life is not all rainbows and data.frames, so we need to talk about R data structures.
+<ul>
+<li><a href="block004_basic-r-objects.html">R objects (beyond data.frames) and indexing</a> <em>doing some of this today, finish on your own and ask me if you want more!</em></li>
+</ul></li>
+<li>What’s coming?
+<ul>
+<li>more <code>dplyr</code></li>
+<li>Functions, split-apply-combine operations in general</li>
+<li>Tidy data</li>
+</ul></li>
 </ul>
-<p><em>FAQ: Why define this environment variable via <code>.Renviron</code> instead of in <code>.bash_profile</code> or <code>.bashrc</code>?</em></p>
-<p>Because there are many combinations of OS and ways of running R where the <code>.Renviron</code> approach “just works” and the bash stuff does not. When R is a child process of, say, Emacs or RStudio, you can’t always count on environment variables being passed to R. Put them in an R-specific start-up file and save yourself some grief.</p>
+<div id="slides-and-links" class="section level4">
+<h4>Slides and links</h4>
+<p><em>no slides planned</em></p>
+</div>
+</div>
 
 <div class="footer">
 This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
