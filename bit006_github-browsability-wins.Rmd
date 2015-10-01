@@ -25,7 +25,7 @@ Let's acknowledge the discomfort some people feel about putting derived products
 
 The taboo of keeping derived products under version control originates from compilation of binary executables from source. Software built on a Mac would not work on Windows and so it made sense to keep these binaries out of the holy source code repository. Also, you could assume the people with access to the repository have the full development stack and relish opportunities to use it. None of these arguments really apply to the `foo.Rmd --> foo.md --> foo.html` workflow. We don't have to blindly follow traditions from the compilation domain!
 
-In fact, looking at the diffs for `foo.md` or `foo-figure-01.png` can be extremely informative in data analytic projects! Sometimes you see changes you did not expect, which can tip you off to changes in the underlying data and/or the packages you depend on.
+In fact, looking at the diffs for `foo.md` or `foo-figure-01.png` can be extremely informative. This is also true in larger data analytic projects projects after a `make clean; make all` operation. By looking at the diffs in the downstream products, you often catch unexpected changes. This can tip you off to changes in the underlying data and/or the behavior of packages you depend on.
 
 This is a note about cool things GitHub can do with various file types, if they happen to end up in your repo. I won't ask you how they got there.
   
@@ -70,7 +70,7 @@ or like [this](https://gist.github.com/jennybc/402761e30b9be8023af9#file-yaml_fr
 
 In RStudio, when editing `.Rmd`, click on the gear next to "Knit HTML" for YAML authoring help
 
-For a quick, stand-alone document that doesn't fit neatly into a repository or project (yet), make it a [Gist](https://gist.github.com). Example: Hadley Wickham's [advise on what you need to do to become a data scientist](https://gist.github.com/hadley/820f09ded347c62c2864). Gists can contain multiple files, so you can still provide the R script or R Markdown source __and__ the resulting Markdown, as I've done in this write-up of [Twitter-sourced tips for cross-tabulation](https://gist.github.com/jennybc/04b71bfaaf0f88d9d2eb).
+For a quick, stand-alone document that doesn't fit neatly into a repository or project (yet), make it a [Gist](https://gist.github.com). Example: Hadley Wickham's [advice on what you need to do to become a data scientist](https://gist.github.com/hadley/820f09ded347c62c2864). Gists can contain multiple files, so you can still provide the R script or R Markdown source __and__ the resulting Markdown, as I've done in this write-up of [Twitter-sourced tips for cross-tabulation](https://gist.github.com/jennybc/04b71bfaaf0f88d9d2eb).
 
 #### `README.md`
 
@@ -78,7 +78,7 @@ You probably already know that GitHub renders `README.md` at the top-level of yo
 
 Implication: for any logical group of files or mini project-within-your-project, create a sub-directory in your repository. And then create a `README.md` file to annotate these files, collect relevant links, etc. Now when you navigate to the sub-directory on GitHub the nicely rendered `README.md` will simply appear.
 
-Some repositories consist solely of `README.md`. Examples: Jeff Leek's write-ups on [How to share data with a statistician](https://github.com/jtleek/datasharing) or [Developing R packages](https://github.com/jtleek/rpackages).
+Some repositories consist solely of `README.md`. Examples: Jeff Leek's write-ups on [How to share data with a statistician](https://github.com/jtleek/datasharing) or [Developing R packages](https://github.com/jtleek/rpackages). I am becoming a bigger fan of `README`-only repos than gists because repo issues trigger notifications, whereas comments on gists do not.
 
 If you've got a directory full of web-friendly figures, such as PNGs, you can use [code like this](https://gist.github.com/jennybc/0239f65633e09df7e5f4) to generate a `README.md` for a quick DIY gallery, as Karl Broman has done with [his FruitSnacks](https://github.com/kbroman/FruitSnacks/blob/master/PhotoGallery.md). I have also used this device to share Keynote slides on GitHub (*mea culpa!*). Export them as PNGs images and throw 'em into a README gallery: slides on [file organization](https://github.com/Reproducible-Science-Curriculum/rr-organization1/tree/27883c8fc4cdd4dcc6a8232f1fe5c726e96708a0/slides/organization-slides) and some on [file naming](https://github.com/Reproducible-Science-Curriculum/rr-organization1/tree/27883c8fc4cdd4dcc6a8232f1fe5c726e96708a0/slides/naming-slides).
 
@@ -151,7 +151,7 @@ Here's what that link looks like in the Markdown source:
 and here it is with placeholders:
 
 ```
-[INVITATION TO EDIT](<URL to your repo>/edit/master/<name of your md file>)
+[INVITATION TO EDIT](<URL to your repo>/edit/master/<path to your md file>)
 ```
 
 AFAIK, to do that in a slick automatic way across an entire repo/site, you need to be using Jekyll or some other automated system. But you could easily handcode such links on a small scale.
