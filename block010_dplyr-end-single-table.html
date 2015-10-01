@@ -126,11 +126,13 @@ img {
 <p>Here we explore other <code>dplyr</code> functions, especially more verbs, for working with a single dataset.</p>
 <div id="load-dplyr-and-the-gapminder-data" class="section level4">
 <h4>Load <code>dplyr</code> and the Gapminder data</h4>
-<p>We use an excerpt of the Gapminder data and store it as a <code>tbl_df</code> object, basically an enhanced data.frame. I’ll use the pipe operator even here, to demonstrate its utility outside of <code>dplyr</code>.</p>
+<p>We use an excerpt of the Gapminder data and store it as a <code>tbl_df</code> object, basically an enhanced data.frame</p>
 <pre class="r"><code>suppressPackageStartupMessages(library(dplyr))
 library(gapminder)
-gtbl &lt;- gapminder %&gt;% tbl_df
-gtbl %&gt;% glimpse</code></pre>
+gtbl &lt;- gapminder %&gt;%
+  tbl_df
+gtbl %&gt;%
+  glimpse</code></pre>
 <pre><code>## Observations: 1,704
 ## Variables: 6
 ## $ country   (fctr) Afghanistan, Afghanistan, Afghanistan, Afghanistan,...
@@ -146,7 +148,8 @@ gtbl %&gt;% glimpse</code></pre>
 <p>Imagine we wanted to recover each country’s GDP. After all, the Gapminder data has a variable for population and GDP per capita. Let’s multiply them together.</p>
 <pre class="r"><code>gtbl &lt;- gtbl %&gt;%
   mutate(gdp = pop * gdpPercap)
-gtbl %&gt;% glimpse</code></pre>
+gtbl %&gt;%
+  glimpse</code></pre>
 <pre><code>## Observations: 1,704
 ## Variables: 7
 ## $ country   (fctr) Afghanistan, Afghanistan, Afghanistan, Afghanistan,...
@@ -261,7 +264,8 @@ gtbl %&gt;%
 <h3>Use <code>rename()</code> to rename variables</h3>
 <p>When I first cleaned this Gapminder excerpt, I was a <a href="http://en.wikipedia.org/wiki/CamelCase"><code>camelCase</code></a> person, but now I’m all about <a href="http://en.wikipedia.org/wiki/Snake_case"><code>snake_case</code></a>. So I am vexed by the variable names I chose when I cleaned this data years ago. Let’s rename some variables!</p>
 <pre class="r"><code>gtbl %&gt;%
-  rename(life_exp = lifeExp, gdp_percap = gdpPercap,
+  rename(life_exp = lifeExp,
+         gdp_percap = gdpPercap,
          gdp_percap_rel = gdpPercapRel)</code></pre>
 <pre><code>## Source: local data frame [1,704 x 9]
 ## 
@@ -283,7 +287,7 @@ gtbl %&gt;%
 </div>
 <div id="group_by-is-a-mighty-weapon" class="section level3">
 <h3><code>group_by()</code> is a mighty weapon</h3>
-<p>I have found friends and family love to ask seemingly innocuous questions like, “which country experienced the sharpest 5-year drop in life expectancy?”. In fact, that is a totally natural question to ask. But if you are using a language that doesn’t know about data, it’s an incredibly annoying question to answer.</p>
+<p>I have found <del>friends and family</del> collaborators love to ask seemingly innocuous questions like, “which country experienced the sharpest 5-year drop in life expectancy?”. In fact, that is a totally natural question to ask. But if you are using a language that doesn’t know about data, it’s an incredibly annoying question to answer.</p>
 <p><code>dplyr</code> offers powerful tools to solve this class of problem.</p>
 <ul>
 <li><code>group_by()</code> adds extra structure to your dataset – grouping information – which lays the groundwork for computations within the groups.</li>
@@ -323,7 +327,8 @@ gtbl %&gt;%
 <p>What if we wanted to add the number of unique countries for each continent?</p>
 <pre class="r"><code>gtbl %&gt;%
   group_by(continent) %&gt;%
-  summarize(n_obs = n(), n_countries = n_distinct(country))</code></pre>
+  summarize(n_obs = n(),
+            n_countries = n_distinct(country))</code></pre>
 <pre><code>## Source: local data frame [5 x 3]
 ## 
 ##   continent n_obs n_countries
@@ -351,7 +356,6 @@ gtbl %&gt;%
 ## 4    Europe    71.90369
 ## 5   Oceania    74.32621</code></pre>
 <p><code>summarize_each()</code> applies the same summary function(s) to multiple variables. Let’s compute average and median life expectancy and GDP per capita by continent by year … but only for 1952 and 2007.</p>
-<p><em>NOTE: you won’t have <code>summarize_each()</code> if you’re using <code>dplyr</code> version 0.2. Just wait for it.</em></p>
 <pre class="r"><code>gtbl %&gt;%
   filter(year %in% c(1952, 2007)) %&gt;%
   group_by(continent, year) %&gt;%
@@ -532,6 +536,8 @@ asia</code></pre>
 <li>development home <a href="https://github.com/hadley/dplyr">on GitHub</a></li>
 <li><a href="https://www.dropbox.com/sh/i8qnluwmuieicxc/AAAgt9tIKoIm7WZKIyK25lh6a">tutorial HW delivered</a> (note this links to a DropBox folder) at useR! 2014 conference</li>
 </ul>
+<p><a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf?version=0.99.687&amp;mode=desktop">RStudio <code>dplyr</code> and <code>tidyr</code> cheatsheet</a>. Remember you can get to these via <em>Help &gt; Cheatsheets.</em></p>
+<p><a href="https://github.com/tjmahr/MadR_Pipelines">Excellent slides</a> on pipelines and <code>dplyr</code> by TJ Mahr, talk given to the Madison R Users Group.</p>
 <p>Blog post <a href="http://www.dataschool.io/dplyr-tutorial-for-faster-data-manipulation-in-r/">Hands-on dplyr tutorial for faster data manipulation in R</a> by Data School, that includes a link to an R Markdown document and links to videos</p>
 <p><a href="bit001_dplyr-cheatsheet.html">Cheatsheet</a> I made for <code>dplyr</code> join functions (not relevant yet but soon)</p>
 </div>
