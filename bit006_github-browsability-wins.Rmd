@@ -87,7 +87,7 @@ If you've got a directory full of web-friendly figures, such as PNGs, you can us
 OK these are pure GitHub tips but if you've made it this far, you're obviously a keener.
 
   * Press `t` to activate [the file finder](https://github.com/blog/793-introducing-the-file-finder) whenever you're in a repo's file and directory view. AWESOME, especially when there are files tucked into lots of subdirectories.
-  * Press `y` to [get a permanent link](https://help.github.com/articles/getting-permanent-links-to-files/) when you're viewing a specific file. Watch what changes in the URL. This is important if you are about to *link* to a file or to specific lines. Otherwise your links will break easily in the future. If the file is deleted or renamed or if lines get inserted or deleted, your links will no longer point to what you intended. Use `y` to get links that include a specific commit in the URL.
+  * Press `y` to [get a permanent link](https://help.github.com/articles/getting-permanent-links-to-files/) when you're viewing a specific file. Watch what changes in the URL. This is important if you are about to *link* to a file or [to specific lines](http://stackoverflow.com/questions/23821235/how-to-link-to-specific-line-number-on-github). Otherwise your links will break easily in the future. If the file is deleted or renamed or if lines get inserted or deleted, your links will no longer point to what you intended. Use `y` to get links that include a specific commit in the URL.
 
 #### HTML
 
