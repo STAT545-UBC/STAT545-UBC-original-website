@@ -13,10 +13,11 @@
 <title>Write your own R functions, part 3</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
-<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -37,6 +38,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
 
 </head>
@@ -48,6 +50,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
 }
 </style>
 <div class="container-fluid main-container">
@@ -91,18 +101,15 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="load-the-gapminder-data" class="section level3">
 <h3>Load the Gapminder data</h3>
 <p>As usual, load the Gapminder excerpt.</p>
-<pre class="r"><code>gDat &lt;- read.delim(&quot;gapminderDataFiveYear.txt&quot;)
-str(gDat)
+<pre class="r"><code>library(gapminder)
+str(gapminder)
 ## &#39;data.frame&#39;:    1704 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
 ##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ year     : num  1952 1957 1962 1967 1972 ...
 ##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ gdpPercap: num  779 821 853 836 740 ...
-## or do this if the file isn&#39;t lying around already
-## gd_url &lt;- &quot;http://tiny.cc/gapminder&quot;
-## gDat &lt;- read.delim(gd_url)</code></pre>
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...</code></pre>
 </div>
 <div id="load-assertthat-and-our-qdiff-function" class="section level3">
 <h3>Load assertthat and our qdiff function</h3>
@@ -117,13 +124,13 @@ qdiff4 &lt;- function(x, probs = c(0, 1)) {
 <div id="be-proactive-about-nas" class="section level3">
 <h3>Be proactive about <code>NA</code>s</h3>
 <p>I am being gentle by letting you practice with the Gapminder data. In real life, you will be plagued by missing data. If you are lucky, it will be properly indicated by the special value <code>NA</code>. Many built-in R functions have an <code>na.rm =</code> argument through which you can specify how you want to handle <code>NA</code>s. Typically the default value is <code>na.rm = FALSE</code> and typical default behavior is to either let <code>NA</code>s propagate or to raise an error. Let’s see how <code>quantile()</code> handles <code>NA</code>s:</p>
-<pre class="r"><code>z &lt;- gDat$lifeExp
+<pre class="r"><code>z &lt;- gapminder$lifeExp
 z[3] &lt;- NA
-quantile(gDat$lifeExp)
+quantile(gapminder$lifeExp)
 ##      0%     25%     50%     75%    100% 
 ## 23.5990 48.1980 60.7125 70.8455 82.6030
 quantile(z)
-## Error: missing values and NaN&#39;s not allowed if &#39;na.rm&#39; is FALSE
+## Error in quantile.default(z): missing values and NaN&#39;s not allowed if &#39;na.rm&#39; is FALSE
 quantile(z, na.rm = TRUE)
 ##     0%    25%    50%    75%   100% 
 ## 23.599 48.228 60.765 70.846 82.603</code></pre>
@@ -134,7 +141,7 @@ quantile(z, na.rm = TRUE)
   the_quantiles &lt;- quantile(x, probs, na.rm = TRUE)
   return(max(the_quantiles) - min(the_quantiles))
 }
-qdiff5(gDat$lifeExp)
+qdiff5(gapminder$lifeExp)
 ## [1] 59.004
 qdiff5(z)
 ## [1] 59.004</code></pre>
@@ -145,18 +152,19 @@ qdiff5(z)
   the_quantiles &lt;- quantile(x, probs, na.rm = na.rm)
   return(max(the_quantiles) - min(the_quantiles))
 }
-qdiff6(gDat$lifeExp)
+qdiff6(gapminder$lifeExp)
 ## [1] 59.004
 qdiff6(z)
 ## [1] 59.004
 qdiff6(z, na.rm = FALSE)
-## Error: missing values and NaN&#39;s not allowed if &#39;na.rm&#39; is FALSE</code></pre>
+## Error in quantile.default(x, probs, na.rm = na.rm): missing values and NaN&#39;s not allowed if &#39;na.rm&#39; is FALSE</code></pre>
 </div>
 <div id="the-useful-but-mysterious-...-argument" class="section level3">
 <h3>The useful but mysterious <code>...</code> argument</h3>
 <p>You probably could have lived a long and happy life without knowing there are at least 9 different algorithms for computing quantiles. <a href="http://www.rdocumentation.org/packages/stats/functions/quantile">Go read about the <code>type</code> argument</a> of <code>quantile()</code>. TLDR: If a quantile is not unambiguously equal to an observed data point, you must somehow average two data points. You can weight this average different ways, depending on the rest of the data, and <code>type =</code> controls this.</p>
 <p>Let’s say we want to give the user of our function the ability to specify how the quantiles are computed, but we want to accomplish with as little fuss as possible. In fact, we don’t even want to clutter our function’s interface with this! This calls for the very special <code>...</code> argument.</p>
 <pre class="r"><code>qdiff7 &lt;- function(x, probs = c(0, 1), na.rm = TRUE, ...) {
+  assert_that(is.numeric(x))
   the_quantiles &lt;- quantile(x = x, probs = probs, na.rm = na.rm, ...)
   return(max(the_quantiles) - min(the_quantiles))
 }</code></pre>
@@ -196,6 +204,7 @@ test_that(&#39;NA handling works&#39;, {
 })</code></pre>
 <p>No news is good news! Let’s see what test failure would look like. Let’s revert to a version of our function that does no <code>NA</code> handling, then test for proper <code>NA</code> handling. We can watch it fail.</p>
 <pre class="r"><code>qdiff_no_NA &lt;- function(x, probs = c(0, 1)) {
+  assert_that(is.numeric(x))
   the_quantiles &lt;- quantile(x = x, probs = probs)
   return(max(the_quantiles) - min(the_quantiles))
 }
@@ -204,19 +213,20 @@ test_that(&#39;NA handling works&#39;, {
 })
 ## Error: Test failed: &#39;NA handling works&#39;
 ## Not expected: missing values and NaN&#39;s not allowed if &#39;na.rm&#39; is FALSE
-## 1: withCallingHandlers(eval(code, new_test_environment), error = capture_calls)
+## 1: withCallingHandlers(eval(code, new_test_environment), error = capture_calls, 
+##        message = function(c) invokeRestart(&quot;muffleMessage&quot;), warning = function(c) invokeRestart(&quot;muffleWarning&quot;))
 ## 2: eval(code, new_test_environment)
 ## 3: eval(expr, envir, enclos)
-## 4: expect_that(qdiff_no_NA(c(1:5, NA)), equals(4)) at &lt;text&gt;:6
+## 4: expect_that(qdiff_no_NA(c(1:5, NA)), equals(4)) at &lt;text&gt;:7
 ## 5: condition(object)
 ## 6: compare(expected, actual, ...)
-## 7: compare.default(expected, actual, ...)
+## 7: compare.numeric(expected, actual, ...)
 ## 8: all.equal(x, y, ...)
 ## 9: all.equal.numeric(x, y, ...)
 ## 10: attr.all.equal(target, current, tolerance = tolerance, scale = scale, ...)
 ## 11: mode(current)
 ## 12: qdiff_no_NA(c(1:5, NA))
-## 13: quantile(x = x, probs = probs) at &lt;text&gt;:2
+## 13: quantile(x = x, probs = probs) at &lt;text&gt;:3
 ## 14: quantile.default(x = x, probs = probs)
 ## 15: stop(&quot;missing values and NaN&#39;s not allowed if &#39;na.rm&#39; is FALSE&quot;).</code></pre>
 <p>Similar to the advice to use <code>assertthat</code> in data analytical scripts, I recommend you use <code>testthat</code> to monitor the behavior of functions you (or others) will use often. If your tests cover the function’s important behavior, then you can edit the internals freely. You’ll rest easy in the knowledge that, if you broke anything important, the tests will fail and alert you to the problem.</p>
@@ -229,26 +239,20 @@ library(dplyr)
 ## 
 ## Attaching package: 'dplyr'
 ## 
-## The following object is masked from 'package:stats':
+## The following objects are masked from 'package:stats':
 ## 
-##     filter
+##     filter, lag
 ## 
 ## The following objects are masked from 'package:base':
 ## 
 ##     intersect, setdiff, setequal, union
 gtbl <- gDat %>% tbl_df
+## Error in eval(expr, envir, enclos): object 'gDat' not found
 by_continent <- gtbl %>%
   group_by(continent)
+## Error in eval(expr, envir, enclos): object 'gtbl' not found
 by_continent %>% do(data.frame(max(.$lifeExp)))
-## Source: local data frame [5 x 2]
-## Groups: continent
-## 
-##   continent max...lifeExp.
-## 1    Africa         76.442
-## 2  Americas         80.653
-## 3      Asia         82.603
-## 4    Europe         81.757
-## 5   Oceania         81.235
+## Error in eval(expr, envir, enclos): object 'by_continent' not found
 ```
 
 ### other content
@@ -258,7 +262,6 @@ match.arg()
 defaulting to NULL then checking is.null() and take it from there
 
 -->
-
 </div>
 <div id="resources" class="section level3">
 <h3>Resources</h3>

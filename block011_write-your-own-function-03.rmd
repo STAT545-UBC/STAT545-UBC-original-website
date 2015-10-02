@@ -21,11 +21,8 @@ In this part, we tackle `NA`s, the special argument `...` and formal testing.
 As usual, load the Gapminder excerpt.
 
 ```{r}
-gDat <- read.delim("gapminderDataFiveYear.txt")
-str(gDat)
-## or do this if the file isn't lying around already
-## gd_url <- "http://tiny.cc/gapminder"
-## gDat <- read.delim(gd_url)
+library(gapminder)
+str(gapminder)
 ```
 
 ### Load assertthat and our qdiff function
@@ -46,9 +43,9 @@ qdiff4 <- function(x, probs = c(0, 1)) {
 I am being gentle by letting you practice with the Gapminder data. In real life, you will be plagued by missing data. If you are lucky, it will be properly indicated by the special value `NA`. Many built-in R functions have an `na.rm =` argument through which you can specify how you want to handle `NA`s. Typically the default value is `na.rm = FALSE` and typical default behavior is to either let `NA`s propagate or to raise an error. Let's see how `quantile()` handles `NA`s:
 
 ```{r}
-z <- gDat$lifeExp
+z <- gapminder$lifeExp
 z[3] <- NA
-quantile(gDat$lifeExp)
+quantile(gapminder$lifeExp)
 quantile(z)
 quantile(z, na.rm = TRUE)
 ```
@@ -63,7 +60,7 @@ qdiff5 <- function(x, probs = c(0, 1)) {
   the_quantiles <- quantile(x, probs, na.rm = TRUE)
   return(max(the_quantiles) - min(the_quantiles))
 }
-qdiff5(gDat$lifeExp)
+qdiff5(gapminder$lifeExp)
 qdiff5(z)
 ```
 
@@ -77,7 +74,7 @@ qdiff6 <- function(x, probs = c(0, 1), na.rm = TRUE) {
   the_quantiles <- quantile(x, probs, na.rm = na.rm)
   return(max(the_quantiles) - min(the_quantiles))
 }
-qdiff6(gDat$lifeExp)
+qdiff6(gapminder$lifeExp)
 qdiff6(z)
 qdiff6(z, na.rm = FALSE)
 ```
@@ -90,6 +87,7 @@ Let's say we want to give the user of our function the ability to specify how th
 
 ```{r}
 qdiff7 <- function(x, probs = c(0, 1), na.rm = TRUE, ...) {
+  assert_that(is.numeric(x))
   the_quantiles <- quantile(x = x, probs = probs, na.rm = na.rm, ...)
   return(max(the_quantiles) - min(the_quantiles))
 }
@@ -142,6 +140,7 @@ No news is good news! Let's see what test failure would look like. Let's revert 
 
 ```{r}
 qdiff_no_NA <- function(x, probs = c(0, 1)) {
+  assert_that(is.numeric(x))
   the_quantiles <- quantile(x = x, probs = probs)
   return(max(the_quantiles) - min(the_quantiles))
 }
