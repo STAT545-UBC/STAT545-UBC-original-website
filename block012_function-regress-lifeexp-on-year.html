@@ -13,10 +13,11 @@
 <title>Linear regression of life expectancy on year</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
-<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -37,6 +38,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
 
 </head>
@@ -48,6 +50,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
 }
 </style>
 <div class="container-fluid main-container">
@@ -97,41 +107,38 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h3>Load the Gapminder data</h3>
 <p>As usual, load the Gapminder excerpt. Load <code>ggplot2</code> because we’ll make some plots.</p>
 <pre class="r"><code>library(ggplot2)
-gDat &lt;- read.delim(&quot;gapminderDataFiveYear.txt&quot;)
-str(gDat)
+library(gapminder)
+str(gapminder)
 ## &#39;data.frame&#39;:    1704 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
 ##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ year     : num  1952 1957 1962 1967 1972 ...
 ##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ gdpPercap: num  779 821 853 836 740 ...
-## or do this if the file isn&#39;t lying around already
-## gd_url &lt;- &quot;http://tiny.cc/gapminder&quot;
-## gDat &lt;- read.delim(gd_url)</code></pre>
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...</code></pre>
 </div>
 <div id="get-data-to-practice-with" class="section level3">
 <h3>Get data to practice with</h3>
 <p>I extract the data for one country in order to develop some working code interactively.</p>
 <pre class="r"><code>j_country &lt;- &quot;France&quot; # pick, but do not hard wire, an example
-(j_dat &lt;- subset(gDat, country == j_country))
-##     country year      pop continent lifeExp gdpPercap
-## 529  France 1952 42459667    Europe  67.410  7029.809
-## 530  France 1957 44310863    Europe  68.930  8662.835
-## 531  France 1962 47124000    Europe  70.510 10560.486
-## 532  France 1967 49569000    Europe  71.550 12999.918
-## 533  France 1972 51732000    Europe  72.380 16107.192
-## 534  France 1977 53165019    Europe  73.830 18292.635
-## 535  France 1982 54433565    Europe  74.890 20293.897
-## 536  France 1987 55630100    Europe  76.340 22066.442
-## 537  France 1992 57374179    Europe  77.460 24703.796
-## 538  France 1997 58623428    Europe  78.640 25889.785
-## 539  France 2002 59925035    Europe  79.590 28926.032
-## 540  France 2007 61083916    Europe  80.657 30470.017</code></pre>
+(j_dat &lt;- subset(gapminder, country == j_country))
+##     country continent year lifeExp      pop gdpPercap
+## 529  France    Europe 1952  67.410 42459667  7029.809
+## 530  France    Europe 1957  68.930 44310863  8662.835
+## 531  France    Europe 1962  70.510 47124000 10560.486
+## 532  France    Europe 1967  71.550 49569000 12999.918
+## 533  France    Europe 1972  72.380 51732000 16107.192
+## 534  France    Europe 1977  73.830 53165019 18292.635
+## 535  France    Europe 1982  74.890 54433565 20293.897
+## 536  France    Europe 1987  76.340 55630100 22066.442
+## 537  France    Europe 1992  77.460 57374179 24703.796
+## 538  France    Europe 1997  78.640 58623428 25889.785
+## 539  France    Europe 2002  79.590 59925035 28926.032
+## 540  France    Europe 2007  80.657 61083916 30470.017</code></pre>
 <p>Always always always plot the data. Yes, even now.</p>
 <pre class="r"><code>p &lt;- ggplot(j_dat, aes(x = year, y = lifeExp))
 p + geom_point() + geom_smooth(method = &quot;lm&quot;, se = FALSE)</code></pre>
-<p><img src="block012_function-regress-lifeexp-on-year_files/figure-html/first-example-scatterplot.png" /></p>
+<p><img src="block012_function-regress-lifeexp-on-year_files/figure-html/first-example-scatterplot-1.png" /></p>
 </div>
 <div id="get-some-code-that-works" class="section level3">
 <h3>Get some code that works</h3>
@@ -177,35 +184,34 @@ le_lin_fit(j_dat)
 <h3>Test on other data and in a clean workspace</h3>
 <p>It’s always good to rotate through examples during development. The most common error this will help you catch is when you accidentally hard-wire your example into your function. If you’re paying attention to your informal tests, you will find it creepy that your function returns <strong>exactly the same results</strong> regardless which input data you give it. This actually happened to me while I was writing this document, I kid you not! I had left <code>j_fit</code> inside the call to <code>coef()</code>, instead of switching it to <code>the_fit</code>. How did I catch that error? I saw the fitted line below, which clearly did not have an intercept in the late 60s and a positive slope, as my first example did. Figures are a mighty weapon in the fight against nonsense. I don’t trust analyses that have few/no figures.</p>
 <pre class="r"><code>j_country &lt;- &quot;Zimbabwe&quot;
-(j_dat &lt;- subset(gDat, country == j_country))
-##       country year      pop continent lifeExp gdpPercap
-## 1693 Zimbabwe 1952  3080907    Africa  48.451  406.8841
-## 1694 Zimbabwe 1957  3646340    Africa  50.469  518.7643
-## 1695 Zimbabwe 1962  4277736    Africa  52.358  527.2722
-## 1696 Zimbabwe 1967  4995432    Africa  53.995  569.7951
-## 1697 Zimbabwe 1972  5861135    Africa  55.635  799.3622
-## 1698 Zimbabwe 1977  6642107    Africa  57.674  685.5877
-## 1699 Zimbabwe 1982  7636524    Africa  60.363  788.8550
-## 1700 Zimbabwe 1987  9216418    Africa  62.351  706.1573
-## 1701 Zimbabwe 1992 10704340    Africa  60.377  693.4208
-## 1702 Zimbabwe 1997 11404948    Africa  46.809  792.4500
-## 1703 Zimbabwe 2002 11926563    Africa  39.989  672.0386
-## 1704 Zimbabwe 2007 12311143    Africa  43.487  469.7093
+(j_dat &lt;- subset(gapminder, country == j_country))
+##       country continent year lifeExp      pop gdpPercap
+## 1693 Zimbabwe    Africa 1952  48.451  3080907  406.8841
+## 1694 Zimbabwe    Africa 1957  50.469  3646340  518.7643
+## 1695 Zimbabwe    Africa 1962  52.358  4277736  527.2722
+## 1696 Zimbabwe    Africa 1967  53.995  4995432  569.7951
+## 1697 Zimbabwe    Africa 1972  55.635  5861135  799.3622
+## 1698 Zimbabwe    Africa 1977  57.674  6642107  685.5877
+## 1699 Zimbabwe    Africa 1982  60.363  7636524  788.8550
+## 1700 Zimbabwe    Africa 1987  62.351  9216418  706.1573
+## 1701 Zimbabwe    Africa 1992  60.377 10704340  693.4208
+## 1702 Zimbabwe    Africa 1997  46.809 11404948  792.4500
+## 1703 Zimbabwe    Africa 2002  39.989 11926563  672.0386
+## 1704 Zimbabwe    Africa 2007  43.487 12311143  469.7093
 p &lt;- ggplot(j_dat, aes(x = year, y = lifeExp))
 p + geom_point() + geom_smooth(method = &quot;lm&quot;, se = FALSE)</code></pre>
-<p><img src="block012_function-regress-lifeexp-on-year_files/figure-html/second-example-scatterplot.png" /></p>
+<p><img src="block012_function-regress-lifeexp-on-year_files/figure-html/second-example-scatterplot-1.png" /></p>
 <pre class="r"><code>le_lin_fit(j_dat)
 ##   intercept       slope 
 ## 55.22124359 -0.09302098</code></pre>
 <p>The linear fit is comically bad, but yes I believe the visual line and the regression results match up.</p>
 <p>It’s also a good idea to clean out the workspace, rerun the minimum amount of code, and retest your function. This will help you catch another common mistake: accidentally relying on objects that were lying around in the workspace during development but that are not actually defined in your function nor passed as formal arguments.</p>
 <pre class="r"><code>rm(list = ls())
-gDat &lt;- read.delim(&quot;gapminderDataFiveYear.txt&quot;)
 le_lin_fit &lt;- function(dat, offset = 1952) {
   the_fit &lt;- lm(lifeExp ~ I(year - offset), dat)
   setNames(coef(the_fit), c(&quot;intercept&quot;, &quot;slope&quot;))
 }
-le_lin_fit(subset(gDat, country == &quot;Zimbabwe&quot;))
+le_lin_fit(subset(gapminder, country == &quot;Zimbabwe&quot;))
 ##   intercept       slope 
 ## 55.22124359 -0.09302098</code></pre>
 </div>
