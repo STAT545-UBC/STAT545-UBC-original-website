@@ -12,7 +12,7 @@ __THE RUMORS ARE TRUE. Extension has been granted. Due, at the latest, before cl
 
 Consult the [general homework guidelines](hw00_homework-guidelines.html).
 
-Due before class Monday 2014-10-06. *I am open to negotiation if the lateness of this posting is creating hardship.*
+Due before class Tuesday 2015-10-13. *I am open to negotiation if the lateness of this posting is creating hardship.*
 
 The goal is to write one (or more) custom functions that do something useful to pieces of the Gapminder data. Then use `plyr::ddply()` to apply to all such pieces. Then use `dplyr()` and or `ggplot2` to explore what you got back.
 
@@ -26,7 +26,7 @@ Work with the [Gapminder excerpt](http://tiny.cc/gapminder). *If you really, rea
 
 Write a function to compute something interesting on a piece of the Gapminder data. Make it something you can't easily do with built-in functions. Make it something that's not trivial to do with the simple `dplyr` verbs.
 
-  * The linear regression function [we wrote together in cm009](block012_function-regress-lifeexp-on-year.html) is a good example.
+  * The linear regression function [we wrote together in cm010](block012_function-regress-lifeexp-on-year.html) is a good example.
   * Record some of the process. In fact, you might want to draft two R Markdown files for this assignment. One to develop and test the function. Another to apply it and explore results. Just like we split it up in class.
 
 Use `plyr::ddply()` to apply your function to all possible pieces of the Gapminder dataset and return the combined result.
