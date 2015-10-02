@@ -3,11 +3,11 @@
 library(plyr)
 library(dplyr)
 library(ggplot2)
+library(gapminder)
 
-gDat <- read.delim("gapminderDataFiveYear.txt")
-str(gDat)
+lstr(gapminder)
 
-j_coefs <- ddply(gDat, ~ country + continent,
+j_coefs <- ddply(gapminder, ~ country + continent,
                  function(x, offset = 1952) {
                    the_fit <- lm(lifeExp ~ I(year - offset), x)
                    setNames(coef(the_fit), c("intercept", "slope"))
@@ -31,7 +31,7 @@ ggplot(j_coefs, aes(x = slope, y = reorder(country, slope))) +
 ## hDat <- just the gDat data for those 5 countries
 h_countries <-
   c("Egypt", "Haiti", "Romania", "Thailand", "Venezuela")
-hDat <- gDat %>%
+hDat <- gapminder %>%
   filter(country %in% h_countries)
 hDat %>% str
 table(hDat$country)

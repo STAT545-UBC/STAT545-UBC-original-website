@@ -1,11 +1,8 @@
 ### challenge
 
 ```{r}
-gDat <- read.delim("gapminderDataFiveYear.txt")
-str(gDat)
-## or do this if the file isn't lying around already
-## gd_url <- "http://tiny.cc/gapminder"
-## gDat <- read.delim(gd_url)
+library(gapminder)
+str(gapminder)
 
 ## let's write a function that takes a data.frame
 ## like the Gapminder data
@@ -13,20 +10,20 @@ str(gDat)
 ## fits a linear model of lifeExp on year
 ## and returns the estimated intercept and slope
 
-fit <- lm(lifeExp ~ year, data = gDat)
+fit <- lm(lifeExp ~ year, data = gapminder)
 summary(fit)
 
 ## what's up with that crazy intercept?
 ## good time for a figure
 
 library(ggplot2)
-ggplot(gDat, aes(x = year, y = lifeExp)) + geom_point()
-ggplot(gDat, aes(x = year, y = lifeExp)) + geom_point() +
+ggplot(gapminder, aes(x = year, y = lifeExp)) + geom_point()
+ggplot(gapminder, aes(x = year, y = lifeExp)) + geom_point() +
   geom_smooth(method = "lm")
 
 ## intercept = estimate life exp in year 0
 ## let's re-fit so intercept = est life exp in 1952 = earliest year in dataset
-fit <- lm( lifeExp ~ I(year - 1952), data=gDat)
+fit <- lm( lifeExp ~ I(year - 1952), data=gapminder)
 summary(fit) # much better
 
 class(fit) ## read up on `lm` ... learn about coef()
@@ -49,7 +46,7 @@ jFun <- function(x) {
   return(fit.coef)
 }
 
-jFun(gDat)
+jFun(gapminder)
 
 ## depending on time and interest, we could talk about better approaches to the
 ## "subtract 1952 from the year" problem
@@ -63,9 +60,9 @@ jFun <- function(x, shift = 1952) {
   return(fit.coef)
 }
 
-jFun(gDat)
-jFun(gDat, shift = 0) ## can still get this if you really want
-jFun(gDat, shift = 2007) ## check against fitted line at 2007
+jFun(gapminder)
+jFun(gapminder, shift = 0) ## can still get this if you really want
+jFun(gapminder, shift = 2007) ## check against fitted line at 2007
 
 ## what if we don't want to hard-wire 1952? another approach
 jFun <- function(x, shift = NULL) {
@@ -78,9 +75,9 @@ jFun <- function(x, shift = NULL) {
   return(fit.coef)
 }
 
-jFun(gDat)
-jFun(gDat, shift = 0)
-jFun(gDat, shift = 2007)
+jFun(gapminder)
+jFun(gapminder, shift = 0)
+jFun(gapminder, shift = 2007)
 
 ## exercise:
 
@@ -91,12 +88,12 @@ jFun(gDat, shift = 2007)
 ## use jFun() to get intercept and slope
 ## sanity check numbers against plot
 
-x <- subset(gDat, continent == "Asia")
+x <- subset(gapminder, continent == "Asia")
 jFun(x)
 ggplot(x, aes(x = year, y = lifeExp)) +
   geom_point() + geom_smooth(method = "lm")
 
-x <- subset(gDat, country == "Rwanda")
+x <- subset(gapminder, country == "Rwanda")
 jFun(x)
 ggplot(x, aes(x = year, y = lifeExp)) +
   geom_point() + geom_smooth(method = "lm")

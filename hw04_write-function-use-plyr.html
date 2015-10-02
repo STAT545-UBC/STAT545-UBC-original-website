@@ -13,10 +13,11 @@
 <title>Homework 04: Use plyr to apply your functions within data.frames</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
-<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -37,6 +38,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
 
 </head>
@@ -48,6 +50,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
 }
 </style>
 <div class="container-fluid main-container">
@@ -90,7 +100,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="overview" class="section level3">
 <h3>Overview</h3>
 <p>Consult the <a href="hw00_homework-guidelines.html">general homework guidelines</a>.</p>
-<p>Due before class Monday 2014-10-06. <em>I am open to negotiation if the lateness of this posting is creating hardship.</em></p>
+<p>Due before class Tuesday 2015-10-13. <em>I am open to negotiation if the lateness of this posting is creating hardship.</em></p>
 <p>The goal is to write one (or more) custom functions that do something useful to pieces of the Gapminder data. Then use <code>plyr::ddply()</code> to apply to all such pieces. Then use <code>dplyr()</code> and or <code>ggplot2</code> to explore what you got back.</p>
 <p>Remember the <a href="http://en.wikipedia.org/wiki/Sampler_(needlework)">sampler concept</a>. Your homework should serve as your own personal cheatsheet in the future for how to write a function and how to scale up its application with data aggregation machinery.</p>
 <div id="gapminder-data" class="section level4">
@@ -102,7 +112,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h3>Your mission, high-level</h3>
 <p>Write a function to compute something interesting on a piece of the Gapminder data. Make it something you can’t easily do with built-in functions. Make it something that’s not trivial to do with the simple <code>dplyr</code> verbs.</p>
 <ul>
-<li>The linear regression function <a href="block012_function-regress-lifeexp-on-year.html">we wrote together in cm009</a> is a good example.</li>
+<li>The linear regression function <a href="block012_function-regress-lifeexp-on-year.html">we wrote together in cm010</a> is a good example.</li>
 <li>Record some of the process. In fact, you might want to draft two R Markdown files for this assignment. One to develop and test the function. Another to apply it and explore results. Just like we split it up in class.</li>
 </ul>
 <p>Use <code>plyr::ddply()</code> to apply your function to all possible pieces of the Gapminder dataset and return the combined result.</p>
