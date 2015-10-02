@@ -110,6 +110,8 @@ This sort of enhanced link might be one of the useful things to put in a `README
 
 You may also want to check out this [Chrome extension](https://chrome.google.com/webstore/detail/github-html-preview/cphnnfjainnhgejcpgboeeakfkgbkfek?hl=en) or [GitHub & BitBucket HTML Preview](https://htmlpreview.github.io), though recently I've more success with [rawgit.com](http://rawgit.com).
 
+Sometimes including HTML files will cause GitHub to think that your R repository is HTML. Besides being slightly annonying, this can make it difficult for people to find your work if they are searching specifically for R repos.  You can exclude these files or directories from GitHub's language statistics by [adding a .gitattributes file](https://github.com/github/linguist#using-gitattributes) that marks them as 'documentation' rather than code. [See an example here](https://github.com/jennybc/googlesheets/blob/master/.gitattributes).
+
 #### Source code
 
 You will notice that GitHub does automatic syntax highlighting for source code. For example, notice the coloring of this [R script](https://github.com/jennybc/ggplot2-tutorial/blob/master/gapminder-ggplot2-stripplot.r). The file's extension is the primary determinant for if/how syntax highlighting will be applied. You can see information on recognized languages, the default extensions and more at [github/linguist](https://github.com/github/linguist/blob/master/lib/linguist/languages.yml). You should be doing it anyway, but let this be another reason to follow convention in your use of file extensions.
