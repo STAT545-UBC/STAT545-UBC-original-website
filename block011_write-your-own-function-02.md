@@ -17,15 +17,14 @@ As usual, load the Gapminder excerpt.
 library(gapminder)
 ```
 
-### Load assertthat and our max minus min function
+### Restore our max minus min function
 
-We'll keep using `assert_that()` to check that `x` is numeric and we'll want our previous function around as a baseline.
+Let's keep our previous function around as a baseline.
 
 
 ```r
-library(assertthat)
 mmm <- function(x) {
-  assert_that(is.numeric(x))
+  stopifnot(is.numeric(x))
   max(x) - min(x)
 }
 ```
@@ -90,9 +89,8 @@ I'll use `qdiff` as the base of our function's name. I copy the overall structur
 
 
 ```r
-library(assertthat)
 qdiff1 <- function(x, probs) {
-  assert_that(is.numeric(x))
+  stopifnot(is.numeric(x))
   the_quantiles <- quantile(x = x, probs = probs)
   max(the_quantiles) - min(the_quantiles)
 }
@@ -115,7 +113,7 @@ I can name my arguments almost anything I like. Proof:
 
 ```r
 qdiff2 <- function(zeus, hera) {
-  assert_that(is.numeric(zeus))
+  stopifnot(is.numeric(zeus))
   the_quantiles <- quantile(x = zeus, probs = hera)
   return(max(the_quantiles) - min(the_quantiles))
 }
@@ -130,7 +128,7 @@ This is better:
 
 ```r
 qdiff3 <- function(my_x, my_probs) {
-  assert_that(is.numeric(my_x))
+ stopifnot(is.numeric(my_x))
   the_quantiles <- quantile(x = my_x, probs = my_probs)
   return(max(the_quantiles) - min(the_quantiles))
 }
@@ -144,7 +142,7 @@ If you are going to pass the arguments of your function as arguments of a built-
 ```r
 qdiff1
 ## function(x, probs) {
-##   assert_that(is.numeric(x))
+##   stopifnot(is.numeric(x))
 ##   the_quantiles <- quantile(x = x, probs = probs)
 ##   max(the_quantiles) - min(the_quantiles)
 ## }
@@ -182,7 +180,7 @@ We started by focusing on the max and the min, so I think those make reasonable 
 
 ```r
 qdiff4 <- function(x, probs = c(0, 1)) {
-  assert_that(is.numeric(x))
+  stopifnot(is.numeric(x))
   the_quantiles <- quantile(x, probs)
   return(max(the_quantiles) - min(the_quantiles))
 }
@@ -220,7 +218,7 @@ Here's the function we've written so far:
 ```r
 qdiff4
 ## function(x, probs = c(0, 1)) {
-##   assert_that(is.numeric(x))
+##   stopifnot(is.numeric(x))
 ##   the_quantiles <- quantile(x, probs)
 ##   return(max(the_quantiles) - min(the_quantiles))
 ## }
@@ -231,20 +229,4 @@ What we've accomplished:
   * we've generalized our first function to take a difference between arbitrary quantiles
   * we've specified default values for the probabilities that set the quantiles
   
-Where to next? In [Part 3](block011_write-your-own-function-03.html), we tackle `NA`s, the special `...` argument, and formal testing.
-
-### Resources
-
-Packages
-
-  * [`assertthat` package](https://github.com/hadley/assertthat)
-  * [`ensurer` package](https://github.com/smbache/ensurer)
-  * [`testthat` package](https://github.com/hadley/testthat)
-
-Hadley Wickham's book [Advanced R](http://adv-r.had.co.nz)
-
-  * Section on [defensive programming](http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming)
-  
-Hadley Wickham's book [R packages](http://r-pkgs.had.co.nz)
-
-  * [Testing chapter](http://r-pkgs.had.co.nz/tests.html)
+Where to next? In [Part 3](block011_write-your-own-function-03.html), we tackle `NA`s, the special `...` argument, and formal unit testing.

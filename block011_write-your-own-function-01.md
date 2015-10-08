@@ -6,7 +6,7 @@
 
 My goal here is to reveal the __process__ a long-time useR employs for writing functions. I also want to illustrate why the process is the way it is. Merely looking at the finished product, e.g. source code for R packages, can be extremely deceiving. Reality is generally much uglier ... but more interesting!
 
-Why are we covering this now, smack in the middle of data aggregation? Powerful machines like `dplyr`, `plyr`, and even the built-in `apply` family of functions, are ready and waiting to apply your purpose-built functions to various bits of your data. If you can express your analytical wishes in a function, these tools will give you great power.
+Why are we covering this now, smack in the middle of data aggregation? Powerful machines like `dplyr`, `purrr`, `plyr`, and the built-in `apply` family of functions, are ready and waiting to apply your purpose-built functions to various bits of your data. If you can express your analytical wishes in a function, these tools will give you great power.
 
 ### Load the Gapminder data
 
@@ -96,7 +96,7 @@ Pick some new artificial inputs where you know (at least approximately) what you
 max_minus_min(1:10)
 ## [1] 9
 max_minus_min(runif(1000))
-## [1] 0.9980762
+## [1] 0.9973395
 ```
 
 I know that 10 minus 1 is 9. I know that random uniform [0, 1] variates will be between 0 and 1. Therefore max - min should be less than 1. If I take LOTS of them, max - min should be pretty close to 1.
@@ -124,7 +124,7 @@ Now we try to break our function. Don't get truly diabolical (yet). Just make th
 
 ```r
 max_minus_min(gapminder) ## hey sometimes things "just work" on data.frames!
-## Error in FUN(X[[1L]], ...): only defined on a data frame with all numeric variables
+## Error in FUN(X[[i]], ...): only defined on a data frame with all numeric variables
 max_minus_min(gapminder$country) ## factors are kind of like integer vectors, no?
 ## Error in Summary.factor(structure(c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, : 'max' not meaningful for factors
 max_minus_min("eggplants are purple") ## i have no excuse for this one
@@ -185,40 +185,23 @@ And we see that it catches all of the self-inflicted damage we would like to avo
 ```r
 mmm2 <- function(x) {
   if(!is.numeric(x)) {
-    stop('I am so sorry, but this function only works for numeric input!')
+    stop('I am so sorry, but this function only works for numeric input!\n',
+         'You have provided an object of class: ', class(x))
   }
   max(x) - min(x)
 }
 mmm2(gapminder)
 ## Error in mmm2(gapminder): I am so sorry, but this function only works for numeric input!
+## You have provided an object of class: data.frame
 ```
 
 In addition to offering an apology, note the error raised also contains helpful info on *which* function threw the error. Nice touch.
 
-### Packages for formal checks at run time
+You can extend this approach to provide the user with more information about what is wrong and provide suggested solutions.
 
-The [`assertthat` package](https://github.com/hadley/assertthat) "provides a drop in replacement for `stopifnot()`." That is quite literally true. The function `mmm3` differs from `mmm2` only in the replacement of `stopifnot()` by `assert_that()`.
+#### Sidebar: non-programming uses for assertions
 
-
-```r
-## install if you do not already have!
-## install.packages("assertthat")
-library(assertthat)
-mmm3 <- function(x) {
-  assert_that(is.numeric(x))
-  max(x) - min(x)
-}
-mmm3(gapminder)
-## Error: x is not a numeric or integer vector
-```
-
-The [`ensurer` package](https://github.com/smbache/ensurer) is another, newer package with some similar goals, so you may want to check that out as well.
-
-
-
-#### Sidebar: other uses for `assertthat` or `ensurer`
-
-Another good use of these packages is to leave checks behind in data analytical scripts. Consider our repetitive use of Gapminder. Every time we load this data, we inspect it, e.g., with `str()`. Informally, we're checking that it still has 1704 rows. But we could, and probably should, formalize that with a call like `assert_that(nrow(gapminder) == 1704)`. This would alert us if the data suddenly changed, which can be a useful wake-up call in scripts that you re-run often as you build a pipeline, where it's easy to zone out and stop paying attention.
+Another good use of these packages is to leave checks behind in data analytical scripts. Consider our repetitive use of Gapminder. Every time we load it, we inspect it, hoping to see the usual stuff. If we were loading from file (vs. a stable data package), we might want to formalize our expectations about the number of rows and columns, the names and flavors of the variables, etc. This would alert us if the data suddenly changed, which can be a useful wake-up call in scripts that you re-run *ad nauseum* on auto-pilot or non-interactively.
 
 ### Wrap-up and what's next?
 
@@ -226,9 +209,12 @@ Here's the function we've written so far:
 
 
 ```r
-mmm3
+mmm2
 ## function(x) {
-##   assert_that(is.numeric(x))
+##   if(!is.numeric(x)) {
+##     stop('I am so sorry, but this function only works for numeric input!\n',
+##          'You have provided an object of class: ', class(x))
+##   }
 ##   max(x) - min(x)
 ## }
 ```
@@ -243,16 +229,13 @@ Where to next? In [part 2](block011_write-your-own-function-02.html), we general
 
 ### Resources
 
-Packages
+Packages for runtime assertions (the last 3 seem to be under more active development than `assertthat`):
 
-  * [`assertthat` package](https://github.com/hadley/assertthat)
-  * [`ensurer` package](https://github.com/smbache/ensurer)
-  * [`testthat` package](https://github.com/hadley/testthat)
+  * `assertthat` on [CRAN](https://cran.r-project.org/web/packages/asserthat/index.html) and [GitHub](https://github.com/hadley/assertthat) *the Hadleyverse option*
+  * `ensurer` on [CRAN](https://cran.r-project.org/web/packages/ensurer/index.html) and [GitHub](https://github.com/smbache/ensurer) *general purpose, pipe-friendly*
+  * `assertr` on [CRAN](https://cran.r-project.org/web/packages/assertr/index.html) and [GitHub](https://github.com/tonyfischetti/assertr) *explicitly data pipeline oriented*
+  * `assertive` on [CRAN](https://cran.r-project.org/web/packages/assertive/index.html) and [Bitbucket](https://bitbucket.org/richierocks/assertive) *rich set of built-in functions*
 
 Hadley Wickham's book [Advanced R](http://adv-r.had.co.nz)
 
   * Section on [defensive programming](http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming)
-  
-Hadley Wickham's book [R packages](http://r-pkgs.had.co.nz)
-
-  * [Testing chapter](http://r-pkgs.had.co.nz/tests.html)

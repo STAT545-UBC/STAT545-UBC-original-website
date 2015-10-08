@@ -21,21 +21,16 @@ In this part, we tackle `NA`s, the special argument `...` and formal testing.
 As usual, load the Gapminder excerpt.
 
 ```{r}
-gDat <- read.delim("gapminderDataFiveYear.txt")
-str(gDat)
-## or do this if the file isn't lying around already
-## gd_url <- "http://tiny.cc/gapminder"
-## gDat <- read.delim(gd_url)
+library(gapminder)
 ```
 
-### Load assertthat and our qdiff function
+### Restore our max minus min function
 
-We'll keep using `assert_that()` to check that `x` is numeric and we'll want our previous function around as a baseline.
+Let's keep our previous function around as a baseline.
 
 ```{r}
-library(assertthat)
 qdiff4 <- function(x, probs = c(0, 1)) {
-  assert_that(is.numeric(x))
+  stopifnot(is.numeric(x))
   the_quantiles <- quantile(x, probs)
   return(max(the_quantiles) - min(the_quantiles))
 }
@@ -43,12 +38,12 @@ qdiff4 <- function(x, probs = c(0, 1)) {
 
 ### Be proactive about `NA`s
 
-I am being gentle by letting you practice with the Gapminder data. In real life, you will be plagued by missing data. If you are lucky, it will be properly indicated by the special value `NA`. Many built-in R functions have an `na.rm =` argument through which you can specify how you want to handle `NA`s. Typically the default value is `na.rm = FALSE` and typical default behavior is to either let `NA`s propagate or to raise an error. Let's see how `quantile()` handles `NA`s:
+I am being gentle by letting you practice with the Gapminder data. In real life, missing data will make your life a living hell. If you are lucky, it will be properly indicated by the special value `NA`, but don't hold your breath. Many built-in R functions have an `na.rm =` argument through which you can specify how you want to handle `NA`s. Typically the default value is `na.rm = FALSE` and typical default behavior is to either let `NA`s propagate or to raise an error. Let's see how `quantile()` handles `NA`s:
 
 ```{r}
-z <- gDat$lifeExp
+z <- gapminder$lifeExp
 z[3] <- NA
-quantile(gDat$lifeExp)
+quantile(gapminder$lifeExp)
 quantile(z)
 quantile(z, na.rm = TRUE)
 ```
@@ -59,11 +54,11 @@ If we wanted to hardwire `na.rm = TRUE`, we could. Focus on our call to `quantil
 
 ```{r}
 qdiff5 <- function(x, probs = c(0, 1)) {
-  assert_that(is.numeric(x))
+  stopifnot(is.numeric(x))
   the_quantiles <- quantile(x, probs, na.rm = TRUE)
   return(max(the_quantiles) - min(the_quantiles))
 }
-qdiff5(gDat$lifeExp)
+qdiff5(gapminder$lifeExp)
 qdiff5(z)
 ```
 
@@ -73,11 +68,11 @@ We could add an `na.rm =` argument to our own function. We might even enforce ou
 
 ```{r}
 qdiff6 <- function(x, probs = c(0, 1), na.rm = TRUE) {
-  assert_that(is.numeric(x))
+  stopifnot(is.numeric(x))
   the_quantiles <- quantile(x, probs, na.rm = na.rm)
   return(max(the_quantiles) - min(the_quantiles))
 }
-qdiff6(gDat$lifeExp)
+qdiff6(gapminder$lifeExp)
 qdiff6(z)
 qdiff6(z, na.rm = FALSE)
 ```
@@ -150,18 +145,9 @@ test_that('NA handling works', {
 })
 ```
 
-Similar to the advice to use `assertthat` in data analytical scripts, I recommend you use `testthat` to monitor the behavior of functions you (or others) will use often. If your tests cover the function's important behavior, then you can edit the internals freely. You'll rest easy in the knowledge that, if you broke anything important, the tests will fail and alert you to the problem.
+Similar to the advice to use assertions in data analytical scripts, I recommend you use unit tests to monitor the behavior of functions you (or others) will use often. If your tests cover the function's important behavior, then you can edit the internals freely. You'll rest easy in the knowledge that, if you broke anything important, the tests will fail and alert you to the problem.
 
 <!--
-### Return to `dplyr` SKIP THIS IN FAVOR OF PLYR
-
-```{r}
-library(dplyr)
-gtbl <- gDat %>% tbl_df
-by_continent <- gtbl %>%
-  group_by(continent)
-by_continent %>% do(data.frame(max(.$lifeExp)))
-```
 
 ### other content
 
@@ -173,18 +159,12 @@ defaulting to NULL then checking is.null() and take it from there
 
 ### Resources
 
-Packages
+Unit testing with `testthat`:
 
-  * [`assertthat` package](https://github.com/hadley/assertthat)
-  * [`ensurer` package](https://github.com/smbache/ensurer)
-  * [`testthat` package](https://github.com/hadley/testthat)
+  * On [CRAN](https://cran.r-project.org/web/packages/testthat/index.html), development on [GitHub](https://github.com/hadley/testthat)
 
-Hadley Wickham's forthcoming book [Advanced R](http://adv-r.had.co.nz)
-
-  * Section on [defensive programming](http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming)
-  
-Hadley Wickham's forthcoming book [R packages](http://r-pkgs.had.co.nz)
+Hadley Wickham's [R packages](http://r-pkgs.had.co.nz)
 
   * [Testing chapter](http://r-pkgs.had.co.nz/tests.html)
-
   
+Article [testthat: Get Started with Testing](https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf) in The R Journal Vol. 3/1, June 2011. Maybe this is completely superceded by the newer chapter above? Be aware that parts could be out of date, but I recall it was a helpful read.

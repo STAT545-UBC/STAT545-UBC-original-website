@@ -14,29 +14,17 @@ As usual, load the Gapminder excerpt.
 
 
 ```r
-gDat <- read.delim("gapminderDataFiveYear.txt")
-str(gDat)
-## 'data.frame':	1704 obs. of  6 variables:
-##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
-##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ gdpPercap: num  779 821 853 836 740 ...
-## or do this if the file isn't lying around already
-## gd_url <- "http://tiny.cc/gapminder"
-## gDat <- read.delim(gd_url)
+library(gapminder)
 ```
 
-### Load assertthat and our qdiff function
+### Restore our max minus min function
 
-We'll keep using `assert_that()` to check that `x` is numeric and we'll want our previous function around as a baseline.
+Let's keep our previous function around as a baseline.
 
 
 ```r
-library(assertthat)
 qdiff4 <- function(x, probs = c(0, 1)) {
-  assert_that(is.numeric(x))
+  stopifnot(is.numeric(x))
   the_quantiles <- quantile(x, probs)
   return(max(the_quantiles) - min(the_quantiles))
 }
@@ -44,17 +32,17 @@ qdiff4 <- function(x, probs = c(0, 1)) {
 
 ### Be proactive about `NA`s
 
-I am being gentle by letting you practice with the Gapminder data. In real life, you will be plagued by missing data. If you are lucky, it will be properly indicated by the special value `NA`. Many built-in R functions have an `na.rm =` argument through which you can specify how you want to handle `NA`s. Typically the default value is `na.rm = FALSE` and typical default behavior is to either let `NA`s propagate or to raise an error. Let's see how `quantile()` handles `NA`s:
+I am being gentle by letting you practice with the Gapminder data. In real life, missing data will make your life a living hell. If you are lucky, it will be properly indicated by the special value `NA`, but don't hold your breath. Many built-in R functions have an `na.rm =` argument through which you can specify how you want to handle `NA`s. Typically the default value is `na.rm = FALSE` and typical default behavior is to either let `NA`s propagate or to raise an error. Let's see how `quantile()` handles `NA`s:
 
 
 ```r
-z <- gDat$lifeExp
+z <- gapminder$lifeExp
 z[3] <- NA
-quantile(gDat$lifeExp)
+quantile(gapminder$lifeExp)
 ##      0%     25%     50%     75%    100% 
 ## 23.5990 48.1980 60.7125 70.8455 82.6030
 quantile(z)
-## Error: missing values and NaN's not allowed if 'na.rm' is FALSE
+## Error in quantile.default(z): missing values and NaN's not allowed if 'na.rm' is FALSE
 quantile(z, na.rm = TRUE)
 ##     0%    25%    50%    75%   100% 
 ## 23.599 48.228 60.765 70.846 82.603
@@ -67,11 +55,11 @@ If we wanted to hardwire `na.rm = TRUE`, we could. Focus on our call to `quantil
 
 ```r
 qdiff5 <- function(x, probs = c(0, 1)) {
-  assert_that(is.numeric(x))
+  stopifnot(is.numeric(x))
   the_quantiles <- quantile(x, probs, na.rm = TRUE)
   return(max(the_quantiles) - min(the_quantiles))
 }
-qdiff5(gDat$lifeExp)
+qdiff5(gapminder$lifeExp)
 ## [1] 59.004
 qdiff5(z)
 ## [1] 59.004
@@ -84,16 +72,16 @@ We could add an `na.rm =` argument to our own function. We might even enforce ou
 
 ```r
 qdiff6 <- function(x, probs = c(0, 1), na.rm = TRUE) {
-  assert_that(is.numeric(x))
+  stopifnot(is.numeric(x))
   the_quantiles <- quantile(x, probs, na.rm = na.rm)
   return(max(the_quantiles) - min(the_quantiles))
 }
-qdiff6(gDat$lifeExp)
+qdiff6(gapminder$lifeExp)
 ## [1] 59.004
 qdiff6(z)
 ## [1] 59.004
 qdiff6(z, na.rm = FALSE)
-## Error: missing values and NaN's not allowed if 'na.rm' is FALSE
+## Error in quantile.default(x, probs, na.rm = na.rm): missing values and NaN's not allowed if 'na.rm' is FALSE
 ```
 
 ### The useful but mysterious `...` argument
@@ -176,55 +164,22 @@ test_that('NA handling works', {
 })
 ## Error: Test failed: 'NA handling works'
 ## Not expected: missing values and NaN's not allowed if 'na.rm' is FALSE
-## 1: withCallingHandlers(eval(code, new_test_environment), error = capture_calls)
+## 1: withCallingHandlers(eval(code, new_test_environment), error = capture_calls, 
+##        message = function(c) invokeRestart("muffleMessage"))
 ## 2: eval(code, new_test_environment)
 ## 3: eval(expr, envir, enclos)
 ## 4: expect_that(qdiff_no_NA(c(1:5, NA)), equals(4)) at <text>:6
 ## 5: condition(object)
-## 6: compare(expected, actual, ...)
-## 7: compare.default(expected, actual, ...)
-## 8: all.equal(x, y, ...)
-## 9: all.equal.numeric(x, y, ...)
-## 10: attr.all.equal(target, current, tolerance = tolerance, scale = scale, ...)
-## 11: mode(current)
-## 12: qdiff_no_NA(c(1:5, NA))
-## 13: quantile(x = x, probs = probs) at <text>:2
-## 14: quantile.default(x = x, probs = probs)
-## 15: stop("missing values and NaN's not allowed if 'na.rm' is FALSE").
+## 6: compare(actual, expected, ...)
+## 7: qdiff_no_NA(c(1:5, NA))
+## 8: quantile(x = x, probs = probs) at <text>:2
+## 9: quantile.default(x = x, probs = probs)
+## 10: stop("missing values and NaN's not allowed if 'na.rm' is FALSE").
 ```
 
-Similar to the advice to use `assertthat` in data analytical scripts, I recommend you use `testthat` to monitor the behavior of functions you (or others) will use often. If your tests cover the function's important behavior, then you can edit the internals freely. You'll rest easy in the knowledge that, if you broke anything important, the tests will fail and alert you to the problem.
+Similar to the advice to use assertions in data analytical scripts, I recommend you use unit tests to monitor the behavior of functions you (or others) will use often. If your tests cover the function's important behavior, then you can edit the internals freely. You'll rest easy in the knowledge that, if you broke anything important, the tests will fail and alert you to the problem.
 
 <!--
-### Return to `dplyr` SKIP THIS IN FAVOR OF PLYR
-
-
-```r
-library(dplyr)
-## 
-## Attaching package: 'dplyr'
-## 
-## The following object is masked from 'package:stats':
-## 
-##     filter
-## 
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-gtbl <- gDat %>% tbl_df
-by_continent <- gtbl %>%
-  group_by(continent)
-by_continent %>% do(data.frame(max(.$lifeExp)))
-## Source: local data frame [5 x 2]
-## Groups: continent
-## 
-##   continent max...lifeExp.
-## 1    Africa         76.442
-## 2  Americas         80.653
-## 3      Asia         82.603
-## 4    Europe         81.757
-## 5   Oceania         81.235
-```
 
 ### other content
 
@@ -236,18 +191,12 @@ defaulting to NULL then checking is.null() and take it from there
 
 ### Resources
 
-Packages
+Unit testing with `testthat`:
 
-  * [`assertthat` package](https://github.com/hadley/assertthat)
-  * [`ensurer` package](https://github.com/smbache/ensurer)
-  * [`testthat` package](https://github.com/hadley/testthat)
+  * On [CRAN](https://cran.r-project.org/web/packages/testthat/index.html), development on [GitHub](https://github.com/hadley/testthat)
 
-Hadley Wickham's forthcoming book [Advanced R](http://adv-r.had.co.nz)
-
-  * Section on [defensive programming](http://adv-r.had.co.nz/Exceptions-Debugging.html#defensive-programming)
-  
-Hadley Wickham's forthcoming book [R packages](http://r-pkgs.had.co.nz)
+Hadley Wickham's [R packages](http://r-pkgs.had.co.nz)
 
   * [Testing chapter](http://r-pkgs.had.co.nz/tests.html)
-
   
+Article [testthat: Get Started with Testing](https://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf) in The R Journal Vol. 3/1, June 2011. Maybe this is completely superceded by the newer chapter above? Be aware that parts could be out of date, but I recall it was a helpful read.
