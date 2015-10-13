@@ -195,7 +195,7 @@ Unit testing with `testthat`:
 
   * On [CRAN](https://cran.r-project.org/web/packages/testthat/index.html), development on [GitHub](https://github.com/hadley/testthat)
 
-Hadley Wickham's [R packages](http://r-pkgs.had.co.nz)
+Hadley Wickham's [R packages](http://r-pkgs.had.co.nz) book
 
   * [Testing chapter](http://r-pkgs.had.co.nz/tests.html)
   
