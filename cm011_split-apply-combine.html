@@ -10,7 +10,7 @@
 
 
 
-<title>Syllabus</title>
+<title></title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -93,149 +93,66 @@ img {
   </div>
 </header>
 
-<div id="header">
-<h1 class="title">Syllabus</h1>
+
+<div id="TOC">
+<ul>
+<li><a href="#cm011-2015-10-13-tuesday-overview">cm011 2015-10-13 Tuesday overview</a></li>
+</ul>
 </div>
 
-
-<p><em>2015-09-24 NOTE: This is still evolving. But it gives a good sense of what we’ll cover and approximately when.</em></p>
-<!-- unholy hack to make following two tables less wide and the same wide -->
-<style type="text/css">
-table {
-   max-width: 50%;
-}
-</style>
-<div id="stat-545a" class="section level4">
-<h4>STAT 545A</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">date</th>
-<th align="left">notes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">sep-08 tues</td>
-<td align="left"><a href="cm001_course-intro-sw-install-account-signup.html">cm001</a>: Intro to course; S/W install; acct sign-ups</td>
-</tr>
-<tr class="even">
-<td align="left">sep-10 thurs</td>
-<td align="left"><a href="cm002_r-rstudio-intro.html">cm002</a>: Deep Thoughts about data analytic work; intro to R and RStudio</td>
-</tr>
-<tr class="odd">
-<td align="left">sep-15 tues</td>
-<td align="left"><a href="cm003_r-objects-git-toe-dip.html">cm003</a>: Git(Hub) and (R) Markdown crash course</td>
-</tr>
-<tr class="even">
-<td align="left">sep-17 thurs</td>
-<td align="left"><a href="cm004_care-feeding-data.html">cm004</a>: Care and feeding of data (data.frames, actually)</td>
-</tr>
-<tr class="odd">
-<td align="left">sep-22 tues</td>
-<td align="left"><a href="cm005_ggplot2-intro.html">cm005</a>: Intro to ggplot2</td>
-</tr>
-<tr class="even">
-<td align="left">sep-24 thurs</td>
-<td align="left"><a href="cm006_rmarkdown.html">cm006</a>: R Markdown</td>
-</tr>
-<tr class="odd">
-<td align="left">sep-29 tues</td>
-<td align="left"><a href="cm007_dplyr-intro.html">cm007</a>: dplyr: the pipe and single table verbs</td>
-</tr>
-<tr class="even">
-<td align="left">oct-01 thurs</td>
-<td align="left"><a href="cm008_dplyr-contd.html">cm008</a>: dplyr: group_by</td>
-</tr>
-<tr class="odd">
-<td align="left">oct-06 tues</td>
-<td align="left"><a href="cm009_r-objects-collections.html">cm009</a>: Basic flavors of R objects</td>
-</tr>
-<tr class="even">
-<td align="left">oct-08 thurs</td>
-<td align="left"><a href="cm010_write-function.html">cm010</a>: Writing your own R functions</td>
-</tr>
-<tr class="odd">
-<td align="left">oct-13 tues</td>
-<td align="left"><a href="cm011_split-apply-combine.html">cm011</a>: Split-Apply-Combine</td>
-</tr>
-<tr class="even">
-<td align="left">oct-15 thurs</td>
-<td align="left">cm012: “Tidy data and reshaping; be the boss of your factors”</td>
-</tr>
-<tr class="odd">
-<td align="left">oct-20 tues</td>
-<td align="left">cm013: Practical graphing tips</td>
-</tr>
-<tr class="even">
-<td align="left">oct-22 thurs</td>
-<td align="left"><a href="cm014_viz-design-munzner.html">cm014</a>: Visualization Analysis and Design: guest lecture from the awesome Tamara Munzer</td>
-</tr>
-</tbody>
-</table>
+<div id="cm011-2015-10-13-tuesday-overview" class="section level3">
+<h3>cm011 2015-10-13 Tuesday overview</h3>
+<ul>
+<li>HW04 will be due ?? sometime Friday 2015-10-16 ??. Write a function, documenting process from interactive pilot to formal tests. Apply function to Gapminder using <code>dplyr</code> or, maybe, <code>plyr</code>. Invitation to experiment with <code>broom</code> and then do more split-apply-combine or visualization on the results.
+<ul>
+<li><a href="http://stat545-ubc.github.io/hw04_write-function-use-plyr.html">2014 version</a> <em>will be made less <code>plyr</code>-specific</em></li>
+</ul></li>
+<li>Writing your own functions. You should have finished this on your own.
+<ul>
+<li><a href="block011_write-your-own-function-01.html">Write your own R functions, part 1</a></li>
+<li><a href="block011_write-your-own-function-02.html">Write your own R functions, part 2</a></li>
+<li><a href="block011_write-your-own-function-03.html">Write your own R functions, part 3</a></li>
+</ul></li>
+<li>Data aggregation
+<ul>
+<li>Big picture slides linked and embedded below</li>
+<li><a href="block012_function-regress-lifeexp-on-year.html">Guided challenge</a>: write function to regress life expectancy on year and return the estimated intercept and slope</li>
+<li><a href="block023_dplyr-do.html">Use <code>dplyr::do()</code></a> to apply this function to each country in Gapminder; use <code>broom</code> to do same in a slick way to linear models in general</li>
+<li><a href="block013_plyr-ddply.html">Use <code>plyr::ddply()</code></a> to apply this function to each country in Gapminder <em>2014 material I’m keeping around and linked, just in case</em></li>
+</ul></li>
+<li>What’s left for 545?
+<ul>
+<li>Tidy data and reshaping</li>
+<li>Be the boss of your factors</li>
+<li>Back to figs: practical matters (e.g. color and file management), guest lecture from Tamara Munzner</li>
+</ul></li>
+</ul>
+<div id="slides-and-links" class="section level4">
+<h4>Slides and links</h4>
+<p>Slides available on <a href="https://www.slideshare.net/jenniferbryan5811/cm009-data-aggregation">slideshare</a></p>
+<iframe src="//www.slideshare.net/slideshow/embed_code/39778629" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen>
+</iframe>
+<div style="margin-bottom:5px">
+<strong> <a href="https://www.slideshare.net/jenniferbryan5811/cm009-data-aggregation" title="UBC STAT545 2014 Cm009 overview of data aggregation" target="_blank">UBC STAT545 2014 Cm009 overview of data aggregation</a> </strong> from <strong><a href="http://www.slideshare.net/jenniferbryan5811" target="_blank">Jennifer Bryan</a></strong>
 </div>
-<div id="stat-547m" class="section level4">
-<h4>STAT 547M</h4>
-<table>
-<thead>
-<tr class="header">
-<th align="left">date</th>
-<th align="left">notes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">oct-27 tues</td>
-<td align="left">cm101: Getting data out of R (and back in)</td>
-</tr>
-<tr class="even">
-<td align="left">oct-29 thurs</td>
-<td align="left">cm102: Regular expressions and character data</td>
-</tr>
-<tr class="odd">
-<td align="left">nov-03 tues</td>
-<td align="left">cm103: Data cleaning</td>
-</tr>
-<tr class="even">
-<td align="left">nov-05 thurs</td>
-<td align="left">cm104: TBA</td>
-</tr>
-<tr class="odd">
-<td align="left">nov-10 tues</td>
-<td align="left">cm105: Build your first R package</td>
-</tr>
-<tr class="even">
-<td align="left">nov-12 thurs</td>
-<td align="left">cm106: ditto</td>
-</tr>
-<tr class="odd">
-<td align="left">nov-17 tues</td>
-<td align="left">cm107: Task automation and pipelines, GNU Make</td>
-</tr>
-<tr class="even">
-<td align="left">nov-19 thurs</td>
-<td align="left">cm108: ditto</td>
-</tr>
-<tr class="odd">
-<td align="left">nov-24 tues</td>
-<td align="left">cm109: Get data from the web</td>
-</tr>
-<tr class="even">
-<td align="left">nov-26 thurs</td>
-<td align="left">cm110: ditto</td>
-</tr>
-<tr class="odd">
-<td align="left">dec-01 tues</td>
-<td align="left">cm111: Build your first Shiny app</td>
-</tr>
-<tr class="even">
-<td align="left">dec-03 thurs</td>
-<td align="left">cm112: ditto</td>
-</tr>
-</tbody>
-</table>
+<p>Links from the slides:</p>
+<ul>
+<li>The split-apply-combine strategy for data analysis. Hadley Wickham. Journal of Statistical Software, vol. 40, no. 1, pp. 1–29, 2011. <a href="http://www.jstatsoft.org/v40/i01/paper" class="uri">http://www.jstatsoft.org/v40/i01/paper</a></li>
+<li><a href="http://cran.rstudio.com/web/packages/dplyr/">dplyr package</a></li>
+<li><a href="http://cran.rstudio.com/web/packages/plyr/">plyr package</a></li>
+<li>The <code>broom</code> package by David Robinson
+<ul>
+<li>Development on <a href="https://github.com/dgrtwo/broom">GitHub</a></li>
+<li>On <a href="https://cran.r-project.org/web/packages/broom/vignettes">CRAN</a></li>
+<li><a href="https://cran.r-project.org/web/packages/broom/vignettes/broom_and_dplyr.html">Vignette</a> on using <code>broom</code> with <code>dplyr</code></li>
+</ul></li>
+</ul>
+</div>
 </div>
 
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
 
 </div>
 
