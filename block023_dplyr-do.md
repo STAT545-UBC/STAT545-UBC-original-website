@@ -55,9 +55,8 @@ suppressPackageStartupMessages(library(dplyr))
 library(gapminder)
 library(magrittr)
 
-gtbl <- gapminder %>%
-  tbl_df()
-gtbl %>%
+gapminder %>%
+  tbl_df() %>%
   glimpse()
 ## Observations: 1,704
 ## Variables: 6
@@ -75,7 +74,7 @@ Use `group_by()` to add grouping structure to a `tbl`. `summarize()` can then be
 
 
 ```r
-gtbl %>%
+gapminder %>%
   group_by(continent) %>%
   summarize(avg_lifeExp = mean(lifeExp))
 ## Source: local data frame [5 x 2]
@@ -99,7 +98,7 @@ qdiff <- function(x, probs = c(0, 1), na.rm = TRUE) {
   the_quantiles <- quantile(x = x, probs = probs, na.rm = na.rm)
   return(max(the_quantiles) - min(the_quantiles))
 }
-qdiff(gtbl$lifeExp)
+qdiff(gapminder$lifeExp)
 ## [1] 59.004
 ```
 
@@ -109,14 +108,11 @@ Just. Use. It.
 
 
 ```r
-gtbl %>%
+gapminder %>%
   summarize(qdiff = qdiff(lifeExp))
-## Source: local data frame [1 x 1]
-## 
 ##    qdiff
-##    (dbl)
 ## 1 59.004
-gtbl %>%
+gapminder %>%
   group_by(continent) %>%
   summarize(qdiff = qdiff(lifeExp))
 ## Source: local data frame [5 x 2]
@@ -128,7 +124,7 @@ gtbl %>%
 ## 3      Asia 53.802
 ## 4    Europe 38.172
 ## 5   Oceania 12.115
-gtbl %>%
+gapminder %>%
   group_by(continent) %>%
   summarize(qdiff = qdiff(lifeExp, probs = c(0.2, 0.8)))
 ## Source: local data frame [5 x 2]
@@ -150,7 +146,7 @@ What if we want to do "n-to-???" computation. Well, `summarize()` isn't going to
 
 
 ```r
-gtbl %>%
+gapminder %>%
   group_by(continent) %>%
   summarize(range = range(lifeExp))
 ## Error in eval(expr, envir, enclos): expecting a single value
@@ -164,7 +160,7 @@ Bummer.
 
 
 ```r
-gtbl %>%
+gapminder %>%
   filter(year == 2007) %>% 
   group_by(continent) %>%
   do(head(., 2))
@@ -193,7 +189,7 @@ Challenge: Modify the example above to get the 10th most populous country in 200
 
 
 ```r
-gtbl %>% 
+gapminder %>% 
   filter(year == 2002) %>% 
   group_by(continent) %>% 
   arrange(desc(pop)) %>% 
@@ -207,7 +203,7 @@ gtbl %>%
 ## 2  Ecuador  Americas  2002  74.173 12921234  5773.045
 ## 3 Thailand      Asia  2002  68.564 62806748  5913.188
 ## 4   Greece    Europe  2002  78.256 10603863 22514.255
-gtbl %>% 
+gapminder %>% 
   filter(year == 2002) %>% 
   group_by(continent) %>% 
   filter(min_rank(desc(pop)) == 10)
@@ -222,13 +218,13 @@ gtbl %>%
 ## 4 Thailand      Asia  2002  68.564 62806748  5913.188
 ```
 
-Oops, where did Oceania go? Why do we get the same answers in different row order with the alternative approach? Welcome to real world analysis, with hyper clean data! Good thing we're just goofing around and nothing breaks when we suddenly lose a continent or row order changes.
+Oops, where did Oceania go? Why do we get the same answers in different row order with the alternative approach? Welcome to real world analysis, even with hyper clean data! Good thing we're just goofing around and nothing breaks when we suddenly lose a continent or row order changes.
 
 What if we name the thing(s) computed within do?
 
 
 ```r
-gtbl %>%
+gapminder %>%
   group_by(continent) %>%
   do(range = range(.$lifeExp)) %T>% str
 ## Classes 'rowwise_df', 'tbl_df' and 'data.frame':	5 obs. of  2 variables:
@@ -260,7 +256,7 @@ Challenge: Create a data.frame with named 3 variables: `continent`, a variable f
 
 
 ```r
-(chal01 <- gtbl %>%
+(chal01 <- gapminder %>%
    group_by(continent) %>%
    do(mean = mean(.$lifeExp),
       fivenum = summary(.$gdpPercap)))
@@ -287,7 +283,7 @@ chal01[[4, "fivenum"]]
 ##   973.5  7213.0 12080.0 14470.0 20460.0 49360.0
 ```
 
-Due to these list-columns, `do()` output will often require further computation to prepare for downstream work.
+Due to these list-columns, `do()` output will often require further computation to prepare for downstream work. I don't love the list-columns.
 
 So, whenever possible, I recommend computing an unnamed data.frame inside `do()`.
 
@@ -301,7 +297,7 @@ We'll start moving towards a well-worn STAT 545 example: linear regression of li
 ```r
 library(ggplot2)
 
-ggplot(gtbl, aes(x = year, y = lifeExp)) +
+ggplot(gapminder, aes(x = year, y = lifeExp)) +
   geom_jitter() +
   geom_smooth(lwd = 3, se = FALSE, method = "lm")
 ```
@@ -309,10 +305,10 @@ ggplot(gtbl, aes(x = year, y = lifeExp)) +
 ![](block023_dplyr-do_files/figure-html/unnamed-chunk-11-1.png) 
 
 ```r
-(ov_cor <- gtbl %$%
+(ov_cor <- gapminder %$%
   cor(year, lifeExp))
 ## [1] 0.4356112
-(gcor <- gtbl %>%
+(gcor <- gapminder %>%
   group_by(country) %>%
   summarize(correlation = cor(year, lifeExp)))
 ## Source: local data frame [142 x 2]
@@ -357,7 +353,7 @@ Let's try it out on the data for one country, just to reacquaint ourselves with 
 
 
 ```r
-le_lin_fit(gtbl %>% filter(country == "Canada"))
+le_lin_fit(gapminder %>% filter(country == "Canada"))
 ##  intercept      slope 
 ## 68.8838462  0.2188692
 ggplot(gapminder %>% filter(country == "Canada"),
@@ -375,7 +371,7 @@ le_lin_fit <- function(dat, offset = 1952) {
   the_fit <- lm(lifeExp ~ I(year - offset), dat)
   setNames(data.frame(t(coef(the_fit))), c("intercept", "slope"))
 }
-le_lin_fit(gtbl %>% filter(country == "Canada"))
+le_lin_fit(gapminder %>% filter(country == "Canada"))
 ##   intercept     slope
 ## 1  68.88385 0.2188692
 ```
@@ -384,7 +380,7 @@ We are ready to scale up to __all countries__ by placing this function inside a 
 
 
 ```r
-gfits_1 <- gtbl %>%
+gfits_1 <- gapminder %>%
   group_by(country) %>% 
   do(le_lin_fit(.))
 gfits_1
@@ -444,10 +440,6 @@ ggplot(gfits_me, aes(x = intercept, y = slope)) + geom_point()
 
 ## Meet the `broom` package
 
-<https://cran.r-project.org/web/packages/broom/vignettes/broom_and_dplyr.html>
-
-<https://github.com/dgrtwo/broom>
-
 Install the `broom` package if you don't have it yet. We talk about it more elsewhere, in the context of *tidy data*. Here we just use it to help us produce nice data.frames inside of `dplyr::do()`. It has lots of built-in functions for tidying messy stuff, such as fitted linear models.
 
 
@@ -462,10 +454,25 @@ Watch how easy it is to get fitted model results:
 ```r
 gfits_broom <- gapminder %>%
   group_by(country, continent) %>% 
-  do(tidy(lm(lifeExp ~ I(year - 1952), dat)))
-## Error in is.data.frame(data): object 'dat' not found
+  do(tidy(lm(lifeExp ~ I(year - 1952), data = .)))
 gfits_broom 
-## Error in eval(expr, envir, enclos): object 'gfits_broom' not found
+## Source: local data frame [284 x 7]
+## Groups: country, continent [142]
+## 
+##        country continent           term   estimate   std.error  statistic
+##         (fctr)    (fctr)          (chr)      (dbl)       (dbl)      (dbl)
+## 1  Afghanistan      Asia    (Intercept) 29.9072949 0.663999539  45.041138
+## 2  Afghanistan      Asia I(year - 1952)  0.2753287 0.020450934  13.462890
+## 3      Albania    Europe    (Intercept) 59.2291282 1.076844032  55.002513
+## 4      Albania    Europe I(year - 1952)  0.3346832 0.033166387  10.091036
+## 5      Algeria    Africa    (Intercept) 43.3749744 0.718420236  60.375491
+## 6      Algeria    Africa I(year - 1952)  0.5692797 0.022127070  25.727749
+## 7       Angola    Africa    (Intercept) 32.1266538 0.764035493  42.048641
+## 8       Angola    Africa I(year - 1952)  0.2093399 0.023532003   8.895964
+## 9    Argentina  Americas    (Intercept) 62.6884359 0.158728938 394.940184
+## 10   Argentina  Americas I(year - 1952)  0.2317084 0.004888791  47.395847
+## ..         ...       ...            ...        ...         ...        ...
+## Variables not shown: p.value (dbl)
 ```
 
 The default tidier for `lm` objects produces a data.frame summary of estimated coefficients and results related to statistical inference, e.g., p-value.

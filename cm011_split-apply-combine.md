@@ -23,9 +23,7 @@ output:
     
 #### Slides and links
 
-Slides available on [slideshare](https://www.slideshare.net/jenniferbryan5811/cm009-data-aggregation)
-
-<iframe src="//www.slideshare.net/slideshow/embed_code/39778629" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/jenniferbryan5811/cm009-data-aggregation" title="UBC STAT545 2014 Cm009 overview of data aggregation" target="_blank">UBC STAT545 2014 Cm009 overview of data aggregation</a> </strong> from <strong><a href="http://www.slideshare.net/jenniferbryan5811" target="_blank">Jennifer Bryan</a></strong> </div>
+2014 Slides available on [slideshare](https://www.slideshare.net/jenniferbryan5811/cm009-data-aggregation), but I've got updated 2015 ones ... will put on the web after class
 
 Links from the slides:
 

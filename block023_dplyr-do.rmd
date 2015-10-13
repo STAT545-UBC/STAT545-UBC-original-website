@@ -61,9 +61,8 @@ suppressPackageStartupMessages(library(dplyr))
 library(gapminder)
 library(magrittr)
 
-gtbl <- gapminder %>%
-  tbl_df()
-gtbl %>%
+gapminder %>%
+  tbl_df() %>%
   glimpse()
 ```
 
@@ -72,7 +71,7 @@ gtbl %>%
 Use `group_by()` to add grouping structure to a `tbl`. `summarize()` can then be used to do "n-to-1" computations.
 
 ```{r}
-gtbl %>%
+gapminder %>%
   group_by(continent) %>%
   summarize(avg_lifeExp = mean(lifeExp))
 ```
@@ -86,7 +85,7 @@ qdiff <- function(x, probs = c(0, 1), na.rm = TRUE) {
   the_quantiles <- quantile(x = x, probs = probs, na.rm = na.rm)
   return(max(the_quantiles) - min(the_quantiles))
 }
-qdiff(gtbl$lifeExp)
+qdiff(gapminder$lifeExp)
 ```
 
 ### Compute within groups with our own function
@@ -94,12 +93,12 @@ qdiff(gtbl$lifeExp)
 Just. Use. It.
 
 ```{r}
-gtbl %>%
+gapminder %>%
   summarize(qdiff = qdiff(lifeExp))
-gtbl %>%
+gapminder %>%
   group_by(continent) %>%
   summarize(qdiff = qdiff(lifeExp))
-gtbl %>%
+gapminder %>%
   group_by(continent) %>%
   summarize(qdiff = qdiff(lifeExp, probs = c(0.2, 0.8)))
 ```
@@ -111,7 +110,7 @@ Notice we can still provide probabilities, though common argument values are use
 What if we want to do "n-to-???" computation. Well, `summarize()` isn't going to cut it anymore.
 
 ```{r}
-gtbl %>%
+gapminder %>%
   group_by(continent) %>%
   summarize(range = range(lifeExp))
 ```
@@ -123,7 +122,7 @@ Bummer.
 `dplyr::do()` will compute just about anything and is conceived to use with `group_by()` to compute within groups. If the thing you compute is an unnamed data.frame, they get row-bound together, with the grouping variables retained. Let's get the first two rows from each continent in 2007.
 
 ```{r}
-gtbl %>%
+gapminder %>%
   filter(year == 2007) %>% 
   group_by(continent) %>%
   do(head(., 2))
@@ -136,23 +135,23 @@ I believe this is `dplyr::do()` at its very best. I'm about to show some other u
 Challenge: Modify the example above to get the 10th most populous country in 2002 for each continent
 
 ```{r}
-gtbl %>% 
+gapminder %>% 
   filter(year == 2002) %>% 
   group_by(continent) %>% 
   arrange(desc(pop)) %>% 
   do(slice(., 10))
-gtbl %>% 
+gapminder %>% 
   filter(year == 2002) %>% 
   group_by(continent) %>% 
   filter(min_rank(desc(pop)) == 10)
 ```
 
-Oops, where did Oceania go? Why do we get the same answers in different row order with the alternative approach? Welcome to real world analysis, with hyper clean data! Good thing we're just goofing around and nothing breaks when we suddenly lose a continent or row order changes.
+Oops, where did Oceania go? Why do we get the same answers in different row order with the alternative approach? Welcome to real world analysis, even with hyper clean data! Good thing we're just goofing around and nothing breaks when we suddenly lose a continent or row order changes.
 
 What if we name the thing(s) computed within do?
 
 ```{r}
-gtbl %>%
+gapminder %>%
   group_by(continent) %>%
   do(range = range(.$lifeExp)) %T>% str
 ```
@@ -162,7 +161,7 @@ We still get a data.frame back. But a weird data.frame in which the newly create
 Challenge: Create a data.frame with named 3 variables: `continent`, a variable for mean life expectancy, a list-column holding the typical five number summary of GDP per capita. Inspect an individual row, e.g. for Europe Try to get at the mean life expectancy and the five number summary of GDP per capita.
 
 ```{r}
-(chal01 <- gtbl %>%
+(chal01 <- gapminder %>%
    group_by(continent) %>%
    do(mean = mean(.$lifeExp),
       fivenum = summary(.$gdpPercap)))
@@ -171,7 +170,7 @@ chal01[[4, "mean"]]
 chal01[[4, "fivenum"]]
 ```
 
-Due to these list-columns, `do()` output will often require further computation to prepare for downstream work.
+Due to these list-columns, `do()` output will often require further computation to prepare for downstream work. I don't love the list-columns.
 
 So, whenever possible, I recommend computing an unnamed data.frame inside `do()`.
 
@@ -184,12 +183,12 @@ We'll start moving towards a well-worn STAT 545 example: linear regression of li
 ```{r}
 library(ggplot2)
 
-ggplot(gtbl, aes(x = year, y = lifeExp)) +
+ggplot(gapminder, aes(x = year, y = lifeExp)) +
   geom_jitter() +
   geom_smooth(lwd = 3, se = FALSE, method = "lm")
-(ov_cor <- gtbl %$%
+(ov_cor <- gapminder %$%
   cor(year, lifeExp))
-(gcor <- gtbl %>%
+(gcor <- gapminder %>%
   group_by(country) %>%
   summarize(correlation = cor(year, lifeExp)))
 ggplot(gcor, aes(x = correlation)) +
@@ -215,7 +214,7 @@ le_lin_fit <- function(dat, offset = 1952) {
 Let's try it out on the data for one country, just to reacquaint ourselves with it.
 
 ```{r}
-le_lin_fit(gtbl %>% filter(country == "Canada"))
+le_lin_fit(gapminder %>% filter(country == "Canada"))
 ggplot(gapminder %>% filter(country == "Canada"),
        aes(x = year, y = lifeExp)) +
   geom_smooth(lwd = 1.3, se = FALSE, method = "lm") +
@@ -228,13 +227,13 @@ le_lin_fit <- function(dat, offset = 1952) {
   the_fit <- lm(lifeExp ~ I(year - offset), dat)
   setNames(data.frame(t(coef(the_fit))), c("intercept", "slope"))
 }
-le_lin_fit(gtbl %>% filter(country == "Canada"))
+le_lin_fit(gapminder %>% filter(country == "Canada"))
 ```
 
 We are ready to scale up to __all countries__ by placing this function inside a `dplyr::do()` call.
 
 ```{r}
-gfits_1 <- gtbl %>%
+gfits_1 <- gapminder %>%
   group_by(country) %>% 
   do(le_lin_fit(.))
 gfits_1
@@ -264,10 +263,6 @@ ggplot(gfits_me, aes(x = intercept, y = slope)) + geom_point()
 
 ## Meet the `broom` package
 
-<https://cran.r-project.org/web/packages/broom/vignettes/broom_and_dplyr.html>
-
-<https://github.com/dgrtwo/broom>
-
 Install the `broom` package if you don't have it yet. We talk about it more elsewhere, in the context of *tidy data*. Here we just use it to help us produce nice data.frames inside of `dplyr::do()`. It has lots of built-in functions for tidying messy stuff, such as fitted linear models.
 
 ```{r}
@@ -280,7 +275,7 @@ Watch how easy it is to get fitted model results:
 ```{r}
 gfits_broom <- gapminder %>%
   group_by(country, continent) %>% 
-  do(tidy(lm(lifeExp ~ I(year - 1952), dat)))
+  do(tidy(lm(lifeExp ~ I(year - 1952), data = .)))
 gfits_broom 
 ```
 
