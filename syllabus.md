@@ -27,8 +27,8 @@ sep-24 thurs   <a href="cm006_rmarkdown.html">cm006</a>: R Markdown
 sep-29 tues    <a href="cm007_dplyr-intro.html">cm007</a>: dplyr: the pipe and single table verbs                                                 
 oct-01 thurs   <a href="cm008_dplyr-contd.html">cm008</a>: dplyr: group_by                                                                        
 oct-06 tues    <a href="cm009_r-objects-collections.html">cm009</a>: Basic flavors of R objects, Writing your own R functions                     
-oct-08 thurs   cm010: Writing your own R functions, Split-Apply-Combine                                                                           
-oct-13 tues    cm011: Tidy data and reshaping                                                                                                     
+oct-08 thurs   <a href="cm010_write-function.html">cm010</a>: Writing your own R functions                                                        
+oct-13 tues    cm011: Split-Apply-Combine and Tidy data and reshaping                                                                             
 oct-15 thurs   cm012: Be the boss of your factors                                                                                                 
 oct-20 tues    cm013: Practical graphing tips                                                                                                     
 oct-22 thurs   <a href="cm014_viz-design-munzner.html">cm014</a>: Visualization Analysis and Design: guest lecture from the awesome Tamara Munzer 
