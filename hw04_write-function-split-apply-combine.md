@@ -1,39 +1,35 @@
 ---
-title: "Homework 04: Use plyr to apply your functions within data.frames"
+title: "Homework 04: Use split-apply-combine with your functions within data.frames"
 output:
   html_document:
     toc: true
     toc_depth: 4
 ---
 
-__THE RUMORS ARE TRUE. Extension has been granted. Due, at the latest, before class Wednesday October 8.__
-
 ### Overview
 
 Consult the [general homework guidelines](hw00_homework-guidelines.html).
 
-Due before class Monday 2014-10-06. *I am open to negotiation if the lateness of this posting is creating hardship.*
+Due sometime Friday 2015-10-16. *I am open to negotiation if the lateness of this posting is creating hardship.*
 
-The goal is to write one (or more) custom functions that do something useful to pieces of the Gapminder data. Then use `plyr::ddply()` to apply to all such pieces. Then use `dplyr()` and or `ggplot2` to explore what you got back.
+The goal is to write one (or more) custom functions that do something useful to pieces of the Gapminder data. Then use `dplyr::do()` to apply to all such pieces. Then use `dplyr()` and or `ggplot2` to explore what you got back.
 
 Remember the [sampler concept](http://en.wikipedia.org/wiki/Sampler_(needlework)). Your homework should serve as your own personal cheatsheet in the future for how to write a function and how to scale up its application with data aggregation machinery.
 
 #### Gapminder data
 
-Work with the [Gapminder excerpt](http://tiny.cc/gapminder). *If you really, really want to, you can explore a different dataset but get permission from Jenny.*
+Work with the [Gapminder excerpt](https://cran.r-project.org/package=gapminder). *If you really, really want to, you can explore a different dataset but get permission from Jenny.*
 
 ### Your mission, high-level
 
 Write a function to compute something interesting on a piece of the Gapminder data. Make it something you can't easily do with built-in functions. Make it something that's not trivial to do with the simple `dplyr` verbs.
 
-  * The linear regression function [we wrote together in cm009](block012_function-regress-lifeexp-on-year.html) is a good example.
+  * The linear regression function [we wrote together in cm011](block012_function-regress-lifeexp-on-year.html) is a good example.
   * Record some of the process. In fact, you might want to draft two R Markdown files for this assignment. One to develop and test the function. Another to apply it and explore results. Just like we split it up in class.
 
-Use `plyr::ddply()` to apply your function to all possible pieces of the Gapminder dataset and return the combined result.
+Use `dplyr::do()` to apply your function to all possible pieces of the Gapminder dataset and return the combined result.
 
-  * [Here is a tutorial](block013_plyr-ddply.html) showing how to take a function you've written and (informally) tested and drop it into `ddply()`. My TA spy network tells me you guys are probably ready to do this, even though we didn't get through all of that in class.
-  
-Explore the results you get back. Use all your usual tricks, so here it is fine to break out `dplyr` again. Remember to do `library(plyr)` before `library(dplyr)` if you load both! Some `ggplot2` graphs would also be appropriate.
+Explore the results you get back. Use all your usual tricks, so I expect to see alot of `dplyr` and `ggplot2` here.
 
 Make observations about what your tables/figures show and about the process.
 
@@ -57,7 +53,7 @@ Do anything we've discussed so far but for a different combination of variables.
 
 ### Exploration of the results
 
-Once you've found something interesting to compute and you've used `plyr::ddply()` to enact the computation broadly, it's vital that you digest and interpret the results.
+Once you've found something interesting to compute and you've used `dplyr::do()` to enact the computation broadly, it's vital that you digest and interpret the results.
 
 This will probably mean some sorting, filtering, etc. All your `dplyr` skills will come in handy. There's probably a couple of interesting tables to make.
 
@@ -65,9 +61,13 @@ Whenever possible, include a companion figure that adds context to the numbers a
 
 ### But I want to do more!
 
-Do your main data aggregation task with `plyr::ddply()` AND with `dplyr: group_by() + do()`. Reflect on the pros/cons of the two approaches.
+Do your main data aggregation task with `dplyr::group_by() + do()` AND `plyr::ddply()`. Reflect on the pros/cons of the two approaches.
 
-Explore some of the other functions in `plyr`, i.e. those that accept non-data.frame as input or output. One easy way to do this is to return an entire fitted model from your function. You will need to use `plyr::dlply()` to capture many fitted models in a list. Then you can use `plyr::l*ply()` functions to, e.g., extract residuals, coefficients, etc. When might this workflow come up in real life? Let's say it's expensive in compute time to fit hundreds or thousands of models. You only want to do this once. But you want full flexibility to play with different things you can extract from the models. This workflow is also better for guaranteeing that various quantities are indeed extracted from the same fits. If you wanted the estimated coefficients and the residuals, but you compute those separately and refit the model in each approach ... the two model fitting commands could easily diverge over time.
+Explore more functions in the `broom` package.
+
+Explore `plyr`'s capabilities to work with vectors, multi-dimensional arrays, and lists. Get outside the safe little world of data.frames.
+
+Take a look at [`purrr`](https://github.com/hadley/purrr) for functional programming more generally. Here's a [blog post](http://lionel-.github.io/2015/10/08/using-purrr-with-dplyr/) by one of the authors on combining `purrr` and `dplyr`.
   
 ### Report your process
 
@@ -85,4 +85,4 @@ Check minus: *One or more problems such as ...* Student's custom function was ex
 
 Check: Hits all the elements. No obvious mistakes. Pleasant to read. No heroic detective work required. Solid.
 
-Check plus: Exceeded the requirements in number of dimensions. Developed novel tasks that were indeed interesting and "worked". Impressive use of `plyr`, `dplyr` and/or `ggplot2`. Impeccable organization of repo and report. You learned something new from reviewing their work and you're eager to incorporate it into your work.
+Check plus: Exceeded the requirements in number of dimensions. Developed novel tasks that were indeed interesting and "worked". Impressive use of `dplyr`, `plyr`, `broom`, and/or `ggplot2`. Impeccable organization of repo and report. You learned something new from reviewing their work and you're eager to incorporate it into your work.
