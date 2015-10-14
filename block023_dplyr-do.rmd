@@ -1,5 +1,5 @@
 ---
-title: "Computing by groups within data.frames with dplyr"
+title: "Computing by groups within data.frames with dplyr and broom"
 output:
   html_document:
     toc: true
@@ -7,7 +7,7 @@ output:
 ---
 
 ```{r setup, include = FALSE, cache = FALSE}
-knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
+knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
 ```
 
 ### Think before you create excerpts of your data ...
@@ -25,13 +25,13 @@ Stop and ask yourself ...
 
 > Do I want to create mini datasets for each level of some factor (or unique combination of several factors) ... in order to compute or graph something?  
 
-If YES, __use proper data aggregation techniques__ or facetting in `ggplot2` plots or conditioning in `lattice` -- __don’t subset the data__. Or, more realistic, only subset the data as a temporary measure while you develop your elegant code for computing on or visualizing these data subsets.
+If YES, __use proper data aggregation techniques__ or facetting in `ggplot2` plots or conditioning in `lattice` -- __don’t subset the data__. Or, more realistically, only subset the data as a temporary measure while you develop your elegant code for computing on or visualizing these data subsets.
 
 If NO, then maybe you really do need to store a copy of a subset of the data. But seriously consider whether you can achieve your goals by simply using the `subset =` argument of, e.g., the `lm()` function, to limit computation to your excerpt of choice. Lots of functions offer a `subset =` argument! Or you can pipe filtered data into just about anything.
 
 ### Data aggregation landscape
 
-*Note: [these slides](https://www.slideshare.net/jenniferbryan5811/cm009-data-aggregation)  cover this material in a more visual way.*
+*Note: [these slides](https://speakerdeck.com/jennybc/ubc-stat545-split-apply-combine-intro)  cover this material in a more visual way.*
 
 There are three main options for data aggregation:
 
@@ -41,25 +41,24 @@ There are three main options for data aggregation:
 
 I have a strong recommendation for `dplyr` and `plyr` over the base R functions, with some qualifications. Both of these packages are aimed squarely at __data analysis__, which they greatly accelerate. But even I do not use them exclusively when I am in more of a "programming mode", where I often revert to base R. Also, even a pure data analyst will benefit from a deeper understanding of the language.
 
-I present `dplyr` here because that is our main package for data manipulation and there's a growing set of tools and materials around it. I still have a [soft spot for `plyr`](block013_plyr-ddply.html), because I think it might be easier for novices and I like it's unified treatment of diverse split-apply-combine tasks. I find both `dplyr` and `plyr` more immediately usable than the `apply` functions and even. But eventually you'll need to learn those as well.
+I present `dplyr` here because that is our main package for data manipulation and there's a growing set of tools and materials around it. I still have a [soft spot for `plyr`](block013_plyr-ddply.html), because I think it might be easier for novices and I like it's unified treatment of diverse split-apply-combine tasks. I find both `dplyr` and `plyr` more immediately usable than the `apply` functions. But eventually you'll need to learn them all.
 
 The main strengths of the `dplyr`/`plyr` mentality over the `apply` functions are:
 
-  * consistent interface across the all combinations of type of input and output
+  * interface is very consistent and clear around the issue of "what is the input? what is the output?"
   * return values are predictable and immediately useful for next steps
   
 You'll notice I do not even mention another option that may occur to some: hand-coding `for` loops, perhaps, even (shudder) nested `for` loops! Don't do it. By the end of this tutorial you'll see things that are much faster and more fun. Yes, of course, tedious loops are required for data aggregation but when you can, let other developers write them for you, in efficient low level code. This is more about saving programmer time than compute time, BTW.
 
-#### Load `dplyr` and the Gapminder data
+#### Load data and packages
 
-We use an excerpt of the Gapminder data and store it as a `tbl_df` object, basically an enhanced data.frame.
-
-Load `dplyr` and also `magrittr` itself, since I want to use more than just the pipe operator `%>%` that `dplyr` re-exports.
+Load `gapminder`, `dplyr` and also `magrittr` itself, since I want to use more than just the pipe operator `%>%` that `dplyr` re-exports. We'll eventually make some plots, so throw in `ggplot2`.
 
 ```{r}
 suppressPackageStartupMessages(library(dplyr))
 library(gapminder)
 library(magrittr)
+library(ggplot2)
 
 gapminder %>%
   tbl_df() %>%
@@ -68,7 +67,7 @@ gapminder %>%
 
 ### Review: grouping and summarizing
 
-Use `group_by()` to add grouping structure to a `tbl`. `summarize()` can then be used to do "n-to-1" computations.
+Use `group_by()` to add grouping structure to a data.frame. `summarize()` can then be used to do "n-to-1" computations.
 
 ```{r}
 gapminder %>%
@@ -93,21 +92,24 @@ qdiff(gapminder$lifeExp)
 Just. Use. It.
 
 ```{r}
+## on the whole dataset
 gapminder %>%
   summarize(qdiff = qdiff(lifeExp))
+## on each continent
 gapminder %>%
   group_by(continent) %>%
   summarize(qdiff = qdiff(lifeExp))
+## on each continent, specifying which quantiles
 gapminder %>%
   group_by(continent) %>%
   summarize(qdiff = qdiff(lifeExp, probs = c(0.2, 0.8)))
 ```
 
-Notice we can still provide probabilities, though common argument values are used for all groups.
+Notice we can still provide probabilities, though common argument values are used across all groups.
 
 ### What if we want something other than 1 number back from each group?
 
-What if we want to do "n-to-???" computation. Well, `summarize()` isn't going to cut it anymore.
+What if we want to do "n-to-???" computation? Well, `summarize()` isn't going to cut it anymore.
 
 ```{r}
 gapminder %>%
@@ -128,7 +130,7 @@ gapminder %>%
   do(head(., 2))
 ```
 
-Note also that we now explicitly use the `.` placeholder, which is `magrittr`-speak for "the thing we are computing on" or "the thing we have piped from the LHS". In this case it's one of the 5 continent-specific sub-data.frames of the Gapminder data.
+We now explicitly use the `.` placeholder, which is `magrittr`-speak for "the thing we are computing on" or "the thing we have piped from the LHS". In this case it's one of the 5 continent-specific sub-data.frames of the Gapminder data.
 
 I believe this is `dplyr::do()` at its very best. I'm about to show some other usage that returns unfriendlier objects, where I might approach the problem with different or additional tools.
 
@@ -148,7 +150,7 @@ gapminder %>%
 
 Oops, where did Oceania go? Why do we get the same answers in different row order with the alternative approach? Welcome to real world analysis, even with hyper clean data! Good thing we're just goofing around and nothing breaks when we suddenly lose a continent or row order changes.
 
-What if we name the thing(s) computed within do?
+What if thing(s) computed within `do()` are not data.frame? What if we name it?
 
 ```{r}
 gapminder %>%
@@ -156,9 +158,9 @@ gapminder %>%
   do(range = range(.$lifeExp)) %T>% str
 ```
 
-We still get a data.frame back. But a weird data.frame in which the newly created `range` variable is a "list column".
+We still get a data.frame back. But a weird data.frame in which the newly created `range` variable is a "list column". I have mixed feelings about this, especially for novice use.
 
-Challenge: Create a data.frame with named 3 variables: `continent`, a variable for mean life expectancy, a list-column holding the typical five number summary of GDP per capita. Inspect an individual row, e.g. for Europe Try to get at the mean life expectancy and the five number summary of GDP per capita.
+Challenge: Create a data.frame with named 3 variables: `continent`, a variable for mean life expectancy, a list-column holding the typical five number summary of GDP per capita. Inspect an individual row, e.g. for Europe. Try to get at the mean life expectancy and the five number summary of GDP per capita.
 
 ```{r}
 (chal01 <- gapminder %>%
@@ -170,7 +172,7 @@ chal01[[4, "mean"]]
 chal01[[4, "fivenum"]]
 ```
 
-Due to these list-columns, `do()` output will often require further computation to prepare for downstream work. I don't love the list-columns.
+Due to these list-columns, `do()` output will require further computation to prepare for downstream work. It will also require medium-to-high comfort level with R data structures and their manipulation.
 
 So, whenever possible, I recommend computing an unnamed data.frame inside `do()`.
 
@@ -178,11 +180,9 @@ But `dplyr` teams up beautifully with some other packages ...
 
 ## Fit a linear regression within country
 
-We'll start moving towards a well-worn STAT 545 example: linear regression of life expectancy on year. You are not allowed to fit a model without making a plot, so let's do that.
+We'll start moving towards a well-worn STAT 545 example: linear regression of life expectancy on year. You are not allowed to fit a model without first making a plot, so let's do that.
 
 ```{r}
-library(ggplot2)
-
 ggplot(gapminder, aes(x = year, y = lifeExp)) +
   geom_jitter() +
   geom_smooth(lwd = 3, se = FALSE, method = "lm")
@@ -198,9 +198,9 @@ ggplot(gcor, aes(x = correlation)) +
             hjust = -0.1)
 ```
 
-We see the correlation between life expectancy and year is much higher within countries than if you just compute correlation naively (which arguably makes no sense anyway).
+It is plausible that there's a linear relationship between life expectancy and year, marginally and perhaps within country. We see the correlation between life expectancy and year is much higher within countries than if you just compute correlation naively (which is arguably nonsensical).
 
-What if we actually fit this model within country?
+How are we actually going to fit this model within country?
 
 We recently learned how to write our own R functions ([Part 1](block011_write-your-own-function-01.html), [Part 2](block011_write-your-own-function-02.html), [Part 3](block011_write-your-own-function-03.html)). We then [wrote a function](block012_function-regress-lifeexp-on-year.html) to use on the Gapminder dataset. This function `le_lin_fit()` takes a data.frame and expects to find variables for life expectancy and year. It returns the estimated coefficients from a simple linear regression. We wrote it with the goal of applying it to the data from each country in Gapminder.
 
@@ -211,7 +211,7 @@ le_lin_fit <- function(dat, offset = 1952) {
 }
 ```
 
-Let's try it out on the data for one country, just to reacquaint ourselves with it.
+Let's try it out on the data for one country. Does the numeric result match the figure, at least eyeball-o-metrically.
 
 ```{r}
 le_lin_fit(gapminder %>% filter(country == "Canada"))
@@ -233,15 +233,15 @@ le_lin_fit(gapminder %>% filter(country == "Canada"))
 We are ready to scale up to __all countries__ by placing this function inside a `dplyr::do()` call.
 
 ```{r}
-gfits_1 <- gapminder %>%
+gfits_me <- gapminder %>%
   group_by(country) %>% 
   do(le_lin_fit(.))
-gfits_1
+gfits_me
 ```
 
-We did it! Once we package the computation in a properly designed function and drop it into a split-apply-combine machine, the call itself is really short. To review, here's the script I would save from our work so far:
+We did it! Once we package the computation in a properly designed function and drop it into a split-apply-combine machine, this is No Big Deal. To review, here's the short script I would save from our work so far:
 
-```{r}
+```{r eval = FALSE}
 library(dplyr)
 library(gapminder)
 le_lin_fit <- function(dat, offset = 1952) {
@@ -255,10 +255,16 @@ gfits_me <- gapminder %>%
 
 Deceptively simple, no? Let's at least reward outselves with some plots.
 
+  * What do you expect to be true about the intercepts? What does the intercept mean? What min and max do you expect.
+  * What do you expect to be true about the slopes? What sign are you expecting to see?
+  * What relationship do you expect between intercept and slopes?
+
 ```{r}
 ggplot(gfits_me, aes(x = intercept)) + geom_density() + geom_rug()
 ggplot(gfits_me, aes(x = slope)) + geom_density() + geom_rug()
-ggplot(gfits_me, aes(x = intercept, y = slope)) + geom_point()
+ggplot(gfits_me, aes(x = intercept, y = slope)) +
+  geom_point() +
+  geom_smooth(se = FALSE)
 ```
 
 ## Meet the `broom` package
@@ -279,9 +285,9 @@ gfits_broom <- gapminder %>%
 gfits_broom 
 ```
 
-The default tidier for `lm` objects produces a data.frame summary of estimated coefficients and results related to statistical inference, e.g., p-value.
+The default tidier for `lm` objects produces a data.frame summary of estimated coefficients and results related to statistical inference, e.g., p-value. Note that we get two rows per country, versus the one row per country we produced above. It's a nice illustration of the meaning of *tidy data*. The `broom` treatment is more tidy and a better idea, in the long run.
 
-If we want to use some other `broom` functions for working with models, we should store the fits first.
+If we want to use some other `broom` functions for working with models, it's convenient if we store the fits first.
 
 ```{r}
 fits <- gapminder %>% 
@@ -290,15 +296,16 @@ fits <- gapminder %>%
 fits
 ```
 
-Now we have a data.frame that is grouped "by row" (vs. by some factor) and we can apply various functions from `broom` to get tidy results back out. As data.frames.
+Now we have a data.frame that is grouped "by row" (vs. by some factor) with a `fit` list-column that holds one fitted linear model for each country. We can apply various functions from `broom` to get tidy results back out. As data.frames. Yay.
 
 ```{r}
-fits %>% 
-  tidy(fit)
-fits %>% 
-  augment(fit)
+## one row per country, overall model stuff
 fits %>% 
   glance(fit)
+## one row per country per parameter estimate, statistical inference stuff
+fits %>% 
+  tidy(fit)
+## one row per original observation, giving fitted value, residual, etc.
+fits %>% 
+  augment(fit)
 ```
-
-You might notice this doesn't produce exactly what we did. Specifically, `fits %>% tidy(fit)` gives two rows per country, whereas we produced one row per country. See the lesson on reshaping on how to move fluidly between these forms.
