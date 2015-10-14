@@ -79,7 +79,7 @@ This is just an index very course-specific stuff, like homework, or class landin
   * [Homework 01](hw01_edit-README.html) Edit `README.md`
   * [Homework 02](hw02_explore-gapminder-use-rmarkdown.html) Explore Gapminder and use R markdown
   * [Homework 03](hw03_dplyr-and-more-ggplot2.html) Manipulate and summarize the Gapminder data with `dplyr`; make companion figs with `ggplot2`
-  * [Homework 04](http://stat545-ubc.github.io/hw04_write-function-use-plyr.html) Manipulate and summarize the Gapminder data with custom functions and `plyr` 
+  * [Homework 04](hw04_write-function-split-apply-combine.html) Use split-apply-combine with your functions within data.frames 
   * [Homework 05](hw05_factor-boss-files-out-in.html) Prove you are in control of factors by writing and reading files
   * [Homework 06](hw06_repo-hygiene-figure-boss.html) *Optional, unmarked* activities for the STAT 545A / STAT 547M transition
   * [Homework 07](hw07_data-wrangling-grand-finale.html) Data wrangling Grand Finale
