@@ -241,6 +241,28 @@ str(usa_mex)
 
 If you really want to catenate factors with different levels, you must first convert to their levels as character data, combine, then re-convert to factor.
 
-### TO ADD
+### Make a factor from scratch 
 
-Here or in a separate document based on porting the [2013 material](http://stat545-ubc.github.io/block014_factors.html), discuss the explicit creation of a factor via `factor()`.
+Herein lies the explicit creation of a factor via `factor()`. Let's start with an example we are familiar with.
+Pretend the continent variable in gapminder was a not a factor, but character.
+
+```{r}
+gapminder$continent <- as.character(gapminder$continent)
+
+#prove it
+str(gapminder)
+head(gapminder)
+```
+
+We can now turn it back into a factor by calling factor. The first argument is the thing to be factored, followed by factor levels (optional, but dangerous - R will sort your factors in increasing order), followed by the labels of the levels of your factor, and `ordered=TRUE` to tell R not to mess with your order.
+
+```{r}
+gapminder$continent <- factor(gapminder$continent, levels=c("Asia", "Africa", "Americas", "Europe", "Oceania"), labels=c("Asia", "Africa", "Americas", "Europe", "Oceania"), ordered=TRUE)
+
+#prove it
+str(gapminder)
+head(gapminder)
+```
+
+
+
