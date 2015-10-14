@@ -23,14 +23,17 @@ output:
     
 #### Slides and links
 
-2014 Slides available on [slideshare](https://www.slideshare.net/jenniferbryan5811/cm009-data-aggregation), but I've got updated 2015 ones ... will put on the web after class
+Slides available on [speakerdeck](https://speakerdeck.com/jennybc/ubc-stat545-split-apply-combine-intro)
+
+<script async class="speakerdeck-embed" data-id="13a2198511d54801993cad0d7051af25" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script> <div style="margin-bottom:5px"> <strong> <a href="https://speakerdeck.com/jennybc/ubc-stat545-split-apply-combine-intro" title="UBC STAT545 Split Apply Combine Intro" target="_blank">UBC STAT545 Split Apply Combine Intro</a> </strong> from <strong><a href="https://speakerdeck.com/jennybc" target="_blank">Jennifer Bryan</a></strong> </div>
 
 Links from the slides:
 
   * The split-apply-combine strategy for data analysis. Hadley Wickham. Journal of Statistical Software, vol. 40, no. 1, pp. 1–29, 2011. <http://www.jstatsoft.org/v40/i01/paper>
-  * [dplyr package](http://cran.rstudio.com/web/packages/dplyr/)
-  * [plyr package](http://cran.rstudio.com/web/packages/plyr/)
+  * [`dplyr` package](http://cran.rstudio.com/web/packages/dplyr/)
+  * [`plyr` package](http://cran.rstudio.com/web/packages/plyr/)
   * The `broom` package by David Robinson
     - Development on [GitHub](https://github.com/dgrtwo/broom)
-    - On [CRAN](https://cran.r-project.org/web/packages/broom/vignettes)
+    - On [CRAN](https://cran.r-project.org/web/packages/broom/index.html)
     - [Vignette](https://cran.r-project.org/web/packages/broom/vignettes/broom_and_dplyr.html) on using `broom` with `dplyr`
+  * [`purrr` package](https://cran.r-project.org/web/packages/purrr/index.html)
