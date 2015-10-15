@@ -10,10 +10,11 @@ output:
   * Tidy data and reshaping
     - Slides from Garrett Grolemund, RStudio
     - Hands on spreading and gathering with `gapminder`
-    - the `tidyr` package: on [CRAN](), development on [GitHub]
+    - the `tidyr` package: on [CRAN](https://cran.r-project.org/web/packages/tidyr/index.html), development on [GitHub](https://github.com/hadley/tidyr)
   * [Be the boss of your factors](block014_factors.html)
   * Next week
-    - Back to figs: practical matters (e.g. color and file management), guest lecture from Tamara Munzner
+    - Tues: Practical figure-making stuff (e.g. color and file management)
+    - Thurs: [Guest lecture from Tamara Munzner](http://stat545-ubc.github.io/cm014_viz-design-munzner.html)
     
 #### Slides and links
 
