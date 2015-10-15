@@ -9,7 +9,6 @@ As usual, load the Gapminder excerpt. Load the `plyr`, `dplyr` (__in that order_
 
 ```r
 library(gapminder)
-## Warning: package 'gapminder' was built under R version 3.2.2
 library(plyr)
 suppressPackageStartupMessages(library(dplyr))
 library(ggplot2)
@@ -215,6 +214,7 @@ i_le_max
 ## Source: local data frame [5 x 2]
 ## 
 ##     country max_le
+##      (fctr)  (dbl)
 ## 1     Egypt 71.338
 ## 2     Haiti 60.916
 ## 3   Romania 72.476
@@ -429,17 +429,17 @@ head(gapminder)
 ## 6 Afghanistan      Asia 1977  38.438 14880372  786.1134
 ```
 
-We can now turn it back into a factor by calling factor. The first argument is the thing to be factored, followed by factor levels (optional, but dangerous - R will sort your factors in increasing order), followed by the labels of the levels of your factor, and `ordered=TRUE` to tell R not to mess with your order.
+We can now turn it back into a factor by calling factor. The first argument is the thing to be factored, followed by factor levels, which will default to the unique values, in alphabetical order.
 
 
 ```r
-gapminder$continent <- factor(gapminder$continent, levels=c("Asia", "Africa", "Americas", "Europe", "Oceania"), labels=c("Asia", "Africa", "Americas", "Europe", "Oceania"), ordered=TRUE)
+gapminder$continent <- factor(gapminder$continent)
 
 #prove it
 str(gapminder)
 ## 'data.frame':	1704 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ continent: Ord.factor w/ 5 levels "Asia"<"Africa"<..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
 ##  $ year     : num  1952 1957 1962 1967 1972 ...
 ##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
 ##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
@@ -452,15 +452,4 @@ head(gapminder)
 ## 4 Afghanistan      Asia 1967  34.020 11537966  836.1971
 ## 5 Afghanistan      Asia 1972  36.088 13079460  739.9811
 ## 6 Afghanistan      Asia 1977  38.438 14880372  786.1134
-tail(gapminder)
-##       country continent year lifeExp      pop gdpPercap
-## 1699 Zimbabwe    Africa 1982  60.363  7636524  788.8550
-## 1700 Zimbabwe    Africa 1987  62.351  9216418  706.1573
-## 1701 Zimbabwe    Africa 1992  60.377 10704340  693.4208
-## 1702 Zimbabwe    Africa 1997  46.809 11404948  792.4500
-## 1703 Zimbabwe    Africa 2002  39.989 11926563  672.0386
-## 1704 Zimbabwe    Africa 2007  43.487 12311143  469.7093
 ```
-
-
-

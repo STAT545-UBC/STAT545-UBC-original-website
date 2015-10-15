@@ -254,15 +254,12 @@ str(gapminder)
 head(gapminder)
 ```
 
-We can now turn it back into a factor by calling factor. The first argument is the thing to be factored, followed by factor levels (optional, but dangerous - R will sort your factors in increasing order), followed by the labels of the levels of your factor, and `ordered=TRUE` to tell R not to mess with your order.
+We can now turn it back into a factor by calling factor. The first argument is the thing to be factored, followed by factor levels, which will default to the unique values, in alphabetical order.
 
 ```{r}
-gapminder$continent <- factor(gapminder$continent, levels=c("Asia", "Africa", "Americas", "Europe", "Oceania"), labels=c("Asia", "Africa", "Americas", "Europe", "Oceania"), ordered=TRUE)
+gapminder$continent <- factor(gapminder$continent)
 
 #prove it
 str(gapminder)
 head(gapminder)
 ```
-
-
-
