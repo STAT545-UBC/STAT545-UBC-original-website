@@ -12,7 +12,7 @@ knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
 
 ### Load the Gapminder data
 
-As usual, load the Gapminder excerpt. Load the `plyr`, `dplyr` (__in that order__), and `ggplot2` packages.
+As usual, load the Gapminder excerpt and the `ggplot2` package. Load `plyr` and/or `dplyr`. If you load both, load `plyr` first.
 
 ```{r}
 library(gapminder)
@@ -23,22 +23,44 @@ library(ggplot2)
 
 ### Model life expectancy as a function of year
 
-For each country, retain estimated intercept and slope from a linear fit -- regressing life expectancy on year. I include `country` AND `continent` in the factors on which to split, so that the `continent` factor appears in my result.
+For each country, retain estimated intercept and slope from a linear fit -- regressing life expectancy on year. First, we write a function that does the work for one country.
 
 ```{r}
-j_coefs <- ddply(gapminder, ~ country + continent,
-                 function(dat, offset = 1952) {
-                   the_fit <- lm(lifeExp ~ I(year - offset), dat)
-                   setNames(coef(the_fit), c("intercept", "slope"))
-                 })
+le_lin_fit <- function(dat, offset = 1952) {
+  the_fit <- lm(lifeExp ~ I(year - offset), dat)
+  setNames(data.frame(t(coef(the_fit))), c("intercept", "slope"))
+}
+gapminder %>%
+  filter(country == "Canada") %>% 
+  le_lin_fit()
+```
+
+Now we split the data up by country and apply this function. In both approaches, we include `country` AND `continent` in the factors on which to split, so both appear in the result.
+
+First, the `dplyr` way:
+
+```{r}
+gcoefs <- gapminder %>%
+  group_by(country, continent) %>% 
+  do(le_lin_fit(.)) %>% 
+  ungroup()
+gcoefs
+```
+
+Or, if you wish, the `plyr` way:
+
+```{r}
+gcoefs2 <- ddply(gapminder, ~ country + continent, le_lin_fit)
+gcoefs2
+all.equal(gcoefs, gcoefs2)
 ```
 
 ### Get to know the country factor
 
 ```{r}
-str(j_coefs)
-levels(j_coefs$country)
-head(j_coefs$country)
+str(gcoefs, give.attr = FALSE)
+levels(gcoefs$country)
+head(gcoefs$country)
 ```
 
 The levels are in alphabetical order. Why? Because. Just because. Do you have a better idea? THEN STEP UP AND DO SOMETHING ABOUT IT.
@@ -46,9 +68,9 @@ The levels are in alphabetical order. Why? Because. Just because. Do you have a 
 ### Why the order of factor levels matters
 
 ```{r alpha-order-silly, fig.show = 'hold', fig.height=16, out.width = '49%'}
-ggplot(j_coefs, aes(x = slope, y = country)) + geom_point(size = 3)
-ggplot(j_coefs, aes(x = slope, y = reorder(country, slope))) +
-  geom_point(size = 3)
+ggplot(gcoefs, aes(x = slope, y = country)) + geom_point()
+ggplot(gcoefs, aes(x = slope, y = reorder(country, slope))) +
+  geom_point()
 ```
 
 Which figure do you find easier to navigate? Which is more interesting? The unsorted, i.e. alphabetical, is an example of visual [data puke](http://junkcharts.typepad.com/numbersruleyourworld/2014/09/dont-data-puke-says-avinash-kaushik.html), because there is no effort to help the viewer learn anything from the plot, even though it is really easy to do so. At the very least, always consider sorting your factor levels in some principled way.
@@ -58,10 +80,10 @@ The same point generally applies to tables as well.
 Exercise (part of [HW05](hw05_factor-boss-files-out-in.html)): Consider `post_arrange`, `post_reorder`, and `post_both` as defined below. State how the objects differ and discuss the differences in terms of utility within an exploratory analysis. If I swapped out `arrange(country)` for `arrange(slope)`, would we get the same result? Do you have any preference for one arrange statement over the other?
 
 ```{r eval = FALSE}
-post_arrange <- j_coefs %>% arrange(slope)
-post_reorder <- j_coefs %>%
+post_arrange <- gcoefs %>% arrange(slope)
+post_reorder <- gcoefs %>%
   mutate(country = reorder(country, slope))
-post_both <- j_coefs %>%
+post_both <- gcoefs %>%
   mutate(country = reorder(country, slope)) %>%
   arrange(country)
 ```
@@ -88,7 +110,7 @@ Let's look at these five countries: Egypt, Haiti, Romania, Thailand, Venezuela.
 h_countries <- c("Egypt", "Haiti", "Romania", "Thailand", "Venezuela")
 hDat <- gapminder %>%
   filter(country %in% h_countries)
-hDat %>% str
+hDat %>% str()
 ```
 
 Look at the `country` factor. Look at it hard.
@@ -104,8 +126,8 @@ Even though `hDat` contains data for only `r length(h_countries)` countries, the
 When you want to drop unused factor levels, use `droplevels()`.
 
 ```{r}
-iDat  <- hDat %>% droplevels ## of droplevels(hDat)
-iDat %>% str
+iDat  <- hDat %>% droplevels()
+iDat %>% str()
 table(iDat$country)
 levels(iDat$country)
 nlevels(iDat$country)
@@ -124,7 +146,7 @@ i_le_max
 
 ```{r factor-order-example-before, fig.show = 'hold', out.width = '49%'}
 ggplot(i_le_max, aes(x = country, y = max_le, group = 1)) +
-  geom_path() + geom_point(size = 3)
+  geom_path() + geom_point()
 ggplot(iDat, aes(x = year, y = lifeExp, group = country)) +
   geom_line(aes(color = country))
 ```
@@ -153,7 +175,7 @@ Let's revisit the two figures to see how much more natural they are.
 
 ```{r factor-order-example-after, fig.show = 'hold', out.width = '49%'}
 ggplot(j_le_max, aes(x = country, y = max_le, group = 1)) +
-  geom_line() + geom_point(size = 3)
+  geom_line() + geom_point()
 ggplot(jDat, aes(x = year, y = lifeExp)) +
   geom_line(aes(color = country)) +
   guides(color = guide_legend(reverse = TRUE))
@@ -173,30 +195,25 @@ You can do this and alter your actual data (or a new copy thereof). Or you can d
 
 Reorder the `continent` factor, according to the estimated intercepts.
 
-To review, here's where to pick up the story:
+To review, remember we have computed the estimated intercept and slope for each country:
 
 ```{r}
-j_coefs <- ddply(gapminder, ~ country + continent,
-                 function(dat, offset = 1952) {
-                   the_fit <- lm(lifeExp ~ I(year - offset), dat)
-                   setNames(coef(the_fit), c("intercept", "slope"))
-                 })
-head(j_coefs)
+head(gcoefs)
 ```
 
 The figure on the left gives a stripplot of estimate intercepts, by continent, with continent in alphabetical order. The line connects continent-specific averages of the intercepts (approx. equal to life expectancy in 1952). The figure on the right gives same plot after the continents have been reordered by average estimated intercept.
 
 ```{r continent-reorder-exercise, fig.show = 'hold', out.width = '49%', echo = FALSE}
-p <- ggplot(j_coefs, aes(x = continent, y = intercept, group = 1))
-p + geom_jitter(size = 3, position = position_jitter(width = .1)) +
+p <- ggplot(gcoefs, aes(x = continent, y = intercept, group = 1))
+p + geom_jitter(position = position_jitter(width = .2)) +
   stat_summary(fun.y = mean, geom = "path")
-q <- ggplot(j_coefs, aes(x = reorder(continent, intercept),
+q <- ggplot(gcoefs, aes(x = reorder(continent, intercept),
                          y = intercept, group = 1))
-q + geom_jitter(size = 3, position = position_jitter(width = .1)) +
+q + geom_jitter(position = position_jitter(width = .2)) +
   stat_summary(fun.y = mean, geom = "path")
 ```
 
-Write the `reorder()` statement to do this.
+Exercise: Write the `reorder()` statement to do this.
 
 ### Revaluing factor levels
 
@@ -205,8 +222,8 @@ What if you want to recode factor levels? I usually use the `revalue()` function
 ```{r}
 k_countries <- c("Australia", "Korea, Dem. Rep.", "Korea, Rep.")
 kDat <- gapminder %>%
-  filter(country %in% k_countries & year > 2000) %>%
-  droplevels
+  filter(country %in% k_countries, year > 2000) %>%
+  droplevels()
 kDat
 levels(kDat$country)
 kDat <- kDat %>%
@@ -214,7 +231,7 @@ kDat <- kDat %>%
                                c("Australia" = "Oz",
                                  "Korea, Dem. Rep." = "North Korea",
                                  "Korea, Rep." = "South Korea")))
-data.frame(levels(kDat$country), levels(kDat$new_country))
+data_frame(levels(kDat$country), levels(kDat$new_country))
 kDat
 ```
 
@@ -224,17 +241,21 @@ Try to avoid this. If you must `rbind()`ing data.frames works much better than `
 
 ```{r}
 usa <- gapminder %>%
-  filter(country == "United States" & year > 2000) %>%
-  droplevels
+  filter(country == "United States", year > 2000) %>%
+  droplevels()
 mex <- gapminder %>%
-  filter(country == "Mexico" & year > 2000) %>%
-  droplevels
+  filter(country == "Mexico", year > 2000) %>%
+  droplevels()
 str(usa)
 str(mex)
 usa_mex <- rbind(usa, mex)
+## rbinding data.frames works!
 str(usa_mex)
 
+## simply catenating factors does not work!
 (oops <- c(usa$country, mex$country))
+
+## workaround
 (yeah <- factor(c(levels(usa$country)[usa$country],
                   levels(mex$country)[mex$country])))
 ```
@@ -243,8 +264,7 @@ If you really want to catenate factors with different levels, you must first con
 
 ### Make a factor from scratch 
 
-Herein lies the explicit creation of a factor via `factor()`. Let's start with an example we are familiar with.
-Pretend the continent variable in gapminder was a not a factor, but character.
+The `factor()` function will explicitly create a factor *de novo*. Let's start with an example we are familiar with. Pretend the continent variable in gapminder was a not a factor, but character.
 
 ```{r}
 gapminder$continent <- as.character(gapminder$continent)
@@ -254,7 +274,7 @@ str(gapminder)
 head(gapminder)
 ```
 
-We can now turn it back into a factor by calling factor. The first argument is the thing to be factored, followed by factor levels, which will default to the unique values, in alphabetical order.
+We can now turn it back into a factor by calling factor. The first argument is the input (usually character), followed by factor levels, which will default to the unique input values, in alphabetical order.
 
 ```{r}
 gapminder$continent <- factor(gapminder$continent)

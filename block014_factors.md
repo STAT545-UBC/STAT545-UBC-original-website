@@ -4,7 +4,7 @@
 
 ### Load the Gapminder data
 
-As usual, load the Gapminder excerpt. Load the `plyr`, `dplyr` (__in that order__), and `ggplot2` packages.
+As usual, load the Gapminder excerpt and the `ggplot2` package. Load `plyr` and/or `dplyr`. If you load both, load `plyr` first.
 
 
 ```r
@@ -16,28 +16,213 @@ library(ggplot2)
 
 ### Model life expectancy as a function of year
 
-For each country, retain estimated intercept and slope from a linear fit -- regressing life expectancy on year. I include `country` AND `continent` in the factors on which to split, so that the `continent` factor appears in my result.
+For each country, retain estimated intercept and slope from a linear fit -- regressing life expectancy on year. First, we write a function that does the work for one country.
 
 
 ```r
-j_coefs <- ddply(gapminder, ~ country + continent,
-                 function(dat, offset = 1952) {
-                   the_fit <- lm(lifeExp ~ I(year - offset), dat)
-                   setNames(coef(the_fit), c("intercept", "slope"))
-                 })
+le_lin_fit <- function(dat, offset = 1952) {
+  the_fit <- lm(lifeExp ~ I(year - offset), dat)
+  setNames(data.frame(t(coef(the_fit))), c("intercept", "slope"))
+}
+gapminder %>%
+  filter(country == "Canada") %>% 
+  le_lin_fit()
+##   intercept     slope
+## 1  68.88385 0.2188692
+```
+
+Now we split the data up by country and apply this function. In both approaches, we include `country` AND `continent` in the factors on which to split, so both appear in the result.
+
+First, the `dplyr` way:
+
+
+```r
+gcoefs <- gapminder %>%
+  group_by(country, continent) %>% 
+  do(le_lin_fit(.)) %>% 
+  ungroup()
+gcoefs
+## Source: local data frame [142 x 4]
+## 
+##        country continent intercept     slope
+##         (fctr)    (fctr)     (dbl)     (dbl)
+## 1  Afghanistan      Asia  29.90729 0.2753287
+## 2      Albania    Europe  59.22913 0.3346832
+## 3      Algeria    Africa  43.37497 0.5692797
+## 4       Angola    Africa  32.12665 0.2093399
+## 5    Argentina  Americas  62.68844 0.2317084
+## 6    Australia   Oceania  68.40051 0.2277238
+## 7      Austria    Europe  66.44846 0.2419923
+## 8      Bahrain      Asia  52.74921 0.4675077
+## 9   Bangladesh      Asia  36.13549 0.4981308
+## 10     Belgium    Europe  67.89192 0.2090846
+## ..         ...       ...       ...       ...
+```
+
+Or, if you wish, the `plyr` way:
+
+
+```r
+gcoefs2 <- ddply(gapminder, ~ country + continent, le_lin_fit)
+gcoefs2
+##                      country continent intercept       slope
+## 1                Afghanistan      Asia  29.90729  0.27532867
+## 2                    Albania    Europe  59.22913  0.33468322
+## 3                    Algeria    Africa  43.37497  0.56927972
+## 4                     Angola    Africa  32.12665  0.20933986
+## 5                  Argentina  Americas  62.68844  0.23170839
+## 6                  Australia   Oceania  68.40051  0.22772378
+## 7                    Austria    Europe  66.44846  0.24199231
+## 8                    Bahrain      Asia  52.74921  0.46750769
+## 9                 Bangladesh      Asia  36.13549  0.49813077
+## 10                   Belgium    Europe  67.89192  0.20908462
+## 11                     Benin    Africa  39.58851  0.33423287
+## 12                   Bolivia  Americas  38.75645  0.49993217
+## 13    Bosnia and Herzegovina    Europe  58.08956  0.34975524
+## 14                  Botswana    Africa  52.92912  0.06066853
+## 15                    Brazil  Americas  51.51204  0.39008951
+## 16                  Bulgaria    Europe  65.73731  0.14568881
+## 17              Burkina Faso    Africa  34.68469  0.36397483
+## 18                   Burundi    Africa  40.57864  0.15413427
+## 19                  Cambodia      Asia  37.01542  0.39590280
+## 20                  Cameroon    Africa  41.24946  0.25014685
+## 21                    Canada  Americas  68.88385  0.21886923
+## 22  Central African Republic    Africa  38.80951  0.18390559
+## 23                      Chad    Africa  39.80937  0.25324406
+## 24                     Chile  Americas  54.31771  0.47684406
+## 25                     China      Asia  47.19048  0.53071485
+## 26                  Colombia  Americas  53.42712  0.38075035
+## 27                   Comoros    Africa  39.99600  0.45039091
+## 28          Congo, Dem. Rep.    Africa  41.96108  0.09391538
+## 29               Congo, Rep.    Africa  47.13678  0.19509580
+## 30                Costa Rica  Americas  59.10471  0.40278951
+## 31             Cote d'Ivoire    Africa  44.84586  0.13055664
+## 32                   Croatia    Europe  63.85578  0.22545944
+## 33                      Cuba  Americas  62.21345  0.32115035
+## 34            Czech Republic    Europe  67.52808  0.14481538
+## 35                   Denmark    Europe  71.03359  0.12133007
+## 36                  Djibouti    Africa  36.27715  0.36740350
+## 37        Dominican Republic  Americas  48.59781  0.47115245
+## 38                   Ecuador  Americas  49.06537  0.50005315
+## 39                     Egypt    Africa  40.96800  0.55545455
+## 40               El Salvador  Americas  46.51195  0.47714126
+## 41         Equatorial Guinea    Africa  34.43031  0.31017063
+## 42                   Eritrea    Africa  35.69527  0.37469021
+## 43                  Ethiopia    Africa  36.02815  0.30718531
+## 44                   Finland    Europe  66.44897  0.23792517
+## 45                    France    Europe  67.79013  0.23850140
+## 46                     Gabon    Africa  38.93535  0.44673287
+## 47                    Gambia    Africa  28.40037  0.58182587
+## 48                   Germany    Europe  67.56813  0.21368322
+## 49                     Ghana    Africa  43.49274  0.32174266
+## 50                    Greece    Europe  67.06721  0.24239860
+## 51                 Guatemala  Americas  42.11940  0.53127343
+## 52                    Guinea    Africa  31.55699  0.42483077
+## 53             Guinea-Bissau    Africa  31.73704  0.27175315
+## 54                     Haiti  Americas  39.24615  0.39705804
+## 55                  Honduras  Americas  42.99241  0.54285175
+## 56          Hong Kong, China      Asia  63.42864  0.36597063
+## 57                   Hungary    Europe  65.99282  0.12364895
+## 58                   Iceland    Europe  71.96359  0.16537552
+## 59                     India      Asia  39.26976  0.50532098
+## 60                 Indonesia      Asia  36.88312  0.63464126
+## 61                      Iran      Asia  44.97899  0.49663986
+## 62                      Iraq      Asia  50.11346  0.23521049
+## 63                   Ireland    Europe  67.54146  0.19911958
+## 64                    Israel      Asia  66.30041  0.26710629
+## 65                     Italy    Europe  66.59679  0.26971049
+## 66                   Jamaica  Americas  62.66099  0.22139441
+## 67                     Japan      Asia  65.12205  0.35290420
+## 68                    Jordan      Asia  44.06386  0.57172937
+## 69                     Kenya    Africa  47.00204  0.20650769
+## 70          Korea, Dem. Rep.      Asia  54.90560  0.31642657
+## 71               Korea, Rep.      Asia  49.72750  0.55540000
+## 72                    Kuwait      Asia  57.45933  0.41683636
+## 73                   Lebanon      Asia  58.68736  0.26102937
+## 74                   Lesotho    Africa  47.37903  0.09556573
+## 75                   Liberia    Africa  39.83642  0.09599371
+## 76                     Libya    Africa  42.10194  0.62553566
+## 77                Madagascar    Africa  36.66806  0.40372797
+## 78                    Malawi    Africa  36.91037  0.23422587
+## 79                  Malaysia      Asia  51.50522  0.46452238
+## 80                      Mali    Africa  33.05123  0.37680979
+## 81                Mauritania    Africa  40.02560  0.44641748
+## 82                 Mauritius    Africa  55.37077  0.34845385
+## 83                    Mexico  Americas  53.00537  0.45103497
+## 84                  Mongolia      Asia  43.82641  0.43868811
+## 85                Montenegro    Europe  62.24163  0.29300140
+## 86                   Morocco    Africa  42.69083  0.54247273
+## 87                Mozambique    Africa  34.20615  0.22448531
+## 88                   Myanmar      Asia  41.41155  0.43309510
+## 89                   Namibia    Africa  47.13433  0.23116364
+## 90                     Nepal      Asia  34.43164  0.52926154
+## 91               Netherlands    Europe  71.88962  0.13668671
+## 92               New Zealand   Oceania  68.68692  0.19282098
+## 93                 Nicaragua  Americas  43.04513  0.55651958
+## 94                     Niger    Africa  35.15067  0.34210909
+## 95                   Nigeria    Africa  37.85953  0.20806573
+## 96                    Norway    Europe  72.21462  0.13194126
+## 97                      Oman      Asia  37.20774  0.77217902
+## 98                  Pakistan      Asia  43.72296  0.40579231
+## 99                    Panama  Americas  58.06100  0.35420909
+## 100                 Paraguay  Americas  62.48183  0.15735455
+## 101                     Peru  Americas  44.34764  0.52769790
+## 102              Philippines      Asia  49.40435  0.42046923
+## 103                   Poland    Europe  64.78090  0.19621888
+## 104                 Portugal    Europe  61.14679  0.33720140
+## 105              Puerto Rico  Americas  66.94853  0.21057483
+## 106                  Reunion    Africa  53.99754  0.45988042
+## 107                  Romania    Europe  63.96213  0.15740140
+## 108                   Rwanda    Africa  42.74195 -0.04583147
+## 109    Sao Tome and Principe    Africa  48.52756  0.34068252
+## 110             Saudi Arabia      Asia  40.81412  0.64962308
+## 111                  Senegal    Africa  36.74667  0.50470000
+## 112                   Serbia    Europe  61.53435  0.25515105
+## 113             Sierra Leone    Africa  30.88321  0.21403497
+## 114                Singapore      Asia  61.84588  0.34088601
+## 115          Slovak Republic    Europe  67.00987  0.13404406
+## 116                 Slovenia    Europe  66.08635  0.20052378
+## 117                  Somalia    Africa  34.67540  0.22957343
+## 118             South Africa    Africa  49.34128  0.16915944
+## 119                    Spain    Europe  66.47782  0.28093077
+## 120                Sri Lanka      Asia  59.79149  0.24489441
+## 121                    Sudan    Africa  37.87419  0.38277483
+## 122                Swaziland    Africa  46.38786  0.09507483
+## 123                   Sweden    Europe  71.60500  0.16625455
+## 124              Switzerland    Europe  69.45372  0.22223147
+## 125                    Syria      Asia  46.10128  0.55435944
+## 126                   Taiwan      Asia  61.33744  0.32724476
+## 127                 Tanzania    Africa  43.10841  0.17468811
+## 128                 Thailand      Asia  52.65642  0.34704825
+## 129                     Togo    Africa  40.97746  0.38259231
+## 130      Trinidad and Tobago  Americas  62.05231  0.17366154
+## 131                  Tunisia    Africa  44.55531  0.58784336
+## 132                   Turkey    Europe  46.02232  0.49723986
+## 133                   Uganda    Africa  44.27522  0.12158601
+## 134           United Kingdom    Europe  68.80853  0.18596573
+## 135            United States  Americas  68.41385  0.18416923
+## 136                  Uruguay  Americas  65.74160  0.18327203
+## 137                Venezuela  Americas  57.51332  0.32972168
+## 138                  Vietnam      Asia  39.01008  0.67161538
+## 139       West Bank and Gaza      Asia  43.79840  0.60110070
+## 140              Yemen, Rep.      Asia  30.13028  0.60545944
+## 141                   Zambia    Africa  47.65803 -0.06042517
+## 142                 Zimbabwe    Africa  55.22124 -0.09302098
+all.equal(gcoefs, gcoefs2)
+## [1] TRUE
 ```
 
 ### Get to know the country factor
 
 
 ```r
-str(j_coefs)
-## 'data.frame':	142 obs. of  4 variables:
+str(gcoefs, give.attr = FALSE)
+## Classes 'tbl_df', 'tbl' and 'data.frame':	142 obs. of  4 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 2 3 4 5 6 7 8 9 10 ...
 ##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 4 1 1 2 5 4 3 3 4 ...
 ##  $ intercept: num  29.9 59.2 43.4 32.1 62.7 ...
 ##  $ slope    : num  0.275 0.335 0.569 0.209 0.232 ...
-levels(j_coefs$country)
+levels(gcoefs$country)
 ##   [1] "Afghanistan"              "Albania"                 
 ##   [3] "Algeria"                  "Angola"                  
 ##   [5] "Argentina"                "Australia"               
@@ -109,7 +294,7 @@ levels(j_coefs$country)
 ## [137] "Venezuela"                "Vietnam"                 
 ## [139] "West Bank and Gaza"       "Yemen, Rep."             
 ## [141] "Zambia"                   "Zimbabwe"
-head(j_coefs$country)
+head(gcoefs$country)
 ## [1] Afghanistan Albania     Algeria     Angola      Argentina   Australia  
 ## 142 Levels: Afghanistan Albania Algeria Angola Argentina ... Zimbabwe
 ```
@@ -120,9 +305,9 @@ The levels are in alphabetical order. Why? Because. Just because. Do you have a 
 
 
 ```r
-ggplot(j_coefs, aes(x = slope, y = country)) + geom_point(size = 3)
-ggplot(j_coefs, aes(x = slope, y = reorder(country, slope))) +
-  geom_point(size = 3)
+ggplot(gcoefs, aes(x = slope, y = country)) + geom_point()
+ggplot(gcoefs, aes(x = slope, y = reorder(country, slope))) +
+  geom_point()
 ```
 
 <img src="block014_factors_files/figure-html/alpha-order-silly-1.png" title="" alt="" width="49%" /><img src="block014_factors_files/figure-html/alpha-order-silly-2.png" title="" alt="" width="49%" />
@@ -135,10 +320,10 @@ Exercise (part of [HW05](hw05_factor-boss-files-out-in.html)): Consider `post_ar
 
 
 ```r
-post_arrange <- j_coefs %>% arrange(slope)
-post_reorder <- j_coefs %>%
+post_arrange <- gcoefs %>% arrange(slope)
+post_reorder <- gcoefs %>%
   mutate(country = reorder(country, slope))
-post_both <- j_coefs %>%
+post_both <- gcoefs %>%
   mutate(country = reorder(country, slope)) %>%
   arrange(country)
 ```
@@ -156,7 +341,7 @@ Let's look at these five countries: Egypt, Haiti, Romania, Thailand, Venezuela.
 h_countries <- c("Egypt", "Haiti", "Romania", "Thailand", "Venezuela")
 hDat <- gapminder %>%
   filter(country %in% h_countries)
-hDat %>% str
+hDat %>% str()
 ## 'data.frame':	60 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 39 39 39 39 39 39 39 39 39 39 ...
 ##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 1 1 1 1 1 1 1 1 1 1 ...
@@ -182,8 +367,8 @@ When you want to drop unused factor levels, use `droplevels()`.
 
 
 ```r
-iDat  <- hDat %>% droplevels ## of droplevels(hDat)
-iDat %>% str
+iDat  <- hDat %>% droplevels()
+iDat %>% str()
 ## 'data.frame':	60 obs. of  6 variables:
 ##  $ country  : Factor w/ 5 levels "Egypt","Haiti",..: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ continent: Factor w/ 4 levels "Africa","Americas",..: 1 1 1 1 1 1 1 1 1 1 ...
@@ -225,7 +410,7 @@ i_le_max
 
 ```r
 ggplot(i_le_max, aes(x = country, y = max_le, group = 1)) +
-  geom_path() + geom_point(size = 3)
+  geom_path() + geom_point()
 ggplot(iDat, aes(x = year, y = lifeExp, group = country)) +
   geom_line(aes(color = country))
 ```
@@ -265,7 +450,7 @@ Let's revisit the two figures to see how much more natural they are.
 
 ```r
 ggplot(j_le_max, aes(x = country, y = max_le, group = 1)) +
-  geom_line() + geom_point(size = 3)
+  geom_line() + geom_point()
 ggplot(jDat, aes(x = year, y = lifeExp)) +
   geom_line(aes(color = country)) +
   guides(color = guide_legend(reverse = TRUE))
@@ -288,17 +473,15 @@ You can do this and alter your actual data (or a new copy thereof). Or you can d
 
 Reorder the `continent` factor, according to the estimated intercepts.
 
-To review, here's where to pick up the story:
+To review, remember we have computed the estimated intercept and slope for each country:
 
 
 ```r
-j_coefs <- ddply(gapminder, ~ country + continent,
-                 function(dat, offset = 1952) {
-                   the_fit <- lm(lifeExp ~ I(year - offset), dat)
-                   setNames(coef(the_fit), c("intercept", "slope"))
-                 })
-head(j_coefs)
+head(gcoefs)
+## Source: local data frame [6 x 4]
+## 
 ##       country continent intercept     slope
+##        (fctr)    (fctr)     (dbl)     (dbl)
 ## 1 Afghanistan      Asia  29.90729 0.2753287
 ## 2     Albania    Europe  59.22913 0.3346832
 ## 3     Algeria    Africa  43.37497 0.5692797
@@ -311,7 +494,7 @@ The figure on the left gives a stripplot of estimate intercepts, by continent, w
 
 <img src="block014_factors_files/figure-html/continent-reorder-exercise-1.png" title="" alt="" width="49%" /><img src="block014_factors_files/figure-html/continent-reorder-exercise-2.png" title="" alt="" width="49%" />
 
-Write the `reorder()` statement to do this.
+Exercise: Write the `reorder()` statement to do this.
 
 ### Revaluing factor levels
 
@@ -321,8 +504,8 @@ What if you want to recode factor levels? I usually use the `revalue()` function
 ```r
 k_countries <- c("Australia", "Korea, Dem. Rep.", "Korea, Rep.")
 kDat <- gapminder %>%
-  filter(country %in% k_countries & year > 2000) %>%
-  droplevels
+  filter(country %in% k_countries, year > 2000) %>%
+  droplevels()
 kDat
 ##            country continent year lifeExp      pop gdpPercap
 ## 1        Australia   Oceania 2002  80.370 19546792 30687.755
@@ -338,8 +521,11 @@ kDat <- kDat %>%
                                c("Australia" = "Oz",
                                  "Korea, Dem. Rep." = "North Korea",
                                  "Korea, Rep." = "South Korea")))
-data.frame(levels(kDat$country), levels(kDat$new_country))
-##   levels.kDat.country. levels.kDat.new_country.
+data_frame(levels(kDat$country), levels(kDat$new_country))
+## Source: local data frame [3 x 2]
+## 
+##   levels(kDat$country) levels(kDat$new_country)
+##                  (chr)                    (chr)
 ## 1            Australia                       Oz
 ## 2     Korea, Dem. Rep.              North Korea
 ## 3          Korea, Rep.              South Korea
@@ -360,11 +546,11 @@ Try to avoid this. If you must `rbind()`ing data.frames works much better than `
 
 ```r
 usa <- gapminder %>%
-  filter(country == "United States" & year > 2000) %>%
-  droplevels
+  filter(country == "United States", year > 2000) %>%
+  droplevels()
 mex <- gapminder %>%
-  filter(country == "Mexico" & year > 2000) %>%
-  droplevels
+  filter(country == "Mexico", year > 2000) %>%
+  droplevels()
 str(usa)
 ## 'data.frame':	2 obs. of  6 variables:
 ##  $ country  : Factor w/ 1 level "United States": 1 1
@@ -382,6 +568,7 @@ str(mex)
 ##  $ pop      : num  1.02e+08 1.09e+08
 ##  $ gdpPercap: num  10742 11978
 usa_mex <- rbind(usa, mex)
+## rbinding data.frames works!
 str(usa_mex)
 ## 'data.frame':	4 obs. of  6 variables:
 ##  $ country  : Factor w/ 2 levels "United States",..: 1 1 2 2
@@ -391,8 +578,11 @@ str(usa_mex)
 ##  $ pop      : num  2.88e+08 3.01e+08 1.02e+08 1.09e+08
 ##  $ gdpPercap: num  39097 42952 10742 11978
 
+## simply catenating factors does not work!
 (oops <- c(usa$country, mex$country))
 ## [1] 1 1 1 1
+
+## workaround
 (yeah <- factor(c(levels(usa$country)[usa$country],
                   levels(mex$country)[mex$country])))
 ## [1] United States United States Mexico        Mexico       
@@ -403,8 +593,7 @@ If you really want to catenate factors with different levels, you must first con
 
 ### Make a factor from scratch 
 
-Herein lies the explicit creation of a factor via `factor()`. Let's start with an example we are familiar with.
-Pretend the continent variable in gapminder was a not a factor, but character.
+The `factor()` function will explicitly create a factor *de novo*. Let's start with an example we are familiar with. Pretend the continent variable in gapminder was a not a factor, but character.
 
 
 ```r
@@ -429,7 +618,7 @@ head(gapminder)
 ## 6 Afghanistan      Asia 1977  38.438 14880372  786.1134
 ```
 
-We can now turn it back into a factor by calling factor. The first argument is the thing to be factored, followed by factor levels, which will default to the unique values, in alphabetical order.
+We can now turn it back into a factor by calling factor. The first argument is the input (usually character), followed by factor levels, which will default to the unique input values, in alphabetical order.
 
 
 ```r
