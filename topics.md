@@ -29,8 +29,10 @@
   * The `dplyr` package for data manipulation
     - [Introduction to dplyr](block009_dplyr-intro.html)
     - [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
+    - [Split-apply-combine with `dplyr::do()`](block023_dplyr-do.html)
     - Example: [a wrapper around `lm` to use with `dplyr::do()`](block025_lm-poly.html)
     - [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
+    - Legacy material on [split-apply-combine with `plyr`](block013_plyr-ddply.html)
   * Writing your own R functions
     - [Part 1](block011_write-your-own-function-01.html): get something that works, check arguments
     - [Part 2](block011_write-your-own-function-02.html): generalize, set default argument values
