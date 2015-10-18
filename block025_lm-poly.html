@@ -103,7 +103,7 @@ img {
 <li><a href="#works-but-is-unsatisyfing">Works but is unsatisyfing</a></li>
 <li><a href="#what-does-not-work">What does NOT work</a></li>
 <li><a href="#wishful-thinking">Wishful thinking</a></li>
-<li><a href="#a-solution-if-you-cant-beat-em-joinem">A solution: if you can’t beat <code>em, join</code>em</a></li>
+<li><a href="#a-solution-if-you-cant-beat-em-join-em">A solution: if you can’t beat ’em, join ’em</a></li>
 <li><a href="#use-our-lm-wrapper-with-broom">Use our <code>lm</code> wrapper with <code>broom</code></a></li>
 </ul>
 </div>
@@ -116,8 +116,6 @@ img {
 library(ggplot2)
 suppressPackageStartupMessages(library(dplyr))
 library(broom)
-suppressPackageStartupMessages(library(purrr))
-library(tidyr)
 
 gapminder %&gt;%
   tbl_df() %&gt;%
@@ -237,9 +235,9 @@ gapminder %&gt;%
 #&gt; 10           New Zealand   Oceania  1957  70.260 2229407 12247.3953</code></pre>
 <p>But sadly there is no <code>lm_()</code> for us to build around in our application.</p>
 </div>
-<div id="a-solution-if-you-cant-beat-em-joinem" class="section level3">
-<h3>A solution: if you can’t beat <code>em, join</code>em</h3>
-<p>I’m actually not providing an exact equivalent of <code>aes_string()</code> or <code>arrange_()</code> for <code>lm()</code>. Specifically, the function below still uses NSE. Why? Because we often use <code>year</code> as a predictor and usually want to shift it by its minimum, so that the intercept is more interpretable.</p>
+<div id="a-solution-if-you-cant-beat-em-join-em" class="section level3">
+<h3>A solution: if you can’t beat ’em, join ’em</h3>
+<p>I’m actually not providing an equivalent of <code>aes_string()</code> or <code>arrange_()</code> for <code>lm()</code>. Specifically, the function below still uses NSE. Why? Because we often use <code>year</code> as a predictor and usually want to shift it by its minimum, so that the intercept is more interpretable.</p>
 <p>Here’s a function that plays well with <code>dplyr::do()</code>, but with flexibility re: the response and predictor variables. <code>lm_poly_raw()</code> uses <code>lm()</code> to fit polynomial models of a chosen degree and with other arguments passed via <code>...</code>.</p>
 <pre class="r"><code>lm_poly_raw &lt;- function(df, y, x, degree = 1, ...) {
   lm_formula &lt;-
@@ -297,7 +295,7 @@ belgium$year[3] &lt;- NA
 lm_poly_raw(belgium, y = lifeExp, x = I(year - 1952), na.action = na.fail)
 #&gt; Error in poly(I(year - 1952), 1, raw = TRUE): missing values are not allowed in &#39;poly&#39;</code></pre>
 <p>To be clear, the last error is a confirmation that things are working.</p>
-<p>One of the very next things I would in an analysis is to attack the terrible names of the estimated coefficients.</p>
+<p>One of the very next things I would do in an analysis is to attack the terrible names of the estimated coefficients.</p>
 </div>
 <div id="use-our-lm-wrapper-with-broom" class="section level2">
 <h2>Use our <code>lm</code> wrapper with <code>broom</code></h2>

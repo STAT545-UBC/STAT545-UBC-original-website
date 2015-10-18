@@ -21,8 +21,6 @@ library(gapminder)
 library(ggplot2)
 suppressPackageStartupMessages(library(dplyr))
 library(broom)
-suppressPackageStartupMessages(library(purrr))
-library(tidyr)
 
 gapminder %>%
   tbl_df() %>%
@@ -89,9 +87,9 @@ gapminder %>%
 
 But sadly there is no `lm_()` for us to build around in our application.
 
-### A solution: if you can't beat `em, join `em
+### A solution: if you can't beat 'em, join 'em
 
-I'm actually not providing an exact equivalent of `aes_string()` or `arrange_()` for `lm()`. Specifically, the function below still uses NSE. Why? Because we often use `year` as a predictor and usually want to shift it by its minimum, so that the intercept is more interpretable.
+I'm actually not providing an equivalent of `aes_string()` or `arrange_()` for `lm()`. Specifically, the function below still uses NSE. Why? Because we often use `year` as a predictor and usually want to shift it by its minimum, so that the intercept is more interpretable.
 
 Here's a function that plays well with `dplyr::do()`, but with flexibility re: the response and predictor variables. `lm_poly_raw()` uses `lm()` to fit polynomial models of a chosen degree and with other arguments passed via `...`.
 
@@ -135,7 +133,7 @@ lm_poly_raw(belgium, y = lifeExp, x = I(year - 1952), na.action = na.fail)
 
 To be clear, the last error is a confirmation that things are working.
 
-One of the very next things I would in an analysis is to attack the terrible names of the estimated coefficients.
+One of the very next things I would do in an analysis is to attack the terrible names of the estimated coefficients.
 
 ## Use our `lm` wrapper with `broom`
 
