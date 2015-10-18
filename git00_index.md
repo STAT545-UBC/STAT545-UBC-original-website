@@ -20,10 +20,10 @@ half Mac, just under half Windows (various flavours), a dash of Linux
 
 |            |     2014 |     2015 |
 |-----------:|---------:|---------:|
-|        Mac | 16 (41%) | 36 (51%) |
-|  Windows 7 |  9 (23%) | 13 (19%) |
-|  Windows 8 | 12 (31%) |  9 (13%) |
-| Windows 10 |   0 (0%) |  7 (10%) |
+|        Mac | 16 (41%) | 38 (52%) |
+|  Windows 7 |  9 (23%) | 13 (18%) |
+|  Windows 8 | 12 (31%) |  9 (12%) |
+| Windows 10 |   0 (0%) |  8 (11%) |
 |      Linux |   2 (5%) |   5 (7%) |
 
 ### Level 1: Installation
