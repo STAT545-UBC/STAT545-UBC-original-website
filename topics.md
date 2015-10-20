@@ -17,10 +17,10 @@
   * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
   * [Test drive R Markdown](block007_first-use-rmarkdown.html)
   * [All the graph things](graph00_index.html), an annotated index
-    - R graphics landscape *[slides](http://www.slideshare.net/jenniferbryan5811/cm005-intro-ggplot2)*
+    - R graphics landscape *[slides]https://speakerdeck.com/jennybc/ggplot2-tutorial)*
     - [`ggplot2` tutorial](https://github.com/jennybc/ggplot2-tutorial), heavy on code and examples
     - [Do's and don'ts of making effective graphs](block015_graph-dos-donts.html)
-    - [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/), a visual, clickable index of 100+ figures + `ggplot2` code to make them
+    - [R Graph Catalog](http://shiny.stat.ubc.ca/r-graph-catalog/), a visual, clickable index of 100+ figures + `ggplot2` code to make them
     - [Using colors in R](block018_colors.html)
     - [Taking control of qualitative colors in `ggplot2`](block019_enforce-color-scheme.html)
     - [Secrets of a happy graphing life](block016_secrets-happy-graphing.html)
