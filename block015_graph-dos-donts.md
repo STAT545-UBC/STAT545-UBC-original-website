@@ -2,6 +2,8 @@
 
 
 
+*In 2015, this was mercifully replaced by a [guest lecture from UBC colleague Tamara Munzner](http://stat545-ubc.github.io/cm014_viz-design-munzner.html). The content below would be better with links to specific figures from Naomi Robbins' book, but the Shiny app does not make that possible. Or perhaps I should just embed my versions of them.*
+
 ### Goal: create more effective graphs
 
 According to Naomi Robbins, effective graphs "improve understanding of data". They do not confuse or mislead.
@@ -15,7 +17,7 @@ When I'm lost in data and struggling to make a figure, I repeat this mantra dist
   * Facilitate comparisons
   * Reveal trends
 
-*CMEG = Naomi Robbins' book ["Creating More Effective Graphs"](http://www.amazon.com/Creating-Effective-Graphs-Naomi-Robbins/dp/0985911123); visual catalog of figures via the [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/)*
+*CMEG = Naomi Robbins' book ["Creating More Effective Graphs"](http://www.amazon.com/Creating-Effective-Graphs-Naomi-Robbins/dp/0985911123); visual catalog of figures via the [R Graph Catalog](http://shiny.stat.ubc.ca/r-graph-catalog/)*
 
 ### No no's
 
@@ -25,7 +27,7 @@ The [most loathed graph of all](http://www.google.com/search?q=pie+charts+suck) 
 
 Why do the pros hate pie charts? They are awful because they encode quantitative information in angles and areas, which are very hard for humans to judge. Skeptical? Read on.
 
-Examples from CMEG and the [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/):
+Examples from CMEG and the [R Graph Catalog](http://shiny.stat.ubc.ca/r-graph-catalog/):
 
   * Try to place the wedges in order from largest to smallest based on the pie chart in Fig 1.1. Now do same using the dot plot in Fig 1.2. Which figure made this task easier? Which presentation of this data improves your understanding of the data? Reflect on the same info presented as a table, Fig 1.3.
   * Try to decode the data from the pie chart in Fig 2.2. Now do the same using the dot plot in Fig 2.3.
@@ -155,7 +157,7 @@ We will look through another section (slides 48 - 62) of Karl Broman's excellent
 
 ["Creating More Effective Graphs"](http://www.amazon.com/Creating-Effective-Graphs-Naomi-Robbins/dp/0985911123) by [Naomi Robbins](http://www.nbr-graphs.com)
 
-The [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/) presents the figures from ["Creating More Effective Graphs"](http://www.amazon.com/Creating-Effective-Graphs-Naomi-Robbins/dp/0985911123) as a visual quilt. Click on a figure to see the `ggplot2` code that makes it.
+The [R Graph Catalog](http://shiny.stat.ubc.ca/r-graph-catalog/) presents the figures from ["Creating More Effective Graphs"](http://www.amazon.com/Creating-Effective-Graphs-Naomi-Robbins/dp/0985911123) as a visual quilt. Click on a figure to see the `ggplot2` code that makes it.
 
 Karl Broman's talk "How to display data badly"
 
@@ -166,7 +168,7 @@ Karl Broman's talk "How to display data badly"
 
 [Winston Chang's](https://github.com/wch) book ["R Graphics Cookbook"](http://shop.oreilly.com/product/0636920023135.do) and the [Graphs section](http://www.cookbook-r.com/Graphs/) of his [Cookbook for R website](http://www.cookbook-r.com/)
 
-[`ggplot2` tutorial](https://github.com/jennybc/ggplot2-tutorial) from May 2014, Vancouver R Users Group
+My [`ggplot2` tutorial](https://github.com/jennybc/ggplot2-tutorial)
 
 "Let's Practice What We Preach: Turning Tables into Graphs" by Gelman A, Pasarica C, Dodhia R. *The American Statistician*, Volume 56, Number 2, 1 May 2002 , pp. 121-130(10). via [JSTOR](http://www.jstor.org/discover/10.2307/3087382?uid=2&uid=4&sid=21104340349921)
 
