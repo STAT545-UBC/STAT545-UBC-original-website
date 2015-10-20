@@ -2,18 +2,19 @@
 
 
 
-### Load the Gapminder data
+### Load the Gapminder data and `dplyr`
 
 
 ```r
-gDat <- read.delim("gapminderDataFiveYear.txt")
-str(gDat)
+suppressPackageStartupMessages(library(dplyr))
+library(gapminder)
+str(gapminder)
 ## 'data.frame':	1704 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
 ##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ year     : num  1952 1957 1962 1967 1972 ...
 ##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
 ##  $ gdpPercap: num  779 821 853 836 740 ...
 ```
 
@@ -42,76 +43,76 @@ Because of the way figures are handled by `knitr`, it is more complicated to cha
 
 ### Basic color specification and the default palette
 
-I need a small well-behaved excerpt from the Gapminder data for demonstration purposes. I randomly draw 8 countries, keep their data from 2007, and sort the rows based on GDP per capita. Meet `jDat`.
+I need a small well-behaved excerpt from the Gapminder data for demonstration purposes. I randomly draw 8 countries, keep their data from 2007, and sort the rows based on GDP per capita. Meet `jdat`.
 
 
 
 
 ```r
-jDat
-##         country year      pop continent lifeExp  gdpPercap
-## 504     Eritrea 2007  4906585    Africa  58.040   641.3695
-## 1080      Nepal 2007 28901790      Asia  63.785  1091.3598
-## 276        Chad 2007 10238807    Africa  50.651  1704.0637
-## 792     Jamaica 2007  2780132  Americas  72.567  7320.8803
-## 396        Cuba 2007 11416987  Americas  78.273  8948.1029
-## 360  Costa Rica 2007  4133884  Americas  78.782  9645.0614
-## 576     Germany 2007 82400996    Europe  79.406 32170.3744
-## 1152     Norway 2007  4627926    Europe  80.196 49357.1902
+jdat
+##      country continent year lifeExp      pop  gdpPercap
+## 1    Eritrea    Africa 2007  58.040  4906585   641.3695
+## 2      Nepal      Asia 2007  63.785 28901790  1091.3598
+## 3       Chad    Africa 2007  50.651 10238807  1704.0637
+## 4    Jamaica  Americas 2007  72.567  2780132  7320.8803
+## 5       Cuba  Americas 2007  78.273 11416987  8948.1029
+## 6 Costa Rica  Americas 2007  78.782  4133884  9645.0614
+## 7    Germany    Europe 2007  79.406 82400996 32170.3744
+## 8     Norway    Europe 2007  80.196  4627926 49357.1902
 ```
 
 A simple scatterplot, using `plot()` from the base package `graphics`.
 
 
 ```r
-jXlim <- c(460, 60000)
-jYlim <- c(47, 82)
-plot(lifeExp ~ gdpPercap, jDat, log = 'x', xlim = jXlim, ylim = jYlim,
+j_xlim <- c(460, 60000)
+j_ylim <- c(47, 82)
+plot(lifeExp ~ gdpPercap, jdat, log = 'x', xlim = j_xlim, ylim = j_ylim,
      main = "Start your engines ...")
 ```
 
-![](./block018_colors_files/figure-html/unnamed-chunk-6.png) 
+![](block018_colors_files/figure-html/unnamed-chunk-6-1.png) 
 
 You can specify color explicitly by name by supplying a character vector with one or more color names (more on those soon). If you need a color for 8 points and you input fewer, recycling will kick in. Here's what happens when you specify one or two colors via the `col =` argument of `plot()`.
 
 
 ```r
-plot(lifeExp ~ gdpPercap, jDat, log = 'x', xlim = jXlim, ylim = jYlim,
+plot(lifeExp ~ gdpPercap, jdat, log = 'x', xlim = j_xlim, ylim = j_ylim,
      col = "red", main = 'col = "red"')
-plot(lifeExp ~ gdpPercap, jDat, log = 'x', xlim = jXlim, ylim = jYlim,
+plot(lifeExp ~ gdpPercap, jdat, log = 'x', xlim = j_xlim, ylim = j_ylim,
      col = c("blue", "orange"), main = 'col = c("blue", "orange")')
 ```
 
-<img src="./block018_colors_files/figure-html/unnamed-chunk-71.png" title="" alt="" width="50%" /><img src="./block018_colors_files/figure-html/unnamed-chunk-72.png" title="" alt="" width="50%" />
+<img src="block018_colors_files/figure-html/unnamed-chunk-7-1.png" title="" alt="" width="50%" /><img src="block018_colors_files/figure-html/unnamed-chunk-7-2.png" title="" alt="" width="50%" />
 
 You can specify color explicitly with a small positive integer, which is interpreted as indexing into the current palette, which can be inspected via `palette()`. I've added these integers and the color names as labels to the figures below. The default palette contains 8 colors, which is why we're looking at data from eight countries. The default palette is ugly.
 
 
 ```r
-plot(lifeExp ~ gdpPercap, jDat, log = 'x', xlim = jXlim, ylim = jYlim,
-     col = 1:nC, main = paste0('col = 1:', nC))
-with(jDat, text(x = gdpPercap, y = lifeExp, pos = 1))
-plot(lifeExp ~ gdpPercap, jDat, log = 'x', xlim = jXlim, ylim = jYlim,
-     col = 1:nC, main = 'the default palette()')
-with(jDat, text(x = gdpPercap, y = lifeExp, labels = palette(),
+plot(lifeExp ~ gdpPercap, jdat, log = 'x', xlim = j_xlim, ylim = j_ylim,
+     col = 1:n_c, main = paste0('col = 1:', n_c))
+with(jdat, text(x = gdpPercap, y = lifeExp, pos = 1))
+plot(lifeExp ~ gdpPercap, jdat, log = 'x', xlim = j_xlim, ylim = j_ylim,
+     col = 1:n_c, main = 'the default palette()')
+with(jdat, text(x = gdpPercap, y = lifeExp, labels = palette(),
                 pos = rep(c(1, 3, 1), c(5, 1, 2))))     
 ```
 
-<img src="./block018_colors_files/figure-html/unnamed-chunk-81.png" title="" alt="" width="50%" /><img src="./block018_colors_files/figure-html/unnamed-chunk-82.png" title="" alt="" width="50%" />
+<img src="block018_colors_files/figure-html/unnamed-chunk-8-1.png" title="" alt="" width="50%" /><img src="block018_colors_files/figure-html/unnamed-chunk-8-2.png" title="" alt="" width="50%" />
 
 You can provide your own vector of colors instead. I am intentionally modelling best practice here too: if you're going to use custom colors, store them as an object in exactly one place, and use that object in plot calls, legend-making, etc. This makes it much easier to fiddle with your custom colors, which few of us can resist.
 
 
 ```r
-jColors <- c('chartreuse3', 'cornflowerblue', 'darkgoldenrod1', 'peachpuff3',
+j_colors <- c('chartreuse3', 'cornflowerblue', 'darkgoldenrod1', 'peachpuff3',
              'mediumorchid2', 'turquoise3', 'wheat4', 'slategray2')
-plot(lifeExp ~ gdpPercap, jDat, log = 'x', xlim = jXlim, ylim = jYlim,
-     col = jColors, main = 'custom colors!')
-with(jDat, text(x = gdpPercap, y = lifeExp, labels = jColors,
+plot(lifeExp ~ gdpPercap, jdat, log = 'x', xlim = j_xlim, ylim = j_ylim,
+     col = j_colors, main = 'custom colors!')
+with(jdat, text(x = gdpPercap, y = lifeExp, labels = j_colors,
                 pos = rep(c(1, 3, 1), c(5, 1, 2)))) 
 ```
 
-![](./block018_colors_files/figure-html/unnamed-chunk-9.png) 
+![](block018_colors_files/figure-html/unnamed-chunk-9-1.png) 
 
 ### What colors are available? Ditto for symbols and line types
 
@@ -151,7 +152,7 @@ Let's look at all the associated palettes.
 display.brewer.all()
 ```
 
-![](./block018_colors_files/figure-html/unnamed-chunk-12.png) 
+![](block018_colors_files/figure-html/unnamed-chunk-12-1.png) 
 
 They fall into three classes. From top to bottom, they are
 
@@ -166,7 +167,7 @@ You can view a single RColorBrewer palette by specifying its name:
 display.brewer.pal(n = 8, name = 'Dark2')
 ```
 
-![](./block018_colors_files/figure-html/unnamed-chunk-13.png) 
+![](block018_colors_files/figure-html/unnamed-chunk-13-1.png) 
 
 The package is, frankly, rather clunky, as evidenced by the requirement to specify `n` above. Sorry folks, you'll just have to cope.
 
@@ -174,14 +175,24 @@ Here we revisit specifying custom colors as we did above, but using a palette fr
 
 
 ```r
-jBrewColors <- brewer.pal(n = 8, name = "Dark2")
-plot(lifeExp ~ gdpPercap, jDat, log = 'x', xlim = jXlim, ylim = jYlim,
-     col = jBrewColors, main = 'Dark2 qualitative palette from RColorBrewer')
-with(jDat, text(x = gdpPercap, y = lifeExp, labels = jBrewColors,
+j_brew_colors <- brewer.pal(n = 8, name = "Dark2")
+plot(lifeExp ~ gdpPercap, jdat, log = 'x', xlim = j_xlim, ylim = j_ylim,
+     col = j_brew_colors, main = 'Dark2 qualitative palette from RColorBrewer')
+with(jdat, text(x = gdpPercap, y = lifeExp, labels = j_brew_colors,
                 pos = rep(c(1, 3, 1), c(5, 1, 2)))) 
 ```
 
-![](./block018_colors_files/figure-html/unnamed-chunk-14.png) 
+![](block018_colors_files/figure-html/unnamed-chunk-14-1.png) 
+
+### viridis
+
+In 2015 Stéfan van der Walt and Nathaniel Smith designed new color maps for matplotlib and [presented them in a talk at SciPy 2015](https://www.youtube.com/watch?v=xAoljeRJ3lU&feature=youtu.be). The `viridis` R package provides four new palettes for use in R: on [CRAN](https://cran.r-project.org/web/packages/viridis/index.html) with development on [GitHub](https://github.com/sjmgarnier/viridis). From DESCRIPTION:
+
+> These color maps are designed in such a way that they will analytically be perfectly perceptually-uniform, both in regular form and also when converted to black-and-white. They are also designed to be perceived by readers with the most common form of color blindness.
+
+This package is quite new so I haven't prepared any examples yet but here's a look at the new palettes. I encourage you to install `viridis` and read [the vignette](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html).
+
+![](https://raw.githubusercontent.com/sjmgarnier/viridis/master/img/sample2.png)
 
 ### Hexadecimal RGB color specification
 
@@ -198,8 +209,8 @@ The leading `#` is just there by convention. Parse the hexadecimal string like s
 
 
 
-<!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
-<!-- Sun Oct 19 20:55:05 2014 -->
+<!-- html table generated in R 3.2.2 by xtable 1.7-4 package -->
+<!-- Mon Oct 19 22:55:50 2015 -->
 <table border=1>
 <tr> <th>  </th> <th> 1 </th> <th> 2 </th> <th> 3 </th> <th> 4 </th> <th> 5 </th> <th> 6 </th> <th> 7 </th> <th> 8 </th> <th> 9 </th> <th> 10 </th> <th> 11 </th> <th> 12 </th> <th> 13 </th> <th> 14 </th> <th> 15 </th> <th> 16 </th>  </tr>
   <tr> <td align="right"> hex </td> <td> 0 </td> <td> 1 </td> <td> 2 </td> <td> 3 </td> <td> 4 </td> <td> 5 </td> <td> 6 </td> <td> 7 </td> <td> 8 </td> <td> 9 </td> <td> A </td> <td> B </td> <td> C </td> <td> D </td> <td> E </td> <td> F </td> </tr>
@@ -216,10 +227,10 @@ Important special cases that help you stay oriented. Here are the saturated RGB 
 
 
 
-<!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
-<!-- Sun Oct 19 20:55:05 2014 -->
+<!-- html table generated in R 3.2.2 by xtable 1.7-4 package -->
+<!-- Mon Oct 19 22:55:50 2015 -->
 <table border=1>
-<tr> <th> colorName </th> <th> hex </th> <th> red </th> <th> green </th> <th> blue </th>  </tr>
+<tr> <th> color_name </th> <th> hex </th> <th> red </th> <th> green </th> <th> blue </th>  </tr>
   <tr> <td> blue </td> <td> #0000FF </td> <td align="right"> 0 </td> <td align="right"> 0 </td> <td align="right"> 255 </td> </tr>
   <tr> <td> green </td> <td> #00FF00 </td> <td align="right"> 0 </td> <td align="right"> 255 </td> <td align="right"> 0 </td> </tr>
   <tr> <td> red </td> <td> #FF0000 </td> <td align="right"> 255 </td> <td align="right"> 0 </td> <td align="right"> 0 </td> </tr>
@@ -229,10 +240,10 @@ Here are shades of gray:
 
 
 
-<!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
-<!-- Sun Oct 19 20:55:05 2014 -->
+<!-- html table generated in R 3.2.2 by xtable 1.7-4 package -->
+<!-- Mon Oct 19 22:55:50 2015 -->
 <table border=1>
-<tr> <th> colorName </th> <th> hex </th> <th> red </th> <th> green </th> <th> blue </th>  </tr>
+<tr> <th> color_name </th> <th> hex </th> <th> red </th> <th> green </th> <th> blue </th>  </tr>
   <tr> <td> white, gray100 </td> <td> #FFFFFF </td> <td align="right"> 255 </td> <td align="right"> 255 </td> <td align="right"> 255 </td> </tr>
   <tr> <td> gray67 </td> <td> #ABABAB </td> <td align="right"> 171 </td> <td align="right"> 171 </td> <td align="right"> 171 </td> </tr>
   <tr> <td> gray33 </td> <td> #545454 </td> <td align="right"> 84 </td> <td align="right"> 84 </td> <td align="right"> 84 </td> </tr>
@@ -291,7 +302,7 @@ library(dichromat)
 
 This `colorschemes` list contains 17 color schemes "suitable for people with deficient or anomalous red-green vision".
 
-![](./block018_colors_files/figure-html/dichromat-colorschemes.png) 
+![](block018_colors_files/figure-html/dichromat-colorschemes-1.png) 
 
 What else does the `dichromat` package offer? The `dichromat()` function transforms colors to approximate the effect of different forms of color blindness, allowing you to assess the performance of a candidate scheme. The command `data("dalton")` will make two objects available which represent a 256-color palette as it would appear with normal vision, with two types of red-green color blindness, and with green-blue color blindness. 
 
