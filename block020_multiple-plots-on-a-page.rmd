@@ -28,25 +28,24 @@ library(gridExtra)
 ### Load the Gapminder data and ggplot2
 
 ```{r}
+library(gapminder)
 library(ggplot2)
-gDat <- read.delim("gapminderDataFiveYear.tsv")
-str(gDat)
 ```
 
-### Use the `arrangeGrob()` function
+### Use the `arrangeGrob()` function and friends
 
 Store the constituent plots to plot objects and then pass them to `arrangeGrob()`.
 
 ```{r arrangeGrob-demo}
-p_dens <- ggplot(gDat, aes(x = gdpPercap)) + geom_density() + scale_x_log10() +
+p_dens <- ggplot(gapminder, aes(x = gdpPercap)) + geom_density() + scale_x_log10() +
   theme(axis.text.x = element_blank(),
         axis.ticks = element_blank(),
         axis.title.x = element_blank())
-p_scatter <- ggplot(gDat, aes(x = gdpPercap, y = lifeExp)) +
+p_scatter <- ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) +
   geom_point() + scale_x_log10()
-p_both <- arrangeGrob(
-  p_dens, p_scatter, nrow = 2, heights = c(0.35, 0.65))
-p_both
+#p_both <- arrangeGrob(p_dens, p_scatter, nrow = 2, heights = c(0.35, 0.65))
+#print(p_both)
+grid.arrange(p_dens, p_scatter, nrow = 2, heights = c(0.35, 0.65))
 ```
 
 You can find many examples of `arrangeGrob()` usage in the [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/).
@@ -110,3 +109,12 @@ multiplot(p1, p2, p3, p4, cols = 2)
 ```
 
 Visit [Multiple graphs on one page (ggplot2)](http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/) to see a complete worked example.
+
+### Use the `cowplot` package
+
+The `cowplot` package (on [CRAN](https://cran.r-project.org/web/packages/cowplot/index.html), on [GitHub](https://github.com/wilkelab/cowplot)) does (at least) two things:
+
+  * Provide a publication-ready theme for `ggplot2`
+  * Helps combine multiple plots into one figure
+
+Check out [the vignette](https://cran.r-project.org/web/packages/cowplot/vignettes/introduction.html) to see it in action.
