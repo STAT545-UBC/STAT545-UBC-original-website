@@ -17,4 +17,6 @@ Visualization usage can be analyzed in terms of why the user needs it,
 what data is shown, and how the idiom is designed. I will discuss this
 framework for analyzing the design of visualization systems.
 
+Slides: [pdf](http://www.cs.ubc.ca/~tmm/talks/minicourse14/vad15bryan.pdf), [pdf_16up](http://www.cs.ubc.ca/~tmm/talks/minicourse14/vad15bryan-4x4.pdf), [key](http://www.cs.ubc.ca/~tmm/talks/minicourse14/vad15bryan.key)
+
 Check out Tamara's new book: [Visualization Analysis and Design](http://www.cs.ubc.ca/~tmm/vadbook/)
