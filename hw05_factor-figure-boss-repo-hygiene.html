@@ -10,7 +10,7 @@
 
 
 
-<title></title>
+<title>Homework 05: Factor and figure management; Repo hygiene</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -93,133 +93,114 @@ img {
   </div>
 </header>
 
+<div id="header">
+<h1 class="title">Homework 05: Factor and figure management; Repo hygiene</h1>
+</div>
 
-
-<div id="topic-list" class="section level2">
-<h2>Topic list</h2>
+<div id="TOC">
 <ul>
-<li><a href="block000_r-rstudio-install.html">Install R and Rstudio</a></li>
-<li><a href="git00_index.html">All the Git and GitHub (and RStudio) things</a>
-<ul>
-<li><a href="git01_git-install.html">Install Git</a></li>
-<li><a href="git02_git-clients.html">Install a Git client</a> <em>optional but recommended</em></li>
-<li><a href="git04_introduce-self-to-git.html">Introduce yourself to Git</a></li>
-<li><a href="git05_github-connection.html">GitHub, can you hear me?</a></li>
-<li><a href="git07_git-github-rstudio.html">Test connection between RStudio and GitHub</a></li>
-<li><a href="git06_credential-caching.html">GitHub credential caching</a></li>
-<li><a href="git03_rstudio-meet-git.html">When RStudio can’t find Git</a></li>
-<li><a href="git08_claim-stat545-repo.html">Take possession of your STAT 545 repo</a></li>
-<li><a href="git66_rstudio-git-github-hell.html">Troubleshooting</a></li>
-<li><a href="git09_shell.html">The Shell</a></li>
+<li><a href="#overview">Overview</a><ul>
+<li><a href="#gapminder-data-or-whatever">Gapminder data … or whatever</a></li>
 </ul></li>
-<li><a href="block002_hello-r-workspace-wd-project.html">Basic R and RStudio, workspace, working directory, RStudio Project</a></li>
-<li><a href="block006_care-feeding-data.html">Basic care and feeding of data in R</a></li>
-<li><a href="block004_basic-r-objects.html">R objects (beyond data.frames) and indexing</a></li>
-<li><a href="block007_first-use-rmarkdown.html">Test drive R Markdown</a></li>
-<li><a href="graph00_index.html">All the graph things</a>, an annotated index
-<ul>
-<li>R graphics landscape <em><a href="https://speakerdeck.com/jennybc/ggplot2-tutorial">slides</a></em></li>
-<li><a href="https://github.com/jennybc/ggplot2-tutorial"><code>ggplot2</code> tutorial</a>, heavy on code and examples</li>
-<li><a href="block015_graph-dos-donts.html">Do’s and don’ts of making effective graphs</a></li>
-<li><a href="http://shiny.stat.ubc.ca/r-graph-catalog/">R Graph Catalog</a>, a visual, clickable index of 100+ figures + <code>ggplot2</code> code to make them</li>
-<li><a href="block018_colors.html">Using colors in R</a></li>
-<li><a href="block019_enforce-color-scheme.html">Taking control of qualitative colors in <code>ggplot2</code></a></li>
-<li><a href="block016_secrets-happy-graphing.html">Secrets of a happy graphing life</a></li>
-<li><a href="block017_write-figure-to-file.html">Writing figures to file</a></li>
-<li><a href="block020_multiple-plots-on-a-page.html">Multiple plots on a page</a></li>
-</ul></li>
-<li>The <code>dplyr</code> package for data manipulation
-<ul>
-<li><a href="block009_dplyr-intro.html">Introduction to dplyr</a></li>
-<li><a href="block010_dplyr-end-single-table.html"><code>dplyr</code> functions for a single dataset</a></li>
-<li><a href="block023_dplyr-do.html">Split-apply-combine with <code>dplyr::do()</code></a></li>
-<li>Example: <a href="block025_lm-poly.html">a wrapper around <code>lm</code> to use with <code>dplyr::do()</code></a></li>
-<li><a href="bit001_dplyr-cheatsheet.html">Cheatsheet</a> for <code>dplyr</code> join functions</li>
-<li>Legacy material on <a href="block013_plyr-ddply.html">split-apply-combine with <code>plyr</code></a></li>
-</ul></li>
-<li>Writing your own R functions
-<ul>
-<li><a href="block011_write-your-own-function-01.html">Part 1</a>: get something that works, check arguments</li>
-<li><a href="block011_write-your-own-function-02.html">Part 2</a>: generalize, set default argument values</li>
-<li><a href="block011_write-your-own-function-03.html">Part 3</a>:<code>NA</code> handling, <code>...</code>, unit test</li>
-<li><a href="block012_function-regress-lifeexp-on-year.html">Function-writing Practicum</a>: fit a linear model and return estimated coefficients</li>
-</ul></li>
-<li>The <code>plyr</code> package for split-apply-combine
-<ul>
-<li>Data aggregation overview <a href="http://www.slideshare.net/jenniferbryan5811/cm009-data-aggregation"><em>slides</em></a></li>
-<li><a href="block013_plyr-ddply.html">Using <code>plyr</code> with data.frames</a></li>
-</ul></li>
-<li><a href="block014_factors.html">Be the boss of your factors</a></li>
-<li>Writing and reading files
-<ul>
-<li><a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm011_files-out-in-script.r">Indicative code from hands on activities</a></li>
-<li><a href="http://www.stat.ubc.ca/~jenny/STAT545A/block05_getNumbersOut.html">2013 lesson</a> <em>2014 update: do data manipulation with <code>dplyr</code></em></li>
-</ul></li>
-<li><a href="bit002_tidying-lotr-data.html">Why and how to tidy data</a></li>
-<li><a href="block022_regular-expression.html">Regular expressions</a> and more about character data</li>
-<li><a href="automation00_index.html">All the automation things</a>
-<ul>
-<li><a href="automation01_slides/index.html" target="_blank">slides</a></li>
-<li><a href="automation02_windows.html">Special considerations for Windows</a></li>
-<li><a href="automation03_make-test-drive.html">Test drive <code>Make</code></a> from a shell and RStudio</li>
-<li><a href="automation04_make-activity.html">Hands-on activity</a></li>
-<li><a href="automation00_index.html#more-examples">Example pipelines</a></li>
-</ul></li>
-<li><a href="packages00_index.html">All the package things</a>
-<ul>
-<li><a href="https://speakerdeck.com/jennybc/ubc-stat545-2014-cm107-context-for-writing-your-first-r-package-week">slides</a></li>
-<li><a href="packages01_system-prep.html">System preparation for package development</a></li>
-<li><a href="packages02_activity.html">Hands-on activity, part 1</a></li>
-<li><a href="packages02_activity_part2.html">Hands-on activity, part 2</a></li>
-</ul></li>
-<li><a href="shiny00_index.html">All the Shiny things</a>
-<ul>
-<li><a href="shiny01_slides.pdf">slides</a></li>
-<li><a href="shiny02_setup.html">Getting your system set up for Shiny</a></li>
-<li><a href="shiny03_activity.html">Hands-on activity-build a shiny app</a></li>
-<li><a href="shiny04_links.html">Shiny and other interactive plotting links</a></li>
-</ul></li>
-<li>Get data from the web
-<ul>
-<li><em>make usual landing page and add bullet points</em></li>
-<li>class meeting <a href="cm111_data-from-web.html">one</a> and <a href="cm112_data-from-web.html">two</a></li>
-</ul></li>
+<li><a href="#factor-management">Factor management</a></li>
+<li><a href="#visualization-design">Visualization design</a></li>
+<li><a href="#writing-figures-to-file">Writing figures to file</a></li>
+<li><a href="#clean-up-your-repo">Clean up your repo!</a></li>
+<li><a href="#but-i-want-to-do-more">But I want to do more!</a></li>
+<li><a href="#report-your-process">Report your process</a></li>
+<li><a href="#submit-the-assignment">Submit the assignment</a></li>
+<li><a href="#rubric">Rubric</a></li>
 </ul>
 </div>
-<div id="course-specific-material" class="section level2">
-<h2>Course-specific material</h2>
-<p>This is just an index very course-specific stuff, like homework, or class landing pages that eventually lead to the same content that’s listed above.</p>
+
+<div id="overview" class="section level3">
+<h3>Overview</h3>
+<p>Consult the <a href="hw00_homework-guidelines.html">general homework guidelines</a>.</p>
+<p>Due anytime Wednesday 2015-10-28.</p>
+<p>Goals:</p>
 <ul>
-<li><a href="cm001_course-intro-sw-install-account-signup.html">Class meeting 001</a> deals with “What is data science? What is data carpentry?” and includes links re: use of Twitter in academia.</li>
-<li><a href="cm002_r-rstudio-intro.html">Class meeting 002</a> provides some Deep Thoughts about data analytic work, then shifts into a hands-on intro to R and RStudio.</li>
-<li><a href="cm003_r-objects-git-toe-dip.html">Class meeting 003</a> Git(Hub) and (R) Markdown crash course so first homework can be submitted. All hands-on.</li>
-<li><a href="cm004_care-feeding-data.html">Class meeting 004</a> Data.frames are awesome. Let’s explore one (Gapminder).</li>
-<li><a href="cm005_ggplot2.html">Class meeting 005</a> The R graphics landscape and intro to <code>ggplot2</code></li>
-<li><a href="cm006_rmarkdown.html">Class meeting 006</a> R Markdown</li>
-<li><a href="peer-review01_marking-rubric.html">General homework rubric</a> to apply in peer review</li>
-<li><a href="peer-review02_peer-evaluation-guidelines.html">Evaluation of peer review</a></li>
-<li><a href="hw01_edit-README.html">Homework 01</a> Edit <code>README.md</code></li>
-<li><a href="hw02_explore-gapminder-use-rmarkdown.html">Homework 02</a> Explore Gapminder and use R markdown</li>
-<li><a href="hw03_dplyr-and-more-ggplot2.html">Homework 03</a> Manipulate and summarize the Gapminder data with <code>dplyr</code>; make companion figs with <code>ggplot2</code></li>
-<li><a href="hw04_write-function-split-apply-combine.html">Homework 04</a> Use split-apply-combine with your functions within data.frames</li>
-<li><a href="hw05_factor-figure-boss-repo-hygiene.html">Homework 05</a> Prove you are in control of factors and figures. Clean up your repo.</li>
-<li>2014 <a href="hw07_data-wrangling-grand-finale.html">Homework 07</a> Data wrangling Grand Finale</li>
-<li>2014 <a href="hw08_data-cleaning.html">Homework 08</a> re: handling character data and data cleaning</li>
-<li>2014 <a href="hw09_automation.html">Homework 09</a> Automating Data-analysis Pipelines</li>
-<li>2014 <a href="hw10_package.html">Homework 10</a> Write an R package</li>
-<li>2014 <a href="hw11_build-shiny-app">Homework 11</a> Build a Shiny app</li>
-<li>2014 <a href="hw12_data-from-web">Homework 12</a> Get data from the web</li>
+<li>Reorder a factor in a principled way based on the data and demonstrate the effect in arranged data and in figures.</li>
+<li>Remake at least one previously made figure, in light of recent coverage of visualization design principles.</li>
+<li>Write a figure to file explicitly and include it your R Markdown report via <code>![Alt text](/path/to/img.png)</code>.</li>
+<li>Clean up your repo, to celebrate the completion of STAT 545 and/or to prepare for the glorious future of STAT 547.</li>
+</ul>
+<p>Remember the <a href="http://en.wikipedia.org/wiki/Sampler_(needlework)">sampler concept</a>. Your homework should serve as your own personal cheatsheet in the future for how to be the boss of your factors and how to write data to file so you don’t kick yourself when you read it back in.</p>
+<div id="gapminder-data-or-whatever" class="section level4">
+<h4>Gapminder data … or whatever</h4>
+<p>You can work with the <a href="http://tiny.cc/gapminder">Gapminder excerpt</a> or take this chance to play with something else. In which case, you’ll have to create comparable tasks for yourself.</p>
+</div>
+</div>
+<div id="factor-management" class="section level3">
+<h3>Factor management</h3>
+<p><strong>Drop Oceania.</strong> Filter the Gapminder data to remove observations associated with the <code>continent</code> of Oceania. Additionally, Use <code>droplevels()</code> to remove unused factor levels. Provide concrete information on the data before and after removing these rows and Oceania; address the number of rows and the levels of the affected factors. Use a figure that includes a legend to further explore the effects of filtering data and/or changing factor levels.</p>
+<p><strong>Reorder the levels of <code>country</code> or <code>continent</code>.</strong> Use <code>reorder()</code> to change the order of the factor levels, based on a summary statistic of one of the quantitative variables or another derived quantity, such as estimated intercept or slope. If you use a summary of, e.g., life expectancy, try something besides the default of <code>mean()</code>.</p>
+<p>Characterize the (derived) data before and after your factor re-leveling.</p>
+<ul>
+<li>Explore the effects of <code>arrange()</code>. Does merely arranging the data have any effect on, say, a figure?</li>
+<li>Explore the effects of <code>reorder()</code> and <code>reorder()</code> + <code>arrange()</code>. What effect does this have on a figure?</li>
+<li>These explorations should involve the data, the factor levels, and some figures.</li>
 </ul>
 </div>
-<div id="short-random-things" class="section level2">
-<h2>Short random things</h2>
+<div id="visualization-design" class="section level3">
+<h3>Visualization design</h3>
+<p>Remake at least one figure, in light of something you learned in the recent class meetings about visualization design and color. Maybe juxtapose before and after and reflect on the differences. Consult the guest lecture from Tamara Munzner and <a href="graph00_index.html">everything here</a>.</p>
+</div>
+<div id="writing-figures-to-file" class="section level3">
+<h3>Writing figures to file</h3>
+<p>Use <code>ggsave()</code> to explicitly write a figure to file. Then use <code>![Alt text](/path/to/img.png)</code> to embed it in your report. Things to play around with:</p>
 <ul>
-<li><a href="bit002_tidying-lotr-data.html">Lesson I contributed</a> to <a href="http://software-carpentry.org/blog/2014/05/our-first-data-carpentry-workshop.html">Data Carpentry</a> on tidying data</li>
-<li><a href="bit001_dplyr-cheatsheet.html">Cheatsheet</a> for <code>dplyr</code> join functions</li>
-<li><a href="bit003_api-key-env-var.html">Store an API key as an environment variable</a></li>
-<li><a href="https://github.com/jennybc/send-email-with-r">Workflow for sending email with R and <code>gmailr</code></a></li>
-<li><a href="bit006_github-browsability-wins.html">Make browsing your GitHub repos more rewarding</a></li>
+<li>Arguments of <code>ggsave()</code>, such as width, height, resolution or text scaling.</li>
+<li>Various graphics devices, e.g. a vector vs. raster format.</li>
+<li>Explicit provision of the plot object <code>p</code> via <code>ggsave(..., plot = p)</code>. Show a situation in which this actually matters.</li>
 </ul>
+</div>
+<div id="clean-up-your-repo" class="section level3">
+<h3>Clean up your repo!</h3>
+<p>You have 6 weeks of R Markdown and GitHub experience now. You’ve reviewed 8 peer assignments. Surely there are aspects of your current repo organization that could be better. Deal with that. Ideas:</p>
+<ul>
+<li>A nice Table of Contents in top-level README that links to individual pieces of work.
+<ul>
+<li>Good for future: <code>hw03 dplyr verbs</code></li>
+<li>Bummer in the future: <code>hw03</code></li>
+<li>Include a slug with content info!</li>
+</ul></li>
+<li>Remove all downstream stuff, e.g. figures, html, etc. and re-render everything. It will be nice to not have weird, vestigial files lying around to puzzle you in future.</li>
+<li>Anything that’s <code>Rmd</code> but that could be <code>md</code>? Convert it.</li>
+</ul>
+</div>
+<div id="but-i-want-to-do-more" class="section level3">
+<h3>But I want to do more!</h3>
+<p>Play with the <code>factor(, ... levels = ...)</code> function for explicitly setting factor levels. It’s behavior can be surprising!</p>
+<ul>
+<li>Can you create a gotcha, i.e. do something that seems natural but gives an unexpected result?</li>
+<li>Experiment with using <code>stringsAsFactors = FALSE</code> in <code>read.table()</code> followed by an explicit call to <code>factor()</code>. When might you do this?</li>
+<li>Can you use it to set factor levels to the order in which they appear in the data? Can you exploit that as a way to transmit factor level order even with the <code>write.table() / read.table()</code> workflow?</li>
+<li>Can you use it to apply factor levels from one version of a factor to another? Specifically, reorder <code>country</code> based on estimated slope or intercept in <code>j_coefs</code> THEN apply those factor levels back to <code>country</code> in the raw Gapminder data.</li>
+</ul>
+<p>Revalue a factor</p>
+<ul>
+<li>Pick a handful of countries, each of which you can associate with a stereotypical food (or any other non-controversial thing … sport? hobby? type of music, art or dance? animal? landscape feature?). Create an excerpt of the Gapminder data, filtered to just these countries. Create a new factor – you pick the name! – and use one or more of these functions to map the existing <code>country</code> factor levels into new ones.
+<ul>
+<li>from <code>plyr</code> package: <code>revalue()</code> or <code>mapvalues()</code></li>
+<li>from <code>car</code> package: <code>recode()</code></li>
+<li>Examples: Italy –&gt; wine, Germany –&gt; beer, Japan –&gt; sake. (Austria, Germany) –&gt; German, (Mexico, Spain) –&gt; Spanish, (Portugal, Brazil) –&gt; Portuguese. Let your creativity flourish.</li>
+</ul></li>
+</ul>
+<p>Experiment with gluing two factors together. What if they have the same levels? Different levels? Try it gluing two “naked” factors together, then try it again when those factors are embedded in conformable two data.frames.</p>
+</div>
+<div id="report-your-process" class="section level3">
+<h3>Report your process</h3>
+<p>You’re encouraged to reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc. Give credit to your sources, whether it’s a blog post, a fellow student, an online tutorial, etc.</p>
+</div>
+<div id="submit-the-assignment" class="section level3">
+<h3>Submit the assignment</h3>
+<p>Follow instructions on <a href="hw00_homework-guidelines.html#how-to-submit-homework">How to submit homework</a></p>
+</div>
+<div id="rubric" class="section level3">
+<h3>Rubric</h3>
+<p>Check minus: One or more elements are missing or sketchy. Missed opportunities to complement code and numbers with a figure and interpretation. Technical problem that is relatively easy to fix. It’s hard to find the report in this crazy repo.</p>
+<p>Check: Hits all the elements. No obvious mistakes. Pleasant to read. No heroic detective work required. Well done! <em>This should be the most typical mark!</em></p>
+<p>Check plus: Exceeded the requirements in number of dimensions. Developed novel tasks that were indeed interesting and “worked”. Impressive use of R – maybe involving functions, packages or workflows that weren’t given in class materials. Impeccable organization of repo and report. You learned something new from reviewing their work and you’re eager to incorporate it into your work.</p>
 </div>
 
 <div class="footer">

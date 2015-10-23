@@ -13,7 +13,7 @@ HW update:
   * HW02 marks have been sent out.
   * HW03 marking underway. We've put 3 TAs on this to do it faster.
   * HW04 peer review open. Finish that sometime tomorrow, Wednesday.
-  * HW05 will be the last homework of 545. It will be a revised mashup of 2014 HW05 + HW06. Proposed due date: Monday October 26.
+  * HW05 will be the last homework of 545. It will be a revised mashup of 2014 HW05 + HW06. ~~Proposed due date: Monday October 26.~~ It is posted [here](hw05_factor-figure-boss-repo-hygiene.html) and is due Wednesday 2015-10-28.
   
 We revisit a variety of practical figure-making topics. Will pick from here:
 
