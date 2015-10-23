@@ -19,7 +19,7 @@ Goals:
   * Write a figure to file explicitly and include it your R Markdown report via `![Alt text](/path/to/img.png)`.
   * Clean up your repo, to celebrate the completion of STAT 545 and/or to prepare for the glorious future of STAT 547.
 
-Remember the [sampler concept](http://en.wikipedia.org/wiki/Sampler_(needlework)). Your homework should serve as your own personal cheatsheet in the future for how to be the boss of your factors and how to write data to file so you don't kick yourself when you read it back in.
+Remember the [sampler concept](http://en.wikipedia.org/wiki/Sampler_(needlework)). Your homework should serve as your own personal cheatsheet in the future for canonical tasks. Make things nice -- your future self will thank you!
 
 #### Gapminder data ... or whatever
 
