@@ -1,9 +1,6 @@
 ---
 title: "Font Awesome Test"
-output: 
-  html_document:
-    css: 
-      - //netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css
+output: html_document
 ---
 
 
