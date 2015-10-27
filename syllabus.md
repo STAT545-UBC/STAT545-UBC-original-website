@@ -2,8 +2,6 @@
 
 
 
-*2015-09-24 NOTE: This is still evolving. But it gives a good sense of what we'll cover and approximately when.*
-
 
 
 <!-- unholy hack to make following two tables less wide and the same wide -->
@@ -28,6 +26,7 @@ sep-29 tues    <a href="cm007_dplyr-intro.html">cm007</a>: dplyr: the pipe and s
 oct-01 thurs   <a href="cm008_dplyr-contd.html">cm008</a>: dplyr: group_by                                                                        
 oct-06 tues    <a href="cm009_r-objects-collections.html">cm009</a>: Basic flavors of R objects                                                   
 oct-08 thurs   <a href="cm010_write-function.html">cm010</a>: Writing your own R functions                                                        
+oct-13 tues    <a href="cm011_files-out-in.html">cm011</a>: Split-Apply-Combine                                                                   
 oct-13 tues    <a href="cm011_split-apply-combine.html">cm011</a>: Split-Apply-Combine                                                            
 oct-15 thurs   <a href="cm012_tidy-data-factors.html">cm012</a>: Tidy data and reshaping; be the boss of your factors                             
 oct-20 tues    <a href="cm013_practical-figure-making.html">cm013</a>: Practical graphing tips                                                    
@@ -36,17 +35,17 @@ oct-22 thurs   <a href="cm014_viz-design-munzner.html">cm014</a>: Visualization 
 #### STAT 547M
 
 
-date           notes                                          
--------------  -----------------------------------------------
-oct-27 tues    cm101: Getting data out of R (and back in)     
-oct-29 thurs   cm102: Regular expressions and character data  
-nov-03 tues    cm103: Data cleaning                           
-nov-05 thurs   cm104: TBA                                     
-nov-10 tues    cm105: Build your first R package              
-nov-12 thurs   cm106: ditto                                   
-nov-17 tues    cm107: Task automation and pipelines, GNU Make 
-nov-19 thurs   cm108: ditto                                   
-nov-24 tues    cm109: Get data from the web                   
-nov-26 thurs   cm110: ditto                                   
-dec-01 tues    cm111: Build your first Shiny app              
-dec-03 thurs   cm112: ditto                                   
+date           notes                                                                            
+-------------  ---------------------------------------------------------------------------------
+oct-27 tues    <a href="cm101_files-out-in.html">cm101</a>: Getting data out of R (and back in) 
+oct-29 thurs   cm102: Regular expressions and character data                                    
+nov-03 tues    cm103: Data cleaning                                                             
+nov-05 thurs   cm104: TBA                                                                       
+nov-10 tues    cm105: Build your first R package                                                
+nov-12 thurs   cm106: ditto                                                                     
+nov-17 tues    cm107: Task automation and pipelines, GNU Make                                   
+nov-19 thurs   cm108: ditto                                                                     
+nov-24 tues    cm109: Get data from the web                                                     
+nov-26 thurs   cm110: ditto                                                                     
+dec-01 tues    cm111: Build your first Shiny app                                                
+dec-03 thurs   cm112: ditto                                                                     

@@ -12,8 +12,6 @@ library(stringr)
 library(readr)
 ```
 
-*2015-09-24 NOTE: This is still evolving. But it gives a good sense of what we'll cover and approximately when.*
-
 ```{r include = FALSE}
 rawdat <-
   read_csv(file.path("course-admin", "class-meetings", "class-meetings.csv"))
