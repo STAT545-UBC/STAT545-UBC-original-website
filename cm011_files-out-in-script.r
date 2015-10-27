@@ -12,8 +12,14 @@
 library(ggplot2)
 library(dplyr)
 
+## new-ish package for reading data
+library(readr)
+
 ## bring in Gapminder data
-gDat <- read.delim("gapminderDataFiveYear.txt")
+library(gapminder)
+gap_tsv <- system.file("gapminder.tsv", package = "gapminder")
+gDat <- read.delim(gap_tsv)
+gDat2 <- read_tsv(gap_tsv)  ## some problems()
 dim(gDat)
 
 ## optional: subset the Gapminder data drastically ... maybe use same 5
@@ -36,6 +42,9 @@ write.table(hDat, "hDat.txt")
 ## probably not ... use those arguments people!
 write.table(hDat, "hDat.csv", sep = ",", row.names = FALSE,
             quote = FALSE)
+
+## try readr
+write_csv(hDat, "hDat.csv")
 
 ## Jenny talking ...
 ## invertibility and internal consistency dilemma
@@ -60,11 +69,15 @@ data.frame(levels(hDat$country), levels(iDat$country))
 ## write to file with write.table()
 write.table(iDat, "iDat.csv", sep = ",", row.names = FALSE,
             quote = FALSE)
+## use readr
+write_csv(iDat, "iDat2.csv")
 ## delete the R object from the workspace
 rm(iDat)
 iDat ## is it truly gone? YES
 ## re-import the R object FROM FILE with read.table()
 iDat <- read.csv("iDat.csv")
+iDat2 <- read_csv("iDat2.csv")
+identical(iDat, iDat2)  # gdpPercap not the same decimal places
 ## did your new factor levels "stick"? NO
 levels(iDat$country)
 
