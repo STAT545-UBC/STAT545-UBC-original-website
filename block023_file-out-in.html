@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Getting data in and out of R</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs\local\main.css" type="text/css" />
+<link rel="stylesheet" href="libs\local\nav.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Getting data in and out of R</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#optional-getting-started-advice">Optional getting started advice</a></li>
+<li><a href="#load-the-gapminder-data">Load the Gapminder data</a></li>
+<li><a href="#data-export-mindset">Data export mindset</a></li>
+<li><a href="#computing-something-worth-exporting">Computing something worth exporting</a></li>
+<li><a href="#write.table"><code>write.table()</code></a></li>
+<li><a href="#invertibility">Invertibility</a></li>
+<li><a href="#reordering-the-levels-of-the-country-factor">Reordering the levels of the country factor</a></li>
+<li><a href="#saverds-and-readrds"><code>saveRDS()</code> and <code>readRDS()</code></a></li>
+<li><a href="#retaining-factor-levels-upon-re-import">Retaining factor levels upon re-import</a></li>
+<li><a href="#dput-and-dget"><code>dput()</code> and <code>dget()</code></a></li>
+<li><a href="#other-types-of-objects-to-use-dput-or-saverds-on">Other types of objects to use <code>dput()</code> or <code>saveRDS()</code> on</a></li>
+<li><a href="#clean-up">Clean up</a></li>
+<li><a href="#pitfalls-of-delimited-files">Pitfalls of delimited files <a id="pitfalls"></a></a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<div id="optional-getting-started-advice" class="section level3">
+<h3>Optional getting started advice</h3>
+<p><em>Ignore if you don’t need this bit of support.</em></p>
+<p>This is one in a series of tutorials in which we explore basic data import, exploration and much more using data from the <a href="http://www.gapminder.org">Gapminder project</a>. Now is the time to make sure you are working in the appropriate directory on your computer, perhaps through the use of an <a href="block01_basicsWorkspaceWorkingDirProject.html">RStudio project</a>. To ensure a clean slate, you may wish to clean out your workspace and restart R (both available from the RStudio Session menu, among other methods). Confirm that the new R process has the desired working directory, for example, with the <code>getwd()</code> command or by glancing at the top of RStudio’s Console pane.</p>
+<p>Open a new R script (in RStudio, File &gt; New &gt; R Script). Develop and run your code from there (recommended) or periodicially copy “good” commands from the history. In due course, save this script with a name ending in .r or .R, containing no spaces or other funny stuff, and evoking “data export” or “writing data to file”.</p>
+</div>
+<div id="load-the-gapminder-data" class="section level3">
+<h3>Load the Gapminder data</h3>
+<p>Assuming the data can be found in the current working directory, this works:</p>
+<pre class="r"><code>gDat &lt;- read.delim(&quot;gapminderDataFiveYear.txt&quot;)</code></pre>
+<p>Plan B (I use here, because of where the source of this tutorial lives):</p>
+<pre class="r"><code>## data import from URL
+gdURL &lt;- &quot;http://www.stat.ubc.ca/~jenny/notOcto/STAT545A/examples/gapminder/data/gapminderDataFiveYear.txt&quot;
+gDat &lt;- read.delim(file = gdURL)</code></pre>
+<p>Basic sanity check that the import has gone well:</p>
+<pre class="r"><code>str(gDat)
+## &#39;data.frame&#39;:    1704 obs. of  6 variables:
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...</code></pre>
+</div>
+<div id="data-export-mindset" class="section level3">
+<h3>Data export mindset</h3>
+<p>There will be many occasions when you need to write data from R. Two main examples:</p>
+<ul>
+<li>a clean ready-to-analyze dataset that you heroically created from messy data</li>
+<li>a numerical result from data aggregation or modelling or statistical inference</li>
+</ul>
+<p>First tip: <strong>today’s outputs are tomorrow’s inputs</strong>. Think back on all the pain you have suffered importing data and try not self-inflict such pain in the future.</p>
+<p>Second tip: don’t be too cute or clever. A plain text file that is readable by a human being in a text editor should be your default until you have <strong>actual proof</strong> that this will not work. Reading and writing to exotic or proprietary formats will be the first thing to break in the future or on a different computer. It also creates barriers for anyone who has a different toolkit than you do. Be software-agnostic. Aim for future-proof and moron-proof.</p>
+<p>How does this fit with the current push towards dynamic reports? There is a time and place for everything. There are projects and documents where the scope and personnel will allow you to geek out with <code>knitr</code> and R Markdown. But there are lots of good reasons why (parts of) an analysis should not (only) be embedded in a dynamic report. Maybe you are just doing data cleaning to produce a valid input dataset. Maybe you are making a small but crucial contribution to a giant multi-author paper. Etc. Also remember there are other tools and workflows for making something reproducible. I’m looking at you, <a href="http://kbroman.github.io/minimal_make/">make</a>.</p>
+<p>Finally, certain data “shapes” or formats are simply more amenable to modelling, data aggregation, and visualization. Try to get data into this form early on in an analysis and proactively keep it that way. See the references below for links to two excellent articles on this topic:</p>
+<ul>
+<li>Nine simple ways to make it easier to (re)use your data by White, et al, primarily section 4 “Use Standard Data Formats”</li>
+<li>Tidy data by Wickham</li>
+</ul>
+</div>
+<div id="computing-something-worth-exporting" class="section level3">
+<h3>Computing something worth exporting</h3>
+<p>Let’s quickly redo an analysis <a href="block04_dataAggregation.html">we developed when learning about data aggregation</a>: linear regression of life expectancy on year, for each country separately. We store only the estimated slope and intercept.</p>
+<pre class="r"><code>library(plyr)
+yearMin &lt;- min(gDat$year)
+jFun &lt;- function(x) {
+  estCoefs &lt;- coef(lm(lifeExp ~ I(year - yearMin), x))
+  names(estCoefs) &lt;- c(&quot;intercept&quot;, &quot;slope&quot;)
+  return(estCoefs)
+  }
+jCoefs &lt;- ddply(gDat, ~ country + continent, jFun)
+str(jCoefs)
+## &#39;data.frame&#39;:    142 obs. of  4 variables:
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 4 1 1 2 5 4 3 3 4 ...
+##  $ intercept: num  29.9 59.2 43.4 32.1 62.7 ...
+##  $ slope    : num  0.275 0.335 0.569 0.209 0.232 ...
+tail(jCoefs)
+##                country continent intercept       slope
+## 137          Venezuela  Americas  57.51332  0.32972168
+## 138            Vietnam      Asia  39.01008  0.67161538
+## 139 West Bank and Gaza      Asia  43.79840  0.60110070
+## 140        Yemen, Rep.      Asia  30.13028  0.60545944
+## 141             Zambia    Africa  47.65803 -0.06042517
+## 142           Zimbabwe    Africa  55.22124 -0.09302098</code></pre>
+<p>The <code>jCoefs</code> data.frame is an example of an intermediate result that we want to store for the future and for downstream analyses or visualizations.</p>
+</div>
+<div id="write.table" class="section level3">
+<h3><code>write.table()</code></h3>
+<p>Recall that <code>read.table()</code> is the main workhorse for importing rectangular, spreadsheet-y data. As you might guess, <code>write.table()</code> is the main workhorse for exporting rectangular, spreadsheet-y data.</p>
+<pre class="r"><code>write.table(jCoefs, &quot;jCoefs.txt&quot;)</code></pre>
+<blockquote>
+<p>Note: I am not necessarily modelling good filenaming practice here. <code>jCoefs.txt</code> isn’t terribly descriptive. But for this tutorial I want to keep the filename short and have it match the data.frame name. Humor me.</p>
+</blockquote>
+<p>Let’s look at the first few lines of <code>jCoefs.txt</code>. If you’re following along, you should be able to open this file or, in a shell, use <code>head</code> on it.</p>
+<pre><code>&quot;country&quot; &quot;continent&quot; &quot;intercept&quot; &quot;slope&quot;
+&quot;1&quot; &quot;Afghanistan&quot; &quot;Asia&quot; 29.9072948717949 0.275328671328671
+&quot;2&quot; &quot;Albania&quot; &quot;Europe&quot; 59.2291282051282 0.334683216783216
+&quot;3&quot; &quot;Algeria&quot; &quot;Africa&quot; 43.3749743589744 0.56927972027972
+&quot;4&quot; &quot;Angola&quot; &quot;Africa&quot; 32.1266538461539 0.20933986013986
+&quot;5&quot; &quot;Argentina&quot; &quot;Americas&quot; 62.6884358974359 0.231708391608391</code></pre>
+<p>I always find this mildly disappointing. All those quotes! Quoted stupid numerical rownames! No visible alignment! Must it be this ugly?</p>
+<ul>
+<li>The character information (and yes, factors are character for this purpose, for that’s what’s written to file), is protected by quotes. Note this affects variable names, rownames, and variables themselves in the current example. For future re-import, this quoting is often not strictly necessary. In particular, these quotes are often not necessary for typical re-importation into R, so I often suppress. See <a href="#pitfalls">Pitfalls of delimited files</a> below for more details.</li>
+<li>The stupid character-coerced default numerical rownames are easy to suppress. I rarely use rownames deliberately – if the info is important to me, I put it into a proper variable. But I can imagine contexts where the rownames are meaningful, such as immediately after certain data aggregation workflows.</li>
+<li>It’s not really fair to complain about the lack of visible alignment. Remember we are <a href="https://twitter.com/vsbuffalo/statuses/358699162679787521">“writing data for computers”</a>. If you really want to browse around the file, open it in Microsoft Excel (!) but don’t succumb to the temptation to start doing artisanal data manipulations there … get back to R and construct commands that you can re-run the next 15 times you import/clean/aggregate/export the same dataset. Trust me, it will happen.</li>
+</ul>
+<p>Let’s write to file again, using some of <code>write.table()</code>’s many arguments to impose our will.</p>
+<pre class="r"><code>write.table(jCoefs, &quot;jCoefs.txt&quot;, quote = FALSE, sep = &quot;\t&quot;, row.names = FALSE)</code></pre>
+<p>and examine the first few lines:</p>
+<pre><code>country continent   intercept   slope
+Afghanistan Asia    29.9072948717949    0.275328671328671
+Albania Europe  59.2291282051282    0.334683216783216
+Algeria Africa  43.3749743589744    0.56927972027972
+Angola  Africa  32.1266538461539    0.20933986013986
+Argentina   Americas    62.6884358974359    0.231708391608391</code></pre>
+<p>Much better.</p>
+</div>
+<div id="invertibility" class="section level3">
+<h3>Invertibility</h3>
+<p>It turns out these self-imposed rules are often in conflict with one another</p>
+<ul>
+<li>Write to plain text files</li>
+<li>Break analysis into pieces: the output of script <code>i</code> is an input for script <code>i + 1</code></li>
+<li>Be the boss of factors: order the levels in a meaningful, usually non-alphabetical way</li>
+<li>Avoid duplication of code and data</li>
+</ul>
+<p>Example: after performing the country-specific linear fits, we might choose to reorder the levels of the country factor. We could order based on the intercept or the slope, possibly ordering within continent, perhaps even after reordering the continent levels themselves! In any case, those reordering operations are conceptually important and must be embodied in R commands stored in a script. However, as soon as we write <code>jCoefs</code> to a plain text file, that meta-information about the countries and continents is lost. Upon re-import with <code>read.table()</code>, we are back to alphabetically ordered factor levels. Any measure we take to avoid this loss immediately breaks another one of our rules.</p>
+<p>So what do I do? I must admit I save (and re-load) R-specific binary files. Right after I save the plain text file. <a href="http://www.wisegeek.com/what-does-it-mean-to-wear-belt-and-suspenders.htm">Belt and suspenders</a>.</p>
+<p>I have toyed with the idea of writing import helper functions for a specific project, that would re-order factor levels in principled ways. They could be defined in one file and called from many. This would also have a very natural implementation within <a href="http://carlboettiger.info/2012/05/06/research-workflow.html">a workflow where each analytical project is an R package</a>. But so far it has seemed too much like <a href="http://sethgodin.typepad.com/seths_blog/2005/03/dont_shave_that.html">yak shaving</a>.</p>
+</div>
+<div id="reordering-the-levels-of-the-country-factor" class="section level3">
+<h3>Reordering the levels of the country factor</h3>
+<p>The topic of <a href="block08_bossYourFactors.html">factor level reordering is covered elsewhere</a>, so let’s Just. Do. It. I reorder the country factor levels according to the intercept, i.e. the life expectancy in 1952.</p>
+<pre class="r"><code>head(levels(jCoefs$country)) # alphabetical order
+## [1] &quot;Afghanistan&quot; &quot;Albania&quot;     &quot;Algeria&quot;     &quot;Angola&quot;      &quot;Argentina&quot;  
+## [6] &quot;Australia&quot;
+jCoefs &lt;- within(jCoefs, country &lt;- reorder(country, intercept))
+head(levels(jCoefs$country)) # in increasing order of 1952 life expectancy
+## [1] &quot;Gambia&quot;        &quot;Afghanistan&quot;   &quot;Yemen, Rep.&quot;   &quot;Sierra Leone&quot; 
+## [5] &quot;Guinea&quot;        &quot;Guinea-Bissau&quot;
+head(jCoefs)
+##       country continent intercept     slope
+## 1 Afghanistan      Asia  29.90729 0.2753287
+## 2     Albania    Europe  59.22913 0.3346832
+## 3     Algeria    Africa  43.37497 0.5692797
+## 4      Angola    Africa  32.12665 0.2093399
+## 5   Argentina  Americas  62.68844 0.2317084
+## 6   Australia   Oceania  68.40051 0.2277238</code></pre>
+<p>Note that the <strong>row order of <code>jCoefs</code> has not changed</strong>. I could choose to reorder the rows of the data.frame if, for example, I was about to prepare a table to present to people. But I’m not, so I won’t.</p>
+</div>
+<div id="saverds-and-readrds" class="section level3">
+<h3><code>saveRDS()</code> and <code>readRDS()</code></h3>
+<p>If you have a data.frame AND you have exerted yourself to rationalize the factor levels, you have my blessing to save it to file in a way that will preserve this hard work upon re-import. Use <code>saveRDS()</code>.</p>
+<pre class="r"><code>saveRDS(jCoefs, &quot;jCoefs.rds&quot;)</code></pre>
+<p>Note that, unlike an approach based on <code>save()</code> and <code>load()</code>, you must make an object assignment upon import (see below). This implies that you could give the object a totally different name, but why confuse yourself like that? Full disclosure: you will eventually get curious about <code>save()</code> or <code>save.image()</code> + <code>load()</code>, which save and restore multiple objects or even an entire workspace. Tempting though it may be, I recommend you just say no to these functions. Source is real; workspaces are not.</p>
+<p><code>saveRDS()</code> has more arguments, such as one controlling compression, so read the help for more advanced usage. It is also very handy for saving non-rectangular objects, like a fitted regression model, that took a nontrivial amount of time to compute.</p>
+</div>
+<div id="retaining-factor-levels-upon-re-import" class="section level3">
+<h3>Retaining factor levels upon re-import</h3>
+<p>Concrete demonstration of how non-alphabetical factor level order is lost with <code>write.table()</code> / <code>read.table()</code> but maintained with <code>saveRDS()</code> / <code>readRDS()</code>.</p>
+<pre class="r"><code>jCoefs &lt;- ddply(gDat, ~ country + continent, jFun)
+jCoefs &lt;- within(jCoefs, country &lt;- reorder(country, intercept))
+str(jCoefs)
+## &#39;data.frame&#39;:    142 obs. of  4 variables:
+##  $ country  : Factor w/ 142 levels &quot;Gambia&quot;,&quot;Afghanistan&quot;,..: 2 98 52 7 109 132 120 83 17 131 ...
+##   ..- attr(*, &quot;scores&quot;)= num [1:142(1d)] 29.9 59.2 43.4 32.1 62.7 ...
+##   .. ..- attr(*, &quot;dimnames&quot;)=List of 1
+##   .. .. ..$ : chr  &quot;Afghanistan&quot; &quot;Albania&quot; &quot;Algeria&quot; &quot;Angola&quot; ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 4 1 1 2 5 4 3 3 4 ...
+##  $ intercept: num  29.9 59.2 43.4 32.1 62.7 ...
+##  $ slope    : num  0.275 0.335 0.569 0.209 0.232 ...
+countryLevels &lt;- data.frame(original = head(levels(jCoefs$country)))
+write.table(jCoefs, &quot;jCoefs.txt&quot;, quote = FALSE, sep = &quot;\t&quot;, row.names = FALSE)
+saveRDS(jCoefs, &quot;jCoefs.rds&quot;)
+rm(jCoefs)
+head(jCoefs) # will cause error! proving jCoefs is really gone 
+## Error in head(jCoefs): object &#39;jCoefs&#39; not found
+jCoefsTable &lt;- read.delim(&quot;jCoefs.txt&quot;)
+jCoefsRDS &lt;- readRDS(&quot;jCoefs.rds&quot;)
+countryLevels$postRDS &lt;- head(levels(jCoefsRDS$country))
+countryLevels$postTable &lt;- head(levels(jCoefsTable$country))
+countryLevels
+##        original       postRDS   postTable
+## 1        Gambia        Gambia Afghanistan
+## 2   Afghanistan   Afghanistan     Albania
+## 3   Yemen, Rep.   Yemen, Rep.     Algeria
+## 4  Sierra Leone  Sierra Leone      Angola
+## 5        Guinea        Guinea   Argentina
+## 6 Guinea-Bissau Guinea-Bissau   Australia</code></pre>
+<p>Note how the original, post-reordering country factor levels are restored using the <code>saveRDS()</code> / <code>readRDS()</code> strategy but revert to alphabetical ordering using <code>write.table()</code> / <code>read.table()</code>.</p>
+</div>
+<div id="dput-and-dget" class="section level3">
+<h3><code>dput()</code> and <code>dget()</code></h3>
+<p>One last method of saving and restoring data deserves a mention: <code>dput()</code> and <code>dget()</code>. <code>dput()</code> offers this odd combination of features: it creates a plain text representation of an R object which still manages to be quite opaque. If you use the <code>file =</code> argument, <code>dput()</code> can write this representation to file but you won’t be tempted to actually read that thing. <code>dput()</code> creates an R-specific-but-not-binary representation. Let’s try it out.</p>
+<pre class="r"><code>## first restore jCoefs with our desired country factor level order
+jCoefs &lt;- readRDS(&quot;jCoefs.rds&quot;)
+dput(jCoefs, &quot;jCoefs-dput.txt&quot;)</code></pre>
+<p>Now let’s look at the first few lines of the file <code>jCoefs-dput.txt</code>.</p>
+<pre><code>structure(list(country = structure(c(2L, 98L, 52L, 7L, 109L, 
+132L, 120L, 83L, 17L, 131L, 33L, 27L, 95L, 84L, 81L, 115L, 13L, 
+38L, 23L, 42L, 136L, 28L, 34L, 88L, 70L, 86L, 36L, 44L, 69L, 
+97L, 61L, 111L, 105L, 127L, 138L, 18L, 74L, 75L, 40L, 66L, 10L, 
+15L, 16L, 121L, 130L, 29L, 1L, 129L, 53L, 126L, 46L, 5L, 6L, 
+31L, 49L, 110L, 117L, 141L, 32L, 21L, 62L, 79L, 128L, 119L, 123L, </code></pre>
+<p>Huh? Don’t worry about it. Remember we are <a href="https://twitter.com/vsbuffalo/statuses/358699162679787521">“writing data for computers”</a>. The partner function <code>dget()</code> reads this representation back in.</p>
+<pre class="r"><code>jCoefsPut &lt;- dget(&quot;jCoefs-dput.txt&quot;)
+countryLevels$postPut &lt;- head(levels(jCoefsPut$country))
+countryLevels
+##        original       postRDS   postTable       postPut
+## 1        Gambia        Gambia Afghanistan        Gambia
+## 2   Afghanistan   Afghanistan     Albania   Afghanistan
+## 3   Yemen, Rep.   Yemen, Rep.     Algeria   Yemen, Rep.
+## 4  Sierra Leone  Sierra Leone      Angola  Sierra Leone
+## 5        Guinea        Guinea   Argentina        Guinea
+## 6 Guinea-Bissau Guinea-Bissau   Australia Guinea-Bissau</code></pre>
+<p>Note how the original, post-reordering country factor levels are restored using the <code>dput()</code> / <code>dget()</code> strategy.</p>
+<p>But why on earth would you ever do this?</p>
+<p>The main application of this is <a href="http://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example">the creation of highly portable, self-contained minimal examples</a>. For example, if you want to pose a question on a forum or directly to an expert, it might be required or just plain courteous to NOT attach any data files. You will need a monolithic, plain text blob that defines any necessary objects and has the necessary code. <code>dput()</code> can be helpful for producing the piece of code that defines the object. If you <code>dput()</code> without specifying a file, you can copy the return value from Console and paste into a script. Or you can write to file and copy from there or add R commands below.</p>
+</div>
+<div id="other-types-of-objects-to-use-dput-or-saverds-on" class="section level3">
+<h3>Other types of objects to use <code>dput()</code> or <code>saveRDS()</code> on</h3>
+<p>My special dispensation to abandon human-readable, plain text files is even broader than I’ve let on. Above, I give my blessing to store data.frames via <code>dput()</code> and/or <code>saveRDS()</code>, when you’ve done some rational factor level re-ordering. The same advice and mechanics apply a bit more broadly: you’re also allowed to use R-specific file formats to save vital non-rectangular objects, such as a fitted nonlinear mixed effects model or a classification and regression tree.</p>
+</div>
+<div id="clean-up" class="section level3">
+<h3>Clean up</h3>
+<p>We’ve written several files in this tutorial. Some of them are not of lasting value or have confusing filenames. I choose to delete them, while demonstrating some of the many functions R offers for interacting with the filesystem. It’s up to you whether you want to submit this command or not.</p>
+<pre class="r"><code>file.remove(list.files(pattern = &quot;^jCoef&quot;))
+## [1] TRUE TRUE TRUE</code></pre>
+</div>
+<div id="pitfalls-of-delimited-files" class="section level3">
+<h3>Pitfalls of delimited files <a id="pitfalls"></a></h3>
+<blockquote>
+<p>Still under development. Really belongs in a data cleaning and import topic or tutorial, but such does not yet exist.</p>
+</blockquote>
+<blockquote>
+<p>I could also add explicit demos of writing LaTeX or HTML tables to file versus having them appear “live” in a dynamic report.</p>
+</blockquote>
+<p>If a delimited file contains fields where a human being has typed, be crazy paranoid because people do really nutty things. Especially people who aren’t in the business of programming and have never had to compute on text. Claim: a person’s regular expression skill is inversely proportional to the skill required to handle the files they create. Implication: if someone has never heard of regular expressions, prepare for lots of pain working with their files.</p>
+<p>When the header fields (often, but not always, the variable names) or actual data contain the delimiter, it can lead to parsing and import failures. Two popular delimiters are the comma <code>,</code> and the TAB <code>\t</code> and humans tend to use these when typing. If you can design this problem away during data capture, such as by using a drop down menu on an input form, by all means do so. Sometimes this is impossible or undesirable and you must deal with fairly free form text. That’s a good time to allow text to be protected with quotes, because it will make parsing the delimited file go more smoothly.</p>
+<p>Possible examples: numbers like “12,121” … re-export from wherever it’s coming from or import as character and then address; “bryan, jenny” … maybe those should be two separate fields, so view the comma as a delimiter, not a problem</p>
+<p>Sometimes, instead of rigid tab-delimiting, whitespace is used as the delimiter. That is, in fact, the default for both <code>read.table()</code> and <code>write.table()</code>. Assuming you will write/read variable names from the first line (a.k.a. the <code>header</code> in <code>write.table()</code> and <code>read.table()</code>), they must be valid R variable names … or they will be coerced into something valid. So, for these two reasons, it is good practice to use “one word”&quot; variable names whenever possible. If you need to evoke multiple words, use camelCase or underscores or periods to cope. Example: the header entry for the field holding the subject’s last name should be <code>lastName</code> or <code>last_name</code> or <code>last.name</code> NOT <code>last name</code>.</p>
+</div>
+<div id="references" class="section level3">
+<h3>References</h3>
+<p>Nine simple ways to make it easier to (re)use your data by Ethan P White, Elita Baldridge, Zachary T. Brym, Kenneth J. Locey, Daniel J. McGlinn, Sarah R. Supp.</p>
+<ul>
+<li>First appeared here: PeerJ PrePrints 1:e7v2 <a href="http://dx.doi.org/10.7287/peerj.preprints.7v2" class="uri">http://dx.doi.org/10.7287/peerj.preprints.7v2</a></li>
+<li>Published here: Ideas in Ecology and Evolution 6(2): 1–10, 2013. <a href="doi:10.4033/iee.2013.6b.6.f" class="uri">doi:10.4033/iee.2013.6b.6.f</a> <a href="http://library.queensu.ca/ojs/index.php/IEE/article/view/4608" class="uri">http://library.queensu.ca/ojs/index.php/IEE/article/view/4608</a></li>
+<li>Section 4 “Use Standard Data Formats” is especially good reading.</li>
+</ul>
+<p>Tidy data by Hadley Wickham. Submitted to The Journal of Statistical Software. Preprint available <a href="http://vita.had.co.nz/papers/tidy-data.pdf" class="uri">http://vita.had.co.nz/papers/tidy-data.pdf</a>.</p>
+<p>Data Manipulation with R <a href="http://ezproxy.library.ubc.ca/login?url=http://link.springer.com.ezproxy.library.ubc.ca/book/10.1007/978-0-387-74731-6/page/1">available via SpringerLink</a> by Phil Spector, Springer (2008) | <a href="http://www.stat.berkeley.edu/%7Espector/">author webpage</a> | <a href="http://books.google.com/books?id=grfuq1twFe4C&amp;lpg=PP1&amp;dq=data%2520manipulation%2520spector&amp;pg=PP1#v=onepage&amp;q=&amp;f=false">GoogleBooks search</a></p>
+<ul>
+<li>See Chapter 2 (“Reading and Writing Data”)</li>
+</ul>
+<div class="footer">
+This work is licensed under the <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
