@@ -29,6 +29,7 @@
   * The `dplyr` package for data manipulation
     - [Introduction to dplyr](block009_dplyr-intro.html)
     - [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
+    - Overview of split-apply-combine: [slides on speakerdeck](https://speakerdeck.com/jennybc/ubc-stat545-split-apply-combine-intro)
     - [Split-apply-combine with `dplyr::do()`](block023_dplyr-do.html)
     - Example: [a wrapper around `lm` to use with `dplyr::do()`](block025_lm-poly.html)
     - [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
@@ -38,13 +39,8 @@
     - [Part 2](block011_write-your-own-function-02.html): generalize, set default argument values
     - [Part 3](block011_write-your-own-function-03.html):`NA` handling, `...`, unit test
     - [Function-writing Practicum](block012_function-regress-lifeexp-on-year.html): fit a linear model and return estimated coefficients
-  * The `plyr` package for split-apply-combine
-    - Data aggregation overview [*slides*](http://www.slideshare.net/jenniferbryan5811/cm009-data-aggregation) 
-    - [Using `plyr` with data.frames](block013_plyr-ddply.html)
   * [Be the boss of your factors](block014_factors.html)
-  * Writing and reading files
-    - [Indicative code from hands on activities](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm011_files-out-in-script.r)
-    - [2013 lesson](http://www.stat.ubc.ca/~jenny/STAT545A/block05_getNumbersOut.html) *2014 update: do data manipulation with `dplyr`*
+  * [Writing and reading files](block026_file-out-in.html)
   * [Why and how to tidy data](bit002_tidying-lotr-data.html)
   * [Regular expressions](block022_regular-expression.html) and more about character data
   * [All the automation things](automation00_index.html)
