@@ -9,7 +9,7 @@ output:
   * [HW07](hw07_data-wrangling-grand-finale.html) due ???
   * [Regular expressions and handling character data](block027_regular-expressions-2015.html), led by Kieran Samuk
   * [Link to RegEx101 Test File](https://regex101.com/r/gZ2uW4/2)
-  * [Alterate link to the news_tweets.txt data file](block027_regular_expressions-2015_files/news_tweets.txt)
+  * [Alterate link to the news_tweets.txt data file](regex_files/news_tweets.txt)
 
 ### slides
 
