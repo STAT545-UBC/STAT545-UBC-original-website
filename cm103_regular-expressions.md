@@ -2,12 +2,13 @@
 output:
   html_document:
     toc: true
-    includes:
-      after_body: include/nothing.html
 ---
 
-### cm103 2014-10-27 Monday overview
+### cm103 2015-10-28 Thursday
 
-  * [HW07](hw07_data-wrangling-grand-finale.html) due Thursday October 30
-  * [Office hours](https://github.com/STAT545-UBC/Discussion/issues/47) are back ON; check that issue for up-to-date info
-  * [Regular expressions and handling character data](block022_regular-expression.html), led by Gloria Li
+  * [HW07](hw07_data-wrangling-grand-finale.html) due ???
+  * [Regular expressions and handling character data](block027_regular-expressions-2015.html), led by Kieran Samuk
+
+### slides
+
+<script async class="speakerdeck-embed" data-id="b1efa8fafa73417aabe49a020b9e63a7" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script> <div style="margin-bottom:5px"> <strong> <a href="https://speakerdeck.com/ksamuk/ubc-stat545-2015-cm103-introduction-to-regular-expressions" target="_blank">Intro to Regular Expressions </a> </strong> from <strong><a href="https://speakerdeck.com/ksamuk" target="_blank">Kieran Samuk</a></strong> </div>
