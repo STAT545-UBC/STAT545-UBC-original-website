@@ -26,7 +26,6 @@ sep-29 tues    <a href="cm007_dplyr-intro.html">cm007</a>: dplyr: the pipe and s
 oct-01 thurs   <a href="cm008_dplyr-contd.html">cm008</a>: dplyr: group_by                                                                        
 oct-06 tues    <a href="cm009_r-objects-collections.html">cm009</a>: Basic flavors of R objects                                                   
 oct-08 thurs   <a href="cm010_write-function.html">cm010</a>: Writing your own R functions                                                        
-oct-13 tues    <a href="cm011_files-out-in.html">cm011</a>: Split-Apply-Combine                                                                   
 oct-13 tues    <a href="cm011_split-apply-combine.html">cm011</a>: Split-Apply-Combine                                                            
 oct-15 thurs   <a href="cm012_tidy-data-factors.html">cm012</a>: Tidy data and reshaping; be the boss of your factors                             
 oct-20 tues    <a href="cm013_practical-figure-making.html">cm013</a>: Practical graphing tips                                                    
