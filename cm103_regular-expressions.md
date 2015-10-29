@@ -8,6 +8,7 @@ output:
 
   * [HW07](hw07_data-wrangling-grand-finale.html) due ???
   * [Regular expressions and handling character data](block027_regular-expressions-2015.html), led by Kieran Samuk
+  * [Link to RegEx101 Test File](https://regex101.com/r/gZ2uW4/2)
 
 ### slides
 
