@@ -38,7 +38,7 @@ oct-22 thurs   <a href="cm014_viz-design-munzner.html">cm014</a>: Visualization 
 date           notes                                                                            
 -------------  ---------------------------------------------------------------------------------
 oct-27 tues    <a href="cm101_files-out-in.html">cm101</a>: Getting data out of R (and back in) 
-oct-29 thurs   cm102: Regular expressions and character data                                    
+oct-29 thurs   <a href="cm103_regular-expressions.html">cm102</a> Regular expressions and character data
 nov-03 tues    cm103: Data cleaning                                                             
 nov-05 thurs   cm104: TBA                                                                       
 nov-10 tues    cm105: Build your first R package                                                

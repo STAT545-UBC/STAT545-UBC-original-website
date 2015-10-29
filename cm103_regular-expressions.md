@@ -4,7 +4,7 @@ output:
     toc: true
 ---
 
-### cm103 2015-10-28 Thursday
+### cm102 2015-10-28 Thursday
 
   * [HW07](hw07_data-wrangling-grand-finale.html) due ???
   * [Regular expressions and handling character data](block027_regular-expressions-2015.html), led by Kieran Samuk
