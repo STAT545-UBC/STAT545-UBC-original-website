@@ -32,9 +32,6 @@ cmdat <- data_frame(html = list.files(pattern = '^cm.*html$'))
 cmdat <- cmdat %>% mutate(cm = str_extract(html, "cm[0-9]+"))
 cdat <- cdat %>% full_join(cmdat)
 
-## TO DO: rescue placeholders for "Practical graphing tips and tidy data" and
-## "Tidy data"
-
 #cdat <- cdat %>%
 #  mutate(html_exists = !is.na(html)) %>% 
 cdat$notes[cdat$link_it] <-
