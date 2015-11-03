@@ -188,7 +188,7 @@ head(levels(gfits$country)) # in increasing order of 1952 life expectancy
 head(gfits)
 ```
 
-Note that the __row order of `jCoefs` has not changed__. I could choose to reorder the rows of the data.frame if, for example, I was about to prepare a table to present to people. But I'm not, so I won't.
+Note that the __row order of `gfits` has not changed__. I could choose to reorder the rows of the data.frame if, for example, I was about to prepare a table to present to people. But I'm not, so I won't.
 
 ### `saveRDS()` and `readRDS()`
 

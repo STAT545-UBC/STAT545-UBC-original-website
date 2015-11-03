@@ -260,7 +260,7 @@ head(gfits)
 ## 6   Australia   Oceania  68.40051 0.2277238
 ```
 
-Note that the __row order of `jCoefs` has not changed__. I could choose to reorder the rows of the data.frame if, for example, I was about to prepare a table to present to people. But I'm not, so I won't.
+Note that the __row order of `gfits` has not changed__. I could choose to reorder the rows of the data.frame if, for example, I was about to prepare a table to present to people. But I'm not, so I won't.
 
 ### `saveRDS()` and `readRDS()`
 
