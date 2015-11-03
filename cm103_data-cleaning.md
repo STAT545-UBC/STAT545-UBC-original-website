@@ -18,9 +18,9 @@ output:
     - look in [data-raw](https://github.com/jennybc/candy/tree/master/data-raw)
     - specifically [data-raw/00_explore-raw.R](https://github.com/jennybc/candy/blob/master/data-raw/00_explore-raw.R) will get you started and poses some challenges
 
-2014 slides available on [speakerdeck](https://speakerdeck.com/jennybc/ubc-stat545-2014-cm104-data-cleaning-via-gapminder)
+Slides available on [speakerdeck](https://speakerdeck.com/jennybc/ubc-stat545-2015-cm103-data-cleaning-via-gapminder)
 
-<script async class="speakerdeck-embed" data-id="5e6765704c300132129f2ee134ae9694" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script> <div style="margin-bottom:5px"> <strong> <a href="https://speakerdeck.com/jennybc/ubc-stat545-2014-cm104-data-cleaning-via-gapminder" title="UBC STAT545 2014 class on Data cleaning via Gapminder" target="_blank">UBC STAT545 2014 class on Data cleaning via Gapminder</a> </strong> from <strong><a href="https://speakerdeck.com/jennybc" target="_blank">Jennifer Bryan</a></strong> </div>
+<script async class="speakerdeck-embed" data-id="5e6765704c300132129f2ee134ae9694" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script> <div style="margin-bottom:5px"> <strong> <a href="https://speakerdeck.com/jennybc/ubc-stat545-2015-cm103-data-cleaning-via-gapminder" title="UBC STAT545 2015 class on Data cleaning via Gapminder" target="_blank">UBC STAT545 2015 class on Data cleaning via Gapminder</a> </strong> from <strong><a href="https://speakerdeck.com/jennybc" target="_blank">Jennifer Bryan</a></strong> </div>
 
 Links from the slides or generally relevant to data cleaning
 
