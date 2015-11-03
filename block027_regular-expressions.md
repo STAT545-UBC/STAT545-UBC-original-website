@@ -519,7 +519,7 @@ This feels like we are winning. Now for some fun: a word cloud.
 
 ```r
 #install.packages("wordcloud")
-#devtools::install_github("karthik/wesanderson")
+#install.packages("wesanderson")
 library("wordcloud")
 library("wesanderson")
 
@@ -530,7 +530,7 @@ word_counts %>%
 	with(wordcloud(word, count, ordered.colors = TRUE, color = pal, use.r.layout = TRUE))
 ```
 
-![](block027_regular-expressions-2015_files/figure-html/unnamed-chunk-26-1.png) 
+![](block027_regular-expressions_files/figure-html/unnamed-chunk-26-1.png) 
 
 We could also break it up by agency:
 
@@ -560,7 +560,7 @@ for (i in 1:4){
 }
 ```
 
-![](block027_regular-expressions-2015_files/figure-html/unnamed-chunk-27-1.png) 
+![](block027_regular-expressions_files/figure-html/unnamed-chunk-27-1.png) 
 
 ### That's it!
 

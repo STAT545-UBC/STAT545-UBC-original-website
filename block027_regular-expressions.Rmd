@@ -16,7 +16,6 @@ Install `stringr` if you don't have it already!
 library("stringr")
 library("dplyr")
 library("ggplot2")
-
 ```
 
 ## Part 1: Basic string manipluation in R
@@ -251,7 +250,7 @@ word_counts %>%
 This feels like we are winning. Now for some fun: a word cloud.
 ```{r warning=FALSE, message=FALSE}
 #install.packages("wordcloud")
-#devtools::install_github("karthik/wesanderson")
+#install.packages("wesanderson")
 library("wordcloud")
 library("wesanderson")
 

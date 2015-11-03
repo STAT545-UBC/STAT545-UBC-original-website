@@ -438,7 +438,7 @@ word_counts %&gt;%
 ## 30       China    31</code></pre>
 <p>This feels like we are winning. Now for some fun: a word cloud.</p>
 <pre class="r"><code>#install.packages(&quot;wordcloud&quot;)
-#devtools::install_github(&quot;karthik/wesanderson&quot;)
+#install.packages(&quot;wesanderson&quot;)
 library(&quot;wordcloud&quot;)
 library(&quot;wesanderson&quot;)
 
@@ -447,7 +447,7 @@ pal &lt;- wes_palette(name = &quot;Zissou&quot;, 51, type =&quot;continuous&quot
 word_counts %&gt;%
     top_n(50) %&gt;%
     with(wordcloud(word, count, ordered.colors = TRUE, color = pal, use.r.layout = TRUE))</code></pre>
-<p><img src="block027_regular-expressions-2015_files/figure-html/unnamed-chunk-26-1.png" alt="" /></p>
+<p><img src="block027_regular-expressions_files/figure-html/unnamed-chunk-26-1.png" alt="" /></p>
 <p>We could also break it up by agency:</p>
 <pre class="r"><code>news_clean_tweets &lt;- news_tweets
 news_clean_tweets$text &lt;- clean_tweets
@@ -471,7 +471,7 @@ for (i in 1:4){
         text(0, 0.9, words_df$user_name[i], cex = 1.5, adj = c(0, 0))
     
 }</code></pre>
-<p><img src="block027_regular-expressions-2015_files/figure-html/unnamed-chunk-27-1.png" alt="" /></p>
+<p><img src="block027_regular-expressions_files/figure-html/unnamed-chunk-27-1.png" alt="" /></p>
 </div>
 <div id="thats-it" class="section level3">
 <h3>That’s it!</h3>
