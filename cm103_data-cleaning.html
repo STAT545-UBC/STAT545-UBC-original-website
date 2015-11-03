@@ -13,10 +13,21 @@
 <title></title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
-<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -37,7 +48,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
 
 </head>
 
@@ -48,6 +61,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
 }
 </style>
 <div class="container-fluid main-container">
@@ -70,32 +91,29 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="TOC">
 <ul>
-<li><a href="#cm104-2014-10-29-wednesday-overview">cm104 2014-10-29 Wednesday overview</a></li>
+<li><a href="#cm103-2015-11-02-tuesday-overview">cm103 2015-11-02 Tuesday overview</a></li>
 </ul>
 </div>
 
-<div id="cm104-2014-10-29-wednesday-overview" class="section level3">
-<h3>cm104 2014-10-29 Wednesday overview</h3>
+<div id="cm103-2015-11-02-tuesday-overview" class="section level3">
+<h3>cm103 2015-11-02 Tuesday overview</h3>
 <ul>
-<li><a href="hw07_data-wrangling-grand-finale.html">HW07</a> due Thursday October 30</li>
-<li><a href="hw08_data-cleaning.html">HW08</a> re: handling character data and data cleaning
+<li>HW07 due Wednesday November 11
 <ul>
-<li><del>will be posted soon</del> <strong>posted</strong></li>
-<li>due Thursday November 06</li>
-</ul></li>
-<li><a href="https://github.com/STAT545-UBC/Discussion/issues/47">Office hours</a> are back ON; check that issue for up-to-date info</li>
-<li><a href="block022_regular-expression.html">Regular expressions and handling character data</a>, led by Gloria Li <em>continuing from Monday</em></li>
-<li>Data cleaning via the Gapminder example (now an <a href="https://github.com/jennybc/gapminder">R package!</a>)
-<ul>
-<li><em>God willing, the slides are embedded below?</em></li>
+<li>Bring the Candy Survey data – or part of it – to a ready-to-analyze state and do basic exploration.</li>
+<li>It is vital that you <strong>finish some task</strong>, nachos to cheesecake. We want a bit of story, some tables, some figures. Keep scaling back the cleaning and reshaping until you can manage this. Then scale up til you run out of time or patience.</li>
+<li>We might add an optional regex exercise.</li>
 </ul></li>
 </ul>
+<p>2014 slides available on <a href="https://speakerdeck.com/jennybc/ubc-stat545-2014-cm104-data-cleaning-via-gapminder">speakerdeck</a></p>
 <script async class="speakerdeck-embed" data-id="5e6765704c300132129f2ee134ae9694" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
-
+<div style="margin-bottom:5px">
+<strong> <a href="https://speakerdeck.com/jennybc/ubc-stat545-2014-cm104-data-cleaning-via-gapminder" title="UBC STAT545 2014 class on Data cleaning via Gapminder" target="_blank">UBC STAT545 2014 class on Data cleaning via Gapminder</a> </strong> from <strong><a href="https://speakerdeck.com/jennybc" target="_blank">Jennifer Bryan</a></strong>
+</div>
 <p>Links from the slides or generally relevant to data cleaning</p>
 <ul>
 <li><a href="http://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf">An introduction to data cleaning with R</a>, a PDF based on a tutorial given by Edwin de Jonge and Mark van der Loo at the useR!2013 conference.</li>
-<li><a href="http://www.slideshare.net/jenniferbryan5811/excel-readwritedelimfiles">Excel and delimited files</a>, two pages by JB on reading and writing delimited files from Excel. Writing a delimited file from Excel is often the first step in data cleaning.</li>
+<li><a href="http://www.slideshare.net/jenniferbryan5811/excel-readwritedelimfiles">Excel and delimited files</a>, a whopping two pages by JB on writing plain text delimited files from Excel. Writing a delimited file from Excel is often the first step in data cleaning, but some people are mysteriously reluctant to do this. Here’s how!</li>
 </ul>
 </div>
 
