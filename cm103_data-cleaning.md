@@ -6,7 +6,7 @@ output:
       after_body: include/nothing.html
 ---
 
-### cm103 2015-11-02 Tuesday overview
+### cm103 2015-11-03 Tuesday overview
 
   * HW07 due Wednesday November 11
     - Bring the Candy Survey data -- or part of it -- to a ready-to-analyze state and do basic exploration.
