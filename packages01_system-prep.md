@@ -19,7 +19,7 @@ Embarking on your career as an R package developer is an important milestone. Wh
 
 Sorry folks! Yes here we are again, installing software together while the Mac people sit there looking smug.
 
-*Warning: we are still weighing various recommendations for what Windows users should do. You can probably get by for quite a while without installing `Rtools` as described below, but it will eventually be come necessary and the `devtools` package will alert you to this. For example, once your package development/building activities involve compiling code, you will need `Rtools`.*
+*Warning: we are still weighing various recommendations for what Windows users should do. You can probably get by for quite a while without installing `Rtools` as described below, but it will eventually become necessary and the `devtools` package will alert you to this. For example, once your package development/building activities involve compiling code, you will need `Rtools`.*
 
 You need to install `Rtools`. This is __NOT an R package__ but is rather "a collection of resources for building packages for R under Microsoft Windows, or for building R itself". Go here and do what it says:
 
@@ -31,10 +31,10 @@ Note the repeated advice to stay current: "We recommend that users use the lates
 
 Install the following packages. If you already have them, update them. *versions reflect TA Bernhard's system when lesson was delivered 2014-11*
 
-  * `devtools` 1.6.1
-  * `roxygen2` 4.0.2
-  * `testthat` 0.9.1
-  * `knitr` 1.7
+  * `devtools` 1.9.1
+  * `roxygen2` 5.0.0
+  * `testthat` 0.11.0
+  * `knitr` 1.11
 
 Example of how to check which version of a package you've got installed:
 
