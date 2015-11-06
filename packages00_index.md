@@ -50,7 +50,7 @@ Hilary Parker's [blog post](http://hilaryparker.com/2014/04/29/writing-an-r-pack
 
   * "I was hit with that familiar feeling of the joy of optimization combined with the regret of past inefficiencies (joygret?). I wish I could go back in time and create the package the first moment I thought about it, and then use all the saved time to watch cat videos because that really would have been more productive."
   * the glorious result: <https://github.com/hilaryparker/cats>
-  * see some usage in the [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/) *hint: filter for chapter "other"*
+  * see some usage in the [R Graph Catalog](http://shiny.stat.ubc.ca/r-graph-catalog/) *hint: filter for chapter "other"*
 
 [October 2014 blog post](http://blog.rstudio.org/2014/10/02/devtools-1-6/) announcing release of `devtools` v1.6 gives a nice overview of the latest helper functions for package developers
 
