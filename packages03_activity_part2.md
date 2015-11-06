@@ -8,6 +8,8 @@ output:
     pandoc_args: "--preserve-tabs"
 ---
 
+**This is from 2014. In 2015 we will build a different toy package. More soon.**
+
 Where we left off after [part 1](packages02_activity.html):
 
 + Initialized `gameday` package with `devtools::create()`

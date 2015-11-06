@@ -7,7 +7,7 @@ output:
 
 ### Overview
 
-[slides](https://speakerdeck.com/jennybc/ubc-stat545-2014-cm107-and-cm108-context-for-writing-your-first-r-package-week)
+[2014 slides ... might get an update?](https://speakerdeck.com/jennybc/ubc-stat545-2014-cm107-and-cm108-context-for-writing-your-first-r-package-week)
 
   * What is an R package?
   * What is a library?
@@ -20,9 +20,11 @@ output:
 
 Although we'll build a very simple package, we're still going to use the most modern and powerful tools for R package development. In theory, this could eventually involve compiling C/C++ code, which means you need what's called a "build environment." Follow the link above for help preparing your system.
   
-### Hands-on activity
+### 2014 Hands-on activity
 
-We build the `gameday` package to check if your favorite NHL team has a game today.
+~~We build the `gameday` package to check if your favorite NHL team has a game today.~~
+
+*In 2015, we will build a different package ... details coming soon.*
 
 This fully developed example shows you
 
@@ -42,17 +44,19 @@ This fully developed example shows you
 
 ### Resources
 
-__R packages__ is a work-in-progress by Hadley Wickham. To be published as a book by O'Reilly in 2015. Already a valuable resource:
-
-  * <http://r-pkgs.had.co.nz>
+[R packages](http://r-pkgs.had.co.nz) is a new book by Hadley Wickham.
 
 Hilary Parker's [blog post](http://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/) on the epiphany of writing her first R package
 
   * "I was hit with that familiar feeling of the joy of optimization combined with the regret of past inefficiencies (joygret?). I wish I could go back in time and create the package the first moment I thought about it, and then use all the saved time to watch cat videos because that really would have been more productive."
   * the glorious result: <https://github.com/hilaryparker/cats>
-  * see some usage in the [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/) *hint: filter for chapter "other"*
+  * see some usage in the [R Graph Catalog](http://shiny.stat.ubc.ca/r-graph-catalog/) *hint: filter for chapter "other"*
 
-[October 2014 blog post](http://blog.rstudio.org/2014/10/02/devtools-1-6/) announcing release of `devtools` v1.6 gives a nice overview of the latest helper functions for package developers
+Some blog posts accompanying `devtools` releases highlight useful helper functions for package developers:
+
+  * [v1.6 October 2014](http://blog.rstudio.org/2014/10/02/devtools-1-6/)
+  * [v1.8 May 2015](http://blog.rstudio.org/2015/05/11/devtools-1-9-0/)
+  * [v1.9.1 Septmber 2015](http://blog.rstudio.org/2015/09/13/devtools-1-9-1/)
 
 Karl Broman's [guide to writing an R package](http://kbroman.org/pkg_primer/)
 

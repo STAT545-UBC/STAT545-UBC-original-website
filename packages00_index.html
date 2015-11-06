@@ -13,10 +13,21 @@
 <title>Write your own R package</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
-<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -37,7 +48,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
 
 </head>
 
@@ -48,6 +61,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
 }
 </style>
 <div class="container-fluid main-container">
@@ -75,14 +96,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <ul>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#prepare-your-system-for-package-development">Prepare your system for package development</a></li>
-<li><a href="#hands-on-activity">Hands-on activity</a></li>
+<li><a href="#hands-on-activity">2014 Hands-on activity</a></li>
 <li><a href="#resources">Resources</a></li>
 </ul>
 </div>
 
 <div id="overview" class="section level3">
 <h3>Overview</h3>
-<p><a href="https://speakerdeck.com/jennybc/ubc-stat545-2014-cm107-and-cm108-context-for-writing-your-first-r-package-week">slides</a></p>
+<p><a href="https://speakerdeck.com/jennybc/ubc-stat545-2014-cm107-and-cm108-context-for-writing-your-first-r-package-week">2014 slides … might get an update?</a></p>
 <ul>
 <li>What is an R package?</li>
 <li>What is a library?</li>
@@ -96,8 +117,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>Although we’ll build a very simple package, we’re still going to use the most modern and powerful tools for R package development. In theory, this could eventually involve compiling C/C++ code, which means you need what’s called a “build environment.” Follow the link above for help preparing your system.</p>
 </div>
 <div id="hands-on-activity" class="section level3">
-<h3>Hands-on activity</h3>
-<p>We build the <code>gameday</code> package to check if your favorite NHL team has a game today.</p>
+<h3>2014 Hands-on activity</h3>
+<p><del>We build the <code>gameday</code> package to check if your favorite NHL team has a game today.</del></p>
+<p><em>In 2015, we will build a different package … details coming soon.</em></p>
 <p>This fully developed example shows you</p>
 <ul>
 <li>How to create a new R package</li>
@@ -114,17 +136,19 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="resources" class="section level3">
 <h3>Resources</h3>
-<p><strong>R packages</strong> is a work-in-progress by Hadley Wickham. To be published as a book by O’Reilly in 2015. Already a valuable resource:</p>
-<ul>
-<li><a href="http://r-pkgs.had.co.nz">http://r-pkgs.had.co.nz</a></li>
-</ul>
+<p><a href="http://r-pkgs.had.co.nz">R packages</a> is a new book by Hadley Wickham.</p>
 <p>Hilary Parker’s <a href="http://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/">blog post</a> on the epiphany of writing her first R package</p>
 <ul>
 <li>“I was hit with that familiar feeling of the joy of optimization combined with the regret of past inefficiencies (joygret?). I wish I could go back in time and create the package the first moment I thought about it, and then use all the saved time to watch cat videos because that really would have been more productive.”</li>
-<li>the glorious result: <a href="https://github.com/hilaryparker/cats">https://github.com/hilaryparker/cats</a></li>
-<li>see some usage in the <a href="http://shinyapps.stat.ubc.ca/r-graph-catalog/">R Graph Catalog</a> <em>hint: filter for chapter “other”</em></li>
+<li>the glorious result: <a href="https://github.com/hilaryparker/cats" class="uri">https://github.com/hilaryparker/cats</a></li>
+<li>see some usage in the <a href="http://shiny.stat.ubc.ca/r-graph-catalog/">R Graph Catalog</a> <em>hint: filter for chapter “other”</em></li>
 </ul>
-<p><a href="http://blog.rstudio.org/2014/10/02/devtools-1-6/">October 2014 blog post</a> announcing release of <code>devtools</code> v1.6 gives a nice overview of the latest helper functions for package developers</p>
+<p>Some blog posts accompanying <code>devtools</code> releases highlight useful helper functions for package developers:</p>
+<ul>
+<li><a href="http://blog.rstudio.org/2014/10/02/devtools-1-6/">v1.6 October 2014</a></li>
+<li><a href="http://blog.rstudio.org/2015/05/11/devtools-1-9-0/">v1.8 May 2015</a></li>
+<li><a href="http://blog.rstudio.org/2015/09/13/devtools-1-9-1/">v1.9.1 Septmber 2015</a></li>
+</ul>
 <p>Karl Broman’s <a href="http://kbroman.org/pkg_primer/">guide to writing an R package</a></p>
 <p>Karl Broman covers package development in his course <a href="http://kbroman.org/Tools4RR/pages/schedule.html">Tools for Reproducible Research</a></p>
 <p>Jeff Leek’s <a href="https://github.com/jtleek/rpackages">guide to writing R packages</a></p>
@@ -133,6 +157,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p><a href="http://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html">Roxygen vignette on Generating Rd files</a></p>
 <p><a href="http://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf"><code>testthat</code>: Get Started with Testing</a>, an article written by Hadley Wickham for <em>The R Journal,</em> Vol. 3/1, June 2011, pp. 5-10. <em>This may no longer be correct in every last detail, due to evolution of <code>testthat</code>, but it still makes an excellent, readable introduction to unit testing in R (packages)</em>.</p>
 <p><a href="http://cran.r-project.org/doc/manuals/r-release/R-exts.html">Writing R Extensions</a>, the One True Official Document on creating R packages</p>
+<p><a href="http://obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff/">How R Searches and Finds Stuff</a> is a fairly technical blog post for understanding the R search path, but also gives some great explanations on some differences between <code>Imports</code> vs <code>Depends</code> and why Depends is safer (added by daattali on 2015-01-01)</p>
 </div>
 
 <div class="footer">

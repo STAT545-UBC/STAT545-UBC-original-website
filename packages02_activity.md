@@ -6,6 +6,8 @@ output:
     toc: true
 ---
 
+**This is from 2014. In 2015 we will build a different toy package. More soon.**
+
 ### Your mission
 
 This is a step-by-step instruction on how to create your first R package. *This will be much easier than you think.*
