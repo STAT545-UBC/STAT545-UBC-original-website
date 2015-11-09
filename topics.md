@@ -42,7 +42,9 @@
   * [Be the boss of your factors](block014_factors.html)
   * [Writing and reading files](block026_file-out-in.html)
   * [Why and how to tidy data](bit002_tidying-lotr-data.html)
-  * [Regular expressions](block022_regular-expression.html) and more about character data
+  * Strings and Regular Expressions
+    - [Intro to regular expressions](block022_regular-expression.html) and more about character data
+    - [Regular expressions and character data in R](block027_regular-expressions.html): applying regex in R
   * [All the automation things](automation00_index.html)
     - <a href="automation01_slides/index.html" target="_blank">slides</a>
     - [Special considerations for Windows](automation02_windows.html)
