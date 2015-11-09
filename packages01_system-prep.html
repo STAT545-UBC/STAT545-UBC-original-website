@@ -110,10 +110,13 @@ img {
 <div id="special-considerations-for-windows" class="section level3">
 <h3>Special considerations for Windows</h3>
 <p>Sorry folks! Yes here we are again, installing software together while the Mac people sit there looking smug.</p>
-<p><em>Warning: we are still weighing various recommendations for what Windows users should do. You can probably get by for quite a while without installing <code>Rtools</code> as described below, but it will eventually be come necessary and the <code>devtools</code> package will alert you to this. For example, once your package development/building activities involve compiling code, you will need <code>Rtools</code>.</em></p>
+<p><em>Warning: we are still weighing various recommendations for what Windows users should do. You can probably get by for quite a while without installing <code>Rtools</code> as described below, but it will eventually become necessary and the <code>devtools</code> package will alert you to this. For example, once your package development/building activities involve compiling code, you will need <code>Rtools</code>.</em></p>
 <p>You need to install <code>Rtools</code>. This is <strong>NOT an R package</strong> but is rather “a collection of resources for building packages for R under Microsoft Windows, or for building R itself”. Go here and do what it says:</p>
 <p><a href="http://cran.r-project.org/bin/windows/Rtools/" class="uri">http://cran.r-project.org/bin/windows/Rtools/</a></p>
 <p>Note the repeated advice to stay current: “We recommend that users use the latest release of <code>Rtools</code> with the latest release of R.”</p>
+<p>During <code>Rtools</code> installation you will get to a window asking you to “Select Additional Tasks”. It is important that you make sure to select the box for “Edit the system PATH”.</p>
+<p><img src="img/rtools-install.png" alt="Rtools installation" /></p>
+<p>After installing <code>Rtools</code>, restart RStudio and run <code>devtools::find_rtools()</code>. Hopefully you will simply see a message saying <code>TRUE</code> (indicating that <code>Rtools</code> is properly installed), but if there was a problem you will see a longer message instructing you on what to do.</p>
 </div>
 <div id="r-packages-to-help-you-build-yet-more-r-packages" class="section level3">
 <h3>R packages to help you build yet more R packages</h3>

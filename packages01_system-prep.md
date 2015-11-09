@@ -19,13 +19,19 @@ Embarking on your career as an R package developer is an important milestone. Wh
 
 Sorry folks! Yes here we are again, installing software together while the Mac people sit there looking smug.
 
-*Warning: we are still weighing various recommendations for what Windows users should do. You can probably get by for quite a while without installing `Rtools` as described below, but it will eventually be come necessary and the `devtools` package will alert you to this. For example, once your package development/building activities involve compiling code, you will need `Rtools`.*
+*Warning: we are still weighing various recommendations for what Windows users should do. You can probably get by for quite a while without installing `Rtools` as described below, but it will eventually become necessary and the `devtools` package will alert you to this. For example, once your package development/building activities involve compiling code, you will need `Rtools`.*
 
 You need to install `Rtools`. This is __NOT an R package__ but is rather "a collection of resources for building packages for R under Microsoft Windows, or for building R itself". Go here and do what it says:
 
 <http://cran.r-project.org/bin/windows/Rtools/>
 
 Note the repeated advice to stay current: "We recommend that users use the latest release of `Rtools` with the latest release of R."
+
+During `Rtools` installation you will get to a window asking you to "Select Additional Tasks". It is important that you make sure to select the box for "Edit the system PATH".
+
+![Rtools installation](img/rtools-install.png)
+
+After installing `Rtools`, restart RStudio and run `devtools::find_rtools()`. Hopefully you will simply see a message saying `TRUE` (indicating that `Rtools` is properly installed), but if there was a problem you will see a longer message instructing you on what to do.
 
 ### R packages to help you build yet more R packages
 
