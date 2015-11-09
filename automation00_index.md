@@ -61,7 +61,7 @@ Karl Broman also wrote [An introduction to `Make`](http://kbroman.github.io/mini
  
 [Using Make for reproducible scientific analyses](http://www.bendmorris.com/2013/09/using-make-for-reproducible-scientific.html), blog post by Ben Morris
 
-Software Carpentry's [Slides on `Make`](http://software-carpentry.org/v4/make/index.html)
+Software Carpentry's [Slides on `Make`](http://swcarpentry.github.io/v4/make/index.html)
 
 Zachary M. Jones wrote [GNU Make for Reproducible Data Analysis](http://zmjones.com/make.html)
 
