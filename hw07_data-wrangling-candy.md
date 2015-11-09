@@ -40,8 +40,10 @@ Now that your data us ready to analyze, complete the task you set out to complet
 
 ####But I Want to Do More!
 Taking a sufficiently difficult/ambitious task to completion would certainly qualify you for a check plus, but here are some other ideas:
--	Mine some of the free text fields for data using regular expressions
--	Join in the 2014 data and compare Joy/Despair results
+
+*	Mine some of the free text fields for data using regular expressions
+
+*	Join in the 2014 data and compare Joy/Despair results.
 
 ###Rubric
 
