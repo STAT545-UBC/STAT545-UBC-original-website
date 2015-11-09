@@ -33,7 +33,7 @@ Some example tasks:
 Familiarize yourself with the raw data if you haven’t already. Based on the information available, formulate a task you want to complete and explain what it is. Make it fairly specific, like the tasks above.
 
 ####Wrangling
-Based on the task you chose, get the data in a workable format. This will likely involve all kinds of fun dropping columns, using regex to clean gather, some tidyr for gathering, etc. Divide each step by a unique heading in your document. By the end, you will likely want things in tidy data format so you can easily use dplyr/ggplot for your analysis/exploration.
+Based on the task you chose, get the data in a workable format. This will likely involve all kinds of fun dropping columns, using regex to clean text and headers, some tidyr for gathering, etc. Divide each step by a unique heading in your document. By the end, you will likely want things in tidy data format so you can easily use dplyr/ggplot for your analysis/exploration.
 
 ####Exploring/Analyzing
 Now that your data us ready to analyze, complete the task you set out to complete! This will also be multipart, so again divide things up logically. Perhaps you will start with some basic exploration + tables to get a sense of the data, and then move onto dplyr and plotting.
@@ -47,7 +47,7 @@ Taking a sufficiently difficult/ambitious task to completion would certainly qua
 
 ###Rubric
 
-The [general rubric](http://stat545-ubc.github.io/peer-review01_marking-rubric.html) applies, and in addtion:
+The [general rubric](http://stat545-ubc.github.io/peer-review01_marking-rubric.html) applies, and in addition:
 
 Check minus: Student did not sufficiently complete any of the above sections, or performed a trivially simple task. Weak application of wrangling skills learned in class. Student missed clear opportunities to complement numbers with a figure. Technical problem(s) that are relatively easy to fix. Repository organization – or lack thereof – leaves work for the reader, in terms of finding the necessary files.
 
