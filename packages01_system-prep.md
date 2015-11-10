@@ -13,7 +13,7 @@ back to [All the package things](packages00_index.html)
 
 Embarking on your career as an R package developer is an important milestone. Why not celebrate by updating R and RStudio? This is something we recommended early and we recommend doing it often. [Go back to Day 0 of the course](block000_r-rstudio-install.html#r-and-rstudio) for reminders on the process. **DO IT NOW. We are not very interested in solving problems that stem from running outdated versions of R and RStudio.**
 
-*2015-11 FYI: Jenny is running R version 3.2.2 Fire Safety, RStudio 0.99.747, and `devtools 1.9.1.9000` ([89e7bfd](https://github.com/hadley/devtools/commit/89e7bfd1d5ee19868c6f50712007ed5dc38d349e) from GitHub) at the time of writing.*
+*2015-11 FYI: Jenny is running R version 3.2.2 Fire Safety, RStudio 0.99.447, and `devtools 1.9.1.9000` ([89e7bfd](https://github.com/hadley/devtools/commit/89e7bfd1d5ee19868c6f50712007ed5dc38d349e) from GitHub) at the time of writing.*
 
 ### Special considerations for Windows
 
@@ -35,12 +35,12 @@ After installing `Rtools`, restart RStudio and run `devtools::find_rtools()`. Ho
 
 ### R packages to help you build yet more R packages
 
-Install the following packages. If you already have them, update them. *We will soon qualify these with version numbers.*
+Install the following packages. If you already have them, update them.
 
-  * `devtools`
-  * `roxygen2`
-  * `testthat`
-  * `knitr`
+  * `devtools` 1.9.1
+  * `roxygen2` 5.0.0
+  * `testthat` 0.11.0
+  * `knitr` 1.11
 
 Example of how to check which version of a package you've got installed:
 
