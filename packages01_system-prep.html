@@ -95,8 +95,13 @@ img {
 <div id="TOC">
 <ul>
 <li><a href="#update-r-and-rstudio">Update R and RStudio</a></li>
-<li><a href="#special-considerations-for-windows">Special considerations for Windows</a></li>
+<li><a href="#install-devtools-from-cran">Install <code>devtools</code> from CRAN</a></li>
+<li><a href="#windows-system-prep">Windows: system prep</a></li>
+<li><a href="#mac-os-system-prep">Mac OS: system prep</a></li>
+<li><a href="#linux-system-prep">Linux: system prep</a></li>
+<li><a href="#check-system-prep">Check system prep</a></li>
 <li><a href="#r-packages-to-help-you-build-yet-more-r-packages">R packages to help you build yet more R packages</a></li>
+<li><a href="#optional-install-devtools-from-github">Optional: install <code>devtools</code> from GitHub</a></li>
 </ul>
 </div>
 
@@ -105,37 +110,82 @@ img {
 <div id="update-r-and-rstudio" class="section level3">
 <h3>Update R and RStudio</h3>
 <p>Embarking on your career as an R package developer is an important milestone. Why not celebrate by updating R and RStudio? This is something we recommended early and we recommend doing it often. <a href="block000_r-rstudio-install.html#r-and-rstudio">Go back to Day 0 of the course</a> for reminders on the process. <strong>DO IT NOW. We are not very interested in solving problems that stem from running outdated versions of R and RStudio.</strong></p>
-<p><em>2015-11 FYI: Jenny is running R version 3.2.2 Fire Safety, RStudio 0.99.747, and <code>devtools 1.9.1.9000</code> (<a href="https://github.com/hadley/devtools/commit/89e7bfd1d5ee19868c6f50712007ed5dc38d349e">89e7bfd</a> from GitHub) at the time of writing.</em></p>
+<p><em>2015-11 FYI: Jenny is running R version 3.2.2 Fire Safety, RStudio 0.99.760, and <code>devtools 1.9.1.9000</code> (<a href="https://github.com/hadley/devtools/commit/89e7bfd1d5ee19868c6f50712007ed5dc38d349e">89e7bfd</a> from GitHub) at the time of writing.</em></p>
 </div>
-<div id="special-considerations-for-windows" class="section level3">
-<h3>Special considerations for Windows</h3>
-<p>Sorry folks! Yes here we are again, installing software together while the Mac people sit there looking smug.</p>
-<p><em>Warning: we are still weighing various recommendations for what Windows users should do. You can probably get by for quite a while without installing <code>Rtools</code> as described below, but it will eventually become necessary and the <code>devtools</code> package will alert you to this. For example, once your package development/building activities involve compiling code, you will need <code>Rtools</code>.</em></p>
-<p>You need to install <code>Rtools</code>. This is <strong>NOT an R package</strong> but is rather “a collection of resources for building packages for R under Microsoft Windows, or for building R itself”. Go here and do what it says:</p>
+<div id="install-devtools-from-cran" class="section level3">
+<h3>Install <code>devtools</code> from CRAN</h3>
+<p>We will use the <code>devtools</code> package to help us develop our R package. Do this:</p>
+<pre class="r"><code>install.packages(&quot;devtools&quot;)
+library(devtools)</code></pre>
+</div>
+<div id="windows-system-prep" class="section level3">
+<h3>Windows: system prep</h3>
+<p>You will probably get an immediate warning from <code>devtools</code>, complaining that you need <code>Rtools</code> in order to build R packages.</p>
+<p><code>Rtools</code> is <strong>NOT an R package</strong> but is rather “a collection of resources for building packages for R under Microsoft Windows, or for building R itself”.</p>
+<p>You <em>can ignore</em> this and successfully develop an R package that consists solely of R code. Such as our toy package.</p>
+<p>However, we recommend you install Rtools, so you can take full advantage of <code>devtools</code>. Soon, you will want to use <code>devtools::install_github()</code> to install R packages from GitHub, instead of CRAN. You will inevitably need to build a package that includes C/C++ code, which <em>will require</em> Rtools.</p>
+<p>Go here and do what it says:</p>
 <p><a href="http://cran.r-project.org/bin/windows/Rtools/" class="uri">http://cran.r-project.org/bin/windows/Rtools/</a></p>
-<p>Note the repeated advice to stay current: “We recommend that users use the latest release of <code>Rtools</code> with the latest release of R.”</p>
-<p>During <code>Rtools</code> installation you will get to a window asking you to “Select Additional Tasks”. It is important that you make sure to select the box for “Edit the system PATH”.</p>
+<p>During <code>Rtools</code> installation you will get to a window asking you to “Select Additional Tasks”. <strong>It is important that you make sure to select the box for “Edit the system PATH”</strong>.</p>
+<p><em>Are we going to recommend making sure Git Bash is NOT on <code>PATH</code>? See <a href="https://github.com/STAT545-UBC/Discussion/issues/230#issuecomment-155236031">#230</a>.</em></p>
 <p><img src="img/rtools-install.png" alt="Rtools installation" /></p>
-<p>After installing <code>Rtools</code>, restart RStudio and run <code>devtools::find_rtools()</code>. Hopefully you will simply see a message saying <code>TRUE</code> (indicating that <code>Rtools</code> is properly installed), but if there was a problem you will see a longer message instructing you on what to do.</p>
+<p>After installing <code>Rtools</code>, restart RStudio, then do:</p>
+<pre class="r"><code>library(devtools)
+find_rtools()</code></pre>
+<p>Hopefully you will simply see a message saying <code>TRUE</code>, indicating that <code>Rtools</code> is properly installed. But if there was a problem you will see a longer message instructing you on what to do.</p>
+</div>
+<div id="mac-os-system-prep" class="section level3">
+<h3>Mac OS: system prep</h3>
+<p>You will not get an <em>immediate</em> warning from <code>devtools</code> that you need to install anything. But before you can build R package with compiled code, you will also need to install more software. Pick one:</p>
+<ul>
+<li>Minimalist approach (what I do): Install Xcode Command Line Tools.
+<ul>
+<li><a href="https://developer.apple.com/downloads/" class="uri">https://developer.apple.com/downloads/</a></li>
+<li>You will need to sign in with / create a free Apple ID.</li>
+<li>Download “Command Line Tools OS 10.xxx for Xcode 7.x” appropriate for you OS version.</li>
+</ul></li>
+<li>Install the current release of full Xcode from the Mac App Store. WAY more stuff than you need but advantage is App Store convenience.</li>
+<li>Get older or beta releases of Xcode from <a href="https://developer.apple.com/xcode/download/" class="uri">https://developer.apple.com/xcode/download/</a>.</li>
+</ul>
+</div>
+<div id="linux-system-prep" class="section level3">
+<h3>Linux: system prep</h3>
+<p><em>We’ve never had this section but <a href="https://www.rstudio.com/products/rpackages/devtools/">RStudio’s <code>devtools</code> guide</a> and <a href="http://r-pkgs.had.co.nz/intro.html#intro-get">R Packages</a> both say the <code>r-devel</code> or <code>r-base-dev</code> package is required. What gives?</em></p>
+</div>
+<div id="check-system-prep" class="section level3">
+<h3>Check system prep</h3>
+<p><code>devtools</code> offers a diagnostic function to check if your system is ready.</p>
+<pre class="r"><code>library(devtools)
+has_devel()</code></pre>
+<p>Hopefully you see <code>TRUE</code>!</p>
 </div>
 <div id="r-packages-to-help-you-build-yet-more-r-packages" class="section level3">
 <h3>R packages to help you build yet more R packages</h3>
-<p>Install the following packages. If you already have them, update them. <em>We will soon qualify these with version numbers.</em></p>
+<p>Install more packages. If you already have them, update them.</p>
 <ul>
-<li><code>devtools</code></li>
-<li><code>roxygen2</code></li>
-<li><code>testthat</code></li>
-<li><code>knitr</code></li>
+<li><code>roxygen2 5.0.0</code></li>
+<li><code>testthat 0.11.0</code></li>
+<li><code>knitr 1.11</code></li>
 </ul>
-<p>Example of how to check which version of a package you’ve got installed:</p>
-<pre class="r"><code>`packageVersion(&quot;devtools&quot;)`</code></pre>
-<p>Example of how to install a package and all it’s dependencies:</p>
-<pre class="r"><code>`install.packages(&quot;devtools&quot;, dependencies = TRUE)`</code></pre>
+<p>How to check which version of a specific package you’ve got installed:</p>
+<pre class="r"><code>packageVersion(&quot;devtools&quot;)</code></pre>
+<p>How to install a package and all it’s dependencies:</p>
+<pre class="r"><code>install.packages(&quot;devtools&quot;, dependencies = TRUE)</code></pre>
 <p>See how profound your problem with out-of-date packages is:</p>
-<pre class="r"><code>`old.packages()`</code></pre>
+<pre class="r"><code>old.packages()</code></pre>
+<p>Update one package:</p>
+<pre class="r"><code>update.packages(&quot;knitr&quot;)</code></pre>
 <p>Just update everything:</p>
-<pre class="r"><code>`update.packages(ask = FALSE)`</code></pre>
+<pre class="r"><code>update.packages(ask = FALSE)</code></pre>
 <p><strong>CAVEAT:</strong> The above examples will only consult your default library and default CRAN mirror. If you want to target a non-default library, use function arguments to say so. Packages that you have installed from GitHub? You’ll need to check the current-ness of your version and perform upgrades yourself.</p>
+</div>
+<div id="optional-install-devtools-from-github" class="section level3">
+<h3>Optional: install <code>devtools</code> from GitHub</h3>
+<p>We aren’t using bleeding edge features of <code>devtools</code>, but you could upgrade to the development version of <code>devtools</code> at this point.</p>
+<p>Mac and Linux users have it easy. Do this:</p>
+<pre class="r"><code>library(devtools)
+install_github(&quot;hadley/devtools&quot;)</code></pre>
+<p>For Windows instructions, see the <a href="https://github.com/hadley/devtools"><code>devtools</code> README</a>.</p>
 <p>back to <a href="packages00_index.html">All the package things</a></p>
 </div>
 
