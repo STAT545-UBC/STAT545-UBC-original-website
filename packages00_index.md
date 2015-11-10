@@ -7,7 +7,9 @@ output:
 
 ### Overview
 
-[2014 slides ... might get an update?](https://speakerdeck.com/jennybc/ubc-stat545-2014-cm107-and-cm108-context-for-writing-your-first-r-package-week)
+Slides available on [speakerdeck](https://speakerdeck.com/jennybc/ubc-stat545-2015-writing-your-first-r-package)
+
+<script async class="speakerdeck-embed" data-id="2f5adff04cb5013256c03a03dde42de4" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script> <div style="margin-bottom:5px"> <strong> <a href="https://speakerdeck.com/jennybc/ubc-stat545-2015-writing-your-first-r-package" title="UBC STAT545 2015 Writing your first R package" target="_blank">UBC STAT545 2015 Writing your first R package</a> </strong> from <strong><a href="https://speakerdeck.com/jennybc" target="_blank">Jennifer Bryan</a></strong> </div>
 
   * What is an R package?
   * What is a library?
@@ -36,11 +38,11 @@ This fully developed example shows you
   * How to demonstrate your package's utility with a vignette
   * How to put your package on GitHub to share with the world
 
-[Day 1](packages02_activity.html) of hands-on work
+[2014 Day 1](packages02_activity.html) of hands-on work
 
-[Day 2](packages03_activity_part2.html) of hands-on work
+[2014 Day 2](packages03_activity_part2.html) of hands-on work
 
-[Homework](hw10_package.html) that builds on the in-class work on `gameday`. [Hints](hw10_package_jenny-hints.html) on how to get started. [Peer review help](hw10_package_peer-review.html).
+[2014 Homework](hw10_package.html) that builds on the in-class work on `gameday`. [Hints](hw10_package_jenny-hints.html) on how to get started. [Peer review help](hw10_package_peer-review.html).
 
 ### Resources
 
