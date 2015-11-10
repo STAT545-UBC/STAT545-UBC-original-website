@@ -13,10 +13,21 @@
 <title></title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
-<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -37,7 +48,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
 
 </head>
 
@@ -48,6 +61,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
 }
 </style>
 <div class="container-fluid main-container">
@@ -70,36 +91,32 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="TOC">
 <ul>
-<li><a href="#cm107-2014-11-10-monday-overview">cm107 2014-11-10 Monday overview</a></li>
+<li><a href="#cm105-2015-11-10-tuesday-overview">cm105 2015-11-10 Tuesday overview</a></li>
 <li><a href="#building-your-first-r-package">Building your first R package</a></li>
 </ul>
 </div>
 
-<div id="cm107-2014-11-10-monday-overview" class="section level3">
-<h3>cm107 2014-11-10 Monday overview</h3>
+<div id="cm105-2015-11-10-tuesday-overview" class="section level3">
+<h3>cm105 2015-11-10 Tuesday overview</h3>
+<p><a href="hw07_data-wrangling-candy.html">HW07</a> Data Wrangling Grand Finale: The Candy Survey</p>
 <ul>
-<li><a href="hw09_automation.html">HW09</a> Automating Data-analysis Pipelines
+<li><em>original</em> due date Wednesday November 11</li>
+<li>I am open to Friday November 13</li>
+</ul>
+<p>HW08 Write an R package</p>
 <ul>
-<li><em>recommended</em> due date Thursday, November 13</li>
-<li>but we were late posting, so …</li>
-<li><em>required</em> due date is before class Monday, November 17</li>
-</ul></li>
-<li><a href="hw10_package.html">HW10</a> Write an R package
-<ul>
-<li>due date Friday, November 21</li>
-</ul></li>
-<li><a href="https://github.com/STAT545-UBC/Discussion/issues/47">Office hours</a> are back ON; check that issue for up-to-date info</li>
+<li>see the <a href="hw10_package.html">2014 version</a></li>
+<li>due date: one week after HW07 due … Wednesday November 18 or Friday November 20</li>
 </ul>
 </div>
 <div id="building-your-first-r-package" class="section level3">
 <h3>Building your first R package</h3>
 <ul>
-<li>led by Bernhard Konrad</li>
 <li><a href="packages00_index.html">All the package things</a>
 <ul>
-<li>we looked at some of the slides</li>
-<li>we did system prep</li>
-<li>we did first part of activity</li>
+<li>we’ll look at some of the slides</li>
+<li>we’ll do system prep</li>
+<li>hopefully we’ll at least create the scaffold of the package</li>
 </ul></li>
 </ul>
 </div>
