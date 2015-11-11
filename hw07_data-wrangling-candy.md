@@ -6,7 +6,7 @@ output:
     toc_depth: 4
 ---
 
-Due date: TBD, probably between Nov 11th-17th?
+Due date: Nov 13th
 
 ###Overview
 The goal of this homework is to perform a complete data wrangling workflow using the [Candy Survey data]( https://github.com/jennybc/candy).
