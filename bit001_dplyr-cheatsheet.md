@@ -144,7 +144,7 @@ Catwoman   bad         female   DC                 1934
 ## 6 Mystique       bad female    Marvel
 ```
 
-We get a similar result as with `inner_join()` but the join result contains only the variables originally found in `x = superheroes`.
+We get a similar result as with `inner_join()` but the join result contains only the variables originally found in `x = superheroes`. But note the row order has changed.
 
 
 
@@ -261,14 +261,15 @@ Image              1992
   left_join(x = superheroes, y = publishers)
   
 
-name       alignment   gender   publisher    yr_founded
----------  ----------  -------  ----------  -----------
-Magneto    bad         male     Marvel             1939
-Storm      good        female   Marvel             1939
-Mystique   bad         female   Marvel             1939
-Batman     good        male     DC                 1934
-Joker      bad         male     DC                 1934
-Catwoman   bad         female   DC                 1934
+name       alignment   gender   publisher            yr_founded
+---------  ----------  -------  ------------------  -----------
+Magneto    bad         male     Marvel                     1939
+Storm      good        female   Marvel                     1939
+Mystique   bad         female   Marvel                     1939
+Batman     good        male     DC                         1934
+Joker      bad         male     DC                         1934
+Catwoman   bad         female   DC                         1934
+Hellboy    good        male     Dark Horse Comics            NA
 
 
 </td>
@@ -740,9 +741,9 @@ devtools::session_info()
 ##  system   x86_64, darwin13.4.0        
 ##  ui       X11                         
 ##  language (EN)                        
-##  collate  en_US.UTF-8                 
+##  collate  en_CA.UTF-8                 
 ##  tz       America/Vancouver           
-##  date     2015-10-22
+##  date     2015-11-11
 ```
 
 ```
@@ -750,25 +751,25 @@ devtools::session_info()
 ```
 
 ```
-##  package    * version    date       source                          
-##  assertthat   0.1        2013-12-06 CRAN (R 3.2.0)                  
-##  DBI          0.3.1      2014-09-24 CRAN (R 3.2.0)                  
-##  devtools     1.9.1.9000 2015-10-01 Github (hadley/devtools@81dd313)
-##  digest       0.6.8      2014-12-31 CRAN (R 3.2.0)                  
-##  dplyr      * 0.4.3.9000 2015-09-16 Github (hadley/dplyr@00a0a74)   
-##  evaluate     0.8        2015-09-18 CRAN (R 3.2.0)                  
-##  formatR      1.2        2015-04-21 CRAN (R 3.2.0)                  
-##  highr        0.5        2015-04-21 CRAN (R 3.2.0)                  
-##  htmltools    0.2.6      2014-09-08 CRAN (R 3.2.0)                  
-##  knitr        1.11       2015-08-14 CRAN (R 3.2.1)                  
-##  magrittr     1.5        2014-11-22 CRAN (R 3.2.0)                  
-##  memoise      0.2.1      2014-04-22 CRAN (R 3.2.0)                  
-##  R6           2.1.1      2015-08-19 CRAN (R 3.2.0)                  
-##  Rcpp         0.12.1     2015-09-10 CRAN (R 3.2.0)                  
-##  readr      * 0.1.1.9000 2015-09-28 Github (hadley/readr@0cb2d0b)   
-##  rmarkdown    0.8        2015-08-30 CRAN (R 3.2.1)                  
-##  stringi      0.5-5      2015-06-29 CRAN (R 3.2.0)                  
-##  stringr      1.0.0      2015-04-30 CRAN (R 3.2.0)                  
+##  package    * version    date       source                       
+##  assertthat   0.1        2013-12-06 CRAN (R 3.2.0)               
+##  DBI          0.3.1      2014-09-24 CRAN (R 3.2.0)               
+##  devtools     1.9.1.9000 2015-11-11 local                        
+##  digest       0.6.8      2014-12-31 CRAN (R 3.2.0)               
+##  dplyr      * 0.4.3.9000 2015-11-11 Github (hadley/dplyr@4ea9475)
+##  evaluate     0.8        2015-09-18 CRAN (R 3.2.0)               
+##  formatR      1.2.1      2015-09-18 CRAN (R 3.2.0)               
+##  highr        0.5.1      2015-09-18 CRAN (R 3.2.0)               
+##  htmltools    0.2.6      2014-09-08 CRAN (R 3.2.0)               
+##  knitr        1.11       2015-08-14 CRAN (R 3.2.2)               
+##  magrittr     1.5        2014-11-22 CRAN (R 3.2.0)               
+##  memoise      0.2.1      2014-04-22 CRAN (R 3.2.0)               
+##  R6           2.1.1      2015-08-19 CRAN (R 3.2.0)               
+##  Rcpp         0.12.1     2015-09-10 CRAN (R 3.2.0)               
+##  readr      * 0.2.2      2015-10-22 CRAN (R 3.2.0)               
+##  rmarkdown    0.8.1      2015-10-10 CRAN (R 3.2.2)               
+##  stringi      1.0-1      2015-10-22 CRAN (R 3.2.0)               
+##  stringr      1.0.0      2015-04-30 CRAN (R 3.2.0)               
 ##  yaml         2.1.13     2014-06-12 CRAN (R 3.2.0)
 ```
 

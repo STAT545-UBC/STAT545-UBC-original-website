@@ -86,7 +86,7 @@ ijsp_kable <- knitr::kable(ijsp)
 (sjsp <- semi_join(superheroes, publishers))
 ```
 
-We get a similar result as with `inner_join()` but the join result contains only the variables originally found in `x = superheroes`.
+We get a similar result as with `inner_join()` but the join result contains only the variables originally found in `x = superheroes`. But note the row order has changed.
 
 ```{r include = FALSE}
 sjsp_kable <- knitr::kable(sjsp)
@@ -135,7 +135,7 @@ ljsp_kable <- knitr::kable(ljsp)
 </td>
   <td valign="top">
   left_join(x = superheroes, y = publishers)
-  `r ijsp_kable`
+  `r ljsp_kable`
 </td>
 </tr>
 </table>
