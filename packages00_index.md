@@ -37,6 +37,10 @@ This fully developed example shows you
   * How to test the functions in your package
   * How to demonstrate your package's utility with a vignette
   * How to put your package on GitHub to share with the world
+  
+2015 Part 1 *I've got this but I lost this morning's battle with `knitr`.*
+
+2015 Part 2 *I've got this but I lost this morning's battle with `knitr`.*
 
 [2014 Day 1](packages02_activity.html) of hands-on work
 

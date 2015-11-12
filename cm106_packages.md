@@ -10,16 +10,18 @@ output:
 
 [HW07](hw07_data-wrangling-candy.html) Data Wrangling Grand Finale: The Candy Survey
 
-  - *original* due date Wednesday November 11
-  - I am open to Friday November 13
+  -due Friday November 13
   
 HW08 Write an R package
 
   - see the [2014 version](hw10_package.html) 
-  - due date: one week after HW07 due ... Wednesday November 18 or Friday November 20
+  - will be adapted to this year's practice package, although you're welcome to do the 2014 hockey thing instead
+  - due date: Friday November 20
 
 ### Building your first R package
 
-  * [All the package things](packages00_index.html)
-    - we'll bring the package as far as we can
-    - add function(s), add version control, NAMESPACE, help, testing, GitHub
+  * [All the package things](packages00_index.html) is the main landing page
+    - Tuesday we went over why a package? what's a library? etc
+    - Tuesday we set up a build environment for everyone
+    - Tuesday we created the package and put it under version control
+    - today we add function(s), edit DESCRIPTION, add help, add tests, put it on GitHub, add vignette, NAMESPACE

@@ -41,7 +41,7 @@ oct-29 thurs   <a href="cm102_regular-expressions.html">cm102</a>: Regular expre
 nov-03 tues    <a href="cm103_data-cleaning.html">cm103</a>: Grand Finale: Wrangling the Candy Survey     
 nov-05 thurs   <a href="cm104_data-cleaning.html">cm104</a>: Grand Finale: Wrangling the Candy Survey     
 nov-10 tues    <a href="cm105_packages.html">cm105</a>: Build your first R package                        
-nov-12 thurs   cm106: ditto                                                                               
+nov-12 thurs   <a href="cm106_packages.html">cm106</a>: ditto                                             
 nov-17 tues    cm107: Task automation and pipelines, GNU Make                                             
 nov-19 thurs   cm108: ditto                                                                               
 nov-24 tues    cm109: Get data from the web                                                               

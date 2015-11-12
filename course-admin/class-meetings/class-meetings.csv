@@ -18,7 +18,7 @@ cm102,STAT547M,thurs,october,29,TRUE,Regular expressions and character data
 cm103,STAT547M,tues,november,3,TRUE,Grand Finale: Wrangling the Candy Survey
 cm104,STAT547M,thurs,november,5,TRUE,Grand Finale: Wrangling the Candy Survey
 cm105,STAT547M,tues,november,10,TRUE,Build your first R package
-cm106,STAT547M,thurs,november,12,FALSE,ditto
+cm106,STAT547M,thurs,november,12,TRUE,ditto
 cm107,STAT547M,tues,november,17,FALSE,"Task automation and pipelines, GNU Make"
 cm108,STAT547M,thurs,november,19,FALSE,ditto
 cm109,STAT547M,tues,november,24,FALSE,Get data from the web
