@@ -1,6 +1,23 @@
-# Prepare your system for package development
+---
+title: Prepare your system for package development
+output: 
+  html_document: 
+    keep_md: yes
+    toc: yes
+---
 
-
+```{r setup, include = FALSE, cache = FALSE}
+## FUTURE JENNY: you must render this via:
+## rmarkdown::render("packages01_system-prep.Rmd")
+## in R Console within RStuio due to usage of rstudioapi::getVersion()
+## in inline R code
+knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
+## attach all of these to the search path, so we can display versions
+library(knitr)
+library(roxygen2)
+library(testthat)
+## we load devtools below
+```
 
 Although we'll build a very simple package, we're still  use the most modern and powerful tools for R package development. In theory, this could eventually involve compiling C/C++ code, which means you need what's called a *build environment*.
 
@@ -10,7 +27,7 @@ back to [All the package things](packages00_index.html)
 
 Embarking on your career as an R package developer is an important milestone. Why not celebrate by updating R and RStudio? This is something we recommended early and we recommend doing it often. [Go back to Day 0 of the course](block000_r-rstudio-install.html#r-and-rstudio) for reminders on the process. **DO IT NOW. We are not very interested in solving problems that stem from running outdated versions of R and RStudio.**
 
-*2015-11 FYI: Jenny is running R version 3.2.2 (2015-08-14) Fire Safety and RStudio 0.99.760 at the time of writing.*
+*2015-11 FYI: Jenny is running `r paste(unlist(R.version[c('version.string', 'nickname')]), collapse = " ")` and RStudio `r rstudioapi::getVersion()` at the time of writing.*
 
 ### Install `devtools` from CRAN
 
@@ -86,13 +103,10 @@ Install more packages. If you already have them, update them.
 
 *2015-11 FYI: Jenny is running these versions of this packages at the time of writing.*
 
-
-```
-#>    package *    version       date                              source
-#> 1 devtools * 1.9.1.9000 2015-11-12    Github (hadley/devtools@b4edf3e)
-#> 2    knitr *       1.11 2015-08-14                      CRAN (R 3.2.2)
-#> 3 roxygen2 * 5.0.1.9000 2015-11-13 Github (klutometis/roxygen@7133fd6)
-#> 4 testthat *     0.11.0 2015-10-14                      CRAN (R 3.2.0)
+```{r echo = FALSE}
+library(dplyr)
+devtools::session_info()$packages %>% 
+  filter(package %in% c('devtools', 'knitr', 'roxygen2', 'testthat'))
 ```
 
 How to check which version of a specific package you've got installed:

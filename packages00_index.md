@@ -21,12 +21,8 @@ Slides available on [speakerdeck](https://speakerdeck.com/jennybc/ubc-stat545-20
 [System prep and testing](packages01_system-prep.html)
 
 Although we'll build a very simple package, we're still going to use the most modern and powerful tools for R package development. In theory, this could eventually involve compiling C/C++ code, which means you need what's called a "build environment." Follow the link above for help preparing your system.
-  
-### 2014 Hands-on activity
 
-~~We build the `gameday` package to check if your favorite NHL team has a game today.~~
-
-*In 2015, we will build a different package ... details coming soon.*
+### Hands-on activity
 
 This fully developed example shows you
 
@@ -35,12 +31,16 @@ This fully developed example shows you
   * Workflow for package development
   * How to document functions and your overall package
   * How to test the functions in your package
-  * How to demonstrate your package's utility with a vignette
+  * How to depend on another package
+  * How to demonstrate your package's utility with a vignette and README
   * How to put your package on GitHub to share with the world
-  
-2015 Part 1 *I've got this but I lost this morning's battle with `knitr`.*
 
-2015 Part 2 *I've got this but I lost this morning's battle with `knitr`.*
+In 2015, we built the `foofactors` package to make the care and feeding of factors less aggravating.
+
+  * [2015 part 1](packages04_foofactors-package-01.html)
+  * 2015 part 2 *coming soon*
+
+In 2014, we built the `gameday` package to check if your favorite NHL team has a game today.
 
 [2014 Day 1](packages02_activity.html) of hands-on work
 

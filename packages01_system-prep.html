@@ -105,12 +105,12 @@ img {
 </ul>
 </div>
 
-<p>Although we’ll build a very simple package, we’re still going to use the most modern and powerful tools for R package development. In theory, this could eventually involve compiling C/C++ code, which means you need what’s called a <em>build environment</em>.</p>
+<p>Although we’ll build a very simple package, we’re still use the most modern and powerful tools for R package development. In theory, this could eventually involve compiling C/C++ code, which means you need what’s called a <em>build environment</em>.</p>
 <p>back to <a href="packages00_index.html">All the package things</a></p>
 <div id="update-r-and-rstudio" class="section level3">
 <h3>Update R and RStudio</h3>
 <p>Embarking on your career as an R package developer is an important milestone. Why not celebrate by updating R and RStudio? This is something we recommended early and we recommend doing it often. <a href="block000_r-rstudio-install.html#r-and-rstudio">Go back to Day 0 of the course</a> for reminders on the process. <strong>DO IT NOW. We are not very interested in solving problems that stem from running outdated versions of R and RStudio.</strong></p>
-<p><em>2015-11 FYI: Jenny is running R version 3.2.2 Fire Safety, RStudio 0.99.760, and <code>devtools 1.9.1.9000</code> (<a href="https://github.com/hadley/devtools/commit/89e7bfd1d5ee19868c6f50712007ed5dc38d349e">89e7bfd</a> from GitHub) at the time of writing.</em></p>
+<p><em>2015-11 FYI: Jenny is running R version 3.2.2 (2015-08-14) Fire Safety and RStudio 0.99.760 at the time of writing.</em></p>
 </div>
 <div id="install-devtools-from-cran" class="section level3">
 <h3>Install <code>devtools</code> from CRAN</h3>
@@ -163,10 +163,16 @@ has_devel()</code></pre>
 <h3>R packages to help you build yet more R packages</h3>
 <p>Install more packages. If you already have them, update them.</p>
 <ul>
-<li><code>roxygen2 5.0.0</code></li>
-<li><code>testthat 0.11.0</code></li>
-<li><code>knitr 1.11</code></li>
+<li><code>knitr</code></li>
+<li><code>roxygen2</code></li>
+<li><code>testthat</code></li>
 </ul>
+<p><em>2015-11 FYI: Jenny is running these versions of this packages at the time of writing.</em></p>
+<pre><code>#&gt;    package *    version       date                              source
+#&gt; 1 devtools * 1.9.1.9000 2015-11-12    Github (hadley/devtools@b4edf3e)
+#&gt; 2    knitr *       1.11 2015-08-14                      CRAN (R 3.2.2)
+#&gt; 3 roxygen2 * 5.0.1.9000 2015-11-13 Github (klutometis/roxygen@7133fd6)
+#&gt; 4 testthat *     0.11.0 2015-10-14                      CRAN (R 3.2.0)</code></pre>
 <p>How to check which version of a specific package you’ve got installed:</p>
 <pre class="r"><code>packageVersion(&quot;devtools&quot;)</code></pre>
 <p>How to install a package and all it’s dependencies:</p>
