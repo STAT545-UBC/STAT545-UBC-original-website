@@ -3,7 +3,7 @@
   * [Install R and Rstudio](block000_r-rstudio-install.html)
   * [All the Git and GitHub (and RStudio) things](git00_index.html)
     - [Install Git](git01_git-install.html)
-    - [Install a Git client](git02_git-clients.html) *optional but recommended*
+    - [Install a Git client](git02_git-clients.html)
     - [Introduce yourself to Git](git04_introduce-self-to-git.html)
     - [GitHub, can you hear me?](git05_github-connection.html)
     - [Test connection between RStudio and GitHub](git07_git-github-rstudio.html)
@@ -16,7 +16,7 @@
   * [Basic care and feeding of data in R](block006_care-feeding-data.html)
   * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
   * [Test drive R Markdown](block007_first-use-rmarkdown.html)
-  * [All the graph things](graph00_index.html), an annotated index
+  * [All the graph things](graph00_index.html)
     - R graphics landscape *[slides](https://speakerdeck.com/jennybc/ggplot2-tutorial)*
     - [`ggplot2` tutorial](https://github.com/jennybc/ggplot2-tutorial), heavy on code and examples
     - [Do's and don'ts of making effective graphs](block015_graph-dos-donts.html)
@@ -43,25 +43,27 @@
   * [Writing and reading files](block026_file-out-in.html)
   * [Why and how to tidy data](bit002_tidying-lotr-data.html)
   * Strings and Regular Expressions
-    - [Intro to regular expressions](block022_regular-expression.html) and more about character data
-    - [Regular expressions and character data in R](block027_regular-expressions.html): applying regex in R
-  * [All the automation things](automation00_index.html)
+    - [(2014) Intro to regular expressions](block022_regular-expression.html) and more about character data
+    - [(2015) Regular expressions and character data in R](block027_regular-expressions.html): applying regex in R
+  * [All the package things](packages00_index.html)
+    - [slides](https://speakerdeck.com/jennybc/ubc-stat545-2015-writing-your-first-r-package)
+    - [System preparation for package development](packages01_system-prep.html)
+    - [2015 Hands-on activity, part 1](packages04_foofactors-package-01.html)
+    - 2015 Hands-on activity, part 2
+    - [2014 Hands-on activity, part 1](packages02_activity.html)
+    - [2014 Hands-on activity, part 2](packages03_activity_part2.html)
+  * [All the automation things](automation00_index.html) *all from 2014*
     - <a href="automation01_slides/index.html" target="_blank">slides</a>
     - [Special considerations for Windows](automation02_windows.html)
     - [Test drive `Make`](automation03_make-test-drive.html) from a shell and RStudio
     - [Hands-on activity](automation04_make-activity.html)
     - [Example pipelines](automation00_index.html#more-examples)
-  * [All the package things](packages00_index.html)
-    - [slides](https://speakerdeck.com/jennybc/ubc-stat545-2014-cm107-context-for-writing-your-first-r-package-week)
-    - [System preparation for package development](packages01_system-prep.html)
-    - [Hands-on activity, part 1](packages02_activity.html)
-    - [Hands-on activity, part 2](packages02_activity_part2.html)
-  * [All the Shiny things](shiny00_index.html)
+  * [All the Shiny things](shiny00_index.html) *all from 2014*
     - [slides](shiny01_slides.pdf)
     - [Getting your system set up for Shiny](shiny02_setup.html)
     - [Hands-on activity-build a shiny app](shiny03_activity.html)
     - [Shiny and other interactive plotting links](shiny04_links.html)
-  * Get data from the web
+  * Get data from the web *all form 2014*
     - *make usual landing page and add bullet points*
     - class meeting [one](cm111_data-from-web.html) and [two](cm112_data-from-web.html)  
 
