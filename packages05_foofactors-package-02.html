@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Write your own R package, Part Two</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Write your own R package, Part Two</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#load-devtools">Load <code>devtools</code></a></li>
+<li><a href="#edit-description">Edit DESCRIPTION</a></li>
+<li><a href="#license">LICENSE</a></li>
+<li><a href="#document-fbind">Document <code>fbind()</code></a></li>
+<li><a href="#unit-test">Unit test</a></li>
+<li><a href="#connect-to-github">Connect to GitHub</a></li>
+<li><a href="#use-readme">Use README</a></li>
+<li><a href="#add-a-vignette">Add a vignette</a></li>
+<li><a href="#use-a-function-from-another-package">Use a function from another package</a></li>
+</ul>
+</div>
+
+<p><em>This is a skeleton account of what we did in class. Narrative? Not so much. It’s coming!</em></p>
+<p>We assume you’ve come directly from <a href="packages04_foofactors-package-02.html">part one</a>, where we:</p>
+<ul>
+<li>created the <code>foofactors</code> package</li>
+<li>made it an RStudio Project</li>
+<li>made it a Git repo</li>
+<li>created the <code>fbind()</code> function</li>
+<li>checked, built, and installed the package</li>
+</ul>
+<p>We assume you’ll be commiting package source after each major step! No more reminders about that.</p>
+<p>We assume you are checking your package often. Maybe after each major step? That’s probably overkill but why not? Use <code>devtools::check()</code> in the Console or RStudio <em>Build &gt; Check</em>.</p>
+<div id="load-devtools" class="section level3">
+<h3>Load <code>devtools</code></h3>
+<pre class="r"><code>library(devtools)</code></pre>
+<p>You might want to put something like this in your <code>.Rprofile</code> in your home directory:</p>
+<pre class="r"><code>if (interactive()) {
+  options(
+    ## use https repos
+    repos = c(CRAN = &quot;https://cran.rstudio.org&quot;),
+  )
+  library(devtools)
+}</code></pre>
+</div>
+<div id="edit-description" class="section level3">
+<h3>Edit DESCRIPTION</h3>
+<p>DESCRIPTION provides <a href="http://r-pkgs.had.co.nz/description.html">metadata about your package</a>.</p>
+<p>Add your name. Edit title and description as you see fit.</p>
+<pre class="sh"><code>Package: foofactors
+Title: Make factors less annoying
+Version: 0.0.0.9000
+Authors@R: person(&quot;Jennifer&quot;, &quot;Bryan&quot;, role=c(&quot;aut&quot;, &quot;cre&quot;),
+  email = &quot;jenny@stat.ubc.ca&quot;)
+Description: Factors have driven people to extreme measures, like ordering
+    custom conference ribbons and laptop stickers to express how HELLNO we
+    feel about stringsAsFactors. And yet, sometimes you need them. Can they
+    be made less maddening? Let&#39;s find out.
+Depends:
+    R (&gt;= 3.2.2)
+License: MIT + file LICENSE
+LazyData: true</code></pre>
+</div>
+<div id="license" class="section level3">
+<h3>LICENSE</h3>
+<p><a href="http://r-pkgs.had.co.nz/description.html#license" class="uri">http://r-pkgs.had.co.nz/description.html#license</a></p>
+<p>Add this in a new file called LICENSE. Fill in the year and your name.</p>
+<pre class="sh"><code>YEAR: &lt;Year or years when changes have been made&gt;
+COPYRIGHT HOLDER: &lt;Name of the copyright holder&gt;</code></pre>
+</div>
+<div id="document-fbind" class="section level3">
+<h3>Document <code>fbind()</code></h3>
+<p>RStudio <em>Code &gt; Insert roxygen skeleton</em></p>
+<pre class="sh"><code>#&#39; Bind two factors
+#&#39;
+#&#39; Create a new factor from two existing factors, where the new factor&#39;s levels
+#&#39; are the union of the levels of the input factors.
+#&#39;
+#&#39; @param a factor
+#&#39; @param b factor
+#&#39;
+#&#39; @return factor
+#&#39; @export
+#&#39; @examples
+#&#39; fbind(iris$Species[c(1, 51, 101)], PlantGrowth$group[c(1, 11, 21)])</code></pre>
+<p>RStudio <em>Build &gt; More &gt; Document</em> or …</p>
+<pre class="r"><code>library(devtools)
+document()
+?fbind</code></pre>
+</div>
+<div id="unit-test" class="section level3">
+<h3>Unit test</h3>
+<p>Declare your intent to write unit tests. We’re going to use the <code>testthat</code> package to help us.</p>
+<pre class="r"><code>use_testthat()</code></pre>
+<p>In <code>tests/testthat/test_fbind.R</code>:</p>
+<pre class="r"><code>context(&quot;Binding factors&quot;)
+
+test_that(&quot;fbind binds factor (or character)&quot;, {
+  x &lt;- c(&#39;a&#39;, &#39;b&#39;)
+  x_fact &lt;- factor(x)
+  y &lt;- c(&#39;c&#39;, &#39;d&#39;)
+  z &lt;- factor(c(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;))
+
+  expect_identical(fbind(x, y), z)
+  expect_identical(fbind(x_fact, y), z)
+})</code></pre>
+<p>RStudio <em>Build &gt; Test package</em> or …</p>
+<pre class="r"><code>test()</code></pre>
+</div>
+<div id="connect-to-github" class="section level3">
+<h3>Connect to GitHub</h3>
+<p>Get a PAT here <a href="https://github.com/settings/tokens" class="uri">https://github.com/settings/tokens</a>. Make sure the “repo” scope is included (last I checked, the defaults WILL include it).</p>
+<p>In <code>~/.Renviron</code>:</p>
+<pre class="sh"><code>GITHUB_PAT=???????????????????</code></pre>
+<p>Restart R.</p>
+<p>In R, check the PAT is in env var:</p>
+<pre class="r"><code>Sys.getenv(&quot;GITHUB_PAT&quot;)</code></pre>
+<p>Connect your package = Git repo to a new, public GitHub repo. If you want private <strong>and you have a private repo to spare</strong>, add <code>private = TRUE</code>. If you use SSH, remove <code>protocol = &quot;https&quot;</code> (SSH is the default).</p>
+<pre class="r"><code>use_github(protocol = &quot;https&quot;)</code></pre>
+</div>
+<div id="use-readme" class="section level3">
+<h3>Use README</h3>
+<pre class="r"><code>use_readme_rmd()</code></pre>
+<p>Put something in the README. Such as … a practice package for STAT 545 and the purpose of the package. Put an R chunk in that demonstates <code>fbind()</code>. Just copy the example, at the very least!</p>
+<p>Knit it to make <code>README.md</code>.</p>
+</div>
+<div id="add-a-vignette" class="section level3">
+<h3>Add a vignette</h3>
+<pre class="r"><code>use_vignette(&quot;hello-foofactors&quot;)</code></pre>
+<p>Edit <code>vignettes/hello-foofactors.Rmd</code>. It could start out the same as README.</p>
+<p>Then workflow gets a little fiddly.</p>
+<p>RStudio option:</p>
+<p><em>Tools &gt; Project Options &gt; Build Tools &gt; Generate documentation with Roxygen &gt; Configure &gt; Use roxygen to generate vignettes</em></p>
+<p>Console option 1:</p>
+<pre class="r"><code>build_vignettes()
+## Build and reload
+browseVignettes(&quot;foofactors&quot;)</code></pre>
+<p>Console option 2:</p>
+<pre class="r"><code>build()
+install_local(&quot;../foofactors_0.0.0.9000.tar.gz&quot;, build_vignettes = TRUE)
+browseVignettes(&quot;foofactors&quot;)</code></pre>
+</div>
+<div id="use-a-function-from-another-package" class="section level3">
+<h3>Use a function from another package</h3>
+<p>Declare your intent to use some functions from the <code>dplyr</code> namespace:</p>
+<pre class="r"><code>use_package(&quot;dplyr&quot;)</code></pre>
+<p>Add a new function that does, indeed, use a function from <code>dplyr</code>.</p>
+<p>In <code>R/freq_out.R</code>:</p>
+<pre class="r"><code>#&#39; Make a frequency table for a factor
+#&#39;
+#&#39; @param x factor
+#&#39;
+#&#39; @return tbl_df
+#&#39; @export
+#&#39; @examples
+#&#39; freq_out(iris$Species)
+freq_out &lt;- function(x) {
+  xdf &lt;- dplyr::data_frame(x)
+  dplyr::count(xdf, x)
+}</code></pre>
+<p>Generate the associated help file: <code>document()</code> or <em>Build &gt; Document</em>.</p>
+<p>back to <a href="packages00_index.html">All the package things</a></p>
+<pre class="r"><code>knitr::opts_knit$set(root.dir = owd)
+knitr::opts_knit$get(&quot;root.dir&quot;)
+#&gt; [1] &quot;/Users/jenny/teaching/STAT545A/STAT545-UBC.github.io&quot;</code></pre>
+<pre class="r"><code>getwd()
+#&gt; [1] &quot;/Users/jenny/teaching/STAT545A/STAT545-UBC.github.io&quot;
+#unlink(ff_path, recursive = TRUE)</code></pre>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

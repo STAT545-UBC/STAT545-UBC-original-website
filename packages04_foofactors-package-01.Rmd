@@ -266,6 +266,8 @@ knitr::opts_knit$get("root.dir")
 ## you can't remove current working directory and the root.dir change
 ## doesn't take effect until you enter the next chunk
 getwd()
-unlink(ff_path, recursive = TRUE)
+
+## NO NO NO ... pick up where we leave off in part 2
+#unlink(ff_path, recursive = TRUE)
 ```
 
