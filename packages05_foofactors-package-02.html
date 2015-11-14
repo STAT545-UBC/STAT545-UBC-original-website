@@ -120,11 +120,11 @@ img {
 <div id="load-devtools" class="section level3">
 <h3>Load <code>devtools</code></h3>
 <pre class="r"><code>library(devtools)</code></pre>
-<p>You might want to put something like this in your <code>.Rprofile</code> in your home directory:</p>
+<p>Or you might want to put something like this in your <code>.Rprofile</code> in your home directory:</p>
 <pre class="r"><code>if (interactive()) {
   options(
     ## use https repos
-    repos = c(CRAN = &quot;https://cran.rstudio.org&quot;),
+    repos = c(CRAN = &quot;https://cran.rstudio.org&quot;)
   )
   library(devtools)
 }</code></pre>
@@ -246,12 +246,6 @@ freq_out &lt;- function(x) {
 }</code></pre>
 <p>Generate the associated help file: <code>document()</code> or <em>Build &gt; Document</em>.</p>
 <p>back to <a href="packages00_index.html">All the package things</a></p>
-<pre class="r"><code>knitr::opts_knit$set(root.dir = owd)
-knitr::opts_knit$get(&quot;root.dir&quot;)
-#&gt; [1] &quot;/Users/jenny/teaching/STAT545A/STAT545-UBC.github.io&quot;</code></pre>
-<pre class="r"><code>getwd()
-#&gt; [1] &quot;/Users/jenny/teaching/STAT545A/STAT545-UBC.github.io&quot;
-#unlink(ff_path, recursive = TRUE)</code></pre>
 </div>
 
 <div class="footer">

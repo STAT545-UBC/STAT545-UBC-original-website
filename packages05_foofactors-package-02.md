@@ -27,14 +27,14 @@ We assume you are checking your package often. Maybe after each major step? That
 library(devtools)
 ```
 
-You might want to put something like this in your `.Rprofile` in your home directory:
+Or you might want to put something like this in your `.Rprofile` in your home directory:
 
 
 ```r
 if (interactive()) {
   options(
     ## use https repos
-    repos = c(CRAN = "https://cran.rstudio.org"),
+    repos = c(CRAN = "https://cran.rstudio.org")
   )
   library(devtools)
 }
@@ -237,15 +237,7 @@ Generate the associated help file: `document()` or *Build > Document*.
 back to [All the package things](packages00_index.html)
 
 
-```r
-knitr::opts_knit$set(root.dir = owd)
-knitr::opts_knit$get("root.dir")
-#> [1] "/Users/jenny/teaching/STAT545A/STAT545-UBC.github.io"
-```
 
 
-```r
-getwd()
-#> [1] "/Users/jenny/teaching/STAT545A/STAT545-UBC.github.io"
-#unlink(ff_path, recursive = TRUE)
-```
+
+

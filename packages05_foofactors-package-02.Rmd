@@ -46,13 +46,13 @@ getwd()
 library(devtools)
 ```
 
-You might want to put something like this in your `.Rprofile` in your home directory:
+Or you might want to put something like this in your `.Rprofile` in your home directory:
 
 ```{r eval = FALSE}
 if (interactive()) {
   options(
     ## use https repos
-    repos = c(CRAN = "https://cran.rstudio.org"),
+    repos = c(CRAN = "https://cran.rstudio.org")
   )
   library(devtools)
 }
@@ -243,12 +243,16 @@ Generate the associated help file: `document()` or *Build > Document*.
 
 back to [All the package things](packages00_index.html)
 
-```{r include = TRUE}
+
+```{r teardown, include = debug}
 knitr::opts_knit$set(root.dir = owd)
 knitr::opts_knit$get("root.dir")
 ```
 
-```{r include = TRUE}
+```{r include = debug}
+## FUTURE JENNY! don't move this into the previous chunk!
+## you can't remove current working directory and the root.dir change
+## doesn't take effect until you enter the next chunk
 getwd()
-#unlink(ff_path, recursive = TRUE)
 ```
+
