@@ -4,7 +4,7 @@
 
 *This is a skeleton account of what we did in class. Narrative? Not so much. It's coming!*
 
-We assume you've come directly from [part one](packages04_foofactors-package-02.html), where we:
+We assume you've come directly from [part one](packages04_foofactors-package-01.html), where we:
 
   * created the `foofactors` package
   * made it an RStudio Project

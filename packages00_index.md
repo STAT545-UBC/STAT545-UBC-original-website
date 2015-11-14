@@ -38,7 +38,7 @@ This fully developed example shows you
 In 2015, we built the `foofactors` package to make the care and feeding of factors less aggravating.
 
   * [2015 part 1](packages04_foofactors-package-01.html)
-  * 2015 part 2 *coming soon*
+  * [2015 part 2](packages05_foofactors-package-02.html) *more narrative coming*
 
 In 2014, we built the `gameday` package to check if your favorite NHL team has a game today.
 

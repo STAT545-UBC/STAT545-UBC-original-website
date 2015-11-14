@@ -103,7 +103,7 @@ Quit and relaunch RStudio in this Project, so that it is recognized as a Git rep
 
 
 ```
-#> [933181a] 2015-11-13: Initial commit
+#> [15a9170] 2015-11-14: Initial commit
 ```
 
 FYI RStudio can also initialize a Git repository, in any Project, even if it's not an R package: *Tools > Version Control > Project Setup*. Then choose *Version control system: Git* and *initialize a new git repository for this project*. Then restart RStudio in the Project.
@@ -186,7 +186,7 @@ Your most recent commit should look something like this:
 
 
 ```
-#> [30b3752] 2015-11-13: Add fbind()
+#> [b4379b8] 2015-11-14: Add fbind()
 ```
 
 ### Build, Install, Check
@@ -251,7 +251,7 @@ check()
 #> Checking foofactors -------------------------------------------------------
 #> '/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
 #>   --no-environ --no-save --no-restore CMD check  \
-#>   '/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpU9PKBI/foofactors_0.0.0.9000.tar.gz'  \
+#>   '/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpMz0JjK/foofactors_0.0.0.9000.tar.gz'  \
 #>   --as-cran --timings
 ```
 
@@ -277,7 +277,7 @@ A shortcut for "build, install, and reload" is offered by RStudio:
   
 That's enough for now!
 
-In part two, we'll add more bells and whistles to the package.
+In [part two](packages05_foofactors-package-02.html), we'll add more bells and whistles to the package.
 
 back to [All the package things](packages00_index.html)
 

@@ -250,7 +250,7 @@ A shortcut for "build, install, and reload" is offered by RStudio:
   
 That's enough for now!
 
-In part two, we'll add more bells and whistles to the package.
+In [part two](packages05_foofactors-package-02.html), we'll add more bells and whistles to the package.
 
 back to [All the package things](packages00_index.html)
 
