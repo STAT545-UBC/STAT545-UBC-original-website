@@ -56,7 +56,7 @@ Ideas for more functions to write:
 
 ### Due date
 
-Submit an issue with a link to your package sometime on Friday November 27.
+Submit an issue with a link to your package sometime on Friday November 20.
 
 ## Rubric
 
