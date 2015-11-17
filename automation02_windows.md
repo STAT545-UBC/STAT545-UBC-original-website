@@ -8,6 +8,8 @@ output:
     pandoc_args: "--preserve-tabs"
 ---
 
+*2015-11-17 NOTE: This year we made R packages before we used Make. The hope is, therefore, that the Make that ships with Rtools is all we need. So hopefully we can ignore this?*
+
 ### Install `make` on Microsoft Windows
 
 We are still working out the best way to install `make` on Windows. Our current best recommendation is to install *msysGit*, which includes `make` as well as `git` and `bash`.
