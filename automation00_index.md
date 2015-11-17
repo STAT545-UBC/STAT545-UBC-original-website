@@ -16,6 +16,8 @@ Why and how we automate data analyses + examples.
 
 ### Install `make`
 
+*2015-11-17 NOTE: since we have already set up a build environment for R packages, it is my hope that everyone has Make. These instructions were from 2014, when we did everything in a different order. Cross your fingers and ignore!*
+
 [Windows installation](automation02_windows.html)
 
 (If you are running Mac OS or Linux, `make` should already be installed.)

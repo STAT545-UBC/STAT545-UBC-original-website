@@ -49,7 +49,7 @@
     - [slides](https://speakerdeck.com/jennybc/ubc-stat545-2015-writing-your-first-r-package)
     - [System preparation for package development](packages01_system-prep.html)
     - [2015 Hands-on activity, part 1](packages04_foofactors-package-01.html)
-    - 2015 Hands-on activity, part 2
+    - [2015 Hands-on activity, part 2](packages05_foofactors-package-02.html)
     - [2014 Hands-on activity, part 1](packages02_activity.html)
     - [2014 Hands-on activity, part 2](packages03_activity_part2.html)
   * [All the automation things](automation00_index.html) *all from 2014*
