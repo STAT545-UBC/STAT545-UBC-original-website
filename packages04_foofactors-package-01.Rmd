@@ -231,9 +231,18 @@ At intermediate milestones, you should check your package:
     - `check()`
     
 **Read the output of the check!** Deal with problems early and often. It's just like incremental development of `.R` and `.Rmd`. The longer you go between full checks that everything works, the harder it is to pinpoint and solve your problems.
+
+Just this once, run `check()` with `document = FALSE`, so we don't get ahead of ourselves. (Specifically, I don't want to mess with our `NAMESPACE` file yet.)
+
+At this point, you should expect to get two warnings:
+
+  * `Non-standard license specification`
+  * `Undocumented code objects: ‘foo’`
+  
+We'll fix both soon.
     
 ```{r}
-check()
+check(document = FALSE)
 ```
 
 Once things look OK, you can install your very own `foofactors` package into your library:
@@ -248,7 +257,18 @@ A shortcut for "build, install, and reload" is offered by RStudio:
 
   * *Build > Build & Reload*
   
-That's enough for now!
+#### Did it really work?
+
+Now that we've installed `foofactors` properly, let's revisit our small example.
+
+```{r}
+library(foofactors)
+a <- factor(c("character", "hits", "your", "eyeballs"))
+b <- factor(c("but", "integer", "where it", "counts"))
+fbind(a, b)
+```
+
+Success! That's enough for now.
 
 In [part two](packages05_foofactors-package-02.html), we'll add more bells and whistles to the package.
 

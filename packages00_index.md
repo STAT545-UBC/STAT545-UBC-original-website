@@ -20,7 +20,7 @@ Slides available on [speakerdeck](https://speakerdeck.com/jennybc/ubc-stat545-20
 
 [System prep and testing](packages01_system-prep.html)
 
-Although we'll build a very simple package, we're still going to use the most modern and powerful tools for R package development. In theory, this could eventually involve compiling C/C++ code, which means you need what's called a "build environment." Follow the link above for help preparing your system.
+Although we'll build a very simple package, we're still going to use the most modern and powerful tools for R package development. In theory, this could eventually involve compiling C/C++ code, which means you need what's called a *build environment*. Follow the link above for help preparing your system.
 
 ### Hands-on activity
 
@@ -39,6 +39,7 @@ In 2015, we built the `foofactors` package to make the care and feeding of facto
 
   * [2015 part 1](packages04_foofactors-package-01.html)
   * [2015 part 2](packages05_foofactors-package-02.html) *more narrative coming*
+  * [2015 homework](hw10_package.html) that builds on the in-class work on `foofactors`.
 
 In 2014, we built the `gameday` package to check if your favorite NHL team has a game today.
 
@@ -46,7 +47,7 @@ In 2014, we built the `gameday` package to check if your favorite NHL team has a
 
 [2014 Day 2](packages03_activity_part2.html) of hands-on work
 
-[2014 Homework](hw10_package.html) that builds on the in-class work on `gameday`. [Hints](hw10_package_jenny-hints.html) on how to get started. [Peer review help](hw10_package_peer-review.html).
+[2014 Homework](hw10_2014_package.html) that builds on the in-class work on `gameday`. [Hints](hw10_2014_package_jenny-hints.html) on how to get started. [Peer review help](hw10_2014_package_peer-review.html).
 
 ### Resources
 
@@ -62,7 +63,7 @@ Some blog posts accompanying `devtools` releases highlight useful helper functio
 
   * [v1.6 October 2014](http://blog.rstudio.org/2014/10/02/devtools-1-6/)
   * [v1.8 May 2015](http://blog.rstudio.org/2015/05/11/devtools-1-9-0/)
-  * [v1.9.1 Septmber 2015](http://blog.rstudio.org/2015/09/13/devtools-1-9-1/)
+  * [v1.9.1 September 2015](http://blog.rstudio.org/2015/09/13/devtools-1-9-1/)
 
 Karl Broman's [guide to writing an R package](http://kbroman.org/pkg_primer/)
 
@@ -80,4 +81,4 @@ Jeff Leek's [guide to writing R packages](https://github.com/jtleek/rpackages)
 
 [Writing R Extensions](http://cran.r-project.org/doc/manuals/r-release/R-exts.html), the One True Official Document on creating R packages
 
-[How R Searches and Finds Stuff](http://obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff/) is a fairly technical blog post for understanding the R search path, but also gives some great explanations on some differences between `Imports` vs `Depends` and why Depends is safer (added by daattali on 2015-01-01)
+[How R Searches and Finds Stuff](http://obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff/) is a fairly technical blog post for understanding the R search path, but also gives some great explanations on some differences between `Imports` vs `Depends` and why `Imports` is safer

@@ -103,7 +103,7 @@ Quit and relaunch RStudio in this Project, so that it is recognized as a Git rep
 
 
 ```
-#> [15a9170] 2015-11-14: Initial commit
+#> [741cadb] 2015-11-17: Initial commit
 ```
 
 FYI RStudio can also initialize a Git repository, in any Project, even if it's not an R package: *Tools > Version Control > Project Setup*. Then choose *Version control system: Git* and *initialize a new git repository for this project*. Then restart RStudio in the Project.
@@ -186,7 +186,7 @@ Your most recent commit should look something like this:
 
 
 ```
-#> [b4379b8] 2015-11-14: Add fbind()
+#> [2c0e5c9] 2015-11-17: Add fbind()
 ```
 
 ### Build, Install, Check
@@ -228,15 +228,19 @@ At intermediate milestones, you should check your package:
     - `check()`
     
 **Read the output of the check!** Deal with problems early and often. It's just like incremental development of `.R` and `.Rmd`. The longer you go between full checks that everything works, the harder it is to pinpoint and solve your problems.
+
+Just this once, run `check()` with `document = FALSE`, so we don't get ahead of ourselves. (Specifically, I don't want to mess with our `NAMESPACE` file yet.)
+
+At this point, you should expect to get two warnings:
+
+  * `Non-standard license specification`
+  * `Undocumented code objects: ‘foo’`
+  
+We'll fix both soon.
     
 
 ```r
-check()
-#> Updating foofactors documentation
-#> Loading foofactors
-#> First time using roxygen2. Upgrading automatically...
-#> Updating roxygen version in  /Users/jenny/tmp/foofactors/DESCRIPTION 
-#> Writing NAMESPACE
+check(document = FALSE)
 #> Setting env vars ----------------------------------------------------------
 #> CFLAGS  : -Wall -pedantic
 #> CXXFLAGS: -Wall -pedantic
@@ -251,7 +255,7 @@ check()
 #> Checking foofactors -------------------------------------------------------
 #> '/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
 #>   --no-environ --no-save --no-restore CMD check  \
-#>   '/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpMz0JjK/foofactors_0.0.0.9000.tar.gz'  \
+#>   '/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpjE4dGo/foofactors_0.0.0.9000.tar.gz'  \
 #>   --as-cran --timings
 ```
 
@@ -275,7 +279,22 @@ A shortcut for "build, install, and reload" is offered by RStudio:
 
   * *Build > Build & Reload*
   
-That's enough for now!
+#### Did it really work?
+
+Now that we've installed `foofactors` properly, let's revisit our small example.
+
+
+```r
+library(foofactors)
+a <- factor(c("character", "hits", "your", "eyeballs"))
+b <- factor(c("but", "integer", "where it", "counts"))
+fbind(a, b)
+#> [1] character hits      your      eyeballs  but       integer   where it 
+#> [8] counts   
+#> Levels: but character counts eyeballs hits integer where it your
+```
+
+Success! That's enough for now.
 
 In [part two](packages05_foofactors-package-02.html), we'll add more bells and whistles to the package.
 

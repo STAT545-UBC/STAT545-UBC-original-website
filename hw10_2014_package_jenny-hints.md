@@ -6,7 +6,7 @@ output:
     toc_depth: 3
 ---
 
-I (Jenny) piloted the main bits of [HW10 Building your own R package](hw10_package.html). This might help you figure out how best to spend your first hour on this homework.
+I (Jenny) piloted the main bits of [HW10 Building your own R package](hw10_2014_package.html). This might help you figure out how best to spend your first hour on this homework.
 
 ### Get to the starting line
 

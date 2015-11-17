@@ -172,7 +172,7 @@ create(&quot;~/tmp/foofactors&quot;)
 <pre><code>#&gt;      [,1]  
 #&gt; [1,] &quot;.git&quot;</code></pre>
 <p>Quit and relaunch RStudio in this Project, so that it is recognized as a Git repo and the Git tab becomes available in the Environment/History/Build pane. Click on History and you should see evidence of our initial commit:</p>
-<pre><code>#&gt; [15a9170] 2015-11-14: Initial commit</code></pre>
+<pre><code>#&gt; [741cadb] 2015-11-17: Initial commit</code></pre>
 <p>FYI RStudio can also initialize a Git repository, in any Project, even if it’s not an R package: <em>Tools &gt; Version Control &gt; Project Setup</em>. Then choose <em>Version control system: Git</em> and <em>initialize a new git repository for this project</em>. Then restart RStudio in the Project.</p>
 </div>
 <div id="add-your-first-function" class="section level3">
@@ -224,7 +224,7 @@ fbind(a, b)
 <h3>Commit <code>fbind()</code></h3>
 <p>Use you favorite method to commit the new <code>R/fbind.R</code> file.</p>
 <p>Your most recent commit should look something like this:</p>
-<pre><code>#&gt; [b4379b8] 2015-11-14: Add fbind()</code></pre>
+<pre><code>#&gt; [2c0e5c9] 2015-11-17: Add fbind()</code></pre>
 </div>
 <div id="build-install-check" class="section level3">
 <h3>Build, Install, Check</h3>
@@ -261,12 +261,14 @@ R CMD INSTALL foofactors_0.0.0.9000.tar.gz</code></pre>
 </ul></li>
 </ul>
 <p><strong>Read the output of the check!</strong> Deal with problems early and often. It’s just like incremental development of <code>.R</code> and <code>.Rmd</code>. The longer you go between full checks that everything works, the harder it is to pinpoint and solve your problems.</p>
-<pre class="r"><code>check()
-#&gt; Updating foofactors documentation
-#&gt; Loading foofactors
-#&gt; First time using roxygen2. Upgrading automatically...
-#&gt; Updating roxygen version in  /Users/jenny/tmp/foofactors/DESCRIPTION 
-#&gt; Writing NAMESPACE
+<p>Just this once, run <code>check()</code> with <code>document = FALSE</code>, so we don’t get ahead of ourselves. (Specifically, I don’t want to mess with our <code>NAMESPACE</code> file yet.)</p>
+<p>At this point, you should expect to get two warnings:</p>
+<ul>
+<li><code>Non-standard license specification</code></li>
+<li><code>Undocumented code objects: ‘foo’</code></li>
+</ul>
+<p>We’ll fix both soon.</p>
+<pre class="r"><code>check(document = FALSE)
 #&gt; Setting env vars ----------------------------------------------------------
 #&gt; CFLAGS  : -Wall -pedantic
 #&gt; CXXFLAGS: -Wall -pedantic
@@ -281,7 +283,7 @@ R CMD INSTALL foofactors_0.0.0.9000.tar.gz</code></pre>
 #&gt; Checking foofactors -------------------------------------------------------
 #&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; --no-site-file  \
 #&gt;   --no-environ --no-save --no-restore CMD check  \
-#&gt;   &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpMz0JjK/foofactors_0.0.0.9000.tar.gz&#39;  \
+#&gt;   &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpjE4dGo/foofactors_0.0.0.9000.tar.gz&#39;  \
 #&gt;   --as-cran --timings</code></pre>
 <p>Once things look OK, you can install your very own <code>foofactors</code> package into your library:</p>
 <pre class="r"><code>install()
@@ -297,7 +299,18 @@ R CMD INSTALL foofactors_0.0.0.9000.tar.gz</code></pre>
 <ul>
 <li><em>Build &gt; Build &amp; Reload</em></li>
 </ul>
-<p>That’s enough for now!</p>
+</div>
+<div id="did-it-really-work" class="section level4">
+<h4>Did it really work?</h4>
+<p>Now that we’ve installed <code>foofactors</code> properly, let’s revisit our small example.</p>
+<pre class="r"><code>library(foofactors)
+a &lt;- factor(c(&quot;character&quot;, &quot;hits&quot;, &quot;your&quot;, &quot;eyeballs&quot;))
+b &lt;- factor(c(&quot;but&quot;, &quot;integer&quot;, &quot;where it&quot;, &quot;counts&quot;))
+fbind(a, b)
+#&gt; [1] character hits      your      eyeballs  but       integer   where it 
+#&gt; [8] counts   
+#&gt; Levels: but character counts eyeballs hits integer where it your</code></pre>
+<p>Success! That’s enough for now.</p>
 <p>In <a href="packages05_foofactors-package-02.html">part two</a>, we’ll add more bells and whistles to the package.</p>
 <p>back to <a href="packages00_index.html">All the package things</a></p>
 </div>

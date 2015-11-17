@@ -99,24 +99,24 @@ img {
 <li><a href="#license">LICENSE</a></li>
 <li><a href="#document-fbind">Document <code>fbind()</code></a></li>
 <li><a href="#unit-test">Unit test</a></li>
+<li><a href="#use-a-function-from-another-package">Use a function from another package</a></li>
 <li><a href="#connect-to-github">Connect to GitHub</a></li>
 <li><a href="#use-readme">Use README</a></li>
 <li><a href="#add-a-vignette">Add a vignette</a></li>
-<li><a href="#use-a-function-from-another-package">Use a function from another package</a></li>
 </ul>
 </div>
 
-<p><em>This is a skeleton account of what we did in class. Narrative? Not so much. It’s coming!</em></p>
+<p><em>This is a skeleton account of what we did in class. Narrative? Not so much. It’s getting better!</em></p>
 <p>We assume you’ve come directly from <a href="packages04_foofactors-package-01.html">part one</a>, where we:</p>
 <ul>
 <li>created the <code>foofactors</code> package</li>
 <li>made it an RStudio Project</li>
 <li>made it a Git repo</li>
 <li>created the <code>fbind()</code> function</li>
-<li>checked, built, and installed the package</li>
+<li>checked, built, installed, and test drove the package</li>
 </ul>
 <p>We assume you’ll be commiting package source after each major step! No more reminders about that.</p>
-<p>We assume you are checking your package often. Maybe after each major step? That’s probably overkill but why not? Use <code>devtools::check()</code> in the Console or RStudio <em>Build &gt; Check</em>.</p>
+<p>We assume you are checking your package often. Maybe after each major step? That’s probably overkill but why not? Use <code>devtools::check()</code> in the Console or RStudio <em>Build &gt; Check</em>. And remember the true test is to “Build &amp; Reload” and use your functions.</p>
 <div id="load-devtools" class="section level3">
 <h3>Load <code>devtools</code></h3>
 <pre class="r"><code>library(devtools)</code></pre>
@@ -132,7 +132,12 @@ img {
 <div id="edit-description" class="section level3">
 <h3>Edit DESCRIPTION</h3>
 <p>DESCRIPTION provides <a href="http://r-pkgs.had.co.nz/description.html">metadata about your package</a>.</p>
-<p>Add your name. Edit title and description as you see fit.</p>
+<p>Make (at least) the following edits:</p>
+<ul>
+<li>Put yourself in as the author.</li>
+<li>Write some descriptive text in the <code>Title</code> and <code>Description</code> fields. Note that CRAN is <strong>very picky</strong> about these fields, so if you want to keep passing <code>check()</code>, read <a href="http://r-pkgs.had.co.nz/description.html#pkg-description">this section</a> section of R Packages.</li>
+<li>I’ve opted to specify the MIT license (will require a bit more work below).</li>
+</ul>
 <pre class="sh"><code>Package: foofactors
 Title: Make factors less annoying
 Version: 0.0.0.9000
@@ -149,14 +154,17 @@ LazyData: true</code></pre>
 </div>
 <div id="license" class="section level3">
 <h3>LICENSE</h3>
-<p><a href="http://r-pkgs.had.co.nz/description.html#license" class="uri">http://r-pkgs.had.co.nz/description.html#license</a></p>
-<p>Add this in a new file called LICENSE. Fill in the year and your name.</p>
+<p>Relevant section from R Packages: <a href="http://r-pkgs.had.co.nz/description.html#license" class="uri">http://r-pkgs.had.co.nz/description.html#license</a></p>
+<p><a href="http://choosealicense.com" class="uri">http://choosealicense.com</a></p>
+<p>To finish specifying the MIT license, add this in a new file called LICENSE. Fill in the year and your name.</p>
 <pre class="sh"><code>YEAR: &lt;Year or years when changes have been made&gt;
 COPYRIGHT HOLDER: &lt;Name of the copyright holder&gt;</code></pre>
 </div>
 <div id="document-fbind" class="section level3">
 <h3>Document <code>fbind()</code></h3>
-<p>RStudio <em>Code &gt; Insert roxygen skeleton</em></p>
+<p>Go to the <code>fbind.R</code> script and put the cursor somewhere in the <code>fbind()</code> function definition.</p>
+<p>RStudio <em>Code &gt; Insert roxygen skeleton</em>. You will see a very special comment appear above your function. This comment will be processed by the <code>roxygen2</code> package to create an official R help file for your <code>fbind()</code> function. RStudio only inserts a barebones template, so you will need to edit it to look something like that below.</p>
+<p>You can learn much more about what’s possible in the <a href="http://r-pkgs.had.co.nz/man.html">documentation chapter</a> of R Packages.</p>
 <pre class="sh"><code>#&#39; Bind two factors
 #&#39;
 #&#39; Create a new factor from two existing factors, where the new factor&#39;s levels
@@ -169,16 +177,22 @@ COPYRIGHT HOLDER: &lt;Name of the copyright holder&gt;</code></pre>
 #&#39; @export
 #&#39; @examples
 #&#39; fbind(iris$Species[c(1, 51, 101)], PlantGrowth$group[c(1, 11, 21)])</code></pre>
+<p>We still need to trigger the conversion process. You can do from the RStudio IDE or in the Console.</p>
 <p>RStudio <em>Build &gt; More &gt; Document</em> or …</p>
 <pre class="r"><code>library(devtools)
-document()
-?fbind</code></pre>
+document()</code></pre>
+<p>You should now be able to preview your help file like so:</p>
+<pre class="r"><code>?fbind</code></pre>
+<p>Your package’s documentation won’t be fully wired up until you do a full “Build &amp; Reload”.</p>
+<p>Note the addition of <code>export(fbind)</code> to your <code>NAMESPACE</code> file. This is very important! This is called exporting the <code>fbind()</code> function and it’s what will make <code>fbind()</code> available to a user after loading <code>foofactors</code> with <code>library(foofactors)</code>.</p>
 </div>
 <div id="unit-test" class="section level3">
 <h3>Unit test</h3>
 <p>Declare your intent to write unit tests. We’re going to use the <code>testthat</code> package to help us.</p>
 <pre class="r"><code>use_testthat()</code></pre>
-<p>In <code>tests/testthat/test_fbind.R</code>:</p>
+<p>This will add <code>Suggests: testthat</code> to <code>DESCRIPTION</code> and create the directory <code>tests/testthat</code> and the script <code>test/testthat.R</code>. This prepares the unit testing machinery for your package.</p>
+<p>However, it’s still up to YOU to write the actual tests!</p>
+<p>Create a new script <code>tests/testthat/test_fbind.R</code> and put this in it:</p>
 <pre class="r"><code>context(&quot;Binding factors&quot;)
 
 test_that(&quot;fbind binds factor (or character)&quot;, {
@@ -190,24 +204,60 @@ test_that(&quot;fbind binds factor (or character)&quot;, {
   expect_identical(fbind(x, y), z)
   expect_identical(fbind(x_fact, y), z)
 })</code></pre>
+<p>Now we run the tests. Again you can use the RStudio IDE or the Console.</p>
 <p>RStudio <em>Build &gt; Test package</em> or …</p>
 <pre class="r"><code>test()</code></pre>
+<p>If all goes well, you’ll see something like this:</p>
+<pre><code>==&gt; devtools::test()
+
+Loading foofactors
+Loading required package: testthat
+Testing foofactors
+Binding factors : ..
+
+DONE </code></pre>
+</div>
+<div id="use-a-function-from-another-package" class="section level3">
+<h3>Use a function from another package</h3>
+<p>Before long, you will want to use a function from another. Just as we needed to <strong>export</strong> <code>fbind()</code>, we need to <strong>import</strong> functions from the namespace of other packages.</p>
+<p>There is more than one way to approach this. I am presenting the one I use, which is the one recommended in the <a href="http://r-pkgs.had.co.nz/namespace.html">namespace chapter</a> of R Packages and in the <a href="https://github.com/ropensci/packaging_guide#deps">rOpenSci Packaging Guide</a>.</p>
+<p>Declare your intent to use some functions from the <code>dplyr</code> namespace:</p>
+<pre class="r"><code>use_package(&quot;dplyr&quot;)</code></pre>
+<p>Add a new function that does, indeed, use a function from <code>dplyr</code>. Imagine we want a frequency table for a factor, as a regular data frame, versus as an object of class <code>table</code>, as returned by <code>table()</code>.</p>
+<p>Create a new script <code>R/freq_out.R</code> with this in it:</p>
+<pre class="r"><code>#&#39; Make a frequency table for a factor
+#&#39;
+#&#39; @param x factor
+#&#39;
+#&#39; @return tbl_df
+#&#39; @export
+#&#39; @examples
+#&#39; freq_out(iris$Species)
+freq_out &lt;- function(x) {
+  xdf &lt;- dplyr::data_frame(x)
+  dplyr::count(xdf, x)
+}</code></pre>
+<p>Generate the associated help file: <code>document()</code> or <em>Build &gt; Document</em>.</p>
 </div>
 <div id="connect-to-github" class="section level3">
 <h3>Connect to GitHub</h3>
+<p>This will create a remote companion repository on GitHub and will get things hooked up so your Push and Pull buttons work in RStudio.</p>
+<p>This requires talking to the GitHub API, which therefore requires that you get a personal access token (PAT).</p>
 <p>Get a PAT here <a href="https://github.com/settings/tokens" class="uri">https://github.com/settings/tokens</a>. Make sure the “repo” scope is included (last I checked, the defaults WILL include it).</p>
-<p>In <code>~/.Renviron</code>:</p>
+<p>Stow this in <code>~/.Renviron</code>, which holds environment variables that should be available to R processes. <code>devtools</code> will look here for the PAT.</p>
 <pre class="sh"><code>GITHUB_PAT=???????????????????</code></pre>
 <p>Restart R.</p>
 <p>In R, check the PAT is in env var:</p>
 <pre class="r"><code>Sys.getenv(&quot;GITHUB_PAT&quot;)</code></pre>
 <p>Connect your package = Git repo to a new, public GitHub repo. If you want private <strong>and you have a private repo to spare</strong>, add <code>private = TRUE</code>. If you use SSH, remove <code>protocol = &quot;https&quot;</code> (SSH is the default).</p>
 <pre class="r"><code>use_github(protocol = &quot;https&quot;)</code></pre>
+<p>Go look at your package’s repo on GitHub!</p>
 </div>
 <div id="use-readme" class="section level3">
 <h3>Use README</h3>
+<p>You will want to “Build &amp; Reload” at this point, so your properly build and installed package is found when you knit <code>README.Rmd</code></p>
 <pre class="r"><code>use_readme_rmd()</code></pre>
-<p>Put something in the README. Such as … a practice package for STAT 545 and the purpose of the package. Put an R chunk in that demonstates <code>fbind()</code>. Just copy the example, at the very least!</p>
+<p>Put something in the README. Such as … explanation that this is a practice package for STAT 545 and the purpose of the package. Put an R chunk in that demonstates <code>fbind()</code>. Just copy the example, at the very least!</p>
 <p>Knit it to make <code>README.md</code>.</p>
 </div>
 <div id="add-a-vignette" class="section level3">
@@ -225,26 +275,6 @@ browseVignettes(&quot;foofactors&quot;)</code></pre>
 <pre class="r"><code>build()
 install_local(&quot;../foofactors_0.0.0.9000.tar.gz&quot;, build_vignettes = TRUE)
 browseVignettes(&quot;foofactors&quot;)</code></pre>
-</div>
-<div id="use-a-function-from-another-package" class="section level3">
-<h3>Use a function from another package</h3>
-<p>Declare your intent to use some functions from the <code>dplyr</code> namespace:</p>
-<pre class="r"><code>use_package(&quot;dplyr&quot;)</code></pre>
-<p>Add a new function that does, indeed, use a function from <code>dplyr</code>.</p>
-<p>In <code>R/freq_out.R</code>:</p>
-<pre class="r"><code>#&#39; Make a frequency table for a factor
-#&#39;
-#&#39; @param x factor
-#&#39;
-#&#39; @return tbl_df
-#&#39; @export
-#&#39; @examples
-#&#39; freq_out(iris$Species)
-freq_out &lt;- function(x) {
-  xdf &lt;- dplyr::data_frame(x)
-  dplyr::count(xdf, x)
-}</code></pre>
-<p>Generate the associated help file: <code>document()</code> or <em>Build &gt; Document</em>.</p>
 <p>back to <a href="packages00_index.html">All the package things</a></p>
 </div>
 
