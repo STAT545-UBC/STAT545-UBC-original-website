@@ -7,7 +7,7 @@ output:
 ### cm102 2015-10-28 Thursday
 
   * [HW07](hw07_data-wrangling-grand-finale.html) due ???
-  * [Regular expressions and handling character data](block027_regular-expressions-2015.html), led by Kieran Samuk
+  * [Regular expressions and handling character data](block027_regular-expressions.html), led by Kieran Samuk
   * [Link to RegEx101 Test File](https://regex101.com/r/gZ2uW4/2)
   * [Alterate link to the news_tweets.txt data file](regex_files/news_tweets.txt)
 
