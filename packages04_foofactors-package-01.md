@@ -103,7 +103,7 @@ Quit and relaunch RStudio in this Project, so that it is recognized as a Git rep
 
 
 ```
-#> [741cadb] 2015-11-17: Initial commit
+#> [614d957] 2015-11-17: Initial commit
 ```
 
 FYI RStudio can also initialize a Git repository, in any Project, even if it's not an R package: *Tools > Version Control > Project Setup*. Then choose *Version control system: Git* and *initialize a new git repository for this project*. Then restart RStudio in the Project.
@@ -186,7 +186,7 @@ Your most recent commit should look something like this:
 
 
 ```
-#> [2c0e5c9] 2015-11-17: Add fbind()
+#> [1591a52] 2015-11-17: Add fbind()
 ```
 
 ### Build, Install, Check
@@ -255,7 +255,7 @@ check(document = FALSE)
 #> Checking foofactors -------------------------------------------------------
 #> '/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
 #>   --no-environ --no-save --no-restore CMD check  \
-#>   '/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpjE4dGo/foofactors_0.0.0.9000.tar.gz'  \
+#>   '/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpjN8aTI/foofactors_0.0.0.9000.tar.gz'  \
 #>   --as-cran --timings
 ```
 

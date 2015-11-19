@@ -103,6 +103,7 @@ img {
 <li><a href="#connect-to-github">Connect to GitHub</a></li>
 <li><a href="#use-readme">Use README</a></li>
 <li><a href="#add-a-vignette">Add a vignette</a></li>
+<li><a href="#document-the-package-as-whole">Document the package as whole</a></li>
 </ul>
 </div>
 
@@ -128,6 +129,7 @@ img {
   )
   library(devtools)
 }</code></pre>
+<p><strong>This file should be named <code>.Rprofile</code>, not <code>.Rprofile.R</code>.</strong></p>
 </div>
 <div id="edit-description" class="section level3">
 <h3>Edit DESCRIPTION</h3>
@@ -157,7 +159,7 @@ LazyData: true</code></pre>
 <p>Relevant section from R Packages: <a href="http://r-pkgs.had.co.nz/description.html#license" class="uri">http://r-pkgs.had.co.nz/description.html#license</a></p>
 <p><a href="http://choosealicense.com" class="uri">http://choosealicense.com</a></p>
 <p>To finish specifying the MIT license, add this in a new file called LICENSE. Fill in the year and your name.</p>
-<pre class="sh"><code>YEAR: &lt;Year or years when changes have been made&gt;
+<pre class="sh"><code>YEAR: 2015
 COPYRIGHT HOLDER: &lt;Name of the copyright holder&gt;</code></pre>
 </div>
 <div id="document-fbind" class="section level3">
@@ -216,6 +218,7 @@ Testing foofactors
 Binding factors : ..
 
 DONE </code></pre>
+<p>Relevant section from R Packages: <a href="http://r-pkgs.had.co.nz/tests.html" class="uri">http://r-pkgs.had.co.nz/tests.html</a></p>
 </div>
 <div id="use-a-function-from-another-package" class="section level3">
 <h3>Use a function from another package</h3>
@@ -223,7 +226,8 @@ DONE </code></pre>
 <p>There is more than one way to approach this. I am presenting the one I use, which is the one recommended in the <a href="http://r-pkgs.had.co.nz/namespace.html">namespace chapter</a> of R Packages and in the <a href="https://github.com/ropensci/packaging_guide#deps">rOpenSci Packaging Guide</a>.</p>
 <p>Declare your intent to use some functions from the <code>dplyr</code> namespace:</p>
 <pre class="r"><code>use_package(&quot;dplyr&quot;)</code></pre>
-<p>Add a new function that does, indeed, use a function from <code>dplyr</code>. Imagine we want a frequency table for a factor, as a regular data frame, versus as an object of class <code>table</code>, as returned by <code>table()</code>.</p>
+<p>This will cause the <code>dplyr</code> package to be added to the “Imports” section of your DESCRIPTION file. And that is all.</p>
+<p>Add a new function that does, indeed, use a function from <code>dplyr</code>. Imagine we want a frequency table for a factor, as a regular data frame, versus as an object of class <code>table</code>, as returned by <code>table()</code>. Preface your calls to <code>dplyr</code> functions with <code>dplyr::</code>. In general, this means you’ll specify the external package’s name, followed by two colons, then the function to call.</p>
 <p>Create a new script <code>R/freq_out.R</code> with this in it:</p>
 <pre class="r"><code>#&#39; Make a frequency table for a factor
 #&#39;
@@ -238,24 +242,27 @@ freq_out &lt;- function(x) {
   dplyr::count(xdf, x)
 }</code></pre>
 <p>Generate the associated help file: <code>document()</code> or <em>Build &gt; Document</em>.</p>
+<p>An alternative to this <code>dplyr::select()</code> business is to import individual functions. One function you may wish to do this for is the <code>%&gt;%</code> operator itself. Put this line in the roxygen header of some function in your package:</p>
+<pre class="r"><code>#&#39; @importFrom dplyr %&gt;%</code></pre>
+<p>It doesn’t matter which function – it will still make <code>%&gt;%</code> available broadly within your package. Now run <code>document()</code>. That should cause <code>importFrom(dplyr,&quot;%&gt;%&quot;)</code> to appear in your <code>NAMESPACE</code> file. Once you document your package itself (see below), that provides a nice to park package-wide imports like this. At that point, you may wish to move the above line into the roxygen header that underpins the package documentation.</p>
 </div>
 <div id="connect-to-github" class="section level3">
 <h3>Connect to GitHub</h3>
 <p>This will create a remote companion repository on GitHub and will get things hooked up so your Push and Pull buttons work in RStudio.</p>
 <p>This requires talking to the GitHub API, which therefore requires that you get a personal access token (PAT).</p>
 <p>Get a PAT here <a href="https://github.com/settings/tokens" class="uri">https://github.com/settings/tokens</a>. Make sure the “repo” scope is included (last I checked, the defaults WILL include it).</p>
-<p>Stow this in <code>~/.Renviron</code>, which holds environment variables that should be available to R processes. <code>devtools</code> will look here for the PAT.</p>
+<p>Stow this in <code>~/.Renviron</code>, which holds environment variables that should be available to R processes. <code>devtools</code> will look here for the PAT. Here “~/” means your home directory. If you’re not sure where that is, execute <code>normalizePath(&quot;~/&quot;)</code> in R console. <strong>This file should be named <code>.Renviron</code>, not <code>.Renviron.R</code>.</strong> In RStudio, that means you should use <em>File &gt; New file &gt; Text file</em>.</p>
 <pre class="sh"><code>GITHUB_PAT=???????????????????</code></pre>
 <p>Restart R.</p>
 <p>In R, check the PAT is in env var:</p>
 <pre class="r"><code>Sys.getenv(&quot;GITHUB_PAT&quot;)</code></pre>
 <p>Connect your package = Git repo to a new, public GitHub repo. If you want private <strong>and you have a private repo to spare</strong>, add <code>private = TRUE</code>. If you use SSH, remove <code>protocol = &quot;https&quot;</code> (SSH is the default).</p>
 <pre class="r"><code>use_github(protocol = &quot;https&quot;)</code></pre>
-<p>Go look at your package’s repo on GitHub!</p>
+<p>Go look at your package’s repo on GitHub! You should also be able to use the Pull and Push buttons from RStudio now.</p>
 </div>
 <div id="use-readme" class="section level3">
 <h3>Use README</h3>
-<p>You will want to “Build &amp; Reload” at this point, so your properly build and installed package is found when you knit <code>README.Rmd</code></p>
+<p>You will want to “Build &amp; Reload” at this point, so your properly built and installed package is found when you knit <code>README.Rmd</code></p>
 <pre class="r"><code>use_readme_rmd()</code></pre>
 <p>Put something in the README. Such as … explanation that this is a practice package for STAT 545 and the purpose of the package. Put an R chunk in that demonstates <code>fbind()</code>. Just copy the example, at the very least!</p>
 <p>Knit it to make <code>README.md</code>.</p>
@@ -275,6 +282,26 @@ browseVignettes(&quot;foofactors&quot;)</code></pre>
 <pre class="r"><code>build()
 install_local(&quot;../foofactors_0.0.0.9000.tar.gz&quot;, build_vignettes = TRUE)
 browseVignettes(&quot;foofactors&quot;)</code></pre>
+</div>
+<div id="document-the-package-as-whole" class="section level3">
+<h3>Document the package as whole</h3>
+<p>This topic is addressed here in R Packages: <a href="http://r-pkgs.had.co.nz/man.html#man-packages" class="uri">http://r-pkgs.had.co.nz/man.html#man-packages</a></p>
+<p>This creates a kind of weird dummy file <code>foofactors-package.R</code> and roxygen header, which appears to be document just … <code>NULL</code>?</p>
+<pre class="r"><code>use_package_doc()</code></pre>
+<p>The purpose of this artificial stuff is just to create a help file for your package as a whole.</p>
+<p>If you imported the <code>%&gt;%</code> operator from <code>dplyr</code> or <code>magrittr</code> above, it would be logical to move the associated <code>@importFrom</code> statement to this roxygen header.</p>
+<p>Don’t forget to run <code>document()</code>!</p>
+<p>I just copied info from the DESCRIPTION file but you can go much farther here and should in real life. This file won’t be under the same CRAN checks as DESCRIPTION, so you have much more freedom.</p>
+<pre class="r"><code>#&#39; foofactors: Make factors less annoying
+#&#39;
+#&#39; Factors have driven people to extreme measures, like ordering custom
+#&#39; conference ribbons and laptop stickers to express how HELLNO we feel about
+#&#39; stringsAsFactors. And yet, sometimes you need them. Can they be made less
+#&#39; maddening? Let&#39;s find out.
+#&#39;
+#&#39; @name foofactors
+#&#39; @docType package
+NULL</code></pre>
 <p>back to <a href="packages00_index.html">All the package things</a></p>
 </div>
 

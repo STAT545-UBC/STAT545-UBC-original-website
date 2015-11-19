@@ -172,7 +172,7 @@ create(&quot;~/tmp/foofactors&quot;)
 <pre><code>#&gt;      [,1]  
 #&gt; [1,] &quot;.git&quot;</code></pre>
 <p>Quit and relaunch RStudio in this Project, so that it is recognized as a Git repo and the Git tab becomes available in the Environment/History/Build pane. Click on History and you should see evidence of our initial commit:</p>
-<pre><code>#&gt; [741cadb] 2015-11-17: Initial commit</code></pre>
+<pre><code>#&gt; [614d957] 2015-11-17: Initial commit</code></pre>
 <p>FYI RStudio can also initialize a Git repository, in any Project, even if it’s not an R package: <em>Tools &gt; Version Control &gt; Project Setup</em>. Then choose <em>Version control system: Git</em> and <em>initialize a new git repository for this project</em>. Then restart RStudio in the Project.</p>
 </div>
 <div id="add-your-first-function" class="section level3">
@@ -224,7 +224,7 @@ fbind(a, b)
 <h3>Commit <code>fbind()</code></h3>
 <p>Use you favorite method to commit the new <code>R/fbind.R</code> file.</p>
 <p>Your most recent commit should look something like this:</p>
-<pre><code>#&gt; [2c0e5c9] 2015-11-17: Add fbind()</code></pre>
+<pre><code>#&gt; [1591a52] 2015-11-17: Add fbind()</code></pre>
 </div>
 <div id="build-install-check" class="section level3">
 <h3>Build, Install, Check</h3>
@@ -283,7 +283,7 @@ R CMD INSTALL foofactors_0.0.0.9000.tar.gz</code></pre>
 #&gt; Checking foofactors -------------------------------------------------------
 #&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; --no-site-file  \
 #&gt;   --no-environ --no-save --no-restore CMD check  \
-#&gt;   &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpjE4dGo/foofactors_0.0.0.9000.tar.gz&#39;  \
+#&gt;   &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpjN8aTI/foofactors_0.0.0.9000.tar.gz&#39;  \
 #&gt;   --as-cran --timings</code></pre>
 <p>Once things look OK, you can install your very own <code>foofactors</code> package into your library:</p>
 <pre class="r"><code>install()

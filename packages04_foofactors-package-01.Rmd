@@ -291,3 +291,4 @@ getwd()
 #unlink(ff_path, recursive = TRUE)
 ```
 
+<!--http://davidgohel.github.io/ReporteRs/FlexTable.html-->
