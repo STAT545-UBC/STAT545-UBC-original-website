@@ -19,6 +19,8 @@ The goal of this activity is to create a pipeline that will
 
 You will automate this pipeline using `make`!
 
+back to [All the automation things](automation00_index.html)
+
 ### Dependency graph of the pipeline
 
 <!-- TO DO: remake the figure to say words.txt not words.tsv and the new words downloading strategy -->
@@ -33,11 +35,6 @@ This project will be useful as a reference in the future, so give it an informat
 
 Git(Hub) users: from here on out, we assume you will be committing at regular intervals. At key points, we explicitly prompt you to commit.
 
-Configure this RStudio Project to work with `make`. Consult the [`make` test drive](automation03_make-test-drive.html) for details:
-
-  * make sure tabs are NOT replaced with spaces
-  * set Project Build Tools to `Makefile`
-
 Git folks: commit now.
 
 ### Sample Project and Git repository
@@ -49,6 +46,17 @@ The Project is set up for use with `make` at [this commit](https://github.com/ST
 ### Create the Makefile
 
 In RStudio: *File > New File > Text File.* Save it with the name `Makefile`. Keep adding the rules we write below to this file, saving regularly.
+
+Once you've saved the file with the name `Makefile`, RStudio should indent with tabs instead of spaces. I recommend you display whitespace in order to visually confirm this: *RStudio > Preferences > Code > Display > Display whitespace characters*. A more extreme measure is to set Project or Global preferences to NOT replace tabs with spaces, but this will wreak havoc elsewhere.
+
+You also want RStudio to recognize the presence of the `Makefile`. Pick one:
+
+  * set Project Build Tools to `Makefile`
+  * quit and relaunch
+
+You should see a "Build" tab now in the same pane as "Environment", "History", and, if applicable, "Git".
+
+Git folks: commit now.
 
 ### Get the dictionary of words
 
@@ -312,3 +320,5 @@ The `.PHONY` line is where you declare which targets are *phony*, i.e. are not a
 `.DELETE_ON_ERROR` causes `make` to "delete the target of a rule if it has changed and its recipe exits with a nonzero exit status". In English, this means that -- if a rule starts to run but then exits due to error -- any outputs written in the course of that fiasco will be deleted. This can protect you from having half-baked, erroneous files lying around that will just confuse you later.
 
 `.SECONDARY` tells `make` not to delete intermediate files of a chain of pattern rules. Consider creating a `Makefile` with two pattern rules, `%.md: %.rmd` and `%.html: %.md`, and then running `make report.html`. After `make` has created `report.md` and `report.html`, it will delete the intermediate file `report.md`. Adding `.SECONDARY` to your `Makefile` prevents the intermediate file from being deleted.
+
+back to [All the automation things](automation00_index.html)

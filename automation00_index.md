@@ -44,6 +44,8 @@ Walk before you run! Prove that `make` is actually installed and that it can be 
   * The interface between RStudio and `make`
   * How to use `make` from the [shell](git09_shell.html)
   * How Git facilitates the process of building a pipeline
+  
+*2015-11-19 Andrew MacDonald translated the above into a pipeline for the [`remake` package](https://github.com/richfitz/remake) from Rich Fitzjohn: see [this gist](https://gist.github.com/aammd/72a5b98356893c001001).*
 
 ### More examples
 

@@ -10,6 +10,8 @@ output:
 
 *2015-11-17 NOTE: This year we made R packages before we used Make. The hope is, therefore, that the Make that ships with Rtools is all we need. So hopefully we can ignore this?*
 
+back to [All the automation things](automation00_index.html)
+
 ### Install `make` on Microsoft Windows
 
 We are still working out the best way to install `make` on Windows. Our current best recommendation is to install *msysGit*, which includes `make` as well as `git` and `bash`.
@@ -53,3 +55,5 @@ What are the tricky bits?
   * Ensuring `make`, `Rscript`, `pandoc`, `rm`, etc. can be found = updating `PATH`.
   * Getting `make` to use the correct [shell](git09_shell.html).
     - See [issue 54](https://github.com/STAT545-UBC/Discussion/issues/54) on the Discussion repo.
+
+back to [All the automation things](automation00_index.html)
