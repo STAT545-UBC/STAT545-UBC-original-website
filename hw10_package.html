@@ -114,6 +114,7 @@ img {
 <li>edit the <code>DESCRIPTION</code> file of package metadata</li>
 <li>specify a LICENSE</li>
 <li>document and export the functions <code>fbind()</code> and <code>freq_out()</code> via <code>roxygen2</code> comments</li>
+<li>document the package itself via <code>use_package()</code></li>
 <li>create documentation and manage the <code>NAMESPACE</code> file via <code>document()</code></li>
 <li>use <code>testthat</code> to implement unit testing</li>
 <li>use a function from another package via <code>use_package()</code> and syntax like <code>otherpkg::foofunction()</code></li>
@@ -121,8 +122,8 @@ img {
 <li>create a <code>README.md</code> that comes from rendering <code>README.Rmd</code> containing actual usage, via <code>use_readme_rmd()</code></li>
 <li>create a vignette via <code>use_vignette()</code> and build it via <code>build_vignettes()</code></li>
 </ul>
-<p>Consult the repository <a href="https://github.com/STAT545-UBC/foofactors"><code>STAT545-UBC/foofactors</code></a> for an example repository that you can start with, where all of the above has been done. You are especially encouraged to walk through the commit history and scrutinize the diffs, noticing which files change at each point. You can fork it or use the Download ZIP button to get this as your starting point. You can get help with that process <a href="hw10_package_onramp-peer-review.html">here</a>.</p>
-<p>Remember the <a href="packages00_index.html">landing page for all the package material</a> contains lots of <a href="packages00_index.html#resources">links</a> with extra technical information and general inspiration.</p>
+<p>Consult the repository <a href="https://github.com/STAT545-UBC/foofactors"><code>STAT545-UBC/foofactors</code></a> for an example repository that you can start with, where all of the above has been done. You are especially encouraged to walk through the commit history and scrutinize the diffs, noticing which files change at each point. You can fork it or use the Download ZIP button to get this as your starting point. Instructions for both are <a href="hw10_package_onramp-peer-review.html">here</a>.</p>
+<p>Remember the <a href="packages00_index.html">landing page for all the package material</a> also contains lots of <a href="packages00_index.html#resources">links</a> with extra technical information and general inspiration.</p>
 </div>
 <div id="your-mission" class="section level3">
 <h3>Your mission</h3>
@@ -138,7 +139,7 @@ img {
 <li>There should be at least one expectation for success and one for failure.</li>
 </ul></li>
 <li>Your package should pass <code>check()</code> without errors (warnings and notes are OK, though it would be great if there were none).</li>
-<li>Keep updating the README and vignette to show usage of all the functions in the package. Your peer reviwer and TA will only have the README and vignette to go on when they try to use your package. Show them exactly what they can do! Remove boilerplate content from the vignette.</li>
+<li>Keep updating the README and vignette to show usage of all the functions in the package. Your peer reviewers and TA will only have the README and vignette to go on when they try to use your package. Show them exactly what they can do! Remove boilerplate content from the vignette.</li>
 <li>Push your package to GitHub, preferably a public repo. <em>If you are uncomfortable with that, please contact Jenny and we’ll work around that.</em></li>
 <li>Write your reflections in a document in your normal STAT 545 course repo and open the usual issue there. Make sure to provide a link to your package, so TAs/prof/peers can find it for review!</li>
 </ul>
@@ -146,7 +147,7 @@ img {
 <ul>
 <li>detect factors that should be character because # unique values = length</li>
 <li>write a version of reorder() that uses <code>desc()</code> a la <code>(d)plyr</code></li>
-<li>write a version of <code>factor()</code> that sets levels to the order in which they appear in the data,.e. set the levels “as is”</li>
+<li>write a version of <code>factor()</code> that sets levels to the order in which they appear in the data, i.e. set the levels “as is”</li>
 <li>functions to write and read data frames to plain text delimited files while retaining factor evels; maybe by writing/reading a companion file?</li>
 </ul>
 </div>

@@ -19,6 +19,7 @@ In class we developed the package `foofactors` and showed how to
   * edit the `DESCRIPTION` file of package metadata
   * specify a LICENSE
   * document and export the functions `fbind()` and `freq_out()` via `roxygen2` comments
+  * document the package itself via `use_package()`
   * create documentation and manage the `NAMESPACE` file via `document()`
   * use `testthat` to implement unit testing
   * use a function from another package via `use_package()` and syntax like `otherpkg::foofunction()`
@@ -26,9 +27,9 @@ In class we developed the package `foofactors` and showed how to
   * create a `README.md` that comes from rendering `README.Rmd` containing actual usage, via `use_readme_rmd()`
   * create a vignette via `use_vignette()` and build it via `build_vignettes()`
 
-Consult the repository [`STAT545-UBC/foofactors`](https://github.com/STAT545-UBC/foofactors) for an example repository that you can start with, where all of the above has been done. You are especially encouraged to walk through the commit history and scrutinize the diffs, noticing which files change at each point. You can fork it or use the Download ZIP button to get this as your starting point. You can get help with that process [here](hw10_package_onramp-peer-review.html).
+Consult the repository [`STAT545-UBC/foofactors`](https://github.com/STAT545-UBC/foofactors) for an example repository that you can start with, where all of the above has been done. You are especially encouraged to walk through the commit history and scrutinize the diffs, noticing which files change at each point. You can fork it or use the Download ZIP button to get this as your starting point. Instructions for both are [here](hw10_package_onramp-peer-review.html).
   
-Remember the [landing page for all the package material](packages00_index.html) contains lots of [links](packages00_index.html#resources) with extra technical information and general inspiration.
+Remember the [landing page for all the package material](packages00_index.html) also contains lots of [links](packages00_index.html#resources) with extra technical information and general inspiration.
 
 ### Your mission
 
@@ -43,7 +44,7 @@ Aim for the following elements:
   * Include at least three unit tests for every function that is exported.
     - There should be at least one expectation for success and one for failure.
   * Your package should pass `check()` without errors (warnings and notes are OK, though it would be great if there were none).
-  * Keep updating the README and vignette to show usage of all the functions in the package. Your peer reviwer and TA will only have the README and vignette to go on when they try to use your package. Show them exactly what they can do! Remove boilerplate content from the vignette.
+  * Keep updating the README and vignette to show usage of all the functions in the package. Your peer reviewers and TA will only have the README and vignette to go on when they try to use your package. Show them exactly what they can do! Remove boilerplate content from the vignette.
   * Push your package to GitHub, preferably a public repo. *If you are uncomfortable with that, please contact Jenny and we'll work around that.*
   * Write your reflections in a document in your normal STAT 545 course repo and open the usual issue there. Make sure to provide a link to your package, so TAs/prof/peers can find it for review!
 
@@ -51,7 +52,7 @@ Ideas for more functions to write:
 
   * detect factors that should be character because # unique values = length
   * write a version of reorder() that uses `desc()` a la `(d)plyr`
-  - write a version of `factor()` that sets levels to the order in which they appear in the data,.e. set the levels "as is"
+  - write a version of `factor()` that sets levels to the order in which they appear in the data, i.e. set the levels "as is"
   - functions to write and read data frames to plain text delimited files while retaining factor evels; maybe by writing/reading a companion file?
 
 ### Due date
