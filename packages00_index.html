@@ -104,16 +104,16 @@ img {
 <div id="overview" class="section level3">
 <h3>Overview</h3>
 <p>Slides available on <a href="https://speakerdeck.com/jennybc/ubc-stat545-2015-writing-your-first-r-package">speakerdeck</a></p>
-<script async class="speakerdeck-embed" data-id="2f5adff04cb5013256c03a03dde42de4" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
-<div style="margin-bottom:5px">
-<strong> <a href="https://speakerdeck.com/jennybc/ubc-stat545-2015-writing-your-first-r-package" title="UBC STAT545 2015 Writing your first R package" target="_blank">UBC STAT545 2015 Writing your first R package</a> </strong> from <strong><a href="https://speakerdeck.com/jennybc" target="_blank">Jennifer Bryan</a></strong>
-</div>
 <ul>
 <li>What is an R package?</li>
 <li>What is a library?</li>
 <li>Why make an R package?</li>
-<li>Why <code>devtools</code> is integral to a happy workflow.</li>
+<li>How <code>devtools</code> creates a happy workflow.</li>
 </ul>
+<script async class="speakerdeck-embed" data-id="2f5adff04cb5013256c03a03dde42de4" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+<div style="margin-bottom:5px">
+<strong> <a href="https://speakerdeck.com/jennybc/ubc-stat545-2015-writing-your-first-r-package" title="UBC STAT545 2015 Writing your first R package" target="_blank">UBC STAT545 2015 Writing your first R package</a> </strong> from <strong><a href="https://speakerdeck.com/jennybc" target="_blank">Jennifer Bryan</a></strong>
+</div>
 </div>
 <div id="prepare-your-system-for-package-development" class="section level3">
 <h3>Prepare your system for package development</h3>
@@ -122,52 +122,54 @@ img {
 </div>
 <div id="hands-on-activity" class="section level3">
 <h3>Hands-on activity</h3>
-<p>This fully developed example shows you</p>
+<p>In class example that that shows how to</p>
 <ul>
-<li>How to create a new R package</li>
-<li>How to accept help from <code>devtools</code> and RStudio during development</li>
-<li>Workflow for package development</li>
-<li>How to document functions and your overall package</li>
-<li>How to test the functions in your package</li>
-<li>How to depend on another package</li>
-<li>How to demonstrate your package’s utility with a vignette and README</li>
-<li>How to put your package on GitHub to share with the world</li>
+<li>Create a new R package</li>
+<li>Accept help from <code>devtools</code> and RStudio</li>
+<li>Switch between developing your package pacckage and test driving it</li>
+<li>Document functions and your overall package</li>
+<li>Test your functions</li>
+<li>Depend on another package</li>
+<li>Show off what your package does via a README or a vignette</li>
+<li>Put your package on GitHub to share with the world</li>
 </ul>
-<p>In 2015, we built the <code>foofactors</code> package to make the care and feeding of factors less aggravating.</p>
+<p>In 2015, we started to build the <code>foofactors</code> package, to make the care and feeding of factors less aggravating.</p>
 <ul>
 <li><a href="packages04_foofactors-package-01.html">2015 part 1</a></li>
-<li><a href="packages05_foofactors-package-02.html">2015 part 2</a> <em>more narrative coming</em></li>
-<li><a href="hw10_package.html">2015 homework</a> that builds on the in-class work on <code>foofactors</code>.</li>
+<li><a href="packages05_foofactors-package-02.html">2015 part 2</a></li>
+<li><a href="hw10_package.html">2015 homework</a>: extend <code>foofactors</code> from where we left off in class</li>
 </ul>
 <p>In 2014, we built the <code>gameday</code> package to check if your favorite NHL team has a game today.</p>
-<p><a href="packages02_activity.html">2014 Day 1</a> of hands-on work</p>
-<p><a href="packages03_activity_part2.html">2014 Day 2</a> of hands-on work</p>
-<p><a href="hw10_2014_package.html">2014 Homework</a> that builds on the in-class work on <code>gameday</code>. <a href="hw10_2014_package_jenny-hints.html">Hints</a> on how to get started. <a href="hw10_2014_package_peer-review.html">Peer review help</a>.</p>
+<ul>
+<li><a href="packages02_activity.html">2014 Day 1</a> of hands-on work</li>
+<li><a href="packages03_activity_part2.html">2014 Day 2</a> of hands-on work</li>
+<li><a href="hw10_2014_package.html">2014 Homework</a> that builds on the in-class work on <code>gameday</code>.</li>
+</ul>
 </div>
 <div id="resources" class="section level3">
 <h3>Resources</h3>
-<p><a href="http://r-pkgs.had.co.nz">R packages</a> is a new book by Hadley Wickham.</p>
+<p><a href="http://r-pkgs.had.co.nz">R packages</a> is a new book by Hadley Wickham. The above lessons follow it and the <code>devtools</code> package quite faithfully. <code>devtools</code> on <a href="https://cran.r-project.org/web/packages/devtools/index.html">CRAN</a>, on <a href="https://github.com/hadley/devtools">GitHub</a>.</p>
 <p>Hilary Parker’s <a href="http://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/">blog post</a> on the epiphany of writing her first R package</p>
 <ul>
 <li>“I was hit with that familiar feeling of the joy of optimization combined with the regret of past inefficiencies (joygret?). I wish I could go back in time and create the package the first moment I thought about it, and then use all the saved time to watch cat videos because that really would have been more productive.”</li>
 <li>the glorious result: <a href="https://github.com/hilaryparker/cats" class="uri">https://github.com/hilaryparker/cats</a></li>
 <li>see some usage in the <a href="http://shiny.stat.ubc.ca/r-graph-catalog/">R Graph Catalog</a> <em>hint: filter for chapter “other”</em></li>
 </ul>
+<p>Karl Broman’s <a href="http://kbroman.org/pkg_primer/">guide to writing an R package</a></p>
+<p>Karl Broman covers package development in his course <a href="http://kbroman.org/Tools4RR/pages/schedule.html">Tools for Reproducible Research</a></p>
+<p>Jeff Leek’s <a href="https://github.com/jtleek/rpackages">guide to writing R packages</a></p>
 <p>Some blog posts accompanying <code>devtools</code> releases highlight useful helper functions for package developers:</p>
 <ul>
 <li><a href="http://blog.rstudio.org/2014/10/02/devtools-1-6/">v1.6 October 2014</a></li>
 <li><a href="http://blog.rstudio.org/2015/05/11/devtools-1-9-0/">v1.8 May 2015</a></li>
 <li><a href="http://blog.rstudio.org/2015/09/13/devtools-1-9-1/">v1.9.1 September 2015</a></li>
 </ul>
-<p>Karl Broman’s <a href="http://kbroman.org/pkg_primer/">guide to writing an R package</a></p>
-<p>Karl Broman covers package development in his course <a href="http://kbroman.org/Tools4RR/pages/schedule.html">Tools for Reproducible Research</a></p>
-<p>Jeff Leek’s <a href="https://github.com/jtleek/rpackages">guide to writing R packages</a></p>
 <p><a href="http://thepoliticalmethodologist.com/2014/08/14/building-and-maintaining-r-packages-with-devtools-and-roxygen2/">Building and Maintaining R Packages with devtools and roxygen2</a>, blog post by Jacob Montgomery and Ryan T. Moore</p>
 <p><a href="http://www.stats.uwo.ca/faculty/murdoch/ism2013/5Vignettes.pdf">Writing Package Vignettes</a>, slides for a November 2013 talk by Duncan Murdoch</p>
 <p><a href="http://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html">Roxygen vignette on Generating Rd files</a></p>
 <p><a href="http://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf"><code>testthat</code>: Get Started with Testing</a>, an article written by Hadley Wickham for <em>The R Journal,</em> Vol. 3/1, June 2011, pp. 5-10. <em>This may no longer be correct in every last detail, due to evolution of <code>testthat</code>, but it still makes an excellent, readable introduction to unit testing in R (packages)</em>.</p>
 <p><a href="http://cran.r-project.org/doc/manuals/r-release/R-exts.html">Writing R Extensions</a>, the One True Official Document on creating R packages</p>
-<p><a href="http://obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff/">How R Searches and Finds Stuff</a> is a fairly technical blog post for understanding the R search path, but also gives some great explanations on some differences between <code>Imports</code> vs <code>Depends</code> and why <code>Imports</code> is safer</p>
+<p><a href="http://obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff/">How R Searches and Finds Stuff</a> is a fairly technical blog post for understanding the R search path, but also gives some great explanations on some differences between <code>Imports</code> vs <code>Depends</code> and why <code>Imports</code> is safer.</p>
 </div>
 
 <div class="footer">

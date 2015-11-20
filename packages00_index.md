@@ -9,12 +9,13 @@ output:
 
 Slides available on [speakerdeck](https://speakerdeck.com/jennybc/ubc-stat545-2015-writing-your-first-r-package)
 
-<script async class="speakerdeck-embed" data-id="2f5adff04cb5013256c03a03dde42de4" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script> <div style="margin-bottom:5px"> <strong> <a href="https://speakerdeck.com/jennybc/ubc-stat545-2015-writing-your-first-r-package" title="UBC STAT545 2015 Writing your first R package" target="_blank">UBC STAT545 2015 Writing your first R package</a> </strong> from <strong><a href="https://speakerdeck.com/jennybc" target="_blank">Jennifer Bryan</a></strong> </div>
-
   * What is an R package?
   * What is a library?
   * Why make an R package?
-  * Why `devtools` is integral to a happy workflow.
+  * How `devtools` creates a happy workflow.
+
+<script async class="speakerdeck-embed" data-id="2f5adff04cb5013256c03a03dde42de4" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script> <div style="margin-bottom:5px"> <strong> <a href="https://speakerdeck.com/jennybc/ubc-stat545-2015-writing-your-first-r-package" title="UBC STAT545 2015 Writing your first R package" target="_blank">UBC STAT545 2015 Writing your first R package</a> </strong> from <strong><a href="https://speakerdeck.com/jennybc" target="_blank">Jennifer Bryan</a></strong> </div>
+
 
 ### Prepare your system for package development
 
@@ -24,34 +25,32 @@ Although we'll build a very simple package, we're still going to use the most mo
 
 ### Hands-on activity
 
-This fully developed example shows you
+In class example that that shows how to
 
-  * How to create a new R package
-  * How to accept help from `devtools` and RStudio during development
-  * Workflow for package development
-  * How to document functions and your overall package
-  * How to test the functions in your package
-  * How to depend on another package
-  * How to demonstrate your package's utility with a vignette and README
-  * How to put your package on GitHub to share with the world
+  * Create a new R package
+  * Accept help from `devtools` and RStudio
+  * Switch between developing your package pacckage and test driving it
+  * Document functions and your overall package
+  * Test your functions
+  * Depend on another package
+  * Show off what your package does via a README or a vignette
+  * Put your package on GitHub to share with the world
 
-In 2015, we built the `foofactors` package to make the care and feeding of factors less aggravating.
+In 2015, we started to build the `foofactors` package, to make the care and feeding of factors less aggravating.
 
   * [2015 part 1](packages04_foofactors-package-01.html)
-  * [2015 part 2](packages05_foofactors-package-02.html) *more narrative coming*
-  * [2015 homework](hw10_package.html) that builds on the in-class work on `foofactors`.
+  * [2015 part 2](packages05_foofactors-package-02.html)
+  * [2015 homework](hw10_package.html): extend `foofactors` from where we left off in class
 
 In 2014, we built the `gameday` package to check if your favorite NHL team has a game today.
 
-[2014 Day 1](packages02_activity.html) of hands-on work
-
-[2014 Day 2](packages03_activity_part2.html) of hands-on work
-
-[2014 Homework](hw10_2014_package.html) that builds on the in-class work on `gameday`. [Hints](hw10_2014_package_jenny-hints.html) on how to get started. [Peer review help](hw10_2014_package_peer-review.html).
+  * [2014 Day 1](packages02_activity.html) of hands-on work
+  * [2014 Day 2](packages03_activity_part2.html) of hands-on work
+  * [2014 Homework](hw10_2014_package.html) that builds on the in-class work on `gameday`.
 
 ### Resources
 
-[R packages](http://r-pkgs.had.co.nz) is a new book by Hadley Wickham.
+[R packages](http://r-pkgs.had.co.nz) is a new book by Hadley Wickham. The above lessons follow it and the `devtools` package quite faithfully. `devtools` on [CRAN](https://cran.r-project.org/web/packages/devtools/index.html), on [GitHub](https://github.com/hadley/devtools).
 
 Hilary Parker's [blog post](http://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/) on the epiphany of writing her first R package
 
@@ -59,17 +58,17 @@ Hilary Parker's [blog post](http://hilaryparker.com/2014/04/29/writing-an-r-pack
   * the glorious result: <https://github.com/hilaryparker/cats>
   * see some usage in the [R Graph Catalog](http://shiny.stat.ubc.ca/r-graph-catalog/) *hint: filter for chapter "other"*
 
-Some blog posts accompanying `devtools` releases highlight useful helper functions for package developers:
-
-  * [v1.6 October 2014](http://blog.rstudio.org/2014/10/02/devtools-1-6/)
-  * [v1.8 May 2015](http://blog.rstudio.org/2015/05/11/devtools-1-9-0/)
-  * [v1.9.1 September 2015](http://blog.rstudio.org/2015/09/13/devtools-1-9-1/)
-
 Karl Broman's [guide to writing an R package](http://kbroman.org/pkg_primer/)
 
 Karl Broman covers package development in his course [Tools for Reproducible Research](http://kbroman.org/Tools4RR/pages/schedule.html)
 
 Jeff Leek's [guide to writing R packages](https://github.com/jtleek/rpackages)
+
+Some blog posts accompanying `devtools` releases highlight useful helper functions for package developers:
+
+  * [v1.6 October 2014](http://blog.rstudio.org/2014/10/02/devtools-1-6/)
+  * [v1.8 May 2015](http://blog.rstudio.org/2015/05/11/devtools-1-9-0/)
+  * [v1.9.1 September 2015](http://blog.rstudio.org/2015/09/13/devtools-1-9-1/)
 
 [Building and Maintaining R Packages with devtools and roxygen2](http://thepoliticalmethodologist.com/2014/08/14/building-and-maintaining-r-packages-with-devtools-and-roxygen2/), blog post by Jacob Montgomery and Ryan T. Moore
 
@@ -81,4 +80,4 @@ Jeff Leek's [guide to writing R packages](https://github.com/jtleek/rpackages)
 
 [Writing R Extensions](http://cran.r-project.org/doc/manuals/r-release/R-exts.html), the One True Official Document on creating R packages
 
-[How R Searches and Finds Stuff](http://obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff/) is a fairly technical blog post for understanding the R search path, but also gives some great explanations on some differences between `Imports` vs `Depends` and why `Imports` is safer
+[How R Searches and Finds Stuff](http://obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff/) is a fairly technical blog post for understanding the R search path, but also gives some great explanations on some differences between `Imports` vs `Depends` and why `Imports` is safer.
