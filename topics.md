@@ -52,20 +52,20 @@
     - [2015 Hands-on activity, part 2](packages05_foofactors-package-02.html)
     - [2014 Hands-on activity, part 1](packages02_activity.html)
     - [2014 Hands-on activity, part 2](packages03_activity_part2.html)
-  * [All the automation things](automation00_index.html) *all from 2014*
+  * [All the automation things](automation00_index.html)
     - <a href="automation01_slides/index.html" target="_blank">slides</a>
     - [Special considerations for Windows](automation02_windows.html)
     - [Test drive `Make`](automation03_make-test-drive.html) from a shell and RStudio
     - [Hands-on activity](automation04_make-activity.html)
     - [Example pipelines](automation00_index.html#more-examples)
-  * [All the Shiny things](shiny00_index.html) *all from 2014*
+  * Get data from the web *all still from 2014*
+    - *make usual landing page and add bullet points*
+    - class meeting [one](cm111_data-from-web.html) and [two](cm112_data-from-web.html) 
+  * [All the Shiny things](shiny00_index.html) *all still from 2014*
     - [slides](shiny01_slides.pdf)
     - [Getting your system set up for Shiny](shiny02_setup.html)
     - [Hands-on activity-build a shiny app](shiny03_activity.html)
     - [Shiny and other interactive plotting links](shiny04_links.html)
-  * Get data from the web *all form 2014*
-    - *make usual landing page and add bullet points*
-    - class meeting [one](cm111_data-from-web.html) and [two](cm112_data-from-web.html)  
 
 ## Course-specific material
 

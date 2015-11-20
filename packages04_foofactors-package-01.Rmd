@@ -237,7 +237,7 @@ Just this once, run `check()` with `document = FALSE`, so we don't get ahead of 
 At this point, you should expect to get two warnings:
 
   * `Non-standard license specification`
-  * `Undocumented code objects: ‘foo’`
+  * `Undocumented code objects: ‘fbind’`
   
 We'll fix both soon.
     

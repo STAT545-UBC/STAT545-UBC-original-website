@@ -23,10 +23,10 @@ In class we developed the package `foofactors` and showed how to
   * use `testthat` to implement unit testing
   * use a function from another package via `use_package()` and syntax like `otherpkg::foofunction()`
   * connect your local Git repo to a new remote on GitHub via `use_github()`
-  * create a `README.md` that comes from rendering `README.Rmd` containing actual usage, via `use_readme()`
+  * create a `README.md` that comes from rendering `README.Rmd` containing actual usage, via `use_readme_rmd()`
   * create a vignette via `use_vignette()` and build it via `build_vignettes()`
 
-Consult the repository [`STAT545-UBC/foofactors`](https://github.com/STAT545-UBC/foofactors) for an example repository that you can start with, where all of the above has been done. You are especially encouraged to walk through the commit history and scrutinize the diffs, noticing which files change at each point. You can fork it or use the Download ZIP button to get this as your starting point.
+Consult the repository [`STAT545-UBC/foofactors`](https://github.com/STAT545-UBC/foofactors) for an example repository that you can start with, where all of the above has been done. You are especially encouraged to walk through the commit history and scrutinize the diffs, noticing which files change at each point. You can fork it or use the Download ZIP button to get this as your starting point. You can get help with that process [here](hw10_package_onramp-peer-review.html).
   
 Remember the [landing page for all the package material](packages00_index.html) contains lots of [links](packages00_index.html#resources) with extra technical information and general inspiration.
 
@@ -60,7 +60,7 @@ Submit an issue with a link to your package sometime on Friday November 20.
 
 ## Rubric
 
-Your peer reviewer and TA will try to install your package from GitHub and use it! They will follow your instructions from `README.md` and might even try stuff from your vignette.
+Instructions on how to install a peer's package from GitHub are [here](hw10_package_onramp-peer-review.html). Use the `README.md` and the vignette to figure out what the package does and how to use it.
 
 Check minus: Package does not install. Or installation seemed go OK but one or more of the functions don't work. Or you do something that seems totally natural (probably copied from `README.md` or vignette) and get odd behavior.
 

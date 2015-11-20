@@ -118,10 +118,10 @@ img {
 <li>use <code>testthat</code> to implement unit testing</li>
 <li>use a function from another package via <code>use_package()</code> and syntax like <code>otherpkg::foofunction()</code></li>
 <li>connect your local Git repo to a new remote on GitHub via <code>use_github()</code></li>
-<li>create a <code>README.md</code> that comes from rendering <code>README.Rmd</code> containing actual usage, via <code>use_readme()</code></li>
+<li>create a <code>README.md</code> that comes from rendering <code>README.Rmd</code> containing actual usage, via <code>use_readme_rmd()</code></li>
 <li>create a vignette via <code>use_vignette()</code> and build it via <code>build_vignettes()</code></li>
 </ul>
-<p>Consult the repository <a href="https://github.com/STAT545-UBC/foofactors"><code>STAT545-UBC/foofactors</code></a> for an example repository that you can start with, where all of the above has been done. You are especially encouraged to walk through the commit history and scrutinize the diffs, noticing which files change at each point. You can fork it or use the Download ZIP button to get this as your starting point.</p>
+<p>Consult the repository <a href="https://github.com/STAT545-UBC/foofactors"><code>STAT545-UBC/foofactors</code></a> for an example repository that you can start with, where all of the above has been done. You are especially encouraged to walk through the commit history and scrutinize the diffs, noticing which files change at each point. You can fork it or use the Download ZIP button to get this as your starting point. You can get help with that process <a href="hw10_package_onramp-peer-review.html">here</a>.</p>
 <p>Remember the <a href="packages00_index.html">landing page for all the package material</a> contains lots of <a href="packages00_index.html#resources">links</a> with extra technical information and general inspiration.</p>
 </div>
 <div id="your-mission" class="section level3">
@@ -156,7 +156,7 @@ img {
 </div>
 <div id="rubric" class="section level2">
 <h2>Rubric</h2>
-<p>Your peer reviewer and TA will try to install your package from GitHub and use it! They will follow your instructions from <code>README.md</code> and might even try stuff from your vignette.</p>
+<p>Instructions on how to install a peer’s package from GitHub are <a href="hw10_package_onramp-peer-review.html">here</a>. Use the <code>README.md</code> and the vignette to figure out what the package does and how to use it.</p>
 <p>Check minus: Package does not install. Or installation seemed go OK but one or more of the functions don’t work. Or you do something that seems totally natural (probably copied from <code>README.md</code> or vignette) and get odd behavior.</p>
 <p>Check: Hits most/all the elements. No obvious technical difficulties. Package pleasant to use. <code>README.md</code> and vignette are pleasant to read and provide accessible examples of usage. No heroic detective work required. Good work!</p>
 <p>Check plus: Exceeded the requirements in number of dimensions. Took <code>foofactors</code> farther than was required. Wrote a new package from scratch. Experience of installation and usage was dreamy because of excellent documentation and high functionality. You learned something new from reviewing their work and you’re eager to incorporate it into your work. Wow!</p>
