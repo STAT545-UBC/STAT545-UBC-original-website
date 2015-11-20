@@ -129,7 +129,7 @@ img {
 <h3>Create the package</h3>
 <p>Our demo package will provide functions for the care and feeding of factors, the variable type we all love to hate.</p>
 <p>We’ll call it <code>foofactors</code> here but you can call yours whatever you want.</p>
-<p><strong>!! Modify the path below to create your new package where YOU want it on YOUR system!!</strong> Use RStudio’s auto-completion of paths to make sure the path exists. To avoid nesting a Git repo within a Git repo, we recommend you NOT put this inside your STAT 545 repository.</p>
+<p><strong>!! Modify the path below to create your new package where YOU want it on YOUR system !!</strong> Use RStudio’s auto-completion of paths to make sure the path actually exists. To avoid nesting a Git repo within a Git repo, do NOT put this inside your STAT 545 repository. Do NOT put this inside any directory that is already a Git repository. Directly or indirectly.</p>
 <p>Create a new package in a new directory with <code>devtools::create()</code>:</p>
 <pre class="r"><code>library(devtools)
 create(&quot;~/tmp/foofactors&quot;)
@@ -145,7 +145,7 @@ create(&quot;~/tmp/foofactors&quot;)
 #&gt; LazyData: true
 #&gt; Adding RStudio project file to foofactors</code></pre>
 <p>Navigate to this directory and double click on <code>foofactors.Rproj</code> to launch a new RStudio session in the Project that is your <code>foofactors</code> package.</p>
-<p>What does it look like? Here’s a file listing (you can consult the file browser):</p>
+<p>What does it look like? Here’s a file listing (locally, you can consult your file browser):</p>
 <pre><code>#&gt;      [,1]              
 #&gt; [1,] &quot;.gitignore&quot;      
 #&gt; [2,] &quot;.Rbuildignore&quot;   
@@ -155,7 +155,7 @@ create(&quot;~/tmp/foofactors&quot;)
 #&gt; [6,] &quot;R&quot;</code></pre>
 <ul>
 <li><code>DESCRIPTION</code> provides <a href="http://r-pkgs.had.co.nz/description.html">metadata about your package</a>.</li>
-<li>The <code>R/</code> directory is the <a href="http://r-pkgs.had.co.nz/r.html">“business end” of your package</a>. It will contain <code>.R</code> files with function definitions.</li>
+<li>The <code>R/</code> directory is the <a href="http://r-pkgs.had.co.nz/r.html">“business end” of your package</a>. It will soon contain <code>.R</code> files with function definitions.</li>
 <li><a href="http://r-pkgs.had.co.nz/namespace.html"><code>NAMESPACE</code></a> declares the functions your package will export for external use and the external functions your package will import from other packages.</li>
 <li><code>.gitignore</code> anticipates our usage of Git and ignores some standard R/RStudio stuff.</li>
 <li><code>foofactors.Rproj</code> is the file that makes this directory an RStudio Project. If you don’t use RStudio, suppress its creation with <code>create(..., rstudio = FALSE)</code>.</li>
@@ -172,8 +172,8 @@ create(&quot;~/tmp/foofactors&quot;)
 <pre><code>#&gt;      [,1]  
 #&gt; [1,] &quot;.git&quot;</code></pre>
 <p>Quit and relaunch RStudio in this Project, so that it is recognized as a Git repo and the Git tab becomes available in the Environment/History/Build pane. Click on History and you should see evidence of our initial commit:</p>
-<pre><code>#&gt; [eea630a] 2015-11-19: Initial commit</code></pre>
-<p>FYI RStudio can also initialize a Git repository, in any Project, even if it’s not an R package: <em>Tools &gt; Version Control &gt; Project Setup</em>. Then choose <em>Version control system: Git</em> and <em>initialize a new git repository for this project</em>. Then restart RStudio in the Project.</p>
+<pre><code>#&gt; [b2420e7] 2015-11-20: Initial commit</code></pre>
+<p>FYI RStudio can also initialize a Git repository, in any Project, even if it’s not an R package: <em>Tools &gt; Version Control &gt; Project Setup</em>. Then choose <em>Version control system: Git</em> and <em>initialize a new git repository for this project</em>.</p>
 </div>
 <div id="add-your-first-function" class="section level3">
 <h3>Add your first function</h3>
@@ -195,7 +195,7 @@ c(a, b)
 <p>With <code>devtools</code>, the package development equivalent is to call <code>load_all()</code>:</p>
 <pre class="r"><code>load_all()
 #&gt; Loading foofactors</code></pre>
-<p>Learn the keyboard and menu shortcuts for this:</p>
+<p>Learn the keyboard and menu shortcuts for this. In RStudio:</p>
 <ul>
 <li>Windows &amp; Linux: Ctrl + Shift + L</li>
 <li>Mac: Cmd + Shift + L</li>
@@ -218,18 +218,18 @@ fbind(a, b)
 <p>We have written our first function, <code>fbind()</code>, to catenate two factors.</p>
 <p>We have used <code>load_all()</code> to quickly make this function available, as if we’d built + installed <code>foofactors</code> and loaded via <code>library(foofactors)</code>.</p>
 <p>We’ve tested it very informally.</p>
-<p>We can all think of lots of ways to improve <code>fbind()</code>. Or maybe you can think of different functions that put out more urgent factor fires. That’s why we have homework!</p>
+<p>We can all think of lots of ways to improve <code>fbind()</code>. Or maybe you can think of more urgent factor fires that you would like to put out. That’s why we have <a href="hw10_package.html">homework</a>!</p>
 </div>
 <div id="commit-fbind" class="section level3">
 <h3>Commit <code>fbind()</code></h3>
 <p>Use you favorite method to commit the new <code>R/fbind.R</code> file.</p>
 <p>Your most recent commit should look something like this:</p>
-<pre><code>#&gt; [3160b6e] 2015-11-19: Add fbind()</code></pre>
+<pre><code>#&gt; [9f7ded8] 2015-11-20: Add fbind()</code></pre>
 </div>
 <div id="build-install-check" class="section level3">
 <h3>Build, Install, Check</h3>
 <p>OK <code>fbind()</code> works. How can we be even more sure that all the moving parts of the package still work? Sure, we’ve only added the one measly <code>fbind()</code>function. Humor me.</p>
-<p>We could simply try to install and load the package and hope for the best. Recall this figure from <a href="">R Packages</a>:</p>
+<p>We could simply try to install and load the package and hope for the best. Recall this figure from <a href="http://r-pkgs.had.co.nz/package.html">R Packages</a>:</p>
 <p><img src="https://raw.githubusercontent.com/hadley/r-pkgs/master/diagrams/installation.png" alt="" /></p>
 <p>We have to somehow move our source package through various stages to get it installed.</p>
 <div id="base-utilities" class="section level4">
@@ -265,7 +265,7 @@ R CMD INSTALL foofactors_0.0.0.9000.tar.gz</code></pre>
 <p>At this point, you should expect to get two warnings:</p>
 <ul>
 <li><code>Non-standard license specification</code></li>
-<li><code>Undocumented code objects: ‘fbind’</code></li>
+<li><code>Undocumented code objects: 'fbind'</code></li>
 </ul>
 <p>We’ll fix both soon.</p>
 <pre class="r"><code>check(document = FALSE)
@@ -283,7 +283,7 @@ R CMD INSTALL foofactors_0.0.0.9000.tar.gz</code></pre>
 #&gt; Checking foofactors -------------------------------------------------------
 #&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; --no-site-file  \
 #&gt;   --no-environ --no-save --no-restore CMD check  \
-#&gt;   &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpY2zhfV/foofactors_0.0.0.9000.tar.gz&#39;  \
+#&gt;   &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//Rtmpj6dLQa/foofactors_0.0.0.9000.tar.gz&#39;  \
 #&gt;   --as-cran --timings</code></pre>
 <p>Once things look OK, you can install your very own <code>foofactors</code> package into your library:</p>
 <pre class="r"><code>install()
