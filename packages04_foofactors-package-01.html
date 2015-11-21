@@ -144,6 +144,18 @@ create(&quot;~/tmp/foofactors&quot;)
 #&gt; License: What license is it under?
 #&gt; LazyData: true
 #&gt; Adding RStudio project file to foofactors</code></pre>
+<pre class="r"><code>## I normally am not this masochistic, but I don&#39;t have much choice.
+(owd &lt;- getwd())
+#&gt; [1] &quot;/Users/jenny/teaching/STAT545A/STAT545-UBC.github.io&quot;
+knitr::opts_knit$set(root.dir = ff_path)
+## during interactive dev:
+## setwd(ff_path)
+getwd()
+#&gt; [1] &quot;/Users/jenny/teaching/STAT545A/STAT545-UBC.github.io&quot;
+knitr::opts_knit$get(&quot;root.dir&quot;)
+#&gt; [1] &quot;/Users/jenny/tmp/foofactors&quot;</code></pre>
+<pre class="r"><code>getwd()
+#&gt; [1] &quot;/Users/jenny/tmp/foofactors&quot;</code></pre>
 <p>Navigate to this directory and double click on <code>foofactors.Rproj</code> to launch a new RStudio session in the Project that is your <code>foofactors</code> package.</p>
 <p>What does it look like? Here’s a file listing (locally, you can consult your file browser):</p>
 <pre><code>#&gt;      [,1]              
@@ -168,11 +180,15 @@ create(&quot;~/tmp/foofactors&quot;)
 #&gt; * Initialising repo
 #&gt; * Adding .Rproj.user, .Rhistory, and .RData to .gitignore
 #&gt; * Adding files and committing</code></pre>
+<pre class="r"><code>library(git2r)
+#dir.exists(ff_path)
+discover_repository(ff_path)
+#&gt; [1] &quot;/Users/jenny/tmp/foofactors/.git/&quot;</code></pre>
 <p>What’s new? Only a <code>.git</code> directory, which will be hidden in most contexts, including the RStudio file browser. Its existence confirms we have indeed initialized a Git repo here.</p>
 <pre><code>#&gt;      [,1]  
 #&gt; [1,] &quot;.git&quot;</code></pre>
 <p>Quit and relaunch RStudio in this Project, so that it is recognized as a Git repo and the Git tab becomes available in the Environment/History/Build pane. Click on History and you should see evidence of our initial commit:</p>
-<pre><code>#&gt; [b2420e7] 2015-11-20: Initial commit</code></pre>
+<pre><code>#&gt; [454f049] 2015-11-21: Initial commit</code></pre>
 <p>FYI RStudio can also initialize a Git repository, in any Project, even if it’s not an R package: <em>Tools &gt; Version Control &gt; Project Setup</em>. Then choose <em>Version control system: Git</em> and <em>initialize a new git repository for this project</em>.</p>
 </div>
 <div id="add-your-first-function" class="section level3">
@@ -224,7 +240,16 @@ fbind(a, b)
 <h3>Commit <code>fbind()</code></h3>
 <p>Use you favorite method to commit the new <code>R/fbind.R</code> file.</p>
 <p>Your most recent commit should look something like this:</p>
-<pre><code>#&gt; [9f7ded8] 2015-11-20: Add fbind()</code></pre>
+<pre><code>#&gt; [f6f83b3] 2015-11-21: Add fbind()
+#&gt; diff --git a/R/fbind.R b/R/fbind.R
+#&gt; new file mode 100644
+#&gt; index 0000000..7b03d75
+#&gt; --- /dev/null
+#&gt; +++ b/R/fbind.R
+#&gt; @@ -0,0 +1,3 @@
+#&gt; +fbind &lt;- function(a, b) {
+#&gt; +  factor(c(as.character(a), as.character(b)))
+#&gt; +}</code></pre>
 </div>
 <div id="build-install-check" class="section level3">
 <h3>Build, Install, Check</h3>
@@ -283,7 +308,7 @@ R CMD INSTALL foofactors_0.0.0.9000.tar.gz</code></pre>
 #&gt; Checking foofactors -------------------------------------------------------
 #&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; --no-site-file  \
 #&gt;   --no-environ --no-save --no-restore CMD check  \
-#&gt;   &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//Rtmpj6dLQa/foofactors_0.0.0.9000.tar.gz&#39;  \
+#&gt;   &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//Rtmpdp0io7/foofactors_0.0.0.9000.tar.gz&#39;  \
 #&gt;   --as-cran --timings</code></pre>
 <p>Once things look OK, you can install your very own <code>foofactors</code> package into your library:</p>
 <pre class="r"><code>install()
@@ -313,6 +338,22 @@ fbind(a, b)
 <p>Success! That’s enough for now.</p>
 <p>In <a href="packages05_foofactors-package-02.html">part two</a>, we’ll add more bells and whistles to the package.</p>
 <p>back to <a href="packages00_index.html">All the package things</a></p>
+<pre class="r"><code>remove.packages(&quot;foofactors&quot;)
+#&gt; Removing package from &#39;/Users/jenny/resources/R/library&#39;
+#&gt; (as &#39;lib&#39; is unspecified)
+owd
+#&gt; [1] &quot;/Users/jenny/teaching/STAT545A/STAT545-UBC.github.io&quot;
+knitr::opts_knit$set(root.dir = owd)
+knitr::opts_knit$get(&quot;root.dir&quot;)
+#&gt; [1] &quot;/Users/jenny/teaching/STAT545A/STAT545-UBC.github.io&quot;</code></pre>
+<pre class="r"><code>## FUTURE JENNY! don&#39;t move this into the previous chunk!
+## you can&#39;t remove current working directory and the root.dir change
+## doesn&#39;t take effect until you enter the next chunk
+getwd()
+#&gt; [1] &quot;/Users/jenny/teaching/STAT545A/STAT545-UBC.github.io&quot;
+
+## NO NO NO ... pick up where we leave off in part 2
+#unlink(ff_path, recursive = TRUE)</code></pre>
 <!--http://davidgohel.github.io/ReporteRs/FlexTable.html-->
 </div>
 </div>

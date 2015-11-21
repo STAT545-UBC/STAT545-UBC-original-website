@@ -96,18 +96,18 @@ img {
 <ul>
 <li><a href="#load-devtools">Load <code>devtools</code></a></li>
 <li><a href="#edit-description">Edit DESCRIPTION</a></li>
-<li><a href="#license">LICENSE</a></li>
+<li><a href="#add-a-license">Add a LICENSE</a></li>
 <li><a href="#document-fbind">Document <code>fbind()</code></a></li>
-<li><a href="#unit-test">Unit test</a></li>
+<li><a href="#add-unit-tests">Add unit tests</a></li>
 <li><a href="#use-a-function-from-another-package">Use a function from another package</a></li>
-<li><a href="#connect-to-github">Connect to GitHub</a></li>
-<li><a href="#use-readme">Use README</a></li>
-<li><a href="#add-a-vignette">Add a vignette</a></li>
 <li><a href="#document-the-package-as-whole">Document the package as whole</a></li>
+<li><a href="#add-a-vignette">Add a vignette</a></li>
+<li><a href="#connect-to-github">Connect to GitHub</a></li>
+<li><a href="#use-readme.rmd">Use <code>README.Rmd</code></a></li>
+<li><a href="#the-end">The End</a></li>
 </ul>
 </div>
 
-<p><em>This is a skeleton account of what we did in class. Narrative? Not so much. It’s getting better!</em></p>
 <p>We assume you’ve come directly from <a href="packages04_foofactors-package-01.html">part one</a>, where we:</p>
 <ul>
 <li>created the <code>foofactors</code> package</li>
@@ -116,32 +116,45 @@ img {
 <li>created the <code>fbind()</code> function</li>
 <li>checked, built, installed, and test drove the package</li>
 </ul>
-<p>We assume you’ll be commiting package source after each major step! No more reminders about that.</p>
-<p>We assume you are checking your package often. Maybe after each major step? That’s probably overkill but why not? Use <code>devtools::check()</code> in the Console or RStudio <em>Build &gt; Check</em>. And remember the true test is to “Build &amp; Reload” and use your functions.</p>
+<p>We assume you’ll be committing package source after each major step! No more reminders about that.</p>
+<p>We assume you are checking your package often. Maybe after each major step? That’s might be overkill, but why not? Use <code>devtools::check()</code> in the Console or RStudio <em>Build &gt; Check</em>. And remember the true test is to “Build &amp; Reload” and use your functions.</p>
+<p>You can see the glorious result of all this by visiting the <code>foofactors</code> package on GitHub: <a href="https://github.com/jennybc/foofactors" class="uri">https://github.com/jennybc/foofactors</a>.</p>
+<p>back to <a href="packages00_index.html">All the package things</a></p>
 <div id="load-devtools" class="section level3">
 <h3>Load <code>devtools</code></h3>
 <pre class="r"><code>library(devtools)</code></pre>
-<p>Or you might want to put something like this in your <code>.Rprofile</code> in your home directory:</p>
-<pre class="r"><code>if (interactive()) {
+<!--
+Or you might want to put something like this in your `.Rprofile` in your home directory:
+
+
+```r
+if (interactive()) {
   options(
     ## use https repos
-    repos = c(CRAN = &quot;https://cran.rstudio.org&quot;)
+    repos = c(CRAN = "https://cran.rstudio.org")
   )
   library(devtools)
-}</code></pre>
-<p><strong>This file should be named <code>.Rprofile</code>, not <code>.Rprofile.R</code>.</strong></p>
+}
+```
+
+**Protip: This file should be named `.Rprofile`, not `.Rprofile.R`.**
+-->
 </div>
 <div id="edit-description" class="section level3">
 <h3>Edit DESCRIPTION</h3>
-<p>DESCRIPTION provides <a href="http://r-pkgs.had.co.nz/description.html">metadata about your package</a>.</p>
-<p>Make (at least) the following edits:</p>
+<p>DESCRIPTION provides metadata about your package:</p>
+<ul>
+<li>read more from <a href="http://r-pkgs.had.co.nz/description.html">R Packages</a></li>
+<li>read more from <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file">Writing R Extensions</a></li>
+</ul>
+<p>Make these edits:</p>
 <ul>
 <li>Put yourself in as the author.</li>
 <li>Write some descriptive text in the <code>Title</code> and <code>Description</code> fields. Note that CRAN is <strong>very picky</strong> about these fields, so if you want to keep passing <code>check()</code>, read <a href="http://r-pkgs.had.co.nz/description.html#pkg-description">this section</a> section of R Packages.</li>
-<li>I’ve opted to specify the MIT license (will require a bit more work below).</li>
+<li>Specify a license. I’ve opted for MIT, which will require a bit more work below.</li>
 </ul>
-<pre class="sh"><code>Package: foofactors
-Title: Make factors less annoying
+<pre><code>Package: foofactors
+Title: Make Factors Less Annoying
 Version: 0.0.0.9000
 Authors@R: person(&quot;Jennifer&quot;, &quot;Bryan&quot;, role=c(&quot;aut&quot;, &quot;cre&quot;),
   email = &quot;jenny@stat.ubc.ca&quot;)
@@ -154,20 +167,28 @@ Depends:
 License: MIT + file LICENSE
 LazyData: true</code></pre>
 </div>
-<div id="license" class="section level3">
-<h3>LICENSE</h3>
-<p>Relevant section from R Packages: <a href="http://r-pkgs.had.co.nz/description.html#license" class="uri">http://r-pkgs.had.co.nz/description.html#license</a></p>
-<p><a href="http://choosealicense.com" class="uri">http://choosealicense.com</a></p>
-<p>To finish specifying the MIT license, add this in a new file called LICENSE. Fill in the year and your name.</p>
-<pre class="sh"><code>YEAR: 2015
-COPYRIGHT HOLDER: &lt;Name of the copyright holder&gt;</code></pre>
+<div id="add-a-license" class="section level3">
+<h3>Add a LICENSE</h3>
+<blockquote>
+<p><a href="http://blog.codinghorror.com/pick-a-license-any-license/">Pick a License, Any License. – Jeff Atwood</a></p>
+</blockquote>
+<p>For more guidance, see relevant sections of</p>
+<ul>
+<li><a href="http://r-pkgs.had.co.nz/description.html#license">R Packages</a></li>
+<li><a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Licensing">Writing R Extensions</a></li>
+<li>GitHub’s guide at <a href="http://choosealicense.com" class="uri">http://choosealicense.com</a></li>
+</ul>
+<p>To finish specifying the MIT license I chose above, add this in a new file called <code>LICENSE</code>. Fill in the current year and substitute your name.</p>
+<pre><code>YEAR: 2015
+COPYRIGHT HOLDER: Jennifer Bryan</code></pre>
 </div>
 <div id="document-fbind" class="section level3">
 <h3>Document <code>fbind()</code></h3>
+<p>Wouldn’t it be nice to get help on <code>fbind()</code>, just like we do with other R functions? That requires that your package have a special R documentation file, <code>R/fbind.Rd</code>, written in an R-specific markup language. It’s <em>almost</em> as fun to write as LaTeX! We will spare ourselves that and use a different approach.</p>
 <p>Go to the <code>fbind.R</code> script and put the cursor somewhere in the <code>fbind()</code> function definition.</p>
-<p>RStudio <em>Code &gt; Insert roxygen skeleton</em>. You will see a very special comment appear above your function. This comment will be processed by the <code>roxygen2</code> package to create an official R help file for your <code>fbind()</code> function. RStudio only inserts a barebones template, so you will need to edit it to look something like that below.</p>
-<p>You can learn much more about what’s possible in the <a href="http://r-pkgs.had.co.nz/man.html">documentation chapter</a> of R Packages.</p>
-<pre class="sh"><code>#&#39; Bind two factors
+<p>In RStudio, do <em>Code &gt; Insert roxygen skeleton</em>. A very special comment should appear above your function. This comment will be processed by the <a href="https://cran.r-project.org/web/packages/roxygen2/index.html"><code>roxygen2</code> package</a> to create the <code>man/fbind.Rd</code> file. To read more about <code>roxygen2</code> motivation and mechanics, read <a href="http://r-pkgs.had.co.nz/man.html">the documentation chapter</a> of R Packages.</p>
+<p>RStudio only inserts a barebones template, so you will need to edit it to look something like that below.</p>
+<pre><code>#&#39; Bind two factors
 #&#39;
 #&#39; Create a new factor from two existing factors, where the new factor&#39;s levels
 #&#39; are the union of the levels of the input factors.
@@ -178,24 +199,40 @@ COPYRIGHT HOLDER: &lt;Name of the copyright holder&gt;</code></pre>
 #&#39; @return factor
 #&#39; @export
 #&#39; @examples
-#&#39; fbind(iris$Species[c(1, 51, 101)], PlantGrowth$group[c(1, 11, 21)])</code></pre>
-<p>We still need to trigger the conversion process. You can do from the RStudio IDE or in the Console.</p>
-<p>RStudio <em>Build &gt; More &gt; Document</em> or …</p>
-<pre class="r"><code>library(devtools)
-document()</code></pre>
+#&#39;#&#39; fbind(iris$Species[c(1, 51, 101)], PlantGrowth$group[c(1, 11, 21)])</code></pre>
+<p>But we’re not done yet! We still need to trigger the conversion of the <code>roxygen</code> comment into <code>man/fbind.Rd</code>. You can do this from the RStudio IDE or in the Console.</p>
+<p>In RStudio, do <em>Build &gt; More &gt; Document</em>.</p>
+<p>In R, call <code>document()</code>, which is a wrapper function provided by <code>devtools</code>. Under the hood, it’s calling the <code>roxygen2</code> package.</p>
+<pre class="r"><code>document()
+#&gt; Updating foofactors documentation
+#&gt; Loading foofactors
+#&gt; First time using roxygen2. Upgrading automatically...
+#&gt; Updating roxygen version in  /Users/jenny/tmp/foofactors/DESCRIPTION 
+#&gt; Writing NAMESPACE
+#&gt; Writing fbind.Rd</code></pre>
 <p>You should now be able to preview your help file like so:</p>
 <pre class="r"><code>?fbind</code></pre>
-<p>Your package’s documentation won’t be fully wired up until you do a full “Build &amp; Reload”.</p>
-<p>Note the addition of <code>export(fbind)</code> to your <code>NAMESPACE</code> file. This is very important! This is called exporting the <code>fbind()</code> function and it’s what will make <code>fbind()</code> available to a user after loading <code>foofactors</code> with <code>library(foofactors)</code>.</p>
+<p>Does it show up in the usual help pane? Looking like real documentation? Isn’t that exciting?</p>
+<p>Your package’s documentation won’t be properly wired up until you do a full “Build &amp; Reload”. I’m referring to the links between help files, the link to the package index, etc.</p>
+<p>The RStudio <a href="https://www.rstudio.com/wp-content/uploads/2015/03/devtools-cheatsheet.pdf">Package Development with <code>devtools</code> Cheat Sheet</a> has really nice coverage of <code>roxygen</code> comment syntax.</p>
+<div id="namespace-changes" class="section level4">
+<h4><code>NAMESPACE</code> changes</h4>
+<p>In addition to the new <code>roxygen</code> comment and <code>man/fbind.R</code> file, you should see the addition of <code>export(fbind)</code> in your <code>NAMESPACE</code> file. If you’re using Git, look at the current diff to verify all of this. The export directive in <code>NAMESPACE</code> is what people mean when they talk about “exporting a function” and it’s what makes <code>fbind()</code> available to a user after loading <code>foofactors</code> via <code>library(foofactors)</code>. Just as it is entirely possible to author <code>.Rd</code> files “by hand”, you can manage <code>NAMESPACE</code> explicitly yourself. But we are opting to do so via <code>devtools</code> (and <code>roxygen2</code>). Here’s how it looks right now.</p>
+<pre><code># Generated by roxygen2: do not edit by hand
+
+export(fbind)</code></pre>
+<p>The package should pass <code>R CMD check</code> cleanly now and from this point on.</p>
 </div>
-<div id="unit-test" class="section level3">
-<h3>Unit test</h3>
-<p>Declare your intent to write unit tests. We’re going to use the <code>testthat</code> package to help us.</p>
+</div>
+<div id="add-unit-tests" class="section level3">
+<h3>Add unit tests</h3>
+<p>Remember when we wrote our first R function? In <a href="block011_write-your-own-function-03.html#use-testthat-for-formal-unit-tests">lesson 3</a>, we created some formal unit tests to check that our function produces expected output when given specific input. This seemed like crazy overkill then, but the payoff for writing unit tests is much more clear when you are writing a package.</p>
+<p>Let’s declare our intent to write unit tests. We’ll use the <code>testthat</code> package to help us.</p>
 <pre class="r"><code>use_testthat()</code></pre>
-<p>This will add <code>Suggests: testthat</code> to <code>DESCRIPTION</code> and create the directory <code>tests/testthat</code> and the script <code>test/testthat.R</code>. This prepares the unit testing machinery for your package.</p>
+<p>This will add <code>Suggests: testthat</code> to <code>DESCRIPTION</code> and create the directory <code>tests/testthat</code> and the script <code>test/testthat.R</code>. This prepares the unit testing machinery for your package. If you’re using Git, now is a nice time to look at the current diff and verify the above. And commit.</p>
 <p>However, it’s still up to YOU to write the actual tests!</p>
-<p>Create a new script <code>tests/testthat/test_fbind.R</code> and put this in it:</p>
-<pre class="r"><code>context(&quot;Binding factors&quot;)
+<p>Create a new R script in <code>tests/testthat/test_fbind.R</code> consisting of this:</p>
+<pre><code>context(&quot;Binding factors&quot;)
 
 test_that(&quot;fbind binds factor (or character)&quot;, {
   x &lt;- c(&#39;a&#39;, &#39;b&#39;)
@@ -206,93 +243,60 @@ test_that(&quot;fbind binds factor (or character)&quot;, {
   expect_identical(fbind(x, y), z)
   expect_identical(fbind(x_fact, y), z)
 })</code></pre>
-<p>Now we run the tests. Again you can use the RStudio IDE or the Console.</p>
-<p>RStudio <em>Build &gt; Test package</em> or …</p>
-<pre class="r"><code>test()</code></pre>
-<p>If all goes well, you’ll see something like this:</p>
-<pre><code>==&gt; devtools::test()
-
-Loading foofactors
-Loading required package: testthat
-Testing foofactors
-Binding factors : ..
-
-DONE </code></pre>
-<p>Relevant section from R Packages: <a href="http://r-pkgs.had.co.nz/tests.html" class="uri">http://r-pkgs.had.co.nz/tests.html</a></p>
+<p>You should probably run this test interactively, as you will when you write your own. Note you’ll have to load <code>testthat</code> via <code>library(testthat)</code> in your R session first.</p>
+<p>Going forward, your tests will mostly run automatically and <em>en masse</em>. You can trigger this from the RStudio IDE or in the Console. Your tests will also run whenever you check the package in the future.</p>
+<p>In RStudio, do <em>Build &gt; Test package</em>.</p>
+<p>In R, call <code>test()</code>, which is a wrapper function provided by <code>devtools</code>. Under the hood, it’s calling the <code>testthat</code> package.</p>
+<pre class="r"><code>test()
+#&gt; Loading foofactors
+#&gt; Loading required package: testthat
+#&gt; Testing foofactors
+#&gt; Binding factors : ..
+#&gt; 
+#&gt; DONE</code></pre>
+<p>If you’re <strong>really lucky</strong>, <code>testthat</code> will praise you. That never seems to happen for me anymore. Did I use up my praise quota?!?</p>
+<p>For much more guidance, read the <a href="http://r-pkgs.had.co.nz/tests.html">testing chapter</a> in R Packages.</p>
 </div>
 <div id="use-a-function-from-another-package" class="section level3">
 <h3>Use a function from another package</h3>
-<p>Before long, you will want to use a function from another. Just as we needed to <strong>export</strong> <code>fbind()</code>, we need to <strong>import</strong> functions from the namespace of other packages.</p>
+<p>You will inevitably want to use a function from another package in your package. Just as we needed to <strong>export</strong> <code>fbind()</code>, we need to <strong>import</strong> functions from the namespace of other packages. If you plan to submit a package to CRAN, note that this even applies to packages that you think of as “always available”, such as <code>stats</code> and <code>utils</code>.</p>
 <p>There is more than one way to approach this. I am presenting the one I use, which is the one recommended in the <a href="http://r-pkgs.had.co.nz/namespace.html">namespace chapter</a> of R Packages and in the <a href="https://github.com/ropensci/packaging_guide#deps">rOpenSci Packaging Guide</a>.</p>
 <p>Declare your intent to use some functions from the <code>dplyr</code> namespace:</p>
-<pre class="r"><code>use_package(&quot;dplyr&quot;)</code></pre>
-<p>This will cause the <code>dplyr</code> package to be added to the “Imports” section of your DESCRIPTION file. And that is all.</p>
-<p>Add a new function that does, indeed, use a function from <code>dplyr</code>. Imagine we want a frequency table for a factor, as a regular data frame, versus as an object of class <code>table</code>, as returned by <code>table()</code>. Preface your calls to <code>dplyr</code> functions with <code>dplyr::</code>. In general, this means you’ll specify the external package’s name, followed by two colons, then the function to call.</p>
-<p>Create a new script <code>R/freq_out.R</code> with this in it:</p>
-<pre class="r"><code>#&#39; Make a frequency table for a factor
+<pre class="r"><code>use_package(&quot;dplyr&quot;)
+#&gt; Adding dplyr to Imports
+#&gt; Refer to functions with dplyr::fun()</code></pre>
+<p>This adds the <code>dplyr</code> package to the “Imports” section of <code>DESCRIPTION</code>. And that is all.</p>
+<p>Now add a new function that does, indeed, use a function from <code>dplyr</code>. Imagine we want a frequency table for a factor, as a regular data frame with decent names, versus as an object of class <code>table</code> or with icky names. Preface your calls to <code>dplyr</code> functions with <code>dplyr::</code>. The general pattern is this: give the name of the external package, then two colons, then the function to call.</p>
+<p>Create a new R script <code>R/freq_out.R</code> with this in it:</p>
+<pre><code>#&#39; Make a frequency table for a factor
 #&#39;
 #&#39; @param x factor
 #&#39;
 #&#39; @return tbl_df
 #&#39; @export
 #&#39; @examples
-#&#39; freq_out(iris$Species)
+#&#39;#&#39; freq_out(iris$Species)
 freq_out &lt;- function(x) {
   xdf &lt;- dplyr::data_frame(x)
   dplyr::count(xdf, x)
 }</code></pre>
 <p>Generate the associated help file: <code>document()</code> or <em>Build &gt; Document</em>.</p>
-<p>An alternative to this <code>dplyr::select()</code> business is to import individual functions. One function you may wish to do this for is the <code>%&gt;%</code> operator itself. Put this line in the roxygen header of some function in your package:</p>
-<pre class="r"><code>#&#39; @importFrom dplyr %&gt;%</code></pre>
-<p>It doesn’t matter which function – it will still make <code>%&gt;%</code> available broadly within your package. Now run <code>document()</code>. That should cause <code>importFrom(dplyr,&quot;%&gt;%&quot;)</code> to appear in your <code>NAMESPACE</code> file. Once you document your package itself (see below), that provides a nice to park package-wide imports like this. At that point, you may wish to move the above line into the roxygen header that underpins the package documentation.</p>
-</div>
-<div id="connect-to-github" class="section level3">
-<h3>Connect to GitHub</h3>
-<p>This will create a remote companion repository on GitHub and will get things hooked up so your Push and Pull buttons work in RStudio.</p>
-<p>This requires talking to the GitHub API, which therefore requires that you get a personal access token (PAT).</p>
-<p>Get a PAT here <a href="https://github.com/settings/tokens" class="uri">https://github.com/settings/tokens</a>. Make sure the “repo” scope is included (last I checked, the defaults WILL include it).</p>
-<p>Stow this in <code>~/.Renviron</code>, which holds environment variables that should be available to R processes. <code>devtools</code> will look here for the PAT. Here “~/” means your home directory. If you’re not sure where that is, execute <code>normalizePath(&quot;~/&quot;)</code> in R console. <strong>This file should be named <code>.Renviron</code>, not <code>.Renviron.R</code>.</strong> In RStudio, that means you should use <em>File &gt; New file &gt; Text file</em>.</p>
-<pre class="sh"><code>GITHUB_PAT=???????????????????</code></pre>
-<p>Restart R.</p>
-<p>In R, check the PAT is in env var:</p>
-<pre class="r"><code>Sys.getenv(&quot;GITHUB_PAT&quot;)</code></pre>
-<p>Connect your package = Git repo to a new, public GitHub repo. If you want private <strong>and you have a private repo to spare</strong>, add <code>private = TRUE</code>. If you use SSH, remove <code>protocol = &quot;https&quot;</code> (SSH is the default).</p>
-<pre class="r"><code>use_github(protocol = &quot;https&quot;)</code></pre>
-<p>Go look at your package’s repo on GitHub! You should also be able to use the Pull and Push buttons from RStudio now.</p>
-</div>
-<div id="use-readme" class="section level3">
-<h3>Use README</h3>
-<p>You will want to “Build &amp; Reload” at this point, so your properly built and installed package is found when you knit <code>README.Rmd</code></p>
-<pre class="r"><code>use_readme_rmd()</code></pre>
-<p>Put something in the README. Such as … explanation that this is a practice package for STAT 545 and the purpose of the package. Put an R chunk in that demonstates <code>fbind()</code>. Just copy the example, at the very least!</p>
-<p>Knit it to make <code>README.md</code>.</p>
-</div>
-<div id="add-a-vignette" class="section level3">
-<h3>Add a vignette</h3>
-<pre class="r"><code>use_vignette(&quot;hello-foofactors&quot;)</code></pre>
-<p>Edit <code>vignettes/hello-foofactors.Rmd</code>. It could start out the same as README.</p>
-<p>Then workflow gets a little fiddly.</p>
-<p>RStudio option:</p>
-<p><em>Tools &gt; Project Options &gt; Build Tools &gt; Generate documentation with Roxygen &gt; Configure &gt; Use roxygen to generate vignettes</em></p>
-<p>Console option 1:</p>
-<pre class="r"><code>build_vignettes()
-## Build and reload
-browseVignettes(&quot;foofactors&quot;)</code></pre>
-<p>Console option 2:</p>
-<pre class="r"><code>build()
-install_local(&quot;../foofactors_0.0.0.9000.tar.gz&quot;, build_vignettes = TRUE)
-browseVignettes(&quot;foofactors&quot;)</code></pre>
+<pre class="r"><code>document()
+#&gt; Updating foofactors documentation
+#&gt; Loading foofactors
+#&gt; Writing NAMESPACE
+#&gt; Writing freq_out.Rd</code></pre>
+<p><em>I have some regrets about using <code>dplyr</code> as an example. It invites tricky questions about importing <code>%&gt;%</code> and non-standard evalution as the students extend the package in homework. Seek an alternative external package?</em></p>
 </div>
 <div id="document-the-package-as-whole" class="section level3">
 <h3>Document the package as whole</h3>
-<p>This topic is addressed here in R Packages: <a href="http://r-pkgs.had.co.nz/man.html#man-packages" class="uri">http://r-pkgs.had.co.nz/man.html#man-packages</a></p>
-<p>This creates a kind of weird dummy file <code>foofactors-package.R</code> and roxygen header, which appears to be document just … <code>NULL</code>?</p>
-<pre class="r"><code>use_package_doc()</code></pre>
-<p>The purpose of this artificial stuff is just to create a help file for your package as a whole.</p>
-<p>If you imported the <code>%&gt;%</code> operator from <code>dplyr</code> or <code>magrittr</code> above, it would be logical to move the associated <code>@importFrom</code> statement to this roxygen header.</p>
-<p>Don’t forget to run <code>document()</code>!</p>
-<p>I just copied info from the DESCRIPTION file but you can go much farther here and should in real life. This file won’t be under the same CRAN checks as DESCRIPTION, so you have much more freedom.</p>
-<pre class="r"><code>#&#39; foofactors: Make factors less annoying
+<p>Let’s start adding package-level documentation. Your package as a whole can have its own <code>.Rd</code> file. You can see an example by entering <code>package?dplyr</code> in R Console. Read more about the uses of package-level documentation in <a href="http://r-pkgs.had.co.nz/man.html#man-packages">R Packages</a>.</p>
+<p>Here is the <code>devtools</code> function to set this up:</p>
+<pre class="r"><code>use_package_doc()
+#&gt; Creating R/foofactors-package.r</code></pre>
+<p>This creates a weird dummy file <code>R/foofactors-package.R</code> with a roxygen header, that is documenting just … <code>NULL</code>. Whatever. The purpose of this artificial stuff is simply to create the package-level <code>.Rd</code> file.</p>
+<p>Edit <code>R/foofactors-package.R</code> to look something like this. I just copied info from <code>DESCRIPTION</code> but you can go much farther here and probably should in real life. This file isn’t subject to the same CRAN checks as <code>DESCRIPTION</code>, so you have much more freedom.</p>
+<pre><code>#&#39; foofactors: Make factors less annoying
 #&#39;
 #&#39; Factors have driven people to extreme measures, like ordering custom
 #&#39; conference ribbons and laptop stickers to express how HELLNO we feel about
@@ -302,7 +306,101 @@ browseVignettes(&quot;foofactors&quot;)</code></pre>
 #&#39; @name foofactors
 #&#39; @docType package
 NULL</code></pre>
+<p>Don’t forget to run <code>document()</code>!</p>
+<pre class="r"><code>document()
+#&gt; Updating foofactors documentation
+#&gt; Loading foofactors
+#&gt; Writing foofactors.Rd</code></pre>
+</div>
+<div id="add-a-vignette" class="section level3">
+<h3>Add a vignette</h3>
+<p>A piece of package-level documentation that’s probably familiar to you is the vignette. This is a great place to put a fully developed example that calls multiple functions from your package to do something useful and realistic. See the <a href="http://r-pkgs.had.co.nz/vignettes.html">vignettes chapter</a> of R Packages for more.</p>
+<p>Here is how to use <code>devtools</code> to set up a vignette.</p>
+<pre class="r"><code>use_vignette(&quot;hello-foofactors&quot;)
+#&gt; Draft vignette created in /Users/jenny/tmp/foofactors/vignettes/hello-foofactors.Rmd</code></pre>
+<p>Here’s what happens:</p>
+<ul>
+<li>Adds <code>knitr</code> and <code>rmarkdown</code> to <code>Suggests</code> in <code>DESCRIPTION</code></li>
+<li>Creates a new file with boilerplate vignette content, <code>vignettes/hello-foofactors.Rmd</code></li>
+<li>Adds <code>inst/doc</code> to <code>.gitignore</code></li>
+</ul>
+<p>If you’re using Git, now is a nice time to look at the current diff and verify the above. And commit.</p>
+<p>Edit <code>vignettes/hello-foofactors.Rmd</code>. At the very least, do this:</p>
+<ul>
+<li>Replace <strong>both instances</strong> of “Vignette Title” in the YAML with an actual title and the same title.</li>
+<li>List yourself as author or remove that line.</li>
+<li>Remove the boilerplate content and throw in some usage. Even early on, just mine your examples or tests for something to throw in here. It is better than nothing.</li>
+</ul>
+<p>The vignette source can be seen here: <a href="https://raw.githubusercontent.com/jennybc/foofactors/master/vignettes/hello-foofactors.Rmd">vignettes/hello-foofactors.Rmd</a></p>
+<p>How to see your compiled vignette? For a quick preview, just use RStudio’s “Knit HTML” button. Problem is, the downstream products aren’t saved anywhere in your package, so you’ll need to redo this every time you want to look at the vignette.</p>
+<p>If you want to hold on to a compiled vignette, for your own sake or to push to GitHub, it’s a little fiddly. I’m not executing any of these for real, so don’t expect to see the result in the <code>foofactors</code> repo on GitHub.</p>
+<p>Option 1:</p>
+<pre class="r"><code>build_vignettes()
+## Build and reload !!!
+browseVignettes(&quot;foofactors&quot;)
+## look at your vignette</code></pre>
+<p>This puts your vignette (<code>.Rmd</code> and any downstream products, such as <code>.html</code>) in <code>inst/doc</code> but because we are gitignoring <code>inst/doc</code> this won’t make a rendered vignette available on GitHub. You can however view it locally.</p>
+<p>Option 2:</p>
+<p>In RStudio, do <em>Tools &gt; Project Options &gt; Build Tools &gt; Generate documentation with Roxygen &gt; Configure &gt; Use roxygen to generate vignettes</em>. Then when you <code>document()</code>, downstream products, such as vignette <code>.html</code> will be left behind in <code>vignettes/</code>. There is nothing stopping you from including something like this in vignette YAML:</p>
+<pre class="yaml"><code>output:
+  rmarkdown::html_vignette:
+    toc: true
+    keep_md: true</code></pre>
+<p>Which means vignette <code>.md</code> would be left behind in <code>vignettes/</code> and therefore potentially available on GitHub.</p>
+<p><em>I’m really not sure what to advise here.</em></p>
+<!--
+Another option:
+
+```r
+build()
+install_local("../foofactors_0.0.0.9000.tar.gz", build_vignettes = TRUE)
+browseVignettes("foofactors")
+```
+-->
+</div>
+<div id="connect-to-github" class="section level3">
+<h3>Connect to GitHub</h3>
+<p>This will create a remote companion repository on GitHub and will get things hooked up so your Push and Pull buttons work in RStudio. If you prefer, you can always create the GitHub repo in the browser and use command line Git to add the GitHub remote and set an upstream tracking branch for <code>master</code>.</p>
+<p>To connect to GitHub, under the hood <code>devtools</code> calls the GitHub API. This means you’ll need to have a personal access token (PAT).</p>
+<p>Get a PAT here <a href="https://github.com/settings/tokens" class="uri">https://github.com/settings/tokens</a>. Make sure the “repo” scope is included (last I checked, the defaults WILL include it).</p>
+<p>Store your PAT as an environment variable named <code>GITHUB_PAT</code> in <code>~/.Renviron</code>, which holds environment variables that should be available to R processes. <code>devtools</code> will look here for it, by default. Here “~/” means your home directory. If you’re not sure where that is, execute <code>normalizePath(&quot;~/&quot;)</code> in R console. <strong>This file should be named <code>.Renviron</code>, not <code>.Renviron.R</code> and look like this:</strong></p>
+<pre class="sh"><code>GITHUB_PAT=??40-RANDOM-LETTERS-AND-DIGITS-GO-HERE??</code></pre>
+<p>Restart R and check that the PAT is now available:</p>
+<pre class="r"><code>Sys.getenv(&quot;GITHUB_PAT&quot;)</code></pre>
+<p>You should see your PAT print to screen.</p>
+<p>Connect your package to a new, public GitHub repo using the https protocol like so:</p>
+<pre class="r"><code>use_github(protocol = &quot;https&quot;)</code></pre>
+<pre><code>#&gt; Using github PAT from envvar GITHUB_PAT
+#&gt; * Creating GitHub repository
+#&gt; * Adding GitHub remote
+#&gt; * Adding GitHub links to DESCRIPTION
+#&gt; * Pushing to GitHub and setting remote tracking branch</code></pre>
+<p>If you have a private repo to spare, feel free to add <code>private = TRUE</code>.</p>
+<p>If you use SSH, remove <code>protocol = &quot;https&quot;</code> (SSH is the default).</p>
+<p>Go look at your package’s repo on GitHub! You should also be able to use the Pull and Push buttons from RStudio now.</p>
+</div>
+<div id="use-readme.rmd" class="section level3">
+<h3>Use <code>README.Rmd</code></h3>
+<p>Now that your package is on GitHub, the <code>README.md</code> file matters (unless it’s just for personal use). It is the package’s home page.</p>
+<p>Provide code to install your package, explain what it’s for, and show a bit of usage. Copy stuff liberally from <code>DESCRIPTION</code>, <code>R/foofactors-package.R</code>, examples, and your vignette. Anything is better than nothing. Otherwise … do you expect people to install your package and comb through individual help files to figure out how to use it?</p>
+<p>It is best to write your <code>README</code> in R markdown, so it can reflect actual usage. Do “Build &amp; Reload” now, so your properly built and installed package is found when you render <code>README.Rmd</code>.</p>
+<p>This <code>devtools</code> function will set things up for <code>README.Rmd</code>:</p>
+<pre class="r"><code>use_readme_rmd()
+#&gt; Creating README.Rmd
+#&gt; Adding pre-commit hook</code></pre>
+<p>This inserts a boilerplate <code>README.Rmd</code> file, adds some lines to <code>.Rbuildignore</code>, and creates a Git pre-commit hook to help you keep <code>README.Rmd</code> and <code>README.md</code> in sync.</p>
+<p>The <code>README.Rmd</code> we use can be seen here: <a href="https://raw.githubusercontent.com/jennybc/foofactors/master/README.Rmd">vignettes/README.Rmd</a>.</p>
+<p>Don’t forget to knit it to make <code>README.md</code>! The pre-commit hook should remind you if you try to commit <code>README.Rmd</code> but not <code>README.md</code> and also when <code>README.md</code> appears to be out-of-date.</p>
+<pre class="r"><code>rmarkdown::render(&quot;README.Rmd&quot;) ## or use &quot;Knit HTML&quot;</code></pre>
+<p>You can see the rendered <code>README.md</code> simply by visiting the <code>foofactors</code> package on GitHub: <a href="https://github.com/jennybc/foofactors" class="uri">https://github.com/jennybc/foofactors</a>.</p>
+<p>Finally, don’t forget to do one last commit. And push!</p>
+</div>
+<div id="the-end" class="section level3">
+<h3>The End</h3>
+<p>Hopefully you’ve been running <code>check()</code> periodically all along. If not, do it now! The package should have no errors, warnings or notes. Now might be a good time to do “Build and reload” to celebrate.</p>
+<p>Feel free to visit the <a href="https://github.com/jennybc/foofactors"><code>foofactors</code> package</a> on GitHub, which is exactly as developed in this tutorial. The commit history reflects each individual step, so use the diffs to see the addition and modification of files, as the package evolved.</p>
 <p>back to <a href="packages00_index.html">All the package things</a></p>
+<p><a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/edit/master/packages05_foofactors-package-02.Rmd">Suggest an edit to this page …</a></p>
 </div>
 
 <div class="footer">

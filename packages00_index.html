@@ -94,15 +94,15 @@ img {
 
 <div id="TOC">
 <ul>
-<li><a href="#overview">Overview</a></li>
+<li><a href="#setting-the-stage">Setting the stage</a></li>
 <li><a href="#prepare-your-system-for-package-development">Prepare your system for package development</a></li>
 <li><a href="#hands-on-activity">Hands-on activity</a></li>
 <li><a href="#resources">Resources</a></li>
 </ul>
 </div>
 
-<div id="overview" class="section level3">
-<h3>Overview</h3>
+<div id="setting-the-stage" class="section level3">
+<h3>Setting the stage</h3>
 <p>Slides available on <a href="https://speakerdeck.com/jennybc/ubc-stat545-2015-writing-your-first-r-package">speakerdeck</a></p>
 <ul>
 <li>What is an R package?</li>
@@ -135,9 +135,9 @@ img {
 </ul>
 <p>In 2015, we started to build the <code>foofactors</code> package, to make the care and feeding of factors less aggravating.</p>
 <ul>
-<li><a href="packages04_foofactors-package-01.html">2015 part 1</a></li>
-<li><a href="packages05_foofactors-package-02.html">2015 part 2</a></li>
-<li><a href="hw10_package.html">2015 homework</a>: extend <code>foofactors</code> from where we left off in class</li>
+<li><a href="packages04_foofactors-package-01.html">Write your own R package, part 1</a></li>
+<li><a href="packages05_foofactors-package-02.html">Write your own R package, part 2</a></li>
+<li><a href="hw10_package.html">Homework</a>: extend <code>foofactors</code> from where we left off in class</li>
 </ul>
 <p>In 2014, we built the <code>gameday</code> package to check if your favorite NHL team has a game today.</p>
 <ul>
@@ -148,7 +148,8 @@ img {
 </div>
 <div id="resources" class="section level3">
 <h3>Resources</h3>
-<p><a href="http://r-pkgs.had.co.nz">R packages</a> is a new book by Hadley Wickham. The above lessons follow it and the <code>devtools</code> package quite faithfully. <code>devtools</code> on <a href="https://cran.r-project.org/web/packages/devtools/index.html">CRAN</a>, on <a href="https://github.com/hadley/devtools">GitHub</a>.</p>
+<p><a href="http://cran.r-project.org/doc/manuals/r-release/R-exts.html">Writing R Extensions</a>, the One True Official Document on creating R packages.</p>
+<p><a href="http://r-pkgs.had.co.nz">R packages</a> is a new book by Hadley Wickham. The above lessons follow it and the <code>devtools</code> package workflow quite faithfully. <code>devtools</code> on <a href="https://cran.r-project.org/web/packages/devtools/index.html">CRAN</a>, on <a href="https://github.com/hadley/devtools">GitHub</a>.</p>
 <p>Hilary Parker’s <a href="http://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/">blog post</a> on the epiphany of writing her first R package</p>
 <ul>
 <li>“I was hit with that familiar feeling of the joy of optimization combined with the regret of past inefficiencies (joygret?). I wish I could go back in time and create the package the first moment I thought about it, and then use all the saved time to watch cat videos because that really would have been more productive.”</li>
@@ -168,7 +169,6 @@ img {
 <p><a href="http://www.stats.uwo.ca/faculty/murdoch/ism2013/5Vignettes.pdf">Writing Package Vignettes</a>, slides for a November 2013 talk by Duncan Murdoch</p>
 <p><a href="http://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html">Roxygen vignette on Generating Rd files</a></p>
 <p><a href="http://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf"><code>testthat</code>: Get Started with Testing</a>, an article written by Hadley Wickham for <em>The R Journal,</em> Vol. 3/1, June 2011, pp. 5-10. <em>This may no longer be correct in every last detail, due to evolution of <code>testthat</code>, but it still makes an excellent, readable introduction to unit testing in R (packages)</em>.</p>
-<p><a href="http://cran.r-project.org/doc/manuals/r-release/R-exts.html">Writing R Extensions</a>, the One True Official Document on creating R packages</p>
 <p><a href="http://obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff/">How R Searches and Finds Stuff</a> is a fairly technical blog post for understanding the R search path, but also gives some great explanations on some differences between <code>Imports</code> vs <code>Depends</code> and why <code>Imports</code> is safer.</p>
 </div>
 

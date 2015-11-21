@@ -5,7 +5,7 @@ output:
     toc: true
 ---
 
-### Overview
+### Setting the stage
 
 Slides available on [speakerdeck](https://speakerdeck.com/jennybc/ubc-stat545-2015-writing-your-first-r-package)
 
@@ -38,9 +38,9 @@ In class example that that shows how to
 
 In 2015, we started to build the `foofactors` package, to make the care and feeding of factors less aggravating.
 
-  * [2015 part 1](packages04_foofactors-package-01.html)
-  * [2015 part 2](packages05_foofactors-package-02.html)
-  * [2015 homework](hw10_package.html): extend `foofactors` from where we left off in class
+  * [Write your own R package, part 1](packages04_foofactors-package-01.html)
+  * [Write your own R package, part 2](packages05_foofactors-package-02.html)
+  * [Homework](hw10_package.html): extend `foofactors` from where we left off in class
 
 In 2014, we built the `gameday` package to check if your favorite NHL team has a game today.
 
@@ -50,7 +50,9 @@ In 2014, we built the `gameday` package to check if your favorite NHL team has a
 
 ### Resources
 
-[R packages](http://r-pkgs.had.co.nz) is a new book by Hadley Wickham. The above lessons follow it and the `devtools` package quite faithfully. `devtools` on [CRAN](https://cran.r-project.org/web/packages/devtools/index.html), on [GitHub](https://github.com/hadley/devtools).
+[Writing R Extensions](http://cran.r-project.org/doc/manuals/r-release/R-exts.html), the One True Official Document on creating R packages.
+
+[R packages](http://r-pkgs.had.co.nz) is a new book by Hadley Wickham. The above lessons follow it and the `devtools` package workflow quite faithfully. `devtools` on [CRAN](https://cran.r-project.org/web/packages/devtools/index.html), on [GitHub](https://github.com/hadley/devtools).
 
 Hilary Parker's [blog post](http://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/) on the epiphany of writing her first R package
 
@@ -77,7 +79,5 @@ Some blog posts accompanying `devtools` releases highlight useful helper functio
 [Roxygen vignette on Generating Rd files](http://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html)
 
 [`testthat`: Get Started with Testing](http://journal.r-project.org/archive/2011-1/RJournal_2011-1_Wickham.pdf), an article written by Hadley Wickham for *The R Journal,* Vol. 3/1, June 2011, pp. 5-10. *This may no longer be correct in every last detail, due to evolution of `testthat`, but it still makes an excellent, readable introduction to unit testing in R (packages)*.
-
-[Writing R Extensions](http://cran.r-project.org/doc/manuals/r-release/R-exts.html), the One True Official Document on creating R packages
 
 [How R Searches and Finds Stuff](http://obeautifulcode.com/R/How-R-Searches-And-Finds-Stuff/) is a fairly technical blog post for understanding the R search path, but also gives some great explanations on some differences between `Imports` vs `Depends` and why `Imports` is safer.

@@ -4,11 +4,12 @@ output:
   html_document: 
     keep_md: yes
     toc: yes
+params:
+   debug: TRUE
 ---
 
 ```{r setup, include = FALSE, cache = FALSE}
 knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
-debug <- FALSE
 ```
 
 ### Prerequisites
@@ -67,16 +68,17 @@ library(devtools)
 create("~/tmp/foofactors")
 ```
 
-```{r set-root-dir, include = debug}
+```{r set-root-dir, include = params$debug}
 ## I normally am not this masochistic, but I don't have much choice.
 (owd <- getwd())
 knitr::opts_knit$set(root.dir = ff_path)
-## during interactive dev: setwd(ff_path)
+## during interactive dev:
+## setwd(ff_path)
 getwd()
 knitr::opts_knit$get("root.dir")
 ```
 
-```{r include = debug}
+```{r include = params$debug}
 getwd()
 ```
 
@@ -102,9 +104,10 @@ Let's make this directory, which is already an RStudio Project and an R source p
 use_git()
 ```
 
-```{r include = debug}
+```{r git2r-begin, include = params$debug}
+library(git2r)
 #dir.exists(ff_path)
-git2r::discover_repository(ff_path)
+discover_repository(ff_path)
 ```
 
 What's new? Only a `.git` directory, which will be hidden in most contexts, including the RStudio file browser. Its existence confirms we have indeed initialized a Git repo here.
@@ -117,8 +120,8 @@ cbind(setdiff(listing_2, listing_1))
 Quit and relaunch RStudio in this Project, so that it is recognized as a Git repo and the Git tab becomes available in the Environment/History/Build pane. Click on History and you should see evidence of our initial commit:
 
 ```{r echo = FALSE}
-repo <- git2r::repository(getwd())
-git2r::commits(repo)[[1]]
+repo <- repository(getwd())
+commits(repo)[[1]]
 ```
 
 FYI RStudio can also initialize a Git repository, in any Project, even if it's not an R package: *Tools > Version Control > Project Setup*. Then choose *Version control system: Git* and *initialize a new git repository for this project*.
@@ -185,14 +188,19 @@ We can all think of lots of ways to improve `fbind()`. Or maybe you can think of
 Use you favorite method to commit the new `R/fbind.R` file.
 
 ```{r include = FALSE}
-git2r::add(repo, path = file.path("R", "fbind.R"))
-git2r::commit(repo, message = "Add fbind()")
+add(repo, path = file.path("R", "fbind.R"))
+commit(repo, message = "Add fbind()")
+tag(repo, "end-part-01", "foofactors at the end of part one")
 ```
 
-Your most recent commit should look something like this:
+Your most recent commit should look something like this (if you're lucky, you've got a nicer way of inspecting it):
 
-```{r echo = FALSE}
-git2r::commits(repo)[[1]]
+```{r echo = FALSE, as.is = TRUE}
+commits(repo)[[1]]
+tree_1 <- tree(commits(repo)[[2]])
+tree_2 <- tree(commits(repo)[[1]])
+jdiff <- diff(tree_1, tree_2)
+cat(diff(tree_1, tree_2, as_char = TRUE))
 ```
 
 ### Build, Install, Check
@@ -277,14 +285,14 @@ In [part two](packages05_foofactors-package-02.html), we'll add more bells and w
 
 back to [All the package things](packages00_index.html)
 
-```{r teardown, include = debug}
+```{r teardown, include = params$debug}
 remove.packages("foofactors")
 owd
 knitr::opts_knit$set(root.dir = owd)
 knitr::opts_knit$get("root.dir")
 ```
 
-```{r include = debug}
+```{r include = params$debug}
 ## FUTURE JENNY! don't move this into the previous chunk!
 ## you can't remove current working directory and the root.dir change
 ## doesn't take effect until you enter the next chunk
