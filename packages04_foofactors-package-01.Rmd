@@ -5,7 +5,7 @@ output:
     keep_md: yes
     toc: yes
 params:
-   debug: TRUE
+   debug: FALSE
 ---
 
 ```{r setup, include = FALSE, cache = FALSE}
@@ -15,6 +15,10 @@ knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
 ### Prerequisites
 
 We assume you have [configured your system for R package development](packages01_system-prep.html). This will ensure you have all the right software installed and that it's updated. Ignoring this prep will only lead to heartache. **Do it.**
+
+You can see the glorious result of all this by visiting the `foofactors` package on GitHub: <https://github.com/jennybc/foofactors>.
+
+back to [All the package things](packages00_index.html)
 
 ### Why `devtools`?
 

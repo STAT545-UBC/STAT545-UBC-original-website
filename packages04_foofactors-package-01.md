@@ -6,6 +6,10 @@
 
 We assume you have [configured your system for R package development](packages01_system-prep.html). This will ensure you have all the right software installed and that it's updated. Ignoring this prep will only lead to heartache. **Do it.**
 
+You can see the glorious result of all this by visiting the `foofactors` package on GitHub: <https://github.com/jennybc/foofactors>.
+
+back to [All the package things](packages00_index.html)
+
 ### Why `devtools`?
 
 We will use the `devtools` package to facilitate package development. It's on [CRAN](https://cran.r-project.org/web/packages/devtools/index.html) and developed on [GitHub](https://github.com/hadley/devtools). Why?
@@ -55,24 +59,8 @@ create("~/tmp/foofactors")
 ```
 
 
-```r
-## I normally am not this masochistic, but I don't have much choice.
-(owd <- getwd())
-#> [1] "/Users/jenny/teaching/STAT545A/STAT545-UBC.github.io"
-knitr::opts_knit$set(root.dir = ff_path)
-## during interactive dev:
-## setwd(ff_path)
-getwd()
-#> [1] "/Users/jenny/teaching/STAT545A/STAT545-UBC.github.io"
-knitr::opts_knit$get("root.dir")
-#> [1] "/Users/jenny/tmp/foofactors"
-```
 
 
-```r
-getwd()
-#> [1] "/Users/jenny/tmp/foofactors"
-```
 
 Navigate to this directory and double click on `foofactors.Rproj` to launch a new RStudio session in the Project that is your `foofactors` package.
 
@@ -108,12 +96,6 @@ use_git()
 ```
 
 
-```r
-library(git2r)
-#dir.exists(ff_path)
-discover_repository(ff_path)
-#> [1] "/Users/jenny/tmp/foofactors/.git/"
-```
 
 What's new? Only a `.git` directory, which will be hidden in most contexts, including the RStudio file browser. Its existence confirms we have indeed initialized a Git repo here.
 
@@ -127,7 +109,7 @@ Quit and relaunch RStudio in this Project, so that it is recognized as a Git rep
 
 
 ```
-#> [454f049] 2015-11-21: Initial commit
+#> [38ed51b] 2015-11-23: Initial commit
 ```
 
 FYI RStudio can also initialize a Git repository, in any Project, even if it's not an R package: *Tools > Version Control > Project Setup*. Then choose *Version control system: Git* and *initialize a new git repository for this project*.
@@ -206,11 +188,11 @@ Use you favorite method to commit the new `R/fbind.R` file.
 
 
 
-Your most recent commit should look something like this:
+Your most recent commit should look something like this (if you're lucky, you've got a nicer way of inspecting it):
 
 
 ```
-#> [f6f83b3] 2015-11-21: Add fbind()
+#> [39cb828] 2015-11-23: Add fbind()
 #> diff --git a/R/fbind.R b/R/fbind.R
 #> new file mode 100644
 #> index 0000000..7b03d75
@@ -288,7 +270,7 @@ check(document = FALSE)
 #> Checking foofactors -------------------------------------------------------
 #> '/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
 #>   --no-environ --no-save --no-restore CMD check  \
-#>   '/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//Rtmpdp0io7/foofactors_0.0.0.9000.tar.gz'  \
+#>   '/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpX4V9Xx/foofactors_0.0.0.9000.tar.gz'  \
 #>   --as-cran --timings
 ```
 
@@ -334,27 +316,7 @@ In [part two](packages05_foofactors-package-02.html), we'll add more bells and w
 back to [All the package things](packages00_index.html)
 
 
-```r
-remove.packages("foofactors")
-#> Removing package from '/Users/jenny/resources/R/library'
-#> (as 'lib' is unspecified)
-owd
-#> [1] "/Users/jenny/teaching/STAT545A/STAT545-UBC.github.io"
-knitr::opts_knit$set(root.dir = owd)
-knitr::opts_knit$get("root.dir")
-#> [1] "/Users/jenny/teaching/STAT545A/STAT545-UBC.github.io"
-```
 
 
-```r
-## FUTURE JENNY! don't move this into the previous chunk!
-## you can't remove current working directory and the root.dir change
-## doesn't take effect until you enter the next chunk
-getwd()
-#> [1] "/Users/jenny/teaching/STAT545A/STAT545-UBC.github.io"
-
-## NO NO NO ... pick up where we leave off in part 2
-#unlink(ff_path, recursive = TRUE)
-```
 
 <!--http://davidgohel.github.io/ReporteRs/FlexTable.html-->
