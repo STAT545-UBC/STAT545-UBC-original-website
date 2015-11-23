@@ -6,7 +6,7 @@ output:
     toc: yes
 params:
    debug: FALSE
-   github: TRUE
+   github: FALSE
 ---
 
 ```{r setup, include = FALSE, cache = FALSE}
