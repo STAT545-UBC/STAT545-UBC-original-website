@@ -29,7 +29,7 @@ In class example that that shows how to
 
   * Create a new R package
   * Accept help from `devtools` and RStudio
-  * Switch between developing your package pacckage and test driving it
+  * Switch between developing your package package and test driving it
   * Document functions and your overall package
   * Test your functions
   * Depend on another package
