@@ -569,7 +569,7 @@ add(repo, path = paths)
 commit(repo, message = "Set up README.Rmd")
 ```
 
-The `README.Rmd` we use can be seen here: [vignettes/README.Rmd](https://raw.githubusercontent.com/jennybc/foofactors/master/README.Rmd).
+The `README.Rmd` we use can be seen here: [README.Rmd](https://raw.githubusercontent.com/jennybc/foofactors/master/README.Rmd).
 
 ```{r include = FALSE}
 file.copy(file.path(owd, "packages05_foofactors-package-README.Rmd"),

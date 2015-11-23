@@ -489,7 +489,7 @@ This inserts a boilerplate `README.Rmd` file, adds some lines to `.Rbuildignore`
 
 
 
-The `README.Rmd` we use can be seen here: [vignettes/README.Rmd](https://raw.githubusercontent.com/jennybc/foofactors/master/README.Rmd).
+The `README.Rmd` we use can be seen here: [README.Rmd](https://raw.githubusercontent.com/jennybc/foofactors/master/README.Rmd).
 
 
 

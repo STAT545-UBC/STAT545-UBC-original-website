@@ -66,9 +66,9 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
 }
 </style>
 <div class="container-fluid main-container">
@@ -207,7 +207,7 @@ COPYRIGHT HOLDER: Jennifer Bryan</code></pre>
 #&gt; Updating foofactors documentation
 #&gt; Loading foofactors
 #&gt; First time using roxygen2. Upgrading automatically...
-#&gt; Updating roxygen version in  /Users/jenny/tmp/foofactors/DESCRIPTION 
+#&gt; Updating roxygen version in  /Users/jenny/tmp/foofactors/DESCRIPTION
 #&gt; Writing NAMESPACE
 #&gt; Writing fbind.Rd</code></pre>
 <p>You should now be able to preview your help file like so:</p>
@@ -252,7 +252,7 @@ test_that(&quot;fbind binds factor (or character)&quot;, {
 #&gt; Loading required package: testthat
 #&gt; Testing foofactors
 #&gt; Binding factors : ..
-#&gt; 
+#&gt;
 #&gt; DONE</code></pre>
 <p>If you’re <strong>really lucky</strong>, <code>testthat</code> will praise you. That never seems to happen for me anymore. Did I use up my praise quota?!?</p>
 <p>For much more guidance, read the <a href="http://r-pkgs.had.co.nz/tests.html">testing chapter</a> in R Packages.</p>
@@ -389,7 +389,7 @@ browseVignettes("foofactors")
 #&gt; Creating README.Rmd
 #&gt; Adding pre-commit hook</code></pre>
 <p>This inserts a boilerplate <code>README.Rmd</code> file, adds some lines to <code>.Rbuildignore</code>, and creates a Git pre-commit hook to help you keep <code>README.Rmd</code> and <code>README.md</code> in sync.</p>
-<p>The <code>README.Rmd</code> we use can be seen here: <a href="https://raw.githubusercontent.com/jennybc/foofactors/master/README.Rmd">vignettes/README.Rmd</a>.</p>
+<p>The <code>README.Rmd</code> we use can be seen here: <a href="https://raw.githubusercontent.com/jennybc/foofactors/master/README.Rmd">README.Rmd</a>.</p>
 <p>Don’t forget to knit it to make <code>README.md</code>! The pre-commit hook should remind you if you try to commit <code>README.Rmd</code> but not <code>README.md</code> and also when <code>README.md</code> appears to be out-of-date.</p>
 <pre class="r"><code>rmarkdown::render(&quot;README.Rmd&quot;) ## or use &quot;Knit HTML&quot;</code></pre>
 <p>You can see the rendered <code>README.md</code> simply by visiting the <code>foofactors</code> package on GitHub: <a href="https://github.com/jennybc/foofactors" class="uri">https://github.com/jennybc/foofactors</a>.</p>
