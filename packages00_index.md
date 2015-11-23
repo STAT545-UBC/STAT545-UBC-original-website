@@ -71,6 +71,7 @@ Some blog posts accompanying `devtools` releases highlight useful helper functio
   * [v1.6 October 2014](http://blog.rstudio.org/2014/10/02/devtools-1-6/)
   * [v1.8 May 2015](http://blog.rstudio.org/2015/05/11/devtools-1-9-0/)
   * [v1.9.1 September 2015](http://blog.rstudio.org/2015/09/13/devtools-1-9-1/)
+  * The RStudio [Package Development with `devtools` Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/03/devtools-cheatsheet.pdf) is also super helpful. Remember links to the cheat sheets are always available from RStudio *Help > Cheatsheets*.
 
 [Building and Maintaining R Packages with devtools and roxygen2](http://thepoliticalmethodologist.com/2014/08/14/building-and-maintaining-r-packages-with-devtools-and-roxygen2/), blog post by Jacob Montgomery and Ryan T. Moore
 
