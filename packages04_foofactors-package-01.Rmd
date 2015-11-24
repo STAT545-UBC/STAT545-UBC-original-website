@@ -185,7 +185,7 @@ We have used `load_all()` to quickly make this function available, as if we'd bu
 
 We've tested it very informally.
 
-We can all think of lots of ways to improve `fbind()`. Or maybe you can think of more urgent factor fires that you would like to put out. That's why we have [homework](hw10_package.html)!
+We can all think of lots of ways to improve `fbind()`. Or maybe you can think of more urgent factor fires that you would like to put out. That's why we have [homework](hw08_package.html)!
 
 ### Commit `fbind()`
 

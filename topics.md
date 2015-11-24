@@ -67,29 +67,19 @@
     - [Hands-on activity-build a shiny app](shiny03_activity.html)
     - [Shiny and other interactive plotting links](shiny04_links.html)
 
-## Course-specific material
+## Homework
 
-This is just an index very course-specific stuff, like homework, or class landing pages that eventually lead to the same content that's listed above.
-
-  * [Class meeting 001](cm001_course-intro-sw-install-account-signup.html) deals with "What is data science? What is data carpentry?" and includes links re: use of Twitter in academia.
-  * [Class meeting 002](cm002_r-rstudio-intro.html) provides some Deep Thoughts about data analytic work, then shifts into a hands-on intro to R and RStudio.
-  * [Class meeting 003](cm003_r-objects-git-toe-dip.html) Git(Hub) and (R) Markdown crash course so first homework can be submitted. All hands-on.
-  * [Class meeting 004](cm004_care-feeding-data.html) Data.frames are awesome. Let's explore one (Gapminder).
-  * [Class meeting 005](cm005_ggplot2.html) The R graphics landscape and intro to `ggplot2`
-  * [Class meeting 006](cm006_rmarkdown.html) R Markdown
-  * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
-  * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
   * [Homework 01](hw01_edit-README.html) Edit `README.md`
   * [Homework 02](hw02_explore-gapminder-use-rmarkdown.html) Explore Gapminder and use R markdown
-  * [Homework 03](hw03_dplyr-and-more-ggplot2.html) Manipulate and summarize the Gapminder data with `dplyr`; make companion figs with `ggplot2`
+  * [Homework 03](hw03_dplyr-and-more-ggplot2.html) Manipulate, summarize, visualize Gapminder with `dplyr` and `ggplot2`
   * [Homework 04](hw04_write-function-split-apply-combine.html) Use split-apply-combine with your functions within data.frames 
   * [Homework 05](hw05_factor-figure-boss-repo-hygiene.html) Prove you are in control of factors and figures. Clean up your repo.
-  * 2014 [Homework 07](hw07_data-wrangling-grand-finale.html) Data wrangling Grand Finale
-  * 2014 [Homework 08](hw08_data-cleaning.html) re: handling character data and data cleaning
+  * Homework 06 *did not exist; it's "clean up your repo" and was folded into homework 05*
+  * [Homework 07](hw07_data-wrangling-candy.html) Clean and wrangle the `candy` survey
+  * [Homework 08](hw08_package.html) Write an R package
   * 2014 [Homework 09](hw09_automation.html) Automating Data-analysis Pipelines
-  * 2014 [Homework 10](hw10_package.html) Write an R package
-  * 2014 [Homework 11](hw11_build-shiny-app) Build a Shiny app
-  * 2014 [Homework 12](hw12_data-from-web) Get data from the web
+  * 2014 [Homework 11](hw11_build-shiny-app.html) Build a Shiny app
+  * 2014 [Homework 12](hw12_data-from-web.html) Get data from the web
 
 ## Short random things
 

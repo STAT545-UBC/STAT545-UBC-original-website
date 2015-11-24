@@ -40,13 +40,13 @@ In 2015, we started to build the `foofactors` package, to make the care and feed
 
   * [Write your own R package, part 1](packages04_foofactors-package-01.html)
   * [Write your own R package, part 2](packages05_foofactors-package-02.html)
-  * [Homework](hw10_package.html): extend `foofactors` from where we left off in class
+  * [Homework](hw08_package.html): extend `foofactors` from where we left off in class
 
 In 2014, we built the `gameday` package to check if your favorite NHL team has a game today.
 
   * [2014 Day 1](packages02_activity.html) of hands-on work
   * [2014 Day 2](packages03_activity_part2.html) of hands-on work
-  * [2014 Homework](hw10_2014_package.html) that builds on the in-class work on `gameday`.
+  * [2014 Homework](hw08_2014_package.html) that builds on the in-class work on `gameday`.
 
 ### Resources
 

@@ -27,7 +27,7 @@ In class we developed the package `foofactors` and showed how to
   * create a `README.md` that comes from rendering `README.Rmd` containing actual usage, via `use_readme_rmd()`
   * create a vignette via `use_vignette()` and build it via `build_vignettes()`
 
-Consult the repository [`STAT545-UBC/foofactors`](https://github.com/STAT545-UBC/foofactors) for an example repository that you can start with, where all of the above has been done. You are especially encouraged to walk through the commit history and scrutinize the diffs, noticing which files change at each point. You can fork it or use the Download ZIP button to get this as your starting point. Instructions for both are [here](hw10_package_onramp-peer-review.html).
+Consult the repository [`STAT545-UBC/foofactors`](https://github.com/STAT545-UBC/foofactors) for an example repository that you can start with, where all of the above has been done. You are especially encouraged to walk through the commit history and scrutinize the diffs, noticing which files change at each point. You can fork it or use the Download ZIP button to get this as your starting point. Instructions for both are [here](hw08_package_onramp-peer-review.html).
   
 Remember the [landing page for all the package material](packages00_index.html) also contains lots of [links](packages00_index.html#resources) with extra technical information and general inspiration.
 
@@ -61,7 +61,7 @@ Submit an issue with a link to your package sometime on Friday November 20.
 
 ## Rubric
 
-Instructions on how to install a peer's package from GitHub are [here](hw10_package_onramp-peer-review.html). Use the `README.md` and the vignette to figure out what the package does and how to use it.
+Instructions on how to install a peer's package from GitHub are [here](hw08_package_onramp-peer-review.html). Use the `README.md` and the vignette to figure out what the package does and how to use it.
 
 Check minus: Package does not install. Or installation seemed go OK but one or more of the functions don't work. Or you do something that seems totally natural (probably copied from `README.md` or vignette) and get odd behavior.
 

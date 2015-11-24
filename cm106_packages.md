@@ -12,10 +12,8 @@ output:
 
   -due Friday November 13
   
-HW08 Write an R package
+[HW08](hw08_package.html) Write an R package
 
-  - see the [2014 version](hw10_package.html) 
-  - will be adapted to this year's practice package, although you're welcome to do the 2014 hockey thing instead
   - due date: Friday November 20
 
 ### Building your first R package
