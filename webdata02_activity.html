@@ -8,17 +8,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
-<meta name="author" content="Andrew MacDonald and Jenny Bryan" />
+<meta name="author" content="Andrew MacDonald" />
 
-<meta name="date" content="2014-11-24" />
 
 <title>Stat 545 getting data from the Web</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
-<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -39,7 +49,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
 
 </head>
 
@@ -50,6 +62,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
 }
 </style>
 <div class="container-fluid main-container">
@@ -71,14 +91,16 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="header">
 <h1 class="title">Stat 545 getting data from the Web</h1>
-<h4 class="author"><em>Andrew MacDonald and Jenny Bryan</em></h4>
-<h4 class="date"><em>2014-11-24</em></h4>
+<h4 class="author"><em>Andrew MacDonald</em></h4>
 </div>
 
 <div id="TOC">
 <ul>
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#click-and-download">Click-and-Download</a></li>
+<li><a href="#click-and-download">Click-and-Download</a><ul>
+<li><a href="#from-ropensci-web-services-page">from ropensci web services page:</a></li>
+</ul></li>
+<li><a href="#data-supplied-on-the-web">Data supplied on the web</a></li>
 <li><a href="#install-and-play">install-and-play</a><ul>
 <li><a href="#sightings-of-birds-rebird">Sightings of birds: <code>rebird</code></a><ul>
 <li><a href="#search-birds-by-geography">Search birds by geography</a></li>
@@ -105,6 +127,7 @@ library(knitr)
 library(devtools)</code></pre>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
+<p><strong>All this and more is described at the <a href="https://github.com/ropensci/webservices">rOpenSci repository of R tools for interacting with the internet</a></strong></p>
 <p>There are many ways to obtain data from the Internet; let’s consider four categories:</p>
 <ul>
 <li><em>click-and-download</em> on the internet as a “flat” file, such as .csv, .xls</li>
@@ -115,11 +138,29 @@ library(devtools)</code></pre>
 </div>
 <div id="click-and-download" class="section level1">
 <h1>Click-and-Download</h1>
-<p>We’re not going to consider data that needs to be downloaded to your hard drive first, and which may require filling out a form etc. For example <a href="http://www.worldvaluessurvey.org/wvs.jsp">World Value Survey</a> or <a href="http://www.worldvaluessurvey.org/wvs.jsp">gapminder</a></p>
+<p>In the simplest case, the data you need is already on the internet in a tabular format. There are a couple of strategies here:</p>
+<ul>
+<li><p>use <code>read.csv</code> or <code>readr::read_csv</code> to read the data straight into R.</p></li>
+<li><p>use the command line program <code>curl</code> to do that work, and place it in a Makefile or shell script (see the Make lesson for how to do that).</p></li>
+</ul>
+<p>The second case is most useful when the data you want has been provided in a format that needs cleanup. For example, the World Value Survey makes several datasets available as Excel sheets. The safest option here is to download the <code>.xls</code> file, then read it into R with <code>readxl::read_excel()</code> or something similar. An exception to this is data provided as Google Spreadsheets, which can be read straight into R using the <a href="https://github.com/jennybc/googlesheets"><code>googlesheets</code></a> package.</p>
+<div id="from-ropensci-web-services-page" class="section level3">
+<h3>from ropensci web services page:</h3>
+<ul>
+<li><code>downloader::download()</code> for SSL</li>
+<li><code>curl::curl()</code> for SSL.</li>
+<li><code>httr::GET</code> data read this way needs to be parsed later with read.table</li>
+<li><code>rio::import()</code> can “read a number of common data formats directly from an <a href="https://" class="uri">https://</a> URL”. Isn’t that very similar to the previous?</li>
+</ul>
+<p>What about packages that install data?</p>
+</div>
+</div>
+<div id="data-supplied-on-the-web" class="section level1">
+<h1>Data supplied on the web</h1>
+<p>Many times, the data that you want is not already organized into one or a few tables that you can read directly into R. More frequently, you find this data is given in the form of an API. <strong>A</strong>pplication <strong>P</strong>rogramming <strong>I</strong>nterfaces (APIs) are descriptions of the kind of requests that can be made of a certain piece of software, and descriptions of the kind of answers that are returned. Many sources of data – databases, websites, services – have made all (or part) of their data available via APIs over the internet. Computer programs (“clients”) can make requests of the server, and the server will respond by sending data (or an error message). This client can be many kinds of other programs or websites, including R running from your laptop.</p>
 </div>
 <div id="install-and-play" class="section level1">
 <h1>install-and-play</h1>
-<p>Many web data sources provide a structured way of requesting and presenting data. A set of rules controls how computer programs (“clients”) can make requests of the server, and how the server will respond. These rules are called <strong>A</strong>pplication <strong>P</strong>rogramming <strong>I</strong>nterfaces (API).</p>
 <p>Many common web services and APIs have been “wrapped”, i.e. R functions have been written around them which send your query to the server and format the response.</p>
 <p>Why do we want this?</p>
 <ul>
@@ -137,116 +178,117 @@ library(devtools)</code></pre>
 <div id="search-birds-by-geography" class="section level3">
 <h3>Search birds by geography</h3>
 <p>We can use the function <code>ebirdgeo</code> to get a list for an area. (Note that South and West are negative):</p>
-<pre class="r"><code>vanbirds &lt;- ebirdgeo(lat = 49.2500, lng = -123.1000)
-vanbirds %&gt;%
+<pre class="r"><code>vanbirds &lt;- ebirdgeo(lat = 49.2500, lng = -123.1000)</code></pre>
+<pre><code>## Warning: `rbind_all()` is deprecated. Please use `bind_rows()` instead.</code></pre>
+<pre class="r"><code>vanbirds %&gt;%
   head %&gt;%
     kable</code></pre>
 <table>
 <thead>
 <tr class="header">
+<th align="left">obsDt</th>
+<th align="right">lng</th>
+<th align="left">locName</th>
+<th align="left">obsValid</th>
 <th align="left">comName</th>
+<th align="left">obsReviewed</th>
+<th align="left">sciName</th>
+<th align="left">locationPrivate</th>
 <th align="right">howMany</th>
 <th align="right">lat</th>
-<th align="right">lng</th>
 <th align="left">locID</th>
-<th align="left">locName</th>
-<th align="left">locationPrivate</th>
-<th align="left">obsDt</th>
-<th align="left">obsReviewed</th>
-<th align="left">obsValid</th>
-<th align="left">sciName</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Black-bellied Plover</td>
-<td align="right">3</td>
-<td align="right">49.21278</td>
-<td align="right">-123.2025</td>
-<td align="left">L339171</td>
-<td align="left">Iona Island Causeway</td>
-<td align="left">FALSE</td>
-<td align="left">2014-11-28 16:30</td>
-<td align="left">FALSE</td>
+<td align="left">2015-11-23 16:25</td>
+<td align="right">-123.2836</td>
+<td align="left">Batchelor Point</td>
 <td align="left">TRUE</td>
-<td align="left">Pluvialis squatarola</td>
+<td align="left">Glaucous-winged Gull</td>
+<td align="left">FALSE</td>
+<td align="left">Larus glaucescens</td>
+<td align="left">TRUE</td>
+<td align="right">1</td>
+<td align="right">49.35784</td>
+<td align="left">L457619</td>
 </tr>
 <tr class="even">
-<td align="left">gull sp.</td>
+<td align="left">2015-11-23 16:25</td>
+<td align="right">-123.2836</td>
+<td align="left">Batchelor Point</td>
+<td align="left">TRUE</td>
+<td align="left">Bald Eagle</td>
+<td align="left">FALSE</td>
+<td align="left">Haliaeetus leucocephalus</td>
+<td align="left">TRUE</td>
+<td align="right">1</td>
+<td align="right">49.35784</td>
+<td align="left">L457619</td>
+</tr>
+<tr class="odd">
+<td align="left">2015-11-23 15:47</td>
+<td align="right">-123.2744</td>
+<td align="left">West Vancouver–Grebe Islets</td>
+<td align="left">TRUE</td>
+<td align="left">Surf Scoter</td>
+<td align="left">FALSE</td>
+<td align="left">Melanitta perspicillata</td>
+<td align="left">FALSE</td>
 <td align="right">200</td>
-<td align="right">49.21278</td>
-<td align="right">-123.2025</td>
-<td align="left">L339171</td>
-<td align="left">Iona Island Causeway</td>
-<td align="left">FALSE</td>
-<td align="left">2014-11-28 16:30</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-<td align="left">Larinae sp.</td>
-</tr>
-<tr class="odd">
-<td align="left">Great Blue Heron</td>
-<td align="right">1</td>
-<td align="right">49.21278</td>
-<td align="right">-123.2025</td>
-<td align="left">L339171</td>
-<td align="left">Iona Island Causeway</td>
-<td align="left">FALSE</td>
-<td align="left">2014-11-28 16:30</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-<td align="left">Ardea herodias</td>
+<td align="right">49.34139</td>
+<td align="left">L341481</td>
 </tr>
 <tr class="even">
-<td align="left">Fox Sparrow</td>
-<td align="right">1</td>
-<td align="right">49.34932</td>
-<td align="right">-123.1963</td>
-<td align="left">L2682350</td>
-<td align="left">Mulgrave School</td>
+<td align="left">2015-11-23 15:47</td>
+<td align="right">-123.2744</td>
+<td align="left">West Vancouver–Grebe Islets</td>
 <td align="left">TRUE</td>
-<td align="left">2014-11-28 14:39</td>
+<td align="left">Hooded Merganser</td>
 <td align="left">FALSE</td>
-<td align="left">TRUE</td>
-<td align="left">Passerella iliaca</td>
+<td align="left">Lophodytes cucullatus</td>
+<td align="left">FALSE</td>
+<td align="right">4</td>
+<td align="right">49.34139</td>
+<td align="left">L341481</td>
 </tr>
 <tr class="odd">
-<td align="left">Song Sparrow</td>
-<td align="right">3</td>
-<td align="right">49.34932</td>
-<td align="right">-123.1963</td>
-<td align="left">L2682350</td>
-<td align="left">Mulgrave School</td>
+<td align="left">2015-11-23 15:47</td>
+<td align="right">-123.2744</td>
+<td align="left">West Vancouver–Grebe Islets</td>
 <td align="left">TRUE</td>
-<td align="left">2014-11-28 14:39</td>
+<td align="left">Spotted Sandpiper</td>
 <td align="left">FALSE</td>
-<td align="left">TRUE</td>
-<td align="left">Melospiza melodia</td>
+<td align="left">Actitis macularius</td>
+<td align="left">FALSE</td>
+<td align="right">1</td>
+<td align="right">49.34139</td>
+<td align="left">L341481</td>
 </tr>
 <tr class="even">
-<td align="left">Dark-eyed Junco</td>
-<td align="right">1</td>
-<td align="right">49.34932</td>
-<td align="right">-123.1963</td>
-<td align="left">L2682350</td>
-<td align="left">Mulgrave School</td>
+<td align="left">2015-11-23 15:47</td>
+<td align="right">-123.2744</td>
+<td align="left">West Vancouver–Grebe Islets</td>
 <td align="left">TRUE</td>
-<td align="left">2014-11-28 14:39</td>
+<td align="left">Black Oystercatcher</td>
 <td align="left">FALSE</td>
-<td align="left">TRUE</td>
-<td align="left">Junco hyemalis</td>
+<td align="left">Haematopus bachmani</td>
+<td align="left">FALSE</td>
+<td align="right">12</td>
+<td align="right">49.34139</td>
+<td align="left">L341481</td>
 </tr>
 <tr class="odd">
-<td align="left"><strong>Note</strong>: Check the def</td>
-<td align="right">aults on t</td>
-<td align="right">his functio</td>
-<td align="right">n. e.g. radi</td>
-<td align="left">us of circl</td>
-<td align="left">e, time of year.</td>
+<td align="left"><strong>Note</strong>: Check the</td>
+<td align="right">defaults on</td>
+<td align="left">this function. e.g. radius of</td>
+<td align="left">circle, tim</td>
+<td align="left">e of year.</td>
 <td align="left"></td>
 <td align="left"></td>
 <td align="left"></td>
-<td align="left"></td>
+<td align="right"></td>
+<td align="right"></td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -273,7 +315,7 @@ library(geonames)</code></pre>
 <li>Tell R your geonames username:</li>
 </ol>
 <pre class="r"><code>options(geonamesUsername=&quot;?????&quot;)</code></pre>
-<p>What can we do? get access to lots of geographical information via the various “web services” see <a href="http://www.geonames.org/export/ws-overview.html">here</a> </p>
+<p>What can we do? get access to lots of geographical information via the various “web services” see <a href="http://www.geonames.org/export/ws-overview.html">here</a></p>
 <pre class="r"><code>countryInfo &lt;- GNcountryInfo()</code></pre>
 <pre class="r"><code>countryInfo %&gt;%
     head %&gt;%
@@ -432,10 +474,10 @@ frenchcities &lt;- with(francedata,
     filter(countryName == &quot;France&quot;)
 
 
-allbirds &lt;- ebirdregion(francebirds$countryCode)  ## or perhaps fipsCode?
-
-nrow(allbirds)</code></pre>
-<p>[1] 151</p>
+allbirds &lt;- ebirdregion(francebirds$countryCode)  ## or perhaps fipsCode?</code></pre>
+<pre><code>## Warning: `rbind_all()` is deprecated. Please use `bind_rows()` instead.</code></pre>
+<pre class="r"><code>nrow(allbirds)</code></pre>
+<p>[1] 184</p>
 </div>
 <div id="wikipedia-searching" class="section level3">
 <h3>Wikipedia searching</h3>
@@ -468,7 +510,7 @@ nrow(allbirds)</code></pre>
 <td align="left">-0.07857</td>
 <td align="left">GB</td>
 <td align="left">100</td>
-<td align="left"><a href="http://www.geonames.org/img/wikipedia/43000/thumb-42715-100.jpg">http://www.geonames.org/img/wikipedia/43000/thumb-42715-100.jpg</a></td>
+<td align="left"><a href="http://www.geonames.org/img/wikipedia/43000/thumb-42715-100.jpg" class="uri">http://www.geonames.org/img/wikipedia/43000/thumb-42715-100.jpg</a></td>
 <td align="left">en</td>
 <td align="left">London</td>
 <td align="left">51.504872</td>
@@ -481,7 +523,7 @@ nrow(allbirds)</code></pre>
 <td align="left">-81.2497</td>
 <td align="left">CA</td>
 <td align="left">100</td>
-<td align="left"><a href="http://www.geonames.org/img/wikipedia/58000/thumb-57388-100.jpg">http://www.geonames.org/img/wikipedia/58000/thumb-57388-100.jpg</a></td>
+<td align="left"><a href="http://www.geonames.org/img/wikipedia/58000/thumb-57388-100.jpg" class="uri">http://www.geonames.org/img/wikipedia/58000/thumb-57388-100.jpg</a></td>
 <td align="left">en</td>
 <td align="left">London, Ontario</td>
 <td align="left">42.9837</td>
@@ -494,7 +536,7 @@ nrow(allbirds)</code></pre>
 <td align="left">27.9036078333333</td>
 <td align="left">ZA</td>
 <td align="left">100</td>
-<td align="left"><a href="http://www.geonames.org/img/wikipedia/138000/thumb-137098-100.jpg">http://www.geonames.org/img/wikipedia/138000/thumb-137098-100.jpg</a></td>
+<td align="left"><a href="http://www.geonames.org/img/wikipedia/138000/thumb-137098-100.jpg" class="uri">http://www.geonames.org/img/wikipedia/138000/thumb-137098-100.jpg</a></td>
 <td align="left">en</td>
 <td align="left">East London, Eastern Cape</td>
 <td align="left">-33.0145668333333</td>
@@ -507,7 +549,7 @@ nrow(allbirds)</code></pre>
 <td align="left">-0.0159638888888889</td>
 <td align="left">GB</td>
 <td align="left">98</td>
-<td align="left"><a href="http://www.geonames.org/img/wikipedia/157000/thumb-156609-100.jpg">http://www.geonames.org/img/wikipedia/157000/thumb-156609-100.jpg</a></td>
+<td align="left"><a href="http://www.geonames.org/img/wikipedia/157000/thumb-156609-100.jpg" class="uri">http://www.geonames.org/img/wikipedia/157000/thumb-156609-100.jpg</a></td>
 <td align="left">en</td>
 <td align="left">London Borough of Lewisham</td>
 <td align="left">51.4568777777778</td>
@@ -520,7 +562,7 @@ nrow(allbirds)</code></pre>
 <td align="left">-72.1008333333333</td>
 <td align="left">US</td>
 <td align="left">100</td>
-<td align="left"><a href="http://www.geonames.org/img/wikipedia/160000/thumb-159123-100.jpg">http://www.geonames.org/img/wikipedia/160000/thumb-159123-100.jpg</a></td>
+<td align="left"><a href="http://www.geonames.org/img/wikipedia/160000/thumb-159123-100.jpg" class="uri">http://www.geonames.org/img/wikipedia/160000/thumb-159123-100.jpg</a></td>
 <td align="left">en</td>
 <td align="left">New London, Connecticut</td>
 <td align="left">41.3555555555556</td>
@@ -533,7 +575,7 @@ nrow(allbirds)</code></pre>
 <td align="left">-0.303547222222222</td>
 <td align="left">GB</td>
 <td align="left">100</td>
-<td align="left"><a href="http://www.geonames.org/img/wikipedia/146000/thumb-145782-100.jpg">http://www.geonames.org/img/wikipedia/146000/thumb-145782-100.jpg</a></td>
+<td align="left"><a href="http://www.geonames.org/img/wikipedia/146000/thumb-145782-100.jpg" class="uri">http://www.geonames.org/img/wikipedia/146000/thumb-145782-100.jpg</a></td>
 <td align="left">en</td>
 <td align="left">London Borough of Richmond upon Thames</td>
 <td align="left">51.4613416666667</td>
@@ -559,14 +601,11 @@ nrow(rio_english)</code></pre>
 <pre class="r"><code>install.packages(&quot;rplos&quot;)
 ## Do this only once:</code></pre>
 <pre class="r"><code>library(rplos)</code></pre>
-<pre><code>## Loading required package: ggplot2
-## 
-## 
-##  New to rplos? Tutorial at http://ropensci.org/tutorials/rplos_tutorial.html. Use suppressPackageStartupMessages() to suppress these startup messages in the future</code></pre>
+<pre><code>## Loading required package: ggplot2</code></pre>
 <p>Immediately we get a message. It’s a link to the <a href="http://ropensci.org/tutorials/rplos_tutorial.html">tutorial on the Ropensci website!</a>. How nice :)</p>
 <ul>
 <li>We also get instructions to <a href="https://register.plos.org/ambra-registration/register.action">create a PLOS account</a></li>
-<li>Then go to Article Level Metrics <a href="http://alm.plos.org/">http://alm.plos.org/</a></li>
+<li>Then go to Article Level Metrics <a href="http://alm.plos.org/" class="uri">http://alm.plos.org/</a></li>
 <li>click on your name to find your key.</li>
 </ul>
 <pre class="r"><code>Sys.setenv(PlosApiKey = &quot;Paste your Key in here!!&quot;)
