@@ -15,7 +15,7 @@ If you don't need help with either of these, then carry on.
 
 ## Get to the starting line
 
-Here's how I would start the [homework on making an R package](hw10_package.html). Basically you want to get the fiddliest moving parts working early and then keep it that way. In this case, I assume that means obtaining the `foofactors` package I have left for you to extend and making sure you can develop your own copy and push it back up to GitHub.
+Here's how I would start the [homework on making an R package](hw08_package.html). Basically you want to get the fiddliest moving parts working early and then keep it that way. In this case, I assume that means obtaining the `foofactors` package I have left for you to extend and making sure you can develop your own copy and push it back up to GitHub.
 
 Option #1: Obtain `foofactors`as a ZIP archive
 

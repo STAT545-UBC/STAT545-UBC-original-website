@@ -8,7 +8,7 @@ output:
 
 ### cm107 2014-11-17 Tuesday overview
 
-[Homework: Build your first R package](hw10_package.html) due Friday November 20. Really it's "extend and polish the package we built together", if that makes you feel any better :)
+[Homework: Build your first R package](hw08_package.html) due Friday November 20. Really it's "extend and polish the package we built together", if that makes you feel any better :)
 
 Today and Thursday: automating data analysis
 

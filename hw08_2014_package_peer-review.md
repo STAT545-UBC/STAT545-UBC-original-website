@@ -5,6 +5,8 @@ output:
     toc: true
 ---
 
+**NOTE: From 2014!!! Original number was hw10.**
+
 If you barrel ahead and install your peer's `gameday` package for review, it will likely overwrite the installation of your own `gameday` package. Note: only your *installed* package is at risk. The *source* of your `gameday` package lives on safely on your computer and on GitHub. And you could re-install from either source.
 
 If you want to be more careful, here are two approaches to take more control of the situation.

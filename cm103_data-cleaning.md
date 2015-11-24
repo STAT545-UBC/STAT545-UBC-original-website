@@ -8,10 +8,10 @@ output:
 
 ### cm103 2015-11-03 Tuesday overview
 
-  * HW07 due Wednesday November 11
+  * [HW07](hw07_data-wrangling-candy.html) due ~~Wednesday November 11~~ Friday November 13
     - Bring the Candy Survey data -- or part of it -- to a ready-to-analyze state and do basic exploration.
     - It is vital that you **finish some task**, nachos to cheesecake. We want a bit of story, some tables, some figures. Keep scaling back the cleaning and reshaping until you can manage this. Then scale up til you run out of time or patience.
-    - We might add an optional regex exercise.
+    - ~~We might add an optional regex exercise.~~
     
   * The candy survey data is available:
     - on GitHub: <https://github.com/jennybc/candy>

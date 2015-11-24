@@ -6,6 +6,8 @@ output:
     toc_depth: 4
 ---
 
+**NOTE: From 2014 and not used in 2015**
+
 ### Overview 
 
 You have learned a lot about advance string operations combined with regular expression.    

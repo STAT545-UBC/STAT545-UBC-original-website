@@ -66,9 +66,9 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
 }
 </style>
 <div class="container-fluid main-container">
@@ -148,12 +148,12 @@ create(&quot;~/tmp/foofactors&quot;)
 #&gt; Adding RStudio project file to foofactors</code></pre>
 <p>Navigate to this directory and double click on <code>foofactors.Rproj</code> to launch a new RStudio session in the Project that is your <code>foofactors</code> package.</p>
 <p>What does it look like? Here’s a file listing (locally, you can consult your file browser):</p>
-<pre><code>#&gt;      [,1]              
-#&gt; [1,] &quot;.gitignore&quot;      
-#&gt; [2,] &quot;.Rbuildignore&quot;   
-#&gt; [3,] &quot;DESCRIPTION&quot;     
+<pre><code>#&gt;      [,1]
+#&gt; [1,] &quot;.gitignore&quot;
+#&gt; [2,] &quot;.Rbuildignore&quot;
+#&gt; [3,] &quot;DESCRIPTION&quot;
 #&gt; [4,] &quot;foofactors.Rproj&quot;
-#&gt; [5,] &quot;NAMESPACE&quot;       
+#&gt; [5,] &quot;NAMESPACE&quot;
 #&gt; [6,] &quot;R&quot;</code></pre>
 <ul>
 <li><code>DESCRIPTION</code> provides <a href="http://r-pkgs.had.co.nz/description.html">metadata about your package</a>.</li>
@@ -171,7 +171,7 @@ create(&quot;~/tmp/foofactors&quot;)
 #&gt; * Adding .Rproj.user, .Rhistory, and .RData to .gitignore
 #&gt; * Adding files and committing</code></pre>
 <p>What’s new? Only a <code>.git</code> directory, which will be hidden in most contexts, including the RStudio file browser. Its existence confirms we have indeed initialized a Git repo here.</p>
-<pre><code>#&gt;      [,1]  
+<pre><code>#&gt;      [,1]
 #&gt; [1,] &quot;.git&quot;</code></pre>
 <p>Quit and relaunch RStudio in this Project, so that it is recognized as a Git repo and the Git tab becomes available in the Environment/History/Build pane. Click on History and you should see evidence of our initial commit:</p>
 <pre><code>#&gt; [38ed51b] 2015-11-23: Initial commit</code></pre>
@@ -181,10 +181,10 @@ create(&quot;~/tmp/foofactors&quot;)
 <h3>Add your first function</h3>
 <p>Let’s think of something annoying about factors … hmmmm … gee that’s tough … Let’s catenate two factors.</p>
 <pre class="r"><code>(a &lt;- factor(c(&quot;character&quot;, &quot;hits&quot;, &quot;your&quot;, &quot;eyeballs&quot;)))
-#&gt; [1] character hits      your      eyeballs 
+#&gt; [1] character hits      your      eyeballs
 #&gt; Levels: character eyeballs hits your
 (b &lt;- factor(c(&quot;but&quot;, &quot;integer&quot;, &quot;where it&quot;, &quot;counts&quot;)))
-#&gt; [1] but      integer  where it counts  
+#&gt; [1] but      integer  where it counts
 #&gt; Levels: but counts integer where it
 c(a, b)
 #&gt; [1] 1 3 4 2 1 3 4 2</code></pre>
@@ -214,13 +214,13 @@ c(a, b)
 <pre class="r"><code>exists(&quot;fbind&quot;, where = &quot;.GlobalEnv&quot;, inherits = FALSE)
 #&gt; [1] FALSE
 fbind(a, b)
-#&gt; [1] character hits      your      eyeballs  but       integer   where it 
-#&gt; [8] counts   
+#&gt; [1] character hits      your      eyeballs  but       integer   where it
+#&gt; [8] counts
 #&gt; Levels: but character counts eyeballs hits integer where it your</code></pre>
 <p>We have written our first function, <code>fbind()</code>, to catenate two factors.</p>
 <p>We have used <code>load_all()</code> to quickly make this function available, as if we’d built + installed <code>foofactors</code> and loaded via <code>library(foofactors)</code>.</p>
 <p>We’ve tested it very informally.</p>
-<p>We can all think of lots of ways to improve <code>fbind()</code>. Or maybe you can think of more urgent factor fires that you would like to put out. That’s why we have <a href="hw10_package.html">homework</a>!</p>
+<p>We can all think of lots of ways to improve <code>fbind()</code>. Or maybe you can think of more urgent factor fires that you would like to put out. That’s why we have <a href="hw08_package.html">homework</a>!</p>
 </div>
 <div id="commit-fbind" class="section level3">
 <h3>Commit <code>fbind()</code></h3>
@@ -286,8 +286,8 @@ R CMD INSTALL foofactors_0.0.0.9000.tar.gz</code></pre>
 #&gt; Building foofactors -------------------------------------------------------
 #&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; --no-site-file  \
 #&gt;   --no-environ --no-save --no-restore CMD build  \
-#&gt;   &#39;/Users/jenny/tmp/foofactors&#39; --no-resave-data --no-manual 
-#&gt; 
+#&gt;   &#39;/Users/jenny/tmp/foofactors&#39; --no-resave-data --no-manual
+#&gt;
 #&gt; Setting env vars ----------------------------------------------------------
 #&gt; _R_CHECK_CRAN_INCOMING_ : FALSE
 #&gt; _R_CHECK_FORCE_SUGGESTS_: FALSE
@@ -302,8 +302,8 @@ R CMD INSTALL foofactors_0.0.0.9000.tar.gz</code></pre>
 #&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; --no-site-file  \
 #&gt;   --no-environ --no-save --no-restore CMD INSTALL  \
 #&gt;   &#39;/Users/jenny/tmp/foofactors&#39;  \
-#&gt;   --library=&#39;/Users/jenny/resources/R/library&#39; --install-tests 
-#&gt; 
+#&gt;   --library=&#39;/Users/jenny/resources/R/library&#39; --install-tests
+#&gt;
 #&gt; Reloading installed foofactors</code></pre>
 <p>Now we can load <code>foofactors</code> just like a regular package and use it.</p>
 <p>A shortcut for “build, install, and reload” is offered by RStudio:</p>
@@ -318,8 +318,8 @@ R CMD INSTALL foofactors_0.0.0.9000.tar.gz</code></pre>
 a &lt;- factor(c(&quot;character&quot;, &quot;hits&quot;, &quot;your&quot;, &quot;eyeballs&quot;))
 b &lt;- factor(c(&quot;but&quot;, &quot;integer&quot;, &quot;where it&quot;, &quot;counts&quot;))
 fbind(a, b)
-#&gt; [1] character hits      your      eyeballs  but       integer   where it 
-#&gt; [8] counts   
+#&gt; [1] character hits      your      eyeballs  but       integer   where it
+#&gt; [8] counts
 #&gt; Levels: but character counts eyeballs hits integer where it your</code></pre>
 <p>Success! That’s enough for now.</p>
 <p>In <a href="packages05_foofactors-package-02.html">part two</a>, we’ll add more bells and whistles to the package.</p>

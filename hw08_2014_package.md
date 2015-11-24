@@ -6,6 +6,8 @@ output:
     toc_depth: 3
 ---
 
+**NOTE: From 2014 and not used in 2015. Original number was hw10.**
+
 ## Big picture
 
 In class we developed the package `gameday` and showed how to
