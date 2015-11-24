@@ -8,10 +8,9 @@ output:
 
 ### cm109 2015-11-24 Tuesday overview
 
-Just a stub ... will populate more shortly
+[HW09](hw09_automation.html) Automate a pipeline
 
-  * HW09 Automate a pipline
-    - due date Friday, November 27 November 24
+  * due date Friday, November 27 November 24
 
 This week's topic: data from the web
  
