@@ -2,7 +2,7 @@
 title: "Help on the package homework"
 output:
   html_document:
-    toc: true
+    toc: true 
     toc_depth: 2
 ---
 
@@ -23,17 +23,17 @@ Option #1: Obtain `foofactors`as a ZIP archive
   * Copy the https URL to clipboard.
   * RStudio *File > New Project ... > Version Control > Git*. Paste the URL ... *Create Project*.
   * Stage and commit `.gitignore` and `foofactors.Rproj`. Push.
-  * Refresh view of `foofactors` repo on GitHub. Do `.gitignore` and `foofactors.Rproj` appear? YES, basic local <--> remote repo stuff set up. Yay.
+  * Refresh view of `foofactors` repo on GitHub. Do `.gitignore` and `foofactors.Rproj` appear? YES, basic local <--> remote repo stuff set up. Yay. 
   * Visit my version of `foofactors` on GitHub and get it.
     - <https://github.com/STAT545-UBC/foofactors>
     - Click on "Download ZIP" button. For me, this gets automatically un-gzipped and un-tarred when the download completes. YMMV.
     - `foofactors-master` directory now exists in `~/Downloads`.
   * Copy everything from `foofactors-master` (our stuff) into local `foofactors` (your stuff).
   * In RStudio, use the Git diff view to make sure things look reasonable. `.gitignore` and `foofactors.Rproj` are modified. Lots of other files are brand new. Stage it all and commit. Push.
-  * Restart RStudio in my `foofactors` Project, so RStudio provides package building help, i.e. the Build tab with access to package-y stuff.
+  * Restart RStudio in your `foofactors` Project, so RStudio provides package building help, i.e. the Build tab with access to package-y stuff.
   * Test, document, and check the package. Everything OK? Read the errors and deal with them. Check again. OK? Yay. Stage any changes that were necessary, commit, push.
   * Build & Reload. Use `fbind()` in the Console. Yes, it works.
-  
+
 Option #2: Fork `foofactors` and get your copy the Git way
 
   * Visit my `foofactors` in the browser:
@@ -44,7 +44,7 @@ Option #2: Fork `foofactors` and get your copy the Git way
   * RStudio *File > New Project ... > Version Control > Git*. Paste the URL ... *Create Project*.
   * Test, document, and check the package. Everything OK? Read the errors and deal with them. Check again. OK? Yay. Stage any changes that were necessary, commit, push.
   * Build & Reload. Use `fbind()` in the Console. Yes, it works.
-  
+
 Now you are ready to start modifying the package. Keep checking, committing, and pushing often.
 
 ## Install your peer's package
@@ -70,10 +70,12 @@ Navigate to this directory in some file browser or shell and confirm the directo
 
 ### Step 2. Install `foofactors` from your peer
 
-Install your peer's `foofactors` package from GitHub into your temporary library. Below, `devtools::with_lib()` prepends your usual list of libraries with `tmp_lib`. Don't worry about the deprecation warning on `with_lib()`. Load your peer's package from `tmp_lib` and confirm you're using the right version via `maintainer()`.
+Install your peer's `foofactors` package from GitHub into your temporary library. Below, `devtools::with_lib()` prepends your usual list of libraries with `tmp_lib`. Don't worry about the deprecation warning on `with_lib()`. I'm also opting to build your peer's vignettes, which may cause some suggested packages to be installed. Load your peer's package from `tmp_lib` and confirm you're using the right version via `maintainer()`.
 
         library(devtools)
-        with_lib(tmp_lib, install_github("rebjoh/foofactors"))
+        with_lib(tmp_lib,
+                 install_github("rebjoh/foofactors",
+                                build_vignettes = TRUE))
         library(foofactors, lib.loc = tmp_lib)
         maintainer("foofactors")
 
@@ -101,13 +103,16 @@ Let's make extra sure your `foofactors` source package is safely stored locally 
         ## Restart R session
         library("foofactors")
         ## Error in library("foofactors") : there is no package called ‘foofactors’
+
   * Re-install `foofactors` and confirm it's back in your library. Use RStudio's "Build & Reload" then call `fbind()`, get help `?fbind`, browse the vignette, etc.
   * De-install `foofactors` again (see above).
   * Re-install `foofactors` __from GitHub__ this time.
 
         library(devtools)
-        install_github("YOURGITHUBUSERNAME/foofactors")
+        install_github("YOURGITHUBUSERNAME/foofactors",
+                       build_vignettes = TRUE)
         library("foofactors")
+
     Revisit spot checks from above that `foofactors` is back and in working order.
 
 If everything works as expected, you can feel good that your package source is safely stored locally and on GitHub.
@@ -118,7 +123,8 @@ Now that you know that you can re-install your version of `foofactors`, it's tim
 
   * Install your peer's `foofactors`, load it, check maintainer:
 
-        devtools::install_github(YOURPEER/foofactors)
+        library(devtools)
+        install_github("YOURPEER/foofactors", build_vignettes = TRUE) 
         library(foofactors)
         maintainer("foofactors")
         ## USE IT
@@ -131,9 +137,9 @@ Once you are done with the peer review, restore your own version of `foofactors`
 
   * To install from your local source, launch RStudio in your `foofactors` Project and do "Build and Reload".
   * Or install from GitHub
-  
+
         devtools::install_github("YOURGITHUBUSERNAME/foofactors")
-        
+
   * Either way, verify your version is now installed:
-  
+
         maintainer("foofactors")

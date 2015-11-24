@@ -123,7 +123,7 @@ img {
 </ul></li>
 <li>Copy everything from <code>foofactors-master</code> (our stuff) into local <code>foofactors</code> (your stuff).</li>
 <li>In RStudio, use the Git diff view to make sure things look reasonable. <code>.gitignore</code> and <code>foofactors.Rproj</code> are modified. Lots of other files are brand new. Stage it all and commit. Push.</li>
-<li>Restart RStudio in my <code>foofactors</code> Project, so RStudio provides package building help, i.e. the Build tab with access to package-y stuff.</li>
+<li>Restart RStudio in your <code>foofactors</code> Project, so RStudio provides package building help, i.e. the Build tab with access to package-y stuff.</li>
 <li>Test, document, and check the package. Everything OK? Read the errors and deal with them. Check again. OK? Yay. Stage any changes that were necessary, commit, push.</li>
 <li>Build &amp; Reload. Use <code>fbind()</code> in the Console. Yes, it works.</li>
 </ul>
@@ -160,9 +160,11 @@ img {
 </div>
 <div id="step-2.-install-foofactors-from-your-peer" class="section level3">
 <h3>Step 2. Install <code>foofactors</code> from your peer</h3>
-<p>Install your peer’s <code>foofactors</code> package from GitHub into your temporary library. Below, <code>devtools::with_lib()</code> prepends your usual list of libraries with <code>tmp_lib</code>. Don’t worry about the deprecation warning on <code>with_lib()</code>. Load your peer’s package from <code>tmp_lib</code> and confirm you’re using the right version via <code>maintainer()</code>.</p>
+<p>Install your peer’s <code>foofactors</code> package from GitHub into your temporary library. Below, <code>devtools::with_lib()</code> prepends your usual list of libraries with <code>tmp_lib</code>. Don’t worry about the deprecation warning on <code>with_lib()</code>. I’m also opting to build your peer’s vignettes, which may cause some suggested packages to be installed. Load your peer’s package from <code>tmp_lib</code> and confirm you’re using the right version via <code>maintainer()</code>.</p>
 <pre><code>    library(devtools)
-    with_lib(tmp_lib, install_github(&quot;rebjoh/foofactors&quot;))
+    with_lib(tmp_lib,
+             install_github(&quot;rebjoh/foofactors&quot;,
+                            build_vignettes = TRUE))
     library(foofactors, lib.loc = tmp_lib)
     maintainer(&quot;foofactors&quot;)</code></pre>
 <p>Use the peer’s package and submit your review.</p>
@@ -190,7 +192,8 @@ library(&quot;foofactors&quot;)
 <li>De-install <code>foofactors</code> again (see above).</li>
 <li><p>Re-install <code>foofactors</code> <strong>from GitHub</strong> this time.</p>
 <pre><code>library(devtools)
-install_github(&quot;YOURGITHUBUSERNAME/foofactors&quot;)
+install_github(&quot;YOURGITHUBUSERNAME/foofactors&quot;,
+               build_vignettes = TRUE)
 library(&quot;foofactors&quot;)</code></pre>
 <p>Revisit spot checks from above that <code>foofactors</code> is back and in working order.</p></li>
 </ul>
@@ -201,7 +204,8 @@ library(&quot;foofactors&quot;)</code></pre>
 <p>Now that you know that you can re-install your version of <code>foofactors</code>, it’s time to let your peer’s version of <code>foofactors</code> take over.</p>
 <ul>
 <li><p>Install your peer’s <code>foofactors</code>, load it, check maintainer:</p>
-<pre><code>devtools::install_github(YOURPEER/foofactors)
+<pre><code>library(devtools)
+install_github(&quot;YOURPEER/foofactors&quot;, build_vignettes = TRUE) 
 library(foofactors)
 maintainer(&quot;foofactors&quot;)
 ## USE IT</code></pre></li>
