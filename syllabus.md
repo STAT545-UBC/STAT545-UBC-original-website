@@ -43,8 +43,8 @@ nov-05 thurs   <a href="cm104_data-cleaning.html">cm104</a>: Grand Finale: Wrang
 nov-10 tues    <a href="cm105_packages.html">cm105</a>: Build your first R package                        
 nov-12 thurs   <a href="cm106_packages.html">cm106</a>: ditto                                             
 nov-17 tues    <a href="cm107_pipelines.html">cm107</a>: Task automation and pipelines, GNU Make          
-nov-19 thurs   cm108: ditto                                                                               
-nov-24 tues    cm109: Get data from the web                                                               
+nov-19 thurs   <a href="cm108_pipelines.html">cm108</a>: ditto                                            
+nov-24 tues    <a href="cm109_data-from_web.html">cm109</a>: Get data from the web                        
 nov-26 thurs   cm110: ditto                                                                               
 dec-01 tues    cm111: Build your first Shiny app                                                          
 dec-03 thurs   cm112: ditto                                                                               
