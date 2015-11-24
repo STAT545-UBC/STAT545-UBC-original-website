@@ -77,9 +77,9 @@
   * Homework 06 *did not exist; it's "clean up your repo" and was folded into homework 05*
   * [Homework 07](hw07_data-wrangling-candy.html) Clean and wrangle the `candy` survey
   * [Homework 08](hw08_package.html) Write an R package
-  * 2014 [Homework 09](hw09_automation.html) Automating Data-analysis Pipelines
-  * 2014 [Homework 11](hw11_build-shiny-app.html) Build a Shiny app
-  * 2014 [Homework 12](hw12_data-from-web.html) Get data from the web
+  * [Homework 09](hw09_automation.html) Automate a data analysis pipeline
+  * 2014 [Shiny homework](hw11_build-shiny-app.html) Build a Shiny app
+  * 2014 [Web data homework](hw12_data-from-web.html) Get data from the web
 
 ## Short random things
 
