@@ -1,15 +1,20 @@
 # Stat 545 getting data from the Web
-Andrew MacDonald and Jenny Bryan  
-2014-11-24  
+Andrew MacDonald  
+2015-11-24  
 
 
 ```r
 library(dplyr)
 library(knitr)
-library(devtools)
+# library(devtools)
 ```
 
+
+
+
 # Introduction
+
+**All this and more is described at the [rOpenSci repository of R tools for interacting with the internet]( https://github.com/ropensci/webservices)**
 
 There are many ways to obtain data from the Internet; let's consider four categories:
 
@@ -19,11 +24,30 @@ There are many ways to obtain data from the Internet; let's consider four catego
 * *Scraping* implicit in an html website
 
 # Click-and-Download
-We're not going to consider data that needs to be downloaded to your hard drive first, and which may require filling out a form etc. For example [World Value Survey](http://www.worldvaluessurvey.org/wvs.jsp) or [gapminder](http://www.worldvaluessurvey.org/wvs.jsp)
 
-# install-and-play
+In the simplest case, the data you need is already on the internet in a tabular format. There are a couple of strategies here:
 
-Many web data sources provide a structured way of requesting and presenting data. A set of rules controls how computer programs ("clients") can make requests of the server, and how the server will respond. These rules are called **A**pplication **P**rogramming **I**nterfaces (API).
+* use `read.csv` or `readr::read_csv` to read the data straight into R.
+
+* use the command line program `curl` to do that work, and place it in a Makefile or shell script (see the Make lesson for how to do that).
+
+The second case is most useful when the data you want has been provided in a format that needs cleanup. For example, the World Value Survey makes several datasets available as Excel sheets. The safest option here is to download the `.xls` file, then read it into R with `readxl::read_excel()` or something similar. An exception to this is data provided as Google Spreadsheets, which can be read straight into R using the [`googlesheets`](https://github.com/jennybc/googlesheets) package.
+
+### from ropensci web services page:
+
+* `downloader::download()` for SSL
+* `curl::curl()` for SSL.
+* `httr::GET` data read this way needs to be parsed later with read.table
+* `rio::import()` can "read a number of common data formats directly from an https:// URL".  Isn't that very similar to the previous?
+
+
+What about packages that install data?
+
+# Data supplied on the web
+
+Many times, the data that you want is not already organized into one or a few tables that you can read directly into R. More frequently, you find this data is given in the form of an API. **A**pplication **P**rogramming **I**nterfaces (APIs) are descriptions of the kind of requests that can be made of a certain piece of software, and descriptions of the kind of answers that are returned. Many sources of data -- databases, websites, services -- have made all (or part) of their data available via APIs over the internet. Computer programs ("clients") can make requests of the server, and the server will respond by sending data (or an error message). This client can be many kinds of other programs or websites, including R running from your laptop.
+
+# install-and-play 
 
 Many common web services and APIs have been "wrapped", i.e. R functions have been written around them which send your query to the server and format the response.
 
@@ -37,8 +61,9 @@ Why do we want this?
 
 ## Sightings of birds: `rebird`
 
-[Rebird](https://github.com/ropensci/rebird) is an R interface for the [ebird](http://ebird.org/content/ebird/) database. Ebird lets birders upload sightings of birds, and allows everyone access to those data.
+[`rebird`](https://github.com/ropensci/rebird) is an R interface for the [ebird](http://ebird.org/content/ebird/) database. e-Bird lets birders upload sightings of birds, and allows everyone access to those data.
 
+`rebird` is on CRAN.
 
 ```r
 install.packages("rebird")
@@ -51,10 +76,48 @@ library(rebird)
 
 ### Search birds by geography
 
+the ebird website categorizes some popular locations as "Hotspots". These are areas where there are both lots of birds and lots of birders. Once such location is at Iona Island, near Vancouver. You can see data for this site at [http://ebird.org/ebird/hotspot/L261851](http://ebird.org/ebird/hotspot/L261851)
+
+At that link, you can see a page like this:
+
+![Iona](webdata-supp/Iona_island.png)
+
+The data already look to be organized in a data frame! `rebird` allows us to read these data directly into R. (The ID code for Iona Island is **"L261851**)
+
+
+```r
+ebirdhotspot(locID = "L261851") %>%
+  head() %>%
+  kable()
+```
+
+```
+## Warning: `rbind_all()` is deprecated. Please use `bind_rows()` instead.
+```
+
+
+
+obsDt                     lng  locName                 obsValid   comName             obsReviewed   sciName              locationPrivate    howMany        lat  locID   
+-----------------  ----------  ----------------------  ---------  ------------------  ------------  -------------------  ----------------  --------  ---------  --------
+2015-11-24 11:41    -123.2111  Iona Island (general)   TRUE       Snow Goose          FALSE         Chen caerulescens    FALSE                   40   49.22133  L261851 
+2015-11-24 11:41    -123.2111  Iona Island (general)   TRUE       Gadwall             FALSE         Anas strepera        FALSE                   10   49.22133  L261851 
+2015-11-24 11:41    -123.2111  Iona Island (general)   TRUE       American Wigeon     FALSE         Anas americana       FALSE                   25   49.22133  L261851 
+2015-11-24 11:41    -123.2111  Iona Island (general)   TRUE       Mallard             FALSE         Anas platyrhynchos   FALSE                   NA   49.22133  L261851 
+2015-11-24 11:41    -123.2111  Iona Island (general)   TRUE       Northern Pintail    FALSE         Anas acuta           FALSE                   35   49.22133  L261851 
+2015-11-24 11:41    -123.2111  Iona Island (general)   TRUE       Green-winged Teal   FALSE         Anas crecca          FALSE                   80   49.22133  L261851 
+
+
 We can use the function `ebirdgeo` to get a list for an area. (Note that South and West are negative):
 
 ```r
 vanbirds <- ebirdgeo(lat = 49.2500, lng = -123.1000)
+```
+
+```
+## Warning: `rbind_all()` is deprecated. Please use `bind_rows()` instead.
+```
+
+```r
 vanbirds %>%
   head %>%
 	kable
@@ -62,28 +125,36 @@ vanbirds %>%
 
 
 
-comName                 howMany        lat         lng  locID      locName                locationPrivate   obsDt              obsReviewed   obsValid   sciName              
----------------------  --------  ---------  ----------  ---------  ---------------------  ----------------  -----------------  ------------  ---------  ---------------------
-Black-bellied Plover          3   49.21278   -123.2025  L339171    Iona Island Causeway   FALSE             2014-11-28 16:30   FALSE         TRUE       Pluvialis squatarola 
-gull sp.                    200   49.21278   -123.2025  L339171    Iona Island Causeway   FALSE             2014-11-28 16:30   FALSE         TRUE       Larinae sp.          
-Great Blue Heron              1   49.21278   -123.2025  L339171    Iona Island Causeway   FALSE             2014-11-28 16:30   FALSE         TRUE       Ardea herodias       
-Fox Sparrow                   1   49.34932   -123.1963  L2682350   Mulgrave School         TRUE             2014-11-28 14:39   FALSE         TRUE       Passerella iliaca    
-Song Sparrow                  3   49.34932   -123.1963  L2682350   Mulgrave School         TRUE             2014-11-28 14:39   FALSE         TRUE       Melospiza melodia    
-Dark-eyed Junco               1   49.34932   -123.1963  L2682350   Mulgrave School         TRUE             2014-11-28 14:39   FALSE         TRUE       Junco hyemalis       
+obsDt                     lng  locName                   obsValid   comName             obsReviewed   sciName             locationPrivate    howMany        lat  locID   
+-----------------  ----------  ------------------------  ---------  ------------------  ------------  ------------------  ----------------  --------  ---------  --------
+2015-11-25 15:30    -123.1754  Sea Island--Ferguson Rd   TRUE       Song Sparrow        FALSE         Melospiza melodia   FALSE                    1   49.20665  L363627 
+2015-11-25 15:30    -123.1754  Sea Island--Ferguson Rd   TRUE       European Starling   FALSE         Sturnus vulgaris    FALSE                    5   49.20665  L363627 
+2015-11-25 15:30    -123.1754  Sea Island--Ferguson Rd   TRUE       Northwestern Crow   FALSE         Corvus caurinus     FALSE                    2   49.20665  L363627 
+2015-11-25 15:30    -123.1754  Sea Island--Ferguson Rd   TRUE       Short-eared Owl     FALSE         Asio flammeus       FALSE                    2   49.20665  L363627 
+2015-11-25 15:30    -123.1754  Sea Island--Ferguson Rd   TRUE       Northern Harrier    FALSE         Circus cyaneus      FALSE                    1   49.20665  L363627 
+2015-11-25 15:30    -123.1754  Sea Island--Ferguson Rd   TRUE       Spotted Towhee      FALSE         Pipilo maculatus    FALSE                    2   49.20665  L363627 
 **Note**: Check the defaults on this function. e.g. radius of circle, time of year.
 
 We can also search by "region", which refers to short codes which serve as common shorthands for different political units. For example, France is represented by the letters **FR**
 
 ```r
-ebirdregion("FR")
+frenchbirds <- ebirdregion("FR")
+
+frenchbirds %>%
+  head() %>%
+  kable()
 ```
-(note that the link in the help file leads to a dead link (as I write this on 24 Nov) but you can probably use the codes from geonames, below)
+
 
 Find out *WHEN* a bird has been seen in a certain place! Choosing a name from `vanbirds` above (the Bald Eagle):
 
 
 ```r
-ebirdgeo(species = 'Haliaeetus leucocephalus', lat = 42, lng = -76)
+eagle <- ebirdgeo(species = 'Haliaeetus leucocephalus', lat = 42, lng = -76)
+
+eagle %>%
+  head() %>%
+  kable()
 ```
 
 `rebird` **knows where you are**:
@@ -96,9 +167,7 @@ ebirdgeo(species = 'Buteo lagopus')
 ## Searching geographic info: `geonames`
 
 ```r
-#install.packages("rjson")
-#install_github("ropensci/geonames")
-
+# install.packages(geonames)
 library(geonames)
 ```
 
@@ -106,15 +175,23 @@ There are two things we need to do to be able to use this package to access the 
 
 1. go to [the geonames site](www.geonames.org/login/) and register an account. 
 2. click [here to enable the free web service](http://www.geonames.org/enablefreewebservice)
-3. Tell R your geonames username:
+3. Tell R your geonames username. You could run the line
 
+```` 
 
-```r
-options(geonamesUsername="?????")
-```
+in R. However this is insecure. We don't want to risk committing this line and pushing it to our public github page! Instead, you should create a file in the same place as your `.Rproj` file. Name this file `.Rprofile`, and add 
+
+```` 
+
+To that file. 
+**Important**: Make sure your `.Rprofile` ends with a blank line!
+
+## using Geonames
 
 What can we do? get access to lots of geographical information via the various "web services" see [here](http://www.geonames.org/export/ws-overview.html)
-
+
+
+
 
 ```r
 countryInfo <- GNcountryInfo()
@@ -146,48 +223,31 @@ What are the cities of France?
 ```r
 francedata <- countryInfo %>%
 	filter(countryName == "France")
+```
 
+
+```r
 frenchcities <-	with(francedata,
 			 GNcities(north = north, east = east, south = south,
 			 				 west = west, maxRows = 500))
+frenchcities %>% 
+  head %>% 
+  kable
 ```
 
-How many birds have been seen in France? Use the `countryCode` from the geonames data to get bird data from rebird!
+
+lng                 geonameId   countrycode   name           fclName             toponymName    fcodeName                       wikipedia                                     lat                fcl   population   fcode 
+------------------  ----------  ------------  -------------  ------------------  -------------  ------------------------------  --------------------------------------------  -----------------  ----  -----------  ------
+2.3488              2988507     FR            Paris          city, village,...   Paris          capital of a political entity   en.wikipedia.org/wiki/Paris                   48.85341           P     2138551      PPLC  
+4.34878349304199    2800866     BE            Brussels       city, village,...   Brussels       capital of a political entity   en.wikipedia.org/wiki/City_of_Brussels        50.8504450552593   P     1019022      PPLC  
+7.44744300842285    2661552     CH            Bern           city, village,...   Bern           capital of a political entity   en.wikipedia.org/wiki/Bern                    46.9480943365053   P     121631       PPLC  
+6.13                2960316     LU            Luxembourg     city, village,...   Luxembourg     capital of a political entity   en.wikipedia.org/wiki/Luxembourg_%28city%29   49.6116667         P     76684        PPLC  
+7.4166667           2993458     MC            Monaco         city, village,...   Monaco         capital of a political entity   en.wikipedia.org/wiki/Monaco                  43.7333333         P     32965        PPLC  
+-2.10491180419922   3042091     JE            Saint Helier   city, village,...   Saint Helier   capital of a political entity   en.wikipedia.org/wiki/Saint_Helier            49.1880427659223   P     28000        PPLC  
 
 
-```r
-francebirds <- countryInfo %>%
-	filter(countryName == "France")
-
-
-allbirds <- ebirdregion(francebirds$countryCode)  ## or perhaps fipsCode?
-
-nrow(allbirds)
-```
-
-[1] 151
 
 ### Wikipedia searching 
-
-Geonames also helps us search Wikipedia.
-
-```r
-GNwikipediaSearch("London") %>%
-  select(-summary) %>%
-	head %>%
-	kable
-```
-
-
-
-elevation   geoNameId   feature   lng                   countryCode   rank   thumbnailImg                                                        lang   title                                    lat                 wikipediaUrl                                                 
-----------  ----------  --------  --------------------  ------------  -----  ------------------------------------------------------------------  -----  ---------------------------------------  ------------------  -------------------------------------------------------------
-2           2643741     city      -0.07857              GB            100    http://www.geonames.org/img/wikipedia/43000/thumb-42715-100.jpg     en     London                                   51.504872           en.wikipedia.org/wiki/London                                 
-262         6058560     city      -81.2497              CA            100    http://www.geonames.org/img/wikipedia/58000/thumb-57388-100.jpg     en     London, Ontario                          42.9837             en.wikipedia.org/wiki/London%2C_Ontario                      
-60          1006984     city      27.9036078333333      ZA            100    http://www.geonames.org/img/wikipedia/138000/thumb-137098-100.jpg   en     East London, Eastern Cape                -33.0145668333333   en.wikipedia.org/wiki/East_London%2C_Eastern_Cape            
-14          NA          adm1st    -0.0159638888888889   GB            98     http://www.geonames.org/img/wikipedia/157000/thumb-156609-100.jpg   en     London Borough of Lewisham               51.4568777777778    en.wikipedia.org/wiki/London_Borough_of_Lewisham             
-27          4839416     NA        -72.1008333333333     US            100    http://www.geonames.org/img/wikipedia/160000/thumb-159123-100.jpg   en     New London, Connecticut                  41.3555555555556    en.wikipedia.org/wiki/New_London%2C_Connecticut              
-13          NA          adm1st    -0.303547222222222    GB            100    http://www.geonames.org/img/wikipedia/146000/thumb-145782-100.jpg   en     London Borough of Richmond upon Thames   51.4613416666667    en.wikipedia.org/wiki/London_Borough_of_Richmond_upon_Thames 
 
 We can use geonames to search for georeferenced Wikipedia articles. Here are those within 20 Km of Rio de Janerio, comparing results for English-language Wikipedia (`lang = "en"`) and Portuguese-language Wikipedia (`lang = "pt"`):
 
@@ -196,7 +256,10 @@ rio_english <- GNfindNearbyWikipedia(lat = -22.9083, lng = -43.1964,
 																		 radius = 20, lang = "en", maxRows = 500)
 rio_portuguese <- GNfindNearbyWikipedia(lat = -22.9083, lng = -43.1964,
 																				radius = 20, lang = "pt", maxRows = 500)
+```
 
+
+```r
 nrow(rio_english)
 ```
 
@@ -229,9 +292,6 @@ library(rplos)
 
 ```
 ## Loading required package: ggplot2
-## 
-## 
-##  New to rplos? Tutorial at http://ropensci.org/tutorials/rplos_tutorial.html. Use suppressPackageStartupMessages() to suppress these startup messages in the future
 ```
 Immediately we get a message. It's a link to the [tutorial on the Ropensci website!](http://ropensci.org/tutorials/rplos_tutorial.html). How nice :)
 
@@ -323,12 +383,6 @@ plot_throughtime(terms = "phylogeny", limit = 200, key = key)
 ```
 
 ## is it a boy or a girl? `gender` throughout US history
-
-
-```r
-devtools::install_github("lmullen/gender-data-pkg")
-devtools::install_github("ropensci/gender")
-```
 
 The gender package allows you access to American data on the gender of names. Because names change gender over the years, the probability of a name belonging to a man or a woman also depends on the *year*:
 

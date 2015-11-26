@@ -1,6 +1,6 @@
 ---
 title: "Stat 545 getting data from the Web"
-author: "Andrew MacDonald and Jenny Bryan"
+author: "Andrew MacDonald"
 date: "2015-11-24"
 output: 
     html_document:

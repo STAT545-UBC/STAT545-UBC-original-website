@@ -1,10 +1,19 @@
 # Stat 545 getting data from the Web -- part 2
-Andrew MacDonald and Dr. Jenny Bryan  
-2014-11-26  
+Andrew MacDonald  
+2015-11-26  
 
 
 ```r
-library("knitr")
+library(knitr)
+library(curl)
+library(jsonlite)
+library(XML)
+library(httr)
+library(rvest)
+library(magrittr)
+library(dplyr)
+library(tidyr)
+library(countrycode)
 ```
 
 
@@ -15,6 +24,10 @@ On Monday we experimented with several packages that "wrapped" APIs.  That is, t
 First we're going to examine the structure of API requests via the  [Open Movie Database](http://www.omdbapi.com/). OMDb is very similar to IMDB, except it has a nice, simple API. We can go to the website, input some search parameters, and obtain both the XML query and the response from it. 
 
 **EXERCISE** determine the shape of an API request:
+
+You can play around with the parameters on the OMDB website, and look at the resulting API call and the query you get back:
+
+![](webdata-supp/ombd.png)
 
 Let's experiment with different values of the `title` and `year` fields. Notice the pattern in the request. For example for Title = Interstellar and Year = 2014, we get:
 
@@ -61,25 +74,61 @@ Now we have a handy function that returns the API query. We can paste in the lin
 
 ```r
 request_interstellar <- omdb("Interstellar", "2014", "short", "xml")
-answer_xml <- RCurl::getURL(request_interstellar)
+con <-  curl(request_interstellar)
+answer_xml <- readLines(con)
+```
+
+```
+## Warning in readLines(con): incomplete final line found on 'http://
+## www.omdbapi.com/?t=Interstellar&y=2014&plot=short&r=xml'
+```
+
+```r
+close(con)
 answer_xml
 ```
 
 ```
-## [1] "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root response=\"True\"><movie title=\"Interstellar\" year=\"2014\" rated=\"PG-13\" released=\"07 Nov 2014\" runtime=\"169 min\" genre=\"Adventure, Sci-Fi\" director=\"Christopher Nolan\" writer=\"Jonathan Nolan, Christopher Nolan\" actors=\"Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow\" plot=\"A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor.\" language=\"English\" country=\"USA, UK\" awards=\"1 nomination.\" poster=\"http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg\" metascore=\"73\" imdbRating=\"9.1\" imdbVotes=\"114,391\" imdbID=\"tt0816692\" type=\"movie\"/></root>"
+## [1] "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root response=\"True\"><movie title=\"Interstellar\" year=\"2014\" rated=\"PG-13\" released=\"07 Nov 2014\" runtime=\"169 min\" genre=\"Adventure, Drama, Sci-Fi\" director=\"Christopher Nolan\" writer=\"Jonathan Nolan, Christopher Nolan\" actors=\"Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow\" plot=\"A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.\" language=\"English\" country=\"USA, UK\" awards=\"Won 1 Oscar. Another 33 wins &amp; 119 nominations.\" poster=\"http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg\" metascore=\"74\" imdbRating=\"8.7\" imdbVotes=\"771,945\" imdbID=\"tt0816692\" type=\"movie\"/></root>"
 ```
+
 
 ```r
 request_interstellar <- omdb("Interstellar", "2014", "short", "json")
-answer_json <- RCurl::getURL(request_interstellar)
-answer_json
+con <-  curl(request_interstellar)
+answer_json <- readLines(con)
+close(con)
+answer_json %>% 
+  prettify
 ```
 
 ```
-## [1] "{\"Title\":\"Interstellar\",\"Year\":\"2014\",\"Rated\":\"PG-13\",\"Released\":\"07 Nov 2014\",\"Runtime\":\"169 min\",\"Genre\":\"Adventure, Sci-Fi\",\"Director\":\"Christopher Nolan\",\"Writer\":\"Jonathan Nolan, Christopher Nolan\",\"Actors\":\"Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow\",\"Plot\":\"A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor.\",\"Language\":\"English\",\"Country\":\"USA, UK\",\"Awards\":\"1 nomination.\",\"Poster\":\"http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg\",\"Metascore\":\"73\",\"imdbRating\":\"9.1\",\"imdbVotes\":\"114,391\",\"imdbID\":\"tt0816692\",\"Type\":\"movie\",\"Response\":\"True\"}"
+## {
+##     "Title": "Interstellar",
+##     "Year": "2014",
+##     "Rated": "PG-13",
+##     "Released": "07 Nov 2014",
+##     "Runtime": "169 min",
+##     "Genre": "Adventure, Drama, Sci-Fi",
+##     "Director": "Christopher Nolan",
+##     "Writer": "Jonathan Nolan, Christopher Nolan",
+##     "Actors": "Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow",
+##     "Plot": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+##     "Language": "English",
+##     "Country": "USA, UK",
+##     "Awards": "Won 1 Oscar. Another 33 wins & 119 nominations.",
+##     "Poster": "http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg",
+##     "Metascore": "74",
+##     "imdbRating": "8.7",
+##     "imdbVotes": "771,945",
+##     "imdbID": "tt0816692",
+##     "Type": "movie",
+##     "Response": "True"
+## }
+## 
 ```
 
-The get a form of data that is obviously structured. What is it?
+We have a form of data that is obviously structured. What is it?
 
 ## intro to JSON and XML
 
@@ -114,24 +163,12 @@ And here is XML:
 
 You can see that both of these data structures are quite easy to read. They are "self-describing". In other words, they tell you how they are meant to be read.
 
-There are easy means of taking these data types and creating R objects.  You've already met the function `fromJSON` in the `jsonlite` package, thanks to Bernard:
+There are easy means of taking these data types and creating R objects. Our JSON response above can be parsed using `jsonlite::fromJSON()`:
 
 
 ```r
-library("jsonlite")
-```
-
-```
-## 
-## Attaching package: 'jsonlite'
-## 
-## The following object is masked from 'package:utils':
-## 
-##     View
-```
-
-```r
-fromJSON(answer_json)
+answer_json %>% 
+  fromJSON()
 ```
 
 ```
@@ -151,7 +188,7 @@ fromJSON(answer_json)
 ## [1] "169 min"
 ## 
 ## $Genre
-## [1] "Adventure, Sci-Fi"
+## [1] "Adventure, Drama, Sci-Fi"
 ## 
 ## $Director
 ## [1] "Christopher Nolan"
@@ -163,7 +200,7 @@ fromJSON(answer_json)
 ## [1] "Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow"
 ## 
 ## $Plot
-## [1] "A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor."
+## [1] "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival."
 ## 
 ## $Language
 ## [1] "English"
@@ -172,19 +209,19 @@ fromJSON(answer_json)
 ## [1] "USA, UK"
 ## 
 ## $Awards
-## [1] "1 nomination."
+## [1] "Won 1 Oscar. Another 33 wins & 119 nominations."
 ## 
 ## $Poster
 ## [1] "http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg"
 ## 
 ## $Metascore
-## [1] "73"
+## [1] "74"
 ## 
 ## $imdbRating
-## [1] "9.1"
+## [1] "8.7"
 ## 
 ## $imdbVotes
-## [1] "114,391"
+## [1] "771,945"
 ## 
 ## $imdbID
 ## [1] "tt0816692"
@@ -200,21 +237,22 @@ The output is a named list! A familiar and friendly R structure. Because data fr
 
 
 ```r
-answer_list <- fromJSON(answer_json)
-kable(data.frame(answer_list))
+answer_json %>% 
+  fromJSON() %>% 
+  as.data.frame() %>% 
+  kable()
 ```
 
 
 
-|Title        |Year |Rated |Released    |Runtime |Genre             |Director          |Writer                            |Actors                                                          |Plot                                                                                                                                        |Language |Country |Awards        |Poster                                                                                           |Metascore |imdbRating |imdbVotes |imdbID    |Type  |Response |
-|:------------|:----|:-----|:-----------|:-------|:-----------------|:-----------------|:---------------------------------|:---------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------|:--------|:-------|:-------------|:------------------------------------------------------------------------------------------------|:---------|:----------|:---------|:---------|:-----|:--------|
-|Interstellar |2014 |PG-13 |07 Nov 2014 |169 min |Adventure, Sci-Fi |Christopher Nolan |Jonathan Nolan, Christopher Nolan |Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow |A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor. |English  |USA, UK |1 nomination. |http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg |73        |9.1        |114,391   |tt0816692 |movie |True     |
+Title          Year   Rated   Released      Runtime   Genre                      Director            Writer                              Actors                                                            Plot                                                                                                  Language   Country   Awards                                            Poster                                                                                             Metascore   imdbRating   imdbVotes   imdbID      Type    Response 
+-------------  -----  ------  ------------  --------  -------------------------  ------------------  ----------------------------------  ----------------------------------------------------------------  ----------------------------------------------------------------------------------------------------  ---------  --------  ------------------------------------------------  -------------------------------------------------------------------------------------------------  ----------  -----------  ----------  ----------  ------  ---------
+Interstellar   2014   PG-13   07 Nov 2014   169 min   Adventure, Drama, Sci-Fi   Christopher Nolan   Jonathan Nolan, Christopher Nolan   Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow   A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.   English    USA, UK   Won 1 Oscar. Another 33 wins & 119 nominations.   http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg   74          8.7          771,945     tt0816692   movie   True     
 
 A similar process exists for XML formats:
 
 
 ```r
-library(XML)
 ans_xml_parsed <- xmlParse(answer_xml)
 ans_xml_parsed
 ```
@@ -222,7 +260,7 @@ ans_xml_parsed
 ```
 ## <?xml version="1.0" encoding="UTF-8"?>
 ## <root response="True">
-##   <movie title="Interstellar" year="2014" rated="PG-13" released="07 Nov 2014" runtime="169 min" genre="Adventure, Sci-Fi" director="Christopher Nolan" writer="Jonathan Nolan, Christopher Nolan" actors="Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow" plot="A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor." language="English" country="USA, UK" awards="1 nomination." poster="http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg" metascore="73" imdbRating="9.1" imdbVotes="114,391" imdbID="tt0816692" type="movie"/>
+##   <movie title="Interstellar" year="2014" rated="PG-13" released="07 Nov 2014" runtime="169 min" genre="Adventure, Drama, Sci-Fi" director="Christopher Nolan" writer="Jonathan Nolan, Christopher Nolan" actors="Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow" plot="A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival." language="English" country="USA, UK" awards="Won 1 Oscar. Another 33 wins &amp; 119 nominations." poster="http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg" metascore="74" imdbRating="8.7" imdbVotes="771,945" imdbID="tt0816692" type="movie"/>
 ## </root>
 ## 
 ```
@@ -247,14 +285,13 @@ attributes, children and value, which we access with the methods xmlName(), xmlA
 
 
 
-
 ```r
 ans_xml_parsed_root <- xmlRoot(ans_xml_parsed)[["movie"]]  # could also use [[1]]
 ans_xml_parsed_root
 ```
 
 ```
-## <movie title="Interstellar" year="2014" rated="PG-13" released="07 Nov 2014" runtime="169 min" genre="Adventure, Sci-Fi" director="Christopher Nolan" writer="Jonathan Nolan, Christopher Nolan" actors="Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow" plot="A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor." language="English" country="USA, UK" awards="1 nomination." poster="http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg" metascore="73" imdbRating="9.1" imdbVotes="114,391" imdbID="tt0816692" type="movie"/>
+## <movie title="Interstellar" year="2014" rated="PG-13" released="07 Nov 2014" runtime="169 min" genre="Adventure, Drama, Sci-Fi" director="Christopher Nolan" writer="Jonathan Nolan, Christopher Nolan" actors="Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow" plot="A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival." language="English" country="USA, UK" awards="Won 1 Oscar. Another 33 wins &amp; 119 nominations." poster="http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg" metascore="74" imdbRating="8.7" imdbVotes="771,945" imdbID="tt0816692" type="movie"/>
 ```
 
 ```r
@@ -263,44 +300,44 @@ ans_xml_attrs
 ```
 
 ```
-##                                                                                                                                         title 
-##                                                                                                                                "Interstellar" 
-##                                                                                                                                          year 
-##                                                                                                                                        "2014" 
-##                                                                                                                                         rated 
-##                                                                                                                                       "PG-13" 
-##                                                                                                                                      released 
-##                                                                                                                                 "07 Nov 2014" 
-##                                                                                                                                       runtime 
-##                                                                                                                                     "169 min" 
-##                                                                                                                                         genre 
-##                                                                                                                           "Adventure, Sci-Fi" 
-##                                                                                                                                      director 
-##                                                                                                                           "Christopher Nolan" 
-##                                                                                                                                        writer 
-##                                                                                                           "Jonathan Nolan, Christopher Nolan" 
-##                                                                                                                                        actors 
-##                                                                             "Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow" 
-##                                                                                                                                          plot 
-## "A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor." 
-##                                                                                                                                      language 
-##                                                                                                                                     "English" 
-##                                                                                                                                       country 
-##                                                                                                                                     "USA, UK" 
-##                                                                                                                                        awards 
-##                                                                                                                               "1 nomination." 
-##                                                                                                                                        poster 
-##                                            "http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg" 
-##                                                                                                                                     metascore 
-##                                                                                                                                          "73" 
-##                                                                                                                                    imdbRating 
-##                                                                                                                                         "9.1" 
-##                                                                                                                                     imdbVotes 
-##                                                                                                                                     "114,391" 
-##                                                                                                                                        imdbID 
-##                                                                                                                                   "tt0816692" 
-##                                                                                                                                          type 
-##                                                                                                                                       "movie"
+##                                                                                                 title 
+##                                                                                        "Interstellar" 
+##                                                                                                  year 
+##                                                                                                "2014" 
+##                                                                                                 rated 
+##                                                                                               "PG-13" 
+##                                                                                              released 
+##                                                                                         "07 Nov 2014" 
+##                                                                                               runtime 
+##                                                                                             "169 min" 
+##                                                                                                 genre 
+##                                                                            "Adventure, Drama, Sci-Fi" 
+##                                                                                              director 
+##                                                                                   "Christopher Nolan" 
+##                                                                                                writer 
+##                                                                   "Jonathan Nolan, Christopher Nolan" 
+##                                                                                                actors 
+##                                     "Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow" 
+##                                                                                                  plot 
+## "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival." 
+##                                                                                              language 
+##                                                                                             "English" 
+##                                                                                               country 
+##                                                                                             "USA, UK" 
+##                                                                                                awards 
+##                                                     "Won 1 Oscar. Another 33 wins & 119 nominations." 
+##                                                                                                poster 
+##    "http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg" 
+##                                                                                             metascore 
+##                                                                                                  "74" 
+##                                                                                            imdbRating 
+##                                                                                                 "8.7" 
+##                                                                                             imdbVotes 
+##                                                                                             "771,945" 
+##                                                                                                imdbID 
+##                                                                                           "tt0816692" 
+##                                                                                                  type 
+##                                                                                               "movie"
 ```
 
 
@@ -310,30 +347,14 @@ kable(data.frame(t(ans_xml_attrs)))
 
 
 
-|title        |year |rated |released    |runtime |genre             |director          |writer                            |actors                                                          |plot                                                                                                                                        |language |country |awards        |poster                                                                                           |metascore |imdbRating |imdbVotes |imdbID    |type  |
-|:------------|:----|:-----|:-----------|:-------|:-----------------|:-----------------|:---------------------------------|:---------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------|:--------|:-------|:-------------|:------------------------------------------------------------------------------------------------|:---------|:----------|:---------|:---------|:-----|
-|Interstellar |2014 |PG-13 |07 Nov 2014 |169 min |Adventure, Sci-Fi |Christopher Nolan |Jonathan Nolan, Christopher Nolan |Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow |A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor. |English  |USA, UK |1 nomination. |http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg |73        |9.1        |114,391   |tt0816692 |movie |
-
-### `XPATH`, the scandalously shallow introduction:
-
-There is a special syntax for querying the structure of XML documents, called XPATH, which is an essential skill if you are doing extensive work with XML documents.
-
-```r
-movienode <- getNodeSet(ans_xml_parsed, "//movie")
-movienode
-```
-
-```
-## [[1]]
-## <movie title="Interstellar" year="2014" rated="PG-13" released="07 Nov 2014" runtime="169 min" genre="Adventure, Sci-Fi" director="Christopher Nolan" writer="Jonathan Nolan, Christopher Nolan" actors="Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow" plot="A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor." language="English" country="USA, UK" awards="1 nomination." poster="http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg" metascore="73" imdbRating="9.1" imdbVotes="114,391" imdbID="tt0816692" type="movie"/> 
-## 
-## attr(,"class")
-## [1] "XMLNodeSet"
-```
+title          year   rated   released      runtime   genre                      director            writer                              actors                                                            plot                                                                                                  language   country   awards                                            poster                                                                                             metascore   imdbRating   imdbVotes   imdbID      type  
+-------------  -----  ------  ------------  --------  -------------------------  ------------------  ----------------------------------  ----------------------------------------------------------------  ----------------------------------------------------------------------------------------------------  ---------  --------  ------------------------------------------------  -------------------------------------------------------------------------------------------------  ----------  -----------  ----------  ----------  ------
+Interstellar   2014   PG-13   07 Nov 2014   169 min   Adventure, Drama, Sci-Fi   Christopher Nolan   Jonathan Nolan, Christopher Nolan   Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow   A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.   English    USA, UK   Won 1 Oscar. Another 33 wins & 119 nominations.   http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg   74          8.7          771,945     tt0816692   movie 
 
 ## Introducing the Easy Way: `httr`
 
 `httr` is yet another star in the hadleyverse, this one designed to facilitate all things HTTP from within R.  This includes the major HTTP verbs, which are:
+
     * __GET__: fetch an existing resource. The URL contains all the necessary information the server needs to locate and return the resource.
     * __POST__: create a new resource. POST requests usually carry a payload that specifies the data for the new resource.
     * __PUT__: update an existing resource. The payload may contain the updated data for the resource.
@@ -344,17 +365,9 @@ HTTP is the foundation for APIs; understanding how it works is the key to intera
 
 `httr` also facilitates a variety of ___authentication___ protocols.
 
+`httr` contains one function for every HTTP verb. The functions have the same names as the verbs (e.g. `GET()`, `POST()`).  They have more informative outputs than simply using `curl`, and come with some nice convenience functions for working with the output:
 
 ```r
-#devtools::install_github("hadley/httr", build_vignettes = TRUE, dependencies = TRUE)
-install.packages("httr")
-```
-
-`httr` contains one function for every HTTP verb. The functions have the same names as the verbs (e.g. `GET()`, `POST()`).  They have more informative outputs than simply using `RCurl::getURL()`, and come with some nice convenience functions for working with the output:
-
-```r
-library(httr)
-
 interstellar_json <- omdb("Interstellar", "2014", "short", "json")
 response_json <- GET(interstellar_json)
 content(response_json, as = "parsed", type = "application/json")
@@ -377,7 +390,7 @@ content(response_json, as = "parsed", type = "application/json")
 ## [1] "169 min"
 ## 
 ## $Genre
-## [1] "Adventure, Sci-Fi"
+## [1] "Adventure, Drama, Sci-Fi"
 ## 
 ## $Director
 ## [1] "Christopher Nolan"
@@ -389,7 +402,7 @@ content(response_json, as = "parsed", type = "application/json")
 ## [1] "Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow"
 ## 
 ## $Plot
-## [1] "A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor."
+## [1] "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival."
 ## 
 ## $Language
 ## [1] "English"
@@ -398,19 +411,19 @@ content(response_json, as = "parsed", type = "application/json")
 ## [1] "USA, UK"
 ## 
 ## $Awards
-## [1] "1 nomination."
+## [1] "Won 1 Oscar. Another 33 wins & 119 nominations."
 ## 
 ## $Poster
 ## [1] "http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg"
 ## 
 ## $Metascore
-## [1] "73"
+## [1] "74"
 ## 
 ## $imdbRating
-## [1] "9.1"
+## [1] "8.7"
 ## 
 ## $imdbVotes
-## [1] "114,391"
+## [1] "771,945"
 ## 
 ## $imdbID
 ## [1] "tt0816692"
@@ -432,7 +445,7 @@ content(response_xml, as = "parsed")
 ```
 ## <?xml version="1.0" encoding="UTF-8"?>
 ## <root response="True">
-##   <movie title="Interstellar" year="2014" rated="PG-13" released="07 Nov 2014" runtime="169 min" genre="Adventure, Sci-Fi" director="Christopher Nolan" writer="Jonathan Nolan, Christopher Nolan" actors="Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow" plot="A group of explorers use a newly discovered wormhole to surpass the limitations on human space travel and conquer an interstellar endeavor." language="English" country="USA, UK" awards="1 nomination." poster="http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg" metascore="73" imdbRating="9.1" imdbVotes="114,391" imdbID="tt0816692" type="movie"/>
+##   <movie title="Interstellar" year="2014" rated="PG-13" released="07 Nov 2014" runtime="169 min" genre="Adventure, Drama, Sci-Fi" director="Christopher Nolan" writer="Jonathan Nolan, Christopher Nolan" actors="Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow" plot="A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival." language="English" country="USA, UK" awards="Won 1 Oscar. Another 33 wins &amp; 119 nominations." poster="http://ia.media-imdb.com/images/M/MV5BMjIxNTU4MzY4MF5BMl5BanBnXkFtZTgwMzM4ODI3MjE@._V1_SX300.jpg" metascore="74" imdbRating="8.7" imdbVotes="771,945" imdbID="tt0816692" type="movie"/>
 ## </root>
 ## 
 ```
@@ -445,23 +458,32 @@ headers(response_xml)
 ```
 
 ```
-## $`cache-control`
-## [1] "private, max-age=909"
+## $date
+## [1] "Thu, 26 Nov 2015 18:14:30 GMT"
 ## 
 ## $`content-type`
 ## [1] "text/xml; charset=utf-8"
 ## 
+## $`content-length`
+## [1] "714"
+## 
+## $connection
+## [1] "keep-alive"
+## 
+## $`cache-control`
+## [1] "public, max-age=14400"
+## 
+## $`content-encoding`
+## [1] "gzip"
+## 
 ## $expires
-## [1] "Wed, 26 Nov 2014 17:26:14 GMT"
+## [1] "Thu, 26 Nov 2015 22:14:30 GMT"
 ## 
 ## $`last-modified`
-## [1] "Wed, 26 Nov 2014 16:26:14 GMT"
+## [1] "Thu, 26 Nov 2015 03:20:33 GMT"
 ## 
 ## $vary
-## [1] "*"
-## 
-## $server
-## [1] "Microsoft-IIS/7.5"
+## [1] "Accept-Encoding"
 ## 
 ## $`x-aspnet-version`
 ## [1] "4.0.30319"
@@ -472,11 +494,14 @@ headers(response_xml)
 ## $`access-control-allow-origin`
 ## [1] "*"
 ## 
-## $date
-## [1] "Wed, 26 Nov 2014 17:11:04 GMT"
+## $`cf-cache-status`
+## [1] "HIT"
 ## 
-## $`content-length`
-## [1] "731"
+## $server
+## [1] "cloudflare-nginx"
+## 
+## $`cf-ray`
+## [1] "24b792ca93613b50-YVR"
 ## 
 ## attr(,"class")
 ## [1] "insensitive" "list"
@@ -493,6 +518,79 @@ status_code(response_xml)
 ## [1] 200
 ```
 
+In fact, we didn't need to create `omdb()` at all! httr provides a straightforward means of making an http request:
+
+
+```r
+the_martian <- GET("http://www.omdbapi.com/?", query = list(t = "The Martian", y = 2015, plot = "short", r = "json"))
+
+content(the_martian)
+```
+
+```
+## $Title
+## [1] "The Martian"
+## 
+## $Year
+## [1] "2015"
+## 
+## $Rated
+## [1] "PG-13"
+## 
+## $Released
+## [1] "02 Oct 2015"
+## 
+## $Runtime
+## [1] "144 min"
+## 
+## $Genre
+## [1] "Adventure, Comedy, Drama"
+## 
+## $Director
+## [1] "Ridley Scott"
+## 
+## $Writer
+## [1] "Drew Goddard (screenplay), Andy Weir (book)"
+## 
+## $Actors
+## [1] "Matt Damon, Jessica Chastain, Kristen Wiig, Jeff Daniels"
+## 
+## $Plot
+## [1] "During a manned mission to Mars, Astronaut Mark Watney is presumed dead after a fierce storm and left behind by his crew. But Watney has survived and finds himself stranded and alone on the hostile planet. With only meager supplies, he must draw upon his ingenuity, wit and spirit to subsist and find a way to signal to Earth that he is alive."
+## 
+## $Language
+## [1] "English, Mandarin"
+## 
+## $Country
+## [1] "USA, UK"
+## 
+## $Awards
+## [1] "1 win."
+## 
+## $Poster
+## [1] "http://ia.media-imdb.com/images/M/MV5BMTc2MTQ3MDA1Nl5BMl5BanBnXkFtZTgwODA3OTI4NjE@._V1_SX300.jpg"
+## 
+## $Metascore
+## [1] "80"
+## 
+## $imdbRating
+## [1] "8.2"
+## 
+## $imdbVotes
+## [1] "161,007"
+## 
+## $imdbID
+## [1] "tt3659388"
+## 
+## $Type
+## [1] "movie"
+## 
+## $Response
+## [1] "True"
+```
+
+We get the same answer as before! With `httr`, we are able to pass in the named arguments to the API call as a named list. We are also able to use spaces in movie names; `httr` encodes these in the URL before making the GET request  
+
 It is very good to [learn your http status codes](https://www.flickr.com/photos/girliemac/sets/72157628409467125).  
 The documentation for `httr` includes a vignette of "best practices for writing an API package", which is useful for when you want to bring your favourite web resource into the world of R!
 
@@ -503,6 +601,8 @@ What if data is present on a website, but isn't provided in an API at all? It is
 HTML is a structured way of displaying information. It is very similar in structure to XML (in fact many modern html sites are actually XHTML5, [which is also valid XML](http://www.w3.org/TR/html5/the-xhtml-syntax.html))
 
 
+![tags](http://imgs.xkcd.com/comics/tags.png )
+
 Two pieces of equipment
 
 * `rvest`: `devtools::install_github("hadley/rvest")`
@@ -510,84 +610,72 @@ Two pieces of equipment
 
 Before we go any further, [let's play a game together!](http://flukeout.github.io)
 
-
-```r
-library(rvest)
-```
-
 ### Obtain a table
 
 Let's make a simple HTML table and then parse it! 
 
 * make a new, empty project
-* make a totally empty .Rmd file
+* make a totally empty .Rmd file called `"GapminderHead.Rmd"`
 * copy this into the body:
 ```r
 ---
 output: html_document
 ---
 
-``` r echo=FALSE, results='asis' 
+```{r echo=FALSE, results='asis'} #delete this comment
 library(gapminder)
 knitr::kable(head(gapminder))
 ```
 ```
-(uncommenting the code chunk)
+**remember to delete the comment**
 
-* knit the document
-* click "View in Browser"
-* paste the url into the code below:
+Then knit the document and click "View in Browser". It should look like this:
+![gm](webdata-supp/gapminderhead.png)
+
+We have created a simple html table with the head of gapminder in it! We can get our data back by parsing this table into a dataframe again. Extracting data from html is called "scraping", and it is done with the R package `rvest`:
 
 
 ```r
-html("file:///home/andrew/Documents/projects/GapminderHead/GapminderHead.html") %>%
+read_html("GapminderHead.html") %>%
   html_table
 ```
 
-```
-## [[1]]
-##       country continent year lifeExp      pop gdpPercap
-## 1 Afghanistan      Asia 1952   28.80  8425333     779.4
-## 2 Afghanistan      Asia 1957   30.33  9240934     820.9
-## 3 Afghanistan      Asia 1962   32.00 10267083     853.1
-## 4 Afghanistan      Asia 1967   34.02 11537966     836.2
-## 5 Afghanistan      Asia 1972   36.09 13079460     740.0
-## 6 Afghanistan      Asia 1977   38.44 14880372     786.1
-```
+## scraping via CSS selectors
 
-(note that this is also possible with `XML` package)
+Let's practice scraping websites using our newfound abilities! Here is a table of research [publications by country](http://www.scimagojr.com/countryrank.php)
+![](webdata-supp/pubs.png)
 
-## scraping text: staRtrek
+We can try to get this data directly into R:
 
-getting Star Trek species data from [MemoryAlpha](http://en.memory-alpha.org/)
 
 ```r
-library("magrittr")
-library("dplyr")
-library("tidyr")
-
-character_data <- function(chname){
-  paste0("http://en.memory-alpha.org/wiki/", chname) %>%
-    html %>%
-    html_nodes(".wiki-sidebar") %>%
-    html_table(header = FALSE) %>%
-    extract2(1) %>%
-    set_colnames(c("trait", "value")) %>%
-    mutate(trait = gsub(":", "", trait)) %>%
-    filter(trait %in% c("Gender","Species","Affiliation","Rank")) %>%
-    mutate(name = chname) %>%
-    spread(trait, value)
-}
-
-character_data("Worf")
+research <- read_html("http://www.scimagojr.com/countryrank.php") %>% 
+  html_table(fill = TRUE)
 ```
 
+If you look at the structure of `research` (e.g. with `str(research)`) you'll see that we've obtained a list of data.frames. The top of the page contains another table element. This was also scraped! 
+Can we be more specific about what we obtain from this page? We can, by highlighting that table with css selectors:
+
+
+```r
+research <- read_html("http://www.scimagojr.com/countryrank.php") %>% 
+  html_node(".tabla_datos") %>%
+	html_table()
+
+research %>% 
+  head() %>% 
+  kable()
 ```
-##   name                         Affiliation Gender                 Rank
-## 1 Worf Federation StarfleetHouse of Martok   Male Lieutenant Commander
-##   Species
-## 1 Klingon
-```
+
+     Country   NA               Documents   Citable documents   Citations     Self-Citations   Citations per Document    H index
+---  --------  ---------------  ----------  ------------------  ------------  ---------------  -----------------------  --------
+  1  NA        United States    8.626.193   7.876.234           177.434.935   83.777.658       23,36                       1.648
+  2  NA        China            3.617.355   3.569.652           19.110.353    10.462.121       7,44                      495.000
+  3  NA        United Kingdom   2.397.817   2.103.145           44.011.201    10.321.539       21,03                       1.015
+  4  NA        Germany          2.176.860   2.045.433           35.721.869    9.141.181        18,50                     887.000
+  5  NA        Japan            2.074.872   2.008.410           27.040.067    7.619.559        13,79                     745.000
+  6  NA        France           1.555.629   1.468.286           24.700.140    5.516.943        17,95                     811.000
+
 
 ### Random observations on scraping
 
@@ -630,44 +718,7 @@ perfectly possible to combine these into a handy `data.frame`. One way might be:
 
 
 ```r
-library(jsonlite)
-
 tdot_data <- fromJSON("http://airportcode.riobard.com/search?q=Toronto&fmt=JSON")
 ```
 
 
-## Extending `gameday`
-
-Does anybody remember this lovely function?
-
-```r
-gday <- function(team="canucks") {
-  url <- paste0("http://live.nhle.com/GameData/GCScoreboard/", Sys.Date(), ".jsonp")
-  grepl(team, RCurl::getURL(url), ignore.case=TRUE)
-}
-```
-
-Here is the `httr` version:
-
-
-```r
-library(httr)
-req <- GET("http://live.nhle.com/GameData/GCScoreboard/2014-11-24.jsonp")
-jsonp <- content(req, "text")
-json <- gsub('([a-zA-Z_0-9\\.]*\\()|(\\);?$)', "", jsonp, perl = TRUE)
-data <- fromJSON(json)
-
-data$games %>%
-  kable
-```
-
-```
-## 
-## 
-## |atcommon |canationalbroadcasts |ata |rl   | atsog|bs       |htcommon  |        id|atn          | hts|atc    |htn          |usnationalbroadcasts |gcl  |hta | ats|htc    | htsog|bsc   | gs|gcll |
-## |:--------|:--------------------|:---|:----|-----:|:--------|:---------|---------:|:------------|---:|:------|:------------|:--------------------|:----|:---|---:|:------|-----:|:-----|--:|:----|
-## |PENGUINS |TVA, SN              |PIT |TRUE |    33|FINAL OT |BRUINS    | 2.014e+09|PITTSBURGH   |   2|winner |BOSTON       |NBCSN                |TRUE |BOS |   3|       |    29|final |  5|TRUE |
-## |FLYERS   |                     |PHI |TRUE |    21|FINAL SO |ISLANDERS | 2.014e+09|PHILADELPHIA |   1|       |NY ISLANDERS |                     |TRUE |NYI |   0|winner |    46|final |  5|TRUE |
-## |SENATORS |                     |OTT |TRUE |    26|FINAL    |RED WINGS | 2.014e+09|OTTAWA       |   4|       |DETROIT      |                     |TRUE |DET |   3|winner |    43|final |  5|TRUE |
-## |WILD     |                     |MIN |TRUE |    39|FINAL    |PANTHERS  | 2.014e+09|MINNESOTA    |   1|winner |FLORIDA      |                     |TRUE |FLA |   4|       |    30|final |  5|TRUE |
-```
