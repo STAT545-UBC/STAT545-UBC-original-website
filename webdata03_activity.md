@@ -458,7 +458,7 @@ headers(response_xml)
 
 ```
 ## $date
-## [1] "Thu, 26 Nov 2015 18:15:24 GMT"
+## [1] "Thu, 26 Nov 2015 20:45:36 GMT"
 ## 
 ## $`content-type`
 ## [1] "text/xml; charset=utf-8"
@@ -476,7 +476,7 @@ headers(response_xml)
 ## [1] "gzip"
 ## 
 ## $expires
-## [1] "Thu, 26 Nov 2015 22:15:24 GMT"
+## [1] "Fri, 27 Nov 2015 00:45:36 GMT"
 ## 
 ## $`last-modified`
 ## [1] "Thu, 26 Nov 2015 03:20:33 GMT"
@@ -500,7 +500,7 @@ headers(response_xml)
 ## [1] "cloudflare-nginx"
 ## 
 ## $`cf-ray`
-## [1] "24b79418b1d93b74-YVR"
+## [1] "24b870201eaf3ae4-YVR"
 ## 
 ## attr(,"class")
 ## [1] "insensitive" "list"
@@ -702,22 +702,3 @@ https://airport.api.aero/airport/distance/YVR/LAX?user_key={yourkey}
 ```
 
 Do you need just the US airports? this API does that [and is free](http://services.faa.gov/docs/services/airport/)
-
-And even simpler API queries very simple data about the airports of the world:
-
-```r
-fromJSON(file = "http://airportcode.riobard.com/search?q=Toronto&fmt=JSON")
-```
-
-```r
-fromJSON(file = "http://airportcode.riobard.com/airport/YVR?fmt=json")
-```
-
-perfectly possible to combine these into a handy `data.frame`. One way might be:
-
-
-```r
-tdot_data <- fromJSON("http://airportcode.riobard.com/search?q=Toronto&fmt=JSON")
-```
-
-

@@ -548,7 +548,7 @@ content(response_xml, as = &quot;parsed&quot;)</code></pre>
 <p>In addition, <code>httr</code> gives us access to lots of useful information about the quality of our response. For example, the header:</p>
 <pre class="r"><code>headers(response_xml)</code></pre>
 <pre><code>## $date
-## [1] &quot;Thu, 26 Nov 2015 18:15:24 GMT&quot;
+## [1] &quot;Thu, 26 Nov 2015 20:45:36 GMT&quot;
 ## 
 ## $`content-type`
 ## [1] &quot;text/xml; charset=utf-8&quot;
@@ -566,7 +566,7 @@ content(response_xml, as = &quot;parsed&quot;)</code></pre>
 ## [1] &quot;gzip&quot;
 ## 
 ## $expires
-## [1] &quot;Thu, 26 Nov 2015 22:15:24 GMT&quot;
+## [1] &quot;Fri, 27 Nov 2015 00:45:36 GMT&quot;
 ## 
 ## $`last-modified`
 ## [1] &quot;Thu, 26 Nov 2015 03:20:33 GMT&quot;
@@ -590,7 +590,7 @@ content(response_xml, as = &quot;parsed&quot;)</code></pre>
 ## [1] &quot;cloudflare-nginx&quot;
 ## 
 ## $`cf-ray`
-## [1] &quot;24b79418b1d93b74-YVR&quot;
+## [1] &quot;24b870201eaf3ae4-YVR&quot;
 ## 
 ## attr(,&quot;class&quot;)
 ## [1] &quot;insensitive&quot; &quot;list&quot;</code></pre>
@@ -807,11 +807,6 @@ research %&gt;%
 <pre><code>https://airport.api.aero/airport/match/toronto?user_key={yourkey}</code></pre>
 <pre><code>https://airport.api.aero/airport/distance/YVR/LAX?user_key={yourkey}</code></pre>
 <p>Do you need just the US airports? this API does that <a href="http://services.faa.gov/docs/services/airport/">and is free</a></p>
-<p>And even simpler API queries very simple data about the airports of the world:</p>
-<pre class="r"><code>fromJSON(file = &quot;http://airportcode.riobard.com/search?q=Toronto&amp;fmt=JSON&quot;)</code></pre>
-<pre class="r"><code>fromJSON(file = &quot;http://airportcode.riobard.com/airport/YVR?fmt=json&quot;)</code></pre>
-<p>perfectly possible to combine these into a handy <code>data.frame</code>. One way might be:</p>
-<pre class="r"><code>tdot_data &lt;- fromJSON(&quot;http://airportcode.riobard.com/search?q=Toronto&amp;fmt=JSON&quot;)</code></pre>
 </div>
 
 <div class="footer">
