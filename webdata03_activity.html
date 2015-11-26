@@ -120,8 +120,7 @@ library(httr)
 library(rvest)
 library(magrittr)
 library(dplyr)
-library(tidyr)
-library(countrycode)</code></pre>
+library(tidyr)</code></pre>
 <div id="interacting-with-an-api" class="section level2">
 <h2>Interacting with an API</h2>
 <p>On Monday we experimented with several packages that “wrapped” APIs. That is, they handled the creation of the request and the formatting of the output. Today we’re going to look at (part of) what these functions were doing.</p>
@@ -549,7 +548,7 @@ content(response_xml, as = &quot;parsed&quot;)</code></pre>
 <p>In addition, <code>httr</code> gives us access to lots of useful information about the quality of our response. For example, the header:</p>
 <pre class="r"><code>headers(response_xml)</code></pre>
 <pre><code>## $date
-## [1] &quot;Thu, 26 Nov 2015 18:14:30 GMT&quot;
+## [1] &quot;Thu, 26 Nov 2015 18:15:24 GMT&quot;
 ## 
 ## $`content-type`
 ## [1] &quot;text/xml; charset=utf-8&quot;
@@ -567,7 +566,7 @@ content(response_xml, as = &quot;parsed&quot;)</code></pre>
 ## [1] &quot;gzip&quot;
 ## 
 ## $expires
-## [1] &quot;Thu, 26 Nov 2015 22:14:30 GMT&quot;
+## [1] &quot;Thu, 26 Nov 2015 22:15:24 GMT&quot;
 ## 
 ## $`last-modified`
 ## [1] &quot;Thu, 26 Nov 2015 03:20:33 GMT&quot;
@@ -591,7 +590,7 @@ content(response_xml, as = &quot;parsed&quot;)</code></pre>
 ## [1] &quot;cloudflare-nginx&quot;
 ## 
 ## $`cf-ray`
-## [1] &quot;24b792ca93613b50-YVR&quot;
+## [1] &quot;24b79418b1d93b74-YVR&quot;
 ## 
 ## attr(,&quot;class&quot;)
 ## [1] &quot;insensitive&quot; &quot;list&quot;</code></pre>

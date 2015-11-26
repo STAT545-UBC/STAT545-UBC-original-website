@@ -13,7 +13,6 @@ library(rvest)
 library(magrittr)
 library(dplyr)
 library(tidyr)
-library(countrycode)
 ```
 
 
@@ -459,7 +458,7 @@ headers(response_xml)
 
 ```
 ## $date
-## [1] "Thu, 26 Nov 2015 18:14:30 GMT"
+## [1] "Thu, 26 Nov 2015 18:15:24 GMT"
 ## 
 ## $`content-type`
 ## [1] "text/xml; charset=utf-8"
@@ -477,7 +476,7 @@ headers(response_xml)
 ## [1] "gzip"
 ## 
 ## $expires
-## [1] "Thu, 26 Nov 2015 22:14:30 GMT"
+## [1] "Thu, 26 Nov 2015 22:15:24 GMT"
 ## 
 ## $`last-modified`
 ## [1] "Thu, 26 Nov 2015 03:20:33 GMT"
@@ -501,7 +500,7 @@ headers(response_xml)
 ## [1] "cloudflare-nginx"
 ## 
 ## $`cf-ray`
-## [1] "24b792ca93613b50-YVR"
+## [1] "24b79418b1d93b74-YVR"
 ## 
 ## attr(,"class")
 ## [1] "insensitive" "list"

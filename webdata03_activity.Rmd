@@ -18,7 +18,6 @@ library(rvest)
 library(magrittr)
 library(dplyr)
 library(tidyr)
-library(countrycode)
 ```
 
 
