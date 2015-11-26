@@ -11,11 +11,12 @@ library(knitr)
 knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
 ```
 
-### Load the Gapminder data
+### Load the Gapminder data and `dplyr`
 
 ```{r}
-gDat <- read.delim("gapminderDataFiveYear.txt")
-str(gDat)
+suppressPackageStartupMessages(library(dplyr))
+library(gapminder)
+str(gapminder)
 ```
 
 ### Change the default plotting symbol to a solid circle
@@ -48,62 +49,67 @@ opts_chunk$set(setPch = TRUE)
 
 ### Basic color specification and the default palette
 
-I need a small well-behaved excerpt from the Gapminder data for demonstration purposes. I randomly draw 8 countries, keep their data from 2007, and sort the rows based on GDP per capita. Meet `jDat`.
+I need a small well-behaved excerpt from the Gapminder data for demonstration purposes. I randomly draw 8 countries, keep their data from 2007, and sort the rows based on GDP per capita. Meet `jdat`.
 
 ```{r echo = FALSE}
 ## take a random sample of countries
-nC <- 8
-jYear <- 2007
+n_c <- 8
+j_year <- 2007
 set.seed(1903)
-countriesToKeep <- as.character(sample(levels(gDat$country), size = nC))
-jDat <-
-  droplevels(subset(gDat, country %in% countriesToKeep & year == jYear))
-jDat <- jDat[order(jDat$gdpPercap), ]
-#str(jDat)
+countries_to_keep <-
+  levels(gapminder$country) %>% 
+  sample(size = n_c) %>% 
+  as.character()
+jdat <-
+  gapminder %>% 
+  filter(country %in% countries_to_keep, year == j_year) %>% 
+  droplevels() %>% 
+  arrange(gdpPercap)
+#str(jdat)
 ```
 
 ```{r}
-jDat
+jdat
 ```
 
 A simple scatterplot, using `plot()` from the base package `graphics`.
 
 ```{r}
-jXlim <- c(460, 60000)
-jYlim <- c(47, 82)
-plot(lifeExp ~ gdpPercap, jDat, log = 'x', xlim = jXlim, ylim = jYlim,
+j_xlim <- c(460, 60000)
+j_ylim <- c(47, 82)
+plot(lifeExp ~ gdpPercap, jdat, log = 'x', xlim = j_xlim, ylim = j_ylim,
      main = "Start your engines ...")
 ```
 
 You can specify color explicitly by name by supplying a character vector with one or more color names (more on those soon). If you need a color for 8 points and you input fewer, recycling will kick in. Here's what happens when you specify one or two colors via the `col =` argument of `plot()`.
 
 ```{r fig.show='hold', out.width='50%'}
-plot(lifeExp ~ gdpPercap, jDat, log = 'x', xlim = jXlim, ylim = jYlim,
+plot(lifeExp ~ gdpPercap, jdat, log = 'x', xlim = j_xlim, ylim = j_ylim,
      col = "red", main = 'col = "red"')
-plot(lifeExp ~ gdpPercap, jDat, log = 'x', xlim = jXlim, ylim = jYlim,
+plot(lifeExp ~ gdpPercap, jdat, log = 'x', xlim = j_xlim, ylim = j_ylim,
      col = c("blue", "orange"), main = 'col = c("blue", "orange")')
 ```
 
 You can specify color explicitly with a small positive integer, which is interpreted as indexing into the current palette, which can be inspected via `palette()`. I've added these integers and the color names as labels to the figures below. The default palette contains 8 colors, which is why we're looking at data from eight countries. The default palette is ugly.
 
 ```{r fig.show='hold', out.width='50%'}
-plot(lifeExp ~ gdpPercap, jDat, log = 'x', xlim = jXlim, ylim = jYlim,
-     col = 1:nC, main = paste0('col = 1:', nC))
-with(jDat, text(x = gdpPercap, y = lifeExp, pos = 1))
-plot(lifeExp ~ gdpPercap, jDat, log = 'x', xlim = jXlim, ylim = jYlim,
-     col = 1:nC, main = 'the default palette()')
-with(jDat, text(x = gdpPercap, y = lifeExp, labels = palette(),
+plot(lifeExp ~ gdpPercap, jdat, log = 'x', xlim = j_xlim, ylim = j_ylim,
+     col = 1:n_c, main = paste0('col = 1:', n_c))
+with(jdat, text(x = gdpPercap, y = lifeExp, pos = 1))
+plot(lifeExp ~ gdpPercap, jdat, log = 'x', xlim = j_xlim, ylim = j_ylim,
+     col = 1:n_c, main = 'the default palette()')
+with(jdat, text(x = gdpPercap, y = lifeExp, labels = palette(),
                 pos = rep(c(1, 3, 1), c(5, 1, 2))))     
 ```
 
 You can provide your own vector of colors instead. I am intentionally modelling best practice here too: if you're going to use custom colors, store them as an object in exactly one place, and use that object in plot calls, legend-making, etc. This makes it much easier to fiddle with your custom colors, which few of us can resist.
 
 ```{r}
-jColors <- c('chartreuse3', 'cornflowerblue', 'darkgoldenrod1', 'peachpuff3',
+j_colors <- c('chartreuse3', 'cornflowerblue', 'darkgoldenrod1', 'peachpuff3',
              'mediumorchid2', 'turquoise3', 'wheat4', 'slategray2')
-plot(lifeExp ~ gdpPercap, jDat, log = 'x', xlim = jXlim, ylim = jYlim,
-     col = jColors, main = 'custom colors!')
-with(jDat, text(x = gdpPercap, y = lifeExp, labels = jColors,
+plot(lifeExp ~ gdpPercap, jdat, log = 'x', xlim = j_xlim, ylim = j_ylim,
+     col = j_colors, main = 'custom colors!')
+with(jdat, text(x = gdpPercap, y = lifeExp, labels = j_colors,
                 pos = rep(c(1, 3, 1), c(5, 1, 2)))) 
 ```
 
@@ -155,12 +161,22 @@ The package is, frankly, rather clunky, as evidenced by the requirement to speci
 Here we revisit specifying custom colors as we did above, but using a palette from RColorBrewer instead of our artisanal "peachpuff3" work of art. As before, I display the colors themselves but you'll see we're not getting the friendly names you've seen before, which brings us to our next topic.
 
 ```{r}
-jBrewColors <- brewer.pal(n = 8, name = "Dark2")
-plot(lifeExp ~ gdpPercap, jDat, log = 'x', xlim = jXlim, ylim = jYlim,
-     col = jBrewColors, main = 'Dark2 qualitative palette from RColorBrewer')
-with(jDat, text(x = gdpPercap, y = lifeExp, labels = jBrewColors,
+j_brew_colors <- brewer.pal(n = 8, name = "Dark2")
+plot(lifeExp ~ gdpPercap, jdat, log = 'x', xlim = j_xlim, ylim = j_ylim,
+     col = j_brew_colors, main = 'Dark2 qualitative palette from RColorBrewer')
+with(jdat, text(x = gdpPercap, y = lifeExp, labels = j_brew_colors,
                 pos = rep(c(1, 3, 1), c(5, 1, 2)))) 
 ```
+
+### viridis
+
+In 2015 Stéfan van der Walt and Nathaniel Smith designed new color maps for matplotlib and [presented them in a talk at SciPy 2015](https://www.youtube.com/watch?v=xAoljeRJ3lU&feature=youtu.be). The `viridis` R package provides four new palettes for use in R: on [CRAN](https://cran.r-project.org/web/packages/viridis/index.html) with development on [GitHub](https://github.com/sjmgarnier/viridis). From DESCRIPTION:
+
+> These color maps are designed in such a way that they will analytically be perfectly perceptually-uniform, both in regular form and also when converted to black-and-white. They are also designed to be perceived by readers with the most common form of color blindness.
+
+This package is quite new so I haven't prepared any examples yet but here's a look at the new palettes. I encourage you to install `viridis` and read [the vignette](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html).
+
+![](https://raw.githubusercontent.com/sjmgarnier/viridis/master/img/sample2.png)
 
 ### Hexadecimal RGB color specification
 
@@ -192,9 +208,11 @@ Note that the lowest possible channel intensity is `00` = 0 and the highest is `
 Important special cases that help you stay oriented. Here are the saturated RGB colors, red, blue, and green:
 
 ```{r include = FALSE}
-foo <- data.frame(colorName = c("blue", "green", "red"),
+foo <- data.frame(color_name = c("blue", "green", "red"),
                   hex = c("#0000FF", "#00FF00", "#FF0000"),
-                  red = c(0, 0, 255), green = c(0, 255, 0), blue = c(255, 0, 0))
+                  red = c(0, 0, 255),
+                  green = c(0, 255, 0),
+                  blue = c(255, 0, 0))
 foo <- xtable(foo, digits = 0)
 ```
 
@@ -205,11 +223,13 @@ print(foo, type='html', include.rownames = FALSE)
 Here are shades of gray:
 
 ```{r include = FALSE}
-jIntensity <- c(255, 171, 84, 0)
-foo <- data.frame(colorName = c("white, gray100", "gray67",
-                                "gray33", "black, gray0"),
+j_intensity <- c(255, 171, 84, 0)
+foo <- data.frame(color_name = c("white, gray100", "gray67",
+                                 "gray33", "black, gray0"),
                   hex = c("#FFFFFF", "#ABABAB", "#545454", "#000000"),
-                  red = jIntensity, green = jIntensity, blue = jIntensity)
+                  red = j_intensity,
+                  green = j_intensity,
+                  blue = j_intensity)
 foo <- xtable(foo, digits = 0)
 ```
 

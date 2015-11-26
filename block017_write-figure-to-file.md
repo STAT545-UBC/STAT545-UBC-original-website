@@ -32,7 +32,7 @@ All of these human practices will help you zero in on the R code you need, so yo
 
 ### Graphics devices
 
-Read the [R help for `Devices`](http://www.rdocumentation.org/packages/grDevices/functions/Devices) to learn about graphics devices in general and which are available on your system (*obviously requires you read your local help*).
+Read the [R help for `Devices`](http://www.rdocumentation.org/packages/grDevices/functions/Devices) to learn about graphics devices in general and which are available on your system (*obviously requires that you read your local help*).
 
 It is very important to understand the difference between [vector graphics](http://en.wikipedia.org/wiki/Vector_graphics) and [raster](http://en.wikipedia.org/wiki/Raster_graphics). Vector graphics are represented in terms of shapes and lines, whereas raster graphics are pixel-based.
 
@@ -44,7 +44,7 @@ It is very important to understand the difference between [vector graphics](http
   
 Tough love: you will not be able to pick vector or raster or a single device and use it all the time. You must think about your downstream use cases and plan accordingly. It is entirely possible that you should save key figures __in more than one format__ for maximum flexibility in the future. Worst case, if you obey the rules given here, you can always remake the figure to save in a new format.
 
-FWIW most of my figures exist as `pdf()`, `png()`, or both.
+FWIW most of my figures exist as `pdf()`, `png()`, or both. Although it is not true yet, SVG will hopefully become the new standard, offering the resizability of vector graphics but with web-friendliness as well.
 
 Here are two good posts from the Revolutions Analytics blog with tips for saving figures to file:
 
@@ -69,10 +69,10 @@ After the filename, the most common argument you will provide is `plot =`, which
 
 
 ```r
-p <- ggplot(gDat, aes(x = year, y = lifeExp)) + geom_jitter()
+p <- ggplot(gapminder, aes(x = year, y = lifeExp)) + geom_jitter()
 # during development, you will uncomment next line to print p to screen
 # p
-ggsave("imp/fig-io-practice.png", p)
+ggsave("fig-io-practice.png", p)
 ```
 
 See below for gotchas and FAQs when making figures in a non-interactive setting!
@@ -88,8 +88,8 @@ __Via the `base_size` of the active theme__: The `base_size` of the [theme](http
 
 ```r
 suppressPackageStartupMessages(library(ggplot2))
-gDat <- read.delim("gapminderDataFiveYear.tsv")
-p <- ggplot(gDat, aes(x = year, y = lifeExp)) + geom_jitter()
+library(gapminder)
+p <- ggplot(gapminder, aes(x = year, y = lifeExp)) + geom_jitter()
 p1 <- p + ggtitle("scale = 0.6")
 p2 <- p + ggtitle("scale = 2")
 p3 <- p + ggtitle("base_size = 20") + theme_grey(base_size = 20)
@@ -126,8 +126,8 @@ Edit your source code in the following way: Precede the figure-making code by op
 pdf("test-fig-proper.pdf") # starts writing a PDF to file
 plot(1:10)                    # makes the actual plot
 dev.off()                     # closes the PDF file
-## pdf 
-##   2
+## quartz_off_screen 
+##                 2
 ```
 
 You will see there's a new file in the working directory:
@@ -140,7 +140,7 @@ list.files(pattern = "^test-fig*")
 
 If you run this code interactively, don't be surprised when you don't see the figure appear in your screen device. While you're sending graphics output to, e.g., the `pdf()` device, you'll be "flying blind", which is why it's important to work out the graphics commands in advance. This is like using `sink()`, which diverts the output you'd normally see in R Console.
 
-Read the [R help for `Devices`](http://www.rdocumentation.org/packages/grDevices/functions/Devices) to learn about graphics devices in general and which are available on your system (*obviously requires you read your local help*). If you need control over, e.g., width, height, or dpi, roll up your sleeves and use the arguments to the graphics device function you are using. There are many.
+Read the [R help for `Devices`](http://www.rdocumentation.org/packages/grDevices/functions/Devices) to learn about graphics devices in general and which are available on your system (*obviously requires that you read your local help*). If you need control over, e.g., width, height, or dpi, roll up your sleeves and use the arguments to the graphics device function you are using. There are many.
 
 If you are staring at a plot you just made on your screen, here's a handy short cut for writing a figure to file:
 
@@ -149,13 +149,13 @@ If you are staring at a plot you just made on your screen, here's a handy short 
 plot(1:10)            # makes the actual plot
 ```
 
-![](./block017_write-figure-to-file_files/figure-html/dev-print-demo.png) 
+![](block017_write-figure-to-file_files/figure-html/dev-print-demo-1.png) 
 
 ```r
 dev.print(pdf,        # copies the plot to a the PDF file
           "test-fig-quick-dirty.pdf")             
-## pdf 
-##   2
+## quartz_off_screen 
+##                 2
 ```
 
 You will see there's now another new file in the working directory:
@@ -183,7 +183,7 @@ Certain workflows are suited to interactive development and will break when play
 
 __Basic issue__: When working interactively, if you inspect the plot object `p` by entering `p` at the command line, the plot gets printed to screen. You're actually enjoying the result of `print(p)`, but it's easy to not realize this. To get the same result from code run non-interactively, you will need to call `print()` explicitly yourself.
 
-Here I wrap plotting commands inside a function. The function on the left will fail to produce a PNG, whereas the function on the right will produce a good PNG. Both assume the Gapminder data is present as `gDat` and that `ggplot2` has been loaded.
+Here I wrap plotting commands inside a function. The function on the left will fail to produce a PNG, whereas the function on the right will produce a good PNG. Both assume the Gapminder data is present as `gapminder` and that `ggplot2` has been loaded.
 
 <table border = 1>
 <tr>
@@ -192,7 +192,8 @@ Here I wrap plotting commands inside a function. The function on the left will f
 ## implicit print --> no PNG
 f_despair <- function() {
   png("test-fig-despair.png")
-  p <- ggplot(gDat, aes(x = year, y = lifeExp))
+  p <- ggplot(gapminder,
+     aes(x = year, y = lifeExp))
   p + geom_jitter()
   dev.off()    
 }
@@ -204,9 +205,10 @@ f_despair()
 ## explicit print --> good PNG
 f_joy <- function() {
   png("test-fig-joy.png")
-  p <- ggplot(gDat, aes(x = year, y = lifeExp))
+  p <- ggplot(gapminder,
+     aes(x = year, y = lifeExp))
   p <- p + geom_jitter()
-  print(p)
+  print(p) ## <-- VERY IMPORTANT!!!
   dev.off()    
 }
 f_joy() 
@@ -229,6 +231,8 @@ Some relevant threads on stackoverflow:
   
 #### Mysterious empty `Rplots.pdf` file
 
+*2015-10-19 update: [This has been fixed](https://github.com/hadley/ggplot2/issues/1326) in the soon-to-be-released version of `ggplot2`. Hallelujah! I will leave this here for a while, since old versions of a package like `ggplot2` linger around for months and years.*
+
 When creating and writing figures from R running non-interactively, you can inadvertently trigger a request to query the active graphics device. For example, `ggsave()` might try to ascertain the physical size of the current device. But when running non-interactively there is often no such device available, which can lead to the unexpected creation of `Rplots.pdf` so this request can be fulfilled.
 
 I don't know of a reliable way to suppress this behavior uniformly and I just peacefully coexist with `Rplots.pdf` when this happens. That is, I just delete it.
@@ -239,7 +243,7 @@ Some relevant threads on stackoverflow:
 
 ### Chunk name determines figure file name
 
-Coming full circle, we return to the topic of figures produced via an R chunk in an R Markdown file. If you are [keeping the intermediate markdown](http://stat545-ubc.github.io/block007_first-use-rmarkdown.html#step-3-save-the-intermediate-markdown), via `keep.md: true` in the YAML frontmatter, your figures will also be saved to file. Rendering `foo.Rmd` will leave behind `foo.md`, `foo.html`, and a directory `foo_files`, containing any figures created in the document. By default, they will have meaningless names, like `unnamed-chunk-7.png`. This makes it difficult to find specific figures, i.e. for unplanned use in another setting. However, if you name an R chunk, this name will be baked into the figure file name.
+Coming full circle, we return to the topic of figures produced via an R chunk in an R Markdown file. If you are [keeping the intermediate markdown](http://stat545-ubc.github.io/block007_first-use-rmarkdown.html#step-3-save-the-intermediate-markdown), via `keep_md: true` in the YAML frontmatter, your figures will also be saved to file. Rendering `foo.Rmd` will leave behind `foo.md`, `foo.html`, and a directory `foo_files`, containing any figures created in the document. By default, they will have meaningless names, like `unnamed-chunk-7.png`. This makes it difficult to find specific figures, i.e. for unplanned use in another setting. However, if you name an R chunk, this name will be baked into the figure file name.
 
 <!-- the "live" version of the chunk I include verbatim below -->
 
@@ -247,7 +251,7 @@ Coming full circle, we return to the topic of figures produced via an R chunk in
 Example: here's an R chunk called `scatterplot-lifeExp-vs-year`
  
     ```{r scatterplot-lifeExp-vs-year}
-    p <- ggplot(gDat, aes(x = year, y = lifeExp)) + geom_jitter()
+    p <- ggplot(gapminder, aes(x = year, y = lifeExp)) + geom_jitter()
     p
     ```
 
@@ -256,8 +260,8 @@ And it will lead to the creation of a suitably named figure file (you may see ot
 
 ```r
 list.files("block017_write-figure-to-file_files/", recursive = TRUE)
-## [1] "figure-html/dev-print-demo.png"             
-## [2] "figure-html/scatterplot-lifeExp-vs-year.png"
+## [1] "figure-html/dev-print-demo-1.png"             
+## [2] "figure-html/scatterplot-lifeExp-vs-year-1.png"
 ```
 
 If you have concrete plans to use a figure elsewhere, you should probably write it to file using an explicit method described above. But the chunk-naming trick is a nice way to avoid that work, while maintaining flexibility for the future.

@@ -6,21 +6,17 @@ output:
       after_body: include/nothing.html
 ---
 
-### cm104 2014-10-29 Wednesday overview
+### cm104 2015-11-05 Thursday overview
 
-  * [HW07](hw07_data-wrangling-grand-finale.html) due Thursday October 30
-  * [HW08](hw08_data-cleaning.html) re: handling character data and data cleaning
-    - ~~will be posted soon~~ __posted__
-    - due Thursday November 06
-  * [Office hours](https://github.com/STAT545-UBC/Discussion/issues/47) are back ON; check that issue for up-to-date info
-  * [Regular expressions and handling character data](block022_regular-expression.html), led by Gloria Li *continuing from Monday*
-  * Data cleaning via the Gapminder example (now an [R package!](https://github.com/jennybc/gapminder))
-    - *God willing, the slides are embedded below?*
-
-<script async class="speakerdeck-embed" data-id="5e6765704c300132129f2ee134ae9694" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
-
-Links from the slides or generally relevant to data cleaning
-
-   * [An introduction to data cleaning with R](http://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf), a PDF based on a tutorial given by Edwin de Jonge and Mark van der Loo at the useR!2013 conference.
-   * [Excel and delimited files](http://www.slideshare.net/jenniferbryan5811/excel-readwritedelimfiles), two pages by JB on reading and writing delimited files from Excel. Writing a delimited file from Excel is often the first step in data cleaning.
-   
+  * [HW07](hw07_data-wrangling-candy.html) due ~~Wednesday November 11~~ Friday November 13
+    - Bring the Candy Survey data -- or part of it -- to a ready-to-analyze state and do basic exploration.
+    - It is vital that you **finish some task**, nachos to cheesecake. We want a bit of story, some tables, some figures. Keep scaling back the cleaning and reshaping until you can manage this. Then scale up til you run out of time or patience.
+    - ~~We might add an optional regex exercise.~~
+    
+  * The candy survey data is available:
+    - on GitHub: <https://github.com/jennybc/candy>
+    - look in [data-raw](https://github.com/jennybc/candy/tree/master/data-raw)
+    - specifically [data-raw/00_explore-raw.R](https://github.com/jennybc/candy/blob/master/data-raw/00_explore-raw.R) will get you started and poses some challenges
+  * Today will be all live coding and helping you get traction on HW07.
+  * I definitely want to spend some time on two-table operations, so we'll probably go here:
+    - [Cheatsheet for `dplyr` join functions](bit001_dplyr-cheatsheet.html)

@@ -20,6 +20,16 @@
 <script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -42,6 +52,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
 
 </head>
 
@@ -112,6 +123,7 @@ img {
 <li>render a R Markdown report in HTML and PDF</li>
 </ul>
 <p>You will automate this pipeline using <code>make</code>!</p>
+<p>back to <a href="automation00_index.html">All the automation things</a></p>
 <div id="dependency-graph-of-the-pipeline" class="section level3">
 <h3>Dependency graph of the pipeline</h3>
 <!-- TO DO: remake the figure to say words.txt not words.tsv and the new words downloading strategy -->
@@ -122,11 +134,6 @@ img {
 <p>In RStudio: <em>File &gt; New Project &gt; New Directory &gt; Empty Project.</em> If you’re a Git user, we strongly encourage you to click on “Create a git repository.”</p>
 <p>This project will be useful as a reference in the future, so give it an informative name and location. If you’re a GitHub user, you may want to push it there as well.</p>
 <p>Git(Hub) users: from here on out, we assume you will be committing at regular intervals. At key points, we explicitly prompt you to commit.</p>
-<p>Configure this RStudio Project to work with <code>make</code>. Consult the <a href="automation03_make-test-drive.html"><code>make</code> test drive</a> for details:</p>
-<ul>
-<li>make sure tabs are NOT replaced with spaces</li>
-<li>set Project Build Tools to <code>Makefile</code></li>
-</ul>
 <p>Git folks: commit now.</p>
 </div>
 <div id="sample-project-and-git-repository" class="section level3">
@@ -137,6 +144,14 @@ img {
 <div id="create-the-makefile" class="section level3">
 <h3>Create the Makefile</h3>
 <p>In RStudio: <em>File &gt; New File &gt; Text File.</em> Save it with the name <code>Makefile</code>. Keep adding the rules we write below to this file, saving regularly.</p>
+<p>Once you’ve saved the file with the name <code>Makefile</code>, RStudio should indent with tabs instead of spaces. I recommend you display whitespace in order to visually confirm this: <em>RStudio &gt; Preferences &gt; Code &gt; Display &gt; Display whitespace characters</em>. A more extreme measure is to set Project or Global preferences to NOT replace tabs with spaces, but this will wreak havoc elsewhere.</p>
+<p>You also want RStudio to recognize the presence of the <code>Makefile</code>. Pick one:</p>
+<ul>
+<li>set Project Build Tools to <code>Makefile</code></li>
+<li>quit and relaunch</li>
+</ul>
+<p>You should see a “Build” tab now in the same pane as “Environment”, “History”, and, if applicable, “Git”.</p>
+<p>Git folks: commit now.</p>
 </div>
 <div id="get-the-dictionary-of-words" class="section level3">
 <h3>Get the dictionary of words</h3>
@@ -347,6 +362,7 @@ report.html: report.rmd histogram.tsv histogram.png
 <p>The <code>.PHONY</code> line is where you declare which targets are <em>phony</em>, i.e. are not actual files to be made in the literal sense. It’s a good idea to explicitly tell <code>make</code> which targets are phony, instead of letting it try to deduce this. <code>make</code> can get confused if you create a file that has the same name as a phony target. If for example you create a directory named <code>clean</code> to hold your clean data and run <code>make clean</code>, then <code>make</code> will report <code>'clean' is up to date</code>, because a directory with that name already exists.</p>
 <p><code>.DELETE_ON_ERROR</code> causes <code>make</code> to “delete the target of a rule if it has changed and its recipe exits with a nonzero exit status”. In English, this means that – if a rule starts to run but then exits due to error – any outputs written in the course of that fiasco will be deleted. This can protect you from having half-baked, erroneous files lying around that will just confuse you later.</p>
 <p><code>.SECONDARY</code> tells <code>make</code> not to delete intermediate files of a chain of pattern rules. Consider creating a <code>Makefile</code> with two pattern rules, <code>%.md: %.rmd</code> and <code>%.html: %.md</code>, and then running <code>make report.html</code>. After <code>make</code> has created <code>report.md</code> and <code>report.html</code>, it will delete the intermediate file <code>report.md</code>. Adding <code>.SECONDARY</code> to your <code>Makefile</code> prevents the intermediate file from being deleted.</p>
+<p>back to <a href="automation00_index.html">All the automation things</a></p>
 </div>
 
 <div class="footer">

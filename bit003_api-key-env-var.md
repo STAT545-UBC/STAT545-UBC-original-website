@@ -6,7 +6,7 @@ Solution: Store it as an environment variable and retrieve it with `Sys.getenv()
 
 Motivating example: I use this method to interact with GitHub via the [`github` R package](https://github.com/cscheid/rgithub), a wrapper around the GitHub v3 API.
 
-Source: The [`httr` package](https://github.com/hadley/httr) has a vignette, [Best practices for writing an API package](http://cran.r-project.org/web/packages/httr/vignettes/api-packages.html), that advocates this approach (but lacks this excruciating detail).
+Source: The [`httr` package](https://github.com/hadley/httr) has a vignette, [Best practices for writing an API package](http://cran.r-project.org/web/packages/httr/vignettes/api-packages.html), that advocates this approach (~~but lacks this excruciating detail~~ *ok now this content is there*).
 
 How to do it:
 

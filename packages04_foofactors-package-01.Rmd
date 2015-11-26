@@ -1,0 +1,309 @@
+---
+title: "Write your own R package, Part One"
+output: 
+  html_document: 
+    keep_md: yes
+    toc: yes
+params:
+   debug: FALSE
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
+```
+
+### Prerequisites
+
+We assume you have [configured your system for R package development](packages01_system-prep.html). This will ensure you have all the right software installed and that it's updated. Ignoring this prep will only lead to heartache. **Do it.**
+
+You can see the glorious result of all this by visiting the `foofactors` package on GitHub: <https://github.com/jennybc/foofactors>.
+
+back to [All the package things](packages00_index.html)
+
+### Why `devtools`?
+
+We will use the `devtools` package to facilitate package development. It's on [CRAN](https://cran.r-project.org/web/packages/devtools/index.html) and developed on [GitHub](https://github.com/hadley/devtools). Why?
+
+  * ensures your package source has the format of a valid R package
+  * provides a fluid workflow for package development: tweak it, use it, ... lather, rinse, repeat
+
+The source of R an package is a highly structured set of files that reside in a dedicated directory on your computer. It can be beneficial to also make this directory an RStudio Project and a Git repository and, eventually, associate it with a GitHub remote. `devtools` ensures that your initial set up is correct and helps you keep it that way as your package evolves.
+
+As you develop the functions in your package, you need to take them out regularly for a test drive. How do you plan to get them into memory? Various workflows come to mind:
+
+  * copy/paste or use IDE magic to send the function definition to R Console
+  * use `source()` or IDE magic to evaluate the `.R` file with function definition
+  * use `R CMD INSTALL` in the shell then, in R, load your package
+
+These workflows may be tolerable at first, but they grow old very quickly. The first two are also suboptimal with respect to package namespace issues. An awkward workflow can lead to bad habits, such as not test driving your package very often, and can make the process totally unpleasant.
+
+`devtools` helps you iterate quickly between developing your functions and checking if they work as intended.
+
+### Create the package
+
+Our demo package will provide functions for the care and feeding of factors, the variable type we all love to hate.
+
+We'll call it `foofactors` here but you can call yours whatever you want.
+
+**!! Modify the path below to create your new package where YOU want it on YOUR system !!** Use RStudio's auto-completion of paths to make sure the path actually exists. To avoid nesting a Git repo within a Git repo, do NOT put this inside your STAT 545 repository. Do NOT put this inside any directory that is already a Git repository. Directly or indirectly.
+
+```{r include = FALSE}
+## let's put the package in session temp file!
+#ff_path <- normalizePath(tempfile("foofactors-"), mustWork = FALSE)
+#dir.create(ff_path)
+## nope ... I need it to persist long enough to render part 2
+
+## let's put the package in this repo!
+#ff_path <- "packages99"
+## nope ... devtools::use_git() detects the enclosing git repo and doesn't
+## operate normally
+
+## let's put the package in my own tmp dir!
+ff_path <-
+  normalizePath(file.path("~", "tmp", "foofactors"), mustWork = FALSE)
+unlink(ff_path, recursive = TRUE)
+## this appears to be the least awful choice
+```
+
+Create a new package in a new directory with `devtools::create()`:
+
+```{r}
+library(devtools)
+create("~/tmp/foofactors")
+```
+
+```{r set-root-dir, include = params$debug}
+## I normally am not this masochistic, but I don't have much choice.
+(owd <- getwd())
+knitr::opts_knit$set(root.dir = ff_path)
+## during interactive dev:
+## setwd(ff_path)
+getwd()
+knitr::opts_knit$get("root.dir")
+```
+
+```{r include = params$debug}
+getwd()
+```
+
+Navigate to this directory and double click on `foofactors.Rproj` to launch a new RStudio session in the Project that is your `foofactors` package.
+
+What does it look like? Here's a file listing (locally, you can consult your file browser):
+
+```{r echo = FALSE}
+cbind(listing_1 <- dir(all.files = TRUE, no.. = TRUE))
+```
+
+  * `DESCRIPTION` provides [metadata about your package](http://r-pkgs.had.co.nz/description.html).
+  * The `R/` directory is the ["business end" of your package](http://r-pkgs.had.co.nz/r.html). It will soon contain `.R` files with function definitions.
+  * [`NAMESPACE`](http://r-pkgs.had.co.nz/namespace.html) declares the functions your package will export for external use and the external functions your package will import from other packages.
+  * `.gitignore` anticipates our usage of Git and ignores some standard R/RStudio stuff.
+  * `foofactors.Rproj` is the file that makes this directory an RStudio Project. If you don't use RStudio, suppress its creation with `create(..., rstudio = FALSE)`.
+
+### Put it under version control
+
+Let's make this directory, which is already an RStudio Project and an R source package, into a Git repository, with `devtools::use_git()`.
+
+```{r}
+use_git()
+```
+
+```{r git2r-begin, include = params$debug}
+library(git2r)
+#dir.exists(ff_path)
+discover_repository(ff_path)
+```
+
+What's new? Only a `.git` directory, which will be hidden in most contexts, including the RStudio file browser. Its existence confirms we have indeed initialized a Git repo here.
+
+```{r echo = FALSE}
+listing_2 <- dir(all.files = TRUE, no.. = TRUE)
+cbind(setdiff(listing_2, listing_1))
+```
+
+Quit and relaunch RStudio in this Project, so that it is recognized as a Git repo and the Git tab becomes available in the Environment/History/Build pane. Click on History and you should see evidence of our initial commit:
+
+```{r echo = FALSE}
+repo <- repository(getwd())
+commits(repo)[[1]]
+```
+
+FYI RStudio can also initialize a Git repository, in any Project, even if it's not an R package: *Tools > Version Control > Project Setup*. Then choose *Version control system: Git* and *initialize a new git repository for this project*.
+
+### Add your first function
+
+Let's think of something annoying about factors ... hmmmm ... gee that's tough ... Let's catenate two factors.
+
+```{r}
+(a <- factor(c("character", "hits", "your", "eyeballs")))
+(b <- factor(c("but", "integer", "where it", "counts")))
+c(a, b)
+```
+
+There we go! Who expects that result? It's not my first rodeo, so I actually do.
+
+Let's write `fbind()`, a function that creates a new factor from two factors:
+
+```{r include = FALSE}
+fbind_fodder <- c("fbind <- function(a, b) {",
+                  "  factor(c(as.character(a), as.character(b)))",
+                  "}")
+writeLines(fbind_fodder, file.path("R", "fbind.R"))
+```
+
+```{r as.is = TRUE, echo = FALSE, comment = NA}
+cat(readLines(file.path("R", "fbind.R")), sep = "\n")
+```
+
+How do we check that it works? If this were a regular `.R` script or `.Rmd` file, we'd use our IDE to send this function definition to the R Console. Then we'd call `fbind(a, b)` to see what happens.
+
+With `devtools`, the package development equivalent is to call `load_all()`:
+
+```{r}
+load_all()
+```
+
+Learn the keyboard and menu shortcuts for this. In RStudio:
+
+  * Windows & Linux: Ctrl + Shift + L
+  * Mac: Cmd + Shift + L
+  * In Environment/History/Build/Git pane:
+    - *Build > More > Load All*
+  * From Build menu:
+    - *Build > Load All*
+
+This simulates the process of building and installing the `foofactors` package. Therefore it makes the `fbind()` function available to us, although not from the global workspace, where interactively defined objects live:
+
+```{r}
+exists("fbind", where = ".GlobalEnv", inherits = FALSE)
+fbind(a, b)
+```
+
+We have written our first function, `fbind()`, to catenate two factors.
+
+We have used `load_all()` to quickly make this function available, as if we'd built + installed `foofactors` and loaded via `library(foofactors)`.
+
+We've tested it very informally.
+
+We can all think of lots of ways to improve `fbind()`. Or maybe you can think of more urgent factor fires that you would like to put out. That's why we have [homework](hw08_package.html)!
+
+### Commit `fbind()`
+
+Use you favorite method to commit the new `R/fbind.R` file.
+
+```{r include = FALSE}
+add(repo, path = file.path("R", "fbind.R"))
+commit(repo, message = "Add fbind()")
+tag(repo, "end-part-01", "foofactors at the end of part one")
+```
+
+Your most recent commit should look something like this (if you're lucky, you've got a nicer way of inspecting it):
+
+```{r echo = FALSE, as.is = TRUE}
+commits(repo)[[1]]
+tree_1 <- tree(commits(repo)[[2]])
+tree_2 <- tree(commits(repo)[[1]])
+jdiff <- diff(tree_1, tree_2)
+cat(diff(tree_1, tree_2, as_char = TRUE))
+```
+
+### Build, Install, Check
+
+OK `fbind()` works. How can we be even more sure that all the moving parts of the package still work? Sure, we've only added the one measly `fbind()`function. Humor me.
+
+We could simply try to install and load the package and hope for the best. Recall this figure from [R Packages](http://r-pkgs.had.co.nz/package.html):
+
+![](https://raw.githubusercontent.com/hadley/r-pkgs/master/diagrams/installation.png)
+
+We have to somehow move our source package through various stages to get it installed.
+
+#### Base utilities
+
+Even though we're going to use `devtools`, don't lean so heavily on it that you lose sight of how packages are actually built, checked, and installed. `devtools` is largely a convenience wrapper around base utilities.
+
+The core utilities to know about:
+
+  * [`R CMD build`](https://stat.ethz.ch/R-manual/R-patched/library/utils/html/PkgUtils.html) converts a source package to a bundle or tarball
+  * [`R CMD INSTALL`](https://stat.ethz.ch/R-manual/R-patched/library/utils/html/INSTALL.html) installs a package bundle into a library
+  * [`R CMD check`](https://stat.ethz.ch/R-manual/R-patched/library/utils/html/PkgUtils.html) runs all sorts of checks. Even if you don't plan to submit your package to CRAN, it's a very good idea to make this part of your own quality standard.
+  
+In a shell, with working directory set to the parent of `foofactors`, here's what usage might look like:
+
+``` shell
+R CMD build foofactors
+R CMD check foofactors_0.0.0.9000.tar.gz
+R CMD INSTALL foofactors_0.0.0.9000.tar.gz
+```
+#### `devtools` and RStudio
+
+Luckily `devtools` and RStudio make these utilities very easy to get at.
+
+At intermediate milestones, you should check your package:
+
+  * From RStudio
+    - *Build > Check*
+  * In R Console
+    - `check()`
+    
+**Read the output of the check!** Deal with problems early and often. It's just like incremental development of `.R` and `.Rmd`. The longer you go between full checks that everything works, the harder it is to pinpoint and solve your problems.
+
+Just this once, run `check()` with `document = FALSE`, so we don't get ahead of ourselves. (Specifically, I don't want to mess with our `NAMESPACE` file yet.)
+
+At this point, you should expect to get two warnings:
+
+  * `Non-standard license specification`
+  * `Undocumented code objects: 'fbind'`
+  
+We'll fix both soon.
+    
+```{r}
+check(document = FALSE)
+```
+
+Once things look OK, you can install your very own `foofactors` package into your library:
+
+```{r}
+install()
+```
+
+Now we can load `foofactors` just like a regular package and use it.
+
+A shortcut for "build, install, and reload" is offered by RStudio:
+
+  * *Build > Build & Reload*
+  
+#### Did it really work?
+
+Now that we've installed `foofactors` properly, let's revisit our small example.
+
+```{r}
+library(foofactors)
+a <- factor(c("character", "hits", "your", "eyeballs"))
+b <- factor(c("but", "integer", "where it", "counts"))
+fbind(a, b)
+```
+
+Success! That's enough for now.
+
+In [part two](packages05_foofactors-package-02.html), we'll add more bells and whistles to the package.
+
+back to [All the package things](packages00_index.html)
+
+```{r teardown, include = params$debug}
+remove.packages("foofactors")
+owd
+knitr::opts_knit$set(root.dir = owd)
+knitr::opts_knit$get("root.dir")
+```
+
+```{r include = params$debug}
+## FUTURE JENNY! don't move this into the previous chunk!
+## you can't remove current working directory and the root.dir change
+## doesn't take effect until you enter the next chunk
+getwd()
+
+## NO NO NO ... pick up where we leave off in part 2
+#unlink(ff_path, recursive = TRUE)
+```
+
+<!--http://davidgohel.github.io/ReporteRs/FlexTable.html-->

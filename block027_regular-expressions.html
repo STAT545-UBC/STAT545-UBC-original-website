@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Kieran Samuk" />
+
+<meta name="date" content="2015-10-27" />
+
+<title>Regular Expressions and Character Data</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Regular Expressions and Character Data</h1>
+<h4 class="author"><em>Kieran Samuk</em></h4>
+<h4 class="date"><em>October 27, 2015</em></h4>
+</div>
+
+
+<p>Hopefully we now all have a nice grasp of regular expressions. Now, lets wield the mighty hammer of regex to wrangle some unruly text data in R!</p>
+<div id="set-up" class="section level3">
+<h3>Set up</h3>
+<p>Install <code>stringr</code> if you don’t have it already!</p>
+<pre class="r"><code>#install.packages(&quot;stringr&quot;)
+library(&quot;stringr&quot;)
+library(&quot;dplyr&quot;)
+library(&quot;ggplot2&quot;)</code></pre>
+</div>
+<div id="part-1-basic-string-manipluation-in-r" class="section level2">
+<h2>Part 1: Basic string manipluation in R</h2>
+<div id="nchar---count-the-length-of-individual-strings." class="section level3">
+<h3><code>nchar</code> - count the length of individual strings.</h3>
+<pre class="r"><code>test_str &lt;- c(&quot;STAT545 is great!&quot;, &quot;Wooooo!&quot;)
+nchar(test_str)</code></pre>
+<pre><code>## [1] 17  7</code></pre>
+</div>
+<div id="substr---extract-or-replace-substrings-in-a-character-vector." class="section level3">
+<h3><code>substr</code> - extract or replace substrings in a character vector.</h3>
+<p>Lets extract the 1st through 7th elements:</p>
+<pre class="r"><code>substr(test_str, 1, 7)</code></pre>
+<pre><code>## [1] &quot;STAT545&quot; &quot;Wooooo!&quot;</code></pre>
+<p>Now lets replace the 1st through 7th elements with SCIENCE:</p>
+<pre class="r"><code>substr(test_str, 1, 7) &lt;- &quot;SCIENCE&quot;
+test_str</code></pre>
+<pre><code>## [1] &quot;SCIENCE is great!&quot; &quot;SCIENCE&quot;</code></pre>
+</div>
+<div id="paste---concatenate-or-combine-strings" class="section level3">
+<h3><code>paste</code> - concatenate or combine strings</h3>
+<p>This is a weirdly complex function, so let’s just touch on the common uses. The ‘sep’ parameter determines the separating character (defaults to a single space).</p>
+<pre class="r"><code>paste(&quot;abc&quot;, &quot;efg&quot;)</code></pre>
+<pre><code>## [1] &quot;abc efg&quot;</code></pre>
+<pre class="r"><code>paste(&quot;abc&quot;, &quot;efg&quot;, sep = &quot;&quot;)</code></pre>
+<pre><code>## [1] &quot;abcefg&quot;</code></pre>
+<p><code>paste0</code> is a shortcut for <code>paste(..., sep = &quot;&quot;)</code></p>
+<pre class="r"><code>paste0(&quot;abc&quot;, &quot;efg&quot;)</code></pre>
+<pre><code>## [1] &quot;abcefg&quot;</code></pre>
+<p>If you want to combined many multi-value vectors, you need to also specify “collapse”:</p>
+<pre class="r"><code>paste(c(&quot;abc&quot;, &quot;efg&quot;), c(&quot;hij&quot;, &quot;klm&quot;), sep = &quot;&quot;, collapse = &quot;&quot;)</code></pre>
+<pre><code>## [1] &quot;abchijefgklm&quot;</code></pre>
+</div>
+<div id="strsplit---split-a-string-into-a-list-of-substrings" class="section level3">
+<h3><code>strsplit</code> - split a string into a list of substrings</h3>
+<p>For example, we can split a vector based on commas:</p>
+<pre class="r"><code>x &lt;- c(&quot;abc,cbe&quot;, &quot;cb,gb,aaa&quot;)
+strsplit(x, split = &quot;,&quot;)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;abc&quot; &quot;cbe&quot;
+## 
+## [[2]]
+## [1] &quot;cb&quot;  &quot;gb&quot;  &quot;aaa&quot;</code></pre>
+<p>Remember this returns a list, so treat it like one! Perhaps we want every second element:</p>
+<pre class="r"><code>strsplit(x, split = &quot;,&quot;) %&gt;% lapply(function(x) x[2])</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;cbe&quot;
+## 
+## [[2]]
+## [1] &quot;gb&quot;</code></pre>
+</div>
+<div id="part-2-regex-in-r" class="section level3">
+<h3>Part 2: Regex in R</h3>
+<p>You now know the basics of wrangling character data in R! You are great. Now lets see how we can use these skills along with regex to do some very powerful manipulations.</p>
+<div id="quick-notes-on-regex-in-r" class="section level4">
+<h4>Quick notes on Regex in R</h4>
+<ol style="list-style-type: decimal">
+<li>The character classes <strong>\w</strong>, <strong>\d</strong>, <strong>\s</strong>, can also be referred to using POSIX classes in R. They are identical in function, but some people consider these more readable. You can see all of them by typing <code>?regex</code>. Some examples:</li>
+</ol>
+<ul>
+<li><strong>\w</strong> = [[:alnum:]]</li>
+<li><strong>\d</strong> = [[:digit:]]</li>
+<li><strong>\s</strong> = [[:space:]]</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>When escaping special characters or using character classes, you often (always?) need to <strong>double</strong> escape them, e.g. <strong>\\w</strong> instead of <strong>\w</strong></li>
+</ol>
+</div>
+</div>
+<div id="load-the-news_tweets" class="section level3">
+<h3>Load the <code>news_tweets</code></h3>
+<p>For this exercise, lets load a data set of tweets in the last week from four news sources (CBC, CNN, Al Jazeera, Reuters). I gathered these using the R package <code>twitteR</code>, which interfaces with Twitter’s REST API.</p>
+<pre class="r"><code>news_tweets &lt;- read.delim(&quot;https://www.dropbox.com/s/cbgcpkizun51wbk/news_tweets.txt?dl=1&quot;, header = TRUE, stringsAsFactors = FALSE, sep = &quot;\t&quot;, quote = &quot;&quot;, allowEscapes = TRUE)
+glimpse(news_tweets)</code></pre>
+<pre><code>## Observations: 858
+## Variables: 4
+## $ user_name (chr) &quot;CBC&quot;, &quot;CBC&quot;, &quot;CBC&quot;, &quot;CBC&quot;, &quot;CBC&quot;, &quot;CBC&quot;, &quot;CBC&quot;, &quot;CB...
+## $ created   (chr) &quot;2015-10-28 14:54:49&quot;, &quot;2015-10-28 14:54:48&quot;, &quot;2015-...
+## $ retweets  (int) 30, 8, 10, 51, 10, 15, 17, 10, 24, 6, 16, 23, 13, 17...
+## $ text      (chr) &quot;Officer who flipped student in desk to be let go, r...</code></pre>
+<ul>
+<li><code>user_name</code> = twitter user name (shortened)</li>
+<li><code>created</code> = date tweeted</li>
+<li><code>retweets</code> = number of retweets to date</li>
+<li><code>text</code> = the raw text of the tweet</li>
+</ul>
+</div>
+<div id="grep---find-a-pattern-in-a-character-vector" class="section level3">
+<h3><code>grep</code> - find a pattern in a character vector</h3>
+<p>A very basic task you might want to do is search for a regular expression in a character vector.</p>
+<p><code>grep</code> takes a regular expression and a character vector as input, and returns the <em>indexes</em> of the matches.</p>
+<p>Lets use a regular expression to find tweets in <code>news_tweets</code> that contain hashtags. A hash tag is a ‘#’ followed by one or more alphanumeric character, e.g. #rstats, #Canada, etc.</p>
+<pre class="r"><code># two identical ways of writing this regex:
+hastag_pattern &lt;- &quot;#\\w+&quot;
+hastag_pattern &lt;- &quot;#[[:alnum:]]+&quot;
+
+grep(hastag_pattern, news_tweets$text)</code></pre>
+<pre><code>##   [1]   5   7   9  11 175 206 260 269 274 276 277 279 282 287 292 305 308
+##  [18] 309 310 311 321 327 333 338 340 343 348 349 351 358 360 362 364 366
+##  [35] 367 369 371 386 387 388 397 404 405 407 408 411 422 425 434 435 437
+##  [52] 439 440 441 442 453 455 457 459 460 464 467 469 471 487 500 502 503
+##  [69] 505 507 508 510 512 513 514 515 516 517 518 520 521 522 523 530 531
+##  [86] 532 535 536 537 540 541 542 543 544 545 546 548 549 550 551 552 553
+## [103] 554 555 556 558 559 560 561 562 563 564 567 568 569 574 575 577 578
+## [120] 579 580 581 582 583 584 585 586 588 589 591 592 593 594 596 597 598
+## [137] 599 600 601 602 603 604 605 606 607 608 611 612 613 615 619 620 621
+## [154] 622 623 625 634 639 640 641 642 644 646 647 648 649 650 656 657 658
+## [171] 659 660 662 663 664 679 680 691 692 693 724 725 738 770 784 795 817
+## [188] 818 819 826 829 830 831 832</code></pre>
+<p>Setting <code>value = TRUE</code> returns the <em>actual value</em> of the vector at those indexes:</p>
+<pre class="r"><code>grep(hastag_pattern, news_tweets$text, value = TRUE) %&gt;% head(n = 5)</code></pre>
+<pre><code>## [1] &quot;Alberta will try to spend its way out of a slump, but it also needs oil to recover https://t.co/x2h24rKI39 #abbudget https://t.co/ANkckdlb7m&quot;
+## [2] &quot;Volkswagen posted 1st quarterly loss in 15 years, as costs from emissions scandal mount https://t.co/Z9WEkQ96km #VW https://t.co/VaDVd5Mw2D&quot; 
+## [3] &quot;#Tesla&#39;s new Autopilot software means self-driving cars are already on Canadian roads https://t.co/3ksvzhVvEX https://t.co/WsM8s3T73R&quot;       
+## [4] &quot;Canada Post&#39;s door-to-door delivery debate reignites as Liberals set to take office https://t.co/3pXZ1BHtCe #cdnpoli https://t.co/aM4UvkVzRe&quot;
+## [5] &quot;On @CBCMorningShow: Teal Pumpkin Project helps B.C. kids with food allergies feel &#39;safe&#39; on #Halloween https://t.co/vzVtMSinIh&quot;</code></pre>
+<p>We can also invert the search using <code>invert = TRUE</code>:</p>
+<pre class="r"><code>grep(hastag_pattern, news_tweets$text, value = TRUE, invert = TRUE) %&gt;% head(n = 5)</code></pre>
+<pre><code>## [1] &quot;Officer who flipped student in desk to be let go, report says https://t.co/yRcQG35zXn https://t.co/LgXCbaDtjk&quot;                         
+## [2] &quot;Apple Pay coming to Canada this year with American Express partnership https://t.co/Whc2g3lLzP https://t.co/xru2gnWdrg&quot;                
+## [3] &quot;Renovation nation: Canadians may spend record $53 billion fixing their homes this year https://t.co/lNGZtIuuih https://t.co/KrCQ1rh8go&quot;
+## [4] &quot;Cosmetic ear cropping banned by B.C. veterinarians https://t.co/wlsXmOmBFC https://t.co/E9hFezNJZe&quot;                                    
+## [5] &quot;&#39;I wouldn&#39;t mind to go back to school&#39;: No teacher, no students and a vicious cycle https://t.co/I62zrvwTlZ https://t.co/BlKtD9uGQx&quot;</code></pre>
+</div>
+<div id="grepl---logical-pattern-matching" class="section level3">
+<h3><code>grepl</code> - logical pattern matching</h3>
+<p><code>grepl</code> (grep logical) is similar to <code>grep</code>, but returns TRUE or FALSE for every element of the vector:</p>
+<pre class="r"><code>hastag_pattern &lt;- &quot;#[[:alnum:]]+&quot;
+grepl(hastag_pattern, news_tweets$text) %&gt;% head(n = 10)</code></pre>
+<pre><code>##  [1] FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE</code></pre>
+<p>You can use <code>grepl</code> with <code>filter</code> from <code>dplyr</code> to filter rows based on a regular expression. Lets filter for tweets that contain urls:</p>
+<pre class="r"><code># url regex
+url_pattern &lt;- &quot;http[s]?://[^ ]+&quot;
+
+# filter news tweets using grepl
+hashtag_tweets &lt;- news_tweets %&gt;%
+    filter(grepl(url_pattern, news_tweets$text))
+
+# print the first 6 rows of the resulting data frame
+head(hashtag_tweets)</code></pre>
+<pre><code>##   user_name             created retweets
+## 1       CBC 2015-10-28 14:54:49       30
+## 2       CBC 2015-10-28 14:54:48        8
+## 3       CBC 2015-10-28 14:40:10       10
+## 4       CBC 2015-10-28 14:40:08       51
+## 5       CBC 2015-10-28 14:30:29       10
+## 6       CBC 2015-10-28 14:25:18       15
+##                                                                                                                                           text
+## 1                                Officer who flipped student in desk to be let go, report says https://t.co/yRcQG35zXn https://t.co/LgXCbaDtjk
+## 2                       Apple Pay coming to Canada this year with American Express partnership https://t.co/Whc2g3lLzP https://t.co/xru2gnWdrg
+## 3       Renovation nation: Canadians may spend record $53 billion fixing their homes this year https://t.co/lNGZtIuuih https://t.co/KrCQ1rh8go
+## 4                                           Cosmetic ear cropping banned by B.C. veterinarians https://t.co/wlsXmOmBFC https://t.co/E9hFezNJZe
+## 5 Alberta will try to spend its way out of a slump, but it also needs oil to recover https://t.co/x2h24rKI39 #abbudget https://t.co/ANkckdlb7m
+## 6          &#39;I wouldn&#39;t mind to go back to school&#39;: No teacher, no students and a vicious cycle https://t.co/I62zrvwTlZ https://t.co/BlKtD9uGQx</code></pre>
+</div>
+<div id="gsub---find-and-replace" class="section level3">
+<h3><code>gsub</code> - find and replace</h3>
+<p>Another basic task is matching a regular expression and replacing the matches with a specific string.</p>
+<p><code>gsub</code> takes a regular expression, a replacement string, and a character vector. It returns a character vector with <strong>all</strong> instances of the regex replaced by the replacement string.</p>
+<p>A common use of <code>gsub</code> is ‘cleaning’ text. For example, lets remove away all the urls from our tweets:</p>
+<pre class="r"><code># reminder of what a tweet looks like
+news_tweets$text[20]</code></pre>
+<pre><code>## [1] &quot;Door-to-door mail delivery: Charge for it, scrap it or subsidize it?  https://t.co/4LYaSgFkd5 https://t.co/7EaA7jXWQW&quot;</code></pre>
+<pre class="r"><code># the url regex
+url_pattern &lt;- &quot;http[s]?://[[:alnum:].\\/]+&quot;
+
+# replace all matches to the above regex with nothing &quot;&quot;
+clean_tweets &lt;- gsub(pattern = url_pattern, replacement = &quot;&quot;, news_tweets$text)
+clean_tweets[20]</code></pre>
+<pre><code>## [1] &quot;Door-to-door mail delivery: Charge for it, scrap it or subsidize it?   &quot;</code></pre>
+<p>We can also used <code>gsub</code> to clean off extra or trailing white space:</p>
+<pre class="r"><code># regex for removing double OR trailing spaces
+trailing_space &lt;- &quot;[ ]{2,}|[ ]+$&quot;
+clean_tweets &lt;- gsub(pattern = trailing_space, replacement = &quot;&quot;, clean_tweets)
+
+# a clean tweet!
+clean_tweets[20]</code></pre>
+<pre><code>## [1] &quot;Door-to-door mail delivery: Charge for it, scrap it or subsidize it?&quot;</code></pre>
+<p>To conclude this section, lets replace all instances of words beginning with “polit” with “balloons”.</p>
+<p>First, the (cleaned) tweets that contain our pattern of interest:</p>
+<pre class="r"><code>poli_pattern &lt;- &quot;[Pp]olit[[:alnum:]]+&quot;
+poli_pattern %&gt;% grep(clean_tweets, value = TRUE)</code></pre>
+<pre><code>##  [1] &quot;Website that archives politicians&#39; deleted tweets may return&quot;                                                                    
+##  [2] &quot;Tom Mulcair says niqab position was a defining moment of his political career&quot;                                                   
+##  [3] &quot;Tom Mulcair says niqab position was a defining moment of his political career&quot;                                                   
+##  [4] &quot;Anaylsis: Triple deleted emails shed light on troubling political culture&quot;                                                       
+##  [5] &quot;.@HillaryClinton to @StephenAtHome: I would let the big banks fail http://via @CNNPolitics&quot;                                      
+##  [6] &quot;Celebrities and politicians wish @HillaryClinton a \&quot;Happy Birthday\&quot;&quot;                                                           
+##  [7] &quot;.@HillaryClinton&#39;s campaign is not yet carbon neutral, despite pledgevia @CNNPolitics&quot;                                           
+##  [8] &quot;WATCH ONLINE: How leftist politics is challenging conventional news coverage@AJListeningPost&quot;                                    
+##  [9] &quot;Meet @HenshawKate, Nollywood star turned politician on #AJMyNigeria#Nigeria&quot;                                                     
+## [10] &quot;\&quot;We should get to a point where politicians fear voters, rather than the other way round.\&quot; @MmusiMaimane at #DMNandosGathering&quot;</code></pre>
+<p>We now have the tools to make this way better:</p>
+<pre class="r"><code>poli_pattern %&gt;% gsub(replacement = &quot;balloons&quot;, clean_tweets) %&gt;% grep(&quot;balloons&quot;, ., value = TRUE) </code></pre>
+<pre><code>##  [1] &quot;Website that archives balloons&#39; deleted tweets may return&quot;                                                                    
+##  [2] &quot;Tom Mulcair says niqab position was a defining moment of his balloons career&quot;                                                 
+##  [3] &quot;Tom Mulcair says niqab position was a defining moment of his balloons career&quot;                                                 
+##  [4] &quot;Anaylsis: Triple deleted emails shed light on troubling balloons culture&quot;                                                     
+##  [5] &quot;.@HillaryClinton to @StephenAtHome: I would let the big banks fail http://via @CNNballoons&quot;                                   
+##  [6] &quot;Celebrities and balloons wish @HillaryClinton a \&quot;Happy Birthday\&quot;&quot;                                                           
+##  [7] &quot;.@HillaryClinton&#39;s campaign is not yet carbon neutral, despite pledgevia @CNNballoons&quot;                                        
+##  [8] &quot;WATCH ONLINE: How leftist balloons is challenging conventional news coverage@AJListeningPost&quot;                                 
+##  [9] &quot;Meet @HenshawKate, Nollywood star turned balloons on #AJMyNigeria#Nigeria&quot;                                                    
+## [10] &quot;\&quot;We should get to a point where balloons fear voters, rather than the other way round.\&quot; @MmusiMaimane at #DMNandosGathering&quot;</code></pre>
+</div>
+<div id="part-3-the-stringr-package" class="section level3">
+<h3>Part 3: The <code>stringr</code> package</h3>
+<p>Like all things in R, Hadley Wickham has tried to improve string handling. This is implemented in his package <code>stringr</code>. There are lots of functions that take the place of existing ones, but with nicer syntax. Lets use it along with <code>dplyr</code> to do a basic lexical analysis of our tweet-set!</p>
+<p>For starters, lets clean out all the “non-word” text from the tweets. Lets clean out:</p>
+<ul>
+<li>URLs: <code>http[s]?://[[:alnum:].\\/]+</code></li>
+<li>Twitter user names (<span class="citation">@CNN</span>, etc.): <code>@[\\w]*</code></li>
+<li>Hashtags (#rstats): <code>#[\\w]*&quot;</code></li>
+<li>Possessives (’s): <code>'s</code></li>
+<li>Weird Unicode stuff/html tags (e.g. <U008+>): <code>&lt;.*&gt;</code></li>
+</ul>
+<p>First, make regex for each thing we want to remove, then combined them together with “|”’s (remember, this means “or” in regex):</p>
+<pre class="r"><code>stuff_to_remove &lt;- c(&quot;http[s]?://[[:alnum:].\\/]+&quot;, &quot;@[\\w]*&quot;, &quot;#[\\w]*&quot;, &quot;&lt;.*&gt;&quot;, &quot;&#39;s&quot;)
+stuff_to_remove &lt;-  paste(stuff_to_remove, sep = &quot;|&quot;, collapse=&quot;|&quot;)</code></pre>
+<p>Next, lets use <code>str_replace_all</code> (like <code>gsub</code>) to scrub this puppy down:</p>
+<pre class="r"><code>clean_tweets &lt;- str_replace_all(news_tweets$text, stuff_to_remove, &quot;&quot;)
+clean_tweets[20:25]</code></pre>
+<pre><code>## [1] &quot;Door-to-door mail delivery: Charge for it, scrap it or subsidize it?   &quot;
+## [2] &quot;Alberta budget: Can the province spend its way to prosperity?  &quot;        
+## [3] &quot;Did 3rd-party groups sway voters during federal election?  &quot;            
+## [4] &quot;Ready or not, self-driving cars are cruising on Canadian roads  &quot;       
+## [5] &quot;How submarine cables became the latest Russia-U.S. issue  &quot;             
+## [6] &quot;Top 10 Trending Halloween Costumes  &quot;</code></pre>
+<p>Nice, but it has gross trailing white space! Luckily, <code>stringr</code> has a function specifically for this task. <code>str_trim</code> removes leading and trailing white space:</p>
+<pre class="r"><code>clean_tweets &lt;- str_trim(clean_tweets)
+clean_tweets[20:25]</code></pre>
+<pre><code>## [1] &quot;Door-to-door mail delivery: Charge for it, scrap it or subsidize it?&quot;
+## [2] &quot;Alberta budget: Can the province spend its way to prosperity?&quot;       
+## [3] &quot;Did 3rd-party groups sway voters during federal election?&quot;           
+## [4] &quot;Ready or not, self-driving cars are cruising on Canadian roads&quot;      
+## [5] &quot;How submarine cables became the latest Russia-U.S. issue&quot;            
+## [6] &quot;Top 10 Trending Halloween Costumes&quot;</code></pre>
+<p>That feels good. Next, lets extract all the words from the whole data set using <code>str_extract_all</code> (like <code>grep(...,value = TRUE)</code>)</p>
+<pre class="r"><code>tweet_words &lt;- str_extract_all(clean_tweets, &quot;[A-Za-z]+&quot;)
+head(tweet_words)</code></pre>
+<pre><code>## [[1]]
+##  [1] &quot;Officer&quot; &quot;who&quot;     &quot;flipped&quot; &quot;student&quot; &quot;in&quot;      &quot;desk&quot;    &quot;to&quot;     
+##  [8] &quot;be&quot;      &quot;let&quot;     &quot;go&quot;      &quot;report&quot;  &quot;says&quot;   
+## 
+## [[2]]
+##  [1] &quot;Apple&quot;       &quot;Pay&quot;         &quot;coming&quot;      &quot;to&quot;          &quot;Canada&quot;     
+##  [6] &quot;this&quot;        &quot;year&quot;        &quot;with&quot;        &quot;American&quot;    &quot;Express&quot;    
+## [11] &quot;partnership&quot;
+## 
+## [[3]]
+##  [1] &quot;Renovation&quot; &quot;nation&quot;     &quot;Canadians&quot;  &quot;may&quot;        &quot;spend&quot;     
+##  [6] &quot;record&quot;     &quot;billion&quot;    &quot;fixing&quot;     &quot;their&quot;      &quot;homes&quot;     
+## [11] &quot;this&quot;       &quot;year&quot;      
+## 
+## [[4]]
+## [1] &quot;Cosmetic&quot;      &quot;ear&quot;           &quot;cropping&quot;      &quot;banned&quot;       
+## [5] &quot;by&quot;            &quot;B&quot;             &quot;C&quot;             &quot;veterinarians&quot;
+## 
+## [[5]]
+##  [1] &quot;Alberta&quot; &quot;will&quot;    &quot;try&quot;     &quot;to&quot;      &quot;spend&quot;   &quot;its&quot;     &quot;way&quot;    
+##  [8] &quot;out&quot;     &quot;of&quot;      &quot;a&quot;       &quot;slump&quot;   &quot;but&quot;     &quot;it&quot;      &quot;also&quot;   
+## [15] &quot;needs&quot;   &quot;oil&quot;     &quot;to&quot;      &quot;recover&quot;
+## 
+## [[6]]
+##  [1] &quot;I&quot;        &quot;wouldn&quot;   &quot;t&quot;        &quot;mind&quot;     &quot;to&quot;       &quot;go&quot;      
+##  [7] &quot;back&quot;     &quot;to&quot;       &quot;school&quot;   &quot;No&quot;       &quot;teacher&quot;  &quot;no&quot;      
+## [13] &quot;students&quot; &quot;and&quot;      &quot;a&quot;        &quot;vicious&quot;  &quot;cycle&quot;</code></pre>
+<p>OK! So what are the top, say, fifteen words?</p>
+<pre class="r"><code>word_counts &lt;- unlist(tweet_words) %&gt;% table %&gt;% data.frame
+names(word_counts) &lt;- c(&quot;word&quot;, &quot;count&quot;)
+word_counts %&gt;%
+    arrange(count) %&gt;%
+    top_n(15) </code></pre>
+<pre><code>## Selecting by count</code></pre>
+<pre><code>##     word count
+## 1  after    45
+## 2     as    45
+## 3      U    45
+## 4   from    48
+## 5      S    48
+## 6     is    52
+## 7   says    54
+## 8   with    54
+## 9     at    71
+## 10   and    74
+## 11     a   105
+## 12   for   115
+## 13    on   124
+## 14   the   161
+## 15    of   165
+## 16    in   221
+## 17    to   303</code></pre>
+<p>Hmm. Those are kind of boring. Lets change the regex to catch words that start with a capital letter, and are at least 4 letters long.</p>
+<pre class="r"><code>tweet_words &lt;- str_extract_all(clean_tweets, &quot;[A-Z][a-z]{4,}&quot;)
+
+word_counts &lt;- unlist(tweet_words) %&gt;% table %&gt;% data.frame
+names(word_counts) &lt;- c(&quot;word&quot;, &quot;count&quot;)
+word_counts %&gt;%
+    top_n(25)%&gt;%
+    arrange(count)</code></pre>
+<pre><code>##           word count
+## 1        Baher     8
+## 2      Clinton     8
+## 3      Mohamed     8
+## 4       Russia     8
+## 5      Russian     8
+## 6        State     8
+## 7        Texas     8
+## 8      Toronto     8
+## 9        World     8
+## 10      Former     9
+## 11       Saudi     9
+## 12       Apple    10
+## 13    Oklahoma    10
+## 14    Carolina    11
+## 15      Justin    11
+## 16      Mexico    11
+## 17    Patricia    11
+## 18 Afghanistan    12
+## 19     Jazeera    12
+## 20      Syrian    12
+## 21       House    14
+## 22     Trudeau    14
+## 23   Exclusive    15
+## 24   Hurricane    16
+## 25    Canadian    18
+## 26       Syria    19
+## 27       South    21
+## 28       Watch    22
+## 29      Canada    23
+## 30       China    31</code></pre>
+<p>This feels like we are winning. Now for some fun: a word cloud.</p>
+<pre class="r"><code>#install.packages(&quot;wordcloud&quot;)
+#install.packages(&quot;wesanderson&quot;)
+library(&quot;wordcloud&quot;)
+library(&quot;wesanderson&quot;)
+
+pal &lt;- wes_palette(name = &quot;Zissou&quot;, 51, type =&quot;continuous&quot;) %&gt;% as.character()
+
+word_counts %&gt;%
+    top_n(50) %&gt;%
+    with(wordcloud(word, count, ordered.colors = TRUE, color = pal, use.r.layout = TRUE))</code></pre>
+<p><img src="block027_regular-expressions_files/figure-html/unnamed-chunk-26-1.png" alt="" /></p>
+<p>We could also break it up by agency:</p>
+<pre class="r"><code>news_clean_tweets &lt;- news_tweets
+news_clean_tweets$text &lt;- clean_tweets
+
+words_df &lt;- news_clean_tweets %&gt;%
+    group_by(user_name) %&gt;%
+    do(words = str_extract_all(.$text, &quot;[A-Z][a-z]{4,}&quot;))
+
+par(mfrow = c(2,2))
+
+for (i in 1:4){
+    
+    word_counts &lt;- unlist(words_df[i, 2]) %&gt;% table %&gt;% data.frame
+    names(word_counts) &lt;- c(&quot;word&quot;, &quot;count&quot;)
+    
+    word_counts %&gt;%
+        top_n(50) %&gt;%
+        with(wordcloud(word, count, ordered.colors = TRUE, 
+            color = wes_palette(name = &quot;Zissou&quot;, nrow(.), type =&quot;continuous&quot;), 
+            scale = c(3.5, 0.15)))
+        text(0, 0.9, words_df$user_name[i], cex = 1.5, adj = c(0, 0))
+    
+}</code></pre>
+<p><img src="block027_regular-expressions_files/figure-html/unnamed-chunk-27-1.png" alt="" /></p>
+</div>
+<div id="thats-it" class="section level3">
+<h3>That’s it!</h3>
+<p>You hopefully now have a grasp of regular expressions and the basic tools of text processing in R. There is much more to learn, but I hope this introduction gets you off on the right foot.</p>
+</div>
+<div id="further-reading" class="section level3">
+<h3>Further Reading</h3>
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html">The stringr vignette</a></li>
+<li><a href="https://stat545-ubc.github.io/block022_regular-expression.html">Last year’s lesson by Gloria Li</a></li>
+<li><a href="https://cran.r-project.org/web/views/NaturalLanguageProcessing.html">CRAN Task View: Natural Language Processing</a></li>
+<li><a href="https://www.youtube.com/watch?v=q8SzNKib5-4">Regular expressions in R</a></li>
+</ul>
+</div>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

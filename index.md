@@ -20,14 +20,14 @@ Learn how to
   * Introduction to [R](http://www.r-project.org) and the [RStudio IDE](http://www.rstudio.com/products/rstudio/); scripts, the workspace, RStudio Projects
   * Generate reports from R scripts and [R Markdown](http://rmarkdown.rstudio.com)
   * Care and feeding of data in R
-  * Data aggregation; "apply" functions, [`plyr`](http://plyr.had.co.nz), [`dplyr`](https://github.com/hadley/dplyr)
+  * Data manipulation and split-apply-combine with [`dplyr`](https://cran.r-project.org/web/packages/dplyr/index.html) and [`tidyr`](https://cran.r-project.org/web/packages/tidyr/index.html)
   * Data visualization with [`ggplot2`](http://ggplot2.org)
   * Graphs and descriptive stats for quantitative and categorical variables
   * Writing R functions
   * Coding style and project organization
   * Version control with Git; collaboration via [GitHub](https://github.com)
   * Character data; regular expressions
-  * Interactive pages, apps, and graphics with [Shiny](http://shiny.rstudio.com) and [`ggvis`](http://ggvis.rstudio.com)
+  * Interactive pages, apps, and graphics with [Shiny](http://shiny.rstudio.com)
   * Get data off the web and expose data, code, results on the web
   * Distribute data and code via an R package
   * Automate an analytical pipeline, e.g. via `Make`

@@ -11,15 +11,23 @@ library(knitr)
 knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
 ```
 
-### Load `ggplot2` and prepare the Gapminder data
+### Load packages and prepare the Gapminder data
 
 Bring in the usual Gapminder data but drop Oceania, which only has two countries.
 
+We also sort the country factor based on population and then sort the data as well. Why? In the bubble plots below, we don't want large countries to hide small countries. This is a case where, sadly, the row order of the data truly affects the visual output. `ggplot2` is no less vulnerable to this than `lattice` or base graphics.
+
+*2015-10-19: I am using `ggplot2` version 1.0.1.9003 from GitHub! The dev version has lots of big changes from the CRAN version!*
+
 ```{r}
 library(ggplot2)
-gDat <- read.delim("gapminderDataFiveYear.txt")
-jDat <- droplevels(subset(gDat, continent != "Oceania"))
-str(jDat)
+library(gapminder)
+suppressPackageStartupMessages(library(dplyr))
+jdat <- gapminder %>% 
+  filter(continent != "Oceania") %>% 
+  droplevels() %>% 
+  mutate(country = reorder(country, -1 * pop)) %>% 
+  arrange(year, country)  
 ```
 
 ### Take control of the size and color of points
@@ -29,9 +37,11 @@ Let's use `ggplot2` to move towards the classic Gapminder bubble chart. Crawl th
 First, make a simple scatterplot for a single year.
 
 ```{r scatterplot}
-jYear <- 2007
+j_year <- 2007
 q <-
-  ggplot(subset(jDat, year == jYear), aes(x = gdpPercap, y = lifeExp)) +
+  jdat %>% 
+  filter(year == j_year) %>% 
+  ggplot(aes(x = gdpPercap, y = lifeExp)) +
   scale_x_log10(limits = c(230, 63000))
 q + geom_point()
 ```
@@ -48,9 +58,10 @@ q + geom_point(pch = 21, size = 8, fill = I("darkorchid1"))
 We want the size of the circle to reflect population. Since we have direct control of the radius, we invert the relation $area = \pi r^2$ to determine the point size from the country's population. I have two complaints with my first attempt: the circles are still too small for my taste and I don't want the size legend. So in my second attempt, I suppress the legend with `show_guide = FALSE` and I increase the range of sizes by explicitly setting the range for the scale that maps $\sqrt(pop / \pi)$ into circle size.
 
 ```{r scatterplot-population-area, fig.show='hold', out.width='50%'}
-q + geom_point(aes(size = sqrt(pop/pi)), pch = 21)
+## ggplot2 ALERT: size now means size, not radius!
+q + geom_point(aes(size = pop), pch = 21)
 (r <- q +
-   geom_point(aes(size = sqrt(pop/pi)), pch = 21, show_guide = FALSE) +
+   geom_point(aes(size = pop), pch = 21, show.legend = FALSE) +
    scale_size_continuous(range=c(1,40)))
 ```
 
@@ -65,50 +76,43 @@ r + aes(fill = continent)
 
 ### Get the color scheme for the countries
 
-Elsewhere, I devised a color scheme for the Gapminder countries. We will not discuss it's construction here, but will merely pull it off the web. You can view it in PDF form [here](http://www.stat.ubc.ca/~jenny/notOcto/STAT545A/examples/gapminder/figs/bryan-a01-colorScheme.pdf).
+The `gapminder` package comes with color palettes for the continents and the individual countries. For example, here's the [country color scheme](https://github.com/jennybc/gapminder/blob/master/data-raw/gapminder-color-scheme-ggplot2.png).
 
 ```{r}
-## get the country color scheme
-gdURL <- "http://www.stat.ubc.ca/~jenny/notOcto/STAT545A/examples/gapminder/data/gapminderCountryColors.txt"
-countryColors <- read.delim(file = gdURL, as.is = 3) # protect color
-str(countryColors)
-head(countryColors)
+str(country_colors)
+head(country_colors)
 ```
 
-The data.frame `countryColors` has one row per country and three variables: country, continent, and color. The color variable holds the RGB hex strings encoding the color scheme.
+`country_colors` is a named character vector, with one element per country, holding the RGB hex strings encoding the color scheme.
 
-__Note:__ The row order of `countryColors` is not alphabetical. The countries are actually sorted by size (in which particular year, I don't recall) within continent, reflecting the logic by which the scheme was created. No problem. Ideally, nothing in your analysis should depend on row order, although that's not always possible in reality.
+__Note:__ The order of `country_colors` is not alphabetical. The countries are actually sorted by size (in which particular year, I don't recall) within continent, reflecting the logic by which the scheme was created. No problem. Ideally, nothing in your analysis should depend on row order, although that's not always possible in reality.
 
 ### Prepare the color scheme for use with `ggplot2`
 
 In the Grammar of Graphics, a __scale__ controls the mapping from a variable in the data to an aesthetic. So far we've let the coloring / filling scale be determined automatically by `ggplot2`. But to use our custom color scheme, we need to take control of the mapping of the `country` factor into fill color in `geom_point()`.
 
-We will use `scale_fill_manual`, a member of a family of functions for customization of the discrete scales. The main argument is `values =`, which is a vector of aesthetic values -- fill colors, in our case. If this vector has names, they will be consulted during the mapping. This is incredibly useful! Below, we isolate the vector of hex strings providing the country colors and give this vector the country names as names. This saves us from any worry about the order of levels of the `country` factor, the row order of the data, or exactly which countries are being plotted.
-
-```{r}
-jColors <- countryColors$color
-names(jColors) <- countryColors$country
-head(jColors)
-```
+We will use `scale_fill_manual`, a member of a family of functions for customization of the discrete scales. The main argument is `values =`, which is a vector of aesthetic values -- fill colors, in our case. If this vector has names, they will be consulted during the mapping. This is incredibly useful! This is why `country_colors` does **exactly that**. This saves us from any worry about the order of levels of the `country` factor, the row order of the data, or exactly which countries are being plotted.
 
 ### Make the `ggplot2` bubble chart
 
 This is deceptively simple at this point. Like many things, it looks really easy, once we figure everything out! The last two bits we add are to use `aes()` to specify that the country should be mapped to color and to use `scale_fill_manual()` to specify our custom color scheme.
+
 ```{r scatterplot-country-fill}
-r + aes(fill = country) + scale_fill_manual(values = jColors)
+r + aes(fill = country) + scale_fill_manual(values = country_colors)
 ```
 
-### Epilogue: re-make the plot to reveal small countries
+### All together now
 
-We know from earlier work that large countries can effectively hide the data from small countries, by covering them up. This is a case where, sadly, the row order of the data truly affects the visual output. `ggplot2` is no less vulnerable to this than `lattice` or base graphics. So, to get closure, we sort the data on year and then on population and remake the plot, revealing all the code.
+The complete code to make the plot.
 
 ```{r scatterplot-country-fill-final}
-jDat <- jDat[with(jDat, order(year, -1 * pop)), ]
-ggplot(subset(jDat, year == jYear),
-       aes(x = gdpPercap, y = lifeExp)) +
-  scale_x_log10(limits = c(230, 63000)) +
-  geom_point(aes(size = sqrt(pop/pi)), pch = 21, show_guide = FALSE) +
-  scale_size_continuous(range=c(1,40)) + ylim(c(39, 87)) +
+j_year <- 2007
+jdat %>% 
+  filter(year == j_year) %>% 
+  ggplot(aes(x = gdpPercap, y = lifeExp, fill = country)) +
+  scale_fill_manual(values = country_colors) +
   facet_wrap(~ continent) +
-  aes(fill = country) + scale_fill_manual(values = jColors)
+  geom_point(aes(size = pop), pch = 21, show.legend = FALSE) +
+  scale_x_log10(limits = c(230, 63000)) +
+  scale_size_continuous(range = c(1,40)) + ylim(c(39, 87))
 ```

@@ -1,6 +1,5 @@
 # Stat 545 getting data from the Web
-Andrew MacDonald and Jenny Bryan  
-2014-11-24  
+Andrew MacDonald  
 
 
 ```r
@@ -11,6 +10,8 @@ library(devtools)
 
 # Introduction
 
+**All this and more is described at the [rOpenSci repository of R tools for interacting with the internet]( https://github.com/ropensci/webservices)**
+
 There are many ways to obtain data from the Internet; let's consider four categories:
 
 * *click-and-download* on the internet as a "flat" file, such as .csv, .xls
@@ -19,11 +20,30 @@ There are many ways to obtain data from the Internet; let's consider four catego
 * *Scraping* implicit in an html website
 
 # Click-and-Download
-We're not going to consider data that needs to be downloaded to your hard drive first, and which may require filling out a form etc. For example [World Value Survey](http://www.worldvaluessurvey.org/wvs.jsp) or [gapminder](http://www.worldvaluessurvey.org/wvs.jsp)
 
-# install-and-play
+In the simplest case, the data you need is already on the internet in a tabular format. There are a couple of strategies here:
 
-Many web data sources provide a structured way of requesting and presenting data. A set of rules controls how computer programs ("clients") can make requests of the server, and how the server will respond. These rules are called **A**pplication **P**rogramming **I**nterfaces (API).
+* use `read.csv` or `readr::read_csv` to read the data straight into R.
+
+* use the command line program `curl` to do that work, and place it in a Makefile or shell script (see the Make lesson for how to do that).
+
+The second case is most useful when the data you want has been provided in a format that needs cleanup. For example, the World Value Survey makes several datasets available as Excel sheets. The safest option here is to download the `.xls` file, then read it into R with `readxl::read_excel()` or something similar. An exception to this is data provided as Google Spreadsheets, which can be read straight into R using the [`googlesheets`](https://github.com/jennybc/googlesheets) package.
+
+### from ropensci web services page:
+
+* `downloader::download()` for SSL
+* `curl::curl()` for SSL.
+* `httr::GET` data read this way needs to be parsed later with read.table
+* `rio::import()` can "read a number of common data formats directly from an https:// URL".  Isn't that very similar to the previous?
+
+
+What about packages that install data?
+
+# Data supplied on the web
+
+Many times, the data that you want is not already organized into one or a few tables that you can read directly into R. More frequently, you find this data is given in the form of an API. **A**pplication **P**rogramming **I**nterfaces (APIs) are descriptions of the kind of requests that can be made of a certain piece of software, and descriptions of the kind of answers that are returned. Many sources of data -- databases, websites, services -- have made all (or part) of their data available via APIs over the internet. Computer programs ("clients") can make requests of the server, and the server will respond by sending data (or an error message). This client can be many kinds of other programs or websites, including R running from your laptop.
+
+# install-and-play 
 
 Many common web services and APIs have been "wrapped", i.e. R functions have been written around them which send your query to the server and format the response.
 
@@ -55,6 +75,13 @@ We can use the function `ebirdgeo` to get a list for an area. (Note that South a
 
 ```r
 vanbirds <- ebirdgeo(lat = 49.2500, lng = -123.1000)
+```
+
+```
+## Warning: `rbind_all()` is deprecated. Please use `bind_rows()` instead.
+```
+
+```r
 vanbirds %>%
   head %>%
 	kable
@@ -62,14 +89,14 @@ vanbirds %>%
 
 
 
-comName                 howMany        lat         lng  locID      locName                locationPrivate   obsDt              obsReviewed   obsValid   sciName              
----------------------  --------  ---------  ----------  ---------  ---------------------  ----------------  -----------------  ------------  ---------  ---------------------
-Black-bellied Plover          3   49.21278   -123.2025  L339171    Iona Island Causeway   FALSE             2014-11-28 16:30   FALSE         TRUE       Pluvialis squatarola 
-gull sp.                    200   49.21278   -123.2025  L339171    Iona Island Causeway   FALSE             2014-11-28 16:30   FALSE         TRUE       Larinae sp.          
-Great Blue Heron              1   49.21278   -123.2025  L339171    Iona Island Causeway   FALSE             2014-11-28 16:30   FALSE         TRUE       Ardea herodias       
-Fox Sparrow                   1   49.34932   -123.1963  L2682350   Mulgrave School         TRUE             2014-11-28 14:39   FALSE         TRUE       Passerella iliaca    
-Song Sparrow                  3   49.34932   -123.1963  L2682350   Mulgrave School         TRUE             2014-11-28 14:39   FALSE         TRUE       Melospiza melodia    
-Dark-eyed Junco               1   49.34932   -123.1963  L2682350   Mulgrave School         TRUE             2014-11-28 14:39   FALSE         TRUE       Junco hyemalis       
+obsDt                     lng  locName                        obsValid   comName                obsReviewed   sciName                    locationPrivate    howMany        lat  locID   
+-----------------  ----------  -----------------------------  ---------  ---------------------  ------------  -------------------------  ----------------  --------  ---------  --------
+2015-11-23 16:25    -123.2836  Batchelor Point                TRUE       Glaucous-winged Gull   FALSE         Larus glaucescens          TRUE                     1   49.35784  L457619 
+2015-11-23 16:25    -123.2836  Batchelor Point                TRUE       Bald Eagle             FALSE         Haliaeetus leucocephalus   TRUE                     1   49.35784  L457619 
+2015-11-23 15:47    -123.2744  West Vancouver--Grebe Islets   TRUE       Surf Scoter            FALSE         Melanitta perspicillata    FALSE                  200   49.34139  L341481 
+2015-11-23 15:47    -123.2744  West Vancouver--Grebe Islets   TRUE       Hooded Merganser       FALSE         Lophodytes cucullatus      FALSE                    4   49.34139  L341481 
+2015-11-23 15:47    -123.2744  West Vancouver--Grebe Islets   TRUE       Spotted Sandpiper      FALSE         Actitis macularius         FALSE                    1   49.34139  L341481 
+2015-11-23 15:47    -123.2744  West Vancouver--Grebe Islets   TRUE       Black Oystercatcher    FALSE         Haematopus bachmani        FALSE                   12   49.34139  L341481 
 **Note**: Check the defaults on this function. e.g. radius of circle, time of year.
 
 We can also search by "region", which refers to short codes which serve as common shorthands for different political units. For example, France is represented by the letters **FR**
@@ -114,7 +141,7 @@ options(geonamesUsername="?????")
 ```
 
 What can we do? get access to lots of geographical information via the various "web services" see [here](http://www.geonames.org/export/ws-overview.html)
-
+
 
 ```r
 countryInfo <- GNcountryInfo()
@@ -161,11 +188,17 @@ francebirds <- countryInfo %>%
 
 
 allbirds <- ebirdregion(francebirds$countryCode)  ## or perhaps fipsCode?
+```
 
+```
+## Warning: `rbind_all()` is deprecated. Please use `bind_rows()` instead.
+```
+
+```r
 nrow(allbirds)
 ```
 
-[1] 151
+[1] 184
 
 ### Wikipedia searching 
 
@@ -229,9 +262,6 @@ library(rplos)
 
 ```
 ## Loading required package: ggplot2
-## 
-## 
-##  New to rplos? Tutorial at http://ropensci.org/tutorials/rplos_tutorial.html. Use suppressPackageStartupMessages() to suppress these startup messages in the future
 ```
 Immediately we get a message. It's a link to the [tutorial on the Ropensci website!](http://ropensci.org/tutorials/rplos_tutorial.html). How nice :)
 

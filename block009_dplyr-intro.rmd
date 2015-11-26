@@ -24,9 +24,12 @@ Have no idea what I'm talking about? Not sure if you care? If you use these base
 ## install if you do not already have
 
 ## from CRAN:
-## install.packages('dplyr')
+## install.packages("dplyr")
 
 ## from GitHub using devtools (which you also might need to install!):
+## if (packageVersion("devtools") < 1.6) {
+##   install.packages("devtools")
+## }
 ## devtools::install_github("hadley/lazyeval")
 ## devtools::install_github("hadley/dplyr")
 suppressPackageStartupMessages(library(dplyr))
@@ -38,7 +41,6 @@ library(gapminder)
 An excerpt of the Gapminder data which we work with alot.
 
 ```{r}
-
 str(gapminder)
 head(gapminder)
 ```
@@ -51,7 +53,7 @@ gtbl
 glimpse(gtbl)
 ```
 
-A `tbl_df` is basically an improved data.frame, for which `dplyr` provides nice methods for high-level inspection. Specifically, these methods do something sensible for datasets with many observations and/or variables. You do __NOT__ need to turn your data.frames into `tbl_df`s to use `plyr`. I do so here for demonstration purposes only.
+A `tbl_df` is basically an improved data.frame, for which `dplyr` provides nice methods for high-level inspection. Specifically, these methods do something sensible for datasets with many observations and/or variables. You do __NOT__ need to turn your data.frames into `tbl_df`s to use `dplyr`. I do so here for demonstration purposes only.
 
 ### Think before you create excerpts of your data ...
 
@@ -91,11 +93,9 @@ subset(gapminder, country == "Rwanda") ## almost same as filter ... but wait ...
 
 ### Meet the new pipe operator
 
-Before we go any further, we should exploit the new pipe operator that `dplyr` imports from the [`magrittr`](https://github.com/smbache/magrittr) package. This is going to change your data analytical life. You no longer need to enact multi-operation commands by nesting them inside each other, like so many [Russian nesting dolls](http://blogue.us/wp-content/uploads/2009/07/Unknown-21.jpeg). This new syntax leads to code that is much easier to write and to read.
+Before we go any further, we should exploit the new pipe operator that `dplyr` imports from the [`magrittr`](https://github.com/smbache/magrittr) package by Stefan Bache. This is going to change your data analytical life. You no longer need to enact multi-operation commands by nesting them inside each other, like so many [Russian nesting dolls](http://blogue.us/wp-content/uploads/2009/07/Unknown-21.jpeg). This new syntax leads to code that is much easier to write and to read.
 
-Here's what it looks like: `%>%`. The RStudio keyboard shortcut: Ctrl + Shift + M (Windows), Cmd + Shift + M (Mac), according to [this tweet](https://twitter.com/rstudiotips/status/514094879316525058).
-
-<!-- alt-shift-. works for me but I'm not running bleeding edge RStudio -->
+Here's what it looks like: `%>%`. The RStudio keyboard shortcut: Ctrl + Shift + M (Windows), Cmd + Shift + M (Mac).
 
 Let's demo then I'll explain:
 
@@ -158,7 +158,7 @@ subset(gapminder, country == "Cambodia", select = c(year, lifeExp))
 
 ### Pause to reflect
 
-We've barely scratched the surface of `dplyr` but I want to point out key principles you may start to appreciate. If you're new to R or "programing with data", feel free skip this section and [move on](block010_dplyr-end-single-table.html).
+We've barely scratched the surface of `dplyr` but I want to point out key principles you may start to appreciate. If you're new to R or "programming with data", feel free skip this section and [move on](block010_dplyr-end-single-table.html).
 
 `dplyr`'s verbs, such as `filter()` and `select()`, are what's called [pure functions](http://en.wikipedia.org/wiki/Pure_function). To quote from Wickham's [Advanced R Programming book](http://adv-r.had.co.nz/Functions.html):
 
@@ -179,6 +179,10 @@ Go to the next block, [`dplyr` functions for a single dataset](block010_dplyr-en
     - the [one on window functions](http://cran.rstudio.com/web/packages/dplyr/vignettes/window-functions.html) will also be interesting to you now
   * development home [on GitHub](https://github.com/hadley/dplyr)
   * [tutorial HW delivered](https://www.dropbox.com/sh/i8qnluwmuieicxc/AAAgt9tIKoIm7WZKIyK25lh6a) (note this links to a DropBox folder) at useR! 2014 conference
+
+[RStudio `dplyr` and `tidyr` cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf?version=0.99.687&mode=desktop). Remember you can get to these via *Help > Cheatsheets.*
+
+[Excellent slides](https://github.com/tjmahr/MadR_Pipelines) on pipelines and `dplyr` by TJ Mahr, talk given to the Madison R Users Group.
 
 Blog post [Hands-on dplyr tutorial for faster data manipulation in R](http://www.dataschool.io/dplyr-tutorial-for-faster-data-manipulation-in-r/) by Data School, that includes a link to an R Markdown document and links to videos
 

@@ -3,7 +3,7 @@
   * [Install R and Rstudio](block000_r-rstudio-install.html)
   * [All the Git and GitHub (and RStudio) things](git00_index.html)
     - [Install Git](git01_git-install.html)
-    - [Install a Git client](git02_git-clients.html) *optional but recommended*
+    - [Install a Git client](git02_git-clients.html)
     - [Introduce yourself to Git](git04_introduce-self-to-git.html)
     - [GitHub, can you hear me?](git05_github-connection.html)
     - [Test connection between RStudio and GitHub](git07_git-github-rstudio.html)
@@ -16,11 +16,11 @@
   * [Basic care and feeding of data in R](block006_care-feeding-data.html)
   * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
   * [Test drive R Markdown](block007_first-use-rmarkdown.html)
-  * [All the graph things](graph00_index.html), an annotated index
-    - R graphics landscape *[slides](http://www.slideshare.net/jenniferbryan5811/cm005-intro-ggplot2)*
+  * [All the graph things](graph00_index.html)
+    - R graphics landscape *[slides](https://speakerdeck.com/jennybc/ggplot2-tutorial)*
     - [`ggplot2` tutorial](https://github.com/jennybc/ggplot2-tutorial), heavy on code and examples
     - [Do's and don'ts of making effective graphs](block015_graph-dos-donts.html)
-    - [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/), a visual, clickable index of 100+ figures + `ggplot2` code to make them
+    - [R Graph Catalog](http://shiny.stat.ubc.ca/r-graph-catalog/), a visual, clickable index of 100+ figures + `ggplot2` code to make them
     - [Using colors in R](block018_colors.html)
     - [Taking control of qualitative colors in `ggplot2`](block019_enforce-color-scheme.html)
     - [Secrets of a happy graphing life](block016_secrets-happy-graphing.html)
@@ -29,65 +29,57 @@
   * The `dplyr` package for data manipulation
     - [Introduction to dplyr](block009_dplyr-intro.html)
     - [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
+    - Overview of split-apply-combine: [slides on speakerdeck](https://speakerdeck.com/jennybc/ubc-stat545-split-apply-combine-intro)
+    - [Split-apply-combine with `dplyr::do()`](block023_dplyr-do.html)
+    - Example: [a wrapper around `lm` to use with `dplyr::do()`](block025_lm-poly.html)
     - [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
+    - Legacy material on [split-apply-combine with `plyr`](block013_plyr-ddply.html)
   * Writing your own R functions
     - [Part 1](block011_write-your-own-function-01.html): get something that works, check arguments
     - [Part 2](block011_write-your-own-function-02.html): generalize, set default argument values
     - [Part 3](block011_write-your-own-function-03.html):`NA` handling, `...`, unit test
     - [Function-writing Practicum](block012_function-regress-lifeexp-on-year.html): fit a linear model and return estimated coefficients
-  * The `plyr` package for split-apply-combine
-    - Data aggregation overview [*slides*](http://www.slideshare.net/jenniferbryan5811/cm009-data-aggregation) 
-    - [Using `plyr` with data.frames](block013_plyr-ddply.html)
   * [Be the boss of your factors](block014_factors.html)
-  * Writing and reading files
-    - [Indicative code from hands on activities](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm011_files-out-in-script.r)
-    - [2013 lesson](http://www.stat.ubc.ca/~jenny/STAT545A/block05_getNumbersOut.html) *2014 update: do data manipulation with `dplyr`*
+  * [Writing and reading files](block026_file-out-in.html)
   * [Why and how to tidy data](bit002_tidying-lotr-data.html)
-  * [Regular expressions](block022_regular-expression.html) and more about character data
+  * Strings and Regular Expressions
+    - [(2014) Intro to regular expressions](block022_regular-expression.html) and more about character data
+    - [(2015) Regular expressions and character data in R](block027_regular-expressions.html): applying regex in R
+  * [All the package things](packages00_index.html)
+    - [slides](https://speakerdeck.com/jennybc/ubc-stat545-2015-writing-your-first-r-package)
+    - [System preparation for package development](packages01_system-prep.html)
+    - [2015 Hands-on activity, part 1](packages04_foofactors-package-01.html)
+    - [2015 Hands-on activity, part 2](packages05_foofactors-package-02.html)
+    - [2014 Hands-on activity, part 1](packages02_activity.html)
+    - [2014 Hands-on activity, part 2](packages03_activity_part2.html)
   * [All the automation things](automation00_index.html)
     - <a href="automation01_slides/index.html" target="_blank">slides</a>
     - [Special considerations for Windows](automation02_windows.html)
     - [Test drive `Make`](automation03_make-test-drive.html) from a shell and RStudio
     - [Hands-on activity](automation04_make-activity.html)
     - [Example pipelines](automation00_index.html#more-examples)
-  * [All the package things](packages00_index.html)
-    - [slides](https://speakerdeck.com/jennybc/ubc-stat545-2014-cm107-context-for-writing-your-first-r-package-week)
-    - [System preparation for package development](packages01_system-prep.html)
-    - [Hands-on activity, part 1](packages02_activity.html)
-    - [Hands-on activity, part 2](packages02_activity_part2.html)
-  * [All the Shiny things](shiny00_index.html)
+  * Get data from the web *all still from 2014*
+    - *make usual landing page and add bullet points*
+    - class meeting [one](cm111_data-from-web.html) and [two](cm112_data-from-web.html) 
+  * [All the Shiny things](shiny00_index.html) *all still from 2014*
     - [slides](shiny01_slides.pdf)
     - [Getting your system set up for Shiny](shiny02_setup.html)
     - [Hands-on activity-build a shiny app](shiny03_activity.html)
     - [Shiny and other interactive plotting links](shiny04_links.html)
-  * Get data from the web
-    - *make usual landing page and add bullet points*
-    - class meeting [one](cm111_data-from-web.html) and [two](cm112_data-from-web.html)  
 
-## Course-specific material
+## Homework
 
-This is just an index very course-specific stuff, like homework, or class landing pages that eventually lead to the same content that's listed above.
-
-  * [Class meeting 001](cm001_course-intro-sw-install-account-signup.html) deals with "What is data science? What is data carpentry?" and includes links re: use of Twitter in academia.
-  * [Class meeting 002](cm002_r-rstudio-intro.html) provides some Deep Thoughts about data analytic work, then shifts into a hands-on intro to R and RStudio.
-  * [Class meeting 003](cm003_r-objects-git-toe-dip.html) Git(Hub) and (R) Markdown crash course so first homework can be submitted. All hands-on.
-  * [Class meeting 004](cm004_care-feeding-data.html) Data.frames are awesome. Let's explore one (Gapminder).
-  * [Class meeting 005](cm005_ggplot2.html) The R graphics landscape and intro to `ggplot2`
-  * [Class meeting 006](cm006_rmarkdown.html) R Markdown
-  * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
-  * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
   * [Homework 01](hw01_edit-README.html) Edit `README.md`
   * [Homework 02](hw02_explore-gapminder-use-rmarkdown.html) Explore Gapminder and use R markdown
-  * [Homework 03](hw03_dplyr-and-more-ggplot2.html) Manipulate and summarize the Gapminder data with `dplyr`; make companion figs with `ggplot2`
-  * [Homework 04](http://stat545-ubc.github.io/hw04_write-function-use-plyr.html) Manipulate and summarize the Gapminder data with custom functions and `plyr` 
-  * [Homework 05](hw05_factor-boss-files-out-in.html) Prove you are in control of factors by writing and reading files
-  * [Homework 06](hw06_repo-hygiene-figure-boss.html) *Optional, unmarked* activities for the STAT 545A / STAT 547M transition
-  * [Homework 07](hw07_data-wrangling-grand-finale.html) Data wrangling Grand Finale
-  * [Homework 08](hw08_data-cleaning.html) re: handling character data and data cleaning
-  * [Homework 09](hw09_automation.html) Automating Data-analysis Pipelines
-  * [Homework 10](hw10_package.html) Write an R package
-  * [Homework 11](hw11_build-shiny-app) Build a Shiny app
-  * [Homework 12](hw12_data-from-web) Get data from the web
+  * [Homework 03](hw03_dplyr-and-more-ggplot2.html) Manipulate, summarize, visualize Gapminder with `dplyr` and `ggplot2`
+  * [Homework 04](hw04_write-function-split-apply-combine.html) Use split-apply-combine with your functions within data.frames 
+  * [Homework 05](hw05_factor-figure-boss-repo-hygiene.html) Prove you are in control of factors and figures. Clean up your repo.
+  * Homework 06 *did not exist; it's "clean up your repo" and was folded into homework 05*
+  * [Homework 07](hw07_data-wrangling-candy.html) Clean and wrangle the `candy` survey
+  * [Homework 08](hw08_package.html) Write an R package
+  * [Homework 09](hw09_automation.html) Automate a data analysis pipeline
+  * 2014 [Shiny homework](hw11_build-shiny-app.html) Build a Shiny app
+  * 2014 [Web data homework](hw12_data-from-web.html) Get data from the web
 
 ## Short random things
 

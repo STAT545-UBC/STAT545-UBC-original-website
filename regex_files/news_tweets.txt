@@ -1,0 +1,859 @@
+user_name	created	retweets	text
+CBC	2015-10-28 14:54:49	30	Officer who flipped student in desk to be let go, report says https://t.co/yRcQG35zXn https://t.co/LgXCbaDtjk
+CBC	2015-10-28 14:54:48	8	Apple Pay coming to Canada this year with American Express partnership https://t.co/Whc2g3lLzP https://t.co/xru2gnWdrg
+CBC	2015-10-28 14:40:10	10	Renovation nation: Canadians may spend record $53 billion fixing their homes this year https://t.co/lNGZtIuuih https://t.co/KrCQ1rh8go
+CBC	2015-10-28 14:40:08	51	Cosmetic ear cropping banned by B.C. veterinarians https://t.co/wlsXmOmBFC https://t.co/E9hFezNJZe
+CBC	2015-10-28 14:30:29	10	Alberta will try to spend its way out of a slump, but it also needs oil to recover https://t.co/x2h24rKI39 #abbudget https://t.co/ANkckdlb7m
+CBC	2015-10-28 14:25:18	15	'I wouldn't mind to go back to school': No teacher, no students and a vicious cycle https://t.co/I62zrvwTlZ https://t.co/BlKtD9uGQx
+CBC	2015-10-28 14:15:01	17	Volkswagen posted 1st quarterly loss in 15 years, as costs from emissions scandal mount https://t.co/Z9WEkQ96km #VW https://t.co/VaDVd5Mw2D
+CBC	2015-10-28 14:09:46	10	Trudeau urged to reconsider 'problematic' goal of 25,000 Syrian refugees by end of 2015  https://t.co/0tBrQMfEbj https://t.co/uuZcv3OPT4
+CBC	2015-10-28 14:00:34	24	#Tesla's new Autopilot software means self-driving cars are already on Canadian roads https://t.co/3ksvzhVvEX https://t.co/WsM8s3T73R
+CBC	2015-10-28 13:45:18	6	.@HillaryClinton was 5th U.S. presidential candidate to appear on @colbertlateshow https://t.co/JdEI2kc4JA https://t.co/DlGFYQQFeh
+CBC	2015-10-28 13:30:15	16	Canada Post's door-to-door delivery debate reignites as Liberals set to take office https://t.co/3pXZ1BHtCe #cdnpoli https://t.co/aM4UvkVzRe
+CBC	2015-10-28 12:09:07	23	Southern Ontario braces for heavy rain, high winds, slow commute https://t.co/FhKEgyZ0yr https://t.co/hRMFKuVsA7
+CBC	2015-10-28 12:09:06	13	Germans accuse Austria of driving refugees to border to cross after dark https://t.co/iKEQuiZuq0 https://t.co/Y59Dj9NkiQ
+CBC	2015-10-28 11:23:24	17	Death toll from Afghan quake rises to 385 as survivors await aid https://t.co/NbF3X5vSr3 https://t.co/mcNLWucqVC
+CBC	2015-10-28 11:00:30	19	Canadian eel tracked on 45 day, 2,400-kilometre migration to Sargasso Sea https://t.co/twxO480Dcp https://t.co/ptopcIwNtM
+CBC	2015-10-28 10:45:05	16	Defeated MP Peter Stoffer packs up eccentric Parliament Hill office after 18 years https://t.co/OUPpMwC4lw https://t.co/UsprzdaJRc
+CBC	2015-10-28 10:30:43	11	Stephen Harper to move back to Calgary following election defeat https://t.co/Nm11kbwnf9 https://t.co/oCbuAVcOPS
+CBC	2015-10-28 10:00:36	12	Syrian family reunites at Edmonton airport https://t.co/vlexQEwzVp https://t.co/cDIlhNBTkB
+CBC	2015-10-28 09:38:22	25	Volkswagen emissions scandal sends automaker to first quarterly loss in at least 15 years https://t.co/rIzp6pacAc https://t.co/KZ8HogKfm4
+CBC	2015-10-28 09:08:36	9	Door-to-door mail delivery: Charge for it, scrap it or subsidize it?  https://t.co/4LYaSgFkd5 https://t.co/7EaA7jXWQW
+CBC	2015-10-28 09:08:35	4	Alberta budget: Can the province spend its way to prosperity? https://t.co/PDWHRgZDdH https://t.co/m08pAxfQ1p
+CBC	2015-10-28 09:08:34	3	Did 3rd-party groups sway voters during federal election? https://t.co/Zhc8O5AhRw https://t.co/6M7GFHVODp
+CBC	2015-10-28 09:08:33	15	Ready or not, self-driving cars are cruising on Canadian roads https://t.co/sQcvIo1JO0 https://t.co/dPISCM9NU8
+CBC	2015-10-28 09:08:32	6	How submarine cables became the latest Russia-U.S. issue https://t.co/zRnq6nCQZi https://t.co/cdsnzhR6bc
+CBC	2015-10-28 09:08:31	4	Top 10 Trending Halloween Costumes https://t.co/RWf1A7KXFT https://t.co/XGiMACog1B
+CBC	2015-10-28 09:00:07	14	Archeologists searching for Grand-Pr Acadian church site https://t.co/uqnwvjNW2Y https://t.co/pgIbvvacpe
+CBC	2015-10-28 08:24:09	5	Clinton doesn't believe banks should be 'too big to fail' https://t.co/h5WaGY03Gf https://t.co/dxVXrsSOQZ
+CBC	2015-10-28 08:00:38	8	Cenotaph plaque with names ground off turns up at scrap yard https://t.co/ODuJrYaZGR https://t.co/2dQNrizUEh
+CBC	2015-10-28 07:09:45	3	Alassane Ouattara wins 2nd term as president in Ivory Coast https://t.co/rpaJGp7CtI https://t.co/JZGmPOby7v
+CBC	2015-10-28 07:00:11	19	Canadian scientist thrills the web by live-tweeting spider sex https://t.co/1PHrBV9ubD https://t.co/InDTn0YwuW
+CBC	2015-10-28 06:55:44	3	Doris Payne accused of jewel theft again, at age 85 https://t.co/aba2AgMEsW https://t.co/GtSStbdNah
+CBC	2015-10-28 06:32:22	7	Royals defeat Mets in longest World Series opener https://t.co/higGOAompF https://t.co/CtUDUAR0Xn
+CBC	2015-10-28 06:00:18	21	Canadian eel tracked on 2,400-kilometre migration to Sargasso Sea https://t.co/twxO480Dcp https://t.co/LWvt9WwNgg
+CBC	2015-10-28 05:15:36	6	Ben Carson heads into Republican debate as Iowa front-runner https://t.co/X4SD3r3YVa https://t.co/5DIwqef3zz
+CBC	2015-10-28 05:15:35	11	Canucks deny Canadiens NHL record-tying 10th win to start season https://t.co/KjJtR9w2RA https://t.co/uw5WCaDawE
+CBC	2015-10-28 05:00:17	24	3 Canadian doc filmmakers are Oscar semi-finalists https://t.co/5XMKVgNdpD https://t.co/GIbvKsTwUS
+CBC	2015-10-28 04:00:43	14	Michael Chong urges MPs to 'reclaim their influence' as Reform Act takes effect https://t.co/chGD01OZVl https://t.co/AddeqFyCMW
+CBC	2015-10-28 03:30:12	40	Justin Trudeau to move forward with ambitious agenda by year's end https://t.co/SAl7U7Tydm https://t.co/bVj84qR78c
+CBC	2015-10-28 03:00:34	6	1998 Tofino whale-watching accident sparked call for regulation https://t.co/MTzNL1Pj3w https://t.co/FF7WnulqOr
+CBC	2015-10-28 02:38:47	27	3 dead in 2-vehicle crash north of Toronto https://t.co/WsyA5vnzkB https://t.co/3BcwygX3l3
+CBC	2015-10-28 02:30:20	39	Canadian scientist thrills the web by live-tweeting spider sex https://t.co/1PHrBV9ubD https://t.co/9y8Zdup9iO
+CBC	2015-10-28 02:30:12	21	Big Tobacco ordered to put $1B in trust for class-action lawsuit members https://t.co/zMm0QRFp7P https://t.co/nmglsn4DUe
+CBC	2015-10-28 02:08:41	22	Refugees make landfall in Europe, but journey far from over https://t.co/AlWJ7nJAT7 https://t.co/56ZNqMaF0h
+CBC	2015-10-28 02:00:44	76	Planetary conjunction: Venus, Jupiter, Mars converge in morning sky https://t.co/VnsoX4H5B0 https://t.co/8hAiyvC9dn
+CBC	2015-10-28 01:38:56	19	Big Tobacco ordered to put $1B in trust for class-action lawsuit members https://t.co/nLhIDW3Cdg https://t.co/ggCDrCf6N8
+CBC	2015-10-28 01:30:26	39	Taxman clamps down on snowbirds heading south, hopes to save millions https://t.co/KiNaxvZNV5 https://t.co/cGRDWtPE2U
+CBC	2015-10-28 01:23:46	39	Liberals to get busy with packed agenda before year's end https://t.co/ZnS1w6BMb8 https://t.co/jhy9s7ayyE
+CBC	2015-10-28 01:10:21	5	A 1998 tragedy sparked call for reform, but whale watching is 'not risk-free' https://t.co/MwwslNsjfA https://t.co/EixIrQdulf
+CBC	2015-10-28 01:00:33	13	Alberta to loosen purse strings to stimulate economy https://t.co/7J038Pmzoh https://t.co/5bJn0Ksb9M
+CBC	2015-10-28 00:30:26	12	Processed meat's cancer link unlikely to change habits, experts say https://t.co/E12Pnzk4tB https://t.co/iOiiPgcWlV
+CBC	2015-10-28 00:23:50	37	Focus on niqab, stripping citizenship a mistake, says Harper's outgoing parliamentary secr https://t.co/SIc8tZS3Yo https://t.co/DXAmvvzt0N
+CBC	2015-10-28 00:09:04	7	TSB updating investigation into Tofino whale-watching boat tragedy https://t.co/i59ZrxDt3K https://t.co/ExSDbfbM9X
+CBC	2015-10-28 00:00:57	65	Persian Gulf may become too hot for humans, study suggests https://t.co/9QASCe5kHV https://t.co/bM3fIzYiW8
+CBC	2015-10-27 23:52:46	19	Live-tweeting of spider sex fascinates the web https://t.co/3qpiqeEuD8 https://t.co/m2yAJm9k7w
+CBC	2015-10-27 23:45:12	10	Deaths of Canadian Ranger and spouse involved military-issued rifle https://t.co/9F1gh2WTiF https://t.co/ANdzvx46hm
+CBC	2015-10-27 23:15:03	11	Victoria B.C. pig lover refuses to part with pot-bellied babies https://t.co/mMGExh6Xcw https://t.co/7x5zoa9wGK
+CBC	2015-10-27 23:10:24	33	Tofino rescue triggered by single flare and quick action https://t.co/bGl3sqwkNm https://t.co/4USvGRbwCL
+CBC	2015-10-27 23:00:41	13	Deaths of Canadian Ranger and spouse involved military-issued rifle https://t.co/9F1gh2WTiF https://t.co/VaUAaT4UIy
+CBC	2015-10-27 22:45:38	25	South Carolina officer's arrest of student to be probed by Justice Department https://t.co/F2abBzTqqz https://t.co/6nd4MDQdsG
+CBC	2015-10-27 22:45:33	66	Canadian scientist @Cataranea thrills the web by live-tweeting spider sex https://t.co/1PHrBV9ubD https://t.co/hzjFrnbImo
+CBC	2015-10-27 22:32:06	9	'Right budget at the right time,' Alberta finance minister says  https://t.co/o2Iso4VXvY https://t.co/GGBH1cXngc
+CBC	2015-10-27 22:32:06	15	iPhone 6S proves a winner for Apple with 48 million sold https://t.co/rmzdYoPIPm https://t.co/Z13Y0MjfOD
+CBC	2015-10-27 22:30:42	20	Analysis: Way too many Nazi references in this Republican race https://t.co/VPZa7yf94W https://t.co/7bi3zRcxbj
+CBC	2015-10-27 22:15:09	55	Planetary conjunction: Venus, Jupiter, Mars converge in morning sky https://t.co/VnsoX4H5B0 https://t.co/JudOHZbZUe
+CBC	2015-10-27 22:00:06	28	Stephen Harper to move back to Calgary following election defeat https://t.co/Nm11kbwnf9 https://t.co/gitY1Irmb2
+CBC	2015-10-27 21:45:12	46	Persian Gulf may soon be too hot to support human life https://t.co/PFfFyNaFUo https://t.co/hTu0UvFmwb
+CBC	2015-10-27 21:30:14	18	Taxman clamps down on snowbirds heading south, hopes to save millions https://t.co/KiNaxvZNV5 https://t.co/LCyPScFsFJ
+CBC	2015-10-27 21:21:02	9	Military-issued rifle involved in deaths of Canadian Ranger and spouse https://t.co/3mwFuVSzPi https://t.co/DycY6Q1xI8
+CBC	2015-10-27 21:21:01	57	Venus, Jupiter and Mars will form dazzling triangle before dawn https://t.co/mUcOcUUIq4 https://t.co/atLa5QWkFp
+CBC	2015-10-27 21:15:02	19	Leah Remini blasts Tom Cruise, Scientology in new interview with 20/20 https://t.co/eun09ybjho https://t.co/sDnxab3x9w
+CBC	2015-10-27 21:00:26	20	Wal-Mart applies to test delivery drones https://t.co/qeq5nN4p5w https://t.co/9hMlguNAcb
+CBC	2015-10-27 20:45:05	17	Cougar treed by wild dogs west of Calgary caught on camera https://t.co/X5TInjgDoj https://t.co/glaitBUUBx
+CBC	2015-10-27 20:30:34	59	Law to reduce use of bee-killing pesticides upheld in court https://t.co/f6lDSaKZte https://t.co/naPnJ8tKOb
+CBC	2015-10-27 20:18:42	14	Stephen Harper to move back to Calgary following election defeat https://t.co/lj1JR7lkdH https://t.co/Qbp5Z11W5F
+CBC	2015-10-27 20:18:41	7	B.C. premier praises rescuers in Tofino whale-watching tragedy https://t.co/aqPq8RaZoG https://t.co/k3dtENdSFp
+CBC	2015-10-27 20:18:40	49	European Union to ban wireless roaming fees as of June 2017 https://t.co/YwsoDB8HY4 https://t.co/YQyvZ3I1g7
+CBC	2015-10-27 20:15:25	9	Spectre, latest 007 film, has glitzy premiere in London https://t.co/hMJTIS5jRn https://t.co/fu9CPNnQZc
+CBC	2015-10-27 20:00:34	11	Flu shot's 'crystal ball' science still best bet against influenza https://t.co/Tm8WfHgeNI https://t.co/DrZaI72wkG
+CBC	2015-10-27 19:45:16	24	Vancouver Island soccer club suspended after teen player slams sponsor https://t.co/YPDZq3KDqO https://t.co/u5SNRAWuSC
+CBC	2015-10-27 19:30:21	12	Canadian Forces ombudsman to review Canadian Rangers program https://t.co/sknyUAUqoz https://t.co/bdP6QnRhZc
+CBC	2015-10-27 19:17:54	54	P&amp;G, Kimberly Clark list ingredients in tampons, pads after consumer pressure https://t.co/wHGAhjwTeW https://t.co/PwtbO0O9Mi
+CBC	2015-10-27 19:17:53	26	NAACP officials react to video of violent arrest of South Carolina student https://t.co/oejQX3uow8 https://t.co/qGecRO4fYY
+CBC	2015-10-27 19:17:52	16	Loonie and oil take a dive as U.S. plans to sell off part of strategic petroleum reserve https://t.co/gJvLG25N5T https://t.co/sI4vjkUcog
+CBC	2015-10-27 19:17:52	13	Website that archives politicians' deleted tweets may return https://t.co/TC1vVNLV8Q https://t.co/yYS8w8m3lg
+CBC	2015-10-27 19:15:05	11	Weak Canadian dollar a drag for U.S. airports catering to Canadian fliers https://t.co/csOtn73Fyx https://t.co/CJQBIuJI1g
+CBC	2015-10-27 19:00:09	14	Beef industry takes WHO report 'with a grain of salt'  https://t.co/oeAIsGACgY https://t.co/TygjR1TFhf
+CBC	2015-10-27 18:45:13	30	Canada Post halts controversial community mailbox program https://t.co/mcJ3UE7bTa https://t.co/VRZAw1wZB9
+CBC	2015-10-27 18:30:40	19	Coming up, the NAACP's reaction to the violent arrest of a South Carolina student https://t.co/F2abBzTqqz https://t.co/DOGyHHu1oX
+CBC	2015-10-27 16:30:58	10	Road rage can now be reported to Windsor police using an online form https://t.co/a3F843MOh2 https://t.co/AIkNnruwMK
+CBC	2015-10-27 16:18:08	14	Beef industry rejects 'alarmist' carcinogen advisory from WHO https://t.co/ARw36bFJOX https://t.co/PTCArNBtF7
+CBC	2015-10-27 16:18:07	23	Taxman clamps down on snowbirds heading south, hopes to save millions https://t.co/fUA3kWNt3Z https://t.co/uXIkJX7qBw
+CBC	2015-10-27 16:15:26	23	ANALYSIS: Way too many Nazi references in this Republican race https://t.co/VPZa7yf94W https://t.co/Roq5ybOlDc
+CBC	2015-10-27 16:00:17	9	Donald Trump got a million dollars from dad, scorn from the internet https://t.co/QubJmrIbPC https://t.co/HDU4p4tNGY
+CBC	2015-10-27 15:45:09	18	Trudeau family pictures remembered by retired photographer Rod MacIvor https://t.co/WOycJGsmxg https://t.co/yswjhmVmOL
+CBC	2015-10-27 15:30:47	24	Vancouver Island soccer club suspended after teen player slams sponsor https://t.co/YPDZq3KDqO https://t.co/4SHtFcwElo
+CBC	2015-10-27 15:18:46	9	British father, son among Tofino boat victims https://t.co/ZumVNeLgH1 https://t.co/ZTMhc3XC9D
+CBC	2015-10-27 15:18:45	13	End of the world: 5 reasons zombies have infected pop culture https://t.co/HiKiH9bCIk https://t.co/8Ms8XwCkQR
+CBC	2015-10-27 15:18:45	12	Trudeau family pictures remembered by retired photographer Rod MacIvor https://t.co/p3AVAgWEpN https://t.co/zQoBr7E0Eq
+CBC	2015-10-27 15:18:44	25	Famed diplomat Ken Taylor to be honoured at funeral in Toronto today https://t.co/uDCzMH1ETe https://t.co/qakBop3vx6
+CBC	2015-10-27 15:18:43	9	Justin Trudeau to meet with Kathleen Wynne today in Toronto https://t.co/tTClRIQxkf https://t.co/cRQwksDdjl
+CBC	2015-10-27 15:18:43	14	Teen girl's soccer club suspended after player slams sponsor https://t.co/7F0vkH0xay https://t.co/MOCSkNqGSP
+CBC	2015-10-27 15:18:42	2	Manitoba's Candice Bergen joins Conservative interim leadership contest https://t.co/i5Gyyrp5pt https://t.co/pNHR4mnL4M
+CBC	2015-10-27 14:18:39	6	First caucus meetings mean big decisions as Michael Chong's Reform Act takes hold https://t.co/g7Z0tA2tJH https://t.co/AqZhL2xyx6
+CBC	2015-10-27 14:18:38	8	Quebec police reacts as First Nations chiefs discuss Val-d'Or abuse allegations https://t.co/CvFQpR7VaK https://t.co/MlOkLVrcmC
+CBC	2015-10-27 14:18:36	59	Persian Gulf may soon be too hot to support human life https://t.co/3QLBiNI09P https://t.co/vbpZ1GOT9N
+CBC	2015-10-27 13:18:06	8	Weak loonie takes a bite out of sales at Tim Hortons owner https://t.co/OyUjkCq1FK https://t.co/6zTGyCNU6a
+CBC	2015-10-27 12:18:33	30	Dutch man won't face charges in Netherlands related to Amanda Todd extortion https://t.co/3uWwfKhlCn https://t.co/kn2Tybf0B7
+CBC	2015-10-27 12:18:32	24	Death toll at least 311 in earthquake that struck Afghanistan, Pakistan https://t.co/8t2e8fJjbA https://t.co/xHSc38jskY
+CBC	2015-10-27 12:18:31	18	U.S. tests China as destroyer sails through disputed islands  https://t.co/Qhh2yp2mWb https://t.co/kKXRWyAg7f
+CBC	2015-10-27 11:18:11	25	Police silence about disabled man's death after arrest frustrates family's quest for answe https://t.co/qYacvZ0OZB https://t.co/c7QmPTzT2q
+CBC	2015-10-27 11:18:10	22	How Canada could slash carbon emissions with existing technology https://t.co/Ljq1zu2l4U https://t.co/StjrLHsaXs
+CBC	2015-10-27 11:18:10	20	Trump mocked for 'small loan' of a million dollars from his dad https://t.co/8NyoNFSkHi https://t.co/LHlIs6RZcH
+CBC	2015-10-27 11:18:09	7	New Democrats vow to reintroduce sports betting bill https://t.co/2FmVAQDrhB https://t.co/GLotceQI0W
+CBC	2015-10-27 11:00:06	13	Tom Mulcair says niqab position was a defining moment of his political career https://t.co/NGnDbUlJot https://t.co/dkSLMH8WCw
+CBC	2015-10-27 10:45:05	10	Donald Trump got a million dollars from dad, scorn from the internet https://t.co/QubJmrIbPC https://t.co/oOnOgXuRLD
+CBC	2015-10-27 10:30:03	29	Why do leaves turn red in the fall? The science is up for debate https://t.co/H5NzzR1vsC https://t.co/SGLwEfx17C
+CBC	2015-10-27 10:17:55	17	'Empty feeling in your gut': Responders describe grim search for whale-watching accident s https://t.co/YrBhtI81V7 https://t.co/N4xDLUfHT8
+CBC	2015-10-27 10:00:18	9	Former Nova Scotia MP, suggests dropping the N from NDP https://t.co/3SvqFOJUk7 https://t.co/eeGcRRTu3c
+CBC	2015-10-27 09:16:52	16	Why flu vaccine design is still a shot in the dark https://t.co/sskc9793Nm https://t.co/pAdu1OPFLT
+CBC	2015-10-27 09:16:51	14	Way too many Nazi references in this Republican race: Neil Macdonald https://t.co/xkurfR5NwS https://t.co/lWJk4fdYFA
+CBC	2015-10-27 09:16:51	23	Canadian Forces ombudsman to review Canadian Rangers program https://t.co/MmLRKbR4il https://t.co/wrPhjQJjBF
+CBC	2015-10-27 09:16:50	20	Processed meat's cancer link unlikely to change habits, experts say https://t.co/jbyXHNFFts https://t.co/WC5Q2U2xH8
+CBC	2015-10-27 09:16:50	7	Alberta's NDP government to release 1st budget  https://t.co/mIcBzpDQ7G https://t.co/RDVuUDQz38
+CBC	2015-10-27 09:16:49	8	Passenger expected to recount terrifying night on streetcar at Forcillo trial https://t.co/R2dtlQ6XxS https://t.co/61ixBRvUbs
+CBC	2015-10-27 09:00:08	12	Deer population down 15 - 20 % after harsh winter https://t.co/EvRpu9xiXZ https://t.co/KgeI9C27Hj
+CBC	2015-10-27 08:17:03	3	Republicans face big decision after their leadership reach budget deal https://t.co/WMRDyk9f9g https://t.co/1maUCwJPta
+CBC	2015-10-27 08:00:44	37	Murder-suicide of B.C. mom and autistic son shows need for more support: family https://t.co/lT4vitE1rT https://t.co/Qu9pKdVlwX
+CBC	2015-10-27 07:00:44	5	Former Nova Scotia MP suggests dropping N from NDP https://t.co/3SvqFOJUk7 https://t.co/omC2N1uk3U
+CBC	2015-10-27 06:00:22	13	Whale-watching tragedy: what were the rules for life jackets? https://t.co/C4vlah80u1 https://t.co/sxTjIqOXra
+CBC	2015-10-27 05:00:39	29	Justin Trudeau to meet with Ontario premier Kathleen Wynne in Toronto https://t.co/wVaYTIKRqC https://t.co/oEVPxEsBpg
+CBC	2015-10-27 04:44:40	5	Flames shut out by Islanders, suffer 7th loss in 9 starts https://t.co/BbUS6NTmTt https://t.co/kIBSIoYeSF
+CBC	2015-10-27 04:14:59	17	Toronto woman who accused Bill Cosby sues former prosecutor for defamation https://t.co/E9pZ7tzYwC https://t.co/IXZnGOI5yP
+CBC	2015-10-27 04:00:30	64	Ethan Hawke helps Mi'kmaq oppose Gulf of St. Lawrence oil exploration https://t.co/MFeAajNsPe https://t.co/0aJoNrQyJJ
+CBC	2015-10-27 03:30:22	27	Justin Trudeau will move into Rideau Cottage, not 24 Sussex Drive https://t.co/3kpCuy8ML6 https://t.co/GmdGTQojCD
+CBC	2015-10-27 03:30:07	7	Max Domi helps put away Maple Leafs, father's former team https://t.co/HAmErre330 https://t.co/ylk7rX5eZR
+CBC	2015-10-27 03:00:06	64	Canada Post halts community mailbox program https://t.co/mcJ3UE7bTa https://t.co/b8cZQ1KAl3
+CBC	2015-10-27 02:30:05	86	Waterloo police seek missing Kitchener teen Matthew Domm https://t.co/rCqc9Oiz2X https://t.co/vjVsgr1WM5
+CBC	2015-10-27 02:00:32	22	Trump got a million dollars from dad, scorn from the internet https://t.co/QubJmrIbPC https://t.co/EROEuar0eT
+CBC	2015-10-27 01:30:13	28	Cougar treed by wild dogs west of Calgary caught on camera https://t.co/X5TInjgDoj https://t.co/iWsjxa7J5o
+CBC	2015-10-27 01:04:39	59	Tom Mulcair says niqab position was a defining moment of his political career https://t.co/t4psaHSlbi https://t.co/fYmDGidb7y
+CBC	2015-10-27 01:00:19	32	Justin Trudeau urged to take action on Syrian refugees https://t.co/eYHd2HdW73 https://t.co/bcawMAS1dz
+CBC	2015-10-27 00:31:28	12	Police union warns against scapegoating Val-d'Or officers for 'social issue' https://t.co/eDZIHTaFvS https://t.co/kuaCW0zcVo
+CBC	2015-10-27 00:30:05	16	Toronto-Tel Aviv Air Canada flight diverted to Cyprus after lightning strike https://t.co/leUcw0JQRj https://t.co/XTs0CWXCC4
+CBC	2015-10-27 00:14:52	32	Alberta couple stumble across cougar forced up a tree by wild dogs  https://t.co/24XhridVAG https://t.co/CMyiWOD1x8
+CBC	2015-10-27 00:01:03	42	5 things: What findings on red, processed meat and cancer really mean https://t.co/PvACkmRVGL https://t.co/5rzuJOL0BU
+CBC	2015-10-26 23:45:06	50	Canada Post halts controversial community mailbox program https://t.co/mcJ3UE7bTa https://t.co/vTTAvl5zEc
+CBC	2015-10-26 23:35:55	78	Check your Facebook privacy settings: Your old posts might be public https://t.co/iVdsaYfg5C https://t.co/j0SckS8HNE
+CBC	2015-10-26 23:35:55	42	Justin Trudeau urged to take action on Syrian refugees  https://t.co/BqZZcBtClO https://t.co/zZAAelPFbV
+CBC	2015-10-26 23:30:16	13	The Walking Dead follows Game of Thrones in character killing https://t.co/jNOxXWCLz4 https://t.co/NVAHVaAnbZ
+CBC	2015-10-26 23:15:11	47	Earthquake rattles remote areas of Afghanistan and Pakistan, at least 263 dead https://t.co/WC45z5WOzq https://t.co/9HI7k8Dg34
+CBC	2015-10-26 23:00:14	33	Roots Canada sells majority stake to Searchlight Capital https://t.co/uJjArJ4Osk https://t.co/rrzJr39KFi
+CBC	2015-10-26 22:45:19	28	Cosmetic contact lenses for Halloween no treat for the eyes, optometrists say https://t.co/htNfgOSQ82 https://t.co/6LBUnjQLGi
+CBC	2015-10-26 22:30:29	22	Fiat Chrysler Automobiles hiring at Windsor Assembly Plant https://t.co/j9qxqH5syu https://t.co/BzlJE8wS7y
+CBC	2015-10-26 22:15:14	77	Law to reduce use of bee-killing pesticides upheld in court https://t.co/f6lDSaKZte https://t.co/vnvpiq2M19
+CBC	2015-10-26 22:12:53	23	Roots Canada founders sell control of brand to private equity partner https://t.co/HycToOjmpY https://t.co/Pu6yUUlKI4
+CBC	2015-10-26 22:00:21	33	5 things: What the findings on red, processed meat and cancer really mean https://t.co/PvACkmRVGL https://t.co/wCUCWLHUVJ
+CBC	2015-10-26 21:45:11	12	Conservatives to elect interim leader on Nov. 5 https://t.co/xcqpEuamjE https://t.co/1jb94CSgrA
+CBC	2015-10-26 21:30:22	24	Oil below $44 after Goldman predicts price crash when storage tanks fill https://t.co/K4BwzACIcQ https://t.co/ct7CuMrlxW
+CBC	2015-10-26 21:27:30	98	Canada Post halts controversial community mailbox program https://t.co/udnfCU4wLn https://t.co/TjED3DUHGk
+CBC	2015-10-26 21:15:13	30	From Zimbabwe to the Arctic: meet Iqaluit's first black councillor https://t.co/2EZoaoWNn8 https://t.co/A5GXZSbnTP
+CBC	2015-10-26 21:01:38	9	Wingsuit competition tests daredevils https://t.co/YVER1xAt1v https://t.co/7Gu7MiBptv
+CBC	2015-10-26 21:00:29	10	Stolen RCMP gun used in 'senseless' Winnipeg shooting that injured girl https://t.co/tL8ec0xNvP https://t.co/Y08jSDMTEJ
+CBC	2015-10-26 20:57:42	7	Hillary Clinton supporters 'giddy' after an 'incredible' month https://t.co/qnNZaNedNP https://t.co/LeC1H6m1dD
+CBC	2015-10-26 20:57:41	15	Did The Walking Dead pull a 'Jon Snow' with a beloved character? https://t.co/teIiN4FvbB https://t.co/4LcRL3xMo0
+CBC	2015-10-26 20:45:01	49	Actor Ethan Hawke helping Mi'kmaq oppose Gulf of St. Lawrence oil exploration https://t.co/MFeAajNsPe https://t.co/kvPDDQPC3L
+CBC	2015-10-26 16:15:37	19	1937 shipwreck appears to be leaking oil in Lake Erie, near Canada/U.S. border https://t.co/UtiyjIeKCR https://t.co/taACr3MfNu
+CBC	2015-10-26 15:54:16	64	5 things: What the findings on red, processed meat and cancer really mean https://t.co/io57oDrHRh https://t.co/H2qanpzZNO
+CBC	2015-10-26 15:54:15	32	Fans donate Lego to Ai Weiwei after company refuses to fill order https://t.co/rHsKzzxqxB https://t.co/1t5wLzBBGl
+CBC	2015-10-26 15:54:14	2	Bieber, Macklemore among MTV Europe Music Awards highlights https://t.co/RnUSccMKXT https://t.co/nggdgoqBtO
+CBC	2015-10-26 15:45:25	6	Joe Biden says he didn't run for president because he 'couldn't win' https://t.co/xthAXGwkX3 https://t.co/QJttQuKr3E
+CBC	2015-10-26 15:38:27	23	Signing Price, Estrada top of Blue Jays GM's wish list  https://t.co/0AGyTNxd9L https://t.co/vQEDlYC63h
+CBC	2015-10-26 15:22:24	16	Ex-Tory frontbencher John Baird won't run for Conservative leadership https://t.co/lrTcLhOfGo https://t.co/Ti6KFFBE7a
+CBC	2015-10-26 15:22:23	3	Valeant stock slumps again even as company announces probe into Philidor allegations https://t.co/nKFHOueiNU https://t.co/LEpwpiT3vu
+CBC	2015-10-26 13:34:21	30	'We came on a holiday': 5 dead, 1 missing after Tofino whale watching boat capsizes https://t.co/diXY9RMcJL https://t.co/4BfjMy8V7h
+CBC	2015-10-26 12:56:58	52	On @CBCMorningShow: Teal Pumpkin Project helps B.C. kids with food allergies feel 'safe' on #Halloween https://t.co/vzVtMSinIh
+CBC	2015-10-26 12:16:19	69	Processed meat can cause cancer, red meat probably can, WHO says https://t.co/nAusiF3CgD https://t.co/OFZthZcxYJ
+CBC	2015-10-26 11:45:21	48	Montreal to get 106 electric car charging stations by next spring https://t.co/r6gRWgo35h https://t.co/UYffl4rT8x
+CBC	2015-10-26 11:30:09	29	Anger at Stephen Harper, disenfranchisement fuelled aboriginal voter turnout, say activists https://t.co/Q8bEoTdIjD https://t.co/h3N11rhB8H
+CBC	2015-10-26 11:15:11	131	Netflix to stream Star Wars: The Force Awakens in Canada  and nowhere else https://t.co/xeuq1L53XP https://t.co/QngqplFxVj
+CBC	2015-10-26 11:00:27	62	Orca baby boom: 6th baby born this year to endangered pod https://t.co/cGSC7RxxoU https://t.co/99jM15JrOE
+CBC	2015-10-26 10:56:50	19	Blue Jays GM to hold year-end news conference this morning https://t.co/9Se0IDshKd https://t.co/b03BoM5qrI
+CBC	2015-10-26 10:45:08	94	Uploading Bautista bat flip GIFs could get you sued under TPP, copyright activists warn https://t.co/YhReK9gnAG https://t.co/X9lPxsXsOC
+CBC	2015-10-26 10:30:26	7	Iraqi Kurds release footage of raid against ISIS in which U.S. commando died https://t.co/xhZB5Hn2MI https://t.co/Y0xsDwx2iW
+CBC	2015-10-26 10:00:44	37	Earthquake of 7.7 magnitude hits Afghanistan https://t.co/IsNNHtrSb4 https://t.co/itkuadP8x4
+CBC	2015-10-26 10:00:43	36	5 hunters lose licenses after poaching bighorn sheep in Alberta https://t.co/M5rlLEi7Cx https://t.co/rSdVI95Py8
+CBC	2015-10-26 09:15:56	4	You know, there might be a dark side to our 'sunny ways': Michelle Gagnon https://t.co/vJlzkxdjRg https://t.co/jPRTLG8u8X
+CBC	2015-10-26 09:15:55	8	Apple vs. Google: If you get hacked, which account could be bigger trouble? https://t.co/yyXZSclJDO https://t.co/iUkEAwafiW
+CBC	2015-10-26 09:15:55	11	How to grow the economy without robbing our children: Don Pittis https://t.co/Glz5zITRm0 https://t.co/BTyUcQlK7I
+CBC	2015-10-26 09:15:54	7	Oilpatch earnings expected to be worst since financial crisis https://t.co/UY29bLHtuu https://t.co/4OQ4YnOVmH
+CBC	2015-10-26 09:15:54	8	Parents of disabled woman say caregiver's lack of medical skills put daughter at risk https://t.co/kHqA6ZkkLE https://t.co/WzzYMHS4a0
+CBC	2015-10-26 09:15:53	7	Toronto streetcar driver to testify at officer's 2nd-degree murder trial https://t.co/SCGWw34AR3 https://t.co/GyZ3cdp0Sw
+CBC	2015-10-26 09:00:13	10	Coconut oil: Is it really a 'miracle' food? https://t.co/sXrwlnupYX https://t.co/7u7U3p0x2p
+CBC	2015-10-26 08:46:21	7	Black Lives Matter encouraging 'murder of police,' Chris Christie alleges https://t.co/O3CSkrGbaT https://t.co/By1WJWoLL6
+CBC	2015-10-26 08:00:16	8	At Vatican synod, the biggest change is to change itself https://t.co/B9RH1i9tmA https://t.co/mDZf1g7Zs9
+CBC	2015-10-26 07:15:18	3	Vancouver Whitecaps clinch 1st-round playoff bye https://t.co/QIhcjSB8UF https://t.co/zZh1125H1c
+CBC	2015-10-26 07:00:32	25	NHL star Alex Ovechkin dresses as Batman for Halloween https://t.co/6oNOLzA4oH https://t.co/z3oYfrAiEY
+CBC	2015-10-26 06:20:42	2	Flames offence sputters in loss to Rangers https://t.co/F71jYqv1XT https://t.co/FXUnbWaNvL
+CBC	2015-10-26 06:13:32	54	UPDATE: 5 confirmed dead after whale watching boat capsizes off B.C., with 1 missing https://t.co/7t8ku7hpvF https://t.co/5WpnraRKkD
+CBC	2015-10-26 06:00:12	27	'Would Canada take us?' The cry from Germany's refugee shelters https://t.co/d7rkoeJviD https://t.co/PIep1ohllb
+CBC	2015-10-26 05:37:35	51	UPDATE: At least 4 dead, 18 sent to hospital in whale watching boat accident off B.C. coast https://t.co/7t8ku7hpvF https://t.co/Q1caom5MIc
+CBC	2015-10-26 05:11:10	3	Kings hold on to beat Oilers despite wild finish  https://t.co/zVXoOe0p4H https://t.co/MTBVRJIXJz
+CBC	2015-10-26 05:00:12	7	Where does the new Liberal government stand on auto? https://t.co/VYGtpXS9pp https://t.co/Vw1YieTfng
+CBC	2015-10-26 04:55:35	9	General Motors, UAW reach tentative deal on new contract https://t.co/mq3w2HTLGC https://t.co/8oIosueBIc
+CBC	2015-10-26 04:25:46	14	Justin Bieber wins 5 MTV Europe Music Awards https://t.co/lP7t2a1oCI https://t.co/aE7hsleeQd
+CBC	2015-10-26 04:00:16	34	Pit bull rehab: Former fighting dogs find homes in Detroit https://t.co/sehEuCMWdv https://t.co/vW9XQI01qn
+CBC	2015-10-26 03:00:23	9	Canada votes 2015: why 24 riding gains didn't go Liberal https://t.co/IGdx1M3Lz8 #cdnpoli #elxn42 https://t.co/5f5jB7f62P
+CBC	2015-10-26 02:31:23	215	Netflix to stream Star Wars: The Force Awakens in Canada  and nowhere else https://t.co/GFLscbccMN https://t.co/5V0fl8U3uw
+CBC	2015-10-26 02:31:22	11	Flip Saunders, longtime NBA coach, dies of cancer https://t.co/RpZtOSIZeq https://t.co/tQdeXJw2Lv
+CBC	2015-10-26 02:30:03	66	St. George, Ont., celebrates Christmas early for boy with cancer https://t.co/sXKF8pgsh8 https://t.co/RoVhO13i0z
+CBC	2015-10-26 02:23:22	47	From the mayor of Tofino https://t.co/ssCAgiy0zK
+CBC	2015-10-26 02:05:57	216	Netflix to stream Star Wars: The Force Awakens in Canada  and only in Canada https://t.co/xeuq1L53XP https://t.co/EYqVMmcPfA
+CBC	2015-10-25 10:47:29	12	Whoopi Goldberg's Moncton show cut short by fire https://t.co/4fZEDQzkOk https://t.co/LQbsRuuhTt
+CBC	2015-10-25 10:30:08	23	Justin Trudeau answers B.C. voter's widely shared Facebook letter https://t.co/oD9OE9YcNJ https://t.co/wKSOkHHpnR
+CBC	2015-10-25 10:09:35	29	Why Canadians are spending more on wireless and internet services https://t.co/dt9uOvsfuw https://t.co/ORIfMhW18x
+CBC	2015-10-25 10:00:26	10	Black teens hack the Silicon ceiling to 'unleash their genius' https://t.co/NkgXHEZ7w1 https://t.co/U3UyMyS1QV
+CBC	2015-10-25 09:00:28	30	Profile: Journalist pays for reporting the truth about ISIS with his father's life https://t.co/N2s9fMcS04 https://t.co/KLVzENZB76
+CBC	2015-10-25 08:00:36	17	Photos: Landmarks turn blue for UN anniversary https://t.co/sLOaiU5Q1h https://t.co/vdhInYOpUA
+CBC	2015-10-25 07:00:15	61	Town pulls out all the stops to celebrate Christmas early for terminally ill boy https://t.co/sXKF8pgsh8 https://t.co/vPNYUWfscU
+CBC	2015-10-25 06:00:27	67	Justin Trudeau has strong slate of aboriginal MPs when considering cabinet https://t.co/EUoUbdoAKH https://t.co/pxZD8TNZk4
+CBC	2015-10-25 05:00:14	28	Maureen O'Hara, star of Miracle on 34th Street, dies at age 95 https://t.co/oHSBT5pxqi https://t.co/K0kNFse9ks
+CBC	2015-10-25 04:00:18	97	5 hunters lose licenses after poaching bighorn sheep near Hinton, Alta. https://t.co/hsWlQCzTl7 https://t.co/eU9q2LirgV
+CBC	2015-10-25 03:09:35	14	Major flooding begins in Texas as Patricia remnants move east https://t.co/Hh8Yx5vY2G https://t.co/Gds1bovx7u
+CBC	2015-10-25 03:00:20	47	Pit bull rehab: Former fighting dogs find homes in Detroit https://t.co/sehEuCMWdv https://t.co/vxMnI8UTzd
+CBC	2015-10-25 02:30:17	58	'Good-hearted' cyclists rescue elderly man who fell in Ottawa River https://t.co/3yYwrZL5X5 https://t.co/maTPcvi04a
+CBC	2015-10-25 02:00:10	23	Building from the roof down: Montreal builders try new approach https://t.co/2FrHoazB2U https://t.co/CG33jzQMBO
+CBC	2015-10-25 01:30:10	13	Brakes critical: Karts hit speeds upwards of 70 km/h in UNB race https://t.co/PsIEkxQPhE https://t.co/UIH9YAsliw
+CBC	2015-10-25 01:00:17	15	Chase the Ace jackpot grows to over $400K in P.E.I. city https://t.co/qwEFEWwfMd https://t.co/qwyNq076Fh
+CBC	2015-10-25 00:30:13	66	Anaylsis: Triple deleted emails shed light on troubling political culture https://t.co/QojPdEd7mU https://t.co/byb7PKSyPI
+CBC	2015-10-25 00:00:22	96	$10K donation by NHLer Carey Price delights B.C. minor hockey league https://t.co/tWcLOsv01T https://t.co/1WXp1tfqdO
+CBC	2015-10-24 23:30:10	20	Mom forgives man who murdered her pregnant daughter https://t.co/z4xZVB7LN6 https://t.co/qwy757AONT
+CBC	2015-10-24 23:00:31	31	Man fights to keep his two beloved pot-bellied pigs in the city https://t.co/mMGExh6Xcw https://t.co/pc69jupQgL
+CBC	2015-10-24 22:30:36	139	Ontario town pulls out all the stops to celebrate Christmas early for local boy https://t.co/sXKF8pgsh8 https://t.co/vtfiTIoYXK
+CBC	2015-10-24 22:00:20	13	3 dead, 22 injured after car crashes into Oklahoma parade https://t.co/TjBrjhcHxh https://t.co/Vo0ICj8JWN
+CBC	2015-10-24 21:30:30	25	Preview: Canadiens carry perfect record into tilt against Leafs https://t.co/TPcsqE5PjO https://t.co/d1p3fFBHN8
+CBC	2015-10-24 21:00:11	16	Russia-Ukraine direct flights to be halted https://t.co/ecs70tTPyg https://t.co/nDPATc21Iu
+CBC	2015-10-24 20:30:21	21	'Break the taboo,' say mothers who lost babies late in pregnancy https://t.co/cLp9UviUyi https://t.co/k7pOv17PJv
+CBC	2015-10-24 20:00:40	10	ISIS purportedly releases video of raid aftermath that killed U.S. commando https://t.co/gC4nxvceVX https://t.co/M7gpZ7b7eO
+CBC	2015-10-24 19:30:17	40	Justin Trudeau answers voter's open letter on Facebook https://t.co/aMArXY0gOx https://t.co/LREFOtwIAN
+CBC	2015-10-24 19:06:17	18	Canadians in Mexico face risks in trail of Hurricane Patricia https://t.co/dMNl5ykHi8 https://t.co/kIGoMOhIPW
+CBC	2015-10-24 19:06:17	14	3 dead, 22 injured after car crashes into Oklahoma homecoming parade https://t.co/pIZZcb9uUN https://t.co/yVy5C6hihP
+CBC	2015-10-24 19:06:16	29	Maureen O'Hara, Hollywood film star, dead at 95 https://t.co/K314GgWX61 https://t.co/wvi5ZHg2IS
+CBC	2015-10-24 19:00:34	26	Giant hole for community mailbox in front yard makes man angry at Canada Post https://t.co/hNUyp6IfNW https://t.co/II4Yr3FOfP
+CBC	2015-10-24 18:30:08	21	'Racist' grammar book stirs controversy in black community https://t.co/8rCO7vSdt2 https://t.co/uQLhxZ9PsX
+CBC	2015-10-23 23:40:59	103	More aboriginal women allege abuse by Quebec provincial police https://t.co/rJ5hE1jXlR https://t.co/Bo22wiUMIf
+CBC	2015-10-23 23:15:22	8	Buffer Festival unites YouTube stars in Toronto https://t.co/z32KKyutoH https://t.co/gEq8zUhGNn
+CBC	2015-10-23 23:00:55	8	Google earnings up 45% in first report as Alphabet https://t.co/E8rEl0jNtI https://t.co/v48UF2BzIP
+CBC	2015-10-23 22:45:10	13	China cuts interest rates again in bid to spur growth https://t.co/KvHaQc0szD https://t.co/GEyCAYTkIB
+CBC	2015-10-23 22:40:46	7	Trudeau approach to climate talks will include provinces - but maybe not targets https://t.co/lbbHKvv6lR https://t.co/AF5zKHGbwf
+CBC	2015-10-23 22:40:45	21	Christy Clark says she was unaware of triple deleting of government emails https://t.co/g4z01Yhx53 https://t.co/265veFiBrd
+CBC	2015-10-23 22:30:22	13	Zara founder Amancia Ortega briefly passes Bill Gates to be world's richest man https://t.co/0P9qsoigf1 https://t.co/nN2MTpswYX
+CBC	2015-10-23 22:15:10	5	Captivity drama Room builds buzz despite dark subject matter https://t.co/1kMhACLYuO https://t.co/jbyJm3SJMB
+CBC	2015-10-23 22:00:17	4	Israeli-Palestinian violence is part of a pattern in long-running conflict https://t.co/qc8UrR28dN https://t.co/JmoEKXVTDa
+CBC	2015-10-23 21:56:55	52	Hurricane Patricia strongest ever thanks to warm oceans, El Nino https://t.co/msXHYa30kq https://t.co/IJyCsI1DMq
+CBC	2015-10-23 21:45:04	9	Virgin bride presents 'certificate of purity' to dad at wedding https://t.co/9coETjQMcG https://t.co/dx3nPoWoAH
+CBC	2015-10-23 21:30:04	32	Gordon Lightfoot honoured with tribute sculpture in Orillia https://t.co/vJcxZVPgoY https://t.co/TS4Sh1vRFt
+CBC	2015-10-23 21:15:01	64	TPP would allow milk from cows receiving hormones into Canada https://t.co/d01aJkG12O https://t.co/Fo6Yu9n5wb
+CBC	2015-10-23 21:00:13	29	Ontario premier threatens to dock teachers' pay if work-to-rule continues https://t.co/cQppuQgM8d https://t.co/Zrbm3akgWJ
+CNN	2015-10-28 14:58:35	109	.@onedirection beats @thebeatles' record with fifth Top 10 debut on Hot 100 https://t.co/JnVcooT9wP https://t.co/RQVmqRPhnl
+CNN	2015-10-28 14:34:01	69	Former House Speaker Dennis Hastert pleads guilty to lying to investigators about hush money https://t.co/xTjo54dVLx https://t.co/Y8DnuEUQ2k
+CNN	2015-10-28 13:59:01	124	Meet the woman who eats chocolate for breakfast #NationalChocolateDay https://t.co/B8G40tv6Iq https://t.co/diIpwqM1fC
+CNN	2015-10-28 13:45:00	235	.@Royals' Volquez pitched 6 innings last night unaware his father had died hours before game https://t.co/SIHPzn2AGP https://t.co/ec1cIm98rL
+CNN	2015-10-28 13:35:00	38	.@LindseyGrahamSC describes why the kids table debate "sucks" https://t.co/44oC7yvrfG https://t.co/o4FE1Bw6h1
+CNN	2015-10-28 13:24:36	44	.@FOXSports lost power during last night's World Series game, resulting in a 4-minute outage https://t.co/aGtorB1jVU https://t.co/2umsN671wF
+CNN	2015-10-28 12:59:10	42	Rebirth or death spiral? @JebBush looks back for inspiration to go forward https://t.co/rrCm38o6Gq https://t.co/0OCxBN1YPs
+CNN	2015-10-28 12:38:00	244	Spring Valley High School officer suspended after violent classroom arrest https://t.co/DgxXTcSWaH https://t.co/GEgjBBZ30n
+CNN	2015-10-28 12:21:32	86	.@khloekardashian breaks silence on Lamar Odom https://t.co/uOMLmPFwz0 https://t.co/qJ7P149bZW
+CNN	2015-10-28 11:37:00	115	Showdown in the South China Sea: How did we get here? https://t.co/3QUNLUWsnT https://t.co/W6RZGQbye3
+CNN	2015-10-28 11:15:00	157	For the first time on Tuesday, Ben Carson led Donald Trump in a national poll: https://t.co/HxVo6xc23h https://t.co/i73YqAIG2k
+CNN	2015-10-28 11:03:00	348	By 2100, it could become too hot in the Persian Gulf for humans to survive: https://t.co/JGnEV5r0M3 #2degrees https://t.co/wQcl2W8Z9U
+CNN	2015-10-28 10:50:00	119	Thinking of going veggie after the WHO report on meat? Here are the best cities for you: https://t.co/gfX4wEYbVT https://t.co/Wny9REMcnZ
+CNN	2015-10-28 10:20:00	327	Iranian poets face 99 lashes each for shaking hands with opposite sex, rights groups say: https://t.co/85duOiHJ3S https://t.co/893zasxroO
+CNN	2015-10-28 06:03:21	99	Kansas City beats Mets in 14 innings after technical delay. https://t.co/Gw94mWryVi
+CNN	2015-10-28 03:07:02	91	.@HillaryClinton to @StephenAtHome: I would let the big banks fail http:// https://t.co/0HQoMHWYCq via @CNNPolitics https://t.co/bRk35jpjbk
+CNN	2015-10-28 02:52:55	75	How do the New York @Mets and Kansas City @Royals stack up for the #WorldSeries? https://t.co/zE9vmvWaq1 https://t.co/9ylPxxKx65
+CNN	2015-10-28 02:32:28	182	.@ElizabethBanks is returning to direct 'Pitch Perfect 3' https://t.co/PUh968sVtN https://t.co/hemhGdM3IE
+CNN	2015-10-28 02:05:00	130	Game 1 of #WorldSeries delayed after Fox broadcast loses power https://t.co/v1EJfOMARu
+CNN	2015-10-28 01:57:31	170	Is it OK to eat #bacon? @drsanjaygupta answers your questions on processed meats https://t.co/fa1IO5S9vJ https://t.co/D7bTxGNnvV
+CNN	2015-10-28 01:39:56	135	A group of House Republicans moved Tuesday to impeach the head of the IRS https://t.co/352gT7YU6V https://t.co/Rp5VhWxfe0
+CNN	2015-10-28 01:27:30	40	From loose llamas to a little girl who made it! join @cnnkyra tonight https://t.co/dEN11KSrhU #VideosGoneViral2 https://t.co/J0ZVtbG9LU
+CNN	2015-10-28 01:10:01	58	Caught on camera: The miracles behind daring rescues https://t.co/a5NgwakaF8 https://t.co/bh3MKDGMvK
+CNN	2015-10-28 00:43:00	495	Woman found frozen to death in cryotherapy chamber; health trend called into question https://t.co/RPuZUgzbZr https://t.co/Ci2p6g6F3Q
+CNN	2015-10-28 00:30:33	158	.@UN overwhelmingly rejects U.S. embargo of #Cuba https://t.co/DG5iiyZms5 https://t.co/oyIxI9jJ7s
+CNN	2015-10-28 00:21:00	142	Police in schools: Why are they there? https://t.co/G6eUHDyXBa https://t.co/5EM8qjjj8M
+CNN	2015-10-27 23:56:01	145	China says it warned and tracked U.S. warship in South China Sea https://t.co/0JeYXfY2CS https://t.co/eoutSusGok
+CNN	2015-10-27 23:38:27	309	Heat may one day leave Persian Gulf unfit for humans to survive, study warns https://t.co/0JJoUNWfrl https://t.co/KXxFgoPFWP
+CNN	2015-10-27 23:20:36	59	First on CNN: @TGowdySC will nominate @RepPaulRyan for speaker, source says https://t.co/qGoMMdXi7a https://t.co/7QgJj6giVx
+CNN	2015-10-27 22:55:55	337	Meet Donald #Trumpkin: When @realDonaldTrump and other famous people are 'pumpkin-ized' https://t.co/G33eRYvO8Z https://t.co/cqlJa5wRz8
+CNN	2015-10-27 22:42:01	817	Giant pharmacy merger: Walgreens buys Rite Aid in $17.2 billion deal https://t.co/oqJog2Cd3N https://t.co/gMhZAivtGL
+CNN	2015-10-27 22:12:31	156	Pentagon awards contract to build new Long Range Strike Bomber to Northrop Grumman. https://t.co/LP7YsLyhbb
+CNN	2015-10-27 21:27:31	170	S.C. sheriff: Third video exists that purportedly shows resource officer arresting student https://t.co/0Fu9OkZyIG https://t.co/k7lAGftkAO
+CNN	2015-10-27 20:50:55	107	What is @BernieSanders' "democratic socialism"? Experts weigh in https://t.co/Na65HCU9zq via @CNNOpinion https://t.co/WrrxZaqvyg
+CNN	2015-10-27 20:20:04	140	U.S. weighing "direct action on the ground" in Iraq against #ISIS, defense secretary says https://t.co/WRbA6FXyyr https://t.co/zHIZiMQNpt
+CNN	2015-10-27 19:55:32	196	@POTUS: "Too often, law enforcement gets scapegoated" https://t.co/XpGpRUaOi7
+CNN	2015-10-27 19:37:13	62	@POTUS talks about gun violence in speech to police chiefs in Chicago. Watch CNNgo: https://t.co/UYpqI3w42L
+CNN	2015-10-27 19:17:01	398	A space object is expected to fall to Earth next month; Scientists say not to fear it. https://t.co/SYLlO7yp90 https://t.co/hOUYAsJSTK
+CNN	2015-10-27 18:44:29	182	3,500-year-old treasure trove unearthed from grave of Greek warrior-king https://t.co/tZXam3XzTk https://t.co/njZwJEvWLr
+CNN	2015-10-27 18:19:57	793	@POTUS: "Playing like a girl means you're a badass" https://t.co/7IivReEcEy https://t.co/JHSKLJAXLn
+CNN	2015-10-27 17:58:41	412	Julianna, 5, is dying  and she's chosen to go to heaven rather than go back to the hospital https://t.co/z6nQuEQxfO https://t.co/5JJt5Ds0vU
+CNN	2015-10-27 17:39:00	270	.@usairforce says it will develop a new stealth bomber, costing half a billion dollars each: https://t.co/4FoIay2BTU https://t.co/jQXah0E40q
+CNN	2015-10-27 17:12:32	538	FBI, U.S. Attorney's Office open civil rights probe into officer's violent arrest of student https://t.co/adfXEmmoyI https://t.co/Iw74Fd3kEL
+CNN	2015-10-27 17:01:37	139	I dont get it: @realDonaldTrump is confused about his recent slide in the polls. https://t.co/76oDPCpJBm
+CNN	2015-10-27 16:48:59	231	Airstrikes hit Doctors Without Borders clinic in Yemen https://t.co/rll6hpkNEq https://t.co/gahxssVnQX
+CNN	2015-10-27 16:40:00	140	Asteroids can help us reach Mars? https://t.co/RkJKQYunA7 Sponsored by @CanonUSA https://t.co/QUPin9fI4R
+CNN	2015-10-27 16:35:01	432	Yes, this really happened: A dog named Trigger stepped on a gun and shot her owner https://t.co/YKBs63AfAa https://t.co/HafIBo0ekB
+CNN	2015-10-27 16:23:27	153	Psst! @lonelyplanet exclusively reveal their top travel destinations for 2016 #BestinTravel: https://t.co/gOQluEJxfE https://t.co/QMry8i0OHz
+CNN	2015-10-27 16:07:27	104	With @JoeBiden out, @HillaryClinton regains a solid lead in Iowa: https://t.co/S9DxgkRmfw https://t.co/cGDTfVMhxz
+CNN	2015-10-27 15:42:33	274	Heaven over hospital: Parents honor dying child's request https://t.co/OpHYOYpTRn https://t.co/KdkLoyDW9g
+CNN	2015-10-27 15:25:52	136	What happened inside the #WDBJ newsroom after the August killing of 2 reporters on air: https://t.co/SxXlAwPvPY https://t.co/Hc9rg1lKyB
+CNN	2015-10-27 14:58:57	141	Join us now on @facebook as @drsanjaygupta answers Qs on #bacon and the @WHO report https://t.co/4WAMPGMhMA https://t.co/lGLnEaRmjm
+CNN	2015-10-27 14:45:39	68	Can you still eat #bacon? In 15 minutes @drsanjaygupta is taking Qs about the @WHO report on https://t.co/ssRl2al8Ey https://t.co/oTlvs46hgR
+CNN	2015-10-27 14:36:02	174	On Syria's front lines, some weary Kurds fight #ISIS with homemade weapons, wearing sandals: https://t.co/ji8ssBYR5U https://t.co/XVZSarPefk
+CNN	2015-10-27 14:16:28	598	Outrage grows after video shows cop Ben Fields slam seated student, fling her across room https://t.co/dvIAxsHGgV https://t.co/0PNLZMTomd
+CNN	2015-10-27 13:56:30	136	.@POTUS pushes sentencing reform, part of larger effort to overhaul criminal justice system: https://t.co/gIK35zkba4 https://t.co/6ONNEEMUYx
+CNN	2015-10-27 13:26:15	163	.@drsanjaygupta is taking your questions on @facebook at 11am ET about @WHO report linking processed meat to cancer https://t.co/YX0TH5AUGO
+CNN	2015-10-27 12:51:01	224	China says it warned and tracked U.S. warship in South China Sea https://t.co/AyuOiLNm5V https://t.co/nZoKGMdECr
+CNN	2015-10-27 12:41:31	358	Poll: @RealBenCarson knocks @realDonaldTrump from top spot nationally https://t.co/DRO2NueecG https://t.co/x7U2v1vrjI
+CNN	2015-10-27 12:25:01	327	Video shows student slammed to the ground during violent arrest; officer under investigation https://t.co/1uo5xXIS7l https://t.co/H4JRmhadLT
+CNN	2015-10-27 11:55:00	761	Up to 10,000 guns seized from South Carolina home, filling multiple tractor trailers: https://t.co/OqpT4X7JRH https://t.co/R4bKGIlQtY
+CNN	2015-10-27 11:30:00	277	Party in space! Comet Lovejoy is spewing out alcohol and sugar: https://t.co/SUC2PwYJTR https://t.co/Nj8CsuhJLq
+CNN	2015-10-27 11:00:02	406	If meat causes cancer, what should we eat? https://t.co/gW4SvmoqbT https://t.co/ajBgYxfvmG
+CNN	2015-10-27 10:30:01	95	Christmas coming a bit too early? Looks like it might be time for #YuleAWeen: https://t.co/NW1gllj3gI https://t.co/jN3q9MpnpI
+CNN	2015-10-27 10:05:27	254	The other benefit to eating less red meat: https://t.co/TZWZQbTiHM https://t.co/dG8wtB3pp1
+CNN	2015-10-27 03:22:28	143	Guatemala election: Comedian Jimmy Morales poised to become president https://t.co/UNBGakCmDz https://t.co/xntV7YeAcQ
+CNN	2015-10-27 02:46:25	270	Official: U.S. Navy sends destroyer within 12 miles of China's man-made islands in contested area of South China Sea https://t.co/jqyKdSYsGh
+CNN	2015-10-27 02:41:00	168	Singapore frog farm breeds American bullfrogs for adults-only elixir https://t.co/jp9Ys4Ag1W https://t.co/nnunz8idp8
+CNN	2015-10-27 02:20:28	154	.@BernieSanders' campaign: No more Mr. Nice Guy https://t.co/WYm9oK3Gvv https://t.co/OPmChM8KzP
+CNN	2015-10-27 02:03:00	110	The day that changed #WDBJ https://t.co/rdTtnSXjEt via @CNNMoney https://t.co/VYzzvyZkcv
+CNN	2015-10-27 01:49:30	68	Poland edges further right in parliamentary election https://t.co/7afXVxx62C https://t.co/v7iJ0a6I7s
+CNN	2015-10-27 01:27:00	818	Up to 10,000 guns seized from South Carolina home, sheriff says https://t.co/AKQjSGIqXY https://t.co/OXE8tWLvzP
+CNN	2015-10-27 01:18:51	174	.@realDonaldTrump's take on burkas: Islamic women might prefer them; less need for makeup https://t.co/nJTIWqB6R2 https://t.co/XGJcz0yPer
+CNN	2015-10-27 00:49:53	428	School district in South Carolina investigating video showing resource officer violently removing student from desk https://t.co/P8V9AjtxfZ
+CNN	2015-10-27 00:30:01	120	What lessons can be learned from the Iraq war? @FareedZakaria shares his view. https://t.co/4Kj9E59Ne5 @CNNOpinion https://t.co/XCruSkWt9n
+CNN	2015-10-27 00:11:29	233	#Supergirl takes a leap for women on TV https://t.co/ekZ8ByGmb2 https://t.co/cN1Q50SESk
+CNN	2015-10-26 23:46:29	194	Congressional leaders and the White House strike major budget deal, sources say https://t.co/VEbS7b13ov https://t.co/wCNF3XhAsb
+CNN	2015-10-26 23:31:01	356	Could these artificial CO2-eating "treepods" protect us from climate change? https://t.co/nKAFjHEcPZ https://t.co/LeiMZxoNUZ
+CNN	2015-10-26 23:16:00	158	Celebrities and politicians wish @HillaryClinton a "Happy Birthday" https://t.co/uhjTpAU0Na https://t.co/VVZNBNfHqb
+CNN	2015-10-26 23:07:51	196	Walmart seeks permission to test drone delivery https://t.co/juW3sdlfVN via @CNNMoney https://t.co/iLAWFc3vb1
+CNN	2015-10-26 22:44:56	251	Teal pumpkins? Project aims to help kids with food allergies https://t.co/mFfKfzWtxo #NationalPumpkinDay https://t.co/z4LUmiPMj5
+CNN	2015-10-26 22:27:00	174	The rise of the killer robots: How worried should we be? https://t.co/cyOI5PYpJr via @CNNOpinion https://t.co/5M2z5zBfg9
+CNN	2015-10-26 22:12:00	118	.@rickygervais back as host of #GoldenGlobes https://t.co/lBpRr9lYlz https://t.co/D6DJCjbi4i
+CNN	2015-10-26 22:00:35	76	.@HillaryClinton's campaign is not yet carbon neutral, despite pledge https://t.co/w3s4plBCoO via @CNNPolitics https://t.co/GyH6o66FUV
+CNN	2015-10-26 21:34:01	295	U.S. Navy plans to send a destroyer near China's man-made islands in the South China Sea https://t.co/4FL8poEyeT https://t.co/XBHWEGon3a
+CNN	2015-10-26 21:07:52	249	It's all about the #bacon. The day in meat, according to our headlines via @thelistapp https://t.co/ZCF30M1Vv7 https://t.co/TQffZp0wQq
+CNN	2015-10-26 16:55:01	131	A 13-year-old sexual assault victim demanded to speak at sentencing of man who raped her: https://t.co/8z1qOzIfKY https://t.co/ZaliRYyjwX
+CNN	2015-10-26 16:44:01	465	10% of vegetarian hot dog products contain meat, says a new study: https://t.co/wm5VvmGsIx https://t.co/8ypdIJeGpq
+CNN	2015-10-26 16:05:01	54	.@FareedZakaria is taking your questions about Iraq in a live Facebook Q&amp;A. Ask now: https://t.co/1XUmUDBHcC https://t.co/aHBjLzZSND
+CNN	2015-10-26 15:44:34	277	Pediatricians urge smoking age to be raised to 21, tighter controls on e-cigs: https://t.co/sSyof8SF9W https://t.co/EiXi7jH8wS
+CNN	2015-10-26 15:33:55	423	At least 180 people are dead after powerful #earthquake hits southern Asia, officials say: https://t.co/yz4yqa7meZ https://t.co/X0gHjGb8in
+CNN	2015-10-26 15:16:41	111	FBI boss complains of "#Ferguson effect": Cops worry making stops could land them on Youtube https://t.co/2ypx8MsW10
+CNN	2015-10-26 15:00:53	187	5 people dead, 1 person missing after tour boat sinks off British Columbia, Canada: https://t.co/REQYnvZ4rJ https://t.co/IfjMaJ8u1D
+CNN	2015-10-26 14:43:00	462	#OleMiss removes state flag, #Confederate cross from campus after student senate vote: https://t.co/QKKrd5Tw4V https://t.co/UJs5EVnR0q
+CNN	2015-10-26 14:34:31	240	Here's the "real explanation" why @Adele uses a flip phone in her new music video: https://t.co/A5jgCjl1Kj https://t.co/jbFqAGuJcN
+CNN	2015-10-26 14:09:01	358	Quake leaves 71 people dead in one Pakistani province alone; disaster potentially widespread https://t.co/3GlffQYvq2 https://t.co/1Q4X2eSZ4E
+CNN	2015-10-26 13:31:10	1907	World Health Organization (@WHO) says processed meat like hot dogs and bacon causes cancer https://t.co/QWD8TyiPIx https://t.co/THOaiDBRTC
+CNN	2015-10-26 13:16:30	92	Noisy @ChrisChristie exits @Amtrak "quiet car" after complaints https://t.co/5dCnPdw3va https://t.co/TdMjGcnmyX
+CNN	2015-10-26 12:39:01	516	Saudi Arabia to run out of cash in less than 5 years https://t.co/JpOJ9NCvbV https://t.co/hcbzL61XFx
+CNN	2015-10-26 12:31:20	498	Every migrant's shoe tells a story, a photo series from the Serbian border on @instagram https://t.co/Ur99l2skIr
+CNN	2015-10-26 12:27:30	248	Why #thewalkingdead fans are up in arms -- [warning: SPOILERS] https://t.co/3KjH9GVXYv https://t.co/HUn7Y4zFrT
+CNN	2015-10-26 12:08:38	389	United Airlines apologizes after disabled man crawls off flight https://t.co/Vz6D23rBHO https://t.co/fdP1LqeKJj
+CNN	2015-10-26 12:01:24	462	12 girls killed in stampede while trying to leave school when Afghanistan #earthquake struck https://t.co/vbZzVgbXKV https://t.co/v94u7AQDid
+CNN	2015-10-26 11:50:28	201	Tony Blair says there are "elements of truth" in view that 2003 Iraq invasion was principle cause in rise of ISIS: https://t.co/8JZ2mYsZpF
+CNN	2015-10-26 11:43:27	203	UPDATES: Deaths, damage reported in powerful Afghanistan #earthquake https://t.co/x3BoZQTXwm https://t.co/9gbDo1Yv9c
+CNN	2015-10-26 11:20:00	109	5 people died after a whale watching boat sank off the coast of British Columbia, Canada: https://t.co/uIbb25zALF https://t.co/VeXe2fYiPV
+CNN	2015-10-26 11:00:01	366	The 16 coolest cars driven by the legendary James Bond: https://t.co/FNtYLgWFQ5 #SPECTRE https://t.co/xYhZLen8DE
+CNN	2015-10-26 10:30:31	136	Artist @aiww says Lego refused to sell him bricks for his artwork in "an act of censorship": https://t.co/PmDnbdL8VL https://t.co/n5Cf8GpxEw
+CNN	2015-10-26 01:31:00	53	There *is* a right (and wrong) way to fall. @DerbyDolls spill the secrets tonight https://t.co/g8XjS9V5YL #GottaDoIt https://t.co/PChvDdkQzy
+CNN	2015-10-26 00:31:00	196	Explore a different side of Ethiopia with #PartsUnknown, @MarcusCooks and @Bourdain https://t.co/4jTtopCCgo https://t.co/ayKjB9OlBY
+CNN	2015-10-25 23:33:04	283	Gov. Chris Christie reportedly was asked to leave an Amtrak car today after complaints. https://t.co/Rm9aEZVkEy. https://t.co/dN0rHPDPEx
+CNN	2015-10-25 22:31:00	98	Can these dogs fix New York's rat problem? On the next #GottaDoIt: https://t.co/3U6CKKaHT9 https://t.co/VVNJqAVOmR
+CNN	2015-10-25 21:40:08	219	The Foo Fighters say they'll perform for a group of Italian superfans. https://t.co/97BzI1sZkH https://t.co/hf4l3gZwCD
+CNN	2015-10-25 20:31:00	176	What makes Ethiopia unique? See some of the African nation's stunning sites: https://t.co/1yTTkOBEbH  #PartsUnknown https://t.co/JZeolmdIiM
+CNN	2015-10-25 19:36:06	98	Big Halloween fan? You'll enjoy TV this week. https://t.co/Rt8R0FnDPi. https://t.co/mnm24zxVP6
+CNN	2015-10-25 18:40:44	661	Minnesota Timberwolves head coach Flip Saunders has died. https://t.co/mYNpfAjpIo. https://t.co/JmDr256NXe
+CNN	2015-10-25 18:35:08	103	Quiz: How awesome is your job? https://t.co/bQfiNtSGAz (via @CNNMoney) https://t.co/Z83AkZhGDD
+CNN	2015-10-25 09:23:09	292	Child, 2, among 4 killed at Oklahoma State homecoming parade. https://t.co/BQgMPfKkgF https://t.co/u1luJ7RbFj
+CNN	2015-10-25 08:37:50	363	Tony Blair says he's sorry for Iraq War 'mistakes,' but not for ousting Saddam. https://t.co/WHFyBR4QY2 https://t.co/Q5zTMOWbPZ
+CNN	2015-10-25 04:33:26	434	Torrential rain -- up to 20 inches in spots -- pummels much of Texas. https://t.co/Ap0CrnCG3S https://t.co/e2PaOkQIoh
+CNN	2015-10-25 03:05:50	363	4 killed, 44 hurt when car hits crowd at Oklahoma State parade. https://t.co/BQgMPfKkgF https://t.co/zh8U41AgTk
+CNN	2015-10-24 21:01:26	648	NASA preparing to send astronauts to Mars in THIS https://t.co/nimhUHY2TV https://t.co/d8OoI1VyAB
+CNN	2015-10-24 20:29:00	253	Meet Golden's bacon turtle, an extinct species https://t.co/DXwMg4bY4V https://t.co/UPStIArAgv
+CNN	2015-10-24 20:02:09	185	Kareem Abdul-Jabbar @kaj33 says fighting discrimination is all of our jobs, applauds Bradley Cooper's move https://t.co/M9vXCSb7IN
+CNN	2015-10-24 19:34:31	476	Actress Maureen OHara, best known for her role in Miracle on 34th Street has died https://t.co/0LPPLluR3L https://t.co/jwPn7KgkqM
+CNN	2015-10-24 19:02:00	250	Movie director's son joins al Qaeda https://t.co/pDf9phbZE0 https://t.co/bVYMI1q2o0
+CNN	2015-10-24 17:59:00	334	3 people have died after a car crashed at a homecoming parade in Stillwater, Oklahoma https://t.co/usjLUQqPbR https://t.co/7ehAkDKrWn
+CNN	2015-10-24 17:12:04	542	"All of a sudden we saw ... people flying in the air," says a witness to the Oklahoma parade car crash.  https://t.co/ettzxs2UQi
+CNN	2015-10-24 16:36:26	1017	#BreakingNews Car plows into crowd at Oklahoma State University homecoming parade  https://t.co/qADUlxT12M
+CNN	2015-10-24 15:12:01	314	#HurricanePatricia weakened; we still can't let guard down, president of Mexico says https://t.co/KsGJe9sDd4 https://t.co/PjOg96KCoC
+CNN	2015-10-24 14:27:10	807	#BreakingNews Flooding causes freight train derailment in Texas, train tracks washed away  https://t.co/YVWVY69RAk
+CNN	2015-10-24 14:14:34	3	@AndrewPielage may we have permission to feature your photo? Verify here: https://t.co/mPHBCaacp3
+CNN	2015-10-24 13:55:27	195	.@RealBenCarson's controversial comments -- are they gaffes? Or is he saying what Iowa wants to hear?  https://t.co/l2UulhML9h
+CNN	2015-10-24 13:43:53	4	@ltgrusselhonore may we have permission to feature your photo? Verify here: https://t.co/t2VI5dhJjM
+CNN	2015-10-24 10:16:56	524	Hurricane Patricia downgraded to Category 1, forecast to be tropical storm. https://t.co/2IKt7z96Lc https://t.co/umq99iKn0Q
+CNN	2015-10-24 08:58:08	337	Flood rescues in Texas as torrential rain keeps coming. https://t.co/Ap0CrnCG3S https://t.co/fyNEnPd3Ep
+CNN	2015-10-24 07:36:07	138	Report: Ahmadinejad's bodyguard killed in Syria. https://t.co/oTZEiEOdie
+CNN	2015-10-24 07:06:29	157	Police release video of shooting at Tennessee State University. https://t.co/kU4tb5Sz5p https://t.co/uiHkS7IA1V
+CNN	2015-10-24 06:07:27	481	Hurricane Patricia weakens, but still 'extremely dangerous.' https://t.co/2IKt7z96Lc https://t.co/Uw5BryRcIi
+CNN	2015-10-24 03:28:58	842	#HurricanePatricia weakened to Category 4 w/ sustained winds up to 130 mph; still dangerous, hurricane center says. https://t.co/PrnPGYpkKq
+CNN	2015-10-24 03:00:01	393	You may be a pizza-holic. Researchers say some foods can be addictive https://t.co/ublL9mT8Vp https://t.co/5hEms8v8Sc
+CNN	2015-10-23 10:16:01	393	1 dead in shooting at Tennessee State University in Nashville https://t.co/jA1FsSUJiC https://t.co/tpdx4GwqSb
+CNN	2015-10-23 07:26:58	441	1 dead in shooting at Tennessee State University in Nashville. https://t.co/qZ4CJYkG78 https://t.co/o18BFUkRqy
+CNN	2015-10-23 05:43:29	571	3 shot at Tennessee State University in Nashville. https://t.co/qZ4CJYkG78
+CNN	2015-10-23 03:20:32	222	National Hurricane Center: Hurricane Patricia, off coast of Mexico, has increased in strength to Category 5 https://t.co/GFtQXOsto3
+CNN	2015-10-23 03:01:00	182	Former Subway pitchman Jared Fogle pays $1 million in restitution to victims https://t.co/jT1QwjTtmc https://t.co/AXuieBmnD7
+CNN	2015-10-23 02:34:55	109	11 #BenghaziCommittee hearing takeaways -- one for each hour https://t.co/SU3UnarCac https://t.co/4smbSs6BcX
+CNN	2015-10-23 02:07:00	152	Marathon #BenghaziCommittee hearing: A recap of @HillaryClinton's day https://t.co/iZkl7lIcRq https://t.co/eZIBwvilE2
+CNN	2015-10-23 01:46:25	100	'Goodfellas' trial: 'We never got our right money,' accused mobster says on tape https://t.co/c3xCl2sYsr https://t.co/b0Q3zOe6Vv
+CNN	2015-10-23 01:12:00	97	Coach Rick Pitino on scandal at #Louisville: "I will not resign and let you down" https://t.co/foeSIYCNWK https://t.co/gIDIey6SnD
+CNN	2015-10-23 00:43:25	422	.@HillaryClinton's testimony before the #BenghaziCommittee, in GIFs https://t.co/4cTtwgyLCN #BenghaziHearings https://t.co/YXhW9j4B4x
+CNN	2015-10-23 00:22:00	106	Forget hoverboards: Backcasting to the future for a better long-term outlook https://t.co/gqVQWYuyxu https://t.co/rxiEws2jJ6
+CNN	2015-10-22 23:51:01	135	DIY drone video captures unseen views of Cuba https://t.co/c41g6XLCPf https://t.co/MEBw7hIu0h
+CNN	2015-10-22 23:35:00	67	Who is Sidney Blumenthal and why are they talking about him at the #BenghaziCommittee? https://t.co/LvJqAiQdPo https://t.co/Fr2FezWzIg
+CNN	2015-10-22 23:13:01	142	Five men arraigned on murder charges in hazing death of New York college student https://t.co/HnKGVvPHPM https://t.co/Kqqox27MyX
+CNN	2015-10-22 22:55:01	156	Paul Ryan is officially running for speaker https://t.co/TvOPhHssrq https://t.co/dUWI0KwIHt
+CNN	2015-10-22 22:47:14	250	We're telling the stories of migrants in Serbia through photos of their shoes on @instagram https://t.co/Ur99l2skIr https://t.co/kOS1nPSab7
+CNN	2015-10-22 22:17:00	276	Still wearing shorts and T-shirts? 2015 might have seen hottest summer in 4,000 years https://t.co/4UG9I4RtmI https://t.co/iHQpM91vcV
+CNN	2015-10-22 21:51:00	207	Secret Service warned about officer fatigue after two agents were caught napping https://t.co/37zLGGBAKX https://t.co/siSIj3sTsm
+CNN	2015-10-22 21:36:00	93	Court papers detail road rage shooting that killed 4-year-old N.M. girl https://t.co/H2p7VvT8DJ https://t.co/TTMbTAuci8
+CNN	2015-10-22 21:01:01	130	Family: Corey Jones didn't shoot before being killed by plainclothes police officer https://t.co/toxPuf0hte https://t.co/Ai36tCI1Zr
+CNN	2015-10-22 20:41:01	110	Inside students' heavy backpacks: Why it's too much, and how to help https://t.co/EDpl3fmAl7 https://t.co/cQmX0DYKnc
+CNN	2015-10-22 20:20:00	227	Number of Americans toking up has doubled in a decade, and not for medical reasons, either: https://t.co/I6eXF7q784 https://t.co/Jj7Otu9Ewo
+CNN	2015-10-22 20:01:00	146	.@realDonaldTrump's pledge: "We're gonna be saying Merry Christmas" https://t.co/F6kMR4atBJ https://t.co/l0cS5VboYp
+CNN	2015-10-22 19:53:12	460	.@HillaryClinton has been testifying for hours in front of #BenghaziCommittee. The latest: https://t.co/Fke5iPvilT https://t.co/wZLNQtp0Y7
+CNN	2015-10-22 19:45:00	181	Ireland inches a step closer to legalized same-sex marriage https://t.co/fe3mJkWa7I https://t.co/27NbBPrvkp
+CNN	2015-10-22 19:21:00	134	How @BernieSanders plans to explain 'democratic socialism' https://t.co/snonrF5Xor https://t.co/68YTcnfhmN
+CNN	2015-10-22 19:04:00	168	Fireworks erupt between @HillaryClinton and Republicans at #BenghaziCommittee hearing https://t.co/pbDna7C8HR https://t.co/WbghpXqfyy
+CNN	2015-10-22 18:50:53	535	Here's what happens to a star when it comes too close to a black hole https://t.co/L8Vd87maW9 https://t.co/x8pRg7v570
+CNN	2015-10-22 18:40:52	317	15 people infected with bubonic plague this year in U.S., w/ 4 cases fatal, @CDCgov says https://t.co/unmE7Xi9YT https://t.co/jW3UHV5hgO
+CNN	2015-10-22 18:18:00	70	.@realDonaldTrump retweet cites insult in a key state https://t.co/eP63IcwTVh https://t.co/p0TF6jsJEV
+CNN	2015-10-22 18:06:01	269	A man who's never flown before built a plane from YouTube tutorials &amp; manuals. Will it fly? https://t.co/zpLI03HWbf https://t.co/FOy42b3Tcr
+CNN	2015-10-22 16:57:01	132	Lurking underwater: 153-year-old shipwreck found in Lake Ontario. CORRECTED LINK: https://t.co/AFGs0WtaCm https://t.co/2CAg9E8ypc
+CNN	2015-10-22 16:15:08	123	Assad regime may have fallen to ISIS without us, says Russian ambassador https://t.co/C0M6yL8HRD https://t.co/UY8jkEldX2
+CNN	2015-10-22 15:59:56	244	Hiker stops for a rest and  discovers 1,200-year-old Viking sword: https://t.co/EqNASLAETi https://t.co/mAFqJHKkne
+CNN	2015-10-22 15:52:34	154	Putin's popularity at record high, government-funded poll says https://t.co/pk7c0SieFT
+CNN	2015-10-22 15:29:42	171	.@HillaryClinton Most of my work was not done on email #BenghaziCommittee https://t.co/LQKSo2AN2q https://t.co/TWnLdHXjZr
+CNN	2015-10-22 15:17:26	121	.@HillaryClinton: I take responsiblity #BenghaziCommittee https://t.co/7BKKVHRdFT https://t.co/9p0dH4RBcv
+CNN	2015-10-22 14:59:04	119	Clinton: I'm here to honor those we lost &amp; to do what I can to aid those who serve us still https://t.co/7BKKVHRdFT https://t.co/BHhvTWk4iI
+CNN	2015-10-22 14:44:47	76	.@HillaryClinton is giving her opening statement at #Benghazi panel https://t.co/7BKKVHRdFT https://t.co/6nyPBLDQhz
+CNN	2015-10-22 14:22:13	104	.@TGowdySC to Clinton: "Not a single member of this cmte signed up to investigate you..." https://t.co/IpDXe7cdOQ  https://t.co/0RuRCMFHZF
+CNN	2015-10-22 14:16:51	74	Chairman Trey Gowdy opens #Benghazi hearing: 'Previous investigations were not thorough.' https://t.co/IpDXe7cdOQ https://t.co/ALJpGLG1t8
+CNN	2015-10-22 14:07:10	194	.@HillaryClinton is testifying at #Benghazi hearing, #TBT to other times in the hot seat  https://t.co/0FIwg4MA9K https://t.co/kQHU94DBqL
+CNN	2015-10-22 13:59:23	130	.@HillaryClinton has arrived for #Benghazi hearing https://t.co/znghsYGIUS https://t.co/eZXbygNkNV
+CNN	2015-10-22 13:39:35	119	.@HillaryClinton and @HumaAbedin depart for #Benghazi testimony. 5 expected questions: https://t.co/NbmGHa30ud https://t.co/V7oHyjGQJx
+CNN	2015-10-22 13:19:28	280	Sources: American killed as U.S. forces help rescue 70 hostages in Iraq https://t.co/TdtSTwjCSm https://t.co/oChX0yB4qV
+CNN	2015-10-22 13:05:33	174	Arsonist targets 7th St. Louis-area church in latest attack https://t.co/uEkPW1pyg1 https://t.co/hkXuNC4hSB
+CNN	2015-10-21 15:57:01	273	It's official: Chris Rock is coming back to host the 2016 Oscars https://t.co/qRMvTs03BH https://t.co/aXxBNFVGVF
+CNN	2015-10-21 15:35:30	166	.@POTUS sings again  this time to @Usher https://t.co/qg5dofak9k https://t.co/Fkpr2AQXU8
+CNN	2015-10-21 15:09:35	280	Vatican denies report that @Pontifex has brain tumor https://t.co/jPKPocATGN https://t.co/YgKeVgNtsG
+CNN	2015-10-21 14:32:35	44	A peek at @VP Joe Biden's past presidential campaigns https://t.co/YTNzDbN1WS https://t.co/rVYNuUoQAb
+CNN	2015-10-21 14:05:31	56	.@SpeakerBoehner sets speaker election date: October 28 https://t.co/LVG5yrnUaD https://t.co/qB5wnE6nwa
+CNN	2015-10-21 13:54:59	400	Doctors: Absolutely NO drinking while pregnant, not even a sip https://t.co/rlK4n701h4 https://t.co/WSPJlXO3lb
+CNN	2015-10-21 13:39:26	187	Syrian President Assad makes surprise visit to Moscow for talks with Putin https://t.co/4dlIw0Ma6Y https://t.co/eTW41DOiQ4
+CNN	2015-10-21 13:25:27	201	"Agitated" man who died on flight had swallowed packs of cocaine, police say https://t.co/RdMOYdVAz3 https://t.co/y9nfErxbLp
+CNN	2015-10-21 13:00:01	512	It's a #StarWars takeover on the Great Wall of China:  https://t.co/h7uuTYyM0t https://t.co/kXSxMFGrA5
+CNN	2015-10-21 12:49:51	72	Paul Ryan willing to serve as speaker, but with conditions https://t.co/jiy2NoIntF https://t.co/BH40JmV2Xl
+CNN	2015-10-21 12:27:01	305	#NYPD Officer Randolph Holder fatally shot in head while chasing robbery suspect: https://t.co/oJ2hcnc2M9 https://t.co/MkBWH6Hz4g
+CNN	2015-10-21 11:58:26	123	Jeb Bush launches forceful attempt to paint Donald Trump as unfit https://t.co/BkR56QOoZg https://t.co/Xwzr2qq7lD
+CNN	2015-10-21 11:30:30	413	Great Scott! This iconic time machine was almost a refrigerator #BackToTheFuture #FutureDay https://t.co/nhlwumNnKs https://t.co/f69rjSYHT4
+CNN	2015-10-21 10:54:00	101	Ole Miss student senators: take on state flag, its Confederate imagery https://t.co/3ET8eBFBB9 https://t.co/D7f8ZL4vuA
+CNN	2015-10-21 10:31:51	4288	#BackToTheFuture day is finally here! What did the movie get right about 2015? https://t.co/EYFb4whEj0 https://t.co/KdheNbHycS
+CNN	2015-10-21 10:11:29	362	#NYPD officer fatally shot is the 4th officer killed in NYC in 11 months, commissioner says https://t.co/3g7JHzAPKG https://t.co/TH7EEf5XbI
+CNN	2015-10-21 03:32:00	235	"Miraculous progress": Lamar Odom takes steps in Los Angeles, family says https://t.co/b05nH4hQFy https://t.co/ThtrheyNNC
+CNN	2015-10-21 03:15:01	433	Plainclothes officer fatally shoots muscian Corey Jones, 31, in Florida https://t.co/4zNC4h2ZxH https://t.co/M97qpIczMt
+CNN	2015-10-21 02:54:55	516	Ole Miss student senators vote in favor of resolution asking school to remove state's flag https://t.co/jn6BFGHtNP https://t.co/3rG0iauYAe
+CNN	2015-10-21 02:31:29	216	An #NYPD officer was shot and critically wounded, law enforcement officials said. https://t.co/0kjfZKrMWu https://t.co/USNm0bPrZK
+CNN	2015-10-21 02:22:57	160	John Ashe, a former president of the @UN General Assembly, indicted in bribery case https://t.co/JY37B8faFA https://t.co/jO7jkwTgrs
+CNN	2015-10-21 02:13:01	181	Veterans still facing major medical delays at VA hospitals despite recent efforts https://t.co/ccZ2iuo84U https://t.co/8iZwUsk1Si
+CNN	2015-10-21 02:01:00	233	#ESPN is poised for big job cuts https://t.co/yhwTWSPdbo via @CNNMoney https://t.co/LrqUW7md8e
+CNN	2015-10-21 01:49:27	130	Saudi prince no longer facing felony charges in L.A. sex case https://t.co/P6g2SPIChm
+CNN	2015-10-21 01:31:00	178	Internet trolls take on #StarWars movie, call it 'anti-white' https://t.co/32ut9BW08l #TheForceAwakens https://t.co/Qom7VGBSU0
+CNN	2015-10-21 01:21:00	190	Is Justin Trudeau's victory in Canada bad news for U.S. conservatives? https://t.co/GWQ1yodZMU via @CNNOpinion https://t.co/FExs5BTYI3
+CNN	2015-10-21 01:07:12	55	Watch a CNN special report, "The D.C. Mansion Murders," now on #CNN and @CNNgo. https://t.co/UYpqI3w42L https://t.co/eOUyvc3LY2
+CNN	2015-10-21 00:49:57	129	.@RepPaulRyan: "My greatest worry is the consequence of not stepping up."  https://t.co/XKZ2ArCXxD https://t.co/Ng3nMUewS3
+CNN	2015-10-21 00:35:26	221	.@RepPaulRyan: "We need to move from an opposition party to being a proposition party https://t.co/VlUAWUirlJ https://t.co/RgrwyKAFRR
+CNN	2015-10-21 00:30:53	28	.@RepPaulRyan discusses his decision about whether to run for speaker. Watch @CNNgo. https://t.co/UYpqI3w42L
+CNN	2015-10-21 00:23:00	87	.@RepPaulRyan tells House GOP he is "willing to serve" as speaker, but with conditions https://t.co/auLd2AyHdg https://t.co/RwHfuMKbX6
+CNN	2015-10-21 00:18:32	88	New clues in D.C. mansion murders: Thousands in cash left behind https://t.co/ANXgVcmOCl https://t.co/SFBLyzqYUx
+CNN	2015-10-20 23:49:52	613	Clock-making teen Ahmed Mohamed is moving to Qatar after accepting scholarship https://t.co/D7P0PBztie https://t.co/EuxyX94RIo
+CNN	2015-10-19 16:48:00	62	GOP infighting dominates Capitol Hill on crucial week http://t.co/xS8JDJDItK http://t.co/2Ckk1pLFGv
+CNN	2015-10-19 16:16:01	145	U.S. investigating report that email account linked to @CIA director was hacked http://t.co/2cFnrULSA8 http://t.co/GUQnxaZgYi
+CNN	2015-10-19 16:01:28	354	Clock-making teen Ahmed Mohamed to visit White House http://t.co/kt1zkC8duL http://t.co/95CKkxWBdy
+CNN	2015-10-19 15:39:01	71	.@amazon posts blistering response to critical @nytimes article http://t.co/b8PUgGlT0G http://t.co/LOmMxqqAhA
+CNN	2015-10-19 15:28:00	77	Relapsed Ebola patient's condition improves, says UK hospital http://t.co/9Q8tq1uacd http://t.co/E1H1Eu4IpO
+CNN	2015-10-19 15:11:02	146	What's it like to motorcycle solo through Iran as a woman? http://t.co/50bIr40tqD http://t.co/m5dTfihVuV
+CNN	2015-10-19 14:36:01	235	How you can help those affected by Typhoon Koppu http://t.co/VjPSRqoHX6 http://t.co/dLbsgEdo8j
+CNN	2015-10-19 14:19:01	136	Are Big Ben's bongs about to fall silent? http://t.co/uiiyWdZ6Cg http://t.co/ywNMIKxDjK
+CNN	2015-10-19 13:51:29	161	Ex-coach: Lamar Odom breathing on his own, Khloe Kardashian at his side http://t.co/p0kGVrxz2D http://t.co/VYEIOXQwjZ
+CNN	2015-10-19 13:33:00	54	House #Benghazi committee member defends investigation http://t.co/CHXWZoYEf0 http://t.co/VtJf10SwIi
+CNN	2015-10-19 13:23:01	161	China GDP growth slides to 6.9%, worst since 2009 http://t.co/1iaYUgsul7 http://t.co/hEZsrmZvqo
+CNN	2015-10-19 13:11:34	112	Unearthing the origins of East Africa's lost civilization http://t.co/5jk3lL0qSg http://t.co/OMzcx00Tvo
+CNN	2015-10-19 12:47:00	106	.@Oprah comes to the rescue of @WeightWatchers http://t.co/cptI7I3MFH http://t.co/sBsrvdy5BJ
+CNN	2015-10-19 12:37:28	98	Israeli soldier, bystander dead after bus station attack by Bedouin http://t.co/tvIqpj4Lag http://t.co/SUjxAc7v2u
+CNN	2015-10-19 12:18:35	45	.@realDonaldTrump: NBC won't "dump" me from @nbcsnl http://t.co/m1xDkFQZ3N http://t.co/Fill5KtWwK
+CNN	2015-10-19 12:03:00	95	.@realDonaldTrump on Bush 9/11 remarks: "I'm not blaming anybody" http://t.co/NImKgtVabY http://t.co/lwRYeEypmT
+CNN	2015-10-19 11:52:56	84	The (very few) upsides to childhood illnesses http://t.co/24Jb9LwxQJ http://t.co/YdzTR3tuui
+CNN	2015-10-19 11:31:28	105	Turing CEO @MartinShkreli so mad at @BernieSanders he "could punch a wall" http://t.co/FK3Uc3gFt5 http://t.co/5CjW0PLWtV
+CNN	2015-10-19 11:05:01	193	Man dies suddenly after becoming "agitated" on flight http://t.co/bdY5V0nn2b http://t.co/Z5Iu5ZXtXG
+CNN	2015-10-19 10:52:00	120	China and UK: Signs of a new "special relationship"? http://t.co/LPGfw2tMZn http://t.co/uwNcgjaEzW
+CNN	2015-10-19 10:40:00	249	Child rapes horrify New Delhi http://t.co/SYmyI5M4GB http://t.co/pxSD2RCoKm
+CNN	2015-10-19 10:28:24	241	2 dead, tens of thousands displaced as Typhoon Koppu drenches Philippines http://t.co/IyEymMv1Uw http://t.co/VCofoGxJrC
+CNN	2015-10-19 10:14:32	96	Poll: #DemDebate win doesn't help @HillaryClinton http://t.co/iRmCYAhhd2 http://t.co/6S3STkB5CF
+CNN	2015-10-19 05:56:37	74	2 animal bites reported in Hawaii -- 1 shark, 1 eel: http://t.co/PKKeWynbNu
+AlJazeera	2015-10-26 15:16:53	16	Exclusive: 'Strong evidence' of genocide in #Myanmar https://t.co/0eUty3HRsl
+AlJazeera	2015-10-26 13:19:49	19	Al Jazeera investigation uncovers evidence of government-led genocide in #Myanmar https://t.co/1RuB4Bd13d
+AlJazeera	2015-10-23 13:46:50	2	Al Jazeera Englishs UpFront interview with Saeb Erekat - PLO secretary-general and chief Palestinian... https://t.co/rN15nSeVis
+AlJazeera	2015-10-20 14:47:14	3	#AlJazeera now on @Snapchat as AJENews. Were inviting the world to engage directly with the journalists who bring us the news - Imad Musa
+AlJazeera	2015-10-20 13:25:54	3	Al Jazeera English now on @Snapchat https://t.co/Mv8eTdgEav
+AlJazeera	2015-10-20 07:21:57	5	A unique insight into #Chomsky's activism and opposition to #US foreign policy. NOW ONLINE https://t.co/e4rK4jF4c1  @AlJazeera_World
+AlJazeera	2015-10-19 13:18:48	6	Emeritus @HarvardHBS Professor Robert S. Kaplan: "#AlJazeera is one of only two Arab brands that have gone global" http://t.co/nkxi1y6KaO
+AlJazeera	2015-10-18 15:53:06	9	"As gallons of oil are pumped from the ground, millions of dollars flow into pro industry msging" @AJListeningPost http://t.co/FnmsenSEgP
+AlJazeera	2015-10-18 12:52:04	6	In the aftermath of the #AnkaraBombing, Turkish Twitter went into overdrive..." #Turkey @AJListeningPost http://t.co/LbRRQnoEQx
+AlJazeera	2015-10-16 11:39:06	14	Al Jazeera Englishs UpFront interview with Nigerian President Muhammadu Buhari - Nigerian President... http://t.co/my7eR13aLX
+AlJazeera	2015-10-15 16:00:18	22	Baher Mohamed: "I am happy to be here with my #AlJazeera family" http://t.co/ZGTg6fUFNJ
+AlJazeera	2015-10-15 15:40:08	10	Giles Trendle: "It's a pleasure to be able to give you this #pressfreedom award in person" http://t.co/4nB16mIHpk
+AlJazeera	2015-10-15 15:20:06	26	Dr. Mostefa Souag: "We will always continue the fight for #pressfreedom" http://t.co/FTf3yQuc01
+AlJazeera	2015-10-15 15:00:12	23	Abdulla AlNajjar: "We welcome you back to your #AlJazeera family continuing what you do best  honest journalism." http://t.co/lCPCGethke
+AlJazeera	2015-10-15 14:40:09	39	#AlJazeera is overjoyed at the return of hero, Baher Mohamed! http://t.co/JsdNi1KvcP
+AlJazeera	2015-10-15 14:18:53	48	Baher Mohamed back at #AlJazeera http://t.co/3jERWjbXkT
+AlJazeera	2015-10-14 13:42:25	35	The moment @AJEnglish A/MD @Gilest01 welcomes @bahrooz on his return after being jailed in Egypt #FreedAJStaff http://t.co/1JFPX54bLU
+AlJazeera	2015-10-14 13:14:49	4	Press Release: @aljazeera welcomes freed journalist @Bahrooz http://t.co/poTMsvFAHy
+AlJazeera	2015-10-14 12:53:36	3	Listen to @AlJazSydANDREW on @radionz on why @AlJazeera can;t even go to #Nauru: http://t.co/SqNR7Mv84o
+AlJazeera	2015-10-14 12:33:25	37	Press Release: @aljazeera welcomes freed journalist @Bahrooz http://t.co/eJimayA6N1  #FreeAJStaff #FreedAJstaff http://t.co/3bwgZlSNU2
+AlJazeera	2015-10-14 12:27:51	2	Press Release: @aljazeera welcomes freed journalist @Bahrooz http://t.co/reJYQHUaYn #FreeAJStaff #FreedAJstaff
+AlJazeera	2015-10-14 12:25:30	2	Listen to @AlJazSydANDREW on @radionz on why @AlJazeera can't go to #Nauru: http://t.co/Sx3Svl3XIu
+AlJazeera	2015-10-13 13:58:34	1	WATCH 10G: New documentary about the man described as one of the greatest minds in human history http://t.co/zfOoareAFd @AlJazeera_World
+AlJazeera	2015-10-12 15:13:28	5	.@AJEnglish speaks to @David_Cameron @JohnKerry &amp; @FedericaMog on Russian air strikes and Assad's future in Syria http://t.co/Vls6UapBrM
+AlJazeera	2015-10-12 10:45:10	1	.@AJEnglish speaks to @David_Cameron @JohnKerry @FedericaMog Russian air strikes and Assad's future in Syria http://t.co/lyH4R1BaBn
+AlJazeera	2015-10-11 07:42:20	10	Al Jazeera crew tear-gassed in Israeli-occupied West Bank http://t.co/Ciosk1nmvQ
+AlJazeera	2015-10-08 16:32:00	2	Editor's note: Clarification, not apology from @AJENews: http://t.co/pAaTmGPzAv
+AlJazeera	2015-10-08 14:59:00	0	Editor's note: Clarification, not apology from @AJENews: http://t.co/kyzyRQBIgY
+AlJazeera	2015-10-07 19:48:56	1	Al Jazeera scoops another major PR award for #FreeAJStaff http://t.co/TB1ukDMCA3
+AlJazeera	2015-10-05 16:13:19	8	Al Jazeera journalists narrowly escape air strike in #Syria http://t.co/mhrJMPoxY8
+AlJazeera	2015-10-04 12:05:59	0	"Both the Iranian media &amp; the Saudi media have framed the debate..." #MinaStampede #Hajj http://t.co/Hr0fi2zPKs
+AlJazeera	2015-10-02 18:31:41	3	Al Jazeera Englishs UpFront interview with ex-Israeli PM Ehud Olmert - Former Israeli Prime Minister,... http://t.co/JZeCA5ketk
+AlJazeera	2015-09-30 11:18:02	30	WATCH ONLINE: How leftist politics is challenging conventional news coverage http://t.co/mECoGfkSNn @AJListeningPost http://t.co/BxUmGwlSUx
+AlJazeera	2015-09-30 10:11:03	3	#AlJazeera channels on Nilesat position change to a new frequency http://t.co/IrIugSI5e7
+AlJazeera	2015-09-29 16:39:33	9	Thank you @pressfreedom @cpjmena for hosting that press conference today, and for all the vital work that you do #FreeAJStaff
+AlJazeera	2015-09-29 16:24:58	6	Convicts @PeterGreste @sueturtonaje @SP_Dom @Alaabayoumi +3 others launch request for Sisi action http://t.co/RoybuPGXbC #FreeAJStaff
+AlJazeera	2015-09-25 13:31:06	18	Al Jazeera Englishs UpFront interview with Obama adviser Ben Rhodes - Deputy national security advisor... http://t.co/YtI37hTkza
+AlJazeera	2015-09-24 14:44:20	15	'Science in a Golden Age' reveals how medieval Islamic thinkers have influenced modern day science - New... http://t.co/yhna1ksQK7
+AlJazeera	2015-09-23 15:26:59	164	#AlJazeera welcomes release of journalists but urges #Egypt to clear journalists tried in absentia  http://t.co/yCu3coWlK1
+AlJazeera	2015-09-21 22:25:03	2	WATCH NOW - coach Femi Bamigboye on this week's episode of #AJMyNigeria If Im in a #football environment, I enjoy what I do
+AlJazeera	2015-09-21 08:10:17	6	A local football coach trains young Nigerians to have a shot at the beautiful game - WATCH 2230GMT #AJMyNigeria http://t.co/12n3rBmM80
+AlJazeera	2015-09-17 14:02:47	9	#Yemeni Nobel Laureate @TawakkolKarman talks to Mehdi Hasan on this week's episode of @AJUpFront  http://t.co/ZJ8l38CR4M
+AlJazeera	2015-09-11 19:52:53	12	Watch @ajenglish for #Makkah tragedy updates. @Hasanpatel is on the scene. #Mecca
+AlJazeera	2015-09-10 14:16:12	8	Exclusive Interview with Hamid Karzai on #AJE's new programme @AJUpFront airs Friday 1930GMT http://t.co/gg59lT9nOl
+AlJazeera	2015-09-09 16:20:24	14	Inspirational women show that empowerment boosts economies in #AlJazeera's new series  http://t.co/qrZGYlin38
+AlJazeera	2015-09-03 17:23:09	27	Al Jazeera Englishs UpFront exclusive interview with Edward Snowden - NSA whistleblower Edward Snowden,... http://t.co/g3SJkt9a8k
+AlJazeera	2015-09-02 14:52:29	9	"We condemn the judgment of the Egyptian court in the strongest terms possible" - thank u @PressClubAust http://t.co/mP6X1L4E7q #FreeAJStaff
+AlJazeera	2015-09-02 14:46:03	8	"Broadcasting info should never be restricted," says the UN special rapporteur on freedom of expression http://t.co/U0LsLzpLwe #FreeAJStaff
+AlJazeera	2015-09-02 07:32:42	16	#FreeAJStaff https://t.co/bvhYqIhyUW
+AlJazeera	2015-09-01 16:38:14	117	Free @vicenews staff #solidarity  https://t.co/5BVgd2HLXC
+AlJazeera	2015-08-31 20:30:04	39	From @AlJazeera newsroom in solidarity with Mexicos free press, @EPN and @Javier_Duarte, Journalists will not be silenced #NoNosCallaran"
+AlJazeera	2015-08-31 15:34:04	90	Because we stand with brave Mexican journalists who refuse to be silenced  #NoNosCallarn @EPN @Javier_Duarte
+AlJazeera	2015-08-31 15:30:10	16	Because journalists in #Mexico are dying for reporting the truth #NoNosCallarn @EPN @Javier_Duarte
+AlJazeera	2015-08-29 12:22:50	28	"We will not rest until Baher @Bahrooz, @PeterGreste, Mohamed &amp; the six #AlJazeera staff sentenced in absentia are freed." #FreeAJStaff
+AlJazeera	2015-08-29 12:15:05	0	WATCH NOW #AlJazeera holding live press conference at 12GMT http://t.co/SInUYkGNY7 #FreeAJStaff
+AlJazeera	2015-08-29 12:13:16	19	"It is a dark day for the Egyptian judiciary. Rather than defend liberties and a free &amp; fair media they have compromised their independence"
+AlJazeera	2015-08-29 12:10:17	79	"We are shocked, sickened and appalled by today's verdict" @gilest01 #FreeAJStaff http://t.co/9mfd0HEdO9
+AlJazeera	2015-08-29 12:07:03	15	"This is an extremely sad day" @OsamaSaeed at #AlJazeera press conference #FreeAJStaff http://t.co/r9zz3gLvB9
+AlJazeera	2015-08-29 12:00:05	9	WATCH NOW #AlJazeera holding live press conference at 12GMT http://t.co/oFy8nZkfMc #FreeAJStaff
+AlJazeera	2015-08-29 11:45:03	6	WATCH NOW #AlJazeera holding live press conference at 12GMT http://t.co/Kj4PlfETIG #FreeAJStaff
+AlJazeera	2015-08-29 09:45:03	36	3) #AlJazeera NEVER airs fabricated news #FreeAJStaff
+AlJazeera	2015-08-29 09:36:01	76	2) @AJEnglish was operating in Egypt LEGALLY #FreeAJStaff
+AlJazeera	2015-08-29 09:26:08	46	#AlJazeera's responses to Egyptian courts 3 false accusations: 1- Peter, Baher and Mohamed ARE journalists #FreeAJStaff
+AlJazeera	2015-08-11 12:53:05	6	Read @apmcfadyen piece on @NewsnetScotland on how he as a Scotsman works for @AJEnglish http://t.co/XBdsybBVd8
+AlJazeera	2015-08-10 15:44:43	6	Watch @SirKenRobinson tell @AJEnglish 'We need 'more creative' schools' http://t.co/SECKfJLwGg
+AlJazeera	2015-08-10 14:56:58	1	Read about #AJMynigeria on @ELLEmagazineSA: http://t.co/P0b8VK645n
+AlJazeera	2015-08-10 14:34:42	1	Watch:Iranian verdict in US reporter's trial 'within a week' http://t.co/PcTrYlZIvh #Journalismisnotacrime
+AlJazeera	2015-08-10 14:13:44	1	Read about #AJMynigeria on @ELLEmagazineSA: http://t.co/yOio5t3D6G
+AlJazeera	2015-08-10 14:10:43	2	Follow the tweets of @gilest01 the Acting Managing Director of @AJEnglish who is a journalist, filmmaker and yoga-practising biker
+AlJazeera	2015-08-10 13:46:21	1	Watch @SirKenRobinson tell @TalktoAlJazeera  'We need 'more creative' schools' http://t.co/0Go5uNSjAa
+AlJazeera	2015-08-10 11:34:12	0	On @AJStream 1930GMT:  How are websites/apps changing the concept of arranged marriage? How much is family approval part of the process?
+AlJazeera	2015-08-10 10:16:56	1	On @AJStream 1930GMT: What are the biggest advantages/disadvantages in an arranged marriage? Share your thoughts: http://t.co/fswCeMkWMl
+AlJazeera	2015-08-08 13:46:14	2	RT @AJListeningPost "Analysing the media coverage of the immigration debate. Watch online | http://t.co/z9A3bB6kG0  #Calais #immigration
+AlJazeera	2015-08-07 20:06:25	4	watch @mehdirhasan go @AJHeadtoHead Paul Collier on @AJEnglish. #Immigration: how much is too much? #AJH2H live now http://t.co/VMJOwgengs
+AlJazeera	2015-08-07 11:22:24	5	"Am I, or am I not, an 'indigenous Briton'" - @mehdirhasan asks Sir Paul Collier | Tune in 20:00GMT today @AJEnglish http://t.co/T7Mp6MybM3
+AlJazeera	2015-08-05 20:00:14	43	For every stereotype of corruption or extremism, there are millions of ordinary Nigerians making this African powerhouse tick" #AJMyNigeria
+AlJazeera	2015-08-05 18:00:11	8	Hear the human stories from Africas largest economy on #AJMyNigeria http://t.co/bpeNNAYLyI #Nigeria @basket_mouth @HenshawKate
+AlJazeera	2015-08-05 16:00:16	19	Meet @HenshawKate, Nollywood star turned politician on #AJMyNigeria http://t.co/4GiWR4WGSW #Nigeria http://t.co/5mmF3QZSHs
+AlJazeera	2015-08-05 14:00:10	16	Announcing Al Jazeera's new six part series: My #Nigeria http://t.co/zrZTFYjuga @basket_mouth #AJMyNigeria
+AlJazeera	2015-08-05 12:00:10	12	To get beyond the clichs of Africa, there isnt a better place than #Nigeria. http://t.co/YPciPeGQiA #AJMyNigeria http://t.co/pxRQByAPMl
+AlJazeera	2015-08-05 10:00:15	5	Read about Deola Sagoe: Nigerian designer on passion for fashion, and #AJMynigeria with @PulseNigeria247 http://t.co/qHwM4VkTBz
+AlJazeera	2015-08-05 10:00:12	49	Don't miss out on stand up-comedian @basket_mouth sharing his story on #AJMyNigeria http://t.co/DKck2Hm7AB #Nigeria http://t.co/gYaoCetnnF
+AlJazeera	2015-08-05 08:34:57	3	On @AJStream 1930GMT: How do you evaluate the British governments approach to the ongoing #CalaisMigrants crisis?
+AlJazeera	2015-08-05 07:32:01	23	Six Part series on my Nigeria to be aired on @AJEnglish http://t.co/dVyAXjFtm5 #AJMynigeria
+AlJazeera	2015-08-05 06:38:44	9	Today - watch this space and follow #ajmynigeria as @AJEnglish will be showing a new series of human stories from #Nigeria
+AlJazeera	2015-08-04 17:17:15	3	Did you know on @Facebook, more people are engaging with @ajplus than @BBCNews @CNN and @vicenews combined. http://t.co/TMhHHWYIDZ
+AlJazeera	2015-08-04 15:13:48	5	Tomorrow - watch this space and follow #ajmynigeria as @AJEnglish will be showing a new series of human stories from #Nigeria
+AlJazeera	2015-08-04 13:13:41	7	Tomorrow - watch this space and follow #ajmynigeria as @AJEnglish will be telling the human story from #Nigeria
+AlJazeera	2015-08-04 12:31:23	22	Did you know on @Facebook, more people are engaging with @ajplus than @BBCNews @CNN and @vicenews combined. http://t.co/F2B5WBNWeK
+AlJazeera	2015-08-02 11:49:18	10	Watch @AJEnglish A/MD @gilest01 decry Egypt trial delay http://t.co/huhdXiFnnE  #AJRetrial #FreeAJStaff http://t.co/AeJeHh29j6
+AlJazeera	2015-07-31 14:02:04	12	Watch @mehdirhasan ask whether the US is to blame for #ISIL, tonight at 20GMT @AJHeadtoHead
+AlJazeera	2015-07-30 15:01:38	13	Is the #US to blame for #ISIL? Tune in to @AJHeadtoHead tomorrow at 20GMT http://t.co/sl3MIy9y0K
+AlJazeera	2015-07-30 09:51:41	1	Al Jazeera statement on #AJRetrial verdict http://t.co/ROV83HbwIG
+AlJazeera	2015-07-30 09:47:16	0	Official: @AJRetrial in Egypt now adjourned until 2nd August - Statement to follow soon
+AlJazeera	2015-07-29 08:51:59	2	#AJE senior correspondent @simmjazeera reporting on #Obama's visit to Nairobi with @JoshMainka #ObamaInKenya http://t.co/FB5hZD5Hk7
+AlJazeera	2015-07-28 14:04:05	13	Watch this Space RT @Nass "Dear people of Nigeria, did you know @ajenglish will soon be showing human stories from #Nigeria. #ajnigeria"
+AlJazeera	2015-07-28 12:00:15	5	We demand the freedom of our colleagues in this Thursday's court hearing. Free Baher, Mohamed and Peter. #FreeAJStaff
+AlJazeera	2015-07-27 15:00:26	7	#FreeAJStaff http://t.co/ndPr4B9CLw
+AlJazeera	2015-07-27 12:00:09	22	Journalism in not a crime. #FreeAJStaff http://t.co/4pqWGoudIs
+AlJazeera	2015-07-27 09:00:11	18	Baher has been away from his family for too long. Free him now. #FreeAJStaff http://t.co/kH81kv0i2G
+AlJazeera	2015-07-27 06:00:03	14	Free Baher. #FreeAJStaff http://t.co/2gtQvwHaHT
+AlJazeera	2015-07-21 16:00:47	3	Listen to @AJEnglish reporter @MIJamjoom on @IrishTimesAudio World View Podcast on the  #Suruc bombing   http://t.co/5HCBNpEIej
+AlJazeera	2015-07-21 15:40:40	9	Listen to @AJEnglish reporter @MIJamjoom on @IrishTimesAudio World View Podcast on the  #Suruc bombing   http://t.co/V3JNgmLU8u
+AlJazeera	2015-07-21 15:33:36	0	Egypt has has forced me to quit the job I love writes @sueturtonaje http://t.co/qtfIGGXsZy #FreeAJStaff #AJRetrial
+AlJazeera	2015-07-21 09:44:51	4	Egypt has has forced me to quit the job I love writes @sueturtonaje http://t.co/SsUz4xCmWw #FreeAJStaff
+AlJazeera	2015-07-17 05:24:57	21	#Eid Greetings to you all from the team at @Aljazeera http://t.co/o4cBvA5MX9
+AlJazeera	2015-07-16 19:09:08	9	On @AJStream 1930GMT:  What do you want the world to know about Africa? :  #TheAfricaTheMediaNeverShowsYou
+AlJazeera	2015-07-16 17:41:09	2	On @AJStream 1930GMT: What do you think are the biggest misconceptions about Africa?
+AlJazeera	2015-07-16 16:35:10	75	Eid Mubarak.. We wish you and your loved ones a blessed Eid!
+AlJazeera	2015-07-16 12:40:08	7	On @AJStream 1930GMT: Have you seen #TheAfricaTheMediaNeverShowsYou? Tell us what you think: http://t.co/Y6ee1b8FDe
+AlJazeera	2015-07-16 10:40:09	3	On @AJStream 1930GMT:  #TheAfricaTheMediaNeverShowsYou...until now http://t.co/gOSVmUepqq
+AlJazeera	2015-07-16 10:24:02	5	Exclusive Former #Obama man tells @AJHeadtoHead 'Drones to more harm than good Readhttp://tmblr.co/ZWy5Fu1pilEUi
+AlJazeera	2015-07-16 09:38:47	18	Press Release: Lt. Gen Michael Flynn tells @AJEnglish 'Drones to more harm than good http://t.co/hh1W28K2LJ
+AlJazeera	2015-06-19 11:29:20	3	.@AJEnglish brings home two awards from @ONEWM Awards - http://t.co/KGLSumkUvL #OWMAwards
+AlJazeera	2015-06-19 10:31:12	2	Watch Saving Grand Canyon's 'sacred water' - the @AJEnglish news story which has won @najournalists award: http://t.co/lfPGpuprnK
+AlJazeera	2015-06-19 10:05:09	6	Watch 'Tar Creek' the @AJEnglish news story which has won the @najournalists awards http://t.co/mxxwZ2MfeC
+AlJazeera	2015-06-19 09:44:13	1	Well done to @shihab_rattansi &amp; @anarvirji for winning two news awards at the @najournalists  - read and watch story http://t.co/djXty6V6EM
+AlJazeera	2015-06-18 21:48:22	9	Watch @AJEnglish Outsourcing Torture: How three #Danish men face #Lebanese torturers http://t.co/W1iXClD5qk
+AlJazeera	2015-06-18 21:26:44	4	Thanks for @onewm for bringing @AJEnglish presenting award winning content like Pirate Fishing and Casablanca Calling for #OWMAwards wins
+AlJazeera	2015-06-18 21:24:40	5	Great Win for @AJWitness in  the Womens Rights in Africa Award sponsored by @AfDB_Group , is 'Casablanca Calling' #OWMAwards
+AlJazeera	2015-06-18 21:23:38	4	Win for @julianaruhfus &amp; @AJEnglish  team for their interactive 'Pirate Fishing', winner of @google Digital Media Award #OWMAwards
+AlJazeera	2015-06-18 20:18:44	5	.@AJEnglish crew up for 7 awards at #OWM2015 awards - @julianaruhfus &amp; @BarbaraGSerra and team leading the way. http://t.co/IDhpWtT3PP
+AlJazeera	2015-06-18 14:00:38	2	Paz Paz Bus - A bus for environment and education in rural Mexico http://t.co/qI1BIUUDn9 http://t.co/w3Q1MwtB2m
+AlJazeera	2015-06-18 11:38:57	6	On @AJStream 1930 GMT: Thousands of Haitians fear deportation from the #DominicanRepublic http://t.co/4utq0y3lee
+AlJazeera	2015-06-17 19:28:01	3	On @AJStream 1930 GMT:  What will it take to improve the profile of womens football? http://t.co/Qpc88XavAq
+AlJazeera	2015-06-17 14:00:46	1	Paz Paz Bus - The bouncing journey of environmental activists in rural Mexico http://t.co/00Yztkleah http://t.co/mu6il1F9Ea
+AlJazeera	2015-06-17 12:25:08	4	Exclusive: @AJEnglish speaks to victims of alleged Denmark-Lebanon intelligence cooperation http://t.co/JHfGjrzAHj http://t.co/P78hexHqXz
+AlJazeera	2015-06-17 09:23:26	11	Exclusive: @AJEnglish speaks to victims of alleged Denmark-Lebanon intelligence cooperation http://t.co/82Z76LCPZY http://t.co/cT2yfrYXl3
+AlJazeera	2015-06-17 09:18:03	3	Exclusive: @AJEnglish speaks to victims of alleged secret Denmark-Lebanon intelligence cooperation http://t.co/pQpDvouyXt
+AlJazeera	2015-06-17 03:52:52	4	Watch: @AJEnglish exclusive: @AlJazSydAndrew reports on Banknotes at centre of Australia diplomatic spat emerge  http://t.co/X5GfWb9jqx
+AlJazeera	2015-06-16 20:10:55	6	Exclusive: @AJEnglish gains access to alleged banknotes paid by Aus offcials to people smugglers by  http://t.co/urSypsp3PR
+AlJazeera	2015-06-16 19:53:11	4	Watch: @AJEnglish exclusive: @AlJazSydAndrew reports on Banknotes at centre of Australia diplomatic spat emerge  http://t.co/d6bflhVPQv
+AlJazeera	2015-06-16 19:04:17	13	Are you from #Eritrea? What are some of the countrys biggest problems? Contact @AJStream #AJStream before they go live on air in 30 mins!
+AlJazeera	2015-06-16 18:46:58	8	Watch: @AJEnglish exclusive: @AlJazSydAndrew reports on Banknotes at centre of Australia diplomatic spat emerge  http://t.co/w8hk5g8NUA
+AlJazeera	2015-06-16 18:42:25	7	Read @margotwallstrom talk to @AJEnglish about Sweden's 'feminist' foreign policy: http://t.co/d0WSx7xI4H http://t.co/UyOISaRu5P
+AlJazeera	2015-06-16 18:20:39	3	Read @margotwallstrom talk to @AJEnglish about Sweden's 'feminist' foreign policy: http://t.co/si2G0dEZyk http://t.co/Ia3gDnt7cG
+AlJazeera	2015-06-16 17:00:54	2	Paz Paz Bus - The bus that helps rural Mexico get energy from poo http://t.co/S9eka7XDRg http://t.co/9x7XNN0U5w
+AlJazeera	2015-06-15 20:34:51	3	Congrats to AJMN Creative Director @ramzan_alnaimi and his talented team for winning @PromaxBDA awards http://t.co/h6IwFNYQ0E #Aljazeera
+AlJazeera	2015-06-15 13:41:15	5	Congrats to AJMN Creative Director @ramzan_alnaimi and his talented team for winning @PromaxBDA awards http://t.co/P9K9a654oH #Aljazeera
+AlJazeera	2015-06-14 08:17:07	2	Say hello to southern Africa reporter @FahmidaMiller - her first task is to report on @AUSummit #Johannesburg http://t.co/OorSzpvuBI
+AlJazeera	2015-06-12 17:50:47	3	Within 12hrs of the boat sinking, Beijing laid down the rules: "No province or city will send reporters..." #Yangtze http://t.co/Am4nphQ1vj
+AlJazeera	2015-06-12 15:05:10	5	WATCH former UN chief @ValerieAmos tell @AJEnglish 'I feel a sense of shame' http://t.co/ITXuDC1dUs
+AlJazeera	2015-06-11 13:33:06	5	Find out why #Palestineremix won best technical innovation at #OnlineMediaawards : http://t.co/9KcfcnGW26
+AlJazeera	2015-06-11 13:25:51	9	Press Release:@AJEnglish crowned 'Outstanding Digital Team' at Online Media Awards http://t.co/RN44il5ltz
+AlJazeera	2015-06-11 10:29:08	4	Watch @konstantinosant  tell us why @AJEnglish won Best Use of Photography for Portrait of a Yogi  http://t.co/5s0zZ3EmU2 #Onlinemediaawards
+AlJazeera	2015-06-11 09:24:28	7	Watch @gridinoc tell us why @AJEnglish won "outstanding digital team award" #onlinemediaawards http://t.co/9SbKZXU4j8
+AlJazeera	2015-06-11 08:58:55	5	"There is not a single example on any matter that became controversial where any MP put their foot down &amp; said no" Vavi #DMNandosGathering
+AlJazeera	2015-06-11 08:20:31	2	At #DMNandosGathering union icon Vavi is asking why President Zuma says things going well, considering disturbing #southafrica statistics
+AlJazeera	2015-06-11 08:00:26	10	"We should get to a point where politicians fear voters, rather than the other way round." @MmusiMaimane at #DMNandosGathering
+AlJazeera	2015-05-14 14:32:39	3	Coming soon watch @PattyCulhane speak to @rhodes44 on @AJEnglish  https://t.co/lv80YUO3Ls
+AlJazeera	2015-05-14 14:18:51	1	.@julianaruhfus will be talking tomorrow at @DigiShoreditch on gamified news: Have a look at the event here http://t.co/bpFxrfErAI
+AlJazeera	2015-05-14 12:29:19	12	"Women in India are taking the lead role in the fight against justice." Watch online http://t.co/PXJ3qErtMo http://t.co/wdS3kvraOZ
+AlJazeera	2015-05-14 10:54:36	1	What's the future of feminism? Join @mehdirhasan &amp; @naomirwolf next Tuesday 19th May at @OxfordUnion. Free tickets | http://t.co/n2APEbH9iw
+AlJazeera	2015-05-14 08:59:11	10	"Malala and I fight for children." Watch @k_satyarthi's interview with @TalktoAljazeera http://t.co/PXJ3qErtMo http://t.co/Jd5WzCRkeJ
+AlJazeera	2015-05-13 11:39:22	5	#Olympic champion @Mo_Farah stops by #AlJazeera while in town for the #Doha Diamond League #dldoha http://t.co/qPgkpT5vr7
+AlJazeera	2015-05-12 18:35:42	3	#AlJazeera English acting Managing Director is Giles Trendle  http://t.co/hds2Ol3xOF
+AlJazeera	2015-05-11 15:51:07	10	Liberalism reflected by the rise of #hijabi #fashion in #Turkey - Watch #AlJazeera World  http://t.co/XgAFXtYECr http://t.co/jqGRP12Llf
+AlJazeera	2015-05-11 12:40:21	3	#AlJazeera demonstrates creative prowess as they win at the #OneShow  http://t.co/e0l9F51Sss
+AlJazeera	2015-05-11 07:48:43	18	Is it possible to wear a #hijab and be fashionable? #AlJazeera World explores http://t.co/w8K7yXWTro http://t.co/iA5Zb2feoV
+AlJazeera	2015-05-06 20:52:14	40	New @AJAM CEO appointed: @AlAnsteyAJ http://t.co/Fsdhpxz9TM
+AlJazeera	2015-04-11 11:22:29	8	Exclusive: Footage of Yemenis fleeing violence, only to be detained in Saudi Arabia http://t.co/LHn3X4VO3F #ajehumanstory
+AlJazeera	2015-04-10 19:55:09	17	WATCH NOW: #Pakistan's Gen. Asad Durrani talks about the #Taliban, #WarOnTerror, #Afghanistan &amp; #BinLaden on @AJEnglish #AJH2H
+Reuters	2015-10-28 15:28:05	20	Taliban overrun district in quake-hit northern #Afghanistan: https://t.co/WNpnfRt8m9 https://t.co/4LUu7YCv8i
+Reuters	2015-10-28 14:57:04	28	U.S. weighs special forces in Syria, helicopters in Iraq: https://t.co/0zMyQipjz7 https://t.co/VsrdPQYKsl
+Reuters	2015-10-28 14:45:25	30	Icahn: AIG should split into three firms to avoid 'high-risk' tag https://t.co/sLybmdhEMp
+Reuters	2015-10-28 14:42:07	82	Multiple wounds on body of Russian soldier who military said killed himself in Syria: report https://t.co/8kij15zPdr https://t.co/KsXT7dbEva
+Reuters	2015-10-28 14:34:07	117	Sheriff's deputy to be fired in South Carolina classroom altercation: MSNBC https://t.co/0yagX3A7m5
+Reuters	2015-10-28 14:34:02	57	Former House Speaker Hastert pleads guilty in federal hush-money case: https://t.co/QxDQpiVdRQ https://t.co/7lDMAVqFcz
+Reuters	2015-10-28 14:24:04	66	'Disturbing' arrest of black South Carolina student sparks federal and local probes: https://t.co/m2ZcEdycWK https://t.co/GAUtTcllCW
+Reuters	2015-10-28 14:07:05	28	Speaker-in-waiting Ryan says supports budget deal https://t.co/8prCKhqvSw
+Reuters	2015-10-28 13:57:21	76	U.S. may send small amount of special ops forces to Syria, attack helicopters to Iraq: https://t.co/yAr4ocee5F https://t.co/zWTn8Szry2
+Reuters	2015-10-28 13:22:02	41	Fed seen holding rates steady: https://t.co/I39oPjFnnq https://t.co/RgC3GeJU7X
+Reuters	2015-10-28 13:19:55	29	S.C. sheriff to reveal findings of probe into black student's arrest https://t.co/QyXdfdkU0C
+Reuters	2015-10-28 13:18:23	114	BREAKING NEWS: Carl Icahn calls for breakup of AIG
+Reuters	2015-10-28 13:15:18	44	Ex-U.S. House Speaker Hastert expected to plead guilty in hush-money case https://t.co/1KDyRrJIDV
+Reuters	2015-10-28 13:08:01	54	Syrian opposition says Iran attending talks could obstruct solution: https://t.co/bSCSh2P05d https://t.co/okJmQq97Vt
+Reuters	2015-10-28 12:43:04	112	Germany to oblige banks to offer accounts to refugees: https://t.co/h8L6c3O2iF https://t.co/u6DOiJQgzU
+Reuters	2015-10-28 12:42:08	61	U.N. climate chief says climate change deal will not include global carbon price: https://t.co/NEwbmFudFv #COP21 https://t.co/xX9XZuMNRY
+Reuters	2015-10-28 12:31:09	97	#Volkswagen has posted its first quarterly loss in at least 15 years: https://t.co/Dr9u0zbGjy https://t.co/Vwq09iGyYm
+Reuters	2015-10-28 12:03:06	62	Twitter shares fall on revenue forecast and anemic user growth: https://t.co/L3G5iHq5UY https://t.co/nJwipHMOd2
+Reuters	2015-10-28 12:01:03	15	Global shares rise as Riksbank helps ease Fed wait: https://t.co/bgTIG7mO3k https://t.co/vHWdTjEpRX
+Reuters	2015-10-28 11:47:42	50	Iran says Zarif will attend Syria talks in Vienna on Friday: ISNA https://t.co/AVWWxgo4wU
+Reuters	2015-10-28 11:38:06	61	Saudi-led coalition drops weapons for allies in Yemeni city: https://t.co/HZACHvgwon https://t.co/E4WMWCvXXD
+Reuters	2015-10-28 11:28:35	67	Taliban overrun district in quake-hit northern Afghanistan: https://t.co/kzuhPC3uyU https://t.co/MWVBX2hovB
+Reuters	2015-10-28 11:05:20	34	Exclusive - Fearing more jailbreaks, Afghanistan rushed inmates out of Helmand: https://t.co/gl1ia57fxZ https://t.co/YhzRDvY9oF
+Reuters	2015-10-28 10:45:04	60	U.S. weighs special forces in Syria and helicopters in Iraq: https://t.co/mnvAvtnV9V https://t.co/e3wThJpvtr
+Reuters	2015-10-28 10:24:16	41	Saudi-led coalition drops weapons for allies in Yemeni city https://t.co/CXWTVcfCdX
+Reuters	2015-10-28 10:03:16	140	In pictures. Meet the recruits - joining the Russian army: https://t.co/xGkstMyp7h https://t.co/LmPJyf4b1f
+Reuters	2015-10-28 09:41:02	26	Sub-zero interest rates have floor nearby, albeit a shaky one https://t.co/e2wmSeT38d https://t.co/x9y7jeF8BO
+Reuters	2015-10-28 09:27:28	76	#FreeBacon topic sizzles on social media after WHO meat report: https://t.co/9SKG8kPcI7 https://t.co/RsXWLl21sC
+Reuters	2015-10-28 09:06:32	77	#Volkswagen slumps to first quarterly loss in at least 15 years: https://t.co/BqvZElyCgW https://t.co/ayJSQm2Hc4
+Reuters	2015-10-28 08:42:59	59	#FreeBacon topic sizzles on social media after WHO meat report https://t.co/baxkiyL7Hi
+Reuters	2015-10-28 08:41:02	139	Brawls erupt as Turkish police storm media group linked to Erdogan foe https://t.co/svVlTE9zTh https://t.co/79CBrP38AT
+Reuters	2015-10-28 08:22:43	78	Volkswagen slumps to first quarterly loss in at least 15 years https://t.co/2q4iT6smhM
+Reuters	2015-10-28 08:14:17	53	Auto power play: Japan's hydrogen car vs China's battery drive https://t.co/fbQlULOfkx https://t.co/CM6T1qiXUW
+Reuters	2015-10-28 08:06:57	71	Clinton says she would not bail out troubled banks https://t.co/G1aPNhXk1I
+Reuters	2015-10-28 07:41:01	38	Asia slips before Fed, Aussie drops on soft inflation https://t.co/ZQ6DJyr6MG https://t.co/kHAmHNqxtV
+Reuters	2015-10-28 07:19:39	83	Taliban overrun district in quake-hit northern Afghanistan https://t.co/eu2Ehy9Hxi
+Reuters	2015-10-28 07:11:02	138	Angry China shadows U.S. warship near man-made islands https://t.co/eunRpWI2iX https://t.co/QqHJYYeM2g
+Reuters	2015-10-28 05:42:02	22	Boeing to decide within two weeks whether to protest contract award https://t.co/lvoNKGTj9l
+Reuters	2015-10-28 05:21:22	53	U.S. crude rises after inventory draw at Cushing hub https://t.co/SpacMrf4Rz https://t.co/hjCMSbtvE6
+Reuters	2015-10-28 05:13:44	35	Fed seen holding rates steady as investor skepticism swirls https://t.co/mQonrQ8VAO
+Reuters	2015-10-28 05:09:17	135	California considers adding meat to cancer-alert list https://t.co/oALPmlpWhA
+Reuters	2015-10-28 04:41:01	83	U.S. picks Northrop Grumman to build next long-range bomber https://t.co/z8AH4alqk3 https://t.co/Dq9R7fryl6
+Reuters	2015-10-28 04:11:02	39	Boeing to decide within two weeks whether to protest contract award https://t.co/XXKHGlwmOX
+Reuters	2015-10-28 03:41:02	55	IBM nears deal to buy Weather Company's digital assets: source https://t.co/ItkNHnxGV2 https://t.co/k6RayaUgt2
+Reuters	2015-10-28 03:11:01	51	Bitcoin firm raises funding from Bain, New York Life, MasterCard https://t.co/4cZkv7RbqW
+Reuters	2015-10-28 02:45:04	116	Angry China shadows U.S. warship near man-made islands https://t.co/nAkNPf8CPm
+Reuters	2015-10-28 02:09:06	85	U.S. weighs special forces in Syria, helicopters in Iraq https://t.co/uHXiqlf1nm
+Reuters	2015-10-28 01:33:02	84	Walgreens says will buy smaller drugstore rival Rite-Aid https://t.co/ixOmBnxtXS
+Reuters	2015-10-28 01:17:18	32	Rivals see chance for opening against Trump, Carson at Republican debate https://t.co/lglGyWup2M
+Reuters	2015-10-28 00:25:32	90	'Disturbing' arrest of black South Carolina student sparks federal, local probes https://t.co/lfCFNmLGxH
+Reuters	2015-10-28 00:14:16	72	U.S. picks Northrop Grumman to build next long-range bomber https://t.co/9fSkuAY6aT
+Reuters	2015-10-28 00:14:16	46	Apple beats Wall Street, investors wary of China sales https://t.co/x8dYAJ1sKo
+Reuters	2015-10-27 22:46:32	53	IBM says SEC investigating company's books, shares fall https://t.co/qRcHX5huwS
+Reuters	2015-10-27 22:35:14	70	Life insurers admit to offering 'kickbacks': Senator Warren https://t.co/Cvs9ydKpCS
+Reuters	2015-10-27 21:41:08	92	Senate approves major cybersecurity bill https://t.co/0bPNARw6YI
+Reuters	2015-10-27 21:30:10	64	Walgreens Boots to buy Rite Aid in $17.2 billion deal https://t.co/oJuW92rNoS
+Reuters	2015-10-27 21:11:03	119	In Brazil's prisons, healing practices aim to offer inmates a life beyond crime: https://t.co/7St7ENqQGA https://t.co/uJjxY9waE3
+Reuters	2015-10-27 20:50:07	58	Guatemala's comedian-turned-leader Jimmy Morales has some unorthodox policy plans: https://t.co/NdPiVqZk8v https://t.co/109AEQ6obw
+Reuters	2015-10-27 20:44:51	35	Twitter third-quarter forecast misses estimate https://t.co/O4J1FSM1bz
+Reuters	2015-10-27 20:44:51	76	Apple revenue jumps 22 percent as iPhone sales surge https://t.co/vbOLOYkrDE
+Reuters	2015-10-27 20:43:05	100	#FreeBacon sizzles on social media as meat lovers express disdain over WHO meat report: https://t.co/5132bVxYg2 https://t.co/lA7QQOl8AK
+Reuters	2015-10-27 20:29:08	58	#FreeBacon topic sizzles on social media after WHO meat report https://t.co/NLwZTLSiL1
+Reuters	2015-10-27 19:35:10	36	At least three Oklahoma parade crash victims in critical condition https://t.co/ikXom87XN7
+Reuters	2015-10-27 19:31:05	112	A man competes at the first World Games for Indigenous Peoples in Palmas. Editor's Choice:   https://t.co/LJpCnZPIaU https://t.co/7qSIlQQslt
+Reuters	2015-10-27 19:17:04	136	FBI to investigate violent arrest of black South Carolina student: https://t.co/bklP3KGWLA https://t.co/VcbxzpJ7C8
+Reuters	2015-10-27 19:05:53	64	Two Palestinians shot dead after stabbing Israeli soldier: military https://t.co/VfPa0Z3LAA
+Reuters	2015-10-27 18:57:01	211	Parents of first Russian to die in Syria doubt military's account that he hanged himself: https://t.co/RvsDYrwBta https://t.co/3gtzTTwGRb
+Reuters	2015-10-27 18:36:01	234	Angry China shadows U.S. warship near man-made islands in the South China Sea: https://t.co/DFs0MsZXyQ https://t.co/fpwy0wiuCq
+Reuters	2015-10-27 18:09:41	81	Parents receive body of first Russian to die in Syria, doubt suicide https://t.co/AOZSBOxzDy
+Reuters	2015-10-27 18:02:53	27	Amid renewed U.S., Cuba ties, U.N. condemns embargo for 24th year https://t.co/RYfJ7lUB2I
+Reuters	2015-10-27 18:02:53	76	UK fraud office receives new money laundering details in FIFA investigation https://t.co/KQih0ahckj
+Reuters	2015-10-27 17:07:44	701	BREAKING: FBI launches civil rights investigation into South Carolina student arrest
+Reuters	2015-10-27 17:03:04	121	PHOTOS: Our latest images from the scene of a deadly quake in Afghanistan. https://t.co/p8ukBykNY8 https://t.co/J6mkVbx4de
+Reuters	2015-10-27 15:54:46	29	Exclusive: VW shelves overhaul of U.S. business until scandal abates - sources https://t.co/k7nud1xglf
+Reuters	2015-10-27 15:33:53	43	Family confirms first Russian military fatality in #Syria, disputes "suicide": https://t.co/RcKQlmX0kD
+Reuters	2015-10-27 15:00:08	164	Why Turkey is looking more and more like its troubled neighbors: https://t.co/18RncbSUUA https://t.co/ipi5I8uIzY
+Reuters	2015-10-27 09:41:02	41	Free Syrian Army groups say did not visit Moscow https://t.co/1NcT3Oxay4 https://t.co/6U6xATGU0x
+Reuters	2015-10-27 09:22:51	65	JPMorgan Chase says it is building a rival to Apple Pay https://t.co/aqt5Mzc9sT
+Reuters	2015-10-27 09:13:56	103	Exclusive: Wal-Mart seeks to test drones for home delivery, pickup https://t.co/n5QlA6k44P
+Reuters	2015-10-27 09:13:55	85	Yemen hospital hit by Saudi-led air strikes: Medecins Sans Frontieres https://t.co/OtThwwdEZp
+Reuters	2015-10-27 09:11:02	36	BP shrinks further to weather extended oil slump https://t.co/CHzmqJCLvM https://t.co/6lz3oSqNqN
+Reuters	2015-10-27 08:41:01	69	Oil prices extend losses as glut worries persist https://t.co/O8nUtM9wDZ https://t.co/30php4B0WO
+Reuters	2015-10-27 08:11:02	50	Congo votes by landslide to allow third presidential term https://t.co/Pxc99wkemt https://t.co/6wvYgAZQ1p
+Reuters	2015-10-27 07:41:01	24	Australia's NAB agrees to sell insurance arm to Nippon Life for $1.7 billion: source https://t.co/2elklxnrVx https://t.co/0BUiIaIapD
+Reuters	2015-10-27 07:11:02	54	In the rearview mirror: car designer warns on Google game changer https://t.co/HgPZJUZqvK https://t.co/LpPcgu7Vft
+Reuters	2015-10-27 05:41:01	71	S.C. police officer slams black student; video sparks outrage https://t.co/dPaF5tsP7T
+Reuters	2015-10-27 05:11:01	193	U.S. Navy destroyer patrols near islands built by China in South China Sea https://t.co/R1HfiGB5ZS https://t.co/J9k6ifcrvm
+Reuters	2015-10-27 04:41:01	38	Asia shares run out of puff, commodities pressured https://t.co/kNHaf1szoj https://t.co/8kE5HcPQwc
+Reuters	2015-10-27 04:11:01	32	Canada Liberals to start fighter competition afresh https://t.co/HVKs2Jh4GU
+Reuters	2015-10-27 03:41:02	63	Exclusive: House conservative leaders - too late to stop debt ceiling hike https://t.co/hgc7RRLnSY https://t.co/qKHKjbrhRc
+Reuters	2015-10-27 03:17:36	114	China urges U.S. to act cautiously in South China Sea https://t.co/GVeaqy7wG1
+Reuters	2015-10-27 03:09:40	125	Rescuers race to reach quake zones in Afghanistan, Pakistan as toll nears 300 https://t.co/hLCPFqAswX
+Reuters	2015-10-27 01:05:50	38	Five Britons killed when Canadian whale-watch boat sinks https://t.co/51B6qYCi6p
+Reuters	2015-10-27 00:59:15	73	S.C. police officer slams black student; video sparks social media outrage https://t.co/j0jNlQhQP2
+Reuters	2015-10-27 00:54:38	166	U.S. Navy destroyer nears islands built by China in South China Sea https://t.co/MUnJGL2afc
+Reuters	2015-10-27 00:18:47	42	Debt limit, budget deals take shape in Congress https://t.co/ASUVstJf21
+Reuters	2015-10-26 23:17:59	73	Police arrest 15-year-old in Northern Ireland over TalkTalk hack https://t.co/X45HY1gSli
+Reuters	2015-10-26 22:57:48	165	U.S. police chiefs call for background checks for all gun purchases https://t.co/0EMxOVPZnd
+Reuters	2015-10-26 22:33:06	76	EXCLUSIVE: House conservative leaders say it's too late to stop debt ceiling hike: https://t.co/Rfe37MMZjC https://t.co/a0cPA93EZA
+Reuters	2015-10-26 22:28:43	37	Exclusive: House conservative leaders - too late to stop debt ceiling hike https://t.co/4jiCn3nfKE
+Reuters	2015-10-26 22:17:17	59	White House issues veto threat for House bill on Labor Department rule https://t.co/TXyArYUgn3
+Reuters	2015-10-26 21:28:05	111	EXCLUSIVE: @WalMart seeks to test drones for home delivery and pickup. https://t.co/SBT7iJBCPA https://t.co/NQqGCEvaXu
+Reuters	2015-10-26 21:22:47	85	JPMorgan Chase says it is building a rival to Apple Pay https://t.co/SNmDfaNDfm
+Reuters	2015-10-26 21:12:06	91	Netanyahu considers revoking benefits for some Palestinians in East Jerusalem: https://t.co/68ZGcjstyc https://t.co/iB3WZVY6JN
+Reuters	2015-10-26 21:02:44	42	In shift, Jeb Bush turns to brother George W. for 2016 help https://t.co/vHDwLLIVaY
+Reuters	2015-10-26 20:51:30	36	It's a bird, it's a plane, it's a ... @WalMart drone?  https://t.co/QhpUCR356o https://t.co/BlDaunw8uC
+Reuters	2015-10-26 20:20:04	136	PHOTOS: Russia's bombing campaign in #Syria. https://t.co/XWi7UzLYnN https://t.co/tfStXrWo3w
+Reuters	2015-10-26 20:02:01	68	Exclusive: Wal-Mart seeks to test drones for home delivery, pickup https://t.co/MOGWCat0wb
+Reuters	2015-10-26 19:58:04	178	Major earthquake in Afghanistan and Pakistan kills over 200: https://t.co/ilxXsZmVYp https://t.co/HfwadD1674
+Reuters	2015-10-26 19:27:01	193	A Palestinian protester jumps over burning tires in the West Bank. Editor's Choice: https://t.co/vO7CrYBPkj https://t.co/aksRnMK7G9
+Reuters	2015-10-26 19:15:09	79	Before Syria, Russia struggled to land air strikes on target: https://t.co/uVO8ctvuEW https://t.co/3dbmzz0Fos
+Reuters	2015-10-26 18:58:06	178	U.S. Navy to send destroyer within 12 miles of Chinese islands: https://t.co/QpOKKIYsqj https://t.co/jHjLhTv9Q5
+Reuters	2015-10-26 18:15:45	63	Slovenia to use private security firms to help with migrant flows https://t.co/DXQdNd1LRR
+Reuters	2015-10-26 18:09:00	34	Congress negotiators near deal on budget, debt limit -sources https://t.co/oJwEfQjjQl
+Reuters	2015-10-26 18:04:15	114	U.S. Navy to send destroyer within 12 miles of Chinese islands https://t.co/kFizphwWk6
+Reuters	2015-10-26 17:57:07	49	Pakistani homicide unit's new tactic: find evidence, don't plant it https://t.co/oVDMt4lEsh https://t.co/pEHsSaobZf
+Reuters	2015-10-26 17:18:42	42	Ex-U.N. diplomat in bribe case likely faces more charges: U.S. prosecutor https://t.co/w7rDLfMR1h
+Reuters	2015-10-26 17:09:02	109	See more of the news from around the world in pictures: https://t.co/58eAiKErGj https://t.co/T4X7JP3pKr
+Reuters	2015-10-26 16:10:58	44	Fly, don't walk, EU will urge Balkan migrants https://t.co/GobkBiOfU8
+Reuters	2015-10-26 15:46:03	243	No joke: Guatemalan comedian Jimmy Morales wins presidency in landslide. https://t.co/Q69gaqNWXB https://t.co/nb9FjzH6TJ
+Reuters	2015-10-26 15:32:07	313	LIVE: Latest updates on the South Asia #earthquake as the death toll rises: https://t.co/Pp58ym7D73 https://t.co/poduTa8Xip
+Reuters	2015-10-26 14:22:11	31	Wall St. lower ahead of Fed meeting; Apple slips https://t.co/goOVZMdmrH
+Reuters	2015-10-26 13:47:19	132	Syrian rebels to Russia: Stop bombing us: https://t.co/3UfcB8lspn https://t.co/XDJ7hYAAoI
+Reuters	2015-10-26 13:26:05	485	At least 100 dead after strong quake hits Afghanistan, Pakistan: https://t.co/7kcL2WEzdR https://t.co/Ck476lQULT
+Reuters	2015-10-26 13:23:39	26	Valeant calls for SEC investigation into short-seller's actions https://t.co/5xFgCxpegs
+Reuters	2015-10-26 13:14:01	21	FTSE ease back from two-month highs as WPP and TalkTalk fall: https://t.co/fRJcMiSmnt https://t.co/LF622eMJGS
+Reuters	2015-10-26 12:52:12	81	Greece agrees to new reception refugee capacity - EU's Juncker: https://t.co/JTf8QlzrrV https://t.co/8GjJoN5YiK
+Reuters	2015-10-25 13:25:07	229	Britain's Blair says 2003 Iraq invasion played role in Islamic State rise https://t.co/OBOjCzqSbB
+Reuters	2015-10-25 12:49:12	86	Pope, closing synod, calls for more open-hearted Church https://t.co/G3KcShqmv6
+Reuters	2015-10-25 12:13:00	437	Exclusive: UK nuclear deterrent to cost 167 billion pounds, far more than expected https://t.co/HEQcKPRIaB
+Reuters	2015-10-25 11:03:18	70	Palestinians suspicious of al-Aqsa monitoring promoted by Kerry https://t.co/dw1buP6jqk
+Reuters	2015-10-25 10:53:07	94	Texas deluged by rain in #Patricia's wake, triggering flash floods, derailing freight train: https://t.co/LyGOp0w8FI https://t.co/VQqcQidyX4
+Reuters	2015-10-25 10:52:10	60	EU mini-summit seeks unity in Balkans over migrant crisis https://t.co/CVDZYOHHdd
+Reuters	2015-10-25 10:13:50	56	Pope, ending synod, excoriates bishops with 'closed hearts' https://t.co/PpQaUw7Y2o
+Reuters	2015-10-25 09:41:02	86	Russia says wants Syria elections, ready to help Free Syrian Army https://t.co/0jMilurfxL
+Reuters	2015-10-25 08:43:45	75	U.S., Saudi Arabia to bolster support for moderate Syrian opposition https://t.co/BY0JobjVKS
+Reuters	2015-10-25 08:41:02	64	MotoGP title goes to the wire after Malaysia drama https://t.co/t1XxMqnGqw https://t.co/9VvOZCZXx3
+Reuters	2015-10-25 08:32:29	111	Syria's Assad says ready to hold presidential elections with people's blessing: RIA https://t.co/9GlxVzZnhY
+Reuters	2015-10-25 08:11:01	46	Israel says citizen, likely Arab, used paraglider to enter Syria https://t.co/O13kft1fXJ
+Reuters	2015-10-25 07:41:01	60	Nasdaq may see record with Apple earnings https://t.co/YgyctSDPn2 https://t.co/c0Rtpahhi9
+Reuters	2015-10-25 07:11:02	118	Texas deluged by rain in Patricia's wake, Houston braces for floods https://t.co/LCY13ese9n https://t.co/XAh8RUUN3T
+Reuters	2015-10-25 05:45:56	33	Sanders contrasts his record with Clinton's at Iowa dinner https://t.co/f58oR7tqNa
+Reuters	2015-10-25 05:41:02	56	China premier says 7 percent growth goal never set in stone https://t.co/U0XJG4Tuz2 https://t.co/uwYJiSfVvM
+Reuters	2015-10-25 05:34:41	116	Hurricane Patricia spares Mexican cities, roars through remote villages https://t.co/Ws0sLttRR7
+Reuters	2015-10-25 05:11:02	59	USAA says switches to Visa from MasterCard https://t.co/ZMvWV47A2O https://t.co/OJLTshAsEI
+Reuters	2015-10-25 04:47:35	37	Edwards tops vote for Louisiana governor but must face a runoff https://t.co/V4Po6uCamP
+Reuters	2015-10-25 04:43:04	104	Russia says wants Syria elections, ready to help Free Syrian Army https://t.co/TLbiB0ops7
+Reuters	2015-10-25 04:41:02	59	Montenegrin police fire teargas to disperse opposition https://t.co/I0iXiTOqKN https://t.co/xLg3j4oCi6
+Reuters	2015-10-25 04:11:01	178	China communist party paper says country should join U.S.-led trade pact https://t.co/YXG1kYs5xN https://t.co/IR5S7ydU3S
+Reuters	2015-10-25 03:41:01	28	Misshapen budget priorities take center stage in Illinois https://t.co/zcKk1dHKka https://t.co/lo97uVxX4W
+Reuters	2015-10-25 03:11:01	79	Nasdaq may see record with Apple earnings https://t.co/gxRmXs04AY https://t.co/9NJ0FFYL7H
+Reuters	2015-10-25 02:19:11	84	Car slams into crowd at Oklahoma parade; four killed https://t.co/8ASN08GbpS
+Reuters	2015-10-25 01:58:49	82	Houston braces for floods as Texas deluged by rain in Patricia's wake https://t.co/s7zBo2aGQA
+Reuters	2015-10-24 21:05:03	71	#Patricia remnant low expected to weaken to a trough during next hours. Full coverage here: https://t.co/CvZehsPPVV https://t.co/4Awbr3q6Xn
+Reuters	2015-10-24 20:52:09	129	BREAKING: National Hurricane Center says #Patricia degenerates into a remnant low, but heavy rain threat continues
+Reuters	2015-10-24 20:46:00	151	Hurricane #Patricia spares Mexican cities, roars through remote areas: https://t.co/l2wXM21lp1 https://t.co/7LfVlRtHPo
+Reuters	2015-10-24 20:01:19	76	Car plows into crowd at Oklahoma parade, killing at least three https://t.co/eGZxfEci6A
+Reuters	2015-10-24 19:20:46	36	Runoff expected as Louisiana votes for governor https://t.co/3XiX70lcg0
+Reuters	2015-10-24 19:04:59	79	Judge dismisses Wikimedia lawsuit over NSA surveillance - report https://t.co/c5X4AJ0JQA
+Reuters	2015-10-24 17:57:44	99	Europe split on migrant crisis on eve of Brussels talks https://t.co/93fX7p0zI3
+Reuters	2015-10-24 17:46:27	122	Vatican synod ends with opening to divorcees, no change on gays https://t.co/MVWpaVK8E3
+Reuters	2015-10-24 17:21:45	140	Actress Maureen O'Hara dies at 95: manager https://t.co/IcF6mzO4ZO
+Reuters	2015-10-24 16:43:31	104	Our full coverage of Hurricane #Patricia is here: https://t.co/WYHN4DUz5p https://t.co/KxEJz3XYoU
+Reuters	2015-10-24 15:56:08	61	Jordan proposes TV cameras to defuse Jerusalem tensions: Kerry https://t.co/zPHXpwwu8m
+Reuters	2015-10-24 15:46:48	86	Heavy rains swamp Texas, flooding roads, derailing train https://t.co/lQ9APNTaLD
+Reuters	2015-10-24 14:41:48	110	Massive storm #Patricia slams into western Mexico but does not hit large population centers: https://t.co/J6EtAongpj https://t.co/LnX7kuSdwm
+Reuters	2015-10-24 13:26:14	153	Hurricane #Patricia hammers Mexico's coastal areas but skirts major cities: https://t.co/DQxIpY9Q0t https://t.co/IeVcYQY6dY
+Reuters	2015-10-24 12:16:58	226	BREAKING: Hurricane #Patricia weakens to a tropical storm over Mexico - National Hurricane Center
+Reuters	2015-10-24 11:37:33	547	Hurricane #Patricia is downgraded to Category 1 storm with winds decreasing to about 75 mph: https://t.co/00lJ8j2O7Y https://t.co/DJa8SOrd18
+Reuters	2015-10-24 10:49:01	74	VW to freeze promotions due to emissions scandal: report https://t.co/0znUmfCnxN
+Reuters	2015-10-24 10:12:58	159	Russia says ready to support Free Syrian Army with air strikes https://t.co/r4CGKfNPUt
+Reuters	2015-10-24 10:12:58	64	EU's Juncker wants decisions on Balkan refugee crisis on Sunday https://t.co/eKl2kzpCKu
+Reuters	2015-10-24 09:41:37	71	Several Yemeni fishermen killed in Saudi-led strikes: witnesses https://t.co/O9KYrxmmOc
+Reuters	2015-10-23 12:07:06	93	Hurricane Patricia strengthens into a potentially catastrophic storm as it nears Mexico: https://t.co/w9CdIoEbOl https://t.co/kRoxoNB4K1
+Reuters	2015-10-23 12:04:05	61	PHOTOS: Hillary Clinton defends her Benghazi record in a marathon 11-hour hearing. https://t.co/9eyVrG2T5h https://t.co/58wMBYPci5
+Reuters	2015-10-23 11:52:16	45	China's central bank cuts rates for sixth time since November https://t.co/m4eUsonJbt
+Reuters	2015-10-23 11:48:24	91	China's central bank cuts interest rates for the sixth time since November: https://t.co/l8q6dejYcd https://t.co/2NYrow0tWq
+Reuters	2015-10-23 11:38:45	88	Hurricane Patricia potentially catastrophic as it nears Mexico https://t.co/IH0FO9SoRb
+Reuters	2015-10-23 11:36:33	70	Worried Slovenia might built fence to cope with migrant crisis https://t.co/S9e1RSpABm
+Reuters	2015-10-23 11:14:04	91	At least 42 killed in pensioners' bus collision, France's worst road crash in over 30 years: https://t.co/R2VjWJVVFc https://t.co/nA5t7G6wDq
+Reuters	2015-10-23 11:09:38	115	Swedish police say that sword-wielding school killer was driven by 'racist motives': https://t.co/ZEcQ9GM1tC https://t.co/T7aMXhcKBh
+Reuters	2015-10-23 11:09:33	34	VIDEO: Earnings wins for Amazon, Alphabet and Microsoft helped ignite worldwide stock rally. https://t.co/KSbnjviB46 https://t.co/I3b7OzJuf9
+Reuters	2015-10-23 10:52:02	46	Amazon shares jump as the e-commerce company posts a surprise profit: https://t.co/cnJQB2d5Ua https://t.co/XdoAP9kF8l
+Reuters	2015-10-23 10:49:17	31	Global stocks hit two-month high on dovish Draghi message https://t.co/Sp9aKi79FQ
+Reuters	2015-10-23 10:42:32	41	Plenty of diplomacy but slim hope for new Middle East peace push https://t.co/E6jRYhhDng
+Reuters	2015-10-23 10:33:04	48	Global stocks hit two-month high on dovish message from ECB's Draghi: https://t.co/qSC60eTBiR https://t.co/FauHI6hxMy
+Reuters	2015-10-23 10:30:09	90	Alphabet Inc, the new holding company for Google, smashes earnings expectations: https://t.co/3J3S6TiNaP https://t.co/EzKHOzJY7W
+Reuters	2015-10-23 10:24:05	65	Paul Ryan announces his candidacy for speaker of the U.S. House of Representatives: https://t.co/GQfaFkHlrG https://t.co/LpE0QAfJIl
+Reuters	2015-10-23 10:22:02	99	Hillary Clinton deflects harsh Republican criticism in a marathon Benghazi hearing: https://t.co/O52zhqQND6 https://t.co/ZsI5IxSBtb
+Reuters	2015-10-23 10:21:19	110	Putin says Syria's Assad is open to working with some rebels: https://t.co/Hq4LSB4klO https://t.co/G8pxKbSLaI
+Reuters	2015-10-23 09:59:46	68	At least 42 killed in French bus crash https://t.co/3DspUgxGbe
+Reuters	2015-10-23 09:51:00	78	Beijing says won't give up position that Taiwan's part of China https://t.co/EGLqRCcF0Z https://t.co/hWmLAES0RI
+Reuters	2015-10-23 09:40:04	53	At least 42 mostly elderly people killed in France's worst road crash for decades: https://t.co/NaRqBteKJK https://t.co/61CLZNUWTK
+Reuters	2015-10-23 09:35:02	64	Germany speeds up new measures to deal with refugee influx https://t.co/fo67iLUdfZ
+Reuters	2015-10-23 09:11:03	95	Putin says Syria's Assad is open to working with some rebels https://t.co/juC5pkwy2O https://t.co/3TdsMuZ1MN

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Write your own R package, Part One</title>
+
+<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+</style>
+<div class="container-fluid main-container">
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div id="header">
+<h1 class="title">Write your own R package, Part One</h1>
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#why-devtools">Why <code>devtools</code>?</a></li>
+<li><a href="#create-the-package">Create the package</a></li>
+<li><a href="#put-it-under-version-control">Put it under version control</a></li>
+<li><a href="#add-your-first-function">Add your first function</a></li>
+<li><a href="#commit-fbind">Commit <code>fbind()</code></a></li>
+<li><a href="#build-install-check">Build, Install, Check</a></li>
+</ul>
+</div>
+
+<div id="prerequisites" class="section level3">
+<h3>Prerequisites</h3>
+<p>We assume you have <a href="packages01_system-prep.html">configured your system for R package development</a>. This will ensure you have all the right software installed and that it’s updated. Ignoring this prep will only lead to heartache. <strong>Do it.</strong></p>
+<p>You can see the glorious result of all this by visiting the <code>foofactors</code> package on GitHub: <a href="https://github.com/jennybc/foofactors" class="uri">https://github.com/jennybc/foofactors</a>.</p>
+<p>back to <a href="packages00_index.html">All the package things</a></p>
+</div>
+<div id="why-devtools" class="section level3">
+<h3>Why <code>devtools</code>?</h3>
+<p>We will use the <code>devtools</code> package to facilitate package development. It’s on <a href="https://cran.r-project.org/web/packages/devtools/index.html">CRAN</a> and developed on <a href="https://github.com/hadley/devtools">GitHub</a>. Why?</p>
+<ul>
+<li>ensures your package source has the format of a valid R package</li>
+<li>provides a fluid workflow for package development: tweak it, use it, … lather, rinse, repeat</li>
+</ul>
+<p>The source of R an package is a highly structured set of files that reside in a dedicated directory on your computer. It can be beneficial to also make this directory an RStudio Project and a Git repository and, eventually, associate it with a GitHub remote. <code>devtools</code> ensures that your initial set up is correct and helps you keep it that way as your package evolves.</p>
+<p>As you develop the functions in your package, you need to take them out regularly for a test drive. How do you plan to get them into memory? Various workflows come to mind:</p>
+<ul>
+<li>copy/paste or use IDE magic to send the function definition to R Console</li>
+<li>use <code>source()</code> or IDE magic to evaluate the <code>.R</code> file with function definition</li>
+<li>use <code>R CMD INSTALL</code> in the shell then, in R, load your package</li>
+</ul>
+<p>These workflows may be tolerable at first, but they grow old very quickly. The first two are also suboptimal with respect to package namespace issues. An awkward workflow can lead to bad habits, such as not test driving your package very often, and can make the process totally unpleasant.</p>
+<p><code>devtools</code> helps you iterate quickly between developing your functions and checking if they work as intended.</p>
+</div>
+<div id="create-the-package" class="section level3">
+<h3>Create the package</h3>
+<p>Our demo package will provide functions for the care and feeding of factors, the variable type we all love to hate.</p>
+<p>We’ll call it <code>foofactors</code> here but you can call yours whatever you want.</p>
+<p><strong>!! Modify the path below to create your new package where YOU want it on YOUR system !!</strong> Use RStudio’s auto-completion of paths to make sure the path actually exists. To avoid nesting a Git repo within a Git repo, do NOT put this inside your STAT 545 repository. Do NOT put this inside any directory that is already a Git repository. Directly or indirectly.</p>
+<p>Create a new package in a new directory with <code>devtools::create()</code>:</p>
+<pre class="r"><code>library(devtools)
+create(&quot;~/tmp/foofactors&quot;)
+#&gt; Creating package foofactors in /Users/jenny/tmp
+#&gt; No DESCRIPTION found. Creating with values:
+#&gt; Package: foofactors
+#&gt; Title: What the Package Does (one line, title case)
+#&gt; Version: 0.0.0.9000
+#&gt; Authors@R: person(&quot;First&quot;, &quot;Last&quot;, email = &quot;first.last@example.com&quot;, role = c(&quot;aut&quot;, &quot;cre&quot;))
+#&gt; Description: What the package does (one paragraph).
+#&gt; Depends: R (&gt;= 3.2.2)
+#&gt; License: What license is it under?
+#&gt; LazyData: true
+#&gt; Adding RStudio project file to foofactors</code></pre>
+<p>Navigate to this directory and double click on <code>foofactors.Rproj</code> to launch a new RStudio session in the Project that is your <code>foofactors</code> package.</p>
+<p>What does it look like? Here’s a file listing (locally, you can consult your file browser):</p>
+<pre><code>#&gt;      [,1]
+#&gt; [1,] &quot;.gitignore&quot;
+#&gt; [2,] &quot;.Rbuildignore&quot;
+#&gt; [3,] &quot;DESCRIPTION&quot;
+#&gt; [4,] &quot;foofactors.Rproj&quot;
+#&gt; [5,] &quot;NAMESPACE&quot;
+#&gt; [6,] &quot;R&quot;</code></pre>
+<ul>
+<li><code>DESCRIPTION</code> provides <a href="http://r-pkgs.had.co.nz/description.html">metadata about your package</a>.</li>
+<li>The <code>R/</code> directory is the <a href="http://r-pkgs.had.co.nz/r.html">“business end” of your package</a>. It will soon contain <code>.R</code> files with function definitions.</li>
+<li><a href="http://r-pkgs.had.co.nz/namespace.html"><code>NAMESPACE</code></a> declares the functions your package will export for external use and the external functions your package will import from other packages.</li>
+<li><code>.gitignore</code> anticipates our usage of Git and ignores some standard R/RStudio stuff.</li>
+<li><code>foofactors.Rproj</code> is the file that makes this directory an RStudio Project. If you don’t use RStudio, suppress its creation with <code>create(..., rstudio = FALSE)</code>.</li>
+</ul>
+</div>
+<div id="put-it-under-version-control" class="section level3">
+<h3>Put it under version control</h3>
+<p>Let’s make this directory, which is already an RStudio Project and an R source package, into a Git repository, with <code>devtools::use_git()</code>.</p>
+<pre class="r"><code>use_git()
+#&gt; * Initialising repo
+#&gt; * Adding .Rproj.user, .Rhistory, and .RData to .gitignore
+#&gt; * Adding files and committing</code></pre>
+<p>What’s new? Only a <code>.git</code> directory, which will be hidden in most contexts, including the RStudio file browser. Its existence confirms we have indeed initialized a Git repo here.</p>
+<pre><code>#&gt;      [,1]
+#&gt; [1,] &quot;.git&quot;</code></pre>
+<p>Quit and relaunch RStudio in this Project, so that it is recognized as a Git repo and the Git tab becomes available in the Environment/History/Build pane. Click on History and you should see evidence of our initial commit:</p>
+<pre><code>#&gt; [38ed51b] 2015-11-23: Initial commit</code></pre>
+<p>FYI RStudio can also initialize a Git repository, in any Project, even if it’s not an R package: <em>Tools &gt; Version Control &gt; Project Setup</em>. Then choose <em>Version control system: Git</em> and <em>initialize a new git repository for this project</em>.</p>
+</div>
+<div id="add-your-first-function" class="section level3">
+<h3>Add your first function</h3>
+<p>Let’s think of something annoying about factors … hmmmm … gee that’s tough … Let’s catenate two factors.</p>
+<pre class="r"><code>(a &lt;- factor(c(&quot;character&quot;, &quot;hits&quot;, &quot;your&quot;, &quot;eyeballs&quot;)))
+#&gt; [1] character hits      your      eyeballs
+#&gt; Levels: character eyeballs hits your
+(b &lt;- factor(c(&quot;but&quot;, &quot;integer&quot;, &quot;where it&quot;, &quot;counts&quot;)))
+#&gt; [1] but      integer  where it counts
+#&gt; Levels: but counts integer where it
+c(a, b)
+#&gt; [1] 1 3 4 2 1 3 4 2</code></pre>
+<p>There we go! Who expects that result? It’s not my first rodeo, so I actually do.</p>
+<p>Let’s write <code>fbind()</code>, a function that creates a new factor from two factors:</p>
+<pre><code>fbind &lt;- function(a, b) {
+  factor(c(as.character(a), as.character(b)))
+}</code></pre>
+<p>How do we check that it works? If this were a regular <code>.R</code> script or <code>.Rmd</code> file, we’d use our IDE to send this function definition to the R Console. Then we’d call <code>fbind(a, b)</code> to see what happens.</p>
+<p>With <code>devtools</code>, the package development equivalent is to call <code>load_all()</code>:</p>
+<pre class="r"><code>load_all()
+#&gt; Loading foofactors</code></pre>
+<p>Learn the keyboard and menu shortcuts for this. In RStudio:</p>
+<ul>
+<li>Windows &amp; Linux: Ctrl + Shift + L</li>
+<li>Mac: Cmd + Shift + L</li>
+<li>In Environment/History/Build/Git pane:
+<ul>
+<li><em>Build &gt; More &gt; Load All</em></li>
+</ul></li>
+<li>From Build menu:
+<ul>
+<li><em>Build &gt; Load All</em></li>
+</ul></li>
+</ul>
+<p>This simulates the process of building and installing the <code>foofactors</code> package. Therefore it makes the <code>fbind()</code> function available to us, although not from the global workspace, where interactively defined objects live:</p>
+<pre class="r"><code>exists(&quot;fbind&quot;, where = &quot;.GlobalEnv&quot;, inherits = FALSE)
+#&gt; [1] FALSE
+fbind(a, b)
+#&gt; [1] character hits      your      eyeballs  but       integer   where it
+#&gt; [8] counts
+#&gt; Levels: but character counts eyeballs hits integer where it your</code></pre>
+<p>We have written our first function, <code>fbind()</code>, to catenate two factors.</p>
+<p>We have used <code>load_all()</code> to quickly make this function available, as if we’d built + installed <code>foofactors</code> and loaded via <code>library(foofactors)</code>.</p>
+<p>We’ve tested it very informally.</p>
+<p>We can all think of lots of ways to improve <code>fbind()</code>. Or maybe you can think of more urgent factor fires that you would like to put out. That’s why we have <a href="hw08_package.html">homework</a>!</p>
+</div>
+<div id="commit-fbind" class="section level3">
+<h3>Commit <code>fbind()</code></h3>
+<p>Use you favorite method to commit the new <code>R/fbind.R</code> file.</p>
+<p>Your most recent commit should look something like this (if you’re lucky, you’ve got a nicer way of inspecting it):</p>
+<pre><code>#&gt; [39cb828] 2015-11-23: Add fbind()
+#&gt; diff --git a/R/fbind.R b/R/fbind.R
+#&gt; new file mode 100644
+#&gt; index 0000000..7b03d75
+#&gt; --- /dev/null
+#&gt; +++ b/R/fbind.R
+#&gt; @@ -0,0 +1,3 @@
+#&gt; +fbind &lt;- function(a, b) {
+#&gt; +  factor(c(as.character(a), as.character(b)))
+#&gt; +}</code></pre>
+</div>
+<div id="build-install-check" class="section level3">
+<h3>Build, Install, Check</h3>
+<p>OK <code>fbind()</code> works. How can we be even more sure that all the moving parts of the package still work? Sure, we’ve only added the one measly <code>fbind()</code>function. Humor me.</p>
+<p>We could simply try to install and load the package and hope for the best. Recall this figure from <a href="http://r-pkgs.had.co.nz/package.html">R Packages</a>:</p>
+<p><img src="https://raw.githubusercontent.com/hadley/r-pkgs/master/diagrams/installation.png" alt="" /></p>
+<p>We have to somehow move our source package through various stages to get it installed.</p>
+<div id="base-utilities" class="section level4">
+<h4>Base utilities</h4>
+<p>Even though we’re going to use <code>devtools</code>, don’t lean so heavily on it that you lose sight of how packages are actually built, checked, and installed. <code>devtools</code> is largely a convenience wrapper around base utilities.</p>
+<p>The core utilities to know about:</p>
+<ul>
+<li><a href="https://stat.ethz.ch/R-manual/R-patched/library/utils/html/PkgUtils.html"><code>R CMD build</code></a> converts a source package to a bundle or tarball</li>
+<li><a href="https://stat.ethz.ch/R-manual/R-patched/library/utils/html/INSTALL.html"><code>R CMD INSTALL</code></a> installs a package bundle into a library</li>
+<li><a href="https://stat.ethz.ch/R-manual/R-patched/library/utils/html/PkgUtils.html"><code>R CMD check</code></a> runs all sorts of checks. Even if you don’t plan to submit your package to CRAN, it’s a very good idea to make this part of your own quality standard.</li>
+</ul>
+<p>In a shell, with working directory set to the parent of <code>foofactors</code>, here’s what usage might look like:</p>
+<pre class="shell"><code>R CMD build foofactors
+R CMD check foofactors_0.0.0.9000.tar.gz
+R CMD INSTALL foofactors_0.0.0.9000.tar.gz</code></pre>
+</div>
+<div id="devtools-and-rstudio" class="section level4">
+<h4><code>devtools</code> and RStudio</h4>
+<p>Luckily <code>devtools</code> and RStudio make these utilities very easy to get at.</p>
+<p>At intermediate milestones, you should check your package:</p>
+<ul>
+<li>From RStudio
+<ul>
+<li><em>Build &gt; Check</em></li>
+</ul></li>
+<li>In R Console
+<ul>
+<li><code>check()</code></li>
+</ul></li>
+</ul>
+<p><strong>Read the output of the check!</strong> Deal with problems early and often. It’s just like incremental development of <code>.R</code> and <code>.Rmd</code>. The longer you go between full checks that everything works, the harder it is to pinpoint and solve your problems.</p>
+<p>Just this once, run <code>check()</code> with <code>document = FALSE</code>, so we don’t get ahead of ourselves. (Specifically, I don’t want to mess with our <code>NAMESPACE</code> file yet.)</p>
+<p>At this point, you should expect to get two warnings:</p>
+<ul>
+<li><code>Non-standard license specification</code></li>
+<li><code>Undocumented code objects: 'fbind'</code></li>
+</ul>
+<p>We’ll fix both soon.</p>
+<pre class="r"><code>check(document = FALSE)
+#&gt; Setting env vars ----------------------------------------------------------
+#&gt; CFLAGS  : -Wall -pedantic
+#&gt; CXXFLAGS: -Wall -pedantic
+#&gt; Building foofactors -------------------------------------------------------
+#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; --no-site-file  \
+#&gt;   --no-environ --no-save --no-restore CMD build  \
+#&gt;   &#39;/Users/jenny/tmp/foofactors&#39; --no-resave-data --no-manual
+#&gt;
+#&gt; Setting env vars ----------------------------------------------------------
+#&gt; _R_CHECK_CRAN_INCOMING_ : FALSE
+#&gt; _R_CHECK_FORCE_SUGGESTS_: FALSE
+#&gt; Checking foofactors -------------------------------------------------------
+#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; --no-site-file  \
+#&gt;   --no-environ --no-save --no-restore CMD check  \
+#&gt;   &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpX4V9Xx/foofactors_0.0.0.9000.tar.gz&#39;  \
+#&gt;   --as-cran --timings</code></pre>
+<p>Once things look OK, you can install your very own <code>foofactors</code> package into your library:</p>
+<pre class="r"><code>install()
+#&gt; Installing foofactors
+#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; --no-site-file  \
+#&gt;   --no-environ --no-save --no-restore CMD INSTALL  \
+#&gt;   &#39;/Users/jenny/tmp/foofactors&#39;  \
+#&gt;   --library=&#39;/Users/jenny/resources/R/library&#39; --install-tests
+#&gt;
+#&gt; Reloading installed foofactors</code></pre>
+<p>Now we can load <code>foofactors</code> just like a regular package and use it.</p>
+<p>A shortcut for “build, install, and reload” is offered by RStudio:</p>
+<ul>
+<li><em>Build &gt; Build &amp; Reload</em></li>
+</ul>
+</div>
+<div id="did-it-really-work" class="section level4">
+<h4>Did it really work?</h4>
+<p>Now that we’ve installed <code>foofactors</code> properly, let’s revisit our small example.</p>
+<pre class="r"><code>library(foofactors)
+a &lt;- factor(c(&quot;character&quot;, &quot;hits&quot;, &quot;your&quot;, &quot;eyeballs&quot;))
+b &lt;- factor(c(&quot;but&quot;, &quot;integer&quot;, &quot;where it&quot;, &quot;counts&quot;))
+fbind(a, b)
+#&gt; [1] character hits      your      eyeballs  but       integer   where it
+#&gt; [8] counts
+#&gt; Levels: but character counts eyeballs hits integer where it your</code></pre>
+<p>Success! That’s enough for now.</p>
+<p>In <a href="packages05_foofactors-package-02.html">part two</a>, we’ll add more bells and whistles to the package.</p>
+<p>back to <a href="packages00_index.html">All the package things</a></p>
+<!--http://davidgohel.github.io/ReporteRs/FlexTable.html-->
+</div>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

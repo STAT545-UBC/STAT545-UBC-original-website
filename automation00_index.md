@@ -16,6 +16,8 @@ Why and how we automate data analyses + examples.
 
 ### Install `make`
 
+*2015-11-17 NOTE: since we have already set up a build environment for R packages, it is my hope that everyone has Make. These instructions were from 2014, when we did everything in a different order. Cross your fingers and ignore!*
+
 [Windows installation](automation02_windows.html)
 
 (If you are running Mac OS or Linux, `make` should already be installed.)
@@ -42,6 +44,8 @@ Walk before you run! Prove that `make` is actually installed and that it can be 
   * The interface between RStudio and `make`
   * How to use `make` from the [shell](git09_shell.html)
   * How Git facilitates the process of building a pipeline
+  
+*2015-11-19 Andrew MacDonald translated the above into a pipeline for the [`remake` package](https://github.com/richfitz/remake) from Rich Fitzjohn: see [this gist](https://gist.github.com/aammd/72a5b98356893c001001).*
 
 ### More examples
 

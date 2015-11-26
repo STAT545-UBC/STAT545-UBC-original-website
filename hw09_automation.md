@@ -6,18 +6,21 @@ output:
     toc_depth: 2
 ---
 
+Due Friday November 27.
+
 Big picture
 ================================================================================
 
-+ Write three or more R scripts to carry out a data analysis pipeline
-+ The output of the first script must be the input of the second, and so on
-+ The first script will download some data
-+ The second script will read that data, perform some analysis and write numerical data to file in CSV or TSV format
-+ The third script will read the output of the second script, generate some figures and save them to files
-+ Finally, a fourth script to rule them all will run your pipeline non-interactively, without RStudio
-+ Feel free to add more stages to your pipeline if you're feeling adventurous
+  * Write three or more R scripts to carry out a small data analysis.
+  * The output of the first script must be the input of the second, and so on.
+  * Something like this:
+    - First script: download some data.
+    - Second script: read the data, perform some analysis and write numerical data to file in CSV or TSV format.
+    - Third script: read the output of the second script, generate some figures and save them to files.
+    - Fourth script: an Rmd, actually, that presents original data, the statistical summaries, and/or the figures in a little report.
+    - A fifth script to rule them all, i.e. to run the others in sequence.
 
-Templates
+Templates you can follow
 ================================================================================
 
 + Bare bones example using only R:
@@ -43,7 +46,7 @@ Download the data
 
 Download the raw data for our example, [gapminder.tsv][].
 
-+ in an R script using [downloader::download][] or [RCurl::getURL][].
++ Option 1: via an R script using [downloader::download][] or [RCurl::getURL][].
   note: [download.file][] does not work with `https://`
 
     ```r
@@ -52,7 +55,7 @@ Download the raw data for our example, [gapminder.tsv][].
       RCurl::getURL("https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.tsv"))
     ```
 
-+ in a [shell](git09_shell.html) script using `curl` or `wget`.
++ Option 2: in a [shell](git09_shell.html) script using `curl` or `wget`.
 
     ```bash
     curl -O https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.tsv
@@ -67,7 +70,7 @@ Download the raw data for our example, [gapminder.tsv][].
 Perform exploratory analyses
 ------------------------------------------------------------
 
-+ Import the data.
++ Bring the data in as data frame.
 + Save a couple descriptive plots to file with highly informative names.
 + Reorder the continents based on life expectancy. You decide the details.
 + Sort the actual data in a deliberate fashion. You decide the details, but this should *at least* implement your new continent ordering.
@@ -85,7 +88,7 @@ Perform statistical analyses
 Generate figures
 ------------------------------------------------------------
 
-Create a single-page figure for each continent, including data only for the 6-8 "extreme" countries, and write to file. One file per continent, with an informative name. The figure should give scatterplots of life expectancy vs. year, panelling/faceting on country, fitted line overlaid.
+Create a figure for each continent, including data only for the 6-8 "extreme" countries, and write to file. One file per continent, with an informative name. The figure should give scatterplots of life expectancy vs. year, facetting on country, fitted line overlaid.
 
 Automate the pipeline
 ------------------------------------------------------------
@@ -94,21 +97,14 @@ Identify and test a method of running your pipeline non-interactively.
 
 You could write a master R script that simply `source()`s the three scripts, one after the other. Tip: you will probably want a second "clean up / reset" script that deletes all the output your scripts leave behind, so you can easily test and refine your strategy, i.e. without repeatedly  deleting stuff "by hand". You can run the master script or the cleaning script from a [shell](git09_shell.html) with `R CMD BATCH` or `Rscript`.
 
-Provide a link to a page that explains how your pipeline works and links to the remaining files. The TAs should be able to go to this landing page and re-run your analysis quickly and easily. Consider including an image showing a graphical view of your pipeline.
-
-### Windows
-
-Follow [these instructions][] to install [msysGit][], which includes the command line programs *bash*, *git* and *make*, among others.
-
-[msysGit]: http://msysgit.github.io/
-[these instructions]: automation02_windows.html
+Provide a link to a page that explains how your pipeline works and links to the remaining files. Your peers and the TAs should be able to go to this landing page and re-run your analysis quickly and easily. Consider including an image showing a graphical view of your pipeline.
 
 I want to aim higher!
 ================================================================================
 
 Follow the basic Gapminder blueprint above, but find a different data aggregation task, different panelling/faceting emphasis, focus on different variables, etc.
 
-Use non-Gapminder data.
+Use non-Gapminder data -- like maybe the candy survey?
 
 This means you'll need to spend more time on data cleaning and sanity checking. You will probably have an entire script (or more!) devoted to data prep. Examples:
 
@@ -128,7 +124,7 @@ Include some dynamic report generation in your pipeline. That is, create HTML fr
 
 Experiment with running R code saved in a script from within R Markdown. Here's some official documentation on [code externalization](http://yihui.name/knitr/demo/externalization/).
 
-Embed pre-existing figures in and R Markdown document, i.e. an R script creates the figures, then the report incorporates them. General advice on writing figures to file is [here](http://www.stat.ubc.ca/~jenny/STAT545A/topic12_writeFigureToFile.html) and `ggplot2` has a purpose-built function `ggsave()` you should try. See an example of this in [an R Markdown file in one of the examples](https://github.com/jennybc/STAT545A_2013/blob/master/hw06_scaffolds/03_knitWithoutRStudio/03_doStuff.Rmd).
+Embed pre-existing figures in and R Markdown document, i.e. an R script creates the figures, then the report incorporates them. General advice on writing figures to file is [here](block017_write-figure-to-file.html). See an example of this in [an R Markdown file in one of the examples](https://github.com/jennybc/STAT545A_2013/blob/master/hw06_scaffolds/03_knitWithoutRStudio/03_doStuff.Rmd).
 
 Import pre-existing data in an R Markdown document, then format nicely as a table.
 

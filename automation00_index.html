@@ -18,6 +18,16 @@
 <script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -40,6 +50,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
 
 </head>
 
@@ -100,6 +111,7 @@ img {
 </div>
 <div id="install-make" class="section level3">
 <h3>Install <code>make</code></h3>
+<p><em>2015-11-17 NOTE: since we have already set up a build environment for R packages, it is my hope that everyone has Make. These instructions were from 2014, when we did everything in a different order. Cross your fingers and ignore!</em></p>
 <p><a href="automation02_windows.html">Windows installation</a></p>
 <p>(If you are running Mac OS or Linux, <code>make</code> should already be installed.)</p>
 </div>
@@ -129,6 +141,7 @@ img {
 <li>How to use <code>make</code> from the <a href="git09_shell.html">shell</a></li>
 <li>How Git facilitates the process of building a pipeline</li>
 </ul>
+<p><em>2015-11-19 Andrew MacDonald translated the above into a pipeline for the <a href="https://github.com/richfitz/remake"><code>remake</code> package</a> from Rich Fitzjohn: see <a href="https://gist.github.com/aammd/72a5b98356893c001001">this gist</a>.</em></p>
 </div>
 <div id="more-examples" class="section level3">
 <h3>More examples</h3>

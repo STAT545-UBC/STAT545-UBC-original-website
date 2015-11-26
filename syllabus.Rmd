@@ -12,8 +12,6 @@ library(stringr)
 library(readr)
 ```
 
-*2015-09-24 NOTE: This is still evolving. But it gives a good sense of what we'll cover and approximately when.*
-
 ```{r include = FALSE}
 rawdat <-
   read_csv(file.path("course-admin", "class-meetings", "class-meetings.csv"))
@@ -33,9 +31,6 @@ cdat <- rawdat %>%
 cmdat <- data_frame(html = list.files(pattern = '^cm.*html$'))
 cmdat <- cmdat %>% mutate(cm = str_extract(html, "cm[0-9]+"))
 cdat <- cdat %>% full_join(cmdat)
-
-## TO DO: rescue placeholders for "Practical graphing tips and tidy data" and
-## "Tidy data"
 
 #cdat <- cdat %>%
 #  mutate(html_exists = !is.na(html)) %>% 

@@ -11,27 +11,17 @@ Now we use that knowledge to write another useful function, within the context o
   * Input: a data.frame that contains (at least) a life expectancy variable `lifeExp` and a variable for year `year`
   * Output: a vector of estimated intercept and slope, from a linear regression of `lifeExp` on `year`
   
-The ultimate goal is to apply this function to the Gapminder data for a specific country. We will eventually scale up to *all* countries using external machinery, e.g., the `plyr` package.
+The ultimate goal is to apply this function to the Gapminder data for a specific country. We will eventually scale up to *all* countries using external machinery, e.g., the `dplyr::group_by()` + `dplyr::do()`.
 
 ### Load the Gapminder data
 
-As usual, load the Gapminder excerpt. Load `ggplot2` because we'll make some plots.
+As usual, load the Gapminder excerpt. Load `ggplot2` because we'll make some plots and `dplyr` too.
 
 
 ```r
+library(gapminder)
 library(ggplot2)
-gDat <- read.delim("gapminderDataFiveYear.txt")
-str(gDat)
-## 'data.frame':	1704 obs. of  6 variables:
-##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
-##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ gdpPercap: num  779 821 853 836 740 ...
-## or do this if the file isn't lying around already
-## gd_url <- "http://tiny.cc/gapminder"
-## gDat <- read.delim(gd_url)
+suppressPackageStartupMessages(library(dplyr))
 ```
 
 ### Get data to practice with
@@ -41,20 +31,21 @@ I extract the data for one country in order to develop some working code interac
 
 ```r
 j_country <- "France" # pick, but do not hard wire, an example
-(j_dat <- subset(gDat, country == j_country))
-##     country year      pop continent lifeExp gdpPercap
-## 529  France 1952 42459667    Europe  67.410  7029.809
-## 530  France 1957 44310863    Europe  68.930  8662.835
-## 531  France 1962 47124000    Europe  70.510 10560.486
-## 532  France 1967 49569000    Europe  71.550 12999.918
-## 533  France 1972 51732000    Europe  72.380 16107.192
-## 534  France 1977 53165019    Europe  73.830 18292.635
-## 535  France 1982 54433565    Europe  74.890 20293.897
-## 536  France 1987 55630100    Europe  76.340 22066.442
-## 537  France 1992 57374179    Europe  77.460 24703.796
-## 538  France 1997 58623428    Europe  78.640 25889.785
-## 539  France 2002 59925035    Europe  79.590 28926.032
-## 540  France 2007 61083916    Europe  80.657 30470.017
+(j_dat <- gapminder %>% 
+  filter(country == j_country))
+##    country continent year lifeExp      pop gdpPercap
+## 1   France    Europe 1952  67.410 42459667  7029.809
+## 2   France    Europe 1957  68.930 44310863  8662.835
+## 3   France    Europe 1962  70.510 47124000 10560.486
+## 4   France    Europe 1967  71.550 49569000 12999.918
+## 5   France    Europe 1972  72.380 51732000 16107.192
+## 6   France    Europe 1977  73.830 53165019 18292.635
+## 7   France    Europe 1982  74.890 54433565 20293.897
+## 8   France    Europe 1987  76.340 55630100 22066.442
+## 9   France    Europe 1992  77.460 57374179 24703.796
+## 10  France    Europe 1997  78.640 58623428 25889.785
+## 11  France    Europe 2002  79.590 59925035 28926.032
+## 12  France    Europe 2007  80.657 61083916 30470.017
 ```
 
 Always always always plot the data. Yes, even now.
@@ -65,7 +56,7 @@ p <- ggplot(j_dat, aes(x = year, y = lifeExp))
 p + geom_point() + geom_smooth(method = "lm", se = FALSE)
 ```
 
-![](./block012_function-regress-lifeexp-on-year_files/figure-html/first-example-scatterplot.png) 
+![](block012_function-regress-lifeexp-on-year_files/figure-html/first-example-scatterplot-1.png) 
 
 ### Get some code that works
 
@@ -135,25 +126,25 @@ It's always good to rotate through examples during development. The most common 
 
 ```r
 j_country <- "Zimbabwe"
-(j_dat <- subset(gDat, country == j_country))
-##       country year      pop continent lifeExp gdpPercap
-## 1693 Zimbabwe 1952  3080907    Africa  48.451  406.8841
-## 1694 Zimbabwe 1957  3646340    Africa  50.469  518.7643
-## 1695 Zimbabwe 1962  4277736    Africa  52.358  527.2722
-## 1696 Zimbabwe 1967  4995432    Africa  53.995  569.7951
-## 1697 Zimbabwe 1972  5861135    Africa  55.635  799.3622
-## 1698 Zimbabwe 1977  6642107    Africa  57.674  685.5877
-## 1699 Zimbabwe 1982  7636524    Africa  60.363  788.8550
-## 1700 Zimbabwe 1987  9216418    Africa  62.351  706.1573
-## 1701 Zimbabwe 1992 10704340    Africa  60.377  693.4208
-## 1702 Zimbabwe 1997 11404948    Africa  46.809  792.4500
-## 1703 Zimbabwe 2002 11926563    Africa  39.989  672.0386
-## 1704 Zimbabwe 2007 12311143    Africa  43.487  469.7093
+(j_dat <- gapminder %>% filter(country == j_country))
+##     country continent year lifeExp      pop gdpPercap
+## 1  Zimbabwe    Africa 1952  48.451  3080907  406.8841
+## 2  Zimbabwe    Africa 1957  50.469  3646340  518.7643
+## 3  Zimbabwe    Africa 1962  52.358  4277736  527.2722
+## 4  Zimbabwe    Africa 1967  53.995  4995432  569.7951
+## 5  Zimbabwe    Africa 1972  55.635  5861135  799.3622
+## 6  Zimbabwe    Africa 1977  57.674  6642107  685.5877
+## 7  Zimbabwe    Africa 1982  60.363  7636524  788.8550
+## 8  Zimbabwe    Africa 1987  62.351  9216418  706.1573
+## 9  Zimbabwe    Africa 1992  60.377 10704340  693.4208
+## 10 Zimbabwe    Africa 1997  46.809 11404948  792.4500
+## 11 Zimbabwe    Africa 2002  39.989 11926563  672.0386
+## 12 Zimbabwe    Africa 2007  43.487 12311143  469.7093
 p <- ggplot(j_dat, aes(x = year, y = lifeExp))
 p + geom_point() + geom_smooth(method = "lm", se = FALSE)
 ```
 
-![](./block012_function-regress-lifeexp-on-year_files/figure-html/second-example-scatterplot.png) 
+![](block012_function-regress-lifeexp-on-year_files/figure-html/second-example-scatterplot-1.png) 
 
 ```r
 le_lin_fit(j_dat)
@@ -168,12 +159,11 @@ It's also a good idea to clean out the workspace, rerun the minimum amount of co
 
 ```r
 rm(list = ls())
-gDat <- read.delim("gapminderDataFiveYear.txt")
 le_lin_fit <- function(dat, offset = 1952) {
   the_fit <- lm(lifeExp ~ I(year - offset), dat)
   setNames(coef(the_fit), c("intercept", "slope"))
 }
-le_lin_fit(subset(gDat, country == "Zimbabwe"))
+le_lin_fit(gapminder %>% filter(country == "Zimbabwe"))
 ##   intercept       slope 
 ## 55.22124359 -0.09302098
 ```
@@ -182,4 +172,4 @@ le_lin_fit(subset(gDat, country == "Zimbabwe"))
 
 Yes.
 
-Given how I plan to use this function, I don't feel the need to put it under formal unit tests or put in argument validity checks. Let's move on to [the exciting part](http://stat545-ubc.github.io/block013_plyr-ddply.html), which is scaling this up to __all__ countries.
+Given how I plan to use this function, I don't feel the need to put it under formal unit tests or put in argument validity checks. Let's move on to [the exciting part](http://stat545-ubc.github.io/block023_dplyr-do.html), which is scaling this up to __all__ countries.

@@ -14,14 +14,16 @@ Here we explore other `dplyr` functions, especially more verbs, for working with
 
 #### Load `dplyr` and the Gapminder data
 
-We use an excerpt of the Gapminder data and store it as a `tbl_df` object, basically an enhanced data.frame. I'll use the pipe operator even here, to demonstrate its utility outside of `dplyr`.
+We use an excerpt of the Gapminder data and store it as a `tbl_df` object, basically an enhanced data.frame
 
 
 ```r
 suppressPackageStartupMessages(library(dplyr))
 library(gapminder)
-gtbl <- gapminder %>% tbl_df
-gtbl %>% glimpse
+gtbl <- gapminder %>%
+  tbl_df
+gtbl %>%
+  glimpse
 ```
 
 ```
@@ -43,7 +45,8 @@ Imagine we wanted to recover each country's GDP. After all, the Gapminder data h
 ```r
 gtbl <- gtbl %>%
   mutate(gdp = pop * gdpPercap)
-gtbl %>% glimpse
+gtbl %>%
+  glimpse
 ```
 
 ```
@@ -62,9 +65,12 @@ Hmmmm ... those GDP numbers are almost uselessly large and abstract. Consider th
 
 
 ```r
-just_canada <- gtbl %>% filter(country == "Canada")
+just_canada <- gtbl %>%
+  filter(country == "Canada")
+## this is a dangerous way to add this variable
+## doing it this way so we don't get too fancy yet
 gtbl <- gtbl %>%
-  mutate(canada = just_canada$gdpPercap[match(year, just_canada$year)],
+  mutate(canada = rep(just_canada$gdpPercap, nlevels(country)),
          gdpPercapRel = gdpPercap / canada)
 gtbl %>%
   select(country, year, gdpPercap, canada, gdpPercapRel)
@@ -104,7 +110,7 @@ gtbl %>%
 ##  Max.   :9.534690
 ```
 
-Note that, `mutate()` builds new variables sequentially so you can reference earlier ones (like `canada`) when defining later ones (like `gdpPercapRel`). (I got a little off topic here using `match()` to do table look up, but [you can figure that out](http://www.rdocumentation.org/packages/base/functions/match).)
+Note that, `mutate()` builds new variables sequentially so you can reference earlier ones (like `canada`) when defining later ones (like `gdpPercapRel`).
 
 The relative GDP per capita numbers are, in general, well below 1. We see that most of the countries covered by this dataset have substantially lower GDP per capita, relative to Canada, across the entire time period.
 
@@ -197,14 +203,13 @@ I advise that your analyses NEVER rely on rows or variables being in a specific 
 
 ### Use `rename()` to rename variables
 
-*NOTE: I am using the development version of `dplyr` which will soon become the official release 0.3. If `rename()` does not work for you, try `rename_vars()`, which is what this function is called in version 0.2 on CRAN. You could also use `plyr::rename()`, but then you have to be careful to always load `plyr` before `dplyr`.*
-
-I am in the awkward life stage of switching from [`camelCase`](http://en.wikipedia.org/wiki/CamelCase) to [`snake_case`](http://en.wikipedia.org/wiki/Snake_case), so I am vexed by the variable names I chose when I cleaned this data years ago. Let's rename some variables!
+When I first cleaned this Gapminder excerpt, I was a [`camelCase`](http://en.wikipedia.org/wiki/CamelCase) person, but now I'm all about [`snake_case`](http://en.wikipedia.org/wiki/Snake_case). So I am vexed by the variable names I chose when I cleaned this data years ago. Let's rename some variables!
 
 
 ```r
 gtbl %>%
-  rename(life_exp = lifeExp, gdp_percap = gdpPercap,
+  rename(life_exp = lifeExp,
+         gdp_percap = gdpPercap,
          gdp_percap_rel = gdpPercapRel)
 ```
 
@@ -231,13 +236,14 @@ I did NOT assign the post-rename object back to `gtbl` because that would make t
 
 ### `group_by()` is a mighty weapon
 
-I have found friends and family love to ask seemingly innocuous questions like, "which country experienced the sharpest 5-year drop in life expectancy?". In fact, that is a totally natural question to ask. But if you are using a language that doesn't know about data, it's an incredibly annoying question to answer.
+I have found ~~friends and family~~ collaborators love to ask seemingly innocuous questions like, "which country experienced the sharpest 5-year drop in life expectancy?". In fact, that is a totally natural question to ask. But if you are using a language that doesn't know about data, it's an incredibly annoying question to answer.
 
 `dplyr` offers powerful tools to solve this class of problem.
 
   * `group_by()` adds extra structure to your dataset -- grouping information -- which lays the groundwork for computations within the groups.
   * `summarize()` takes a dataset with $n$ observations, computes requested summaries, and returns a dataset with 1 observation.
   * window functions take a dataset with $n$ observations and return a dataset with $n$ observations.
+  * `do()` is the most general function you will use in a grouped data situation.
   
 Combined with the verbs you already know, these new tools allow you to solve an extremely diverse set of problems with relative ease.
 
@@ -291,7 +297,8 @@ What if we wanted to add the number of unique countries for each continent?
 ```r
 gtbl %>%
   group_by(continent) %>%
-  summarize(n_obs = n(), n_countries = n_distinct(country))
+  summarize(n_obs = n(),
+            n_countries = n_distinct(country))
 ```
 
 ```
@@ -332,8 +339,6 @@ gtbl %>%
 ```
 
 `summarize_each()` applies the same summary function(s) to multiple variables. Let's compute average and median life expectancy and GDP per capita by continent by year ... but only for 1952 and 2007.
-
-*NOTE: you won't have `summarize_each()` if you're using `dplyr` version 0.2. Just wait for it.*
 
 
 ```r
@@ -574,6 +579,10 @@ In later tutorials, we'll explore more of `dplyr`, such as operations based on t
     - the [one on window functions](http://cran.rstudio.com/web/packages/dplyr/vignettes/window-functions.html) will also be interesting to you now
   * development home [on GitHub](https://github.com/hadley/dplyr)
   * [tutorial HW delivered](https://www.dropbox.com/sh/i8qnluwmuieicxc/AAAgt9tIKoIm7WZKIyK25lh6a) (note this links to a DropBox folder) at useR! 2014 conference
+
+[RStudio `dplyr` and `tidyr` cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf?version=0.99.687&mode=desktop). Remember you can get to these via *Help > Cheatsheets.*
+
+[Excellent slides](https://github.com/tjmahr/MadR_Pipelines) on pipelines and `dplyr` by TJ Mahr, talk given to the Madison R Users Group.
 
 Blog post [Hands-on dplyr tutorial for faster data manipulation in R](http://www.dataschool.io/dplyr-tutorial-for-faster-data-manipulation-in-r/) by Data School, that includes a link to an R Markdown document and links to videos
 

@@ -19,19 +19,16 @@ Now we use that knowledge to write another useful function, within the context o
   * Input: a data.frame that contains (at least) a life expectancy variable `lifeExp` and a variable for year `year`
   * Output: a vector of estimated intercept and slope, from a linear regression of `lifeExp` on `year`
   
-The ultimate goal is to apply this function to the Gapminder data for a specific country. We will eventually scale up to *all* countries using external machinery, e.g., the `plyr` package.
+The ultimate goal is to apply this function to the Gapminder data for a specific country. We will eventually scale up to *all* countries using external machinery, e.g., the `dplyr::group_by()` + `dplyr::do()`.
 
 ### Load the Gapminder data
 
-As usual, load the Gapminder excerpt. Load `ggplot2` because we'll make some plots.
+As usual, load the Gapminder excerpt. Load `ggplot2` because we'll make some plots and `dplyr` too.
 
 ```{r}
+library(gapminder)
 library(ggplot2)
-gDat <- read.delim("gapminderDataFiveYear.txt")
-str(gDat)
-## or do this if the file isn't lying around already
-## gd_url <- "http://tiny.cc/gapminder"
-## gDat <- read.delim(gd_url)
+suppressPackageStartupMessages(library(dplyr))
 ```
 
 ### Get data to practice with
@@ -40,7 +37,8 @@ I extract the data for one country in order to develop some working code interac
 
 ```{r}
 j_country <- "France" # pick, but do not hard wire, an example
-(j_dat <- subset(gDat, country == j_country))
+(j_dat <- gapminder %>% 
+  filter(country == j_country))
 ```
 
 Always always always plot the data. Yes, even now.
@@ -105,7 +103,7 @@ It's always good to rotate through examples during development. The most common 
 
 ```{r second-example-scatterplot}
 j_country <- "Zimbabwe"
-(j_dat <- subset(gDat, country == j_country))
+(j_dat <- gapminder %>% filter(country == j_country))
 p <- ggplot(j_dat, aes(x = year, y = lifeExp))
 p + geom_point() + geom_smooth(method = "lm", se = FALSE)
 le_lin_fit(j_dat)
@@ -117,16 +115,15 @@ It's also a good idea to clean out the workspace, rerun the minimum amount of co
 
 ```{r}
 rm(list = ls())
-gDat <- read.delim("gapminderDataFiveYear.txt")
 le_lin_fit <- function(dat, offset = 1952) {
   the_fit <- lm(lifeExp ~ I(year - offset), dat)
   setNames(coef(the_fit), c("intercept", "slope"))
 }
-le_lin_fit(subset(gDat, country == "Zimbabwe"))
+le_lin_fit(gapminder %>% filter(country == "Zimbabwe"))
 ```
 
 ### Are we there yet?
 
 Yes.
 
-Given how I plan to use this function, I don't feel the need to put it under formal unit tests or put in argument validity checks. Let's move on to [the exciting part](http://stat545-ubc.github.io/block013_plyr-ddply.html), which is scaling this up to __all__ countries.
+Given how I plan to use this function, I don't feel the need to put it under formal unit tests or put in argument validity checks. Let's move on to [the exciting part](http://stat545-ubc.github.io/block023_dplyr-do.html), which is scaling this up to __all__ countries.

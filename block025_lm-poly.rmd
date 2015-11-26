@@ -1,0 +1,169 @@
+---
+title: "Wrapping lm"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
+```
+
+Many students want a flexible wrapper around `lm()`, to drop into `dplyr::do()` for doing country-specific fits with the Gapminder data. What sort of flexibility? It would be nice to NOT hard-wire the response and predictor variables.
+
+But it turns out the design of `lm()` makes this difficult. I'll provide a partial explanation and solution here. For a thorough treatment, I recommend you read the [Non-standard evaluation](http://adv-r.had.co.nz/Computing-on-the-language.html) chapter of Hadley Wickham's [Advanced R](http://adv-r.had.co.nz) book.
+
+### Load data and packages
+
+```{r}
+library(gapminder)
+library(ggplot2)
+suppressPackageStartupMessages(library(dplyr))
+library(broom)
+
+gapminder %>%
+  tbl_df() %>%
+  glimpse()
+```
+
+### Works but is unsatisyfing
+
+We start with a function that meets an immediate need -- regressing life expectancy on year -- but isn't very general. The coefficient names are also terrible, but that's the least of our worries.
+
+```{r}
+yes_but <-
+  function(df) lm(lifeExp ~ poly(I(year - 1952), degree = 2, raw = TRUE), df)
+yes_but(gapminder)
+```
+
+We can apply `yes_but()` to one individual country and to all `r nlevels(gapminder$country)` countries.
+
+```{r}
+gapminder %>%
+  filter(country == "Canada") %>% 
+  yes_but()
+gapminder %>% 
+  group_by(country) %>% 
+  do(fit = yes_but(.))
+```
+
+It's disappointing that `lifeExp` and `year` are hard-wired.
+
+### What does NOT work
+
+Doing the simplest thing -- making the `x` and `y` variables function arguments -- does not work.
+
+```{r}
+nope <- function(df, y_var, x_var) lm(y_var ~ x_var, data = df)
+nope(gapminder, lifeExp, year)
+nope(gapminder, "lifeExp", "year")
+```
+
+`lm()` uses what's called *non-standard evaluation* (NSE): The variables in the formula argument are interpreted in the context of the data.frame passed via the `data =` argument (if supplied, which I highly recommend). This is really nice for interactive and top-level use, but it makes `lm()` hard to program around.
+
+### Wishful thinking
+
+Here are examples of NSE-using functions that have a *standard evaluation* (SE) companion function for use in programming.
+
+Consider `aes()` for specifying aesthetics in `ggplot()`. It has companion functions `aes_string()`, `aes_()`, and `aes_q()`. We'll just demo `aes_string()`, where you can provide the variable name as a character string.
+
+```{r fig.show = 'hold', out.width = '49%'}
+jfun <- function(df, x) ggplot(df, aes_string(x)) + geom_histogram()
+jfun(gapminder, "lifeExp")
+jfun(gapminder, "gdpPercap")
+```
+
+Consider `arrange()` from `dplyr`, which orders rows of a `tbl`. It has companion function `arrange_()`, following a general pattern used for the `dplyr` verbs: The SE version has the same name but with `_` tacked on the end. This allows you to specify the variable in a couple ways, including via character string.
+
+```{r}
+jfun2 <- function(df, x, n = 2) head(arrange_(df, x), n)
+jfun2(gapminder, "lifeExp")
+jfun2(gapminder, quote(gdpPercap))
+gapminder %>% 
+  group_by(continent) %>% 
+  do(jfun2(., ~ pop))
+```
+
+But sadly there is no `lm_()` for us to build around in our application.
+
+### A solution: if you can't beat 'em, join 'em
+
+I'm actually not providing an equivalent of `aes_string()` or `arrange_()` for `lm()`. Specifically, the function below still uses NSE. Why? Because we often use `year` as a predictor and usually want to shift it by its minimum, so that the intercept is more interpretable.
+
+Here's a function that plays well with `dplyr::do()`, but with flexibility re: the response and predictor variables. `lm_poly_raw()` uses `lm()` to fit polynomial models of a chosen degree and with other arguments passed via `...`.
+
+```{r}
+lm_poly_raw <- function(df, y, x, degree = 1, ...) {
+  lm_formula <-
+    substitute(y ~ poly(x, degree, raw = TRUE),
+               list(y = substitute(y), x = substitute(x), degree = degree))
+  eval(lm(lm_formula, data = df, ...))
+}
+```
+
+Use it on the full dataset and on one country:
+
+```{r}
+lm_poly_raw(gapminder, y = lifeExp, x = I(year - 1952))
+gapminder %>% 
+  filter(country == "Canada") %>% 
+  lm_poly_raw(y = lifeExp, x = I(year - 1952))
+```
+
+Use it with different response and predictor variables (plot included, so you can sanity check estimated coefficients -- we haven't fit this model *ad nauseum*):
+
+```{r}
+gapminder %>% 
+  lm_poly_raw(y = lifeExp, x = log(gdpPercap/median(gdpPercap)))
+gapminder %>% 
+  ggplot(aes(x = log(gdpPercap/median(gdpPercap)), y = lifeExp)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+Prove that we can control other `lm()` arguments, such as `NA` handling. Here we request that `lm()` refuse to work in the presence of `NA`s and test with a suitably offensive dataset:
+
+```{r}
+belgium <- gapminder %>% filter(country == "Belgium")
+lm_poly_raw(belgium, y = lifeExp, x = I(year - 1952))
+belgium$year[3] <- NA
+lm_poly_raw(belgium, y = lifeExp, x = I(year - 1952), na.action = na.fail)
+```
+
+To be clear, the last error is a confirmation that things are working.
+
+One of the very next things I would do in an analysis is to attack the terrible names of the estimated coefficients.
+
+## Use our `lm` wrapper with `broom`
+
+Don't forget: we're still fitting plain vanilla linear models, so you can still use `lm_poly_raw()` with the `broom` package.
+
+Fit and tidy at once:
+
+```{r}
+g_ests <- gapminder %>%
+  group_by(country, continent) %>% 
+  do(tidy(lm_poly_raw(., lifeExp, I(year - 1952))))
+g_ests
+```
+
+Or store fits.
+
+```{r}
+fits <- gapminder %>%
+  group_by(country, continent) %>%
+  do(fit = lm_poly_raw(., lifeExp, I(year - 1952)))
+fits
+```
+
+Then go after tidy info on the fitted models (`glance.lm()`), estimated parameters (see above; `tidy.lm()`), or the observed data (`augment.lm()`).
+
+```{r}
+fits %>% 
+  glance(fit)
+fits %>% 
+  tidy(fit)
+fits %>% 
+  augment(fit)
+```

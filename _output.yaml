@@ -3,6 +3,7 @@ html_document:
   css:
     - libs/local/main.css
     - libs/local/nav.css
+    - //netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css
   self_contained: false
   lib_dir: libs
   includes:

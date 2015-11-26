@@ -19,6 +19,16 @@
 <script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -41,6 +51,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
 
 </head>
 
@@ -95,6 +106,7 @@ img {
 </div>
 
 <p>Before we use <code>make</code> for real work, we want to prove beyond a shadow of a doubt that it’s installed and findable from RStudio and/or the <a href="git09_shell.html">shell</a>.</p>
+<p>back to <a href="automation00_index.html">All the automation things</a></p>
 <div id="create-a-temporary-rstudio-project" class="section level3">
 <h3>Create a temporary RStudio Project</h3>
 <p>You can delete this project after this test drive, so don’t sweat too much about what you name it or where you put it.</p>
@@ -164,6 +176,7 @@ make clean all</code></pre></li>
 </ul>
 <p>You should be seeing similar output as you saw in the Build tab of RStudio.</p>
 <p>If you are not, are you getting the error message that’s characteristic of a “spaces instead of tabs” problem? Or does it look more like <code>make</code> or other commands aren’t being found? If the latter, go back to the <a href="automation02_windows.html">Windows installation page</a> or reach out to the course staff.</p>
+<p>back to <a href="automation00_index.html">All the automation things</a></p>
 </div>
 
 <div class="footer">

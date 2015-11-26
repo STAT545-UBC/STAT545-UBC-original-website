@@ -10,6 +10,8 @@ output:
 
 Before we use `make` for real work, we want to prove beyond a shadow of a doubt that it's installed and findable from RStudio and/or the [shell](git09_shell.html).
 
+back to [All the automation things](automation00_index.html)
+
 ### Create a temporary RStudio Project
 
 You can delete this project after this test drive, so don't sweat too much about what you name it or where you put it.
@@ -107,3 +109,5 @@ RStudio only provides access to a very limited bit of `make` -- it's even more l
 You should be seeing similar output as you saw in the Build tab of RStudio.
 
 If you are not, are you getting the error message that's characteristic of a "spaces instead of tabs" problem? Or does it look more like `make` or other commands aren't being found? If the latter, go back to the [Windows installation page](automation02_windows.html) or reach out to the course staff.
+
+back to [All the automation things](automation00_index.html)

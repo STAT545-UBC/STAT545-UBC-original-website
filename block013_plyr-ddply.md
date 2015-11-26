@@ -2,49 +2,7 @@
 
 
 
-### Think before you create excerpts of your data ...
-
-If you feel the urge to store a little snippet of your data:
-
-
-```r
-snippet <- subset(my_big_dataset, some_variable == some_value)
-```
-
-Stop and ask yourself ...
-
-> Do I want to create mini datasets for each level of some factor (or unique combination of several factors) ... in order to compute or graph something?  
-
-If YES, __use proper data aggregation techniques__ or facetting in `ggplot2` plots or conditioning in `lattice` -- __don’t subset the data__. Or, more realistic, only subset the data as a temporary measure while you develop your elegant code for computing on or visualizing these data subsets.
-
-If NO, then maybe you really do need to store a copy of a subset of the data. But seriously consider whether you can achieve your goals by simply using the `subset =` argument of, e.g., the `lm()` function, to limit computation to your excerpt of choice. Lots of functions offer a `subset =` argument!
-
-### Data aggregation landscape
-
-*Note: [these slides](https://www.slideshare.net/jenniferbryan5811/cm009-data-aggregation)  cover this material in a more visual way.*
-
-There are three main options for data aggregation:
-
-  * base R functions, often referred to as the `apply` family of functions
-  * the [`plyr`](http://plyr.had.co.nz) add-on package
-  * the [`dplyr`](http://cran.r-project.org/web/packages/dplyr/index.html) add-on package
-
-I have a strong recommendation for `plyr` (and `dplyr`) over the base R functions, with some qualifications. Both of these packages are aimed squarely at __data analysis__, which they greatly accelerate. But even I do not use them exclusively when I am in more of a "programming mode", where I often revert to base R. Also, even a pure data analyst will benefit from a deeper understanding of the language. I present `plyr` here because I think it is more immediately usable and useful for novices than the `apply` functions. But eventually you'll need to learn those as well.
-
-The main strengths of `plyr` over the `apply` functions are:
-
-  * consistent interface across the all combinations of type of input and output
-  * return values are predictable and immediately useful for next steps
-  
-You'll notice I do not even mention another option that may occur to some: hand-coding `for` loops, perhaps, even (shudder) nested `for` loops! Don't do it. By the end of this tutorial you'll see things that are much faster and more fun. Yes, of course, tedious loops are required for data aggregation but when you can, let other developers write them for you, in efficient low level code. This is more about saving programmer time than compute time, BTW.
-
-#### Sidebar: `dplyr`
-
-This tutorial is about `plyr`. The `dplyr` package is [introduced elsewhere](block009_dplyr-intro.html). Although `dplyr` is extremely useful, it does not meet all of our data aggregation needs. What are the gaps that `plyr` still fills?
-
-  * Data aggregation for arrays and lists, which `dplyr` does not provide.
-  * Alternative to `group_by() + do()`
-    - If you can achieve your goals with `dplyr`'s main verbs, `group_by()`, and `summarize(...)` and/or window functions, by all means do so! But some tasks can't be done that way and require the `do()` function. At this point, in those cases, I still prefer `plyr`s functions. I think the syntax is less demanding for novices.
+*This material was last used in 2014. Since then, we are turning more to `dplyr`, including for data aggregation. But `plyr` is still a very useful package and so we leave this material here.*
 
 ### Install and load `plyr`
 
@@ -88,18 +46,7 @@ As usual, load the Gapminder excerpt.
 
 
 ```r
-gDat <- read.delim("gapminderDataFiveYear.txt")
-str(gDat)
-## 'data.frame':	1704 obs. of  6 variables:
-##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
-##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ gdpPercap: num  779 821 853 836 740 ...
-## or do this if the file isn't lying around already
-## gd_url <- "http://tiny.cc/gapminder"
-## gDat <- read.delim(gd_url)
+library(gapminder)
 ```
 
 ### Introduction to `ddply()`
@@ -108,7 +55,8 @@ Let's say we want the maximum life expectancy for each continent. We're providin
 
 
 ```r
-(max_le_by_cont <- ddply(gDat, ~ continent, summarize, max_le = max(lifeExp)))
+(max_le_by_cont <-
+   ddply(gapminder, ~ continent, summarize, max_le = max(lifeExp)))
 ##   continent max_le
 ## 1    Africa 76.442
 ## 2  Americas 80.653
@@ -129,7 +77,7 @@ levels(max_le_by_cont$continent)
 ## [1] "Africa"   "Americas" "Asia"     "Europe"   "Oceania"
 ```
 
-We got a data.frame back, with one observation per continent, and two variables: the maximum life expectancies and the continent, as a factor, with the same levels in the same order, as for the input data.frame `gDat`. If you have sweated to do such things with base R, this minor miracle might make you cry tears of joy (or anguish over all the hours you have wasted.)
+We got a data.frame back, with one observation per continent, and two variables: the maximum life expectancies and the continent, as a factor, with the same levels in the same order, as for the input data.frame `gapminder`. If you have sweated to do such things with base R, this minor miracle might make you cry tears of joy (or anguish over all the hours you have wasted.)
 
 `summarize()` or its synonym `summarise()` is a function provided by `plyr` that creates a new data.frame from an old one. It is related to the built-in function `transform()` that transforms variables in a data.frame or adds new ones. Feel free to play with it a bit in some top-level commands; you will use it alot inside `plyr` calls.
 
@@ -153,7 +101,8 @@ The function you want to apply to the continent-specific data.frames can be buil
 
 
 ```r
-ddply(gDat, ~ continent, summarize, n_uniq_countries = length(unique(country)))
+ddply(gapminder, ~ continent,
+      summarize, n_uniq_countries = length(unique(country)))
 ##   continent n_uniq_countries
 ## 1    Africa               52
 ## 2  Americas               25
@@ -166,7 +115,7 @@ Here is another way to do the same thing that doesn't use `summarize()` at all:
 
 
 ```r
-ddply(gDat, ~ continent,
+ddply(gapminder, ~ continent,
       function(x) c(n_uniq_countries = length(unique(x$country))))
 ##   continent n_uniq_countries
 ## 1    Africa               52
@@ -182,7 +131,7 @@ In pseudo pseudo-code, here's what's happening above:
 ```r
 returnValue <- an empty receptacle with one "slot" per country
 for each possible country i {
-    x  <- subset(gDat, subset = country == i)
+    x  <- subset(gapminder, subset = country == i)
     returnValue[i] <- length(unique(x$country))
     name or label for returnValue[i] is set to country i
 }
@@ -193,7 +142,7 @@ You don't have to compute just one thing for each sub-data.frame, nor are you li
 
 
 ```r
-ddply(gDat, ~ continent, summarize,
+ddply(gapminder, ~ continent, summarize,
       min_le = min(lifeExp), max_le = max(lifeExp),
       med_gdppc = median(gdpPercap))
 ##   continent min_le max_le med_gdppc
@@ -224,7 +173,7 @@ Let's try it out on the data for one country, just to reacquaint ourselves with 
 
 
 ```r
-le_lin_fit(subset(gDat, country == "Canada"))
+le_lin_fit(subset(gapminder, country == "Canada"))
 ##  intercept      slope 
 ## 68.8838462  0.2188692
 ```
@@ -235,7 +184,7 @@ We are ready to scale up to __all countries__ by placing this function inside a 
 
 
 ```r
-j_coefs <- ddply(gDat, ~ country, le_lin_fit)
+j_coefs <- ddply(gapminder, ~ country, le_lin_fit)
 str(j_coefs)
 ## 'data.frame':	142 obs. of  3 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 2 3 4 5 6 7 8 9 10 ...
@@ -256,12 +205,12 @@ We did it! By the time we've packaged the computation in a function, the call it
 
 ```r
 library(plyr)
-gDat <- read.delim("gapminderDataFiveYear.txt")
+library(gapminder)
 le_lin_fit <- function(dat, offset = 1952) {
   the_fit <- lm(lifeExp ~ I(year - offset), dat)
   setNames(coef(the_fit), c("intercept", "slope"))
 }
-j_coefs <- ddply(gDat, ~ country, le_lin_fit)
+j_coefs <- ddply(gapminder, ~ country, le_lin_fit)
 ```
 
 That's all. After we've developed the `le_lin_fit()` function and gotten to know `ddply()`, this task requires about 5 lines of R code.
@@ -279,14 +228,14 @@ Student: How do you pass more than one argument for a function into `ddply()`? T
 
 
 ```r
-(yearMin <- min(gDat$year))
+(yearMin <- min(gapminder$year))
 ## [1] 1952
 jFun <- function(x) {
     estCoefs <- coef(lm(lifeExp ~ I(year - yearMin), x))
     names(estCoefs) <- c("intercept", "slope")
     return(estCoefs)
 }
-j_coefs <- ddply(gDat, ~country, jFun)
+j_coefs <- ddply(gapminder, ~country, jFun)
 head(j_coefs)
 ##       country intercept     slope
 ## 1 Afghanistan  29.90729 0.2753287
@@ -314,7 +263,7 @@ Since I've assigned `cvShift =` a default value of zero, we can get coefficients
 
 
 ```r
-j_coefsSilly <- ddply(gDat, ~ country, jFunTwoArgs)
+j_coefsSilly <- ddply(gapminder, ~ country, jFunTwoArgs)
 head(j_coefsSilly)
 ##       country  intercept     slope
 ## 1 Afghanistan  -507.5343 0.2753287
@@ -329,7 +278,7 @@ We are getting the same estimated slopes but the silly year 0 intercepts we've s
 
 
 ```r
-j_coefsSane <- ddply(gDat, ~ country, jFunTwoArgs, cvShift = 1952)
+j_coefsSane <- ddply(gapminder, ~ country, jFunTwoArgs, cvShift = 1952)
 head(j_coefsSane)
 ##       country intercept     slope
 ## 1 Afghanistan  29.90729 0.2753287
@@ -344,7 +293,7 @@ We're back to our usual estimated intercepts, which reflect life expectancy in 1
 
 
 ```r
-j_coefsBest <- ddply(gDat, ~ country, jFunTwoArgs, cvShift = min(gDat$year))
+j_coefsBest <- ddply(gapminder, ~ country, jFunTwoArgs, cvShift = min(gapminder$year))
 head(j_coefsBest)
 ##       country intercept     slope
 ## 1 Afghanistan  29.90729 0.2753287
