@@ -58,9 +58,10 @@
     - [Test drive `Make`](automation03_make-test-drive.html) from a shell and RStudio
     - [Hands-on activity](automation04_make-activity.html)
     - [Example pipelines](automation00_index.html#more-examples)
-  * Get data from the web *all still from 2014*
-    - *make usual landing page and add bullet points*
-    - class meeting [one](cm111_data-from-web.html) and [two](cm112_data-from-web.html) 
+  * Get data from the web
+    - [Slides](webdata01_slides.html)
+    - Lesson 1: [Use API-wrapping packages](webdata02_activity.html)
+    - Lesson 2: [DIY web data](webdata03_activity.html)
   * [All the Shiny things](shiny00_index.html) *all still from 2014*
     - [slides](shiny01_slides.pdf)
     - [Getting your system set up for Shiny](shiny02_setup.html)

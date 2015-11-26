@@ -6,7 +6,7 @@ output:
       after_body: include/nothing.html
 ---
 
-### cm109 2015-11-24 Tuesday overview
+### cm110 2015-11-26 Thursday overview
 
 [HW09](hw09_automation.html) Automate a pipeline
 
@@ -14,6 +14,6 @@ output:
 
 This week's topic: data from the web
  
-  * [Slides for today](webdata01_slides.html)
-  * today's activity: [learning some new R packages](webdata02_activity.html)
-  * thursday's activity: [DIY web data](webdata03_activity.html)
+  * [Slides from Tuesday](webdata01_slides.html)
+  * Tuesday's activity: [learning some new R packages](webdata02_activity.html)
+  * Today's activity: [DIY web data](webdata03_activity.html)

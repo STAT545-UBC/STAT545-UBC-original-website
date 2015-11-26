@@ -13,10 +13,21 @@
 <title></title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
-<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -37,7 +48,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
 
 </head>
 
@@ -48,6 +61,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
 }
 </style>
 <div class="container-fluid main-container">
@@ -70,38 +91,21 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 <div id="TOC">
 <ul>
-<li><a href="#cm110-2014-11-19-wednesday-overview">cm110 2014-11-19 Wednesday overview</a></li>
-<li><a href="#building-your-first-shiny-app--continued">Building your first Shiny app- continued</a></li>
+<li><a href="#cm110-2015-11-26-thursday-overview">cm110 2015-11-26 Thursday overview</a></li>
 </ul>
 </div>
 
-<div id="cm110-2014-11-19-wednesday-overview" class="section level3">
-<h3>cm110 2014-11-19 Wednesday overview</h3>
+<div id="cm110-2015-11-26-thursday-overview" class="section level3">
+<h3>cm110 2015-11-26 Thursday overview</h3>
+<p><a href="hw09_automation.html">HW09</a> Automate a pipeline</p>
 <ul>
-<li><a href="hw10_package.html">HW10</a> Write an R package
-<ul>
-<li><em>recommended</em> due date Friday, November 21 but just get it in before class on Monday, November 24</li>
-<li>fleshes out <code>gameday</code> package started in class</li>
-<li>peer review will require installing and running your <em>peer’s</em> <code>gameday</code> package</li>
-</ul></li>
-<li><a href="hw11_build-shiny-app.html">HW11</a> Build a Shiny app
-<ul>
-<li>extend your Gapminder app</li>
-<li>due date Monday, December 1 but you might want to submit earlier, because the final homework HW12 will be due Friday, December 5</li>
-<li>peer review will require getting your peer’s app from GitHub and running it locally</li>
-</ul></li>
-<li><a href="https://github.com/STAT545-UBC/Discussion/issues/47">Office hours</a> are back ON; check that issue for up-to-date info</li>
+<li>due date Friday, November 27 November 24</li>
 </ul>
-</div>
-<div id="building-your-first-shiny-app--continued" class="section level3">
-<h3>Building your first Shiny app- continued</h3>
+<p>This week’s topic: data from the web</p>
 <ul>
-<li>led by Julia Gustavsen</li>
-<li><a href="shiny00_index.html">All the Shiny things</a>
-<ul>
-<li>we continued the activity</li>
-<li>we deployed our app to the web</li>
-</ul></li>
+<li><a href="webdata01_slides.html">Slides from Tuesday</a></li>
+<li>Tuesday’s activity: <a href="webdata02_activity.html">learning some new R packages</a></li>
+<li>Today’s activity: <a href="webdata03_activity.html">DIY web data</a></li>
 </ul>
 </div>
 
