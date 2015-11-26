@@ -1,6 +1,7 @@
 ---
 title: "Stat 545 getting data from the Web"
-author: "Andrew MacDonald"
+author: "Andrew MacDonald and Jenny Bryan"
+date: "2015-11-24"
 output: 
     html_document:
         toc: true
@@ -10,8 +11,17 @@ output:
 ```{r message=FALSE}
 library(dplyr)
 library(knitr)
-library(devtools)
+# library(devtools)
 ```
+
+```{r echo = FALSE}
+load("webdata-supp/countryInfo.rds")
+load("webdata-supp/francebirds.rds")
+load("webdata-supp/frenchcities.rds")
+load("webdata-supp/rio_english.rds")
+load("webdata-supp/rio_portuguese.rds")
+```
+
 
 # Introduction
 
@@ -62,8 +72,9 @@ Why do we want this?
 
 ## Sightings of birds: `rebird`
 
-[Rebird](https://github.com/ropensci/rebird) is an R interface for the [ebird](http://ebird.org/content/ebird/) database. Ebird lets birders upload sightings of birds, and allows everyone access to those data.
+[`rebird`](https://github.com/ropensci/rebird) is an R interface for the [ebird](http://ebird.org/content/ebird/) database. e-Bird lets birders upload sightings of birds, and allows everyone access to those data.
 
+`rebird` is on CRAN.
 ```{r eval=FALSE}
 install.packages("rebird")
 ```
@@ -73,6 +84,21 @@ library(rebird)
 ```
 
 ### Search birds by geography
+
+the ebird website categorizes some popular locations as "Hotspots". These are areas where there are both lots of birds and lots of birders. Once such location is at Iona Island, near Vancouver. You can see data for this site at [http://ebird.org/ebird/hotspot/L261851](http://ebird.org/ebird/hotspot/L261851)
+
+At that link, you can see a page like this:
+
+![Iona](webdata-supp/Iona_island.png)
+
+The data already look to be organized in a data frame! `rebird` allows us to read these data directly into R. (The ID code for Iona Island is **"L261851**)
+
+```{r}
+ebirdhotspot(locID = "L261851") %>%
+  head() %>%
+  kable()
+```
+
 
 We can use the function `ebirdgeo` to get a list for an area. (Note that South and West are negative):
 ```{r results='asis'}
@@ -85,14 +111,22 @@ vanbirds %>%
 
 We can also search by "region", which refers to short codes which serve as common shorthands for different political units. For example, France is represented by the letters **FR**
 ```{r eval=FALSE}
-ebirdregion("FR")
+frenchbirds <- ebirdregion("FR")
+
+frenchbirds %>%
+  head() %>%
+  kable()
 ```
-(note that the link in the help file leads to a dead link (as I write this on 24 Nov) but you can probably use the codes from geonames, below)
+
 
 Find out *WHEN* a bird has been seen in a certain place! Choosing a name from `vanbirds` above (the Bald Eagle):
 
 ```{r eval=FALSE}
-ebirdgeo(species = 'Haliaeetus leucocephalus', lat = 42, lng = -76)
+eagle <- ebirdgeo(species = 'Haliaeetus leucocephalus', lat = 42, lng = -76)
+
+eagle %>%
+  head() %>%
+  kable()
 ```
 
 `rebird` **knows where you are**:
@@ -103,9 +137,7 @@ ebirdgeo(species = 'Buteo lagopus')
 
 ## Searching geographic info: `geonames`
 ```{r message=FALSE}
-#install.packages("rjson")
-#install_github("ropensci/geonames")
-
+# install.packages(geonames)
 library(geonames)
 ```
 
@@ -113,15 +145,29 @@ There are two things we need to do to be able to use this package to access the 
 
 1. go to [the geonames site](www.geonames.org/login/) and register an account. 
 2. click [here to enable the free web service](http://www.geonames.org/enablefreewebservice)
-3. Tell R your geonames username:
+3. Tell R your geonames username. You could run the line
 
-```{r eval = FALSE}
-options(geonamesUsername="?????")
-```
+```r 
+options(geonamesUsername="my_user_name")
+``` 
+
+in R. However this is insecure. We don't want to risk committing this line and pushing it to our public github page! Instead, you should create a file in the same place as your `.Rproj` file. Name this file `.Rprofile`, and add 
+
+```r 
+options(geonamesUsername="my_user_name")
+
+``` 
+
+To that file. 
+**Important**: Make sure your `.Rprofile` ends with a blank line!
+
+## using Geonames
 
 What can we do? get access to lots of geographical information via the various "web services" see [here](http://www.geonames.org/export/ws-overview.html)
 
-```{r}
+
+
+```{r, eval=FALSE}
 countryInfo <- GNcountryInfo()
 ```
 
@@ -135,44 +181,40 @@ This country info dataset is very helpful for accessing the rest of the data, be
 
 ### remixing `geonames` and `rebird`:
 What are the cities of France?
-```{r results='asis'}
+```{r}
 francedata <- countryInfo %>%
 	filter(countryName == "France")
+```
 
+```{r eval = FALSE}
 frenchcities <-	with(francedata,
 			 GNcities(north = north, east = east, south = south,
 			 				 west = west, maxRows = 500))
+frenchcities %>% 
+  head %>% 
+  kable
+
 ```
 
-How many birds have been seen in France? Use the `countryCode` from the geonames data to get bird data from rebird!
-
-```{r results='asis'}
-francebirds <- countryInfo %>%
-	filter(countryName == "France")
-
-
-allbirds <- ebirdregion(francebirds$countryCode)  ## or perhaps fipsCode?
-
-nrow(allbirds)
+```{r echo=FALSE}
+frenchcities %>% 
+  head %>% 
+  kable
 ```
+
+
 
 ### Wikipedia searching 
 
-Geonames also helps us search Wikipedia.
-```{r results='asis'}
-GNwikipediaSearch("London") %>%
-  select(-summary) %>%
-	head %>%
-	kable
-```
-
 We can use geonames to search for georeferenced Wikipedia articles. Here are those within 20 Km of Rio de Janerio, comparing results for English-language Wikipedia (`lang = "en"`) and Portuguese-language Wikipedia (`lang = "pt"`):
-```{r}
+```{r, eval = FALSE}
 rio_english <- GNfindNearbyWikipedia(lat = -22.9083, lng = -43.1964,
 																		 radius = 20, lang = "en", maxRows = 500)
 rio_portuguese <- GNfindNearbyWikipedia(lat = -22.9083, lng = -43.1964,
 																				radius = 20, lang = "pt", maxRows = 500)
+```
 
+```{r}
 nrow(rio_english)
 nrow(rio_portuguese)
 ```
@@ -196,6 +238,7 @@ Immediately we get a message. It's a link to the [tutorial on the Ropensci websi
 * click on your name to find your key.
 
 ```{r eval = FALSE}
+
 Sys.setenv(PlosApiKey = "Paste your Key in here!!")
 key <-  Sys.getenv("PlosApiKey")
 ```
@@ -272,11 +315,6 @@ plot_throughtime(terms = "phylogeny", limit = 200, key = key)
 ```
 
 ## is it a boy or a girl? `gender` throughout US history
-
-```{r eval = FALSE}
-devtools::install_github("lmullen/gender-data-pkg")
-devtools::install_github("ropensci/gender")
-```
 
 The gender package allows you access to American data on the gender of names. Because names change gender over the years, the probability of a name belonging to a man or a woman also depends on the *year*:
 

@@ -1,15 +1,24 @@
 ---
 title: "Stat 545 getting data from the Web -- part 2"
 author: "Andrew MacDonald and Dr. Jenny Bryan"
-date: "2014-11-26"
+date: "2015-11-26"
 output: 
     html_document:
         toc: true
         toc_depth: 4
 ---
 
-```{r}
-library("knitr")
+```{r message=FALSE, warning=FALSE}
+library(knitr)
+library(curl)
+library(jsonlite)
+library(XML)
+library(httr)
+library(rvest)
+library(magrittr)
+library(dplyr)
+library(tidyr)
+library(countrycode)
 ```
 
 
@@ -20,6 +29,10 @@ On Monday we experimented with several packages that "wrapped" APIs.  That is, t
 First we're going to examine the structure of API requests via the  [Open Movie Database](http://www.omdbapi.com/). OMDb is very similar to IMDB, except it has a nice, simple API. We can go to the website, input some search parameters, and obtain both the XML query and the response from it. 
 
 **EXERCISE** determine the shape of an API request:
+
+You can play around with the parameters on the OMDB website, and look at the resulting API call and the query you get back:
+
+![](webdata-supp/ombd.png)
 
 Let's experiment with different values of the `title` and `year` fields. Notice the pattern in the request. For example for Title = Interstellar and Year = 2014, we get:
 
@@ -55,15 +68,22 @@ Now we have a handy function that returns the API query. We can paste in the lin
 
 ```{r}
 request_interstellar <- omdb("Interstellar", "2014", "short", "xml")
-answer_xml <- RCurl::getURL(request_interstellar)
+con <-  curl(request_interstellar)
+answer_xml <- readLines(con)
+close(con)
 answer_xml
-
-request_interstellar <- omdb("Interstellar", "2014", "short", "json")
-answer_json <- RCurl::getURL(request_interstellar)
-answer_json
 ```
 
-The get a form of data that is obviously structured. What is it?
+```{r warning=FALSE}
+request_interstellar <- omdb("Interstellar", "2014", "short", "json")
+con <-  curl(request_interstellar)
+answer_json <- readLines(con)
+close(con)
+answer_json %>% 
+  prettify
+```
+
+We have a form of data that is obviously structured. What is it?
 
 ## intro to JSON and XML
 
@@ -98,24 +118,26 @@ And here is XML:
 
 You can see that both of these data structures are quite easy to read. They are "self-describing". In other words, they tell you how they are meant to be read.
 
-There are easy means of taking these data types and creating R objects.  You've already met the function `fromJSON` in the `jsonlite` package, thanks to Bernard:
+There are easy means of taking these data types and creating R objects. Our JSON response above can be parsed using `jsonlite::fromJSON()`:
 
 ```{r}
-library("jsonlite")
-fromJSON(answer_json)
+answer_json %>% 
+  fromJSON()
 ```
 
 The output is a named list! A familiar and friendly R structure. Because data frames are lists, and because this list has no nested lists-within-lists, we can coerce it very simply:
 
 ```{r results='asis'}
-answer_list <- fromJSON(answer_json)
-kable(data.frame(answer_list))
+answer_json %>% 
+  fromJSON() %>% 
+  as.data.frame() %>% 
+  kable()
 ```
 
 A similar process exists for XML formats:
 
 ```{r}
-library(XML)
+
 ans_xml_parsed <- xmlParse(answer_xml)
 ans_xml_parsed
 ```
@@ -139,7 +161,6 @@ attributes, children and value, which we access with the methods xmlName(), xmlA
 | value    | `xmlValue()`
 
 
-
 ```{r}
 ans_xml_parsed_root <- xmlRoot(ans_xml_parsed)[["movie"]]  # could also use [[1]]
 ans_xml_parsed_root
@@ -149,14 +170,6 @@ ans_xml_attrs
 
 ```{r results='asis'}
 kable(data.frame(t(ans_xml_attrs)))
-```
-
-### `XPATH`, the scandalously shallow introduction:
-
-There is a special syntax for querying the structure of XML documents, called XPATH, which is an essential skill if you are doing extensive work with XML documents.
-```{r}
-movienode <- getNodeSet(ans_xml_parsed, "//movie")
-movienode
 ```
 
 ## Introducing the Easy Way: `httr`
@@ -173,19 +186,11 @@ HTTP is the foundation for APIs; understanding how it works is the key to intera
 
 `httr` also facilitates a variety of ___authentication___ protocols.
 
-```{r eval = FALSE}
-#devtools::install_github("hadley/httr", build_vignettes = TRUE, dependencies = TRUE)
-install.packages("httr")
-```
-
-`httr` contains one function for every HTTP verb. The functions have the same names as the verbs (e.g. `GET()`, `POST()`).  They have more informative outputs than simply using `RCurl::getURL()`, and come with some nice convenience functions for working with the output:
+`httr` contains one function for every HTTP verb. The functions have the same names as the verbs (e.g. `GET()`, `POST()`).  They have more informative outputs than simply using `curl`, and come with some nice convenience functions for working with the output:
 ```{r}
-library(httr)
-
 interstellar_json <- omdb("Interstellar", "2014", "short", "json")
 response_json <- GET(interstellar_json)
 content(response_json, as = "parsed", type = "application/json")
-
 ```
 
 ```{r}
@@ -206,6 +211,16 @@ And also a handy means to extract specifically the HTTP status code:
 status_code(response_xml)
 ```
 
+In fact, we didn't need to create `omdb()` at all! httr provides a straightforward means of making an http request:
+
+```{r}
+the_martian <- GET("http://www.omdbapi.com/?", query = list(t = "The Martian", y = 2015, plot = "short", r = "json"))
+
+content(the_martian)
+```
+
+We get the same answer as before! With `httr`, we are able to pass in the named arguments to the API call as a named list. We are also able to use spaces in movie names; `httr` encodes these in the URL before making the GET request  
+
 It is very good to [learn your http status codes](https://www.flickr.com/photos/girliemac/sets/72157628409467125).  
 The documentation for `httr` includes a vignette of "best practices for writing an API package", which is useful for when you want to bring your favourite web resource into the world of R!
 
@@ -216,6 +231,8 @@ What if data is present on a website, but isn't provided in an API at all? It is
 HTML is a structured way of displaying information. It is very similar in structure to XML (in fact many modern html sites are actually XHTML5, [which is also valid XML](http://www.w3.org/TR/html5/the-xhtml-syntax.html))
 
 
+![tags](http://imgs.xkcd.com/comics/tags.png )
+
 Two pieces of equipment
 
 * `rvest`: `devtools::install_github("hadley/rvest")`
@@ -223,63 +240,61 @@ Two pieces of equipment
 
 Before we go any further, [let's play a game together!](http://flukeout.github.io)
 
-```{r}
-library(rvest)
-```
-
 ### Obtain a table
 
 Let's make a simple HTML table and then parse it! 
 
 * make a new, empty project
-* make a totally empty .Rmd file
+* make a totally empty .Rmd file called `"GapminderHead.Rmd"`
 * copy this into the body:
 ```r
 ---
 output: html_document
 ---
 
-``` r echo=FALSE, results='asis' 
+```{r echo=FALSE, results='asis'} #delete this comment
 library(gapminder)
 knitr::kable(head(gapminder))
 ```
 ```
-(uncommenting the code chunk)
+**remember to delete the comment**
 
-* knit the document
-* click "View in Browser"
-* paste the url into the code below:
+Then knit the document and click "View in Browser". It should look like this:
+![gm](webdata-supp/gapminderhead.png)
 
-```{r}
-html("file:///home/andrew/Documents/projects/GapminderHead/GapminderHead.html") %>%
+We have created a simple html table with the head of gapminder in it! We can get our data back by parsing this table into a dataframe again. Extracting data from html is called "scraping", and it is done with the R package `rvest`:
+
+```{r eval=FALSE}
+read_html("GapminderHead.html") %>%
   html_table
 ```
 
-(note that this is also possible with `XML` package)
+## scraping via CSS selectors
 
-## scraping text: staRtrek
+Let's practice scraping websites using our newfound abilities! Here is a table of research [publications by country](http://www.scimagojr.com/countryrank.php)
+![](webdata-supp/pubs.png)
 
-getting Star Trek species data from [MemoryAlpha](http://en.memory-alpha.org/)
-```{r message=FALSE}
-library("magrittr")
-library("dplyr")
-library("tidyr")
+We can try to get this data directly into R:
 
-character_data <- function(chname){
-  paste0("http://en.memory-alpha.org/wiki/", chname) %>%
-    html %>%
-    html_nodes(".wiki-sidebar") %>%
-    html_table(header = FALSE) %>%
-    extract2(1) %>%
-    set_colnames(c("trait", "value")) %>%
-    mutate(trait = gsub(":", "", trait)) %>%
-    filter(trait %in% c("Gender","Species","Affiliation","Rank")) %>%
-    mutate(name = chname) %>%
-    spread(trait, value)
-}
-
-character_data("Worf")
+```{r}
+research <- read_html("http://www.scimagojr.com/countryrank.php") %>% 
+  html_table(fill = TRUE)
 ```
+
+If you look at the structure of `research` (e.g. with `str(research)`) you'll see that we've obtained a list of data.frames. The top of the page contains another table element. This was also scraped! 
+Can we be more specific about what we obtain from this page? We can, by highlighting that table with css selectors:
+
+```{r}
+
+research <- read_html("http://www.scimagojr.com/countryrank.php") %>% 
+  html_node(".tabla_datos") %>%
+	html_table()
+
+research %>% 
+  head() %>% 
+  kable()
+```
+
 
 ### Random observations on scraping
 
@@ -320,34 +335,8 @@ fromJSON(file = "http://airportcode.riobard.com/airport/YVR?fmt=json")
 
 perfectly possible to combine these into a handy `data.frame`. One way might be:
 
-```{r}
-library(jsonlite)
-
+```{r, eval=FALSE }
 tdot_data <- fromJSON("http://airportcode.riobard.com/search?q=Toronto&fmt=JSON")
-
 ```
 
 
-## Extending `gameday`
-
-Does anybody remember this lovely function?
-
-```r
-gday <- function(team="canucks") {
-  url <- paste0("http://live.nhle.com/GameData/GCScoreboard/", Sys.Date(), ".jsonp")
-  grepl(team, RCurl::getURL(url), ignore.case=TRUE)
-}
-```
-
-Here is the `httr` version:
-
-```{r}
-library(httr)
-req <- GET("http://live.nhle.com/GameData/GCScoreboard/2014-11-24.jsonp")
-jsonp <- content(req, "text")
-json <- gsub('([a-zA-Z_0-9\\.]*\\()|(\\);?$)', "", jsonp, perl = TRUE)
-data <- fromJSON(json)
-
-data$games %>%
-  kable
-```

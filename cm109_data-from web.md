@@ -16,4 +16,4 @@ This week's topic: data from the web
  
   * [Slides for today](webdata01_slides.html)
   * today's activity: [learning some new R packages](webdata02_activity.html)
-  * thursday's activity: [DIY web data](webdata03_activity.html) *still 2014 version ... refresh migrating here soon*
+  * thursday's activity: [DIY web data](webdata03_activity.html)
