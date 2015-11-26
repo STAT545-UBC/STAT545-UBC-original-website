@@ -321,21 +321,3 @@ https://airport.api.aero/airport/distance/YVR/LAX?user_key={yourkey}
 ```
 
 Do you need just the US airports? this API does that [and is free](http://services.faa.gov/docs/services/airport/)
-
-And even simpler API queries very simple data about the airports of the world:
-
-```r
-fromJSON(file = "http://airportcode.riobard.com/search?q=Toronto&fmt=JSON")
-```
-
-```r
-fromJSON(file = "http://airportcode.riobard.com/airport/YVR?fmt=json")
-```
-
-perfectly possible to combine these into a handy `data.frame`. One way might be:
-
-```{r, eval=FALSE }
-tdot_data <- fromJSON("http://airportcode.riobard.com/search?q=Toronto&fmt=JSON")
-```
-
-
