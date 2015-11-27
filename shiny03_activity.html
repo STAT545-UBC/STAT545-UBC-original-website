@@ -103,9 +103,11 @@ img {
 <li><a href="#create-an-empty-shiny-app">Create an empty Shiny app</a></li>
 <li><a href="#load-the-dataset">Load the dataset</a></li>
 <li><a href="#build-the-ui">Build the UI</a></li>
+<li><a href="#checkpoint-what-our-app-looks-like-after-implementing-the-ui">Checkpoint: what our app looks like after implementing the UI</a></li>
 <li><a href="#implement-server-logic-to-create-outputs">Implement server logic to create outputs</a></li>
 <li><a href="#reactivity-101">Reactivity 101</a></li>
 <li><a href="#using-uioutput-to-create-ui-elements-dynamically">Using uiOutput() to create UI elements dynamically</a></li>
+<li><a href="#final-shiny-app-code">Final Shiny app code</a></li>
 <li><a href="#share-your-app-with-the-world">Share your app with the world</a></li>
 <li><a href="#more-shiny-features-to-check-out">More Shiny features to check out</a></li>
 <li><a href="#awesome-add-on-packages-to-shiny">Awesome add-on packages to Shiny</a></li>
@@ -125,9 +127,9 @@ img {
 <div id="before-we-begin" class="section level1">
 <h1>Before we begin</h1>
 <p>You’ll need to have the <code>shiny</code> package, so install it.</p>
-<pre><code>install.packages(&quot;shiny&quot;)</code></pre>
+<pre class="r"><code>install.packages(&quot;shiny&quot;)</code></pre>
 <p>To ensure you successfully installed Shiny, try running one of the demo apps.</p>
-<pre><code>library(shiny)
+<pre class="r"><code>library(shiny)
 runExample(&quot;01_hello&quot;)</code></pre>
 <p>If the example app is running, press <em>Escape</em> to close the app, and you are ready to build your first Shiny app!</p>
 </div>
@@ -138,7 +140,7 @@ runExample(&quot;01_hello&quot;)</code></pre>
 <div id="create-an-empty-shiny-app" class="section level1">
 <h1>Create an empty Shiny app</h1>
 <p>All Shiny apps follow the same template:</p>
-<pre><code>library(shiny)
+<pre class="r"><code>library(shiny)
 ui &lt;- fluidPage()
 server &lt;- function(input, output, session) {}
 shinyApp(ui = ui, server = server)</code></pre>
@@ -162,7 +164,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <p>The dataset we’ll be using contains information about all the products sold by BC Liquor Store and is provided by <a href="https://www.opendatabc.ca/dataset/bc-liquor-store-product-price-list-current-prices">OpenDataBC</a>. They provide a direct link to download a <em>csv</em> version of the data, and this data has the rare quality that it is immediately clean and useful. You can view the <a href="http://pub.data.gov.bc.ca/datasets/176284/BC_Liquor_Store_Product_Price_List.csv">raw data</a> they provide, but I have taken a few steps to simplify the dataset to make it more useful for our app. I removed some columns, renamed other columns, and dropped a few rare factor levels.</p>
 <p>The processed dataset we’ll be using in this app is available <a href="http://deanattali.com/files/bcl-data.csv">here</a> - download it now. Put this file in the same folder that has your Shiny app.</p>
 <p>Add a line in your app to load the data into a variable called <code>bcl</code>. It should look something like this</p>
-<pre><code>bcl &lt;- read.csv(&quot;bcl-data.csv&quot;, stringsAsFactors = FALSE)</code></pre>
+<pre class="r"><code>bcl &lt;- read.csv(&quot;bcl-data.csv&quot;, stringsAsFactors = FALSE)</code></pre>
 <p>Place this line in your app as the second line, just after <code>library(shiny)</code>. Make sure the file path and file name are correct, otherwise your app won’t run. Try to run the app to make sure the file can be loaded without errors.</p>
 <blockquote>
 <p>In case you’re curious, the code I used to process the raw data into the data we’ll be using is available <a href="https://gist.github.com/daattali/56b9fa8f3e99174fba63">as a gist</a>.</p>
@@ -175,18 +177,18 @@ shinyApp(ui = ui, server = server)</code></pre>
 <div id="add-simple-text-to-the-ui" class="section level2">
 <h2>Add simple text to the UI</h2>
 <p>You can place R strings inside <code>fluidPage()</code> to render text.</p>
-<pre><code>fluidPage(&quot;BC Liquor Store&quot;, &quot;prices&quot;)</code></pre>
+<pre class="r"><code>fluidPage(&quot;BC Liquor Store&quot;, &quot;prices&quot;)</code></pre>
 <p>Replace the line in your app that assigns an empty <code>fluidPage()</code> into <code>ui</code> with the one above, and run the app.</p>
 <p>The entire UI will be built by passing comma-separated arguments into the <code>fluidPage()</code> function. By passing regular text, the web page will just render boring unformatted text.</p>
 <p><strong>Exercise:</strong> Add several more strings to <code>fluidPage()</code> and run the app. Nothing too exciting is happening yet, but you should just see all the text appear in one contiguous block.</p>
 </div>
 <div id="add-formatted-text-and-other-html-elements" class="section level2">
 <h2>Add formatted text and other HTML elements</h2>
-<p>If we want our text to be formatted nicer, Shiny has many functions that are wrappers around HTML tags that format text. We can use the <code>h1()</code> function for a top-level header (<code>\&lt;h1\&gt;</code> in HTML), <code>h2()</code> for a secondary header (<code>\&lt;h2\&gt;</code> in HTML), <code>strong()</code> to make text bold (<code>\&lt;strong\&gt;</code> in HTML), <code>em()</code> to make text italicized (<code>\&lt;em\&gt;</code> in HTML), and many more.</p>
+<p>If we want our text to be formatted nicer, Shiny has many functions that are wrappers around HTML tags that format text. We can use the <code>h1()</code> function for a top-level header (<code>&lt;h1&gt;</code> in HTML), <code>h2()</code> for a secondary header (<code>&lt;h2&gt;</code> in HTML), <code>strong()</code> to make text bold (<code>&lt;strong&gt;</code> in HTML), <code>em()</code> to make text italicized (<code>&lt;em&gt;</code> in HTML), and many more.</p>
 <p>There are also functions that are wrappers to other HTML tags, such as <code>br()</code> for a line break, <code>img()</code> for an image, <code>a()</code> for a hyperlink, and others.</p>
 <p>All of these functions are actually just wrappers to HTML tags with the equivalent name. You can add any arbitrary HTML tag using the <code>tags</code> object, which you can learn more about by reading the help file on <code>tags</code>.</p>
 <p>Just as a demonstration, try replacing the <code>fluidPage()</code> function in your UI with</p>
-<pre><code>fluidPage(
+<pre class="r"><code>fluidPage(
   h1(&quot;My app&quot;),
   &quot;BC&quot;,
   &quot;Liquor&quot;,
@@ -204,7 +206,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <h2>Add a title</h2>
 <p>We could add a title to the app with <code>h1()</code>, but Shiny also has a special function <code>titlePanel()</code>. Using <code>titlePanel()</code> not only adds a visible big title-like text to the top of the page, but it also sets the “official” title of the web page. This means that when you look at the name of the tab in the browser, you’ll see this title.</p>
 <p>Overwrite the <code>fluidPage()</code> that you experimented with so far, and replace it with the simple one below, that simply has a title and nothing else.</p>
-<pre><code>fluidPage(
+<pre class="r"><code>fluidPage(
   titlePanel(&quot;BC Liquor Store prices&quot;)
 )</code></pre>
 <p><strong>Exercise:</strong> Look at the documentation for the <code>titlePanel()</code> function and notice it has another argument. Use that argument and see if you can see what it does.</p>
@@ -213,13 +215,13 @@ shinyApp(ui = ui, server = server)</code></pre>
 <h2>Add a layout</h2>
 <p>You may have noticed that so far, by just adding text and HTML tags, everything is unstructured and the elements simply stack up one below the other in one column. We’ll use <code>sidebarLayout()</code> to add a simple structure. It provides a simple two-column layout with a smaller sidebar and a larger main panel. We’ll build our app such that all the inputs that the user can manipulate will be in the sidebar, and the results will be shown in the main panel on the right.</p>
 <p>Add the following code after the <code>titlePanel()</code></p>
-<pre><code>sidebarLayout(
+<pre class="r"><code>sidebarLayout(
   sidebarPanel(&quot;our inputs will go here&quot;),
   mainPanel(&quot;the results will go here&quot;)
 )</code></pre>
 <p>Remember that all the arguments inside <code>fluidPage()</code> need to be separated by commas.</p>
 <p>So far our complete app looks like this (hopefully this isn’t a surprise to you)</p>
-<pre><code>library(shiny)
+<pre class="r"><code>library(shiny)
 bcl &lt;- read.csv(&quot;bcl-data.csv&quot;, stringsAsFactors = FALSE)
 
 ui &lt;- fluidPage(
@@ -265,7 +267,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <p>The first input we want to have is for specifying a price range (minimum and maximum price). The most sensible types of input for this are either <code>numericInput()</code> or <code>sliderInput()</code> since they are both used for selecting numbers. If we use <code>numericInput()</code>, we’d have to use two inputs, one for the minimum value and one for the maximum. Looking at the documentation for <code>sliderInput()</code>, you’ll see that by supplying a vector of length two as the <code>value</code> argument, it can be used to specify a range rather than a single number. This sounds like what we want in this case, so we’ll use <code>sliderInput()</code>.</p>
 <p>To create a slider input, a maximum value needs to be provided. We could use the maximum price in the dataset, which is $30,250, but I doubt I’d ever buy something that expensive. I think $100 is a more reasonable max price for me, and about 85% of the products in this dataset are below $100, so let’s use that as our max.</p>
 <p>By looking at the documentation for the slider input function, the following piece of code can be constructed.</p>
-<pre><code>sliderInput(&quot;priceInput&quot;, &quot;Price&quot;, min = 0, max = 100,
+<pre class="r"><code>sliderInput(&quot;priceInput&quot;, &quot;Price&quot;, min = 0, max = 100,
             value = c(25, 40), pre = &quot;$&quot;)</code></pre>
 <p>Place the code for the slider input inside <code>sidebarPanel()</code> (replace the text we wrote earlier with this input).</p>
 </div>
@@ -273,7 +275,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <h3>Input for product type</h3>
 <p>Usually when going to the liquor store you know whether you’re looking for beer or wine, and you don’t want to waste your time in the wrong section. The same is true in our app, we should be able to choose what type of product we want.</p>
 <p>For this we want some kind of a text input. But allowing the user to enter text freely isn’t the right solution because we want to restrict the user to only a few choices. We could either use radio buttons or a select box for our purpose. Let’s use radio buttons for now since there are only a few options, so take a look at the documentation for <code>radioButtons()</code> and come up with a reasonable input function code. It should look like this:</p>
-<pre><code>radioButtons(&quot;typeInput&quot;, &quot;Product type&quot;,
+<pre class="r"><code>radioButtons(&quot;typeInput&quot;, &quot;Product type&quot;,
             choices = c(&quot;BEER&quot;, &quot;REFRESHMENT&quot;, &quot;SPIRITS&quot;, &quot;WINE&quot;),
             selected = &quot;WINE&quot;)</code></pre>
 <p>Add this input code inside <code>sidebarPanel()</code>, after the previous input (separate them with a comma).</p>
@@ -284,10 +286,10 @@ shinyApp(ui = ui, server = server)</code></pre>
 <div id="input-for-country" class="section level3">
 <h3>Input for country</h3>
 <p>Sometimes I like to feel fancy and only look for wines imported from France. We should add one last input, to select a country. The most appropriate input type in this case is probably the select box. Look at the documentation for <code>selectInput()</code> and create an input function. For now let’s only have CANADA, FRANCE, ITALY as options, and later we’ll see how to include all countries.</p>
-<pre><code>selectInput(&quot;countryInput&quot;, &quot;Country&quot;,
+<pre class="r"><code>selectInput(&quot;countryInput&quot;, &quot;Country&quot;,
             choices = c(&quot;CANADA&quot;, &quot;FRANCE&quot;, &quot;ITALY&quot;))</code></pre>
 <p>Add this function as well to your app. If you followed along, your entire app should have this code:</p>
-<pre><code>library(shiny)
+<pre class="r"><code>library(shiny)
 bcl &lt;- read.csv(&quot;bcl-data.csv&quot;, stringsAsFactors = FALSE)
 
 ui &lt;- fluidPage(
@@ -319,7 +321,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <h3>Output for a plot of the results</h3>
 <p>At the top of the main panel we’ll have a plot showing somme visualization of the results. Since we want a plot, the function we use is <code>plotOutput()</code>.</p>
 <p>Add the following code into the <code>mainPanel()</code> (replace the existing text):</p>
-<pre><code>plotOutput(&quot;coolplot&quot;)</code></pre>
+<pre class="r"><code>plotOutput(&quot;coolplot&quot;)</code></pre>
 <p>This will add a placeholder in the UI for a plot named <em>coolplot</em>.</p>
 <p><strong>Exercise:</strong> To remind yourself that we are still merely constructing HTML and not creating actual plots yet, run the above <code>plotOutput()</code> function in the console to see that all it does is create some HTML.</p>
 </div>
@@ -327,10 +329,15 @@ shinyApp(ui = ui, server = server)</code></pre>
 <h3>Output for a table summary of the results</h3>
 <p>Below the plot, we will have a table that shows all the results. To get a table, we use the <code>tableOutput()</code> function.</p>
 <p>Here is a simple way to create a UI element that will hold a table output:</p>
-<pre><code>tableOutput(&quot;results&quot;)</code></pre>
+<pre class="r"><code>tableOutput(&quot;results&quot;)</code></pre>
 <p>Add this output to the <code>mainPanel()</code> as well. Maybe add a couple <code>br()</code> in between the two outputs, just as a space buffer so that they aren’t too close to each other.</p>
+</div>
+</div>
+</div>
+<div id="checkpoint-what-our-app-looks-like-after-implementing-the-ui" class="section level1">
+<h1>Checkpoint: what our app looks like after implementing the UI</h1>
 <p>If you’ve followed along, your app should now have this code:</p>
-<pre><code>library(shiny)
+<pre class="r"><code>library(shiny)
 bcl &lt;- read.csv(&quot;bcl-data.csv&quot;, stringsAsFactors = FALSE)
 
 ui &lt;- fluidPage(
@@ -356,8 +363,6 @@ server &lt;- function(input, output, session) {}
 
 shinyApp(ui = ui, server = server)</code></pre>
 </div>
-</div>
-</div>
 <div id="implement-server-logic-to-create-outputs" class="section level1">
 <h1>Implement server logic to create outputs</h1>
 <p>So far we only wrote code inside that was assigned to the <code>ui</code> variable (or code that was written in <code>ui.R</code>). That’s usually the easier part of a Shiny app. Now we have to write the <code>server</code> function, which will be responsible for listening to changes to the inputs and creating outputs to show in the app.</p>
@@ -371,7 +376,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <li>Access input values using the <code>input</code> list (every server function has an <code>input</code> argument)</li>
 </ol>
 <p>The third rule is only required if you want your output to depend on some input, so let’s first see how to build a very basic output using only the first two rules. We’ll create a plot and send it to the <em>coolplot</em> output.</p>
-<pre><code>output$coolplot &lt;- renderPlot({
+<pre class="r"><code>output$coolplot &lt;- renderPlot({
   plot(rnorm(100))
 })</code></pre>
 <p>This simple code shows the first two rules: we’re creating a plot inside the <code>renderPlot()</code> function, and assigning it to <em>coolplot</em> in the <code>output</code> list. Remember that every output creatd in the UI must have a unique ID, now we see why. In order to attach an R object to an output with ID <em>x</em>, we assign the R object to <code>output$x</code>.</p>
@@ -382,7 +387,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <div id="making-an-output-react-to-an-input" class="section level2">
 <h2>Making an output react to an input</h2>
 <p>Now we’ll take the plot one step further. Instead of always plotting the same plot (100 random numbers), let’s use the minimum price selected as the number of points to show. It doesn’t make too much sense, but it’s just to learn how to make an output depend on an input.</p>
-<pre><code>output$coolplot &lt;- renderPlot({
+<pre class="r"><code>output$coolplot &lt;- renderPlot({
   plot(rnorm(input$priceInput[1]))
 })</code></pre>
 <p>Replace the code previously in your server function with this code, and run the app. Whenever you choose a new minimum price range, the plot will update with a new number of points. Notice that the only thing different in the code is that instead of using the number <code>100</code> we are using <code>input$priceInput[1]</code>.</p>
@@ -393,13 +398,13 @@ shinyApp(ui = ui, server = server)</code></pre>
 <p>Now we have all the knowledge required to build a plot visualizing some aspect of the data. We’ll create a simple histogram of the alcohol content of the products.</p>
 <p>First we need to make sure <code>ggplot2</code> is loaded, so add a <code>library(ggplot2)</code> at the top.</p>
 <p>Next we’ll make return a histogram of alcohol content from <code>renderPlot()</code>. Let’s start with just a histogram of the whole data, unfiltered.</p>
-<pre><code>output$coolplot &lt;- renderPlot({
+<pre class="r"><code>output$coolplot &lt;- renderPlot({
   ggplot(bcl, aes(Alcohol_Content)) +
     geom_histogram()
 })</code></pre>
 <p>If you run the app with this code inside your server, you sohuld see a histogram in the app. But if you change the input values, nothing happens yet, so the next step is to actually filter the dataset based on the inputs.</p>
 <p>Recall that we have 3 inputs: <code>priceInput</code>, <code>typeInput</code>, and <code>countryInput</code>. We can filter the data based on the values of these three inputs. We’ll use <code>dplyr</code> functions to filter the data, so be sure to include <code>dplyr</code> at the top. Then we’ll plot the filtered data instead of the original data.</p>
-<pre><code>output$coolplot &lt;- renderPlot({
+<pre class="r"><code>output$coolplot &lt;- renderPlot({
   filtered &lt;-
     bcl %&gt;%
     filter(Price &gt;= input$priceInput[1],
@@ -413,7 +418,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <p>Place this code in your server function and run the app. If you change any input, you should see the histogram update. The way I know the histogram is correct is by noticing that the alcohol content is about 5% when I selecte beer, 40% for spirits, and 13% for wine. That sounds right.</p>
 <p>Read this code and understand it. You’ve successfully created an interactive app - the plot is changing according to the user’s selection.</p>
 <p>To make sure we’re on the same page, here is what your code should look like at this point:</p>
-<pre><code>library(shiny)
+<pre class="r"><code>library(shiny)
 library(ggplot2)
 library(dplyr)
 
@@ -460,7 +465,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <h2>Building the table output</h2>
 <p>Building the next output should be much easier now that we’ve done it once. The other output we have was called <code>results</code> (as defined in the UI) and should be a table of all the products that match the filters. Since it’s a table output, we should use the <code>renderTable()</code> function. We’ll do the exact same filtering on the data, and then simply return the data as a data.frame, and Shiny will know that it needs to display it as a table because it’s defined as a <code>tableOutput</code>.</p>
 <p>The code for creating the table output should make sense to you without too much explanation:</p>
-<pre><code>output$results &lt;- renderTable({
+<pre class="r"><code>output$results &lt;- renderTable({
   filtered &lt;-
     bcl %&gt;%
     filter(Price &gt;= input$priceInput[1],
@@ -477,7 +482,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <div id="reactivity-101" class="section level1">
 <h1>Reactivity 101</h1>
 <p>Shiny uses a concept called <strong>reactive</strong> programming. This is what enables your outputs to <em>react</em> to changes in inputs. Reactivity in Shiny is complex, but as an extreme oversimplification, it means that when the value of a variable <code>x</code> changes, then anything that relies on <code>x</code> gets re-evaluated. Notice how this is very different from what you are used to in R. Consider the following code:</p>
-<pre><code>x &lt;- 5
+<pre class="r"><code>x &lt;- 5
 y &lt;- x + 1
 x &lt;- 10</code></pre>
 <p>What is the value of <code>y</code>? It’s 6. But in reactive programming, if <code>x</code> and <code>y</code> are reactive variables, then the value of <code>y</code> would be 11. This is a very powerful technique that is very useful for creating the responsiveness of Shiny apps, but it might be a bit weird at first because it’s a very different concept from what we’re used to.</p>
@@ -490,7 +495,7 @@ x &lt;- 10</code></pre>
 <h2>Using reactive variables to reduce code duplication</h2>
 <p>You may have noticed that we have the exact same code filtering the dataset in two places, once in each render function. We can solve that problem by defining a reactive variable that will hold the filtered dataset, and use that variable in the render functions.</p>
 <p>The first step would be to create the reactive variable. The following code should be added to the server function.</p>
-<pre><code>filtered &lt;- reactive({
+<pre class="r"><code>filtered &lt;- reactive({
   bcl %&gt;%
     filter(Price &gt;= input$priceInput[1],
            Price &lt;= input$priceInput[2],
@@ -500,7 +505,7 @@ x &lt;- 10</code></pre>
 })</code></pre>
 <p>The variable <code>filtered</code> is being defined exactly like before, except the body is wrapped by a <code>reactive({})</code>, and it’s defined in the server function instead of inside the individual render functions.</p>
 <p>Reactive expressions defined with the <code>reactive()</code> function are treated like functions, so to access the value of a reactive expression, you to get the value of the dataset at any time you would use <code>filtered()</code> (notice that there are brackets at the end, as if it’s a function). Now that we have our reactive variable, we can use it in the output render functions. Try it yourself, and when you think you’re done, check the code below. This is how your server function should look like now.</p>
-<pre><code>server &lt;- function(input, output, session) {
+<pre class="r"><code>server &lt;- function(input, output, session) {
   filtered &lt;- reactive({
     bcl %&gt;%
       filter(Price &gt;= input$priceInput[1],
@@ -530,7 +535,7 @@ x &lt;- 10</code></pre>
 <div id="basic-example" class="section level2">
 <h2>Basic example</h2>
 <p>As a very basic example, consider this app:</p>
-<pre><code>library(shiny)
+<pre class="r"><code>library(shiny)
 ui &lt;- fluidPage(
   numericInput(&quot;num&quot;, &quot;Maximum slider value&quot;, 5),
   uiOutput(&quot;slider&quot;)
@@ -550,9 +555,9 @@ shinyApp(ui = ui, server = server)</code></pre>
 <h2>Use uiOutput() in our app to populate the countries</h2>
 <p>We can use this concept in our app to populate the choices for the country selector. The country selector currently only holds 3 values that we manually entered, but instead we could render the country selector in the server and use the data to determine what countries it can have.</p>
 <p>First we need to replace the <code>selectInput(&quot;countryInput&quot;, ...)</code> in the UI with</p>
-<pre><code>uiOutput(&quot;countryOutput&quot;)</code></pre>
+<pre class="r"><code>uiOutput(&quot;countryOutput&quot;)</code></pre>
 <p>Then we need to create the output (which will create a UI element - yeah, it can be a bit confusing at first), so add the following code to the server function:</p>
-<pre><code>output$countryOutput &lt;- renderUI({
+<pre class="r"><code>output$countryOutput &lt;- renderUI({
   selectInput(&quot;countryInput&quot;, &quot;Country&quot;,
               sort(unique(bcl$Country)),
               selected = &quot;CANADA&quot;)
@@ -563,7 +568,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <h2>Errors showing up and quickly disappearing</h2>
 <p>You might notice that when you first run the app, each of the two outputs are throwing an error message, but the error message goes away after a second. The problem is that when the app initializes, <code>filtered</code> is trying to access the country input, but the country input hasn’t been created yet. After Shiny finishes loading fully and the country input is generated, <code>filtered</code> tries accessing it again, this time it’s successful, and the error goes away.</p>
 <p>Once we understand why the error is happening, fixing it is simple. Inside the <code>filtered</code> reactive function, we should check if the country input exists, and if not then just return <code>NULL</code>.</p>
-<pre><code>filtered &lt;- reactive({
+<pre class="r"><code>filtered &lt;- reactive({
   if (is.null(input$countryInput)) {
     return(NULL)
   }    
@@ -576,7 +581,7 @@ shinyApp(ui = ui, server = server)</code></pre>
     )
 })</code></pre>
 <p>Now when the render function try to access the data, they will get a <code>NULL</code> value before the app is fully loaded. You will still get an error, because the ggplot function will not work with a <code>NULL</code> dataset, so we also need to make a similar check in the <code>renderPlot()</code> function. Only once the data is loaded, we can try to plot.</p>
-<pre><code>output$coolplot &lt;- renderPlot({
+<pre class="r"><code>output$coolplot &lt;- renderPlot({
   if (is.null(filtered())) {
     return()
   }
@@ -584,8 +589,13 @@ shinyApp(ui = ui, server = server)</code></pre>
     geom_histogram()
 })</code></pre>
 <p>The <code>renderTable()</code> function doesn’t need this fix applied because Shiny doesn’t have a problem rendering a <code>NULL</code> table.</p>
-<p>This is the final step we’ll be doing together. The app is now functional, but there are plenty of features you can add to make it better. In case you got lost, here is the final code:</p>
-<pre><code>library(shiny)
+<p><strong>Exercise:</strong> Change the product type radio buttons to get generated in the server with the values from the dataset, instead of being created in the UI with the values entered manually. If you’re feeling confident, try adding an input for “subtype” that will get re-generated every time a new type is chosen, and will be populated with all the subtype options available (for example, if WINE is selected, then the subtype are white wine, red wine, etc.).</p>
+</div>
+</div>
+<div id="final-shiny-app-code" class="section level1">
+<h1>Final Shiny app code</h1>
+<p>In case you got lost somewhere, here is the final code. The app is now functional, but there are plenty of features you can add to make it better.</p>
+<pre class="r"><code>library(shiny)
 library(ggplot2)
 library(dplyr)
 
@@ -643,8 +653,6 @@ server &lt;- function(input, output, session) {
 }
 
 shinyApp(ui = ui, server = server)</code></pre>
-<p><strong>Exercise:</strong> Change the product type radio buttons to get generated in the server with the values from the dataset, instead of being created in the UI with the values entered manually. If you’re feeling confident, try adding an input for “subtype” that will get re-generated every time a new type is chosen, and will be populated with all the subtype options available (for example, if WINE is selected, then the subtype are white wine, red wine, etc.).</p>
-</div>
 </div>
 <div id="share-your-app-with-the-world" class="section level1">
 <h1>Share your app with the world</h1>
@@ -667,12 +675,25 @@ shinyApp(ui = ui, server = server)</code></pre>
 <p>Shiny is extremely powerful and has lots of features that we haven’t covered. Here’s a sneak peek of just a few other common Shiny features that are not too advanced.</p>
 <div id="shiny-in-rmarkdown" class="section level2">
 <h2>Shiny in Rmarkdown</h2>
-<p>You can include Shiny inputs and outputs in an Rmarkdown document! This means that your Rmakdown document can interactive. Learn more <a href="http://rmarkdown.rstudio.com/authoring_shiny.html">here</a></p>
+<p>You can include Shiny inputs and outputs in an Rmarkdown document! This means that your Rmakdown document can interactive. Learn more <a href="http://rmarkdown.rstudio.com/authoring_shiny.html">here</a>. Here’s a simple example of how to include interactive Shiny elements in an Rmarkdown.</p>
+<pre><code>---
+output: html_document
+runtime: shiny
+---
+
+```{r echo=FALSE}
+sliderInput(&quot;num&quot;, &quot;Choose a number&quot;,
+            0, 100, 20)
+
+renderPlot({
+    plot(seq(input$num))
+})
+```</code></pre>
 </div>
 <div id="use-conditionalpanel-to-conditionally-show-ui-elements" class="section level2">
 <h2>Use conditionalPanel() to conditionally show UI elements</h2>
 <p>You can use <code>conditionalPanel()</code> to either show or hide a UI element based on a simple condition, such as the value of another input. Learn more with <code>?conditionalPanel</code>.</p>
-<pre><code>library(shiny)
+<pre class="r"><code>library(shiny)
 ui &lt;- fluidPage(
   numericInput(&quot;num&quot;, &quot;Number&quot;, 5, 1, 10),
   conditionalPanel(
@@ -683,14 +704,14 @@ ui &lt;- fluidPage(
 server &lt;- function(input, output, session) {}
 shinyApp(ui = ui, server = server)</code></pre>
 </div>
-<div id="use-global.rto-define-bjects-available-to-both-ui.r-and-server.r" class="section level2">
-<h2>Use global.Rto define bjects available to both ui.R and server.R</h2>
+<div id="use-global.r-to-define-bjects-available-to-both-ui.r-and-server.r" class="section level2">
+<h2>Use global.R to define bjects available to both ui.R and server.R</h2>
 <p>If there are objects that you want to have available to both <code>ui.R</code> and <code>server.R</code>, you can place them in <code>global.R</code>. You can learn more about <code>global.R</code> and other scoping rules <a href="http://shiny.rstudio.com/articles/scoping.html">here</a>.</p>
 </div>
 <div id="use-navbarpage-or-tabsetpanel-to-have-multiple-tabs-in-the-ui" class="section level2">
 <h2>Use navbarPage() or tabsetPanel() to have multiple tabs in the UI</h2>
 <p>If your apps requires more than a single “view”, you can have separate tabs. Learn more with <code>?navbarPage</code> or <code>?tabsetPanel</code>.</p>
-<pre><code>library(shiny)
+<pre class="r"><code>library(shiny)
 ui &lt;- fluidPage(
   tabsetPanel(
     tabPanel(&quot;Tab 1&quot;, &quot;Hello&quot;),
@@ -707,7 +728,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <div id="use-updateinput-functions-to-update-input-values-programmatically" class="section level2">
 <h2>Use update*Input() functions to update input values programmatically</h2>
 <p>Any input function has an equivalent <code>update*Input</code> function that can be used to update any of its parameters.</p>
-<pre><code>library(shiny)
+<pre class="r"><code>library(shiny)
 ui &lt;- fluidPage(
   sliderInput(&quot;slider&quot;, &quot;Move me&quot;, value = 5, 1, 10),
   numericInput(&quot;num&quot;, &quot;Number&quot;, value = 5, 1, 10)
@@ -717,8 +738,7 @@ server &lt;- function(input, output, session) {
     updateNumericInput(session, &quot;num&quot;, value = input$slider)
   })
 }
-shinyApp(ui = ui, server = server)
-</code></pre>
+shinyApp(ui = ui, server = server)</code></pre>
 </div>
 <div id="add-images" class="section level2">
 <h2>Add images</h2>
@@ -727,7 +747,7 @@ shinyApp(ui = ui, server = server)
 <div id="add-javascriptcss" class="section level2">
 <h2>Add JavaScript/CSS</h2>
 <p>If you know JavaScript or CSS you are more than welcome to use some in your app.</p>
-<pre><code>library(shiny)
+<pre class="r"><code>library(shiny)
 ui &lt;- fluidPage(
   tags$head(tags$script(&quot;alert(&#39;Hello!&#39;);&quot;)),
   tags$head(tags$style(&quot;body{ color: blue; }&quot;)),
