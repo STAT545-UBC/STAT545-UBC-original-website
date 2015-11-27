@@ -102,8 +102,8 @@ img {
 <li><a href="#create-an-empty-shiny-app">Create an empty Shiny app</a><ul>
 <li><a href="#alternate-way-to-create-app-template-using-rstudio">Alternate way to create app template: using RStudio</a></li>
 </ul></li>
-<li><a href="#our-dataset">Our dataset</a></li>
-<li><a href="#building-the-basic-ui">Building the basic UI</a><ul>
+<li><a href="#load-the-dataset">Load the dataset</a></li>
+<li><a href="#build-the-ui">Build the UI</a><ul>
 <li><a href="#add-simple-text-to-the-ui">Add simple text to the UI</a></li>
 <li><a href="#add-formatted-text-and-other-html-elements">Add formatted text and other HTML elements</a></li>
 <li><a href="#add-a-title">Add a title</a></li>
@@ -118,6 +118,12 @@ img {
 <li><a href="#output-for-a-plot-of-the-results">Output for a plot of the results</a></li>
 <li><a href="#output-for-a-table-summary-of-the-results">Output for a table summary of the results</a></li>
 </ul></li>
+</ul></li>
+<li><a href="#implement-server-logic-to-create-outputs">Implement server logic to create outputs</a><ul>
+<li><a href="#building-an-output">Building an output</a></li>
+<li><a href="#making-an-output-react-to-an-input">Making an output react to an input</a></li>
+<li><a href="#building-the-plot-output">Building the plot output</a></li>
+<li><a href="#building-the-table-output">Building the table output</a></li>
 </ul></li>
 <li><a href="#homework">Homework</a></li>
 </ul>
@@ -166,17 +172,20 @@ shinyApp(ui = ui, server = server)</code></pre>
 <p><strong>Exercise:</strong> Try creating a new Shiny app using RStudio’s menu. Make sure that app runs. Next, try making a new Shiny app by manually creating the two files <code>ui.R</code> and <code>server.R</code>. Rememeber that they have to be in the same folder. Also remember to put them in a <em>new, isolated</em> folder.</p>
 </div>
 </div>
-<div id="our-dataset" class="section level1">
-<h1>Our dataset</h1>
+<div id="load-the-dataset" class="section level1">
+<h1>Load the dataset</h1>
 <p>The dataset we’ll be using contains information about all the products sold by BC Liquor Store and is provided by <a href="https://www.opendatabc.ca/dataset/bc-liquor-store-product-price-list-current-prices">OpenDataBC</a>. They provide a direct link to download a <em>csv</em> version of the data, and this data has the rare quality that it is immediately clean and useful. You can view the <a href="http://pub.data.gov.bc.ca/datasets/176284/BC_Liquor_Store_Product_Price_List.csv">raw data</a> they provide, but I have taken a few steps to simplify the dataset to make it more useful for our app. I removed some columns, renamed other columns, and dropped a few rare factor levels.</p>
-<p>The processed dataset we’ll be using in this app is available <a href="http://deanattali.com/files/bcl-data.csv">here</a> - download it now. Put this file in the same folder that has your Shiny app. We’ll load it into the app later, but for now just download it and take a peek at what it looks like.</p>
+<p>The processed dataset we’ll be using in this app is available <a href="http://deanattali.com/files/bcl-data.csv">here</a> - download it now. Put this file in the same folder that has your Shiny app.</p>
+<p>Add a line in your app to load the data into a variable called <code>bcl</code>. It should look something like this</p>
+<pre><code>bcl &lt;- read.csv(&quot;bcl-data.csv&quot;, stringsAsFactors = FALSE)</code></pre>
+<p>Place this line in your app as the second line, just after <code>library(shiny)</code>. Make sure the file path and file name are correct, otherwise your app won’t run. Try to run the app to make sure the file can be loaded without errors.</p>
 <blockquote>
 <p>In case you’re curious, the code I used to process the raw data into the data we’ll be using is available <a href="https://gist.github.com/daattali/56b9fa8f3e99174fba63">as a gist</a>.</p>
 </blockquote>
 <p><strong>Exercise:</strong> Load the data file into R and get a feel for what’s in it. How big is it, what variables are there, what are the normal price ranges, etc.</p>
 </div>
-<div id="building-the-basic-ui" class="section level1">
-<h1>Building the basic UI</h1>
+<div id="build-the-ui" class="section level1">
+<h1>Build the UI</h1>
 <p>Let’s start populating our app with some elements visually. This is usually the first thing you do when writing a Shiny app - add elements to the UI.</p>
 <div id="add-simple-text-to-the-ui" class="section level2">
 <h2>Add simple text to the UI</h2>
@@ -201,6 +210,9 @@ shinyApp(ui = ui, server = server)</code></pre>
   strong(&quot;prices&quot;)
 )</code></pre>
 <p>Run the app with this code as the UI. Notice the formatting of the text and understand why it is rendered that way.</p>
+<blockquote>
+<p>For people who know basic HTML: any named argument you pass to an HTML function becomes an attribute of the HTML element, and any unnamed argument will be a child of the element. That means that you can, for example, create blue text with <code>div(&quot;this is blue&quot;, style = &quot;color: blue;&quot;)</code>.</p>
+</blockquote>
 <p><strong>Exercise:</strong> Experiment with different HTML-wrapper functions inside <code>fluidPage()</code>. Run the <code>fluidPage(...)</code> function in the console and see the HTML that it creates.</p>
 </div>
 <div id="add-a-title" class="section level2">
@@ -223,6 +235,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <p>Remember that all the arguments inside <code>fluidPage()</code> need to be separated by commas.</p>
 <p>So far our complete app looks like this (hopefully this isn’t a surprise to you)</p>
 <pre><code>library(shiny)
+bcl &lt;- read.csv(&quot;bcl-data.csv&quot;, stringsAsFactors = FALSE)
 
 ui &lt;- fluidPage(
   titlePanel(&quot;BC Liquor Store prices&quot;),
@@ -290,6 +303,7 @@ shinyApp(ui = ui, server = server)</code></pre>
             choices = c(&quot;CANADA&quot;, &quot;FRANCE&quot;, &quot;ITALY&quot;))</code></pre>
 <p>Add this function as well to your app. If you followed along, your entire app should have this code:</p>
 <pre><code>library(shiny)
+bcl &lt;- read.csv(&quot;bcl-data.csv&quot;, stringsAsFactors = FALSE)
 
 ui &lt;- fluidPage(
   titlePanel(&quot;BC Liquor Store prices&quot;),
@@ -332,6 +346,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <p>Add this output to the <code>mainPanel()</code> as well. Maybe add a couple <code>br()</code> in between the two outputs, just as a space buffer so that they aren’t too close to each other.</p>
 <p>If you’ve followed along, your app should now have this code:</p>
 <pre><code>library(shiny)
+bcl &lt;- read.csv(&quot;bcl-data.csv&quot;, stringsAsFactors = FALSE)
 
 ui &lt;- fluidPage(
   titlePanel(&quot;BC Liquor Store prices&quot;),
@@ -356,6 +371,123 @@ server &lt;- function(input, output, session) {}
 
 shinyApp(ui = ui, server = server)</code></pre>
 </div>
+</div>
+</div>
+<div id="implement-server-logic-to-create-outputs" class="section level1">
+<h1>Implement server logic to create outputs</h1>
+<p>So far we only wrote code inside that was assigned to the <code>ui</code> variable (or code that was written in <code>ui.R</code>). That’s usually the easier part of a Shiny app. Now we have to write the <code>server</code> function, which will be responsible for listening to changes to the inputs and creating outputs to show in the app.</p>
+<div id="building-an-output" class="section level2">
+<h2>Building an output</h2>
+<p>Recall that we created two output placeholders: <em>coolplot</em> (a plot) and <em>summary</em> (a table). We need to write code in R that will tell Shiny what kind of plot or table to display. There are three rules to build an output in Shiny.</p>
+<ol style="list-style-type: decimal">
+<li>Save the output object into the <code>output</code> list (remember the app template - every server function has an <code>output</code> argument)<br />
+</li>
+<li>Build the object with a <code>render*</code> function, where <code>*</code> is the type of output</li>
+<li>Access input values using the <code>input</code> list (every server function has an <code>input</code> argument)</li>
+</ol>
+<p>The third rule is only required if you want your output to depend on some input, so let’s first see how to build a very basic output using only the first two rules. We’ll create a plot and send it to the <em>coolplot</em> output.</p>
+<pre><code>output$coolplot &lt;- renderPlot({
+  plot(rnorm(100))
+})</code></pre>
+<p>This simple code shows the first two rules: we’re creating a plot inside the <code>renderPlot()</code> function, and assigning it to <em>coolplot</em> in the <code>output</code> list. Remember that every output creatd in the UI must have a unique ID, now we see why. In order to attach an R object to an output with ID <em>x</em>, we assign the R object to <code>output$x</code>.</p>
+<p>Since <em>coolplot</em> was defined as a <code>plotOutput</code>, we must use the <code>renderPlot</code> function, and we must create a plot inside the <code>renderPlot</code> function.</p>
+<p>If you add the code above inside the server function, you should see a plot with 100 random points in the app.</p>
+<p><strong>Exercise:</strong> The code inside <code>renderPlot()</code> doesn’t have to be only one line, it can be as long as you’d like as long as it returns a plot. Try making a more complex plot using <code>ggplot2</code>. The plot doesn’t have to use our dataset, it could be anything, just to make sure you can use <code>renderPlot()</code>.</p>
+</div>
+<div id="making-an-output-react-to-an-input" class="section level2">
+<h2>Making an output react to an input</h2>
+<p>Now we’ll take the plot one step further. Instead of always plotting the same plot (100 random numbers), let’s use the minimum price selected as the number of points to show. It doesn’t make too much sense, but it’s just to learn how to make an output depend on an input.</p>
+<pre><code>output$coolplot &lt;- renderPlot({
+  plot(rnorm(input$priceInput[1]))
+})</code></pre>
+<p>Replace the code previously in your server function with this code, and run the app. Whenever you choose a new minimum price range, the plot will update with a new number of points. Notice that the only thing different in the code is that instead of using the number <code>100</code> we are using <code>input$priceInput[1]</code>.</p>
+<p>What does this mean? Just like the variable <code>output</code> contains a list of all the outputs (and we need to assign code into them), the variable <code>input</code> contains a list of all the inputs that are defined in the UI. <code>input$priceInput</code> return a vector of length 2 containing the miminimum and maximum price. Whenever the user manipulates the slider in the app, these values are updated, and whatever code relies on it gets re-evaluated. This is a concept known as <strong>reactivity</strong>.</p>
+</div>
+<div id="building-the-plot-output" class="section level2">
+<h2>Building the plot output</h2>
+<p>Now we have all the knowledge required to build a plot visualizing some aspect of the data. We’ll create a simple histogram of the alcohol content of the products.</p>
+<p>First we need to make sure <code>ggplot2</code> is loaded, so add a <code>library(ggplot2)</code> at the top.</p>
+<p>Next we’ll make return a histogram of alcohol content from <code>renderPlot()</code>. Let’s start with just a histogram of the whole data, unfiltered.</p>
+<pre><code>output$coolplot &lt;- renderPlot({
+  ggplot(bcl, aes(Alcohol_Content)) +
+    geom_histogram()
+})</code></pre>
+<p>If you run the app with this code inside your server, you sohuld see a histogram in the app. But if you change the input values, nothing happens yet, so the next step is to actually filter the dataset based on the inputs.</p>
+<p>Recall that we have 3 inputs: <code>priceInput</code>, <code>typeInput</code>, and <code>countryInput</code>. We can filter the data based on the values of these three inputs. We’ll use <code>dplyr</code> functions to filter the data, so be sure to include <code>dplyr</code> at the top. Then we’ll plot the filtered data instead of the original data.</p>
+<pre><code>output$coolplot &lt;- renderPlot({
+  filtered &lt;-
+    bcl %&gt;%
+    filter(Price &gt;= input$priceInput[1],
+           Price &lt;= input$priceInput[2],
+           Type == input$typeInput,
+           Country == input$countryInput
+    )
+  ggplot(filtered, aes(Alcohol_Content)) +
+    geom_histogram()
+})</code></pre>
+<p>Place this code in your server function and run the app. If you change any input, you should see the histogram update. The way I know the histogram is correct is by noticing that the alcohol content is about 5% when I selecte beer, 40% for spirits, and 13% for wine. That sounds right.</p>
+<p>Read this code and understand it. You’ve successfully created an interactive app - the plot is changing according to the user’s selection.</p>
+<p>To make sure we’re on the same page, here is what your code should look like at this point:</p>
+<pre><code>library(shiny)
+library(ggplot2)
+library(dplyr)
+
+bcl &lt;- read.csv(&quot;bcl.csv&quot;, stringsAsFactors = FALSE)
+
+ui &lt;- fluidPage(
+  titlePanel(&quot;BC Liquor Store prices&quot;),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput(&quot;priceInput&quot;, &quot;Price&quot;, 0, 100, c(25, 40), pre = &quot;$&quot;),
+      radioButtons(&quot;typeInput&quot;, &quot;Product type&quot;,
+                  choices = c(&quot;BEER&quot;, &quot;REFRESHMENT&quot;, &quot;SPIRITS&quot;, &quot;WINE&quot;),
+                  selected = &quot;WINE&quot;),
+      selectInput(&quot;countryInput&quot;, &quot;Country&quot;,
+                  choices = c(&quot;CANADA&quot;, &quot;FRANCE&quot;, &quot;ITALY&quot;))
+    ),
+    mainPanel(
+      plotOutput(&quot;coolplot&quot;),
+      br(), br(),
+      tableOutput(&quot;results&quot;)
+    )
+  )
+)
+
+server &lt;- function(input, output, session) {
+  output$coolplot &lt;- renderPlot({
+    filtered &lt;-
+      bcl %&gt;%
+      filter(Price &gt;= input$priceInput[1],
+             Price &lt;= input$priceInput[2],
+             Type == input$typeInput,
+             Country == input$countryInput
+      )
+    ggplot(filtered, aes(Alcohol_Content)) +
+      geom_histogram()
+  })
+}
+
+shinyApp(ui = ui, server = server)</code></pre>
+<p><img src="img/shiny-addplot.png" alt="Shiny add plot" /></p>
+<p><strong>Exercise:</strong> The current plot doesn’t look very nice, you could enhance the plot and make it much more pleasant to look at.</p>
+</div>
+<div id="building-the-table-output" class="section level2">
+<h2>Building the table output</h2>
+<p>Building the next output should be much easier now that we’ve done it once. The other output we have was called <code>results</code> (as defined in the UI) and should be a table of all the products that match the filters. Since it’s a table output, we should use the <code>renderTable()</code> function. We’ll do the exact same filtering on the data, and then simply return the data as a data.frame, and Shiny will know that it needs to display it as a table because it’s defined as a <code>tableOutput</code>.</p>
+<p>The code for creating the table output should make sense to you without too much explanation:</p>
+<pre><code>output$results &lt;- renderTable({
+  filtered &lt;-
+    bcl %&gt;%
+    filter(Price &gt;= input$priceInput[1],
+           Price &lt;= input$priceInput[2],
+           Type == input$typeInput,
+           Country == input$countryInput
+    )
+  filtered
+})</code></pre>
+<p>Add this code to your server. Don’t overwrite the previous definition of <code>output$coolplot</code>, just add this code before or after that, but inside the server function. Run your app, and be amazed! You can now see a table showing all the products at the BC Liquor Store that match your criteria.</p>
+<p><strong>Exercise:</strong> Add a new output. Either a new plot, a new table, or some piece of text that changes based on the inputs. For example, you could add a text output (<code>textOutput()</code> in the UI, <code>renderText()</code> in the server) that says how many results were found. If you choose to do this, I recommend first adding the output to the UI, then building the output in the server with static text to make sure you have the syntax correct, and only once you can see the text output in your app you should make it reflect the inputs. Protip: since <code>textOutput()</code> is written in the UI, you can wrap it in other UI functions. For example, <code>h2(textOutput(...))</code> will result in larger text.</p>
+<p>reactivity uiOutput</p>
 </div>
 </div>
 <div id="homework" class="section level1">

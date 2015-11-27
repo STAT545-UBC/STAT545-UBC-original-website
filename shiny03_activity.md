@@ -69,17 +69,25 @@ FYI: You can also create a new Shiny app using RStudio's menu by selecting *File
 
 **Exercise:** Try creating a new Shiny app using RStudio's menu. Make sure that app runs. Next, try making a new Shiny app by manually creating the two files `ui.R` and `server.R`. Rememeber that they have to be in the same folder. Also remember to put them in a *new, isolated* folder.
 
-# Our dataset
+# Load the dataset
 
 The dataset we'll be using contains information about all the products sold by BC Liquor Store and is provided by [OpenDataBC](https://www.opendatabc.ca/dataset/bc-liquor-store-product-price-list-current-prices). They provide a direct link to download a *csv* version of the data, and this data has the rare quality that it is immediately clean and useful. You can view the [raw data](http://pub.data.gov.bc.ca/datasets/176284/BC_Liquor_Store_Product_Price_List.csv) they provide, but I have taken a few steps to simplify the dataset to make it more useful for our app. I removed some columns, renamed other columns, and dropped a few rare factor levels.
 
-The processed dataset we'll be using in this app is available [here](http://deanattali.com/files/bcl-data.csv) - download it now.  Put this file in the same folder that has your Shiny app. We'll load it into the app later, but for now just download it and take a peek at what it looks like.
+The processed dataset we'll be using in this app is available [here](http://deanattali.com/files/bcl-data.csv) - download it now.  Put this file in the same folder that has your Shiny app.
+
+Add a line in your app to load the data into a variable called `bcl`. It should look something like this
+
+```
+bcl <- read.csv("bcl-data.csv", stringsAsFactors = FALSE)
+```
+
+Place this line in your app as the second line, just after `library(shiny)`.  Make sure the file path and file name are correct, otherwise your app won't run. Try to run the app to make sure the file can be loaded without errors.
 
 > In case you're curious, the code I used to process the raw data into the data we'll be using is available [as a gist](https://gist.github.com/daattali/56b9fa8f3e99174fba63).
 
 **Exercise:** Load the data file into R and get a feel for what's in it. How big is it, what variables are there, what are the normal price ranges, etc.
 
-# Building the basic UI
+# Build the UI
 
 Let's start populating our app with some elements visually. This is usually the first thing you do when writing a Shiny app - add elements to the UI.
 
@@ -120,6 +128,8 @@ fluidPage(
 
 Run the app with this code as the UI. Notice the formatting of the text and understand why it is rendered that way.
 
+> For people who know basic HTML: any named argument you pass to an HTML function becomes an attribute of the HTML element, and any unnamed argument will be a child of the element. That means that you can, for example, create blue text with `div("this is blue", style = "color: blue;")`.
+
 **Exercise:** Experiment with different HTML-wrapper functions inside `fluidPage()`. Run the `fluidPage(...)` function in the console and see the HTML that it creates.
 
 ## Add a title
@@ -155,6 +165,7 @@ So far our complete app looks like this (hopefully this isn't a surprise to you)
 
 ```
 library(shiny)
+bcl <- read.csv("bcl-data.csv", stringsAsFactors = FALSE)
 
 ui <- fluidPage(
   titlePanel("BC Liquor Store prices"),
@@ -254,6 +265,7 @@ Add this function as well to your app.  If you followed along, your entire app s
 
 ```
 library(shiny)
+bcl <- read.csv("bcl-data.csv", stringsAsFactors = FALSE)
 
 ui <- fluidPage(
   titlePanel("BC Liquor Store prices"),
@@ -313,6 +325,7 @@ If you've followed along, your app should now have this code:
 
 ```
 library(shiny)
+bcl <- read.csv("bcl-data.csv", stringsAsFactors = FALSE)
 
 ui <- fluidPage(
   titlePanel("BC Liquor Store prices"),
@@ -337,6 +350,162 @@ server <- function(input, output, session) {}
 
 shinyApp(ui = ui, server = server)
 ```
+
+# Implement server logic to create outputs
+
+So far we only wrote code inside that was assigned to the `ui` variable (or code that was written in `ui.R`). That's usually the easier part of a Shiny app. Now we have to write the `server` function, which will be responsible for listening to changes to the inputs and creating outputs to show in the app.
+
+## Building an output
+
+Recall that we created two output placeholders: *coolplot* (a plot) and *summary* (a table). We need to write code in R that will tell Shiny what kind of plot or table to display. There are three rules to build an output in Shiny. 
+
+1. Save the output object into the `output` list (remember the app template - every server function has an `output` argument)  
+2. Build the object with a `render*` function, where `*` is the type of output
+3. Access input values using the `input` list (every server function has an `input` argument)
+
+The third rule is only required if you want your output to depend on some input, so let's first see how to build a very basic output using only the first two rules. We'll create a plot and send it to the *coolplot* output. 
+
+```
+output$coolplot <- renderPlot({
+  plot(rnorm(100))
+})
+```
+
+This simple code shows the first two rules: we're creating a plot inside the `renderPlot()` function, and assigning it to *coolplot* in the `output` list. Remember that every output creatd in the UI must have a unique ID, now we see why. In order to attach an R object to an output with ID *x*, we assign the R object to `output$x`.
+
+Since *coolplot* was defined as a `plotOutput`, we must use the `renderPlot` function, and we must create a plot inside the `renderPlot` function.
+
+If you add the code above inside the server function, you should see a plot with 100 random points in the app.
+
+**Exercise:** The code inside `renderPlot()` doesn't have to be only one line, it can be as long as you'd like as long as it returns a plot. Try making a more complex plot using `ggplot2`. The plot doesn't have to use our dataset, it could be anything, just to make sure you can use `renderPlot()`.
+
+## Making an output react to an input
+
+Now we'll take the plot one step further. Instead of always plotting the same plot (100 random numbers), let's use the minimum price selected as the number of points to show. It doesn't make too much sense, but it's just to learn how to make an output depend on an input.
+
+```
+output$coolplot <- renderPlot({
+  plot(rnorm(input$priceInput[1]))
+})
+```
+
+Replace the code previously in your server function with this code, and run the app. Whenever you choose a new minimum price range, the plot will update with a new number of points. Notice that the only thing different in the code is that instead of using the number `100` we are using `input$priceInput[1]`. 
+
+What does this mean? Just like the variable `output` contains a list of all the outputs (and we need to assign code into them), the variable `input` contains a list of all the inputs that are defined in the UI. `input$priceInput` return a vector of length 2 containing the miminimum and maximum price. Whenever the user manipulates the slider in the app, these values are updated, and whatever code relies on it gets re-evaluated. This is a concept known as **reactivity**.
+
+## Building the plot output
+
+Now we have all the knowledge required to build a plot visualizing some aspect of the data. We'll create a simple histogram of the alcohol content of the products. 
+
+First we need to make sure `ggplot2` is loaded, so add a `library(ggplot2)` at the top.
+
+Next we'll make return a histogram of alcohol content from `renderPlot()`. Let's start with just a histogram of the whole data, unfiltered.
+
+```
+output$coolplot <- renderPlot({
+  ggplot(bcl, aes(Alcohol_Content)) +
+    geom_histogram()
+})
+```
+
+If you run the app with this code inside your server, you sohuld see a histogram in the app.  But if you change the input values, nothing happens yet, so the next step is to actually filter the dataset based on the inputs.
+
+Recall that we have 3 inputs: `priceInput`, `typeInput`, and `countryInput`. We can filter the data based on the values of these three inputs. We'll use `dplyr` functions to filter the data, so be sure to include `dplyr` at the top. Then we'll plot the filtered data instead of the original data.
+
+```
+output$coolplot <- renderPlot({
+  filtered <-
+    bcl %>%
+    filter(Price >= input$priceInput[1],
+           Price <= input$priceInput[2],
+           Type == input$typeInput,
+           Country == input$countryInput
+    )
+  ggplot(filtered, aes(Alcohol_Content)) +
+    geom_histogram()
+})
+```
+
+Place this code in your server function and run the app. If you change any input, you should see the histogram update. The way I know the histogram is correct is by noticing that the alcohol content is about 5% when I selecte beer, 40% for spirits, and 13% for wine. That sounds right.
+
+Read this code and understand it. You've successfully created an interactive app - the plot is changing according to the user's selection.
+
+To make sure we're on the same page, here is what your code should look like at this point:
+
+```
+library(shiny)
+library(ggplot2)
+library(dplyr)
+
+bcl <- read.csv("bcl.csv", stringsAsFactors = FALSE)
+
+ui <- fluidPage(
+  titlePanel("BC Liquor Store prices"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("priceInput", "Price", 0, 100, c(25, 40), pre = "$"),
+      radioButtons("typeInput", "Product type",
+                  choices = c("BEER", "REFRESHMENT", "SPIRITS", "WINE"),
+                  selected = "WINE"),
+      selectInput("countryInput", "Country",
+                  choices = c("CANADA", "FRANCE", "ITALY"))
+    ),
+    mainPanel(
+      plotOutput("coolplot"),
+      br(), br(),
+      tableOutput("results")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  output$coolplot <- renderPlot({
+    filtered <-
+      bcl %>%
+      filter(Price >= input$priceInput[1],
+             Price <= input$priceInput[2],
+             Type == input$typeInput,
+             Country == input$countryInput
+      )
+    ggplot(filtered, aes(Alcohol_Content)) +
+      geom_histogram()
+  })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+![Shiny add plot](./img/shiny-addplot.png)
+
+**Exercise:** The current plot doesn't look very nice, you could enhance the plot and make it much more pleasant to look at.
+
+## Building the table output
+
+Building the next output should be much easier now that we've done it once.  The other output we have was called `results` (as defined in the UI) and should be a table of all the products that match the filters.  Since it's a table output, we should use the `renderTable()` function. We'll do the exact same filtering on the data, and then simply return the data as a data.frame, and Shiny will know that it needs to display it as a table because it's defined as a `tableOutput`.
+
+The code for creating the table output should make sense to you without too much explanation:
+
+```
+output$results <- renderTable({
+  filtered <-
+    bcl %>%
+    filter(Price >= input$priceInput[1],
+           Price <= input$priceInput[2],
+           Type == input$typeInput,
+           Country == input$countryInput
+    )
+  filtered
+})
+```
+
+Add this code to your server. Don't overwrite the previous definition of `output$coolplot`, just add this code before or after that, but inside the server function. Run your app, and be amazed! You can now see a table showing all the products at the BC Liquor Store that match your criteria. 
+
+**Exercise:** Add a new output. Either a new plot, a new table, or some piece of text that changes based on the inputs. For example, you could add a text output (`textOutput()` in the UI, `renderText()` in the server) that says how many results were found. If you choose to do this, I recommend first adding the output to the UI, then building the output in the server with static text to make sure you have the syntax correct, and only once you can see the text output in your app you should make it reflect the inputs. Protip: since `textOutput()` is written in the UI, you can wrap it in other UI functions. For example, `h2(textOutput(...))` will result in larger text.
+
+
+
+reactivity
+uiOutput
 
 
 
