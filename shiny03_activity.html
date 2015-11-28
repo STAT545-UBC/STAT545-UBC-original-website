@@ -738,10 +738,12 @@ shinyApp(ui = ui, server = server)</code></pre>
 </div>
 <div id="scoping-rules-in-shiny-apps" class="section level2">
 <h2>Scoping rules in Shiny apps</h2>
-<p>Scoping is very important to understand in Shiny once you want to support more than one user at a time. Since your app can be hosted online, multiple users can use your app simultaneously</p>
+<p>Scoping is very important to understand in Shiny once you want to support more than one user at a time. Since your app can be hosted online, multiple users can use your app simultaneously. If there are any variables (such as datasets or global parameters) that should be shared by all users, then you can safely define them globally. But any variable that should be specific to each user’s session should be not be defined globally.</p>
+<p>You can think of the <code>server</code> function as a sandbox for each user. Any code outside of the server function is run once and is shared by all the instances of your Shiny app. Any code inside the server is run once <em>for every user that visits your app</em>. This means that any user-specific variables should be defined inside server. If you look at the code in our BC Liquor Store app, you’ll see that we followed this rule: the raw dataset was loaded outside the server and is therefore available to all users, but the <code>filtered</code> object is constructed inside the server so that every user has their own version of it. If <code>filtered</code> was a global variable, then when one user changes the values in your app, all other users connected to your app would see the change happen.</p>
+<p>You can learn more about the scoping rules in Shiny <a href="http://shiny.rstudio.com/articles/scoping.html">here</a>.</p>
 </div>
-<div id="use-global.r-to-define-bjects-available-to-both-ui.r-and-server.r" class="section level2">
-<h2>Use global.R to define bjects available to both ui.R and server.R</h2>
+<div id="use-global.r-to-define-objects-available-to-both-ui.r-and-server.r" class="section level2">
+<h2>Use global.R to define objects available to both ui.R and server.R</h2>
 <p>If there are objects that you want to have available to both <code>ui.R</code> and <code>server.R</code>, you can place them in <code>global.R</code>. You can learn more about <code>global.R</code> and other scoping rules <a href="http://shiny.rstudio.com/articles/scoping.html">here</a>.</p>
 </div>
 <div id="add-images" class="section level2">
