@@ -706,7 +706,7 @@ library(shiny)
 library(ggplot2)
 library(dplyr)
 
-bcl <- read.csv("bcl.csv", stringsAsFactors = FALSE)
+bcl <- read.csv("bcl-data.csv", stringsAsFactors = FALSE)
 
 ui <- fluidPage(
   titlePanel("BC Liquor Store prices"),
@@ -827,10 +827,6 @@ server <- function(input, output, session) {}
 shinyApp(ui = ui, server = server)
 ```
 
-## Use global.R to define bjects available to both ui.R and server.R
-
-If there are objects that you want to have available to both `ui.R` and `server.R`, you can place them in `global.R`. You can learn more about `global.R` and other scoping rules [here](http://shiny.rstudio.com/articles/scoping.html). 
-
 ## Use navbarPage() or tabsetPanel() to have multiple tabs in the UI
 
 If your apps requires more than a single "view", you can have separate tabs. Learn more with `?navbarPage` or `?tabsetPanel`.
@@ -871,6 +867,14 @@ server <- function(input, output, session) {
 shinyApp(ui = ui, server = server)
 ```
 
+## Scoping rules in Shiny apps
+
+Scoping is very important to understand in Shiny once you want to support more than one user at a time. Since your app can be hosted online, multiple users can use your app simultaneously
+
+## Use global.R to define bjects available to both ui.R and server.R
+
+If there are objects that you want to have available to both `ui.R` and `server.R`, you can place them in `global.R`. You can learn more about `global.R` and other scoping rules [here](http://shiny.rstudio.com/articles/scoping.html). 
+
 ## Add images 
 
 You can add an image to your Shiny app by placing an image under the "www/" folder and using the UI function `img(src = "image.png")`. Shiny will know to automatically look in the "www/" folder for the image.
@@ -893,6 +897,8 @@ server <- function(input, output, session) {
 shinyApp(ui = ui, server = server)
 ```
 
+If you do want to add some JavaScript or use common JavaScript functions in your apps, you might want to check out [shinyjs](https://github.com/daattali/shinyjs).
+
 # Awesome add-on packages to Shiny
 
 Many people have written packages that enhance Shiny in some way or add extra functionality.  Here is a list of several popular packages that people often use together with Shiny:
@@ -909,7 +915,7 @@ Shiny is a very popular package and has lots of resources on the web. Here's a c
 
 - [Shiny official tutorial](http://shiny.rstudio.com/tutorial)
 - [Shiny cheatsheet](http://shiny.rstudio.com/images/shiny-cheatsheet.pdf)
-- [Lots of short useful topics](http://shiny.rstudio.com/articles)
+- [Lots of short useful articles about different topics in Shiny - **highly recommended**](http://shiny.rstudio.com/articles)
 - [Shiny in Rmarkdown](http://rmarkdown.rstudio.com/authoring_shiny.html)
 - Get help from the [Shiny Google group](https://groups.google.com/forum/#!forum/shiny-discuss) or [StackOverflow](http://stackoverflow.com/questions/tagged/shiny)
 - [Publish your apps for free with shinyapps.io](http://www.shinyapps.io)

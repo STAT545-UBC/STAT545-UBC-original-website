@@ -599,7 +599,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 library(ggplot2)
 library(dplyr)
 
-bcl &lt;- read.csv(&quot;bcl.csv&quot;, stringsAsFactors = FALSE)
+bcl &lt;- read.csv(&quot;bcl-data.csv&quot;, stringsAsFactors = FALSE)
 
 ui &lt;- fluidPage(
   titlePanel(&quot;BC Liquor Store prices&quot;),
@@ -704,10 +704,6 @@ ui &lt;- fluidPage(
 server &lt;- function(input, output, session) {}
 shinyApp(ui = ui, server = server)</code></pre>
 </div>
-<div id="use-global.r-to-define-bjects-available-to-both-ui.r-and-server.r" class="section level2">
-<h2>Use global.R to define bjects available to both ui.R and server.R</h2>
-<p>If there are objects that you want to have available to both <code>ui.R</code> and <code>server.R</code>, you can place them in <code>global.R</code>. You can learn more about <code>global.R</code> and other scoping rules <a href="http://shiny.rstudio.com/articles/scoping.html">here</a>.</p>
-</div>
 <div id="use-navbarpage-or-tabsetpanel-to-have-multiple-tabs-in-the-ui" class="section level2">
 <h2>Use navbarPage() or tabsetPanel() to have multiple tabs in the UI</h2>
 <p>If your apps requires more than a single “view”, you can have separate tabs. Learn more with <code>?navbarPage</code> or <code>?tabsetPanel</code>.</p>
@@ -740,6 +736,14 @@ server &lt;- function(input, output, session) {
 }
 shinyApp(ui = ui, server = server)</code></pre>
 </div>
+<div id="scoping-rules-in-shiny-apps" class="section level2">
+<h2>Scoping rules in Shiny apps</h2>
+<p>Scoping is very important to understand in Shiny once you want to support more than one user at a time. Since your app can be hosted online, multiple users can use your app simultaneously</p>
+</div>
+<div id="use-global.r-to-define-bjects-available-to-both-ui.r-and-server.r" class="section level2">
+<h2>Use global.R to define bjects available to both ui.R and server.R</h2>
+<p>If there are objects that you want to have available to both <code>ui.R</code> and <code>server.R</code>, you can place them in <code>global.R</code>. You can learn more about <code>global.R</code> and other scoping rules <a href="http://shiny.rstudio.com/articles/scoping.html">here</a>.</p>
+</div>
 <div id="add-images" class="section level2">
 <h2>Add images</h2>
 <p>You can add an image to your Shiny app by placing an image under the “www/” folder and using the UI function <code>img(src = &quot;image.png&quot;)</code>. Shiny will know to automatically look in the “www/” folder for the image.</p>
@@ -757,6 +761,7 @@ server &lt;- function(input, output, session) {
   
 }
 shinyApp(ui = ui, server = server)</code></pre>
+<p>If you do want to add some JavaScript or use common JavaScript functions in your apps, you might want to check out <a href="https://github.com/daattali/shinyjs">shinyjs</a>.</p>
 </div>
 </div>
 <div id="awesome-add-on-packages-to-shiny" class="section level1">
@@ -776,7 +781,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <ul>
 <li><a href="http://shiny.rstudio.com/tutorial">Shiny official tutorial</a></li>
 <li><a href="http://shiny.rstudio.com/images/shiny-cheatsheet.pdf">Shiny cheatsheet</a></li>
-<li><a href="http://shiny.rstudio.com/articles">Lots of short useful topics</a></li>
+<li><a href="http://shiny.rstudio.com/articles">Lots of short useful articles about different topics in Shiny - <strong>highly recommended</strong></a></li>
 <li><a href="http://rmarkdown.rstudio.com/authoring_shiny.html">Shiny in Rmarkdown</a></li>
 <li>Get help from the <a href="https://groups.google.com/forum/#!forum/shiny-discuss">Shiny Google group</a> or <a href="http://stackoverflow.com/questions/tagged/shiny">StackOverflow</a></li>
 <li><a href="http://www.shinyapps.io">Publish your apps for free with shinyapps.io</a></li>
