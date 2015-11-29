@@ -614,3 +614,4 @@ back to [All the package things](packages00_index.html)
 
 [Suggest an edit to this page ...](https://github.com/STAT545-UBC/STAT545-UBC.github.io/edit/master/packages05_foofactors-package-02.Rmd)
 
+<!-- notes to self: NA handling of table is anothing thing freq_out could improve upon -->
