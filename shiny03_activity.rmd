@@ -18,9 +18,9 @@ Shiny is a package from RStudio that can be used to build interactive web pages 
 
 You can do quite a lot with Shiny: think of it as an easy way to make an interactive web page, and that web page can seamlessly interact with R and display R objects (plots, tables, of anything else you do in R). To get a sense of the wide range of things you can do with Shiny, you can visit [ShowMeShiny.com](http://www.showmeshiny.com/), which is a gallery of user-submitted Shiny apps. 
 
-This tutorial is a hands-on activity complement to a set of [presentation slides](https://docs.google.com/presentation/d/1dXhqqsD7dPOOdcC5Y7RW--dEU7UfU52qlb0YD3kKeLw/edit?usp=sharing) for learning how to build Shiny apps. In this activity, we'll walk through all the steps of building a Shiny app that lets you explore the products available at the BC Liquor Store. The final version of the app, including a few extra features that are left as exercises for the reader, [can be seen here](http://daattali.com/shiny/bcl/). Any activity deemed as an exercise throughout this tutorial is not mandatory for building our app, but they are good for getting more practice with Shiny.
+This tutorial is a hands-on activity complement to a set of [presentation slides](https://docs.google.com/presentation/d/1dXhqqsD7dPOOdcC5Y7RW--dEU7UfU52qlb0YD3kKeLw/edit?usp=sharing) for learning how to build Shiny apps. In this activity, we'll walk through all the steps of building a Shiny app using a dataset that lets you explore the products available at the BC Liquor Store. The final version of the app, including a few extra features that are left as exercises for the reader, [can be seen here](http://daattali.com/shiny/bcl/). Any activity deemed as an exercise throughout this tutorial is not mandatory for building our app, but they are good for getting more practice with Shiny.
 
-As an alternative tutorial, I highly recommend the [official Shiny tutorial](http://shiny.rstudio.com/tutorial/). RStudio also provides a [handy cheatsheet](https://www.rstudio.com/resources/cheatsheets/) to remember all the little details after you already learned the basics.
+As an added tutorial, I highly recommend the [official Shiny tutorial](http://shiny.rstudio.com/tutorial/). RStudio also provides a [handy cheatsheet](https://www.rstudio.com/resources/cheatsheets/) to remember all the little details after you already learned the basics.
 
 **Exercise:** Visit [ShowMeShiny.com](http://www.showmeshiny.com/) and click through some of the showcased apps. Get a feel for the wide range of things you can do with Shiny.
 
@@ -70,13 +70,13 @@ Click the stop button to stop the app, or press the *Escape* key.
 
 ![Shiny Stop App](./img/shiny-stopapp.png)
 
-You may have noticed that when you click the *Run App* button, in the console it really is just running the function `shiny::runApp()` on the folder you're in.  You can run that command instead of clicking the button if you prefer.
+You may have noticed that when you click the *Run App* button, all it's doing is just running the function `shiny::runApp()` in the console. You can run that command instead of clicking the button if you prefer.
 
 **Exercise:** Try running the empty app using the `runApp()` function instead of using the *Run App* button.
 
 ## Alternate way to create app template: using RStudio
 
-FYI: You can also create a new Shiny app using RStudio's menu by selecting *File > New Project > New Directory > Shiny Web Application*.  If you do this, RStudio will create a new folder and initialize a simple Shiny app in it.  However, this Shiny app will not have an `app.R` file and instead will have two files: `ui.R` and `server.R`. This is another way to define Shiny apps, with one file for the UI and one file for the server code.  This is the preferable way to write Shiny apps when the app is complex and involved more code, but in this tutorial we'll stick to the simple single file.  If you want to break up your app into these two files, you simple put all code that is assigned to the `ui` variable in `ui.R` and all the code assigned to the `server` function in `server.R`. When RStudio sees these two files in the same folder, it will know you're writing a Shiny app.
+FYI: You can also create a new Shiny app using RStudio's menu by selecting *File > New Project > New Directory > Shiny Web Application*.  If you do this, RStudio will create a new folder and initialize a simple Shiny app in it.  However, this Shiny app will not have an `app.R` file and instead will have two files: `ui.R` and `server.R`. This is another way to define Shiny apps, with one file for the UI and one file for the server code.  This is the preferable way to write Shiny apps when the app is complex and involves more code, but in this tutorial we'll stick to the simple single file.  If you want to break up your app into these two files, you simple put all code that is assigned to the `ui` variable in `ui.R` and all the code assigned to the `server` function in `server.R`. When RStudio sees these two files in the same folder, it will know you're writing a Shiny app.
 
 **Exercise:** Try creating a new Shiny app using RStudio's menu. Make sure that app runs. Next, try making a new Shiny app by manually creating the two files `ui.R` and `server.R`. Rememeber that they have to be in the same folder. Also remember to put them in a *new, isolated* folder.
 
@@ -102,7 +102,7 @@ Place this line in your app as the second line, just after `library(shiny)`.  Ma
 
 Let's start populating our app with some elements visually. This is usually the first thing you do when writing a Shiny app - add elements to the UI.
 
-## Add simple text to the UI
+## Add plain text to the UI
 
 You can place R strings inside `fluidPage()` to render text.
 
@@ -304,7 +304,7 @@ Shiny provides several output functions, one for each type of output. Similarly 
 
 ### Output for a plot of the results
 
-At the top of the main panel we'll have a plot showing somme visualization of the results. Since we want a plot, the function we use is `plotOutput()`.
+At the top of the main panel we'll have a plot showing some visualization of the results. Since we want a plot, the function we use is `plotOutput()`.
 
 Add the following code into the `mainPanel()` (replace the existing text):
 
@@ -366,7 +366,7 @@ So far we only wrote code inside that was assigned to the `ui` variable (or code
 
 ## Building an output
 
-Recall that we created two output placeholders: *coolplot* (a plot) and *summary* (a table). We need to write code in R that will tell Shiny what kind of plot or table to display. There are three rules to build an output in Shiny. 
+Recall that we created two output placeholders: *coolplot* (a plot) and *results* (a table). We need to write code in R that will tell Shiny what kind of plot or table to display. There are three rules to build an output in Shiny. 
 
 1. Save the output object into the `output` list (remember the app template - every server function has an `output` argument)  
 2. Build the object with a `render*` function, where `*` is the type of output
@@ -398,7 +398,7 @@ output$coolplot <- renderPlot({
 })
 ```
 
-Replace the code previously in your server function with this code, and run the app. Whenever you choose a new minimum price range, the plot will update with a new number of points. Notice that the only thing different in the code is that instead of using the number `100` we are using `input$priceInput[1]`. 
+Replace the previous code in your server function with this code, and run the app. Whenever you choose a new minimum price range, the plot will update with a new number of points. Notice that the only thing different in the code is that instead of using the number `100` we are using `input$priceInput[1]`. 
 
 What does this mean? Just like the variable `output` contains a list of all the outputs (and we need to assign code into them), the variable `input` contains a list of all the inputs that are defined in the UI. `input$priceInput` return a vector of length 2 containing the miminimum and maximum price. Whenever the user manipulates the slider in the app, these values are updated, and whatever code relies on it gets re-evaluated. This is a concept known as [**reactivity**](#reactivity-101).
 
@@ -408,7 +408,7 @@ Now we have all the knowledge required to build a plot visualizing some aspect o
 
 First we need to make sure `ggplot2` is loaded, so add a `library(ggplot2)` at the top.
 
-Next we'll make return a histogram of alcohol content from `renderPlot()`. Let's start with just a histogram of the whole data, unfiltered.
+Next we'll return a histogram of alcohol content from `renderPlot()`. Let's start with just a histogram of the whole data, unfiltered.
 
 ```{r}
 output$coolplot <- renderPlot({
@@ -490,7 +490,7 @@ shinyApp(ui = ui, server = server)
 
 ## Building the table output
 
-Building the next output should be much easier now that we've done it once.  The other output we have was called `results` (as defined in the UI) and should be a table of all the products that match the filters.  Since it's a table output, we should use the `renderTable()` function. We'll do the exact same filtering on the data, and then simply return the data as a data.frame, and Shiny will know that it needs to display it as a table because it's defined as a `tableOutput`.
+Building the next output should be much easier now that we've done it once.  The other output we have was called `results` (as defined in the UI) and should be a table of all the products that match the filters.  Since it's a table output, we should use the `renderTable()` function. We'll do the exact same filtering on the data, and then simply return the data as a data.frame. Shiny will know that it needs to display it as a table because it's defined as a `tableOutput`.
 
 The code for creating the table output should make sense to you without too much explanation:
 
@@ -509,7 +509,7 @@ output$results <- renderTable({
 
 Add this code to your server. Don't overwrite the previous definition of `output$coolplot`, just add this code before or after that, but inside the server function. Run your app, and be amazed! You can now see a table showing all the products at the BC Liquor Store that match your criteria. 
 
-**Exercise:** Add a new output. Either a new plot, a new table, or some piece of text that changes based on the inputs. For example, you could add a text output (`textOutput()` in the UI, `renderText()` in the server) that says how many results were found. If you choose to do this, I recommend first adding the output to the UI, then building the output in the server with static text to make sure you have the syntax correct, and only once you can see the text output in your app you should make it reflect the inputs. Protip: since `textOutput()` is written in the UI, you can wrap it in other UI functions. For example, `h2(textOutput(...))` will result in larger text.
+**Exercise:** Add a new output. Either a new plot, a new table, or some piece of text that changes based on the inputs. For example, you could add a text output (`textOutput()` in the UI, `renderText()` in the server) that says how many results were found. If you choose to do this, I recommend first adding the output to the UI, then building the output in the server with static text to make sure you have the syntax correct. Only once you can see the text output in your app you should make it reflect the inputs. Protip: since `textOutput()` is written in the UI, you can wrap it in other UI functions. For example, `h2(textOutput(...))` will result in larger text.
 
 # Reactivity 101
 
@@ -586,7 +586,7 @@ If you want to understand reactivity better, you can read about it [on Shiny's s
 
 # Using uiOutput() to create UI elements dynamically
 
-One of the output functions you can add in the UI is `uiOutput()`. According to the naming convention (eg. `plotOutput()` is an output to render a plot), this is an output used to render an input. This may sound a bit confusing, but it's actually very useful. It's used to create inputs from the server, or in other words - you can create inputs dynamically.  Any input that you normally create in the UI is created when the app starts, and it cannot be changed. What if one of your inputs depend on another input? In that case, you want to be able to create an input dynamically, in the server, and you would use `uiOutput()`.  `uiOutput()` can be used to create *any* UI element, but it's most often used to create input UI elements. The same rules regarding building outputs apply, which means the output (which is a UI element in this case) is created with the function `renderUI()`.
+One of the output functions you can add in the UI is `uiOutput()`. According to the naming convention (eg. `plotOutput()` is an output to render a plot), this is an output used to render an input. This may sound a bit confusing, but it's actually very useful. It's used to create inputs from the server, or in other words - you can create inputs dynamically.  Any input that you normally create in the UI is created when the app starts, and it cannot be changed. But what if one of your inputs depends on another input? In that case, you want to be able to create an input dynamically, in the server, and you would use `uiOutput()`.  `uiOutput()` can be used to create *any* UI element, but it's most often used to create input UI elements. The same rules regarding building outputs apply, which means the output (which is a UI element in this case) is created with the function `renderUI()`.
 
 ## Basic example
 
@@ -654,7 +654,7 @@ filtered <- reactive({
 })
 ```
 
-Now when the render function try to access the data, they will get a `NULL` value before the app is fully loaded.  You will still get an error, because the ggplot function will not work with a `NULL` dataset, so we also need to make a similar check in the `renderPlot()` function. Only once the data is loaded, we can try to plot.
+Now when the render function tries to access the data, they will get a `NULL` value before the app is fully loaded.  You will still get an error, because the ggplot function will not work with a `NULL` dataset, so we also need to make a similar check in the `renderPlot()` function. Only once the data is loaded, we can try to plot.
 
 ```{r}
 output$coolplot <- renderPlot({
@@ -668,7 +668,7 @@ output$coolplot <- renderPlot({
 
 The `renderTable()` function doesn't need this fix applied because Shiny doesn't have a problem rendering a `NULL` table.
 
-**Exercise:** Change the product type radio buttons to get generated in the server with the values from the dataset, instead of being created in the UI with the values entered manually. If you're feeling confident, try adding an input for "subtype" that will get re-generated every time a new type is chosen, and will be populated with all the subtype options available (for example, if WINE is selected, then the subtype are white wine, red wine, etc.).
+**Exercise:** Change the product type radio buttons to get generated in the server with the values from the dataset, instead of being created in the UI with the values entered manually. If you're feeling confident, try adding an input for "subtype" that will get re-generated every time a new type is chosen, and will be populated with all the subtype options available for the currently selected type (for example, if WINE is selected, then the subtype are white wine, red wine, etc.).
 
 # Final Shiny app code
 
@@ -747,7 +747,7 @@ Hosting your app on shinyapps.io is the easy and recommended way of getting your
 
 ![Shiny publish](./img/shiny-publish.png)
 
-After a successful deploymnet to shinyapps.io, you will be redirected to your app in the browser. You can use that URL to show off to your family what a cool app you wrote.
+After a successful deployment to shinyapps.io, you will be redirected to your app in the browser. You can use that URL to show off to your family what a cool app you wrote.
 
 ## Host on a Shiny Server
 
@@ -761,7 +761,7 @@ Shiny is extremely powerful and has lots of features that we haven't covered. He
 
 ## Shiny in Rmarkdown
 
-You can include Shiny inputs and outputs in an Rmarkdown document! This means that your Rmakdown document can interactive. Learn more [here](http://rmarkdown.rstudio.com/authoring_shiny.html). Here's a simple example of how to include interactive Shiny elements in an Rmarkdown.
+You can include Shiny inputs and outputs in an Rmarkdown document! This means that your Rmakdown document can be interactive. Learn more [here](http://rmarkdown.rstudio.com/authoring_shiny.html). Here's a simple example of how to include interactive Shiny elements in an Rmarkdown.
 
 ```{r include = FALSE, eval=TRUE}
 tmp <- '
@@ -892,7 +892,7 @@ Many people have written packages that enhance Shiny in some way or add extra fu
 
 # Resources
 
-Shiny is a very popular package and has lots of resources on the web. Here's a compild list of a few resources I recommend, which are all fairly easy to read and understand.
+Shiny is a very popular package and has lots of resources on the web. Here's a compiled list of a few resources I recommend, which are all fairly easy to read and understand.
 
 - [Shiny official tutorial](http://shiny.rstudio.com/tutorial)
 - [Shiny cheatsheet](http://shiny.rstudio.com/images/shiny-cheatsheet.pdf)
@@ -904,20 +904,53 @@ Shiny is a very popular package and has lots of resources on the web. Here's a c
 - [Learn about how reactivity works](http://shiny.rstudio.com/articles/understanding-reactivity.html)
 - [Learn about useful debugging techniques](http://shiny.rstudio.com/articles/debugging.html)
 
-# Homework
+# Ideas to improve our app
 
-- warning and empty plot when there are no results
-- split app into ui.R and server.R
-- add an option to sort the table by price 
-- add an image
-- add parameters to the plot
-- put the plot and table in a separate tabs
-- global.R defines objects available to both ui.R and server.R
-- www folder can be used to add images or custom js/css
-- experiment with packages that add extra functionality to shiny: shinyjs, leaflet, - shinydashboard, shinythemes, shinyBS, ggvis
-- deploy to shinyapps.io
-- advanced: talk to us to get it hosted on the UBC stats shiny server
-- super advanced: host on your own shiny server
-- select multiple types (either change to checkboxes, or to a select box with multiple = TRUE)
-- if wine is selected, then show sweetness level filter
-- let the user filter specific subtypes
+The app we developed is functional, but there are plenty of improvements that can be made. You can compare the app we developed to [my version of this app](http://daattali.com/shiny/bcl/) to get an idea of what a more functional app could include. Here are some suggestions of varying difficulties. Each idea also has a hint, I would recommend only reading the hint if you're stuck for 10 minutes. 
+
+- Split the app into two separate files: `ui.R` and `server.R`.
+    - **Hint:** All the code assigned into the `ui` variable goes into `ui.R` and all the code for the `server` function goes into `server.R`. You do not need to explicitly call the `shinyApp()` function.
+    
+- Add an option to sort the results table by price.
+    - **Hint:** Use `checkboxInput()` to get TRUE/FALSE values from the user.
+
+- Add an image of the BC Liquor Store to the UI.
+    - **Hint:** Place the image in a folder named `www`, and use `img(src = "imagename.png")` to add the image.
+
+- Share your app with everyone on the internet by deploying to shinyapps.io.
+    - **Hint:** Go to [shinyapps.io](http://www.shinyapps.io), register for an account, then click the "Publish App" button in RStudio. 
+
+- Use the `DT` package to turn the current results table into an interactive table.
+    - **Hint:** Install the `DT` package, replace `tableOutput()` with `DT::dataTableOutput()` and replace `renderTable()` with `DT::renderDataTable()`.
+
+
+
+- Add parameters to the plot.
+    - **Hint:** You will need to add input functions that will be used as parameters for the plot. You could use `shinyjs::colourInput()` to let the user decide on the colours of the bars in the plot.
+
+- The app currently behaves strangely when the user selects filters that return 0 results. For example, try searching for wines from Belgium. There will be an empty plot and empty table generated, and there will be a warning message in the R console. Try to figure out why this warning message is appearing, and how to fix it.
+    - **Hint:** The problem happens because `renderPlot()` and `renderTable()` are trying to render an empty dataframe. To fix this issue, the `filtered` reactive expression should check for the number of rows in the filtered data, and if that number is 0 then return `NULL` instead of a 0-row dataframe.
+
+- Place the plot and the table in separate tabs.
+    - **Hint:** Use `tabsetPanel()` to create an interface with multiple tabs.
+
+- If you know CSS, add CSS to make your app look nicer. 
+    - **Hint:** Add a CSS file under `www` and use the function `includeCSS()` to use it in your app.
+
+- Experiment with packages that add extra features to Shiny, such as `shinyjs`, `leaflet`, `shinydashboard`, `shinythemes`, `ggvis`.
+    - **Hint:** Each package is unique and has a different purpose, so you need to read the documentation of each package in order to know what it provides and how to use it.
+    
+- Show the number of results found whenever the filters change. For example, when searching for Italian wines $20-$40, the app would show the text "We found 122 options for you".
+    - **Hint:** Add a `textOutput()` to the UI, and in its corresponding `renderText()` use the number of rows in the `filtered()` object.
+
+- Allow the user to download the results table as a .csv file.
+    - **Hint:** Look into the `downloadButton()` and `downloadHandler()` functions.
+    
+- When the user wants to see only wines, show a new input that allows the user to filter by sweetness level. Only show this input if wines are selected.
+    - **Hint:** Create a new input function for the sweetness level, and use it in the server code that filters the data. Use `conditionalPanel()` to conditionally show this new input. The `condition` argument of `conditionalPanel` should be something like `input.typeInput == "WINE"`.
+
+- Allow the user to search for multiple alcohol types simultaneously, instead of being able to choose only wines/beers/etc.
+    - **Hint:** There are two approaches to do this. Either change the `typeInput` radio buttons into checkboxes (`checkboxGroupInput()`) since checkboxes support choosing multiple items, or change `typeInput` into a select box (`selectInput()`) with the argument `multiple = TRUE` to support choosing multiple options.
+    
+- If you look at the dataset, you'll see that each product has a "type" (beer, wine, spirit, or refreshment) and also a "subtype" (red wine, rum, cider, etc.). Add an input for "subtype" that will let the user filter for only a specific subtype of products. Since each type has different subtype options, the choices for subtype should get re-generated every time a new type is chosen. For example, if "wine" is selected, then the subtypes available should be white wine, red wine, etc.
+    - **Hint:** Use `uiOutput()` to create this input in the server code.
