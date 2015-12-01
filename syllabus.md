@@ -44,7 +44,7 @@ nov-10 tues    <a href="cm105_packages.html">cm105</a>: Build your first R packa
 nov-12 thurs   <a href="cm106_packages.html">cm106</a>: ditto                                             
 nov-17 tues    <a href="cm107_pipelines.html">cm107</a>: Task automation and pipelines, GNU Make          
 nov-19 thurs   <a href="cm108_pipelines.html">cm108</a>: ditto                                            
-nov-24 tues    <a href="cm109_data-from_web.html">cm109</a>: Get data from the web                        
-nov-26 thurs   <a href="cm110_data-from_web.html">cm110</a>: ditto                                        
+nov-24 tues    <a href="cm109_data-from-web.html">cm109</a>: Get data from the web                        
+nov-26 thurs   <a href="cm110_data-from-web.html">cm110</a>: ditto                                        
 dec-01 tues    <a href="cm111_shiny.html">cm111</a>: Building Shiny apps                                  
 dec-03 thurs   cm112: ditto                                                                               

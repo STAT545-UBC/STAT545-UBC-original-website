@@ -8,9 +8,9 @@ output:
 
 ### cm111 2015-12-01 Tuesday overview
 
-[HW10](hw10_automation.html) TODO link to hw10
+[HW10](hw10_data-from-web.html) Data from the web
 
-  * due date Friday, Dec 4 2015
+  * due date Friday December 4
 
 This week's topic: Building Shiny apps
  
