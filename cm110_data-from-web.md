@@ -10,7 +10,11 @@ output:
 
 [HW09](hw09_automation.html) Automate a pipeline
 
-  * due date Friday, November 27 November 24
+  * due date Friday, November 27
+  
+[HW10](hw10_data-from-web.html) Data from the web
+
+  * due date Friday December 4
 
 This week's topic: data from the web
  
