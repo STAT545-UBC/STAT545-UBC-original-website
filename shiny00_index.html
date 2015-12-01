@@ -10,13 +10,24 @@
 
 
 
-<title>Shiny</title>
+<title>Building Shiny apps</title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
-<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -37,7 +48,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
-<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="libs\local\main.css" type="text/css" />
+<link rel="stylesheet" href="libs\local\nav.css" type="text/css" />
+<link rel="stylesheet" href="\\netdna.bootstrapcdn.com\font-awesome\4.0.3\css\font-awesome.css" type="text/css" />
 
 </head>
 
@@ -48,6 +61,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
 }
 </style>
 <div class="container-fluid main-container">
@@ -68,40 +89,50 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </header>
 
 <div id="header">
-<h1 class="title">Shiny</h1>
+<h1 class="title">Building Shiny apps</h1>
 </div>
 
 <div id="TOC">
 <ul>
 <li><a href="#overview">Overview</a></li>
-<li><a href="#getting-your-system-set-up">Getting your system set up</a></li>
-<li><a href="#hands-on-activity">Hands-on activity</a></li>
-<li><a href="#homework">Homework</a></li>
+<li><a href="#awesome-add-on-packages-to-shiny">Awesome add-on packages to Shiny</a></li>
 <li><a href="#resources">Resources</a></li>
 </ul>
 </div>
 
-<p><em>this page and sub-pages still under development!</em></p>
-<p><em>Shiny intro</em></p>
 <div id="overview" class="section level3">
 <h3>Overview</h3>
-<p><a href="shiny01_slides.pdf">PDF slides</a></p>
+<ul>
+<li><p><a href="https://docs.google.com/presentation/d/1dXhqqsD7dPOOdcC5Y7RW--dEU7UfU52qlb0YD3kKeLw/edit?usp=sharing">Slides on Google Docs</a></p></li>
+<li><p><a href="shiny01_activity.html">Shiny tutorial with hands-on activity to build app with BC Liquor Store dataset</a></p></li>
+<li><p>TODO link to Shiny homework</p></li>
+</ul>
 </div>
-<div id="getting-your-system-set-up" class="section level3">
-<h3>Getting your system set up</h3>
-<p><a href="shiny02_setup.html">Installing Shiny and other required packages</a></p>
-</div>
-<div id="hands-on-activity" class="section level3">
-<h3>Hands-on activity</h3>
-<p><a href="shiny03_activity.html">Tutorial with Gapminder data</a></p>
-</div>
-<div id="homework" class="section level3">
-<h3>Homework</h3>
-<p><a href="hw11_build-shiny-app.html">HW11 Build a Shiny app</a></p>
+<div id="awesome-add-on-packages-to-shiny" class="section level3">
+<h3>Awesome add-on packages to Shiny</h3>
+<p>Many people have written packages that enhance Shiny in some way or add extra functionality. Here is a list of several popular packages that people often use together with Shiny:</p>
+<ul>
+<li><a href="http://rstudio.github.io/shinythemes/">shinythemes</a>: Easily alter the appearance of your app</li>
+<li><a href="https://github.com/daattali/shinyjs">shinyjs</a>: Enhance user experience in Shiny apps using JavaScript functions without knowing JavaScript</li>
+<li><a href="http://rstudio.github.io/leaflet/">leaflet</a>: Add interactive maps to your apps</li>
+<li><a href="http://ggvis.rstudio.com/">ggvis</a>: Similar to ggplot2, but the plots are focused on being web-based and are more interactive</li>
+<li><a href="https://rstudio.github.io/shinydashboard/">shinydashboard</a>: Gives you tools to create visual “dashboards”</li>
+</ul>
 </div>
 <div id="resources" class="section level3">
 <h3>Resources</h3>
-<p><a href="shiny04_links.html">Links for Shiny tutorials and other interactive graphing</a></p>
+<p>Shiny is a very popular package and has lots of resources on the web. Here’s a compiled list of a few resources I recommend, which are all fairly easy to read and understand.</p>
+<ul>
+<li><a href="http://shiny.rstudio.com/tutorial">Shiny official tutorial</a></li>
+<li><a href="http://shiny.rstudio.com/images/shiny-cheatsheet.pdf">Shiny cheatsheet</a></li>
+<li><a href="http://shiny.rstudio.com/articles">Lots of short useful articles about different topics in Shiny - <strong>highly recommended</strong></a></li>
+<li><a href="http://rmarkdown.rstudio.com/authoring_shiny.html">Shiny in Rmarkdown</a></li>
+<li>Get help from the <a href="https://groups.google.com/forum/#!forum/shiny-discuss">Shiny Google group</a> or <a href="http://stackoverflow.com/questions/tagged/shiny">StackOverflow</a></li>
+<li><a href="http://www.shinyapps.io">Publish your apps for free with shinyapps.io</a></li>
+<li><a href="http://deanattali.com/2015/05/09/setup-rstudio-shiny-server-digital-ocean/">Host your app on your own Shiny server</a></li>
+<li><a href="http://shiny.rstudio.com/articles/understanding-reactivity.html">Learn about how reactivity works</a></li>
+<li><a href="http://shiny.rstudio.com/articles/debugging.html">Learn about useful debugging techniques</a></li>
+</ul>
 </div>
 
 <div class="footer">

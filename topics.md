@@ -62,11 +62,9 @@
     - [Slides](webdata01_slides.html)
     - Lesson 1: [Use API-wrapping packages](webdata02_activity.html)
     - Lesson 2: [DIY web data](webdata03_activity.html)
-  * [All the Shiny things](shiny00_index.html) *all still from 2014*
-    - [slides](shiny01_slides.pdf)
-    - [Getting your system set up for Shiny](shiny02_setup.html)
-    - [Hands-on activity-build a shiny app](shiny03_activity.html)
-    - [Shiny and other interactive plotting links](shiny04_links.html)
+  * [All the Shiny things](shiny00_index.html)
+    - [Slides on Google Docs](https://docs.google.com/presentation/d/1dXhqqsD7dPOOdcC5Y7RW--dEU7UfU52qlb0YD3kKeLw/edit?usp=sharing)
+    - [Shiny tutorial with hands-on activity to build app with BC Liquor Store dataset](shiny01_activity.html)
 
 ## Homework
 
