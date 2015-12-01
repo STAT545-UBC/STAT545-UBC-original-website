@@ -16,10 +16,20 @@
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/united.min.css" rel="stylesheet" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -40,7 +50,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
 
 </head>
 
@@ -51,6 +63,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
 }
 </style>
 <div class="container-fluid main-container">
@@ -89,6 +109,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ul>
 </div>
 
+<p><strong>From 2014. Will not be used in 2015.</strong></p>
 <div id="big-picture" class="section level2">
 <h2>Big picture</h2>
 <p>We made a Shiny app that let us graph the Gapminder data.</p>
@@ -111,7 +132,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>Follow the tutorial up until the end.</p>
 <ul>
 <li>Replace the slider for the years instead with the widget <code>dateRangeInput</code>. Pay careful attention to the “format” and “startview” arguments. The <code>dateRangeInput</code> requires dates to be in yyyy-mm-dd format, so you will need to give this format to your arguments that involve the date in this function. The <code>dateRangeInput</code> widget returns not only years, but dates in the format “yyyy-mm-dd”. This is not ideal, but we just want the year, so one way to get at that is for the minimum date instead of having the <code>input$select_year[1]</code> in <code>server.R</code> to access the year, we can get at the year by using <code>as.numeric(format(input$name_of_your_dateRangeInput_id_in_uiR[1], &quot;%Y&quot;))</code>.</li>
-<li>Edit the <code>selectInput</code> for countries by adding in values for the arguments “selected” and “multiple”.<br /></li>
+<li>Edit the <code>selectInput</code> for countries by adding in values for the arguments “selected” and “multiple”.<br />
+</li>
 <li>Either add facetting to your plot by country or add the use of colour to you plot to distinguish the 2 or more countries displayed. See <a href="cm005_still-data-ggplot2-rmarkdown.html">ggplot2 tutorial</a></li>
 <li>Commit the app to your Stat545/547 repo, push to Github. Also deploy the app to shinyapps.io using the “Publish” button in Rstudio (or see <a href="shiny02_activity.html#deployment">tutorial section on deployment</a>)</li>
 </ul>

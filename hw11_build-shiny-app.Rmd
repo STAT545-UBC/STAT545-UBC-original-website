@@ -8,6 +8,8 @@ output:
     toc_depth: 4
 ---
 
+**From 2014. Will not be used in 2015.**
+
 ## Big picture
 
 We made a Shiny app that let us graph the Gapminder data. 
