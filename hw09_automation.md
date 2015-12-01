@@ -128,7 +128,7 @@ Embed pre-existing figures in and R Markdown document, i.e. an R script creates 
 
 Import pre-existing data in an R Markdown document, then format nicely as a table.
 
-Use Pandoc and/or LaTeX to explore new territory in document compilation. You could use Pandoc as an alternative to `rmarkdown` (or `knitr`) for Markdown to HTML conversion; you'd still use `rmarkdown` for conversion of R Markdown to Markdown. You would use LaTeX to get PDF output from R Markdown.
+Use Pandoc and/or LaTeX to explore new territory in document compilation. You could use Pandoc as an alternative to `rmarkdown` (or `knitr`) for Markdown to HTML conversion; you'd still use `rmarkdown` for conversion of R Markdown to Markdown. You would use LaTeX to get PDF output from Markdown.
 
 Use `Make` to run your pipeline. See below for help. Also demonstrated in the example [02_rAndMake][] and in the example [03_knitWithoutRStudio][]
 
