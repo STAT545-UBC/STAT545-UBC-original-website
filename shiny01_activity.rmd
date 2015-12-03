@@ -94,6 +94,14 @@ bcl <- read.csv("bcl-data.csv", stringsAsFactors = FALSE)
 
 Place this line in your app as the second line, just after `library(shiny)`.  Make sure the file path and file name are correct, otherwise your app won't run. Try to run the app to make sure the file can be loaded without errors.
 
+If you want to verify that the app can successfully read the data, you can add a `print()` statement inside the server. This won't make anything happen in your Shiny app, but you will see a summary of the dataset printed in the console, which should let you know that the dataset was indeed loaded correctly. Replace the `server` function with the following:
+
+```{r}
+server <- function(input, output, session) {
+  print(str(bcl))
+} 
+```
+
 > In case you're curious, the code I used to process the raw data into the data we'll be using is available [as a gist](https://gist.github.com/daattali/56b9fa8f3e99174fba63).
 
 **Exercise:** Load the data file into R and get a feel for what's in it. How big is it, what variables are there, what are the normal price ranges, etc.
@@ -954,3 +962,6 @@ The app we developed is functional, but there are plenty of improvements that ca
     
 - If you look at the dataset, you'll see that each product has a "type" (beer, wine, spirit, or refreshment) and also a "subtype" (red wine, rum, cider, etc.). Add an input for "subtype" that will let the user filter for only a specific subtype of products. Since each type has different subtype options, the choices for subtype should get re-generated every time a new type is chosen. For example, if "wine" is selected, then the subtypes available should be white wine, red wine, etc.
     - **Hint:** Use `uiOutput()` to create this input in the server code.
+    
+- Provide a way for the user to show results from *all* countries (instead of forcing a filter by only one specific country).
+    - **Hint:** There are two ways to approach this. You can either add a value of "All" to the dropdown list of country options, you can include a checkbox for "Filter by country" and only show the dropdown when it is unchecked (see [my version of this app](http://daattali.com/shiny/bcl/) to see this option in action). In both cases you'll still need to update the server code appropriately to filter by country only when the user chooses to.

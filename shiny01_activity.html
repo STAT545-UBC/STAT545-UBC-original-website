@@ -166,6 +166,10 @@ shinyApp(ui = ui, server = server)</code></pre>
 <p>Add a line in your app to load the data into a variable called <code>bcl</code>. It should look something like this</p>
 <pre class="r"><code>bcl &lt;- read.csv(&quot;bcl-data.csv&quot;, stringsAsFactors = FALSE)</code></pre>
 <p>Place this line in your app as the second line, just after <code>library(shiny)</code>. Make sure the file path and file name are correct, otherwise your app won’t run. Try to run the app to make sure the file can be loaded without errors.</p>
+<p>If you want to verify that the app can successfully read the data, you can add a <code>print()</code> statement inside the server. This won’t make anything happen in your Shiny app, but you will see a summary of the dataset printed in the console, which should let you know that the dataset was indeed loaded correctly. Replace the <code>server</code> function with the following:</p>
+<pre class="r"><code>server &lt;- function(input, output, session) {
+  print(str(bcl))
+} </code></pre>
 <blockquote>
 <p>In case you’re curious, the code I used to process the raw data into the data we’ll be using is available <a href="https://gist.github.com/daattali/56b9fa8f3e99174fba63">as a gist</a>.</p>
 </blockquote>
@@ -855,6 +859,10 @@ shinyApp(ui = ui, server = server)</code></pre>
 <li>If you look at the dataset, you’ll see that each product has a “type” (beer, wine, spirit, or refreshment) and also a “subtype” (red wine, rum, cider, etc.). Add an input for “subtype” that will let the user filter for only a specific subtype of products. Since each type has different subtype options, the choices for subtype should get re-generated every time a new type is chosen. For example, if “wine” is selected, then the subtypes available should be white wine, red wine, etc.
 <ul>
 <li><strong>Hint:</strong> Use <code>uiOutput()</code> to create this input in the server code.</li>
+</ul></li>
+<li>Provide a way for the user to show results from <em>all</em> countries (instead of forcing a filter by only one specific country).
+<ul>
+<li><strong>Hint:</strong> There are two ways to approach this. You can either add a value of “All” to the dropdown list of country options, you can include a checkbox for “Filter by country” and only show the dropdown when it is unchecked (see <a href="http://daattali.com/shiny/bcl/">my version of this app</a> to see this option in action). In both cases you’ll still need to update the server code appropriately to filter by country only when the user chooses to.</li>
 </ul></li>
 </ul>
 </div>

@@ -8,7 +8,7 @@ output:
 
 ### cm111 2015-12-03 Thursday overview
 
-[HW10](hw10_automation.html) TODO link to hw10
+[HW10](hw10_data-from-web.html) Data from the web
 
   * due date Friday, Dec 4 2015
 
