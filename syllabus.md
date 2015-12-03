@@ -47,4 +47,4 @@ nov-19 thurs   <a href="cm108_pipelines.html">cm108</a>: ditto
 nov-24 tues    <a href="cm109_data-from-web.html">cm109</a>: Get data from the web                        
 nov-26 thurs   <a href="cm110_data-from-web.html">cm110</a>: ditto                                        
 dec-01 tues    <a href="cm111_shiny.html">cm111</a>: Building Shiny apps                                  
-dec-03 thurs   cm112: ditto                                                                               
+dec-03 thurs   <a href="cm112_shiny.html">cm112</a>: ditto                                                
