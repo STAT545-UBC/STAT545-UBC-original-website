@@ -725,6 +725,10 @@ shinyApp(ui = ui, server = server)</code></pre>
 <h2>Use DT for beautiful, interactive tables</h2>
 <p>Whenever you use <code>tableOutput()</code> + <code>renderTable()</code>, the table that Shiny creates is a static and boring-looking table. If you download the <code>DT</code> package, you can replace the default table with a much sleeker table by just using <code>DT::dataTableOutput()</code> + <code>DT::renderDataTable()</code>. It’s worth trying. Learn more on <a href="https://rstudio.github.io/DT/">DT’s website</a>.</p>
 </div>
+<div id="use-isolate-function-to-remove-a-dependency-on-a-reactive-variable" class="section level2">
+<h2>Use isolate() function to remove a dependency on a reactive variable</h2>
+<p>When you have multiple reactive variables inside a reactive context, the whole code block will get re-executed whenever <em>any</em> of the reactive variables change because all the variables become dependencies of the code. If you want to suppress this behaviour and cause a reactive variable to not be a dependency, you can wrap the code that uses that variable inside the <code>isolate()</code> function. Any reactive variables that are inside <code>isolate()</code> will not result in the code re-executing when their value is changed. Read more about this behaviour with <code>?isolate</code>.</p>
+</div>
 <div id="use-updateinput-functions-to-update-input-values-programmatically" class="section level2">
 <h2>Use update*Input() functions to update input values programmatically</h2>
 <p>Any input function has an equivalent <code>update*Input</code> function that can be used to update any of its parameters.</p>
