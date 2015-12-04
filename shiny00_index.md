@@ -14,7 +14,7 @@ output:
 
 - [Shiny tutorial with hands-on activity to build app with BC Liquor Store dataset](shiny01_activity.html)
 
-- TODO link to Shiny homework
+- [Homework](hw11_shiny.html)
 
 ### Awesome add-on packages to Shiny
 

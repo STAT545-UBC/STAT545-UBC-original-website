@@ -78,9 +78,8 @@
   * [Homework 08](hw08_package.html) Write an R package
   * [Homework 09](hw09_automation.html) Automate a data analysis pipeline
   * [Homework 10](hw10_data-from-web.html) Get data from the web
-  * Homework 11 Build a Shiny app *2015 homework coming soon*
-    - 2014 [Shiny homework](hw11_build-shiny-app.html)
-
+  * [Homework 11](hw11_shiny.html) Building Shiny apps
+  
 ## Short random things
 
   * [Lesson I contributed](bit002_tidying-lotr-data.html) to [Data Carpentry](http://software-carpentry.org/blog/2014/05/our-first-data-carpentry-workshop.html) on tidying data
