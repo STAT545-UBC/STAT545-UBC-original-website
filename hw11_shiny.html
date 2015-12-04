@@ -50,9 +50,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
-<link rel="stylesheet" href="libs\local\main.css" type="text/css" />
-<link rel="stylesheet" href="libs\local\nav.css" type="text/css" />
-<link rel="stylesheet" href="\\netdna.bootstrapcdn.com\font-awesome\4.0.3\css\font-awesome.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
 
 </head>
 
@@ -147,7 +147,7 @@ img {
 </ul></li>
 <li>The app currently behaves strangely when the user selects filters that return 0 results. For example, try searching for wines from Belgium. There will be an empty plot and empty table generated, and there will be a warning message in the R console. Try to figure out why this warning message is appearing, and how to fix it.
 <ul>
-<li><strong>Hint:</strong> The problem happens because <code>renderPlot()</code> and <code>renderTable()</code> are trying to render an empty dataframe. To fix this issue, the <code>filtered</code> reactive expression should check for the number of rows in the filtered data, and if that number is 0 then return <code>NULL</code> instead of a 0-row dataframe.</li>
+<li><strong>Hint:</strong> The problem happens because <code>renderPlot()</code> and <code>renderTable()</code> are trying to render an empty data frame. To fix this issue, the <code>filtered</code> reactive expression should check for the number of rows in the filtered data, and if that number is 0 then return <code>NULL</code> instead of a 0-row data frame.</li>
 </ul></li>
 <li>Place the plot and the table in separate tabs.
 <ul>
@@ -165,7 +165,7 @@ img {
 <ul>
 <li><strong>Hint:</strong> Add a <code>textOutput()</code> to the UI, and in its corresponding <code>renderText()</code> use the number of rows in the <code>filtered()</code> object.</li>
 </ul></li>
-<li>Allow the user to download the results table as a .csv file.
+<li>Allow the user to download the results table as a .<code>.csv</code> file.
 <ul>
 <li><strong>Hint:</strong> Look into the <code>downloadButton()</code> and <code>downloadHandler()</code> functions.</li>
 </ul></li>

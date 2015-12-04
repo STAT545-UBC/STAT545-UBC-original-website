@@ -71,7 +71,7 @@ For each of these tasks, produce an R Markdown report that illustrates how you o
 
 ## I want to aim higher!
 
-* Look through the ropenSci [packages list](http://ropensci.org/packages/) and/or the [CRAN Task View on Web Technologies and Services](https://cran.r-project.org/web/views/WebTechnologies.html), find some existing resources, and remix those instead.
+* Look through the rOpenSci [packages list](http://ropensci.org/packages/) and/or the [CRAN Task View on Web Technologies and Services](https://cran.r-project.org/web/views/WebTechnologies.html), find some existing resources, and remix those instead.
 
 ## even HIGHER
 

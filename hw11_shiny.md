@@ -39,7 +39,7 @@ If you decide to create a new app, then you are free to do whatever you want - g
     - **Hint:** You will need to add input functions that will be used as parameters for the plot. You could use `shinyjs::colourInput()` to let the user decide on the colours of the bars in the plot.
 
 - The app currently behaves strangely when the user selects filters that return 0 results. For example, try searching for wines from Belgium. There will be an empty plot and empty table generated, and there will be a warning message in the R console. Try to figure out why this warning message is appearing, and how to fix it.
-    - **Hint:** The problem happens because `renderPlot()` and `renderTable()` are trying to render an empty dataframe. To fix this issue, the `filtered` reactive expression should check for the number of rows in the filtered data, and if that number is 0 then return `NULL` instead of a 0-row dataframe.
+    - **Hint:** The problem happens because `renderPlot()` and `renderTable()` are trying to render an empty data frame. To fix this issue, the `filtered` reactive expression should check for the number of rows in the filtered data, and if that number is 0 then return `NULL` instead of a 0-row data frame.
 
 - Place the plot and the table in separate tabs.
     - **Hint:** Use `tabsetPanel()` to create an interface with multiple tabs.
@@ -53,7 +53,7 @@ If you decide to create a new app, then you are free to do whatever you want - g
 - Show the number of results found whenever the filters change. For example, when searching for Italian wines $20-$40, the app would show the text "We found 122 options for you".
     - **Hint:** Add a `textOutput()` to the UI, and in its corresponding `renderText()` use the number of rows in the `filtered()` object.
 
-- Allow the user to download the results table as a .csv file.
+- Allow the user to download the results table as a .`.csv` file.
     - **Hint:** Look into the `downloadButton()` and `downloadHandler()` functions.
     
 - When the user wants to see only wines, show a new input that allows the user to filter by sweetness level. Only show this input if wines are selected.
