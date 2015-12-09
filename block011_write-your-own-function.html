@@ -10,13 +10,24 @@
 
 
 
-<title>Write your own R functions</title>
+<title></title>
 
 <script src="libs/jquery-1.11.0/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="libs/bootstrap-2.3.2/css/united.min.css" rel="stylesheet" />
-<link href="libs/bootstrap-2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-2.3.2/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <link rel="stylesheet"
@@ -37,7 +48,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
 
 </head>
 
@@ -48,6 +61,14 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img { 
+  max-width:100%; 
+  height: auto; 
 }
 </style>
 <div class="container-fluid main-container">
@@ -67,27 +88,10 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
   </div>
 </header>
 
-<div id="header">
-<h1 class="title">Write your own R functions</h1>
-</div>
 
-<div id="TOC">
-<ul>
-<li><a href="#what-and-why">What and why?</a></li>
-<li><a href="#load-the-gapminder-data">Load the Gapminder data</a></li>
-<li><a href="#task-we-aim-to-function-ize">Task we aim to function-ize</a></li>
-<li><a href="#get-something-that-works">Get something that works</a></li>
-<li><a href="#turn-the-working-interactive-code-into-a-function-and-re-test">Turn the working interactive code into a function and re-test</a></li>
-<li><a href="#test-your-function">Test your function</a></li>
-<li><a href="#check-the-validity-of-arguments">Check the validity of arguments</a></li>
-<li><a href="#packages-for-formal-checks-at-run-time">Packages for formal checks at run time</a></li>
-<li><a href="#generalize-our-function-to-other-quantiles">Generalize our function to other quantiles</a></li>
-<li><a href="#argument-names-freedom-and-conventions">Argument names: freedom and conventions</a></li>
-<li><a href="#default-values-freedom-to-not-specify-the-arguments">Default values: freedom to NOT specify the arguments</a></li>
-<li><a href="#check-the-validity-of-arguments-again">Check the validity of arguments, again</a></li>
-</ul>
-</div>
 
+<div id="write-your-own-r-functions" class="section level1">
+<h1>Write your own R functions</h1>
 <div id="what-and-why" class="section level3">
 <h3>What and why?</h3>
 <p>My goal here is to reveal the <strong>process</strong> many long-time useRs employ for writing functions. I also want to illustrate why we work the way we do. Merely looking at the finished product, e.g. source code for R packages, can be extremely deceiving. Reality is generally much uglier … but more interesting!</p>
@@ -262,7 +266,7 @@ mmm3(gDat)
 <li>3rd quartile = 0.75 quantile</li>
 </ul>
 <p>If you’re familiar with <a href="http://en.wikipedia.org/wiki/Box_plot">box plots</a>, the rectangle typically runs from the 1st quartile to the 3rd quartile, with a line at the median.</p>
-<p>If <span class="math">\(q\)</span> is the <span class="math">\(p\)</span>-th quantile of a set of <span class="math">\(n\)</span> observations, what does that mean? Approximately <span class="math">\(pn\)</span> of the observations are less than <span class="math">\(q\)</span> and <span class="math">\((1 - p)n\)</span> are greater than <span class="math">\(q\)</span>. Yeah, you need to worry about rounding to an integer and less/greater than or equal to, but these details aren’t critical here.</p>
+<p>If <span class="math inline">\(q\)</span> is the <span class="math inline">\(p\)</span>-th quantile of a set of <span class="math inline">\(n\)</span> observations, what does that mean? Approximately <span class="math inline">\(pn\)</span> of the observations are less than <span class="math inline">\(q\)</span> and <span class="math inline">\((1 - p)n\)</span> are greater than <span class="math inline">\(q\)</span>. Yeah, you need to worry about rounding to an integer and less/greater than or equal to, but these details aren’t critical here.</p>
 <p>Let’s generalize our function to take the difference between any two quantiles. We can still consider the max and min, if we like, but we’re not limited to that.</p>
 <div id="get-something-that-works-again" class="section level4">
 <h4>Get something that works, again</h4>
@@ -366,6 +370,7 @@ qdiff4(gDat$lifeExp, c(0.1, 0.9))
 <pre class="r"><code>## we&#39;re not checking that probs is numeric
 ## we&#39;re not checking that probs is length 2
 ## we&#39;re not checking that probs are in [0,1]</code></pre>
+</div>
 </div>
 
 <div class="footer">
