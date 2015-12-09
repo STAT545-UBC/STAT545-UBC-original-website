@@ -100,4 +100,12 @@ Is your Git repo / RStudio Project inside a folder that ... eventually rolls up 
 
 If you cannot deal with the two root causes identified above, then it is possible that a [more powerful Git(Hub) client](git02_git-clients.html) will be able to cope with these situations. But I make no promises. You should also try Git operations from the command line.
 
+#### I hear you have some Git repo inside your Git repo
+
+Do not create a Git repository inside another Git repository. Just don't.
+
+If you have a genuine need for this, which is really rare, the proper way to do is is via [submodules](http://git-scm.com/book/en/v2/Git-Tools-Submodules).
+
+In STAT 545, you do not need to do this and when we've seen it, it's been a mistake. This has resulted in the unexpected and complete loss of the inner Git repository. To be sure, there was more going on here, but non-standard usage of Git repos makes it much easier to make costly mistakes.
+
 Go back to the [index for the all the Git stuff](git00_index.html).
