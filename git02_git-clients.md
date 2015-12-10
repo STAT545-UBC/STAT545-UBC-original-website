@@ -20,16 +20,16 @@ Fantastic news: because all of the clients are just forming and executing Git co
 
 ### Recommendations for Git clients
 
-* [SourceTree](http://www.sourcetreeapp.com) is a free, powerful Git(Hub) client that I highly recommend. It was my first Git client and is still my favorite for nontrivial Git tasks. Available for Mac and Windows.
+  * [SourceTree](http://www.sourcetreeapp.com) is a free, powerful Git(Hub) client that I highly recommend. It was my first Git client and is still my favorite for nontrivial Git tasks. Available for Mac and Windows.
 
-* [GitUp](http://gitup.co) is a free, open source client for Mac OS. I've heard really good things about it and like what I read on the website. Suspect it's as good or better than SourceTree for the Mac folks.
+  * [GitUp](http://gitup.co) is a free, open source client for Mac OS. I've heard really good things about it and like what I read on the website. Suspect it's as good or better than SourceTree for the Mac folks.
 
-* GitHub also offers [a free Git(Hub) client](https://desktop.github.com/) for Windows and Mac. We [do not recommend it for Windows users](git01_git-install.html#git-installation-windows) for use in the class. We [recommend it for Mac users with serious reservations](git01_git-install.html#git-installation-mac). What do we object to?
-  - The degree of hand-holding offered by GitHub's clients borders on hand-*cuffs*.
-  - These clients wrap Git functionality so thoroughly that we've had students make some destructive mistakes. For example, we've seen a "sync" operation that resulted in the loss of local uncommitted changes. Exactly which Git operations, in what order, are implied by "sync", is [not entirely clear](http://stackoverflow.com/questions/12104513/what-does-github-for-windows-sync-do). We prefer clients that expose Git more explicitly.
+  * GitHub also offers [a free Git(Hub) client](https://desktop.github.com/) for Windows and Mac. We [do not recommend it for Windows users](git01_git-install.html#git-installation-windows) for use in the class. We [recommend it for Mac users with serious reservations](git01_git-install.html#git-installation-mac). What do we object to?
+    - The degree of hand-holding offered by GitHub's clients borders on hand-*cuffs*.
+     - These clients wrap Git functionality so thoroughly that we've had students make some destructive mistakes. For example, we've seen a "sync" operation that resulted in the loss of local uncommitted changes. Exactly which Git operations, in what order, are implied by "sync", is [not entirely clear](http://stackoverflow.com/questions/12104513/what-does-github-for-windows-sync-do). We prefer clients that expose Git more explicitly.
 
-* A free multi-platform Git(Hub) client is [SmartGit](http://www.syntevo.com/smartgit/).
+  * A free multi-platform Git(Hub) client is [SmartGit](http://www.syntevo.com/smartgit/).
 
-* Browse [even more Git(Hub) clients](http://git-scm.com/downloads/guis).
+  * Browse [even more Git(Hub) clients](http://git-scm.com/downloads/guis).
 
 Go back to the [index for the all the Git stuff](git00_index.html).
