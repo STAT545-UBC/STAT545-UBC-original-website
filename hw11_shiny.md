@@ -14,15 +14,17 @@ We made a Shiny app that lets you search for products from the BC Liquor Store b
 
 The app we developed is functional, but there are plenty of improvements that can be made. You can compare the app we developed to [my version of this app](http://daattali.com/shiny/bcl/) to get an idea of what a more functional app could include. For the homework, you need to either develop a new Shiny app that uses a different dataset, or add 3 or more features to the BC Liquor Store app.
 
-Regardless of whether you create a new app or just add new features to our BC Liquor Store app, you **must** do the following 3 things: 
+Regardless of whether you create a new app or just add new features to our BC Liquor Store app, you **must** do the following 4 things: 
 
 1. Your app should be split into a `ui.R` file and a `server.R` file. Note that so far in class we only had our apps inside an `app.R` file. You can read [this official Shiny help page](http://shiny.rstudio.com/articles/app-formats.html) if you need more help with this part.
 
-2. Add a `README.md` file to your Shiny app folder that describes what you did in your app.
-
-3. Your app should be deployed online on [shinyapps.io](http://www.shinyapps.io). Make sure your app actually works online (sometimes your app will work in RStudio but will have errors on shinyapps.io - make sure you deploy early and often to make debugging easier).
+2. Your app should be deployed online on [shinyapps.io](http://www.shinyapps.io). Make sure your app actually works online (sometimes your app will work in RStudio but will have errors on shinyapps.io - make sure you deploy early and often to make debugging easier).
     - Alternatively, if you want to aim higher, you can contact us once your app is finished and work with us to deploy your app on the UBC Stats Shiny Server.
     - If you want to really challenge yourself, you can try getting your own Shiny Server and host your app yourself. Read [this tutorial](http://deanattali.com/2015/05/09/setup-rstudio-shiny-server-digital-ocean/) for help on setting that up.
+
+3. Add a `README.md` file to your Shiny app folder in your course repository. In the `README.md` you should describe your app and add a link to the URL where the app is hosted.
+
+4. Include the code for your Shiny app in your repository, as the marker will need to review your code.
 
 If you decide to create a new app, then you are free to do whatever you want - get creative!  If you want to use the BC Liquor Store app, you need to add at least 3 new features to it. There are countless possibilities, but here are just a few ideas. You can choose any 3 or more ideas from this list or do anything else.
 
@@ -74,7 +76,9 @@ Don't forget to check out some of the [awesome resources](./shiny01_activity.htm
 
 ## Rubric
 
-Your peer reviewer will evaluate your app based only on the Shiny app that you deploy and on the `README.md` file that described what you app does. Your reviewer will not download your code. Therefore, you really need to make sure your app works on shinyapps.io, otherwise your reviewer will not be able to give you a mark.
+Your peer reviewer will evaluate your app based only on the Shiny app that you deploy and on the `README.md` file that described what you app does. Your peer reviewer will not download your code. Therefore, you really need to make sure your app works on shinyapps.io, otherwise your reviewer will not be able to give you a mark.
+
+The course TA that will mark your assignment will also look at your code, so make sure you include the code for the app.
 
 Check minus: The deployed app does not work or results in many errors. There is no `README` file describing what app does.
 
