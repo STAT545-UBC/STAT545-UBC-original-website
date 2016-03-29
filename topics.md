@@ -82,9 +82,12 @@
   
 ## Short random things
 
-  * [Lesson I contributed](bit002_tidying-lotr-data.html) to [Data Carpentry](http://software-carpentry.org/blog/2014/05/our-first-data-carpentry-workshop.html) on tidying data
-  * [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
-  * [Store an API key as an environment variable](bit003_api-key-env-var.html)
-  * [Workflow for sending email with R and `gmailr`](https://github.com/jennybc/send-email-with-r)
+  * [Draw the rest of the owl](bit007_draw-the-rest-of-the-owl.html), a pep talk for building off simple examples
+  * [Using `dplyr` + `purrr` + `tidyr`](https://github.com/jennybc/analyze-github-stuff-with-r) to analyze data about GitHub repos via the [`gh` package](https://github.com/gaborcsardi/gh)
+  * [Using `dplyr` + `purrr` + `tidyr` + `xml2`](https://github.com/jennybc/manipulate-xml-with-purrr-dplyr-tidyr) to tame the annoying XML from Google Sheets
   * [Make browsing your GitHub repos more rewarding](bit006_github-browsability-wins.html)
-  * [Using `dplyr` + `purrr` + `tidyr` together](https://github.com/jennybc/analyze-github-stuff-with-r) to analyze data about GitHub repos via the [`gh` package](https://github.com/gaborcsardi/gh)
+  * [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
+  * [Workflow for sending email with R and `gmailr`](https://github.com/jennybc/send-email-with-r)
+  * [Store an API key as an environment variable](bit003_api-key-env-var.html)
+  * [Lesson I contributed](bit002_tidying-lotr-data.html) to [Data Carpentry](http://software-carpentry.org/blog/2014/05/our-first-data-carpentry-workshop.html) on tidying data
+

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>Draw the rest of the owl</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.0/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="fluid-row" id="header">
+
+
+<h1 class="title">Draw the rest of the owl</h1>
+
+</div>
+
+
+<p><img src="img/how-to-draw-an-own-imgur.jpg" alt="" /></p>
+<p>This <a href="http://imgur.com/gallery/RadSf">image</a> is often used to illustrate how hard it can be to go from simple examples to the real thing you actually want.</p>
+<p>I recently needed to draw a f*cking owl in R, so I decided to record the process as an experiment.</p>
+<p>When I teach <a href="http://stat545-ubc.github.io">STAT545</a> or <a href="http://software-carpentry.org">Software Carpentry</a>, I try to convey as much about <em>process</em> as anything else. You can always look up technical details, e.g., syntax, but you don’t usually get to see how other people work. This is also how I approach teaching about <a href="http://stat545-ubc.github.io/block011_write-your-own-function-01.html">writing R functions</a>. Newcomers often look at finished code and assume it flowed perfectly formed out of someone’s fingertips. It probably did not.</p>
+<p>My <em>modus operandi</em>: start with something that works and add features in small increments, maniacally checking that everything still works. Other people undoubtedly move faster (and, therefore, travel faster but crash harder), but I’m OK with that.</p>
+<div id="context-writing-a-function-factory" class="section level2">
+<h2>Context: writing a function factory</h2>
+<p>I have an R package <a href="https://github.com/jennybc/googlesheets"><code>googlesheets</code></a> that gets Google Sheets in and out of R. Lately we’ve had alot of trouble with <code>Internal Server Error (HTTP 500)</code>, which, as you might expect, is an error on the Google server side. All you can do as a user is try, try again. But this is a showstopper for unattended scripts or multi-step operations, like building and checking the package. A single error renders lots of other work moot, which is completely infuriating.</p>
+<p>I want to catch these errors and automatically retry the request after an appropriate delay.</p>
+<p>The brute force approach would be to literally drop little <code>for</code> or <code>while</code> loops all over the package, to inspect the response and retry if necessary. But I try to follow the <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY principle</a>, so would prefer to write a new “retry-capable” version of the function that makes these http requests.</p>
+<p>It also turns out there’s more than one function for making these requests. I’m talking about the <a href="http://www.restapitutorial.com/lessons/httpmethods.html">HTTP verbs you use with REST APIs</a>: GET, POST, PATCH, etc. I potentially need to give them all the “retry” treatment. So what I really need is a <em>function factory</em>: an HTTP verb goes in and out comes a retry-capable version of the verb.</p>
+<p>It turns out you can write R (or S) for ~20 years and not be very facile with this technique. I certainly am not! But I can read, which is how I got the two circles to start my owl.</p>
+</div>
+<div id="start-at-the-beginning" class="section level2">
+<h2>Start at the beginning</h2>
+<p>My reference is the section of Wickham’s <a href="http://adv-r.had.co.nz">Advanced R</a> that is about <a href="http://adv-r.had.co.nz/Functional-programming.html#closures">closures</a>, “functions written by functions”. Here’s one of the two main examples: a function that creates an exponentiation function.</p>
+<pre class="r"><code>power &lt;- function(exponent) {
+  function(x) {
+    x ^ exponent
+  }
+}
+
+square &lt;- power(2)
+square(2)
+## [1] 4
+square(4)
+## [1] 16
+
+cube &lt;- power(3)
+cube(2)
+## [1] 8
+cube(4)
+## [1] 64</code></pre>
+<p>I make myself type all this code in and run it. No shortcuts!</p>
+<p>What have I learned? I can write a factory, <code>power()</code>, that takes some input, <code>exponent</code>, and gives me back a function, such as <code>square()</code> or <code>cube()</code>.</p>
+<p>But let’s be honest, this is pretty far from what I need to do.</p>
+</div>
+<div id="can-the-input-be-a-function" class="section level2">
+<h2>Can the input be a function?</h2>
+<p>My problem is different. My input is a <em>function</em>, not an exponent like 2 or 3. Can I even do that?</p>
+<p>The simplest thing I could think of that sort of looks like my problem:</p>
+<ul>
+<li>the factory takes a function as input</li>
+<li>it returns a function that executes the input function twice, with whatever inputs that function had in the first place</li>
+</ul>
+<pre class="r"><code>call_me_twice &lt;- function(f) {
+  function(...) {
+    f(...)
+    f(...)
+  }
+}</code></pre>
+<p>Now I need an input function to be the guinea pig. It needs to take input and be chatty, so I can tell if it’s getting executed. Make sure it works as expected!</p>
+<pre class="r"><code>jfun &lt;- function(x) cat(x, &quot;\n&quot;)
+jfun(&quot;a&quot;)
+## a
+jfun(1)
+## 1</code></pre>
+<p>Put it all together.</p>
+<pre class="r"><code>jfunner &lt;- call_me_twice(jfun)
+jfunner(&quot;a&quot;)
+## a 
+## a
+jfunner(1)
+## 1 
+## 1</code></pre>
+<p>I won’t lie, I’m pleasantly surprised this worked. Morale boost.</p>
+</div>
+<div id="faux-verb" class="section level2">
+<h2>Faux VERB</h2>
+<p>I need a placeholder for the HTTP verbs with these qualities:</p>
+<ul>
+<li>takes some input</li>
+<li>generates a non-deterministic status</li>
+<li>returns a list with the input, status, and some content</li>
+</ul>
+<pre class="r"><code>VERB &lt;- function(url = &quot;URL!&quot;)
+  list(url = url,
+       status = sample(c(200, 500), size = 1, prob = c(0.6, 0.4)),
+       content = rnorm(5))
+VERB()
+## $url
+## [1] &quot;URL!&quot;
+## 
+## $status
+## [1] 500
+## 
+## $content
+## [1]  0.7725060  0.9217522  2.2873838  0.6078766 -0.2556910
+VERB()
+## $url
+## [1] &quot;URL!&quot;
+## 
+## $status
+## [1] 200
+## 
+## $content
+## [1] -1.6951869  0.1556852  0.9170427  1.2368064  0.1631589</code></pre>
+<p>Oh wait, we have functions in R to do something over and over again.</p>
+<pre class="r"><code>replicate(5, VERB())
+##         [,1]      [,2]      [,3]      [,4]      [,5]     
+## url     &quot;URL!&quot;    &quot;URL!&quot;    &quot;URL!&quot;    &quot;URL!&quot;    &quot;URL!&quot;   
+## status  200       200       500       500       200      
+## content Numeric,5 Numeric,5 Numeric,5 Numeric,5 Numeric,5</code></pre>
+<p>Send <code>VERB()</code> off to the function factory.</p>
+<pre class="r"><code>VERB_twice &lt;- call_me_twice(VERB)
+replicate(5, VERB_twice())
+##         [,1]      [,2]      [,3]      [,4]      [,5]     
+## url     &quot;URL!&quot;    &quot;URL!&quot;    &quot;URL!&quot;    &quot;URL!&quot;    &quot;URL!&quot;   
+## status  500       200       200       200       200      
+## content Numeric,5 Numeric,5 Numeric,5 Numeric,5 Numeric,5</code></pre>
+<p>Hmmmm … I only see one output per call of <code>VERB_twice()</code>. But why? Is it because <code>VERB()</code> is only getting called once? That means I’ve screwed up. Or is <code>VERB()</code> getting called twice but I’m only seeing evidence of the second call?</p>
+</div>
+<div id="a-better-faux-verb" class="section level2">
+<h2>A better faux VERB</h2>
+<pre class="r"><code>VERB &lt;- function(url = &quot;URL!&quot;) {
+  req &lt;- list(url = url,
+              status = sample(c(200, 500), size = 1, prob = c(0.6, 0.4)),
+              content = rnorm(5))
+  message(req$status)
+  req
+}
+replicate(5, VERB())
+## 200
+## 200
+## 500
+## 200
+## 200
+##         [,1]      [,2]      [,3]      [,4]      [,5]     
+## url     &quot;URL!&quot;    &quot;URL!&quot;    &quot;URL!&quot;    &quot;URL!&quot;    &quot;URL!&quot;   
+## status  200       200       500       200       200      
+## content Numeric,5 Numeric,5 Numeric,5 Numeric,5 Numeric,5</code></pre>
+<p>Why is this better? Each call of <code>VERB()</code> causes a message AND returns something.</p>
+<p>Send new and improved <code>VERB()</code> off to the function factory.</p>
+<pre class="r"><code>VERB_twice &lt;- call_me_twice(VERB)
+replicate(5, VERB_twice())
+## 200
+## 200
+## 500
+## 200
+## 200
+## 200
+## 200
+## 200
+## 200
+## 200
+##         [,1]      [,2]      [,3]      [,4]      [,5]     
+## url     &quot;URL!&quot;    &quot;URL!&quot;    &quot;URL!&quot;    &quot;URL!&quot;    &quot;URL!&quot;   
+## status  200       200       200       200       200      
+## content Numeric,5 Numeric,5 Numeric,5 Numeric,5 Numeric,5</code></pre>
+<p>I like it! What do I like about it?</p>
+<ul>
+<li>5 calls produce 10 messages, which tells me <code>VERB()</code> is getting called twice.</li>
+<li>5 calls produce 5 outputs, which is good for my eventual goal, where I will only want to return the value of the last call of the enclosed function.</li>
+</ul>
+</div>
+<div id="retry-n-times-and-a-temporary-setback" class="section level2">
+<h2>Retry <code>n</code> times … and a temporary setback</h2>
+<p>Instead of hard-wiring 2 calls of the enclosed function <code>f</code>, let’s call it <code>n</code> times via a <code>for</code> loop.</p>
+<pre class="r"><code>call_me_n &lt;- function(f, n = 3) {
+  function(...) for (i in seq_len(n)) f(...)
+}</code></pre>
+<p>Let’s try my new function factory.</p>
+<pre class="r"><code>VERB_3 &lt;- call_me_n(VERB)
+VERB_3()
+## 500
+## 200
+## 200</code></pre>
+<p>That’s disappointing. I see the message, but get no actual output. Is there really no output coming back? Or is it just invisible?</p>
+<pre class="r"><code>x &lt;- VERB_3()
+## 200
+## 500
+## 200
+str(x)
+##  NULL</code></pre>
+<p>Nope, there really is no output. Fix that.</p>
+<pre class="r"><code>call_me_n &lt;- function(f, n = 3) {
+  function(...) {
+    for (i in seq_len(n)) out &lt;- f(...)
+    out
+  }
+}
+VERB_3 &lt;- call_me_n(VERB)
+VERB_3()
+## 200
+## 500
+## 200
+## $url
+## [1] &quot;URL!&quot;
+## 
+## $status
+## [1] 200
+## 
+## $content
+## [1] -1.39305501 -1.12975777 -2.63549110  0.70291225 -0.05617746</code></pre>
+<p>YAY! Before I move on, let’s make sure I can actually set the <code>n</code> argument to something other than 3.</p>
+<pre class="r"><code>VERB_4 &lt;- call_me_n(VERB, 4)
+VERB_4()
+## 200
+## 200
+## 200
+## 200
+## $url
+## [1] &quot;URL!&quot;
+## 
+## $status
+## [1] 200
+## 
+## $content
+## [1]  1.47958363 -0.02104596  0.47492109  0.64907758 -1.09196531</code></pre>
+</div>
+<div id="conditional-retries" class="section level2">
+<h2>Conditional retries</h2>
+<p>Almost done!</p>
+<p>My real factory needs to use the output of the enclosed HTTP verb to decide whether a retry is sensible. The new name reflects HTTP verb specificity. I now add the actual logic and behavior I need in real life.</p>
+<pre class="r"><code>VERB_n &lt;- function(VERB, n = 3) {
+  function(...) {
+    for (i in seq_len(n)) {
+      out &lt;- VERB(...)
+      if (out$status &lt; 499 || i == n) break
+      backoff &lt;- runif(n = 1, min = 0, max = 2 ^ i - 1)
+      message(&quot;HTTP error &quot;, out$status, &quot; on attempt &quot;, i,
+              &quot; ... retrying after a back off of &quot;, round(backoff, 2),
+              &quot; seconds.&quot;)
+      Sys.sleep(backoff)
+    }
+    out
+  }
+}</code></pre>
+<p>I send my existing faux <code>VERB()</code> off to the new and improved factory. Start providing input again, just to make sure that all still works.</p>
+<pre class="r"><code>VERB_5 &lt;- VERB_n(VERB, n = 5)
+VERB_5(&quot;Owls can rotate their necks 270 degrees.&quot;)
+## 200
+## $url
+## [1] &quot;Owls can rotate their necks 270 degrees.&quot;
+## 
+## $status
+## [1] 200
+## 
+## $content
+## [1]  1.3812422 -1.8105817 -0.3256026 -0.4936094 -1.7317095
+VERB_5(&quot;Owls are cute.&quot;)
+## 200
+## $url
+## [1] &quot;Owls are cute.&quot;
+## 
+## $status
+## [1] 200
+## 
+## $content
+## [1]  0.3651856 -0.2583526  0.5737657 -0.6806672  0.3468226
+VERB_5(&quot;A group of owls is called a Parliament.&quot;)
+## 500
+## HTTP error 500 on attempt 1 ... retrying after a back off of 0.91 seconds.
+## 500
+## HTTP error 500 on attempt 2 ... retrying after a back off of 0.92 seconds.
+## 500
+## HTTP error 500 on attempt 3 ... retrying after a back off of 5.66 seconds.
+## 200
+## $url
+## [1] &quot;A group of owls is called a Parliament.&quot;
+## 
+## $status
+## [1] 200
+## 
+## $content
+## [1] -1.11905405 -2.30975730  0.50613962 -0.02815278  0.37802033</code></pre>
+<p>And we have drawn some f*cking owls, with retries!</p>
+<p><img src="https://img.buzzfeed.com/buzzfeed-static/static/2014-03/enhanced/webdr05/7/10/enhanced-22024-1394207918-30.jpg" alt="" /></p>
+</div>
+<div id="the-final-result-is-not-that-exciting" class="section level2">
+<h2>The final result is not that exciting</h2>
+<p>Now in real life, I create retry-capable HTTP verbs like so: <code>rGET &lt;- VERB_n(httr::GET)</code>. Then just replace all instances of <code>httr::GET()</code> with <code>rGet()</code>. It’s terribly anticlimactic.</p>
+<p>The final version of the function factory is about a dozen lines of fairly pedestrian code. I probably wrote and discarded at least 10x that. This is typical, so don’t be surprised if this is how it works for you too. Get a working example and take tiny steps to morph it into the thing you need.</p>
+<p><em>The <strong>results</strong> of this effort are, however, pretty gratifying. I have had zero build/check failures locally and on Travis, since I implemented retries on <code>httr::GET()</code>. Or, to be honest, I’ve had failures, but for other reasons. So it was totally worth it!</em></p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
