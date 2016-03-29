@@ -299,6 +299,8 @@ My real factory needs to use the output of the enclosed HTTP verb to decide whet
 
 ```r
 VERB_n <- function(VERB, n = 3) {
+  force(VERB)
+  force(n)
   function(...) {
     for (i in seq_len(n)) {
       out <- VERB(...)
@@ -367,4 +369,4 @@ Now in real life, I create retry-capable HTTP verbs like so: `rGET <- VERB_n(htt
 
 The final version of the function factory is about a dozen lines of fairly pedestrian code. I probably wrote and discarded at least 10x that. This is typical, so don't be surprised if this is how it works for you too. Get a working example and take tiny steps to morph it into the thing you need.
 
-*The __results__ of this effort are, however, pretty gratifying. I have had zero build/check failures locally and on Travis, since I implemented retries on `httr::GET()`. Or, to be honest, I've had failures, but for other reasons. So it was totally worth it!*
+*The __results__ of this effort are, however, pretty gratifying. I have had zero build/check failures locally and on Travis, since I implemented retries on `httr::GET()`. Or, to be honest, I've had failures, but for other reasons. So it was totally worth it! I also thank Konrad Rudolph and Kevin Ushey for [straightening me out](https://gist.github.com/jennybc/65c577f98c2bad7e2b3d0ccb773dfaf8) on the need to use `force()` inside the function factory.*
