@@ -69,7 +69,7 @@ Software Carpentry's [Slides on `Make`](http://software-carpentry.org/v4/make/in
 
 Zachary M. Jones wrote [GNU Make for Reproducible Data Analysis](http://zmjones.com/make.html)
 
-[Keeping tabs on your data analysis workflow](http://www.adamlaiacano.com/post/45356689519/keeping-tabs-on-your-data-analysis-workflow), blog post by Adam Laiacano, who works at Tumblr
+[Keeping tabs on your data analysis workflow](http://alaiacano.github.io/blog/2013/03/14/keeping-tabs-on-your-data-analysis-workflow/), blog post by Adam Laiacano, who works at Tumblr
 
 Mike Bostock, of D3.js and New York Times fame, explains [Why Use Make](http://bost.ocks.org/mike/make/): "it's about the benefits of capturing workflows via a file-based dependency-tracking build system"
 
