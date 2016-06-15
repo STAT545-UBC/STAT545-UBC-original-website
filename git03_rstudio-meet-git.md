@@ -6,11 +6,13 @@ output:
     toc_depth: 4
 ---
 
+Go back to the [index for the all the Git stuff](git00_index.html).
+
 **You only have to set this up once per machine.**
 
 ### TL;DR
 
-Make sure RStudio can find the git executable.
+Make sure RStudio can find the Git executable.
 
   * *File > New Project...* Do you see an option to create from Version Control? If yes, good.
   * Select *New Directory* > *Empty Project*. Do you see a checkbox "Create a git repository"? If yes, good, CHECK IT.
