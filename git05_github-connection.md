@@ -6,9 +6,11 @@ output:
     toc_depth: 4
 ---
 
+Go back to the [index for the all the Git stuff](git00_index.html).
+
 **You only have to set this up once per machine.**
 
-**I do not explain all the [shell](git09_shell.html) and Git commands in detail. This is sort of black box diagnostic / configuration exercise.**
+**I do not explain all the [shell](git09_shell.html) and Git commands in detail. This is sort of a black box diagnostic / configuration exercise.**
 
 ### Make a repo on GitHub
 
@@ -16,13 +18,13 @@ Go to <https://github.com> and make sure you are logged in.
 
 Click green "New repository" button. Or, if you are on your own profile page, click on "Repositories", then click the green "New" button.
 
-Repository name: `myrepo` (or whatever you wish)  
+Repository name: `myrepo` (or whatever you wish, we will delete this)  
 Public  
 YES Initialize this repository with a README
 
 Click big green button "Create repository."
 
-Copy the HTTPS clone URL. It's near the bottom of the right sidebar.
+Copy the HTTPS clone URL to your clipboard via the green "Clone or Download" button.
 
 ### Clone the repo to your local computer
 
@@ -30,7 +32,7 @@ Go to the [shell](git09_shell.html).
 
 Take charge of -- or at least notice! -- what directory you're in. `pwd` to display working directory. `cd` to move around. Personally, I would do this sort of thing in `~/tmp`.
 
-Clone `myrepo` from GitHub to your computer. This URL should have **your GitHub username** and the name of **your practice repo**. If your [shell](git09_shell.html) cooperates, you should be able to paste the whole `https://....` bit that we copied above. But some shells are not (immediately) clipboard aware. Type it. **Accurately.**
+Clone `myrepo` from GitHub to your computer. This URL should have **your GitHub username** and the name of **your practice repo**. If your [shell](git09_shell.html) cooperates, you should be able to paste the whole `https://....` bit that we copied above. But some shells are not (immediately) clipboard aware. In that sad case, you must type it. **Accurately.**
 
 ``` bash
 git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
@@ -153,11 +155,11 @@ It is likely that your first push, above, leads to a challenge for your GitHub u
 
 This will drive you crazy in the long-run and make you reluctant to push. Read more [here](git06_credential-caching.html) about GitHub credential caching.
 
-Now is the perfect time to go there, since you have a functioning test repo.
+**Now is the perfect time to go there, since you have a functioning test repo.**
 
 ### Clean up
 
-When you're read to clean up, delete the local repo in the [shell](git09_shell.html):
+When you're ready to clean up, delete the local repo in the [shell](git09_shell.html):
 
 ``` bash
 cd ..
