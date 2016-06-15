@@ -103,7 +103,7 @@ seq(1, 10)
 ##  [1]  1  2  3  4  5  6  7  8  9 10
 ```
 
-The above also demonstrates something about how R resolves function arguments. You can always specify in `name = value` form. But if you do not, R attempts to resolve by position. So above, it is assumed that we want a sequence `from = 1` that goes `to = 1`. Since we didn't specify step size, the default value of `by` in the function definition is used, which ends up being 1 in this case. For functions I call often, I might use this resolve by position for the first
+The above also demonstrates something about how R resolves function arguments. You can always specify in `name = value` form. But if you do not, R attempts to resolve by position. So above, it is assumed that we want a sequence `from = 1` that goes `to = 10`. Since we didn't specify step size, the default value of `by` in the function definition is used, which ends up being 1 in this case. For functions I call often, I might use this resolve by position for the first
 argument or maybe the first two. After that, I always use `name = value`.
 
 
@@ -143,7 +143,7 @@ date()
 ```
 
 ```
-## [1] "Fri Sep 11 15:05:31 2015"
+## [1] "Tue Jun 14 22:00:26 2016"
 ```
 
 Now look at your workspace -- in the upper right pane. The workspace is where user-defined objects accumulate. You can also get a listing of these objects with commands:
@@ -293,7 +293,7 @@ y <- a + b * x + rnorm(40, sd = sqrt(sig_sq))
 ```
 
 ```
-## [1] 0.4598551
+## [1] 0.554615
 ```
 
 ```r
@@ -302,7 +302,7 @@ plot(x, y)
 abline(a, b, col = "purple")
 ```
 
-![](block002_hello-r-workspace-wd-project_files/figure-html/toy-line-1.png) 
+![](block002_hello-r-workspace-wd-project_files/figure-html/toy-line-1.png)<!-- -->
 
 ```r
 dev.print(pdf, "toy_line_plot.pdf")
