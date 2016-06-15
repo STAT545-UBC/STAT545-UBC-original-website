@@ -3,6 +3,8 @@ title: Introduce yourself to Git
 output: html_document
 ---
 
+Go back to the [index for the all the Git stuff](git00_index.html).
+
 **You only have to set this up once per machine.**
 
 ### TL;DR
