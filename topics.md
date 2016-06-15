@@ -1,5 +1,6 @@
 ## Topic list
 
+  * *TEMPORARY* [Landing page for useR Git tutorial](happy00_index.html)
   * [Install R and Rstudio](block000_r-rstudio-install.html)
   * [All the Git and GitHub (and RStudio) things](git00_index.html)
     - [Install Git](git01_git-install.html)
