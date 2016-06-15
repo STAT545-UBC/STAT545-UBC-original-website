@@ -6,13 +6,13 @@ output:
     toc_depth: 4
 ---
 
+*2016-06-15: I have high-jacked this for my useR! tutorial. Once I migrate content over to the happy git repo, I will put this more back to the way it was!*
+
 ### Overview
 
-This describes a hands-on activity where the goal is to author an R Markdown document and render it to HTML. We discuss how to keep the intermediate Markdown file, the figures, and what to commit to Git and push to GitHub.
+This describes a hands-on activity where the goal is to author an R Markdown document and render it to HTML. We discuss how to keep the intermediate Markdown file, the figures, and what to commit to Git and push to GitHub. If GitHub is the primary venue, we render directly to GitHub-flavored markdown and never create HTML.
 
-Here is the official R Markdown documentation:
-
-  * <http://rmarkdown.rstudio.com>
+Here is the official R Markdown documentation: <http://rmarkdown.rstudio.com>
 
 ### Step 0: Software installation and configuration
 
@@ -28,6 +28,8 @@ We assume the following
 
 Launch RStudio, probably in the Project that corresponds to the repository where you are keeping all STAT 545 coursework. Make sure the workspace is clean and you've launched a fresh R process. Make sure the working directory is sensible.
 
+*this should be a repo that is already syncing with a github remote*
+
 ### Step 2: Practice with RStudio's boilerplate R Markdown document
 
 I am modelling "walk before you run" here. It is best, especially for novices, to increase complexity in small increments. We will test our system's ability to render the ["hello world"](http://en.wikipedia.org/wiki/%22Hello,_world!%22_program) of R Markdown documents before we muddy the waters with our own, probably buggy, documents.
@@ -41,20 +43,28 @@ Do this: *File > New File > R Markdown ...*
   
 Save this document to a reasonable filename and location. The filename should end in `.Rmd` or `.rmd`. I **highly recommend** saving in the top-level of the directory that is also also a Git repository for your coursework and that is also an RStudio project and that is also current working directory. Trust me on this.
 
+*commit here*
+
 Click on "Knit HTML" or do *File > Knit Document*. RStudio should display a preview of the resulting HTML. Also look at the file browser (which should be pointed at the directory where you saved the `.Rmd` file). You should see the R Markdown document, i.e. `foo.Rmd` AND the resulting HTML `foo.html`.
 
 Congratulations, you've just made your first reproducible report with R Markdown.
 
-### Step 3: Save the intermediate Markdown
+*commit here*
 
-*This is directly related to eventual publishing on GitHub. If that does not apply to you, skip this step.*
+### Step 3: Take control of the output format
 
-It will have nice side effects on GitHub if we save the intermediate Markdown file that is produced when compiling to HTML. The magical process is like so: `foo.Rmd --> foo.md --> foo.html`. By default RStudio discards `foo.md` but it's easy to request that it be kept. This is one of the many things we can control in the YAML frontmatter -- the text at the top of your file between leading and trailing lines of `---`. Two approaches:
+Do you really want HTML? Do you only want HTML? If so, you can skip this step!
 
-  * RStudio GUI: click on the "gear" in the top bar of the source editor, near the "Knit HTML" button. Select "Output options" and go to the Advanced tab and check "Keep markdown source file."
+The magical process that turns your R Markdown to HTML is like so: `foo.Rmd --> foo.md --> foo.html`. Note the intermediate markdown, `foo.md`. By default RStudio discards this, but you might want to hold on to that markdown.
+
+Why? GitHub gives very special treatment to markdown files. They are rendered in an almost HTML-like way. This is great because it preserves all the charms of plain text but gives you a pseudo-webpage for free when you visit the file in the browser. In contrast, HTML is rendered as plain text on GitHub and you'll have to take special measures to see it the way you want.
+
+In many cases, you *only want the markdown*. In that case, we switch the output format to `github_document`. This means render will be `foo.Rmd --> foo.md`, where `foo.md` is GitHub-flavored markdown. If you still want the HTML *but also the intermediate markdown*, there's a way to request that too.
+
+**Output format** is one of the many things we can control in the YAML frontmatter -- the text at the top of your file between leading and trailing lines of `---`.
+
+You can make some changes via the RStudio IDE: click on the "gear" in the top bar of the source editor, near the "Knit HTML" button. Select "Output options" and go to the Advanced tab and check "Keep markdown source file." Your YAML should now look more like this:
   
-  * "By hand:" Make your YAML frontmatter look something like this:
-
 ``` yaml
     ---  
     title: "Something fascinating"  
@@ -66,9 +76,32 @@ It will have nice side effects on GitHub if we save the intermediate Markdown fi
     ---  
 ```
 
-Save! Render via "Knit HTML" button.
+You should have gained the line `keep_md: true`. You can also simply edit the file yourself to achieve this.
 
-Now revisit the file browser. In addition to `foo.Rmd` and `foo.html`, you should now see `foo.md` and a directory `foo_files`, where any figures created by the document will live.
+In fact this hand-edit is necessary if you want to keep only markdown and get GitHub-flavored markdown. In that case, make your YAML look like this:
+
+``` yaml
+    ---  
+    title: "Something fascinating"  
+    author: "Jenny Bryan"  
+    date: "`r format(Sys.Date())`"
+    output: github_document
+    ---  
+```
+
+Save!
+
+*commit here*
+
+Render via "Knit HTML" button.
+
+Now revisit the file browser. In addition to `foo.Rmd`, you should now see `foo.md`. If there are R chunks that make figures, the usage of markdown output formats will also cause those figure files to be left behind in a sensibly named sub-directory, `foo_files`.
+
+If you commit and push `foo.md` and everything inside `foo_files`, then anyone with permission to view your GitHub repo can see a decent-looking version of your report.
+
+If your output format is `html_document`, you should still see `foo.html`. If your output format is `github_document` and you see `foo.html`, that's leftover from earlier experiments. Delete that. It will only confuse you later.
+
+*commit here*
 
 ### Step 4: Swap out the "guts" of the document
 
@@ -86,7 +119,11 @@ Insert 1 to 3 lines of functioning code that begin the task at hand. "Walk throu
 
 Satisfied? Save!
 
+*commit here*
+
 Now render the whole document via "Knit HTML." Voilà!
+
+*commit here*
 
 ### Step 5: Develop your report
 
@@ -100,11 +137,20 @@ You'll develop your own mojo soon, but this should give you your first successfu
 
 ### Step 6: Publish your report
 
-Since we are pushing coursework to GitHub anyway, I focus on how that delivers decent web publishing for "free."
+If you've been making HTML, you can put that up on the web somewhere, email to your collaborator, whatever.
 
-Markdown documents get special treatment on GitHub: when you visit one in a web browser, instead of seeing the raw Markdown, by default you see a preview of how it will look when rendered to proper HTML. This is why, in Step 3, we alter the YAML to request retention of the intermediate Markdown file. If there are R chunks that make figures, `keep_md: true` will also cause those figure files to be left behind in a sensibly named sub-directory. If you commit and push `foo.md` and everything inside `foo_files`, then anyone with permission to view your GitHub repo can see a decent-looking version of your report.
+No matter what, technically you can publish this report merely by pushing a rendered version to GitHub. However, certain practices make this effort at publishing more satisfying for your audience.
 
-This is (sort of) another example of keeping things machine- and human-readable. By making `foo.Rmd` available, others can see and run your __actual code__. By sharing `foo.md` and/or `foo.html`, others can casually browse your end product and decide if they even want to run your code.
+Here are two behaviors I find very frustrating:
+
+  * "Here is my code. Behold." This is when someone only pushes their source, i.e. R Markdown or R code AND they want other people to look at their "product". The implicit assumption is that target audience will download code and run it. Sometimes the potential payoff simply does not justify this effort. Communication fail.
+  * "Here is my HTML. Behold." This is when someone doesn't bother to edit the default output format and accepts HTML only. What am I supposed to do with HTML on GitHub? Communication fail.
+  
+Creating, commiting, and pushing markdown is a very functional, lighweight publishing strategy. Use `output: github_document` or `keep_md: true` if output is `html_document`. In both cases, it is critical to also commit and push everything inside `foo_files`. Now people can visit and consume your work like any other webpage.
+
+This is (sort of) another example of keeping things machine- and human-readable, which is bliss. By making `foo.Rmd` available, others can see and run your __actual code__. By sharing `foo.md` and/or `foo.html`, others can casually browse your end product and decide if they even want to bother.
+
+#### HTML on GitHub
 
 HTML files, such as `foo.html`, are not immediately useful on GitHub (though your local versions are easily viewable). Visit one and you'll see the raw HTML. Yuck. But there are ways to get a preview: such as <https://rawgit.com> or <http://htmlpreview.github.io>. Expect some pain with HTML files inside private repos. When it becomes vital for the whole world to see proper HTML in its full glory, it's time to use a more sophisticated web publishing strategy.
 
