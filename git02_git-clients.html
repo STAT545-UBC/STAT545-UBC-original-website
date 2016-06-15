@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
 
 
 
@@ -50,6 +50,33 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 
 
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
 <link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
@@ -72,27 +99,6 @@ img {
   max-width:100%;
   height: auto;
 }
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
 .tabbed-pane {
   padding-top: 12px;
 }
@@ -105,7 +111,7 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.0/tabsets.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -136,7 +142,8 @@ $(document).ready(function () {
 <div class="fluid-row" id="header">
 
 
-<h1 class="title">Git Clients</h1>
+
+<h1 class="title toc-ignore">Git Clients</h1>
 
 </div>
 
@@ -147,6 +154,7 @@ $(document).ready(function () {
 </ul>
 </div>
 
+<p>Go back to the <a href="git00_index.html">index for the all the Git stuff</a>.</p>
 <div id="what-and-why" class="section level3">
 <h3>What and why</h3>
 <p>Learning how and why to use version control can be rough at first. I found the use of a GUI – as opposed to the command line – extremely helpful when I was getting started. I call this sort of helper application a Git client. Actually I call it a Git(Hub) client because they also help you interact with GitHub.</p>
@@ -157,15 +165,23 @@ $(document).ready(function () {
 </div>
 <div id="recommendations-for-git-clients" class="section level3">
 <h3>Recommendations for Git clients</h3>
+<!-- https://twitter.com/JennyBryan/status/734894596019224576 -->
 <ul>
-<li><p><a href="http://www.sourcetreeapp.com">SourceTree</a> is a free, powerful Git(Hub) client that I highly recommend. It was my first Git client and is still my favorite for nontrivial Git tasks. Available for Mac and Windows.</p></li>
-<li><p><a href="http://gitup.co">GitUp</a> is a free, open source client for Mac OS. I’ve heard really good things about it and like what I read on the website. Suspect it’s as good or better than SourceTree for the Mac folks.</p></li>
+<li><p><a href="http://www.sourcetreeapp.com">SourceTree</a> is a free, powerful Git(Hub) client that I highly recommend. It was my first Git client and is still my favorite for nontrivial Git tasks. Available for Mac and Windows. If I’m teaching you in a course or workshop, you will see me using this.</p></li>
+<li><p><a href="https://www.gitkraken.com">GitKraken</a> is quite new on the scene and is free. I would probably start here if I was starting today. Why? Because it works across all three OSes my students use: Windows, Mac, and Linux. I hear very good reviews, especially from long-suffering Linux users who haven’t had any great options until now.</p></li>
+<li><p><a href="http://gitup.co">GitUp</a> is a free, open source client for Mac OS. I’ve heard really good things about it and like what I read on the website. However, I tried to make myself use it for a day and went sort of nuts, possibly because I’m so used to SourceTree. YMMV.</p></li>
 <li>GitHub also offers <a href="https://desktop.github.com/">a free Git(Hub) client</a> for Windows and Mac. We <a href="git01_git-install.html#git-installation-windows">do not recommend it for Windows users</a> for use in the class. We <a href="git01_git-install.html#git-installation-mac">recommend it for Mac users with serious reservations</a>. What do we object to?
 <ul>
 <li>The degree of hand-holding offered by GitHub’s clients borders on hand-<em>cuffs</em>.</li>
 <li>These clients wrap Git functionality so thoroughly that we’ve had students make some destructive mistakes. For example, we’ve seen a “sync” operation that resulted in the loss of local uncommitted changes. Exactly which Git operations, in what order, are implied by “sync”, is <a href="http://stackoverflow.com/questions/12104513/what-does-github-for-windows-sync-do">not entirely clear</a>. We prefer clients that expose Git more explicitly.</li>
+<li>We’ve heard similar negative reviews from other instructors. It’s not just us.</li>
 </ul></li>
-<li><p>A free multi-platform Git(Hub) client is <a href="http://www.syntevo.com/smartgit/">SmartGit</a>.</p></li>
+<li><p>Others that I have heard positive reviews for:</p>
+<ul>
+<li><a href="http://www.syntevo.com/smartgit/">SmartGit</a></li>
+<li><a href="https://git-cola.github.io">git-cola</a></li>
+<li><a href="https://magit.vc">magit</a>, for Emacs nerds</li>
+</ul></li>
 <li><p>Browse <a href="http://git-scm.com/downloads/guis">even more Git(Hub) clients</a>.</p></li>
 </ul>
 <p>Go back to the <a href="git00_index.html">index for the all the Git stuff</a>.</p>
