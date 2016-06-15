@@ -6,6 +6,8 @@ output:
     toc_depth: 4
 ---
 
+Go back to the [index for the all the Git stuff](git00_index.html).
+
 ### Prerequisites
 
 This is the big moment where we bring everything together. We assume the following: 
@@ -24,13 +26,13 @@ Go to <https://github.com> and make sure you are logged in.
 
 Click green "New repository" button. Or, if you are on your own profile page, click on "Repositories", then click the green "New" button.
 
-Repository name: `myrepo` (or whatever you wish)  
+Repository name: `myrepo` (or whatever you wish, we will delete this)  
 Public  
 YES Initialize this repository with a README
 
 Click big green button "Create repository."
 
-Copy the HTTPS clone URL. It's near the bottom of the right sidebar.
+Copy the HTTPS clone URL to your clipboard via the green "Clone or Download" button.
 
 ### Step 2: Clone the new GitHub repository to your computer via RStudio
 
@@ -39,11 +41,13 @@ In RStudio, start a new Project:
   * *File > New Project > Version Control > Git*. In the "repository URL" paste the URL of your new GitHub repository. It will be something like this `https://github.com/jennybc/myrepo.git`.
     - Do you NOT see an option to get the Project from Version Control? Go [here](git03_rstudio-meet-git.html) for tips on how to help RStudio find Git.
 
-  * Take charge of -- or at least notice! -- the local directory for the Project. This will create a new sub-directory, which will be all of these things:
+  * Take charge of -- or at least notice! -- the local directory for the Project. A common rookie mistake is to have no idea where you are saving files or what your working directory is. Pay attention. Be intentional. Personally, I would do this in `~/tmp`.
+  * I suggest you check "Open in new session", as that's what you'll usually do in real life.
+  * Click "Create Project" to create a new sub-directory, which will be all of these things:
     - a directory on your computer
     - a Git repository, linked to a remote GitHub repository
     - an RStudio Project
-  * In the absence of other constraints, I suggest that all of your R projects have exactly this set-up.
+  * **In the absence of other constraints, I suggest that all of your R projects have exactly this set-up.**
 
 This should download the `README.md` file that we created on GitHub in the previous step. Look in RStudio's file browser pane for the `README.md` file.
 
@@ -59,11 +63,19 @@ This workflow is the reverse of the above and cannot be executed from within R/R
   
   * Take charge of -- or at least notice! -- the local directory where this Project will live.
   
-  * YES click "Create a git repository".
+  * YES check "Create a git repository".
   
     - Do you NOT have a checkbox to request a Git repository? Go [here](git03_rstudio-meet-git.html) for tips on how to help RStudio find Git.
+    
+  * I suggest you check "Open in new session", as that's what you'll usually do in real life.
 
-  * Initiate the "upstream" or "tracking" relationship by adding a remote. Go to *Tools > [shell](git09_shell.html)* and do this, substitute the HTTPS URL for **your GitHub repo**.
+  * Click "Create Project" to create a new sub-directory, which will be all of these things:
+    - a directory on your computer
+    - a Git repository, ~~linked to a remote GitHub repository~~ *no, tragically this is not yet true ... we deal with that next*
+    - an RStudio Project
+  * **In the absence of other constraints, I suggest that all of your R projects have exactly this set-up.**
+  
+  * Initiate the "upstream" or "tracking" relationship by adding a remote. Go to *Tools > [shell](git09_shell.html)* and do this, substituting the HTTPS URL for **your GitHub repo**.
 
     ``` shell
     git remote add origin https://github.com/jennybc/myrepo.git
@@ -104,7 +116,7 @@ From RStudio:
 
 **Do this a few times a day, but possibly less often than you commit.**
 
-You have new work into your local Git repository, but the changes are not online yet.
+You have new work in your local Git repository, but the changes are not online yet.
 
 This will seem counterintuitive, but first let's stop and pull from GitHub.
 
@@ -112,7 +124,7 @@ This will seem counterintuitive, but first let's stop and pull from GitHub.
   
 Click the blue "Pull" button in the "Git" tab in RStudio. I doubt anything will happen, i.e. you'll get the message "Already up-to-date." This is just to establish a habit.
 
-Click the green "Push" button to send you local changes to GitHub. You should see some message along these lines.
+Click the green "Push" button to send your local changes to GitHub. You should see some message along these lines.
 
 ``` shell
 [master dc671f0] blah
