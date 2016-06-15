@@ -6,6 +6,8 @@ output:
     toc_depth: 4
 ---
 
+Go back to the [index for the all the Git stuff](git00_index.html).
+
 #### I think I have installed Git but damn if I can find it
 
 When you install Git, try to control or record where it is being installed! Make a mental or physical note of these things.
@@ -94,9 +96,9 @@ Pull first. Resolve any conflicts. Then try your push again.
 
 #### RStudio is not making certain files available for staging/commiting
 
-Do you have spaces in your directory or file names? I told you that was a terrible idea. Get rid of them.
+Do you have a space in your directory or file names? [A space in a file name is a space in your soul.](https://twitter.com/aaronquinlan/status/711593127551733761) Get rid of it.
 
-Is your Git repo / RStudio Project inside a folder that ... eventually rolls up to Google Drive or DropBox or a network drive? If yes, I recommend you move the repo / Project into a plain old directory that lives directly on your computer and that is not managed by, e.g., Google Drive.
+Is your Git repo / RStudio Project inside a folder that ... eventually rolls up to Google Drive, DropBox, Microsoft OneDrive, or a network drive? If yes, I recommend you move the repo / Project into a plain old directory that lives directly on your computer and that is not managed by, e.g., Google Drive.
 
 If you cannot deal with the two root causes identified above, then it is possible that a [more powerful Git(Hub) client](git02_git-clients.html) will be able to cope with these situations. But I make no promises. You should also try Git operations from the command line.
 

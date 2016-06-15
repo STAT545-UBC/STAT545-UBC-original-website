@@ -10,14 +10,15 @@
 
 
 
+
 <title>RStudio, Git, GitHub Hell</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -48,6 +49,34 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
 <link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
@@ -66,12 +95,34 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 <header>
   <div class="nav">
@@ -88,8 +139,12 @@ img {
   </div>
 </header>
 
-<div id="header">
-<h1 class="title">RStudio, Git, GitHub Hell</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">RStudio, Git, GitHub Hell</h1>
+
 </div>
 
 <div id="TOC">
@@ -105,6 +160,7 @@ img {
 </ul>
 </div>
 
+<p>Go back to the <a href="git00_index.html">index for the all the Git stuff</a>.</p>
 <div id="i-think-i-have-installed-git-but-damn-if-i-can-find-it" class="section level4">
 <h4>I think I have installed Git but damn if I can find it</h4>
 <p>When you install Git, try to control or record where it is being installed! Make a mental or physical note of these things.</p>
@@ -162,8 +218,8 @@ jenny@2015-mbp myrepo $ git branch -vv
 </div>
 <div id="rstudio-is-not-making-certain-files-available-for-stagingcommiting" class="section level4">
 <h4>RStudio is not making certain files available for staging/commiting</h4>
-<p>Do you have spaces in your directory or file names? I told you that was a terrible idea. Get rid of them.</p>
-<p>Is your Git repo / RStudio Project inside a folder that … eventually rolls up to Google Drive or DropBox or a network drive? If yes, I recommend you move the repo / Project into a plain old directory that lives directly on your computer and that is not managed by, e.g., Google Drive.</p>
+<p>Do you have a space in your directory or file names? <a href="https://twitter.com/aaronquinlan/status/711593127551733761">A space in a file name is a space in your soul.</a> Get rid of it.</p>
+<p>Is your Git repo / RStudio Project inside a folder that … eventually rolls up to Google Drive, DropBox, Microsoft OneDrive, or a network drive? If yes, I recommend you move the repo / Project into a plain old directory that lives directly on your computer and that is not managed by, e.g., Google Drive.</p>
 <p>If you cannot deal with the two root causes identified above, then it is possible that a <a href="git02_git-clients.html">more powerful Git(Hub) client</a> will be able to cope with these situations. But I make no promises. You should also try Git operations from the command line.</p>
 </div>
 <div id="i-hear-you-have-some-git-repo-inside-your-git-repo" class="section level4">
@@ -177,6 +233,8 @@ jenny@2015-mbp myrepo $ git branch -vv
 <div class="footer">
 This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
 </div>
+
+
 
 </div>
 
