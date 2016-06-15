@@ -6,6 +6,8 @@ output:
     toc_depth: 4
 ---
 
+Go back to the [index for the all the Git stuff](git00_index.html).
+
 ### Why do we want to cache credentials?
 
 You need to get Git to remember your GitHub username and password, so that every time you push, you do NOT have to authenticate yourself interactively.
@@ -20,7 +22,7 @@ You need a functioning test Git repository. One that exists locally and remotely
 
 If you have just [verified that you can interact with GitHub](git05_github-connection.html) from your local computer, that test repo will be perfect.
 
-If you are [testing that you can work with GitHub from RStudio](git06_git-github-rstudio.html), that test repo will be perfect.
+If you are [testing that you can work with GitHub from RStudio](git06_git-github-rstudio.html), that test repo will also be perfect.
 
 You may proceed when
 
