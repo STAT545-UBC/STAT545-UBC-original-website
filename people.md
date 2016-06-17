@@ -27,7 +27,7 @@ output:
   * [\@ksamuk](http://twitter.com/ksamuk)
   * [GitHub](https://github.com/ksamuk)
   
-Additional TAs (links coming soon)
+Additional TAs 
 
   * Derek Chiu, Statistics MSc
   * Ogan Mancarci, Bioinformatics MSc
