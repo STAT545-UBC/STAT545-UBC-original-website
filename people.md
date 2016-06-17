@@ -54,7 +54,7 @@ These amazing folks are generally still on campus, so you may see them in our vi
 
 Bernhard Konrad
 
-  * <konradbe@math.ubc.ca>
+  * <bernhard.konrad@gmail.com>
   * [\@BernhardKonrad](https://twitter.com/BernhardKonrad)
   * [GitHub](https://github.com/BernhardKonrad)
 
