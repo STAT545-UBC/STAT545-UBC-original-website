@@ -30,7 +30,7 @@ output:
 Additional TAs 
 
   * Derek Chiu, Statistics MSc
-  * Ogan Mancarci, Bioinformatics MSc
+  * Ogan Mancarci, Bioinformatics PhD
   * Chen Yang, Bioinformatics PhD
   * Erica Acton, Genome Science and Technology PhD
   * Nicolas Coutin, Biochemistry and Molecular Biology PhD
