@@ -42,7 +42,7 @@ These amazing folks are generally still on campus, so you may see them in our vi
 
 [Julia Gustavsen](http://www.juliagustavsen.com)
 
-  * <jgustavsen@eos.ubc.ca>
+  * <j.gustavsen@gmail.com>
   * [\@JuliaGustavsen](http://twitter.com/JuliaGustavsen)
   * [GitHub](https://github.com/jooolia)
 
