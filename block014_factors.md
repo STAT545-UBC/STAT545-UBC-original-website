@@ -42,10 +42,9 @@ gcoefs <- gapminder %>%
   do(le_lin_fit(.)) %>% 
   ungroup()
 gcoefs
-## Source: local data frame [142 x 4]
-## 
+## <tibble [142 x 4]>
 ##        country continent intercept     slope
-##         (fctr)    (fctr)     (dbl)     (dbl)
+##         <fctr>    <fctr>     <dbl>     <dbl>
 ## 1  Afghanistan      Asia  29.90729 0.2753287
 ## 2      Albania    Europe  59.22913 0.3346832
 ## 3      Algeria    Africa  43.37497 0.5692797
@@ -56,7 +55,7 @@ gcoefs
 ## 8      Bahrain      Asia  52.74921 0.4675077
 ## 9   Bangladesh      Asia  36.13549 0.4981308
 ## 10     Belgium    Europe  67.89192 0.2090846
-## ..         ...       ...       ...       ...
+## ... with 132 more rows
 ```
 
 Or, if you wish, the `plyr` way:
@@ -310,7 +309,7 @@ ggplot(gcoefs, aes(x = slope, y = reorder(country, slope))) +
   geom_point()
 ```
 
-<img src="block014_factors_files/figure-html/alpha-order-silly-1.png" title="" alt="" width="49%" /><img src="block014_factors_files/figure-html/alpha-order-silly-2.png" title="" alt="" width="49%" />
+<img src="block014_factors_files/figure-html/alpha-order-silly-1.png" width="49%" /><img src="block014_factors_files/figure-html/alpha-order-silly-2.png" width="49%" />
 
 Which figure do you find easier to navigate? Which is more interesting? The unsorted, i.e. alphabetical, is an example of visual [data puke](http://junkcharts.typepad.com/numbersruleyourworld/2014/09/dont-data-puke-says-avinash-kaushik.html), because there is no effort to help the viewer learn anything from the plot, even though it is really easy to do so. At the very least, always consider sorting your factor levels in some principled way.
 
@@ -342,12 +341,12 @@ h_countries <- c("Egypt", "Haiti", "Romania", "Thailand", "Venezuela")
 hDat <- gapminder %>%
   filter(country %in% h_countries)
 hDat %>% str()
-## 'data.frame':	60 obs. of  6 variables:
+## Classes 'tbl_df', 'tbl' and 'data.frame':	60 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 39 39 39 39 39 39 39 39 39 39 ...
 ##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ year     : num  1952 1957 1962 1967 1972 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
 ##  $ lifeExp  : num  41.9 44.4 47 49.3 51.1 ...
-##  $ pop      : num  22223309 25009741 28173309 31681188 34807417 ...
+##  $ pop      : int  22223309 25009741 28173309 31681188 34807417 38783863 45681811 52799062 59402198 66134291 ...
 ##  $ gdpPercap: num  1419 1459 1693 1815 2024 ...
 ```
 
@@ -369,12 +368,12 @@ When you want to drop unused factor levels, use `droplevels()`.
 ```r
 iDat  <- hDat %>% droplevels()
 iDat %>% str()
-## 'data.frame':	60 obs. of  6 variables:
+## Classes 'tbl_df', 'tbl' and 'data.frame':	60 obs. of  6 variables:
 ##  $ country  : Factor w/ 5 levels "Egypt","Haiti",..: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ continent: Factor w/ 4 levels "Africa","Americas",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ year     : num  1952 1957 1962 1967 1972 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
 ##  $ lifeExp  : num  41.9 44.4 47 49.3 51.1 ...
-##  $ pop      : num  22223309 25009741 28173309 31681188 34807417 ...
+##  $ pop      : int  22223309 25009741 28173309 31681188 34807417 38783863 45681811 52799062 59402198 66134291 ...
 ##  $ gdpPercap: num  1419 1459 1693 1815 2024 ...
 table(iDat$country)
 ## 
@@ -396,10 +395,9 @@ i_le_max <- iDat %>%
   group_by(country) %>%
   summarize(max_le = max(lifeExp))
 i_le_max
-## Source: local data frame [5 x 2]
-## 
+## <tibble [5 x 2]>
 ##     country max_le
-##      (fctr)  (dbl)
+##      <fctr>  <dbl>
 ## 1     Egypt 71.338
 ## 2     Haiti 60.916
 ## 3   Romania 72.476
@@ -415,7 +413,7 @@ ggplot(iDat, aes(x = year, y = lifeExp, group = country)) +
   geom_line(aes(color = country))
 ```
 
-<img src="block014_factors_files/figure-html/factor-order-example-before-1.png" title="" alt="" width="49%" /><img src="block014_factors_files/figure-html/factor-order-example-before-2.png" title="" alt="" width="49%" />
+<img src="block014_factors_files/figure-html/factor-order-example-before-1.png" width="49%" /><img src="block014_factors_files/figure-html/factor-order-example-before-2.png" width="49%" />
 
 Here's a plot of the max life expectancies and a spaghetti plot of life expectancy over time. Notice how the first plot jumps around? Notice how the legend of the second plot is completely out of order with the data?
 
@@ -456,7 +454,7 @@ ggplot(jDat, aes(x = year, y = lifeExp)) +
   guides(color = guide_legend(reverse = TRUE))
 ```
 
-<img src="block014_factors_files/figure-html/factor-order-example-after-1.png" title="" alt="" width="49%" /><img src="block014_factors_files/figure-html/factor-order-example-after-2.png" title="" alt="" width="49%" />
+<img src="block014_factors_files/figure-html/factor-order-example-after-1.png" width="49%" /><img src="block014_factors_files/figure-html/factor-order-example-after-2.png" width="49%" />
 
 Conclusion: Use `reorder()` to reorder a factor according to a quantitative variable. A simple call like this:
 
@@ -478,10 +476,9 @@ To review, remember we have computed the estimated intercept and slope for each 
 
 ```r
 head(gcoefs)
-## Source: local data frame [6 x 4]
-## 
+## <tibble [6 x 4]>
 ##       country continent intercept     slope
-##        (fctr)    (fctr)     (dbl)     (dbl)
+##        <fctr>    <fctr>     <dbl>     <dbl>
 ## 1 Afghanistan      Asia  29.90729 0.2753287
 ## 2     Albania    Europe  59.22913 0.3346832
 ## 3     Algeria    Africa  43.37497 0.5692797
@@ -492,7 +489,7 @@ head(gcoefs)
 
 The figure on the left gives a stripplot of estimate intercepts, by continent, with continent in alphabetical order. The line connects continent-specific averages of the intercepts (approx. equal to life expectancy in 1952). The figure on the right gives same plot after the continents have been reordered by average estimated intercept.
 
-<img src="block014_factors_files/figure-html/continent-reorder-exercise-1.png" title="" alt="" width="49%" /><img src="block014_factors_files/figure-html/continent-reorder-exercise-2.png" title="" alt="" width="49%" />
+<img src="block014_factors_files/figure-html/continent-reorder-exercise-1.png" width="49%" /><img src="block014_factors_files/figure-html/continent-reorder-exercise-2.png" width="49%" />
 
 Exercise: Write the `reorder()` statement to do this.
 
@@ -507,13 +504,15 @@ kDat <- gapminder %>%
   filter(country %in% k_countries, year > 2000) %>%
   droplevels()
 kDat
-##            country continent year lifeExp      pop gdpPercap
-## 1        Australia   Oceania 2002  80.370 19546792 30687.755
-## 2        Australia   Oceania 2007  81.235 20434176 34435.367
-## 3 Korea, Dem. Rep.      Asia 2002  66.662 22215365  1646.758
-## 4 Korea, Dem. Rep.      Asia 2007  67.297 23301725  1593.065
-## 5      Korea, Rep.      Asia 2002  77.045 47969150 19233.988
-## 6      Korea, Rep.      Asia 2007  78.623 49044790 23348.140
+## <tibble [6 x 6]>
+##            country continent  year lifeExp      pop gdpPercap
+##             <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
+## 1        Australia   Oceania  2002  80.370 19546792 30687.755
+## 2        Australia   Oceania  2007  81.235 20434176 34435.367
+## 3 Korea, Dem. Rep.      Asia  2002  66.662 22215365  1646.758
+## 4 Korea, Dem. Rep.      Asia  2007  67.297 23301725  1593.065
+## 5      Korea, Rep.      Asia  2002  77.045 47969150 19233.988
+## 6      Korea, Rep.      Asia  2007  78.623 49044790 23348.140
 levels(kDat$country)
 ## [1] "Australia"        "Korea, Dem. Rep." "Korea, Rep."
 kDat <- kDat %>%
@@ -522,21 +521,22 @@ kDat <- kDat %>%
                                  "Korea, Dem. Rep." = "North Korea",
                                  "Korea, Rep." = "South Korea")))
 data_frame(levels(kDat$country), levels(kDat$new_country))
-## Source: local data frame [3 x 2]
-## 
+## <tibble [3 x 2]>
 ##   levels(kDat$country) levels(kDat$new_country)
-##                  (chr)                    (chr)
+##                  <chr>                    <chr>
 ## 1            Australia                       Oz
 ## 2     Korea, Dem. Rep.              North Korea
 ## 3          Korea, Rep.              South Korea
 kDat
-##            country continent year lifeExp      pop gdpPercap new_country
-## 1        Australia   Oceania 2002  80.370 19546792 30687.755          Oz
-## 2        Australia   Oceania 2007  81.235 20434176 34435.367          Oz
-## 3 Korea, Dem. Rep.      Asia 2002  66.662 22215365  1646.758 North Korea
-## 4 Korea, Dem. Rep.      Asia 2007  67.297 23301725  1593.065 North Korea
-## 5      Korea, Rep.      Asia 2002  77.045 47969150 19233.988 South Korea
-## 6      Korea, Rep.      Asia 2007  78.623 49044790 23348.140 South Korea
+## <tibble [6 x 7]>
+##            country continent  year lifeExp      pop gdpPercap new_country
+##             <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>      <fctr>
+## 1        Australia   Oceania  2002  80.370 19546792 30687.755          Oz
+## 2        Australia   Oceania  2007  81.235 20434176 34435.367          Oz
+## 3 Korea, Dem. Rep.      Asia  2002  66.662 22215365  1646.758 North Korea
+## 4 Korea, Dem. Rep.      Asia  2007  67.297 23301725  1593.065 North Korea
+## 5      Korea, Rep.      Asia  2002  77.045 47969150 19233.988 South Korea
+## 6      Korea, Rep.      Asia  2007  78.623 49044790 23348.140 South Korea
 ```
 
 ### Grow a factor object
@@ -552,30 +552,30 @@ mex <- gapminder %>%
   filter(country == "Mexico", year > 2000) %>%
   droplevels()
 str(usa)
-## 'data.frame':	2 obs. of  6 variables:
+## Classes 'tbl_df', 'tbl' and 'data.frame':	2 obs. of  6 variables:
 ##  $ country  : Factor w/ 1 level "United States": 1 1
 ##  $ continent: Factor w/ 1 level "Americas": 1 1
-##  $ year     : num  2002 2007
+##  $ year     : int  2002 2007
 ##  $ lifeExp  : num  77.3 78.2
-##  $ pop      : num  2.88e+08 3.01e+08
+##  $ pop      : int  287675526 301139947
 ##  $ gdpPercap: num  39097 42952
 str(mex)
-## 'data.frame':	2 obs. of  6 variables:
+## Classes 'tbl_df', 'tbl' and 'data.frame':	2 obs. of  6 variables:
 ##  $ country  : Factor w/ 1 level "Mexico": 1 1
 ##  $ continent: Factor w/ 1 level "Americas": 1 1
-##  $ year     : num  2002 2007
+##  $ year     : int  2002 2007
 ##  $ lifeExp  : num  74.9 76.2
-##  $ pop      : num  1.02e+08 1.09e+08
+##  $ pop      : int  102479927 108700891
 ##  $ gdpPercap: num  10742 11978
 usa_mex <- rbind(usa, mex)
 ## rbinding data.frames works!
 str(usa_mex)
-## 'data.frame':	4 obs. of  6 variables:
+## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  6 variables:
 ##  $ country  : Factor w/ 2 levels "United States",..: 1 1 2 2
 ##  $ continent: Factor w/ 1 level "Americas": 1 1 1 1
-##  $ year     : num  2002 2007 2002 2007
+##  $ year     : int  2002 2007 2002 2007
 ##  $ lifeExp  : num  77.3 78.2 74.9 76.2
-##  $ pop      : num  2.88e+08 3.01e+08 1.02e+08 1.09e+08
+##  $ pop      : int  287675526 301139947 102479927 108700891
 ##  $ gdpPercap: num  39097 42952 10742 11978
 
 ## simply catenating factors does not work!
@@ -601,21 +601,23 @@ gapminder$continent <- as.character(gapminder$continent)
 
 #prove it
 str(gapminder)
-## 'data.frame':	1704 obs. of  6 variables:
+## Classes 'tbl_df', 'tbl' and 'data.frame':	1704 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ continent: chr  "Asia" "Asia" "Asia" "Asia" ...
-##  $ year     : num  1952 1957 1962 1967 1972 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
 ##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
 ##  $ gdpPercap: num  779 821 853 836 740 ...
 head(gapminder)
-##       country continent year lifeExp      pop gdpPercap
-## 1 Afghanistan      Asia 1952  28.801  8425333  779.4453
-## 2 Afghanistan      Asia 1957  30.332  9240934  820.8530
-## 3 Afghanistan      Asia 1962  31.997 10267083  853.1007
-## 4 Afghanistan      Asia 1967  34.020 11537966  836.1971
-## 5 Afghanistan      Asia 1972  36.088 13079460  739.9811
-## 6 Afghanistan      Asia 1977  38.438 14880372  786.1134
+## <tibble [6 x 6]>
+##       country continent  year lifeExp      pop gdpPercap
+##        <fctr>     <chr> <int>   <dbl>    <int>     <dbl>
+## 1 Afghanistan      Asia  1952  28.801  8425333  779.4453
+## 2 Afghanistan      Asia  1957  30.332  9240934  820.8530
+## 3 Afghanistan      Asia  1962  31.997 10267083  853.1007
+## 4 Afghanistan      Asia  1967  34.020 11537966  836.1971
+## 5 Afghanistan      Asia  1972  36.088 13079460  739.9811
+## 6 Afghanistan      Asia  1977  38.438 14880372  786.1134
 ```
 
 We can now turn it back into a factor by calling factor. The first argument is the input (usually character), followed by factor levels, which will default to the unique input values, in alphabetical order.
@@ -626,19 +628,21 @@ gapminder$continent <- factor(gapminder$continent)
 
 #prove it
 str(gapminder)
-## 'data.frame':	1704 obs. of  6 variables:
+## Classes 'tbl_df', 'tbl' and 'data.frame':	1704 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ year     : num  1952 1957 1962 1967 1972 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
 ##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
 ##  $ gdpPercap: num  779 821 853 836 740 ...
 head(gapminder)
-##       country continent year lifeExp      pop gdpPercap
-## 1 Afghanistan      Asia 1952  28.801  8425333  779.4453
-## 2 Afghanistan      Asia 1957  30.332  9240934  820.8530
-## 3 Afghanistan      Asia 1962  31.997 10267083  853.1007
-## 4 Afghanistan      Asia 1967  34.020 11537966  836.1971
-## 5 Afghanistan      Asia 1972  36.088 13079460  739.9811
-## 6 Afghanistan      Asia 1977  38.438 14880372  786.1134
+## <tibble [6 x 6]>
+##       country continent  year lifeExp      pop gdpPercap
+##        <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
+## 1 Afghanistan      Asia  1952  28.801  8425333  779.4453
+## 2 Afghanistan      Asia  1957  30.332  9240934  820.8530
+## 3 Afghanistan      Asia  1962  31.997 10267083  853.1007
+## 4 Afghanistan      Asia  1967  34.020 11537966  836.1971
+## 5 Afghanistan      Asia  1972  36.088 13079460  739.9811
+## 6 Afghanistan      Asia  1977  38.438 14880372  786.1134
 ```
