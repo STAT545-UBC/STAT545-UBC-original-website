@@ -6,11 +6,11 @@ output:
     toc_depth: 4
 ---
 
-*2016-06-15: I have high-jacked this for my useR! tutorial. Once I migrate content over to the happy git repo, I will put this more back to the way it was!*
-
 ### Overview
 
-This describes a hands-on activity where the goal is to author an R Markdown document and render it to HTML. We discuss how to keep the intermediate Markdown file, the figures, and what to commit to Git and push to GitHub. If GitHub is the primary venue, we render directly to GitHub-flavored markdown and never create HTML.
+This describes a hands-on activity where the goal is to author an R Markdown document and render it to HTML.
+
+For people also using Git and GitHub, we discuss how to keep the intermediate Markdown file, the figures, and what to commit to Git and push to GitHub. If GitHub is the primary venue, we render directly to GitHub-flavored markdown and never create HTML.
 
 Here is the official R Markdown documentation: <http://rmarkdown.rstudio.com>
 
@@ -28,7 +28,7 @@ We assume the following
 
 Launch RStudio, probably in the Project that corresponds to the repository where you are keeping all STAT 545 coursework. Make sure the workspace is clean and you've launched a fresh R process. Make sure the working directory is sensible.
 
-*this should be a repo that is already syncing with a github remote*
+Git people: we assume you are working inside a Git repo -- probably one that is already set up to push/pull with a GitHub remote. That is [covered elsewhere](git07_git-github-rstudio.html).
 
 ### Step 2: Practice with RStudio's boilerplate R Markdown document
 
@@ -43,13 +43,13 @@ Do this: *File > New File > R Markdown ...*
   
 Save this document to a reasonable filename and location. The filename should end in `.Rmd` or `.rmd`. I **highly recommend** saving in the top-level of the directory that is also also a Git repository for your coursework and that is also an RStudio project and that is also current working directory. Trust me on this.
 
-*commit here*
+Git people: this is a decent time to commit your new Rmd.
 
 Click on "Knit HTML" or do *File > Knit Document*. RStudio should display a preview of the resulting HTML. Also look at the file browser (which should be pointed at the directory where you saved the `.Rmd` file). You should see the R Markdown document, i.e. `foo.Rmd` AND the resulting HTML `foo.html`.
 
 Congratulations, you've just made your first reproducible report with R Markdown.
 
-*commit here*
+Git people: this is a decent time to commit your new HTML. One day you might reconsider whether you want HTML in your repo, but don't worry about that now.
 
 ### Step 3: Take control of the output format
 
@@ -91,7 +91,7 @@ In fact this hand-edit is necessary if you want to keep only markdown and get Gi
 
 Save!
 
-*commit here*
+Git people: this is a decent time to commit your edited Rmd.
 
 Render via "Knit HTML" button.
 
@@ -101,7 +101,7 @@ If you commit and push `foo.md` and everything inside `foo_files`, then anyone w
 
 If your output format is `html_document`, you should still see `foo.html`. If your output format is `github_document` and you see `foo.html`, that's leftover from earlier experiments. Delete that. It will only confuse you later.
 
-*commit here*
+Git people: this is a decent time to commit current state of everything.
 
 ### Step 4: Swap out the "guts" of the document
 
@@ -119,11 +119,9 @@ Insert 1 to 3 lines of functioning code that begin the task at hand. "Walk throu
 
 Satisfied? Save!
 
-*commit here*
-
 Now render the whole document via "Knit HTML." Voilà!
 
-*commit here*
+Git people: this is a decent time to commit.
 
 ### Step 5: Develop your report
 
@@ -135,6 +133,8 @@ Clean out your workspace and restart R and re-run everything periodically, if th
 
 You'll develop your own mojo soon, but this should give you your first successful R Markdown experience.
 
+Git people: keep making periodic commits. It's probably better to err on the side of "too often" instead of "too seldom" at this point.
+
 ### Step 6: Publish your report
 
 If you've been making HTML, you can put that up on the web somewhere, email to your collaborator, whatever.
@@ -143,8 +143,8 @@ No matter what, technically you can publish this report merely by pushing a rend
 
 Here are two behaviors I find very frustrating:
 
-  * "Here is my code. Behold." This is when someone only pushes their source, i.e. R Markdown or R code AND they want other people to look at their "product". The implicit assumption is that target audience will download code and run it. Sometimes the potential payoff simply does not justify this effort. Communication fail.
-  * "Here is my HTML. Behold." This is when someone doesn't bother to edit the default output format and accepts HTML only. What am I supposed to do with HTML on GitHub? Communication fail.
+  * "Here is my code. Behold." This is when someone only pushes their source, i.e. R Markdown or R code AND they want other people to look at their "product". The implicit assumption is that target audience will download code and run it. Sometimes the potential payoff simply does not justify this effort.
+  * "Here is my HTML. Behold." This is when someone doesn't bother to edit the default output format and accepts HTML only. What am I supposed to do with HTML on GitHub?
   
 Creating, commiting, and pushing markdown is a very functional, lighweight publishing strategy. Use `output: github_document` or `keep_md: true` if output is `html_document`. In both cases, it is critical to also commit and push everything inside `foo_files`. Now people can visit and consume your work like any other webpage.
 
