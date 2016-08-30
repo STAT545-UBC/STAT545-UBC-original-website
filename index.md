@@ -20,7 +20,7 @@ Learn how to
   * Introduction to [R](http://www.r-project.org) and the [RStudio IDE](http://www.rstudio.com/products/rstudio/); scripts, the workspace, RStudio Projects
   * Generate reports from R scripts and [R Markdown](http://rmarkdown.rstudio.com)
   * Care and feeding of data in R
-  * Data manipulation and split-apply-combine with [`dplyr`](https://cran.r-project.org/web/packages/dplyr/index.html) and [`tidyr`](https://cran.r-project.org/web/packages/tidyr/index.html)
+  * Data manipulation and split-apply-combine with [`dplyr`](https://cran.r-project.org/web/packages/dplyr/index.html),  [`tidyr`](https://cran.r-project.org/web/packages/tidyr/index.html), and [`purrr`](https://cran.r-project.org/web/packages/purrr/index.html)
   * Data visualization with [`ggplot2`](http://ggplot2.org)
   * Graphs and descriptive stats for quantitative and categorical variables
   * Writing R functions
