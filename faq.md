@@ -10,16 +10,19 @@ output:
 
 ### When is the course offered?
 
-September - December of each academic year. Typical format: STAT 545A 1.5 credits in September through mid October, followed by STAT 547M 1.5 credits from mid October through early December. Same time slot, same room. This was/is/will be the deal in 2014/2015, 2015/2016 and 2016/2017. 
+September - December of each academic year.  
+Typical format: STAT 545A 1.5 credits in September through mid October, followed by STAT 547M 1.5 credits from mid October through early December.  
+Same time slot, same room.  
+This was/is/will be the deal in 2014/2015, 2015/2016 and 2016/2017, at the least.
 
-### Course facts for Sept - Dec 2015 run
+### Course facts for Sept - Dec 2016 run
 
 |          | STAT 545A                       | STAT547M                        |
 |----------|---------------------------------|---------------------------------|
 | title    | Exploratory Data Analysis       | Basic Training for Data Science |
 | SSC link | [STAT 545A][SSC 545A]           | [STAT 547M][SSC 547M]           |
 | credits  | 1.5                             | 1.5                             |
-| dates    | Sep 08, 2015 to Oct 22, 2015    | Oct 27, 2015 to Dec 03, 2015    |
+| dates    | Sep 06, 2016 to Oct 20, 2016    | Oct 25, 2016 to Dec 02, 2016    |
 | meets    | Tues Thurs 9:30 - 11am          | Tues Thurs 9:30 - 11am          |
 | where    | [ESB 2012][esb2012]             | [ESB 2012][esb2012]             |
 | pre-req  | none (but see below)            | STAT 545A                       |
@@ -29,13 +32,14 @@ September - December of each academic year. Typical format: STAT 545A 1.5 credit
 [SSC 545A]: https://courses.students.ubc.ca/cs/main?pname=subjarea&tname=subjareas&req=5&dept=STAT&course=545A&section=101
 [SSC 547M]: https://courses.students.ubc.ca/cs/main?pname=subjarea&tname=subjareas&req=5&dept=STAT&course=547M&section=101
 
-Up-to-date info on office hours: go [here](https://github.com/STAT545-UBC/Discussion/issues/85)
+Up-to-date info on office hours: TBD
+<!-- [here](https://github.com/STAT545-UBC/Discussion/issues/85) -->
 
 ### What's up with the two half courses?
 
 For several years, I taught STAT 545A as a 1.5 credit course. I -- and many students -- felt there was alot of great, relevant content that could go into an additional 1.5 credits.
 
-Therefore, in 2014/2015, we piloted a full semester on data exploration, visualization, and all-around data wrangling. It was structured as two half courses primarily so that STAT 545A alums could register for STAT 547M and get the "missing half" of the course. We're still figuring out the long term plan re: 2 courses of 1.5 credits vs. 1 course of 3 credits, but so far, so good.
+We piloted a full semester of data exploration, visualization, and all-around data wrangling in 2014/2015. And so far, it has stuck. It was structured as two half courses primarily so that several year's worth of STAT 545A alums could register for STAT 547M and get the "missing half" of the course. And now it's hard to break the cycle.
 
 ### Am I allowed to register in ...?
 
@@ -61,7 +65,7 @@ Therefore, in 2014/2015, we piloted a full semester on data exploration, visuali
 
 ### Should I register in ...?
 
-This course is open to any graduate student at UBC. Students from other departments generally outnumber those from Statistics. In fact, the most successful students are often grad students from other fields who need to analyze and visualize data for a thesis. They are highly motivated and excel.
+This course is open to any graduate student at UBC. Students from other departments vastly outnumber those from Statistics. In fact, the most successful students are often grad students from other fields who need to analyze and visualize data for a thesis. They are highly motivated and excel.
 
 However, __if you have never programmed or worked at the command line before, prepare for a shock.__ This will be a powerful, positive experience, but it's a big adjustment. Come suffer through the worst part of the learning curve in good company!
 
@@ -73,7 +77,7 @@ YES. You absolutely must have access to a computer on which you can install soft
 
 Course mark = 75% homework, 15% peer review, 10% engagement (i.e. attendance, participation in discussion in-class and/or online)
 
-Students submit homework once a week. The end result may still resemble a "final project" or portfolio, but one that has been built up gradually over the term.
+Students submit homework once a week, generally 5 per half-semester. I have abandoned the notion of "final projects". I've seen it encourage too much sudden, heroic effort, often to disappointing effect.
 
   * [General guidelines](hw00_homework-guidelines.html) for homework submission
 
