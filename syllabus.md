@@ -11,7 +11,7 @@ table {
 }
 </style>
 
-#### STAT 545A
+#### STAT 545A (note: 2015 stuff ... 2016 reset coming soon!)
 
 
 date           notes                                                                                                                              
@@ -31,7 +31,7 @@ oct-15 thurs   <a href="cm012_tidy-data-factors.html">cm012</a>: Tidy data and r
 oct-20 tues    <a href="cm013_practical-figure-making.html">cm013</a>: Practical graphing tips                                                    
 oct-22 thurs   <a href="cm014_viz-design-munzner.html">cm014</a>: Visualization Analysis and Design: guest lecture from the awesome Tamara Munzer 
 
-#### STAT 547M
+#### STAT 547M (note: 2015 stuff ... 2016 reset coming soon!)
 
 
 date           notes                                                                                      

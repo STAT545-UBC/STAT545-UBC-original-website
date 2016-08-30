@@ -49,13 +49,13 @@ table {
 }
 </style>
 
-#### STAT 545A
+#### STAT 545A (note: 2015 stuff ... 2016 reset coming soon!)
 
 ```{r results = 'asis', echo = FALSE}
 knitr::kable(dat[["STAT545A"]] %>% select(date, notes))
 ```
 
-#### STAT 547M
+#### STAT 547M (note: 2015 stuff ... 2016 reset coming soon!)
 
 ```{r results = 'asis', echo = FALSE}
 knitr::kable(dat[["STAT547M"]] %>% select(date, notes))
