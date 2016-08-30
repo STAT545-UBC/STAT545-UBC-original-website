@@ -6,14 +6,24 @@ output:
       after_body: include/nothing.html
 ---
 
-### 2015 staff
+### 2016 staff
 
-[Jennifer (Jenny) Bryan](http://www.stat.ubc.ca/~jenny/), lead instructor
+Jennifer (Jenny) Bryan, lead instructor
 
   * <jenny@stat.ubc.ca>
   * [\@JennyBryan](https://twitter.com/JennyBryan), Twitter as myself 
   * [\@STAT545](https://twitter.com/STAT545), Twitter as STAT 545 instructor
   * [GitHub](https://github.com/jennybc)
+  
+Sam Hinshaw, lead TA for STAT 545A and STAT 547M
+
+  * Bioinformatics PhD student in the Hancock Lab
+  
+YOUR NAME COULD GO HERE! [STAT 545 is looking for more TAs.](people-help-wanted.html)
+
+### 2015 staff
+
+Jenny Bryan
 
 [Dean Attali](http://deanattali.com), co-lead TA for STAT 545A and STAT 547M
 
@@ -37,8 +47,6 @@ Additional TAs
   * Magda Price, Reproductive and Developmental Sciences Program PhD
 
 ### 2014 staff
-
-These amazing folks are generally still on campus, so you may see them in our virtual or real world.
 
 [Julia Gustavsen](http://www.juliagustavsen.com)
 
