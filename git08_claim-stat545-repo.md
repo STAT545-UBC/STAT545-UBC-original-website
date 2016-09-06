@@ -10,13 +10,17 @@ output:
 
 We assume the following: 
 
-  * You've already [installed Git](git01_git-install.html) and (possibly) [a Git client](git02_git-clients.html).
-  * You've already [registered a free GitHub account](cm001_course-intro-sw-install-account-signup.html#register-a-github-account).
-  * You've already [introduced yourself to Git](git04_introduce-self-to-git.html)
-  * You've confirmed that you can [push to / pull from GitHub from the command line](git05_github-connection.html)
-  * You've already [installed R and RStudio](block000_r-rstudio-install.html).
-  * You've proven that you can [push to / pull from GitHub from RStudio](git07_git-github-rstudio.html).
-  * You are no longer being challenged for your GitHub username and password because [your credentials have been cached](git06_credential-caching.html).
+  * You've already installed Git and (possibly) a Git client.
+  * You've already registered a free GitHub account.
+  * You've already introduced yourself to Git.
+  * You've confirmed that you can push to / pull from GitHub from the command line.
+  * You've already installed R and RStudio.
+  * You've proven that you can push to / pull from GitHub from RStudio.
+  * You are no longer being challenged for your GitHub username and password because your credentials have been cached or you've set up SSH keys.
+  
+Instructions for all of this are here:
+
+<http://happygitwithr.com>
 
 ### Outline
 
@@ -52,5 +56,3 @@ Pull from GitHub (I'm just trying to help you establish this habit).
 Push to GitHub.
 
 Repeat *ad nauseum* as you do your coursework.
-
-Go back to the [index for the all the Git stuff](git00_index.html).

@@ -108,6 +108,7 @@ button.code-folding-btn:focus {
 </style>
 
 
+
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
@@ -147,56 +148,9 @@ $(document).ready(function () {
 
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#tldr">TL;DR</a></li>
-<li><a href="#find-git">Find Git</a></li>
-</ul>
-</div>
 
-<p>Go back to the <a href="git00_index.html">index for the all the Git stuff</a>.</p>
-<p><strong>You only have to set this up once per machine.</strong></p>
-<div id="tldr" class="section level3">
-<h3>TL;DR</h3>
-<p>Make sure RStudio can find the Git executable.</p>
-<ul>
-<li><em>File &gt; New Project…</em> Do you see an option to create from Version Control? If yes, good.</li>
-<li>Select <em>New Directory</em> &gt; <em>Empty Project</em>. Do you see a checkbox “Create a git repository”? If yes, good, CHECK IT.</li>
-<li>Give this disposable test project a name and click <em>Create Project</em>. Do you see a “Git” tab in the upper right pane, the same one that has “Environment” and “History”? If yes, good.</li>
-</ul>
-<p>If all looks good, you can delete this project. Looks like RStudio and git are talking to each other. YAY.</p>
-<p>Keep reading if things don’t go so well or you want to know more.</p>
-</div>
-<div id="find-git" class="section level3">
-<h3>Find Git</h3>
-<p>RStudio can only act as a GUI front-end for Git if <a href="git01_git-install.html">Git has been successfully installed</a> <strong>AND RStudio can find it</strong>.</p>
-<p>A basic test for successful installation of git is to simply enter <code>git</code> in the <a href="git09_shell.html">shell</a>. If you get a complaint about git not being found, it means installation was unsuccessful or that it is not being found, i.e. it is not on your <code>PATH</code>.</p>
-<p>If you are not sure where the git executable lives, try this in a <a href="git09_shell.html">shell</a>:</p>
-<ul>
-<li><p><code>which git</code> (Mac, Linux)</p></li>
-<li><p><code>where git</code> (most versions of Windows)</p></li>
-</ul>
-<p>If Git appears to be installed and findable, launch RStudio. Quit and re-launch RStudio if there’s <strong>any doubt in your mind</strong> about whether you opened RStudio before or after installing Git. Don’t make me stop this car and restart RStudio for you in office hours. DO IT.</p>
-<p>From RStudio, go to <em>Tools &gt; Global Options &gt; Git/SVN</em> and make sure that the box <em>Git executable</em> points to … the Git executable. It should read something like:</p>
-<ul>
-<li><p><code>/usr/bin/git</code> (Mac, Linux)</p></li>
-<li><p><code>C:/Program Files (x86)/Git/bin/git.exe</code> (Windows)</p>
-<p>Here is a <a href="http://www.molecularecologist.com/wp-content/uploads/2013/11/Screenshot-2013-11-12-09.53.56-Copy1.png">screenshot</a> of someone doing this on a Windows machine.</p>
-<ul>
-<li><strong>WARNING</strong>: On Windows, do <strong>NOT</strong> use <code>C:/Program Files (x86)/Git/cmd/git.exe</code>. <code>bin</code> is GOOD YES! <code>cmd</code> is BAD NO!</li>
-</ul></li>
-</ul>
-<p><strong>Restart RStudio if you make any changes.</strong> Don’t make me stop this car again and restart RStudio for you in office hours. DO IT.</p>
-<p>Do the steps at the top of the page to see if RStudio and git are communicating now.</p>
-<p>No joy?</p>
-<ul>
-<li><p>I’ve seen this help: With your Project open, go to <code>Tools &gt; Project Options...</code>. If available, click on “Git/SVN” and select “Git” in the Version control system dropdown menu. Answer “yes” to the “Confirm New Git Repository” pop up. Answer “yes” to the “Confirm Restart RStudio” pop up.</p></li>
-<li><p>If you installed Git via GitHub for Windows, it is possible the Git executable is really well hidden. Get our help or install Git another way.</p></li>
-<li><p>Your <code>PATH</code> is probably not set up correctly and/or you should re-install Git and control/notice where it’s going. Read more in <a href="git66_rstudio-git-github-hell.html">troubleshooting</a>.</p></li>
-<li><p>Get our help.</p></li>
-</ul>
-<p>Go back to the <a href="git00_index.html">index for the all the Git stuff</a>.</p>
-</div>
+<p>All material related to Git and GitHub + R and Rstudio can now be found here:</p>
+<p><a href="http://happygitwithr.com" class="uri">http://happygitwithr.com</a></p>
 
 <div class="footer">
 This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
@@ -212,6 +166,7 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 $(document).ready(function () {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 });
+
 
 </script>
 

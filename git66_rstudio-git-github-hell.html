@@ -108,6 +108,7 @@ button.code-folding-btn:focus {
 </style>
 
 
+
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
@@ -147,88 +148,9 @@ $(document).ready(function () {
 
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#i-think-i-have-installed-git-but-damn-if-i-can-find-it">I think I have installed Git but damn if I can find it</a></li>
-<li><a href="#dysfunctional-path">Dysfunctional PATH</a></li>
-<li><a href="#pushpull-buttons-greyed-out-in-rstudio">Push/Pull buttons greyed out in RStudio</a></li>
-<li><a href="#i-have-no-idea-if-my-local-repo-and-my-remote-repo-are-connected.">I have no idea if my local repo and my remote repo are connected.</a></li>
-<li><a href="#push-fail-at-the-rstudio-level">Push fail at the RStudio level</a></li>
-<li><a href="#push-rejected-i.e.fail-at-the-gitgithub-level">Push rejected, i.e. fail at the Git/GitHub level</a></li>
-<li><a href="#rstudio-is-not-making-certain-files-available-for-stagingcommiting">RStudio is not making certain files available for staging/commiting</a></li>
-<li><a href="#i-hear-you-have-some-git-repo-inside-your-git-repo">I hear you have some Git repo inside your Git repo</a></li>
-</ul>
-</div>
 
-<p>Go back to the <a href="git00_index.html">index for the all the Git stuff</a>.</p>
-<div id="i-think-i-have-installed-git-but-damn-if-i-can-find-it" class="section level4">
-<h4>I think I have installed Git but damn if I can find it</h4>
-<p>When you install Git, try to control or record where it is being installed! Make a mental or physical note of these things.</p>
-<p>You may be able to find Git after the fact with these commands in the <a href="git09_shell.html">shell</a>:</p>
-<ul>
-<li><p><code>which git</code> (Mac, Linux)</p></li>
-<li><p><code>where git</code> (Windows)</p></li>
-</ul>
-<p>It is not entirely crazy to just re-install Git, using a method that leaves it in a more conventional location, and to pay very close attention to where it’s being installed. Live and learn.</p>
-</div>
-<div id="dysfunctional-path" class="section level4">
-<h4>Dysfunctional PATH</h4>
-<p>I’m pretty sure that most cases of RStudio <em>not</em> automatically detecting the Git executable stem from problems with <code>PATH</code>. This is the set of directories where your computer will look for executables, such as Git (today) or <code>make</code> (later in this course). Certain methods of Git installation, especially on Windows and/or older OSes, have a higher tendency to put Git in an unconventional location or to fail to add the relevant directory to <code>PATH</code>.</p>
-<p>How to see your <code>PATH</code>?</p>
-<p>In the <a href="git09_shell.html">shell</a>:</p>
-<pre class="shell"><code>echo $PATH</code></pre>
-<p>Take a good hard look at this. See the point above about finding your Git executable or re-installing it while you are <strong>wide awake</strong>. Is the host directory in your <code>PATH</code>? No? <strong>Fix that.</strong></p>
-<p>Go <a href="http://www.troubleshooters.com/linux/prepostpath.htm">here</a> for instructions on what to put in your <code>.bash_profile</code> in order to add a directory to <code>PATH</code>.</p>
-</div>
-<div id="pushpull-buttons-greyed-out-in-rstudio" class="section level4">
-<h4>Push/Pull buttons greyed out in RStudio</h4>
-<p>Are you sure your local repository is tracking a remote repository, e.g. a GitHub repo? In a <a href="git09_shell.html">shell</a> with working directory set to the local Git repo, enter these commands:</p>
-<pre class="shell"><code>jenny@2015-mbp myrepo $ git remote -v
-origin  https://github.com/jennybc/myrepo (fetch)
-origin  https://github.com/jennybc/myrepo (push)
-
-jenny@2015-mbp myrepo $ git branch -vv
-* master b8e03e3 [origin/master] line added locally</code></pre>
-<p>We want to see that fetch and push are set to remote URLs that point to the remote repo. We also want to see that your local master branch has your GitHub master branch as upstream remote.</p>
-<p>If you discover you still need to set a remote, go to the <a href="git09_shell.html">shell</a> and get into the working directory of the RStudio Project and Git repo of interest.</p>
-<ul>
-<li><p>Initiate the “upstream” or “tracking” relationship by adding a remote. Substitute the HTTPS URL for <strong>your GitHub repo</strong>.</p>
-<pre class="shell"><code>git remote add origin https://github.com/jennybc/myrepo.git</code></pre></li>
-<li><p>Download all the files from the online GitHub repository and deal with any conflicts.</p>
-<pre class="shell"><code>git pull origin master</code></pre></li>
-<li><p>Cement the tracking relationship between your GitHub repository and the local repo by pushing and setting the “upstream” remote:</p>
-<pre class="shell"><code>git push -u origin master</code></pre></li>
-</ul>
-</div>
-<div id="i-have-no-idea-if-my-local-repo-and-my-remote-repo-are-connected." class="section level4">
-<h4>I have no idea if my local repo and my remote repo are connected.</h4>
-<p>See the above section on “Push/Pull buttons greyed out in RStudio.”</p>
-</div>
-<div id="push-fail-at-the-rstudio-level" class="section level4">
-<h4>Push fail at the RStudio level</h4>
-<p>Do you get this error in RStudio?</p>
-<pre><code>error: unable to read askpass response from &#39;rpostback-askpass&#39;</code></pre>
-<p>Open the <a href="git09_shell.html">shell</a>: <em>Tools &gt; Shell</em>.</p>
-<pre class="shell"><code>git push -u origin master</code></pre>
-</div>
-<div id="push-rejected-i.e.fail-at-the-gitgithub-level" class="section level4">
-<h4>Push rejected, i.e. fail at the Git/GitHub level</h4>
-<p>You might have changes on the remote AND on your local repo. Just because you don’t remember making any edits in the browser doesn’t mean you didn’t. Humor me.</p>
-<p>Pull first. Resolve any conflicts. Then try your push again.</p>
-</div>
-<div id="rstudio-is-not-making-certain-files-available-for-stagingcommiting" class="section level4">
-<h4>RStudio is not making certain files available for staging/commiting</h4>
-<p>Do you have a space in your directory or file names? <a href="https://twitter.com/aaronquinlan/status/711593127551733761">A space in a file name is a space in your soul.</a> Get rid of it.</p>
-<p>Is your Git repo / RStudio Project inside a folder that … eventually rolls up to Google Drive, DropBox, Microsoft OneDrive, or a network drive? If yes, I recommend you move the repo / Project into a plain old directory that lives directly on your computer and that is not managed by, e.g., Google Drive.</p>
-<p>If you cannot deal with the two root causes identified above, then it is possible that a <a href="git02_git-clients.html">more powerful Git(Hub) client</a> will be able to cope with these situations. But I make no promises. You should also try Git operations from the command line.</p>
-</div>
-<div id="i-hear-you-have-some-git-repo-inside-your-git-repo" class="section level4">
-<h4>I hear you have some Git repo inside your Git repo</h4>
-<p>Do not create a Git repository inside another Git repository. Just don’t.</p>
-<p>If you have a genuine need for this, which is really rare, the proper way to do is is via <a href="http://git-scm.com/book/en/v2/Git-Tools-Submodules">submodules</a>.</p>
-<p>In STAT 545, you do not need to do this and when we’ve seen it, it’s been a mistake. This has resulted in the unexpected and complete loss of the inner Git repository. To be sure, there was more going on here, but non-standard usage of Git repos makes it much easier to make costly mistakes.</p>
-<p>Go back to the <a href="git00_index.html">index for the all the Git stuff</a>.</p>
-</div>
+<p>All material related to Git and GitHub + R and Rstudio can now be found here:</p>
+<p><a href="http://happygitwithr.com" class="uri">http://happygitwithr.com</a></p>
 
 <div class="footer">
 This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
@@ -244,6 +166,7 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 $(document).ready(function () {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 });
+
 
 </script>
 

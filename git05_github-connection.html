@@ -108,6 +108,7 @@ button.code-folding-btn:focus {
 </style>
 
 
+
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
@@ -147,131 +148,9 @@ $(document).ready(function () {
 
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#make-a-repo-on-github">Make a repo on GitHub</a></li>
-<li><a href="#clone-the-repo-to-your-local-computer">Clone the repo to your local computer</a></li>
-<li><a href="#make-a-local-change-commit-and-push">Make a local change, commit, and push</a></li>
-<li><a href="#confirm-the-local-change-propagated-to-the-github-remote">Confirm the local change propagated to the GitHub remote</a></li>
-<li><a href="#am-i-really-going-to-type-github-username-and-password-on-each-push">Am I really going to type GitHub username and password on each push?</a></li>
-<li><a href="#clean-up">Clean up</a></li>
-</ul>
-</div>
 
-<p>Go back to the <a href="git00_index.html">index for the all the Git stuff</a>.</p>
-<p><strong>You only have to set this up once per machine.</strong></p>
-<p><strong>I do not explain all the <a href="git09_shell.html">shell</a> and Git commands in detail. This is sort of a black box diagnostic / configuration exercise.</strong></p>
-<div id="make-a-repo-on-github" class="section level3">
-<h3>Make a repo on GitHub</h3>
-<p>Go to <a href="https://github.com" class="uri">https://github.com</a> and make sure you are logged in.</p>
-<p>Click green “New repository” button. Or, if you are on your own profile page, click on “Repositories”, then click the green “New” button.</p>
-<p>Repository name: <code>myrepo</code> (or whatever you wish, we will delete this)<br />
-Public<br />
-YES Initialize this repository with a README</p>
-<p>Click big green button “Create repository.”</p>
-<p>Copy the HTTPS clone URL to your clipboard via the green “Clone or Download” button.</p>
-</div>
-<div id="clone-the-repo-to-your-local-computer" class="section level3">
-<h3>Clone the repo to your local computer</h3>
-<p>Go to the <a href="git09_shell.html">shell</a>.</p>
-<p>Take charge of – or at least notice! – what directory you’re in. <code>pwd</code> to display working directory. <code>cd</code> to move around. Personally, I would do this sort of thing in <code>~/tmp</code>.</p>
-<p>Clone <code>myrepo</code> from GitHub to your computer. This URL should have <strong>your GitHub username</strong> and the name of <strong>your practice repo</strong>. If your <a href="git09_shell.html">shell</a> cooperates, you should be able to paste the whole <code>https://....</code> bit that we copied above. But some shells are not (immediately) clipboard aware. In that sad case, you must type it. <strong>Accurately.</strong></p>
-<pre class="bash"><code>git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git</code></pre>
-<p>This should look something like this:</p>
-<pre class="bash"><code>jenny@2015-mbp tmp $ git clone https://github.com/jennybc/myrepo.git
-Cloning into &#39;myrepo&#39;...
-remote: Counting objects: 3, done.
-remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
-Unpacking objects: 100% (3/3), done.
-Checking connectivity... done.</code></pre>
-<p>Make this new repo your working directory, list its files, display the README, and get some information on its connection to GitHub:</p>
-<pre class="bash"><code>cd myrepo
-ls
-less README.md
-git remote show origin</code></pre>
-<p>This should look something like this:</p>
-<pre class="bash"><code>jenny@2015-mbp ~ $ cd myrepo
-
-jenny@2015-mbp myrepo $ ls
-README.md
-
-jenny@2015-mbp myrepo $ less README.md 
-# myrepo
-tutorial development
-
-jenny@2015-mbp myrepo $ git remote show origin
-* remote origin
-  Fetch URL: https://github.com/jennybc/myrepo.git
-  Push  URL: https://github.com/jennybc/myrepo.git
-  HEAD branch: master
-  Remote branch:
-    master tracked
-  Local branch configured for &#39;git pull&#39;:
-    master merges with remote master
-  Local ref configured for &#39;git push&#39;:
-    master pushes to master (up to date)</code></pre>
-</div>
-<div id="make-a-local-change-commit-and-push" class="section level3">
-<h3>Make a local change, commit, and push</h3>
-<p>Add a line to README and verify that Git notices the change:</p>
-<pre class="bash"><code>echo &quot;A line I wrote on my local computer&quot; &gt;&gt; README.md
-git status</code></pre>
-<p>This should look something like this:</p>
-<pre class="bash"><code>jenny@2015-mbp myrepo $ echo &quot;A line I wrote on my local computer&quot; &gt;&gt; README.md
-jenny@2015-mbp myrepo $ git status
-On branch master
-Your branch is up-to-date with &#39;origin/master&#39;.
-Changes not staged for commit:
-  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
-
-    modified:   README.md
-
-no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</code></pre>
-<p>Commit this change and push to your remote repo on GitHub.</p>
-<pre class="bash"><code>git add -A
-git commit -m &quot;A commit from my local computer&quot;
-git push</code></pre>
-<p>This should look something like this:</p>
-<pre class="bash"><code>jenny@2015-mbp myrepo $ git add -A
-
-jenny@2015-mbp myrepo $ git commit -m &quot;A commit from my local computer&quot;
-[master de669ba] A commit from my local computer
- 1 file changed, 1 insertion(+)
- 
-jenny@2015-mbp myrepo $ git push
-Counting objects: 3, done.
-Delta compression using up to 8 threads.
-Compressing objects: 100% (2/2), done.
-Writing objects: 100% (3/3), 311 bytes | 0 bytes/s, done.
-Total 3 (delta 0), reused 0 (delta 0)
-To https://github.com/jennybc/myrepo.git
-   b4112c5..de669ba  master -&gt; master</code></pre>
-<p>If you’re a new GitHub user, you will be challenged for your GitHub username and password. Provide them!</p>
-</div>
-<div id="confirm-the-local-change-propagated-to-the-github-remote" class="section level3">
-<h3>Confirm the local change propagated to the GitHub remote</h3>
-<p>Go back to the browser. I assume we’re still viewing your new GitHub repo.</p>
-<p>Refresh.</p>
-<p>You should see the new “A line I wrote on my local computer” in the README.</p>
-<p>If you click on “commits,” you should see one with the message “A commit from my local computer.”</p>
-<p>If you have made it this far, you are ready to graduate to <a href="git07_git-github-rstudio.html">using Git and GitHub with RStudio</a>. But first …</p>
-</div>
-<div id="am-i-really-going-to-type-github-username-and-password-on-each-push" class="section level3">
-<h3>Am I really going to type GitHub username and password on each push?</h3>
-<p>It is likely that your first push, above, leads to a challenge for your GitHub username and password.</p>
-<p>This will drive you crazy in the long-run and make you reluctant to push. Read more <a href="git06_credential-caching.html">here</a> about GitHub credential caching.</p>
-<p><strong>Now is the perfect time to go there, since you have a functioning test repo.</strong></p>
-</div>
-<div id="clean-up" class="section level3">
-<h3>Clean up</h3>
-<p>When you’re ready to clean up, delete the local repo in the <a href="git09_shell.html">shell</a>:</p>
-<pre class="bash"><code>cd ..
-rm -rf myrepo/</code></pre>
-<p>In the browser, viewing your repo’s landing page on GitHub, click on “Settings”, near the bottom or the right sidebar.</p>
-<p>Scroll down, click on “delete repository,” and do as it asks.</p>
-<p>Go back to the <a href="git00_index.html">index for the all the Git stuff</a>.</p>
-</div>
+<p>All material related to Git and GitHub + R and Rstudio can now be found here:</p>
+<p><a href="http://happygitwithr.com" class="uri">http://happygitwithr.com</a></p>
 
 <div class="footer">
 This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
@@ -287,6 +166,7 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 $(document).ready(function () {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 });
+
 
 </script>
 
