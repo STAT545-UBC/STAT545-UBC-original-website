@@ -42,6 +42,17 @@ dat <- cdat %>% split(cdat$course)
 dat <- lapply(dat, 'rownames<-', NULL)
 ```
 
+In early September 2016, this reflects what happened in 2015. As the semester unfolds, we update with 2016 plans and reality. Overview:
+
+  * STAT 545 = 7 weeks
+  * STAT 547 = 6 weeks
+  * First 7 + 2 = 9 weeks is general data wrangling, exploration, analysis
+  * Last 4 weeks = 4 one-week self-contained intermediate topics (order likely to change):
+    - Build your first R package
+    - Build a Shiny app
+    - Get data from the web (scraping and APIs)
+    - Automate tasks and pipelines
+
 <!-- unholy hack to make following two tables less wide and the same wide -->
 <style type="text/css">
 table {
@@ -49,13 +60,13 @@ table {
 }
 </style>
 
-#### STAT 545A (note: 2015 stuff ... 2016 reset coming soon!)
+#### STAT 545A (2015 plan ... gradually overwritten by 2016)
 
 ```{r results = 'asis', echo = FALSE}
 knitr::kable(dat[["STAT545A"]] %>% select(date, notes))
 ```
 
-#### STAT 547M (note: 2015 stuff ... 2016 reset coming soon!)
+#### STAT 547M (tentative = mostly what we did in 2015)
 
 ```{r results = 'asis', echo = FALSE}
 knitr::kable(dat[["STAT547M"]] %>% select(date, notes))

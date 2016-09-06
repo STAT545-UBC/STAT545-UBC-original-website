@@ -1,0 +1,27 @@
+cm,course,dow,month,day,link_it,raw_notes
+cm001,STAT545A,tues,september,8,TRUE,Intro to course; S/W install; acct sign-ups
+cm002,STAT545A,thurs,september,10,TRUE,Deep Thoughts about data analytic work; intro to R and RStudio
+cm003,STAT545A,tues,september,15,TRUE,Git(Hub) and (R) Markdown crash course
+cm004,STAT545A,thurs,september,17,TRUE,"Care and feeding of data (data.frames, actually)"
+cm005,STAT545A,tues,september,22,TRUE,Intro to ggplot2
+cm006,STAT545A,thurs,september,24,TRUE,R Markdown
+cm007,STAT545A,tues,september,29,TRUE,"dplyr: the pipe and single table verbs"
+cm008,STAT545A,thurs,october,1,TRUE,"dplyr: group_by"
+cm009,STAT545A,tues,october,6,TRUE,Basic flavors of R objects
+cm010,STAT545A,thurs,october,8,TRUE,Writing your own R functions
+cm011,STAT545A,tues,october,13,TRUE,Split-Apply-Combine
+cm012,STAT545A,thurs,october,15,TRUE,Tidy data and reshaping; be the boss of your factors
+cm013,STAT545A,tues,october,20,TRUE,Practical graphing tips
+cm014,STAT545A,thurs,october,22,TRUE,"Visualization Analysis and Design: guest lecture from the awesome Tamara Munzer"
+cm101,STAT547M,tues,october,27,TRUE,Getting data out of R (and back in)
+cm102,STAT547M,thurs,october,29,TRUE,Regular expressions and character data
+cm103,STAT547M,tues,november,3,TRUE,Grand Finale: Wrangling the Candy Survey
+cm104,STAT547M,thurs,november,5,TRUE,Grand Finale: Wrangling the Candy Survey
+cm105,STAT547M,tues,november,10,TRUE,Build your first R package
+cm106,STAT547M,thurs,november,12,TRUE,ditto
+cm107,STAT547M,tues,november,17,TRUE,"Task automation and pipelines, GNU Make"
+cm108,STAT547M,thurs,november,19,TRUE,ditto
+cm109,STAT547M,tues,november,24,TRUE,Get data from the web
+cm110,STAT547M,thurs,november,26,TRUE,ditto
+cm111,STAT547M,tues,december,1,TRUE,Building Shiny apps
+cm112,STAT547M,thurs,december,3,TRUE,ditto

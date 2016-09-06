@@ -4,6 +4,17 @@
 
 
 
+In early September 2016, this reflects what happened in 2015. As the semester unfolds, we update with 2016 plans and reality. Overview:
+
+  * STAT 545 = 7 weeks
+  * STAT 547 = 6 weeks
+  * First 7 + 2 = 9 weeks is general data wrangling, exploration, analysis
+  * Last 4 weeks = 4 one-week self-contained intermediate topics (order likely to change):
+    - Build your first R package
+    - Build a Shiny app
+    - Get data from the web (scraping and APIs)
+    - Automate tasks and pipelines
+
 <!-- unholy hack to make following two tables less wide and the same wide -->
 <style type="text/css">
 table {
@@ -11,40 +22,40 @@ table {
 }
 </style>
 
-#### STAT 545A (note: 2015 stuff ... 2016 reset coming soon!)
+#### STAT 545A (2015 plan ... gets gradually overwritten by 2016)
 
 
-date           notes                                                                                                                              
--------------  -----------------------------------------------------------------------------------------------------------------------------------
-sep-08 tues    <a href="cm001_course-intro-sw-install-account-signup.html">cm001</a>: Intro to course; S/W install; acct sign-ups                 
-sep-10 thurs   <a href="cm002_r-rstudio-intro.html">cm002</a>: Deep Thoughts about data analytic work; intro to R and RStudio                     
-sep-15 tues    <a href="cm003_r-objects-git-toe-dip.html">cm003</a>: Git(Hub) and (R) Markdown crash course                                       
-sep-17 thurs   <a href="cm004_care-feeding-data.html">cm004</a>: Care and feeding of data (data.frames, actually)                                 
-sep-22 tues    <a href="cm005_ggplot2-intro.html">cm005</a>: Intro to ggplot2                                                                     
-sep-24 thurs   <a href="cm006_rmarkdown.html">cm006</a>: R Markdown                                                                               
-sep-29 tues    <a href="cm007_dplyr-intro.html">cm007</a>: dplyr: the pipe and single table verbs                                                 
-oct-01 thurs   <a href="cm008_dplyr-contd.html">cm008</a>: dplyr: group_by                                                                        
-oct-06 tues    <a href="cm009_r-objects-collections.html">cm009</a>: Basic flavors of R objects                                                   
-oct-08 thurs   <a href="cm010_write-function.html">cm010</a>: Writing your own R functions                                                        
-oct-13 tues    <a href="cm011_split-apply-combine.html">cm011</a>: Split-Apply-Combine                                                            
-oct-15 thurs   <a href="cm012_tidy-data-factors.html">cm012</a>: Tidy data and reshaping; be the boss of your factors                             
-oct-20 tues    <a href="cm013_practical-figure-making.html">cm013</a>: Practical graphing tips                                                    
-oct-22 thurs   <a href="cm014_viz-design-munzner.html">cm014</a>: Visualization Analysis and Design: guest lecture from the awesome Tamara Munzer 
+date           notes                                                                                                              
+-------------  -------------------------------------------------------------------------------------------------------------------
+sep-06 tues    <a href="cm001_course-intro-sw-install-account-signup.html">cm001</a>: Intro to course; S/W install; acct sign-ups 
+sep-08 thurs   cm002: Deep Thoughts about data analytic work; intro to R and RStudio                                              
+sep-13 tues    cm003: Git(Hub) and (R) Markdown crash course                                                                      
+sep-15 thurs   cm004: Care and feeding of data (data.frames, actually)                                                            
+sep-20 tues    cm005: Intro to ggplot2                                                                                            
+sep-22 thurs   cm006: R Markdown                                                                                                  
+sep-27 tues    cm007: dplyr: the pipe and single table verbs                                                                      
+sep-29 thurs   cm008: dplyr: group_by                                                                                             
+oct-04 tues    cm009: Basic flavors of R objects                                                                                  
+oct-06 thurs   cm010: Writing your own R functions                                                                                
+oct-11 tues    cm011: Split-Apply-Combine                                                                                         
+oct-13 thurs   cm012: Tidy data and reshaping; be the boss of your factors                                                        
+oct-18 tues    cm013: Practical graphing tips                                                                                     
+oct-20 thurs   cm014: Visualization Analysis and Design: Tamara Munzer guest lecture (TBC)                                        
 
-#### STAT 547M (note: 2015 stuff ... 2016 reset coming soon!)
+#### STAT 547M (tentative = mostly what we did in 2015)
 
 
-date           notes                                                                                      
--------------  -------------------------------------------------------------------------------------------
-oct-27 tues    <a href="cm101_files-out-in.html">cm101</a>: Getting data out of R (and back in)           
-oct-29 thurs   <a href="cm102_regular-expressions.html">cm102</a>: Regular expressions and character data 
-nov-03 tues    <a href="cm103_data-cleaning.html">cm103</a>: Grand Finale: Wrangling the Candy Survey     
-nov-05 thurs   <a href="cm104_data-cleaning.html">cm104</a>: Grand Finale: Wrangling the Candy Survey     
-nov-10 tues    <a href="cm105_packages.html">cm105</a>: Build your first R package                        
-nov-12 thurs   <a href="cm106_packages.html">cm106</a>: ditto                                             
-nov-17 tues    <a href="cm107_pipelines.html">cm107</a>: Task automation and pipelines, GNU Make          
-nov-19 thurs   <a href="cm108_pipelines.html">cm108</a>: ditto                                            
-nov-24 tues    <a href="cm109_data-from-web.html">cm109</a>: Get data from the web                        
-nov-26 thurs   <a href="cm110_data-from-web.html">cm110</a>: ditto                                        
-dec-01 tues    <a href="cm111_shiny.html">cm111</a>: Building Shiny apps                                  
-dec-03 thurs   <a href="cm112_shiny.html">cm112</a>: ditto                                                
+date           notes                                            
+-------------  -------------------------------------------------
+oct-25 tues    cm101: Getting data out of R (and back in)       
+oct-27 thurs   cm102: Regular expressions and character data    
+nov-01 tues    cm103: Grand Finale: Wrangling the Candy Survey  
+nov-03 thurs   cm104: Grand Finale: Wrangling the Candy Survey  
+nov-08 tues    cm105: Build your first R package                
+nov-10 thurs   cm106: ditto                                     
+nov-15 tues    cm107: Build your first Shiny app                
+nov-17 thurs   cm108: ditto                                     
+nov-22 tues    cm109: Get data from the web (scraping and APIs) 
+nov-24 thurs   cm110: ditto                                     
+nov-29 tues    cm111: Automate tasks and pipelines              
+dec-01 thurs   cm112: ditto                                     
