@@ -15,11 +15,19 @@ Jennifer (Jenny) Bryan, lead instructor
   * [\@STAT545](https://twitter.com/STAT545), Twitter as STAT 545 instructor
   * [GitHub](https://github.com/jennybc)
   
-Sam Hinshaw, lead TA for STAT 545A and STAT 547M
+Sam Hinshaw, lead TA for STAT 545A and STAT 547M, Bioinformatics PhD  
+Johannes Rebane, School of Population and Public Health MSc  
+Erica Acton, Genome Science and Technology PhD  
+Ogan Mancarci, Bioinformatics PhD  
 
-  * Bioinformatics PhD student in the Hancock Lab
+[Shaun Jackman](http://sjackman.ca)
+
+  * <sjackman@gmail.com>
+  * [\@sjackman](http://twitter.com/sjackman)
+  * [GitHub](https://github.com/sjackman)
+
   
-YOUR NAME COULD GO HERE! [STAT 545 is looking for more TAs.](people-help-wanted.html)
+YOUR NAME COULD GO HERE! [STAT 545 could still use more TAs.](people-help-wanted.html)
 
 ### 2015 staff
 
