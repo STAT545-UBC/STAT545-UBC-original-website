@@ -174,7 +174,7 @@ Restart RStudio. In the Console you will see a line like this:
 [Workspace loaded from ~/.RData]
 ```
 
-indicating that your workspace has been restored. Look in the Workspace pane and you'll see the same objects as before. In the History tab of the same pane, you should also see your command history.You're back in business. This way of starting and stopping analytical work will not serve you well for long but it's a start.
+indicating that your workspace has been restored. Look in the Workspace pane and you'll see the same objects as before. In the History tab of the same pane, you should also see your command history. You're back in business. This way of starting and stopping analytical work will not serve you well for long but it's a start.
 
 #### Working directory
 

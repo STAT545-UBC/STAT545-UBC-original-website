@@ -143,7 +143,7 @@ date()
 ```
 
 ```
-## [1] "Tue Jun 14 22:00:26 2016"
+## [1] "Mon Sep  5 22:38:59 2016"
 ```
 
 Now look at your workspace -- in the upper right pane. The workspace is where user-defined objects accumulate. You can also get a listing of these objects with commands:
@@ -226,7 +226,7 @@ Restart RStudio. In the Console you will see a line like this:
 [Workspace loaded from ~/.RData]
 ```
 
-indicating that your workspace has been restored. Look in the Workspace pane and you'll see the same objects as before. In the History tab of the same pane, you should also see your command history.You're back in business. This way of starting and stopping analytical work will not serve you well for long but it's a start.
+indicating that your workspace has been restored. Look in the Workspace pane and you'll see the same objects as before. In the History tab of the same pane, you should also see your command history. You're back in business. This way of starting and stopping analytical work will not serve you well for long but it's a start.
 
 #### Working directory
 
@@ -293,7 +293,7 @@ y <- a + b * x + rnorm(40, sd = sqrt(sig_sq))
 ```
 
 ```
-## [1] 0.554615
+## [1] 0.4616799
 ```
 
 ```r

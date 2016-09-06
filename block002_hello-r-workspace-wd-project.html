@@ -108,6 +108,7 @@ button.code-folding-btn:focus {
 </style>
 
 
+
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
@@ -213,7 +214,7 @@ y</code></pre>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 <p>Not all functions have (or require) arguments:</p>
 <pre class="r"><code>date()</code></pre>
-<pre><code>## [1] &quot;Tue Jun 14 22:00:26 2016&quot;</code></pre>
+<pre><code>## [1] &quot;Mon Sep  5 22:38:59 2016&quot;</code></pre>
 <p>Now look at your workspace – in the upper right pane. The workspace is where user-defined objects accumulate. You can also get a listing of these objects with commands:</p>
 <pre class="r"><code>objects()</code></pre>
 <pre><code>## [1] &quot;jenny_rocks&quot;                &quot;this_is_a_really_long_name&quot;
@@ -254,7 +255,7 @@ y</code></pre>
 <p>Using your favorite method, visit the directory where image was saved and verify there is a file named <code>.RData</code>. You will also see a file <code>.Rhistory</code>, holding the commands submitted in your recent session.</p>
 <p>Restart RStudio. In the Console you will see a line like this:</p>
 <pre><code>[Workspace loaded from ~/.RData]</code></pre>
-<p>indicating that your workspace has been restored. Look in the Workspace pane and you’ll see the same objects as before. In the History tab of the same pane, you should also see your command history.You’re back in business. This way of starting and stopping analytical work will not serve you well for long but it’s a start.</p>
+<p>indicating that your workspace has been restored. Look in the Workspace pane and you’ll see the same objects as before. In the History tab of the same pane, you should also see your command history. You’re back in business. This way of starting and stopping analytical work will not serve you well for long but it’s a start.</p>
 </div>
 <div id="working-directory" class="section level4">
 <h4>Working directory</h4>
@@ -287,7 +288,7 @@ sig_sq &lt;- 0.5
 x &lt;- runif(40)
 y &lt;- a + b * x + rnorm(40, sd = sqrt(sig_sq))
 (avg_x &lt;- mean(x))</code></pre>
-<pre><code>## [1] 0.554615</code></pre>
+<pre><code>## [1] 0.4616799</code></pre>
 <pre class="r"><code>write(avg_x, &quot;avg_x.txt&quot;)
 plot(x, y)
 abline(a, b, col = &quot;purple&quot;)</code></pre>
@@ -338,6 +339,7 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 $(document).ready(function () {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 });
+
 
 </script>
 
