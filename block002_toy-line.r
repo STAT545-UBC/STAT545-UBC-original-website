@@ -22,6 +22,3 @@ pdf("toy-line.pdf")
 plot(x, y)
 abline(a, b, col = "blue", lwd = 2)
 dev.off()
-
-
-

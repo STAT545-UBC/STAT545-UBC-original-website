@@ -16,7 +16,6 @@ y
 (avgX <- mean(x))
 write(avgX, "avgX.txt")
 plot(x, y)
-plot(x, y)
 abline(a, b, col = "orange")
 dev.print(pdf, "niftyPlot.pdf")
 ## notice that avgX.txt and niftyPlot.pdf have appeared in swc
