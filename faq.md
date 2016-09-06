@@ -32,8 +32,10 @@ This was/is/will be the deal in 2014/2015, 2015/2016 and 2016/2017, at the least
 [SSC 545A]: https://courses.students.ubc.ca/cs/main?pname=subjarea&tname=subjareas&req=5&dept=STAT&course=545A&section=101
 [SSC 547M]: https://courses.students.ubc.ca/cs/main?pname=subjarea&tname=subjareas&req=5&dept=STAT&course=547M&section=101
 
-Up-to-date info on office hours: TBD
-<!-- [here](https://github.com/STAT545-UBC/Discussion/issues/85) -->
+Office hours:
+
+  * 11am - 1pm Tuesday and Thursday in ESB 3174 = right after class in a room across from the main Statistics office.
+  * The duration and/or days will likely be decreased as term goes on. We will leave [this issue open on GitHub](https://github.com/STAT545-UBC/Discussion/issues/312) for discussion and late-breaking updates, like office hours are cancelled or have ended early due to no interest.
 
 ### What's up with the two half courses?
 
