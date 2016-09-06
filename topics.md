@@ -2,15 +2,9 @@
 
   * [Install R and Rstudio](block000_r-rstudio-install.html)
   * [All the Git and GitHub (and RStudio) things](git00_index.html)
-    - [Install Git](git01_git-install.html)
-    - [Install a Git client](git02_git-clients.html)
-    - [Introduce yourself to Git](git04_introduce-self-to-git.html)
-    - [GitHub, can you hear me?](git05_github-connection.html)
-    - [Test connection between RStudio and GitHub](git07_git-github-rstudio.html)
-    - [GitHub credential caching](git06_credential-caching.html)
-    - [When RStudio can't find Git](git03_rstudio-meet-git.html)
+    - Content now here: <http://happygitwithr.com>
+      - Install Git, install a Git client or GUI, establish pull/push connection from computer to GitHub in the shell, establish GitHub connection via RStudio, credential caching, troubleshooting.
     - [Take possession of your STAT 545 repo](git08_claim-stat545-repo.html)
-    - [Troubleshooting](git66_rstudio-git-github-hell.html)
     - [The Shell](git09_shell.html)
   * [Basic R and RStudio, workspace, working directory, RStudio Project](block002_hello-r-workspace-wd-project.html)
   * [Basic care and feeding of data in R](block006_care-feeding-data.html)
