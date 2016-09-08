@@ -6,6 +6,8 @@ output:
     toc_depth: 4
 ---
 
+**Still from 2015. Main change I'm contemplating is to add optional but recommended R Markdown exercise.**
+
 ### Overview
 
 Consult the [general homework guidelines](hw00_homework-guidelines.html), although much does not to apply to this simple assignment.
@@ -14,7 +16,7 @@ Recall the [tutorial](git07_git-github-rstudio.html) where we test drive your so
 
 Make sure you've accepted my invitation to join the STAT 545 GitHub Organization.
 
-Due before class Tuesday 2014-09-22. Or later that day, if terrible things happen, and you need a consultation during class or office hours. This is the last time we'll flex on due date just because of software and configuration issues. SORT THIS OUT ASAP.
+Due before class Tuesday ~~2015-09-22~~ *probably becomes 2016-09-20*. Or later that day, if terrible things happen, and you need a consultation during class or office hours. This is the last time we'll flex on due date just because of software and configuration issues. SORT THIS OUT ASAP.
 
 The goal is to test your software installation, our GitHub setup, and our homework submission process via an Issue.
 
@@ -36,7 +38,7 @@ If you are new to Git and GitHub, click on the `README` link in the area that lo
 
 Go [take possession of your STAT 545 private repository](git08_claim-stat545-repo.html) and have at it.
 
-__At the very least__, change `README.md` to something like "This is the repository of Jenny Bryan," just to prove you have been there. Practice making a link, for example, to the [main STAT545 webpage](http://stat545-ubc.github.io). Much better is to introduce yourself to the class; this page is private to STAT 545 but will be visible to all students and staff. Feel free to read up on Markdown and practice with some of the syntax. Here's a [simple example file](https://github.com/jennybc/2013-11_sfu/blob/master/simple-markdown.md), as automatically rendered by GitHub, and here is the [raw source](https://raw.githubusercontent.com/jennybc/2013-11_sfu/master/simple-markdown.md).
+__At the very least__, change `README.md` to something like "This is the repository of Jenny Bryan," just to prove you have been there. Practice making a link, for example, to the [main STAT545 webpage](http://stat545.com). Much better is to introduce yourself to the class; this page is private to STAT 545 but will be visible to all students and staff. Feel free to read up on Markdown and practice with some of the syntax. Put in a photo or a GIF! ~~Here's a [simple example file](https://github.com/jennybc/2013-11_sfu/blob/master/simple-markdown.md), as automatically rendered by GitHub, and here is the [raw source](https://raw.githubusercontent.com/jennybc/2013-11_sfu/master/simple-markdown.md).~~ *We're working on some better inspiration in 2016.*
 
 ### Report your process
 
