@@ -1,12 +1,12 @@
 ## Topic list
 
   * [Install R and Rstudio](block000_r-rstudio-install.html)
+  * [Basic R and RStudio, workspace, working directory, RStudio Project](block002_hello-r-workspace-wd-project.html)
   * [All the Git and GitHub (and RStudio) things](git00_index.html)
     - Content now here: <http://happygitwithr.com>
       - Install Git, install a Git client or GUI, establish pull/push connection from computer to GitHub in the shell, establish GitHub connection via RStudio, credential caching, troubleshooting.
     - [Take possession of your STAT 545 repo](git08_claim-stat545-repo.html)
     - [The Shell](git09_shell.html)
-  * [Basic R and RStudio, workspace, working directory, RStudio Project](block002_hello-r-workspace-wd-project.html)
   * [Basic care and feeding of data in R](block006_care-feeding-data.html)
   * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
   * [Test drive R Markdown](block007_first-use-rmarkdown.html)

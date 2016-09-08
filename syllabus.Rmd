@@ -10,6 +10,7 @@ output:
 library(dplyr)
 library(stringr)
 library(readr)
+library(tidyr)
 ```
 
 ```{r include = FALSE}
@@ -32,8 +33,7 @@ cmdat <- data_frame(html = list.files(pattern = '^cm.*html$'))
 cmdat <- cmdat %>% mutate(cm = str_extract(html, "cm[0-9]+"))
 cdat <- cdat %>% full_join(cmdat)
 
-#cdat <- cdat %>%
-#  mutate(html_exists = !is.na(html)) %>% 
+cdat <- cdat %>% replace_na(list(html = ""))
 cdat$notes[cdat$link_it] <-
   str_replace(cdat$notes[cdat$link_it],
               "(cm[0-9]{3})", '<a href="LINK">\\1</a>')
