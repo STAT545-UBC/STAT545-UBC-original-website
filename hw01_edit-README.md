@@ -6,8 +6,6 @@ output:
     toc_depth: 4
 ---
 
-**Still from 2015. Main change I'm contemplating is to add optional but recommended R Markdown exercise.**
-
 ### Overview
 
 Consult the [general homework guidelines](hw00_homework-guidelines.html), although much does not to apply to this simple assignment.
@@ -38,7 +36,7 @@ If you are new to Git and GitHub, click on the `README` link in the area that lo
 
 Go [take possession of your STAT 545 private repository](git08_claim-stat545-repo.html) and have at it.
 
-__At the very least__, change `README.md` to something like "This is the repository of Jenny Bryan," just to prove you have been there. Practice making a link, for example, to the [main STAT545 webpage](http://stat545.com). Much better is to introduce yourself to the class; this page is private to STAT 545 but will be visible to all students and staff. Feel free to read up on Markdown and practice with some of the syntax. Put in a photo or a GIF! ~~Here's a [simple example file](https://github.com/jennybc/2013-11_sfu/blob/master/simple-markdown.md), as automatically rendered by GitHub, and here is the [raw source](https://raw.githubusercontent.com/jennybc/2013-11_sfu/master/simple-markdown.md).~~ *We're working on some better inspiration in 2016.*
+__At the very least__, change `README.md` to something like "This is the repository of Jenny Bryan," just to prove you have been there. Practice making a link, for example, to the [main STAT545 webpage](http://stat545.com). Much better is to introduce yourself to the class; this page is private to STAT 545 but will be visible to all students and staff. Feel free to read up on Markdown and practice with some of the syntax. Put in a photo or a GIF! Here's a [sample readme file](https://github.com/STAT545-UBC/STAT545-UBC.github.io/hw01_sample_readme.md) that you can use as reference and/or inspiration, and here is the [raw source](https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/hw01_sample_readme.md).
 
 ### Report your process
 
