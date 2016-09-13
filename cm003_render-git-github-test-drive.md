@@ -11,6 +11,7 @@ output:
     - <http://shiny.stat.ubc.ca/STAT545/stat545-basic-info/>
     - this is how we get your GitHub username, match you against the course list, and give you a private course repository within the [STAT 545 Organization](https://github.com/STAT545-UBC)
     - username and password for survey given in class
+  * Quick live look at "who's in here?"
   * Revisit toy line script from last class, which covered:
     - [R basics, workspace and working directory, RStudio projects](block002_hello-r-workspace-wd-project.html)
     - Do "Compile Notebook" on it!
