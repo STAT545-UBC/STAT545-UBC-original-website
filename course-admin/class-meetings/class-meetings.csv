@@ -1,7 +1,7 @@
 cm,course,dow,month,day,link_it,raw_notes
 cm001,STAT545A,tues,september,6,TRUE,Intro to course; S/W install; acct sign-ups
 cm002,STAT545A,thurs,september,8,TRUE,Deep Thoughts about data analytic work; intro to R and RStudio
-cm003,STAT545A,tues,september,13,FALSE,Git(Hub) and (R) Markdown crash course
+cm003,STAT545A,tues,september,13,TRUE,Git(Hub) and (R) Markdown test drive
 cm004,STAT545A,thurs,september,15,FALSE,"Care and feeding of data (data.frames, actually)"
 cm005,STAT545A,tues,september,20,FALSE,Intro to ggplot2
 cm006,STAT545A,thurs,september,22,FALSE,R Markdown

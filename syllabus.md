@@ -29,7 +29,7 @@ date           notes
 -------------  -------------------------------------------------------------------------------------------------------------------
 sep-06 tues    <a href="cm001_course-intro-sw-install-account-signup.html">cm001</a>: Intro to course; S/W install; acct sign-ups 
 sep-08 thurs   <a href="cm002_r-rstudio-intro.html">cm002</a>: Deep Thoughts about data analytic work; intro to R and RStudio     
-sep-13 tues    cm003: Git(Hub) and (R) Markdown crash course                                                                      
+sep-13 tues    <a href="cm003_render-git-github-test-drive.html">cm003</a>: Git(Hub) and (R) Markdown test drive                  
 sep-15 thurs   cm004: Care and feeding of data (data.frames, actually)                                                            
 sep-20 tues    cm005: Intro to ggplot2                                                                                            
 sep-22 thurs   cm006: R Markdown                                                                                                  
