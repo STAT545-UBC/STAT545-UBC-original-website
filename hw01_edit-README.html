@@ -1,247 +1,839 @@
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-
-<head>
-
-<meta charset="utf-8">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
-
-
-
-
-<title>Homework 01: Edit README.md and Use R Markdown</title>
-
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-68219208-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
-
-<style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
-<script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>@font-face {
+  font-family: octicons-anchor;
+  src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
 }
-</script>
 
-
-
-<style type="text/css">
-h1 {
-  font-size: 34px;
+* {
+    box-sizing: border-box;
 }
-h1.title {
-  font-size: 38px;
+
+body {
+    width: 980px;
+    margin-right: auto;
+    margin-left: auto;
 }
-h2 {
+
+body .markdown-body {
+    padding: 45px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    word-wrap: break-word;
+}
+
+pre {
+    font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+.markdown-body {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  color: #333;
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 16px;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.markdown-body a {
+  background-color: transparent;
+}
+
+.markdown-body a:active,
+.markdown-body a:hover {
+  outline: 0;
+}
+
+.markdown-body strong {
+  font-weight: bold;
+}
+
+.markdown-body h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+.markdown-body img {
+  border: 0;
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  height: 0;
+}
+
+.markdown-body pre {
+  overflow: auto;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+.markdown-body input {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+.markdown-body html input[disabled] {
+  cursor: default;
+}
+
+.markdown-body input {
+  line-height: normal;
+}
+
+.markdown-body input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body input {
+  font: 13px / 1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.markdown-body a {
+  color: #4078c0;
+  text-decoration: none;
+}
+
+.markdown-body a:hover,
+.markdown-body a:active {
+  text-decoration: underline;
+}
+
+.markdown-body hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.markdown-body hr:before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr:after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  line-height: 1.1;
+}
+
+.markdown-body h1 {
   font-size: 30px;
 }
-h3 {
-  font-size: 24px;
+
+.markdown-body h2 {
+  font-size: 21px;
 }
-h4 {
-  font-size: 18px;
-}
-h5 {
+
+.markdown-body h3 {
   font-size: 16px;
 }
-h6 {
+
+.markdown-body h4 {
+  font-size: 14px;
+}
+
+.markdown-body h5 {
   font-size: 12px;
 }
-.table th:not([align]) {
-  text-align: left;
+
+.markdown-body h6 {
+  font-size: 11px;
 }
-</style>
 
-<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
-<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
-
-</head>
-
-<body>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
+.markdown-body blockquote {
+  margin: 0;
 }
-code {
+
+.markdown-body ul,
+.markdown-body ol {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body code {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+.markdown-body .select::-ms-expand {
+  opacity: 0;
+}
+
+.markdown-body .octicon {
+  font: normal normal normal 16px/1 octicons-anchor;
+  display: inline-block;
+  text-decoration: none;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.markdown-body .octicon-link:before {
+  content: '\f05c';
+}
+
+.markdown-body:before {
+  display: table;
+  content: "";
+}
+
+.markdown-body:after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
   color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
+  text-decoration: none;
 }
-img {
-  max-width:100%;
-  height: auto;
+
+.markdown-body .anchor {
+  display: inline-block;
+  padding-right: 2px;
+  margin-left: -18px;
 }
-.tabbed-pane {
-  padding-top: 12px;
-}
-button.code-folding-btn:focus {
+
+.markdown-body .anchor:focus {
   outline: none;
 }
-</style>
 
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 1em;
+  margin-bottom: 16px;
+  font-weight: bold;
+  line-height: 1.4;
+}
 
+.markdown-body h1 .octicon-link,
+.markdown-body h2 .octicon-link,
+.markdown-body h3 .octicon-link,
+.markdown-body h4 .octicon-link,
+.markdown-body h5 .octicon-link,
+.markdown-body h6 .octicon-link {
+  color: #000;
+  vertical-align: middle;
+  visibility: hidden;
+}
 
-<div class="container-fluid main-container">
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
 
-<!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
+.markdown-body h1:hover .anchor .octicon-link,
+.markdown-body h2:hover .anchor .octicon-link,
+.markdown-body h3:hover .anchor .octicon-link,
+.markdown-body h4:hover .anchor .octicon-link,
+.markdown-body h5:hover .anchor .octicon-link,
+.markdown-body h6:hover .anchor .octicon-link {
+  visibility: visible;
+}
+
+.markdown-body h1 {
+  padding-bottom: 0.3em;
+  font-size: 2.25em;
+  line-height: 1.2;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h1 .anchor {
+  line-height: 1;
+}
+
+.markdown-body h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.75em;
+  line-height: 1.225;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h2 .anchor {
+  line-height: 1;
+}
+
+.markdown-body h3 {
+  font-size: 1.5em;
+  line-height: 1.43;
+}
+
+.markdown-body h3 .anchor {
+  line-height: 1.2;
+}
+
+.markdown-body h4 {
+  font-size: 1.25em;
+}
+
+.markdown-body h4 .anchor {
+  line-height: 1.2;
+}
+
+.markdown-body h5 {
+  font-size: 1em;
+}
+
+.markdown-body h5 .anchor {
+  line-height: 1.1;
+}
+
+.markdown-body h6 {
+  font-size: 1em;
+  color: #777;
+}
+
+.markdown-body h6 .anchor {
+  line-height: 1.1;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.markdown-body hr {
+  height: 4px;
+  padding: 0;
+  margin: 16px 0;
+  background-color: #e7e7e7;
+  border: 0 none;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 2em;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li>p {
+  margin-top: 16px;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.markdown-body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.markdown-body blockquote {
+  padding: 0 15px;
+  color: #777;
+  border-left: 4px solid #ddd;
+}
+
+.markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+}
+
+.markdown-body table th {
+  font-weight: bold;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+
+.markdown-body table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+.markdown-body img {
+  max-width: 100%;
+  box-sizing: content-box;
+  background-color: #fff;
+}
+
+.markdown-body code {
+  padding: 0;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(0,0,0,0.04);
+  border-radius: 3px;
+}
+
+.markdown-body code:before,
+.markdown-body code:after {
+  letter-spacing: -0.2em;
+  content: "\00a0";
+}
+
+.markdown-body pre>code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 16px;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f7f7f7;
+  border-radius: 3px;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body pre {
+  word-wrap: normal;
+}
+
+.markdown-body pre code {
+  display: inline;
+  max-width: initial;
+  padding: 0;
+  margin: 0;
+  overflow: initial;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body pre code:before,
+.markdown-body pre code:after {
+  content: normal;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb;
+}
+
+.markdown-body .pl-c {
+  color: #969896;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #0086b3;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #795da3;
+}
+
+.markdown-body .pl-s .pl-s1,
+.markdown-body .pl-smi {
+  color: #333;
+}
+
+.markdown-body .pl-ent {
+  color: #63a35c;
+}
+
+.markdown-body .pl-k {
+  color: #a71d5d;
+}
+
+.markdown-body .pl-pds,
+.markdown-body .pl-s,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sra,
+.markdown-body .pl-sr .pl-sre {
+  color: #183691;
+}
+
+.markdown-body .pl-v {
+  color: #ed6a43;
+}
+
+.markdown-body .pl-id {
+  color: #b52a1d;
+}
+
+.markdown-body .pl-ii {
+  background-color: #b52a1d;
+  color: #f8f8f8;
+}
+
+.markdown-body .pl-sr .pl-cce {
+  color: #63a35c;
+  font-weight: bold;
+}
+
+.markdown-body .pl-ml {
+  color: #693a17;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  color: #1d3e81;
+  font-weight: bold;
+}
+
+.markdown-body .pl-mq {
+  color: #008080;
+}
+
+.markdown-body .pl-mi {
+  color: #333;
+  font-style: italic;
+}
+
+.markdown-body .pl-mb {
+  color: #333;
+  font-weight: bold;
+}
+
+.markdown-body .pl-md {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.markdown-body .pl-mi1 {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.markdown-body .pl-mdr {
+  color: #795da3;
+  font-weight: bold;
+}
+
+.markdown-body .pl-mo {
+  color: #1d3e81;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb;
+}
+
+.markdown-body .plan-price-unit {
+  color: #767676;
+  font-weight: normal;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item+.task-list-item {
+  margin-top: 3px;
+}
+
+.markdown-body .task-list-item input {
+  margin: 0 0.35em 0.25em -1.6em;
+  vertical-align: middle;
+}
+
+.markdown-body .plan-choice {
+  padding: 15px;
+  padding-left: 40px;
+  display: block;
+  border: 1px solid #e0e0e0;
+  position: relative;
+  font-weight: normal;
+  background-color: #fafafa;
+}
+
+.markdown-body .plan-choice.open {
+  background-color: #fff;
+}
+
+.markdown-body .plan-choice.open .plan-choice-seat-breakdown {
+  display: block;
+}
+
+.markdown-body .plan-choice-free {
+  border-radius: 3px 3px 0 0;
+}
+
+.markdown-body .plan-choice-paid {
+  border-radius: 0 0 3px 3px;
+  border-top: 0;
+  margin-bottom: 20px;
+}
+
+.markdown-body .plan-choice-radio {
+  position: absolute;
+  left: 15px;
+  top: 18px;
+}
+
+.markdown-body .plan-choice-exp {
+  color: #999;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.markdown-body .plan-choice-seat-breakdown {
+  margin-top: 10px;
+  display: none;
+}
+
+.markdown-body :checked+.radio-label {
+  z-index: 1;
+  position: relative;
+  border-color: #4078c0;
+}
+</style><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
+MathJax.Hub.Config({
+  config: ["MMLorHTML.js"],
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX"],
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: false
+  },
+  TeX: {
+    extensions: ["AMSmath.js", "AMSsymbols.js"],
+    TagSide: "right",
+    TagIndent: ".8em",
+    MultLineWidth: "85%",
+    equationNumbers: {
+      autoNumber: "AMS",
+    },
+    unicode: {
+      fonts: "STIXGeneral,'Arial Unicode MS'"
+    }
+  },
+  showProcessingMessages: false
 });
 </script>
+<title>hw01_edit-README</title></head><body><article class="markdown-body"><hr>
 
-<!-- code folding -->
+<p>title: "Homework 01: Edit README.md and Use R Markdown"
+output:
+  html_document:
+    toc: true</p>
 
+<h2>
+<a id="user-content-----toc_depth-4" class="anchor" href="#----toc_depth-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>    toc_depth: 4</h2>
 
+<h3>
+<a id="user-content-overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h3>
 
+<p>Consult the <a href="/Users/jrebane/Documents/School/STAT%20545A/STAT545-UBC.github.io/hw00_homework-guidelines.html">general homework guidelines</a>, although much does not to apply to this simple assignment.</p>
 
+<p>We assume you've been keeping up with our live class activities, which have included</p>
 
-<header>
-  <div class="nav">
-    <a class="nav-logo" href="index.html">
-      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
-    </a>
-    <ul>
-      <li class="home"><a href="index.html">Home</a></li>
-      <li class="faq"><a href="faq.html">FAQ</a></li>
-      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
-      <li class="topics"><a href="topics.html">Topics</a></li>
-      <li class="people"><a href="people.html">People</a></li>
-    </ul>
-  </div>
-</header>
-
-<div class="fluid-row" id="header">
-
-
-
-<h1 class="title toc-ignore">Homework 01: Edit README.md and Use R Markdown</h1>
-
-</div>
-
-<div id="TOC">
-<ul>
-<li><a href="#overview">Overview</a></li>
-<li><a href="#edit-readme.md">Edit <code>README.md</code></a></li>
-<li><a href="#add-r-markdown-and-markdown-for-gapminder-exploration">Add R Markdown and Markdown for Gapminder exploration</a></li>
-<li><a href="#report-your-process">Report your process</a></li>
-<li><a href="#submit-the-assignment">Submit the assignment</a></li>
-<li><a href="#rubric">Rubric</a></li>
-</ul>
-</div>
-
-<div id="overview" class="section level3">
-<h3>Overview</h3>
-<p>Consult the <a href="hw00_homework-guidelines.html">general homework guidelines</a>, although much does not to apply to this simple assignment.</p>
-<p>We assume you’ve been keeping up with our live class activities, which have included</p>
 <ul>
 <li>verifying your R/RStudio/Git/GitHub setup</li>
 <li>joining the STAT 545 Organization and claiming your private repo</li>
 <li>successfully rendering R Markdown</li>
 </ul>
+
 <p>Due by midnight Tuesday 2016-09-20, but I <strong>highly recommend</strong> you aim to submit before class. This assignment should go smoothly, but if the computer gods do not smile upon you, we should be able to straighten things out in class or office hours.</p>
-</div>
-<div id="edit-readme.md" class="section level3">
-<h3>Edit <code>README.md</code></h3>
-<p>We created this repository for you but it is empty. When you first visit, you should see a screen like <a href="img/screenshot-new-repo-with-readme.png">this</a>. You need to edit your <code>README.md</code> file to welcome your visitors (you, STAT545 instructor/TAs, STAT545 peers).</p>
+
+<h3>
+<a id="user-content-edit-readmemd" class="anchor" href="#edit-readmemd" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Edit <code>README.md</code>
+</h3>
+
+<p>We created this repository for you but it is empty. When you first visit, you should see a screen like <a href="/Users/jrebane/Documents/School/STAT%20545A/STAT545-UBC.github.io/img/screenshot-new-repo-with-readme.png">this</a>. You need to edit your <code>README.md</code> file to welcome your visitors (you, STAT545 instructor/TAs, STAT545 peers).</p>
+
 <p>If you are already familiar with GitHub, edit the <code>README.md</code> any way you wish.</p>
-<p>If you are new to Git and GitHub, click on the <code>README</code> link in the area that looks like a file browser. Click on the pencil and make an edit. Then head down to “Commit changes”. Enter a short <em>commit message</em>. Then click “Commit changes”. This is how you can edit files in GitHub repository through the browser. If you are still mystified by Git(Hub), you can use this browser-based method to edit <code>README.md</code> until you get more comfortable with using Git locally and pushing to GitHub. <strong>However, if at all possible</strong>, we want you to pilot a more powerful workflow:</p>
+
+<p>If you are new to Git and GitHub, click on the <code>README</code> link in the area that looks like a file browser. Click on the pencil and make an edit. Then head down to "Commit changes". Enter a short <em>commit message</em>. Then click "Commit changes". This is how you can edit files in GitHub repository through the browser. If you are still mystified by Git(Hub), you can use this browser-based method to edit <code>README.md</code> until you get more comfortable with using Git locally and pushing to GitHub. <strong>However, if at all possible</strong>, we want you to pilot a more powerful workflow:</p>
+
 <ul>
 <li>Pull from GitHub (just an empty precaution now, but will matter when you collaborate with others).</li>
-<li>Make changes locally to local files – RStudio is a great Markdown editor! Click Preview to see how it’s going to look!</li>
+<li>Make changes locally to local files -- RStudio is a great Markdown editor! Click Preview to see how it's going to look!</li>
 <li>Save your changes.</li>
 <li>Commit your changes to your repo.</li>
 <li>Push the commit to GitHub.</li>
 </ul>
-<p>Go <a href="git08_claim-stat545-repo.html">take possession of your STAT 545 private repository</a> and have at it.</p>
-<p><strong>At the very least</strong>, change <code>README.md</code> to something like “This is the repository of Jenny Bryan,” just to prove you have been there. Practice making a link, for example, to the <a href="http://stat545.com">main STAT545 webpage</a>.</p>
+
+<p>Go <a href="/Users/jrebane/Documents/School/STAT%20545A/STAT545-UBC.github.io/git08_claim-stat545-repo.html">take possession of your STAT 545 private repository</a> and have at it.</p>
+
+<p><strong>At the very least</strong>, change <code>README.md</code> to something like "This is the repository of Jenny Bryan," just to prove you have been there. Practice making a link, for example, to the <a href="http://stat545.com">main STAT545 webpage</a>.</p>
+
 <p>Much better is to introduce yourself to the class; this page is private to STAT 545 but will be visible to all students and staff. Feel free to read up on Markdown and practice with some of the syntax. Put in a photo or a GIF!</p>
-<p>Here’s a <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/hw01_sample_readme.md">sample readme file</a> that you can use as reference and/or inspiration, and here is the <a href="https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/hw01_sample_readme.md">raw source</a>. The <em>Help</em> menu in RStudio will bring up a Markdown Quick Reference at any time.</p>
-</div>
-<div id="add-r-markdown-and-markdown-for-gapminder-exploration" class="section level3">
-<h3>Add R Markdown and Markdown for Gapminder exploration</h3>
+
+<p>Here's a <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/hw01_sample_readme.md">sample readme file</a> that you can use as reference and/or inspiration, and here is the <a href="https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/hw01_sample_readme.md">raw source</a>. The <em>Help</em> menu in RStudio will bring up a Markdown Quick Reference at any time.</p>
+
+<h3>
+<a id="user-content-add-r-markdown-and-markdown-for-gapminder-exploration" class="anchor" href="#add-r-markdown-and-markdown-for-gapminder-exploration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add R Markdown and Markdown for Gapminder exploration</h3>
+
 <p>This is optional. If you are really struggling, skip it for now. But try!</p>
+
 <p>Polish and extend the R Markdown document started in class on Thursday September 15. Render it to the <code>github_document</code> output format. Commit both the <code>.Rmd</code> and <code>.md</code> files and push them to GitHub.</p>
+
 <p>Give this a decent name, such as <code>hw01_gapminder.Rmd</code> (which will produce a companion file, <code>hw01_gapminder.md</code>).</p>
-</div>
-<div id="report-your-process" class="section level3">
-<h3>Report your process</h3>
-<p><strong>WE REALLY CARE ABOUT THIS! DON’T SKIP IT.</strong></p>
+
+<h3>
+<a id="user-content-report-your-process" class="anchor" href="#report-your-process" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Report your process</h3>
+
+<p><strong>WE REALLY CARE ABOUT THIS! DON'T SKIP IT.</strong></p>
+
 <p>Include a description of how you got the changes into <code>README.md</code> on GitHub.</p>
+
 <ul>
 <li>Did you edit in the browser at github.com?</li>
 <li>Did you pull, edit locally, save, commit, push to github.com?</li>
 </ul>
+
 <p>How did it all work for the R Markdown document?</p>
-<p>You’re encouraged to reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc. Put this in your README. In a week or two, you can delete this bit.</p>
-</div>
-<div id="submit-the-assignment" class="section level3">
-<h3>Submit the assignment</h3>
-<p>Follow instructions on <a href="hw00_homework-guidelines.html#how-to-submit-homework">How to submit homework</a></p>
-</div>
-<div id="rubric" class="section level3">
-<h3>Rubric</h3>
-<p>Check minus: <code>README.md</code> says equivalent of “This is the repository of Jenny Bryan”. All work done via browser at github.com … but that’s just a guess, because student doesn’t actually say how it was done. No attempt to submit an R Markdown document exploring the Gapminder data. The homework submission issue is not named correctly, doesn’t include the SHA or tag Jenny or a link to the work to be reviewed.</p>
+
+<p>You're encouraged to reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc. Put this in your README. In a week or two, you can delete this bit.</p>
+
+<h3>
+<a id="user-content-submit-the-assignment" class="anchor" href="#submit-the-assignment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Submit the assignment</h3>
+
+<p>Follow instructions on <a href="/Users/jrebane/Documents/School/STAT%20545A/STAT545-UBC.github.io/hw00_homework-guidelines.html#how-to-submit-homework">How to submit homework</a></p>
+
+<h3>
+<a id="user-content-rubric" class="anchor" href="#rubric" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Rubric</h3>
+
+<p>Check minus: <code>README.md</code> says equivalent of "This is the repository of Jenny Bryan". All work done via browser at github.com ... but that's just a guess, because student doesn't actually say how it was done. No attempt to submit an R Markdown document exploring the Gapminder data. The homework submission issue is not named correctly, doesn't include the SHA or tag Jenny or a link to the work to be reviewed.</p>
+
 <p>Check: something in between. Student may have failed to render to the <code>github_document</code> output and commit/push the resulting <code>.md</code> file. The homework submission issue might not be perfect, but there was a good effort.</p>
-<p>Check plus: <code>README.md</code> provides a proper introduction of student to the class. It also demonstrates experimentation with 4 or more aspects of the Markdown syntax. Examples: section headers, links, bold, italic, bullet points, image embed, etc. The student describes how they got the changes into <code>README.md</code>. Student has submitted a well-named R Markdown document with exploration of the Gapminder dataset and the rendered markdown file. Student offers a few reflections on their GitHub workflow and their experience with Markdown. The homework submission issue follows the naming convention, includes the SHA, Jenny is tagged, and there’s a link to the rendered <code>.md</code> for the Gapminder exploration.</p>
-</div>
 
-<div class="footer">
-This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
-</div>
-
-
-
-</div>
-
-<script>
-
-// add bootstrap table styles to pandoc tables
-$(document).ready(function () {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
-});
-
-
-</script>
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
-
-</body>
-</html>
+<p>Check plus: <code>README.md</code> provides a proper introduction of student to the class. It also demonstrates experimentation with 4 or more aspects of the Markdown syntax. Examples: section headers, links, bold, italic, bullet points, image embed, etc. The student describes how they got the changes into <code>README.md</code>. Student has submitted a well-named R Markdown document with exploration of the Gapminder dataset and the rendered markdown file. Student offers a few reflections on their GitHub workflow and their experience with Markdown. The homework submission issue follows the naming convention, includes the SHA, Jenny is tagged, and there's a link to the rendered <code>.md</code> for the Gapminder exploration.</p>
+</article></body></html>
