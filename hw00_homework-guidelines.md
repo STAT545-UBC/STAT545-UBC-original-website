@@ -21,17 +21,19 @@ In the [first homework](hw01_edit-README.html) you created a top-level `README.m
 
 Throughout this course, any basic text document should be written in [Markdown](http://daringfireball.net/projects/markdown/basics) and should always have a filename that ends in `.md`. These files are pleasant to write and read, but are also easily converted into HTML and other output formats. GitHub provides an attractive HTML-like preview for Markdown documents. RStudio's "Preview HTML" button will compile the open document to actual HTML and open a preview.
 
-Whenever you are editing Markdown documents in RStudio, you can display a Markdown cheatsheet by clicking the question Mark `?` at the top of the editor pane.
+Whenever you are editing Markdown documents in RStudio, you can access a Markdown Quick Reference from the *Help* menu.
 
 ### Authoring R Markdown files
 
 If your document is describing a data analysis, author it in [R Markdown](http://rmarkdown.rstudio.com), which is like Markdown, but with the addition of R "code chunks" that are runnable. The filename should end in `.Rmd` or `.rmd`. RStudio's "Knit HTML" button will compile the open document to actual HTML and open a preview.
 
-Whenever you are editing R Markdown documents in RStudio, click the question Mark `?` at the top of the editor pane to display a Markdown cheatsheet or visit RStudio's [R Markdown website](http://rmarkdown.rstudio.com).
+You can access an R Markdown cheatsheet from *Help > Cheatsheets* or visit RStudio's [R Markdown website](http://rmarkdown.rstudio.com).
 
 Here is our introductory [tutorial on rendering R Markdown](block007_first-use-rmarkdown.html).
 
-  * Make sure to keep, commit, push the intermediate `.md` file and any figures.
+  * Default to the `github_document` output format.
+  * If you have a compelling reason to render to html, make sure to keep, commit, and push the intermediate `.md` file.
+  * In both cases, commit and push any figures.
   * Expose your code, i.e. use chunk option `echo = FALSE` very sparingly.
 
 ### Organization of your coursework repository
@@ -42,23 +44,13 @@ BTW we truly mean [directories or "folders"](http://en.wikipedia.org/wiki/Direct
 
 You have a top-level `README.md` for your repository. Once you create sub-directories, you may also want to have a `README.md` file in each sub-directory to serve as a landing pages for, e.g., a homework assignment or a data directory.
 
-As you get more advanced, here is more advice about [making your GitHub repo](bit006_github-browsability-wins.html) very browsable.
-
-### Which files to commit 
-
-  * Always commit the main source document, e.g., the R script or R Markdown or Markdown document. Commit early, commit often!
-  * For R Markdown source, also commit the intermediate Markdown (`.md`) file and any accompaying files, such as figures.
-    - Some purists would say intermediate and downstream products do NOT belong in the repo. After all, you can always recreate them from source, right? But here in reality, it turns out to be incredibly handy to have this in the repo.
-  * Commit the end product HTML (`.html`) file.
-    - See above comment re: version control purists vs. pragmatists.
-  * You may not want to commit the Markdown and HTML until the work is fairly advanced, maybe even until submission. Once these enter the repo, you really should recompile them each time you commit changes to the R Markdown source, so that the Git history reflects the way these files should evolve as an ensemble.
-  * __Never ever__ edit the intermediate/output documents "by hand". Only edit the source and then regenerate the downstream products from that.
+As you get more advanced, here is more advice about [making your GitHub repo](http://happygitwithr.com/repo-browsability.html) very browsable.
 
 ### How to submit homework
 
   * Make sure you have
     - Saved all the files associated with your solution locally.
-    - Commited all those files to your local Git repository.
+    - Committed all those files to your local Git repository.
     - Pushed the current state of your local repo to GitHub.
   * Open an issue, link to the latest commit, and tag the staff:
     - Visit your GitHub repo in a web browser.
@@ -79,8 +71,7 @@ Reduce the friction for TAs and profs to get the hard-working source code (the R
   * Create a `README.md` in the homework's subdirectory to serve as the landing page for your submission. Whenever anyone visits this subdirectory of your repo, this will be automatically rendered nicely! In particular, hyperlinks will work.
   * With this `README.md` file, create annotated links to the documents TAs and profs will need to access. Such as:
     - Your main R markdown document.
-    - The intermediate Markdown product that comes from knitting your main R markdown document. Remember GitHub will render this into pseudo-HTML automagically. Remember the figures in `figures/` need to be available in the repo in order appear here.
-    - The final pretty HTML report. Read instructions below on how access the pretty, not the ugly source.
+    - The Markdown product that comes from knitting your main R markdown document. Remember GitHub will render this into pseudo-HTML automagically. Remember the figures in `figures/` need to be available in the repo in order appear here.
 
 If you want to see an example of a `README.md` that links to and explains a bunch of files in the same repo + subdirectory, you can look at [this example](https://github.com/jennybc/STAT545A/tree/master/hw06_scaffolds/02_rAndMake) from STAT 545A 2013.
 
