@@ -47,12 +47,12 @@ By loading the `gapminder` package, we now have access to a data.frame by the sa
 
 ```r
 str(gapminder)
-## 'data.frame':	1704 obs. of  6 variables:
+## Classes 'tbl_df', 'tbl' and 'data.frame':	1704 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ year     : num  1952 1957 1962 1967 1972 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
 ##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
 ##  $ gdpPercap: num  779 821 853 836 740 ...
 ```
 
@@ -140,19 +140,19 @@ Although we haven't begun our formal coverage of visualization yet, it's so impo
 plot(lifeExp ~ year, gapminder)
 ```
 
-![](block006_care-feeding-data_files/figure-html/first-plots-base-R-1.png) 
+![](block006_care-feeding-data_files/figure-html/first-plots-base-R-1.png)<!-- -->
 
 ```r
 plot(lifeExp ~ gdpPercap, gapminder)
 ```
 
-![](block006_care-feeding-data_files/figure-html/first-plots-base-R-2.png) 
+![](block006_care-feeding-data_files/figure-html/first-plots-base-R-2.png)<!-- -->
 
 ```r
 plot(lifeExp ~ log(gdpPercap), gapminder)
 ```
 
-![](block006_care-feeding-data_files/figure-html/first-plots-base-R-3.png) 
+![](block006_care-feeding-data_files/figure-html/first-plots-base-R-3.png)<!-- -->
 
 <!-- This is a non-sequitur here ... where came from originally?
 > Sidebar on equals: A single equal sign `=` is most commonly used to specify values of arguments when calling functions in R, e.g. `group = continent`. It can be used for assignment but we advise against that, in favor of `<-`. A double equal sign `==` is a binary comparison operator, akin to less than `<` or greater than `>`, returning the logical value `TRUE` in the case of equality and `FALSE` otherwise. Although you may not yet understand exactly why, `subset = country == "Colombia"` restricts operation -- scatterplotting, in above examples -- to observations where the country is Colombia.
@@ -163,12 +163,12 @@ Let's go back to the result of `str()` to talk about data.frames and vectors in 
 
 ```r
 str(gapminder)
-## 'data.frame':	1704 obs. of  6 variables:
+## Classes 'tbl_df', 'tbl' and 'data.frame':	1704 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ year     : num  1952 1957 1962 1967 1972 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
 ##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
 ##  $ gdpPercap: num  779 821 853 836 740 ...
 ```
 
@@ -188,7 +188,7 @@ summary(gapminder$lifeExp)
 hist(gapminder$lifeExp)
 ```
 
-![](block006_care-feeding-data_files/figure-html/histogram-lifeExp-1.png) 
+![](block006_care-feeding-data_files/figure-html/histogram-lifeExp-1.png)<!-- -->
 
 The year variable is a numeric integer variable, but since there are so few unique values it also functions a bit like a categorical variable.
 
@@ -238,7 +238,7 @@ table(gapminder$continent)
 barplot(table(gapminder$continent))
 ```
 
-![](block006_care-feeding-data_files/figure-html/tabulate-continent-1.png) 
+![](block006_care-feeding-data_files/figure-html/tabulate-continent-1.png)<!-- -->
 
 In the figures below, we see how factors can be put to work in figures. The `continent` factor is easily mapped into "facets" or colors and a legend by the `ggplot2` package. *Making figures with `ggplot2` is covered elsewhere so feel free to just sit back and enjoy these plots or blindly copy/paste.*
 
@@ -253,16 +253,11 @@ p <- p + scale_x_log10() # log the x axis the right way
 p + geom_point() # scatterplot
 p + geom_point(aes(color = continent)) # map continent to color
 p + geom_point(alpha = (1/3), size = 3) + geom_smooth(lwd = 3, se = FALSE)
-## geom_smooth: method="auto" and size of largest group is >=1000, so using gam with formula: y ~ s(x, bs = "cs"). Use 'method = x' to change the smoothing method.
 p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent) +
   geom_smooth(lwd = 1.5, se = FALSE)
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
-## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
 ```
 
-<img src="block006_care-feeding-data_files/figure-html/factors-nice-for-plots-1.png" title="" alt="" width="49%" /><img src="block006_care-feeding-data_files/figure-html/factors-nice-for-plots-2.png" title="" alt="" width="49%" /><img src="block006_care-feeding-data_files/figure-html/factors-nice-for-plots-3.png" title="" alt="" width="49%" /><img src="block006_care-feeding-data_files/figure-html/factors-nice-for-plots-4.png" title="" alt="" width="49%" />
+<img src="block006_care-feeding-data_files/figure-html/factors-nice-for-plots-1.png" width="49%" /><img src="block006_care-feeding-data_files/figure-html/factors-nice-for-plots-2.png" width="49%" /><img src="block006_care-feeding-data_files/figure-html/factors-nice-for-plots-3.png" width="49%" /><img src="block006_care-feeding-data_files/figure-html/factors-nice-for-plots-4.png" width="49%" />
 
 ### `subset()` is a nice way to isolate bits of data.frames (and other things)
 
@@ -348,12 +343,12 @@ Variants of that: indicate continent by color, do for just one continent, do for
 ```r
 hDat <- subset(gapminder, subset = year == 2007)
 str(hDat)
-## 'data.frame':	142 obs. of  6 variables:
+## Classes 'tbl_df', 'tbl' and 'data.frame':	142 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 2 3 4 5 6 7 8 9 10 ...
 ##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 4 1 1 2 5 4 3 3 4 ...
-##  $ year     : num  2007 2007 2007 2007 2007 ...
+##  $ year     : int  2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...
 ##  $ lifeExp  : num  43.8 76.4 72.3 42.7 75.3 ...
-##  $ pop      : num  31889923 3600523 33333216 12420476 40301927 ...
+##  $ pop      : int  31889923 3600523 33333216 12420476 40301927 20434176 8199783 708573 150448339 10392226 ...
 ##  $ gdpPercap: num  975 5937 6223 4797 12779 ...
 table(hDat$continent)
 ## 
@@ -388,7 +383,7 @@ p <- ggplot(subset(gapminder, country == "Colombia"),
 p + geom_point() + geom_smooth(lwd = 1, se = FALSE, method = "lm")
 ```
 
-![](block006_care-feeding-data_files/figure-html/just-colombia-1.png) 
+![](block006_care-feeding-data_files/figure-html/just-colombia-1.png)<!-- -->
 
 ```r
 (minYear <- min(gapminder$year))

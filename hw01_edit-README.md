@@ -40,6 +40,7 @@ Much better is to introduce yourself to the class; this page is private to STAT 
 
 Here's a [sample readme file](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/hw01_sample_readme.md) that you can use as reference and/or inspiration, and here is the [raw source](https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/hw01_sample_readme.md). The *Help* menu in RStudio will bring up a Markdown Quick Reference at any time.
 
+
 ### Add R Markdown and Markdown for Gapminder exploration
 
 This is optional. If you are really struggling, skip it for now. But try!
@@ -56,7 +57,7 @@ Include a description of how you got the changes into `README.md` on GitHub.
 
   * Did you edit in the browser at github.com?
   * Did you pull, edit locally, save, commit, push to github.com?
-
+  
 How did it all work for the R Markdown document?
 
 You're encouraged to reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc. Put this in your README. In a week or two, you can delete this bit.
