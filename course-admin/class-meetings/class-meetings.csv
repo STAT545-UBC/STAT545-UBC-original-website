@@ -1,8 +1,8 @@
 cm,course,dow,month,day,link_it,raw_notes
 cm001,STAT545A,tues,september,6,TRUE,Intro to course; S/W install; acct sign-ups
 cm002,STAT545A,thurs,september,8,TRUE,Deep Thoughts about data analytic work; intro to R and RStudio
-cm003,STAT545A,tues,september,13,FALSE,Git(Hub) and (R) Markdown crash course
-cm004,STAT545A,thurs,september,15,FALSE,"Care and feeding of data (data.frames, actually)"
+cm003,STAT545A,tues,september,13,TRUE,"Git(Hub) test drive, run/render an R script"
+cm004,STAT545A,thurs,september,15,TRUE,"R Markdown test drive, care and feeding of tibbles"
 cm005,STAT545A,tues,september,20,FALSE,Intro to ggplot2
 cm006,STAT545A,thurs,september,22,FALSE,R Markdown
 cm007,STAT545A,tues,september,27,FALSE,dplyr: the pipe and single table verbs

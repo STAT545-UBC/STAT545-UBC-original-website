@@ -17,7 +17,7 @@ library(tidyr)
 rawdat <-
   read_csv(file.path("course-admin", "class-meetings", "class-meetings.csv"))
 cdat <- rawdat %>%
-  mutate(ugly_date = ISOdate(2015, match(month, tolower(month.name)), day),
+  mutate(ugly_date = ISOdate(2016, match(month, tolower(month.name)), day),
          date = sprintf("%s-%02d %s",
                         tolower(months(ugly_date, abbreviate = TRUE)),
                         day, dow),
