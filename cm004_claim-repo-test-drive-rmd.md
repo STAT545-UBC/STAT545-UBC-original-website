@@ -20,4 +20,5 @@ output:
   * Care and feeding of data frames!
     - In our first R Markdown document, in your new private repository, we will explore the Gapminder data.
     - [Basic care and feeding of data in R](block006_care-feeding-data.html)
-  * First homework will be due midnight Tuesday September 20, but preferably before class. Go to office hours if struggling! See the [2015 version here](hw01_edit-README.html) (some changes still coming).
+  * First homework will be due midnight Tuesday September 20, but preferably before class. Go to office hours if struggling!
+    - [Homework 01](hw01_edit-README.html): Edit `README.md`, use R Markdown to explore Gapminder
