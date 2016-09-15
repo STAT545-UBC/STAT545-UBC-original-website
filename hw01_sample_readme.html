@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="a-sample-readme-in-the-style-of-github-markdown" class="section level1">
+<h1>A Sample Readme in the Style of Github Markdown</h1>
+<div id="status" class="section level2">
+<h2>Status</h2>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Item</strong></th>
+<th><strong>Status</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Finished-ness</td>
+<td>:thumbsup:</td>
+</tr>
+<tr class="even">
+<td>Happiness</td>
+<td>:bowtie:</td>
+</tr>
+<tr class="odd">
+<td>Markdowny-ness</td>
+<td>:octocat:</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p><strong>For your homework, you will be creating a readme document to introduce yourself to the class and experiment with the range of Markdown features.</strong></p>
+<p>The following readme document, however, is sillier and not meant to represent the type of readme document that you will be creating for your STAT 545a homework. Instead, it is meant to illustrate the range of what’s possible in the world of Markdown. If you feel inspired by any part of this document, click the <strong>raw</strong> button above this file to see the source code that made it possible.</p>
+</div>
+<div id="features" class="section level2">
+<h2>Features</h2>
+<p><em>The header above is “H2” size. The headers below will range from “H2” to “H4” depending on the number of hashtags in front of them</em></p>
+<div id="basic-word-processing-and-manipulation" class="section level3">
+<h3>Basic Word Processing and Manipulation</h3>
+<div id="bold-statements" class="section level4">
+<h4>Bold statements!</h4>
+<p>Want to <em>italicize</em> something? Maybe even <strong>bold</strong> or <del>strikeout</del> a phrase? How about <strong>combining <del><em>a few of</del> them at a</em> time?</strong> For that, Markdown has you covered.</p>
+</div>
+<div id="bullet-point-basics" class="section level4">
+<h4>Bullet point basics</h4>
+<ul>
+<li>How about lists?</li>
+<li>They work nicely too
+<ul>
+<li>Sometimes
+<ul>
+<li>we can
+<ul>
+<li>even
+<ul>
+<li>indent them</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><strong><em>What if we want ordered lists?</em></strong></p>
+<ol style="list-style-type: decimal">
+<li>They are easy</li>
+<li>to pull off</li>
+<li>as well.</li>
+<li>We can even
+<ul>
+<li>have non-ordered lists</li>
+<li>nested into the numbered ones
+<ol style="list-style-type: decimal">
+<li>Or vice versa.</li>
+<li>Isn’t that great?</li>
+</ol></li>
+</ul></li>
+</ol>
+</div>
+<div id="header-how-tos" class="section level4">
+<h4>Header how-tos</h4>
+<p>The header above is “H4” size. This readme document’s headers’ sizes range from “H2” to “H4” depending on the number of hashtags in front of them</p>
+</div>
+</div>
+<div id="quoting-quotables" class="section level3">
+<h3>Quoting quotables</h3>
+<p>Starting a line with a simple <code>&gt;</code> turns words into quotes. Take, for example, this perspicacious line from the great Sir Arthur Conan Doyle of Sherlock Holmes fame:</p>
+<blockquote>
+<p>“It is a capital mistake to theorize before one has data. Insensibly one begins to twist facts to suit theories, instead of theories to suit facts.”</p>
+<p>Sir Arthur Conan Doyle</p>
+</blockquote>
+</div>
+<div id="citing-code" class="section level3">
+<h3>Citing code</h3>
+<p>Code can be cited too! And you can highlight your code too if you specify the source programming language.</p>
+<pre class="r"><code>whatsyour &lt;- function(x) {
+    # Determines whether your function is Conjunction or Junction based on
+    # arbitrary criteria
+    #
+    # Args:
+    #   x: A number of some sort. Or not, that works too (We&#39;re not picky)
+    #
+    # Returns:
+    #   The truth.
+    if(x &gt; 1) {
+        print(&#39;Conjunction&#39;)
+    }
+    else {
+        print(&#39;Junction&#39;)
+    }
+}
+</code></pre>
+</div>
+<div id="imagining-images" class="section level3">
+<h3>Imagining images</h3>
+<p>They say a picture is worth 1000 words - but have you ever considered how many lines of code that might convert to? Regardless of the answer, Markdown makes it easy include pictures of all sorts into your document. Don’t believe me? See the source code yourself!</p>
+<div class="figure">
+<img src="https://imgs.xkcd.com/comics/stove_ownership.png" title="Although maybe it&#39;s just a phase, like freshman year of college when I realized I could just buy frosting in a can." alt="alt text" />
+<p class="caption">alt text</p>
+</div>
+<p>We can even include gifs. Fancy that?</p>
+<div class="figure">
+<img src="https://i.imgur.com/zNssDtS.gif" />
+
+</div>
+</div>
+<div id="link-logic" class="section level3">
+<h3>Link logic</h3>
+<p>Let’s say that the comic sourced in the previous section had a home page where it could be viewed - we can <a href="https://xkcd.com/418/">link to that page using Markdown</a> with relative ease. If you look at the source code, it’s really quite simple, so there’s not much more to say about this here!</p>
+</div>
+<div id="html-has-you-covered-for-everything-else" class="section level3">
+<h3>HTML has you covered for everything else</h3>
+<p>Finding it hard to do that <i>one thing</i> that you want to do with Markdown? Prefer using <code>&lt;a href = &quot;destination&quot;&gt;Word&lt;/a&gt;</code> instead of Markdown’s <code>[Word](destination)</code> syntax? Well, as you can see <a href="https://daringfireball.net/projects/markdown/syntax#html">at this link</a>, it is possible to use inline HTML for markup that is not covered otherwise by Markdown. That said, Markdown syntax can tackle most of the crucial functions required for this readme file and most others like it.</p>
+<p>Some common uses for incorporating HTML inline with Markdown include:</p>
+<ul>
+<li>Using an image as a link</li>
+<li>Including non-bordered tables to create makeshift columns</li>
+<li>Facilitating perfectionism</li>
+</ul>
+</div>
+</div>
+<div id="further-reading-and-resources" class="section level2">
+<h2>Further Reading and Resources</h2>
+<p>Still confused? Want to have some other resources to look at other than the source code of this readme.md file? Here are a few additional guides that you can reference as you complete your own readme.md file and beyond:</p>
+<ul>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">RStudio Markdown Cheat Sheet</a></li>
+<li><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Github Markdown Cheat Sheet</a></li>
+<li><a href="http://plaintext-productivity.net/2-04-how-to-set-up-sublime-text-for-markdown-editing.html">How to Set Up Sublime Text For Markdown Editing</a></li>
+<li><a href="https://daringfireball.net/projects/markdown/syntax">Markdown Syntax Summary by John Gruber, Creator of Markdown Format</a></li>
+</ul>
+</div>
+<div id="to-dos" class="section level2">
+<h2>To-Dos</h2>
+<ul>
+<li>[x] @jrebane drafts initial sample readme</li>
+<li>[x] Emoji’s added</li>
+<li>[x] Snarky text intensified</li>
+<li>[x] Add useful reference resources</li>
+<li>[ ] Reviewed by <span class="citation">@jennybc</span></li>
+</ul>
+</div>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
