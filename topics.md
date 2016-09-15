@@ -60,20 +60,6 @@
     - [Slides on Google Docs](https://docs.google.com/presentation/d/1dXhqqsD7dPOOdcC5Y7RW--dEU7UfU52qlb0YD3kKeLw/edit?usp=sharing)
     - [Shiny tutorial with hands-on activity to build app with BC Liquor Store dataset](shiny01_activity.html)
 
-## Homework
-
-  * [Homework 01](hw01_edit-README.html) Edit `README.md`
-  * [Homework 02](hw02_explore-gapminder-use-rmarkdown.html) Explore Gapminder and use R markdown
-  * [Homework 03](hw03_dplyr-and-more-ggplot2.html) Manipulate, summarize, visualize Gapminder with `dplyr` and `ggplot2`
-  * [Homework 04](hw04_write-function-split-apply-combine.html) Use split-apply-combine with your functions within data.frames 
-  * [Homework 05](hw05_factor-figure-boss-repo-hygiene.html) Prove you are in control of factors and figures. Clean up your repo.
-  * Homework 06 *did not exist; it's "clean up your repo" and was folded into homework 05*
-  * [Homework 07](hw07_data-wrangling-candy.html) Clean and wrangle the `candy` survey
-  * [Homework 08](hw08_package.html) Write an R package
-  * [Homework 09](hw09_automation.html) Automate a data analysis pipeline
-  * [Homework 10](hw10_data-from-web.html) Get data from the web
-  * [Homework 11](hw11_shiny.html) Building Shiny apps
-  
 ## Short random things
 
   * [Draw the rest of the owl](bit007_draw-the-rest-of-the-owl.html), a pep talk for building off simple examples

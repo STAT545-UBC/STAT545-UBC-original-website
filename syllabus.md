@@ -42,6 +42,13 @@ oct-13 thurs   cm012: Tidy data and reshaping; be the boss of your factors
 oct-18 tues    cm013: Practical graphing tips                                                                                     
 oct-20 thurs   cm014: Visualization Analysis and Design: Tamara Munzer guest lecture (TBC)                                        
 
+  * [Homework 01](hw01_edit-README.html) Edit `README.md`, use R Markdown to explore Gapminder
+  * Homework 02 More Gapminder and R markdown, but add `ggplot2`
+  * Homework 03 Manipulate, summarize, visualize Gapminder with the tidyverse
+  * Homework 04 Use your own functions with split-apply-combine and functional programming
+  * Homework 05 Prove you are in control of factors and figures. Clean up your repo.
+  * Homework 06 *did not exist; it's "clean up your repo" and was folded into homework 05*
+
 #### STAT 547M (tentative = mostly what we did in 2015)
 
 
@@ -59,3 +66,10 @@ nov-22 tues    cm109: Get data from the web (scraping and APIs)
 nov-24 thurs   cm110: ditto                                     
 nov-29 tues    cm111: Automate tasks and pipelines              
 dec-01 thurs   cm112: ditto                                     
+
+  * Homework 06 *did not exist; it's "clean up your repo" and was folded into homework 05*
+  * Homework 07 Clean and wrangle some wild-caught data, such as the `candy` survey or the `bellybutton` data
+  * [Homework 08](hw08_package.html) Write an R package
+  * [Homework 09](hw09_automation.html) Automate a data analysis pipeline
+  * [Homework 10](hw10_data-from-web.html) Get data from the web
+  * [Homework 11](hw11_shiny.html) Build a Shiny apps
