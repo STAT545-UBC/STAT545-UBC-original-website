@@ -11,10 +11,14 @@ output:
     - Get help in class [office hours](https://github.com/STAT545-UBC/Discussion/issues/312) if you're struggling.
   * Peer review will be set in motion soon via Issues. I'll announce via [Discussion](https://github.com/STAT545-UBC/Discussion/issues) so you'll know when to look for notification.
   * Homework 02 due before class next Tuesday 2016-09-27. It will be a mash-up and variation on 2015's [Homework 02](hw02_explore-gapminder-use-rmarkdown.html) and [Homework 03](hw03_dplyr-and-more-ggplot2.html). We're moving a bit faster / differently from last year, so I'll adjust to make it suitable given how our week goes.
-  * Today
+  * Today. I will be drawing from (and then revising) these topics:
     - Care and feeding of data frames -- or tibbles! -- with the [`tidyverse`](https://github.com/hadley/tidyverse)
+    - [Basic care and feeding of data in R](block006_care-feeding-data.html)
+    - [Introduction to dplyr](block009_dplyr-intro.html)
+    - [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
     - A first look at `ggplot2`
-    
+    - [`ggplot2` tutorial](https://github.com/jennybc/ggplot2-tutorial)
+   
 #### Slides
 
 Slides for my ggplot2 tutorial are available on [speakerdeck](https://speakerdeck.com/jennybc/ggplot2-tutorial)
