@@ -26,6 +26,8 @@ Why do we do this? So that the code you write is complete and re-runnable. If yo
 
 Finally, open a new R script and develop and run your code from there. In RStudio, use *File > New File > R Script*. Save this script with a name ending in `.r` or `.R`, containing no spaces or other funny stuff, and that evokes whatever it is we're doing today. Example: `cm004_data-care-feeding.r`.
 
+Another great idea is to do this in an R Markdown document. See [Test drive R Markdown](block007_first-use-rmarkdown.html) for a refresher.
+
 ### Get the Gapminder data
 
 We will work with some of the data from the [Gapminder project](http://www.gapminder.org). I've released this as an R package, so we can install it from CRAN like so:
@@ -40,17 +42,17 @@ Now load the package:
 library(gapminder)
 ```
 
-### Meet your first data.frame
+### Meet your first data frame
 
-Whenever you have rectangular, spreadsheet-y data, your default data receptacle in R is a data.frame. Do not depart from this without good reason. data.frames are awesome because...
+Whenever you have rectangular, spreadsheet-y data, your default data receptacle in R is a data frame. Do not depart from this without good reason. data frames are awesome because...
 
-  * data.frames package related variables neatly together,
+  * data frames package related variables neatly together,
     - keeping them in sync vis-a-vis row order
     - applying any filtering of observations uniformly
-  * most functions for inference, modelling, and graphing are happy to be passed a data.frame via a `data =` argument as the place to find the variables you're working on; the latest and greatest packages actually __require__ that your data be in a data.frame
-  * data.frames -- unlike general arrays or, specifically, matrices in R -- can hold variables of different flavors (heuristic term defined later), such as character data (subject ID or name), quantitative data (white blood cell count), and categorical information (treated vs. untreated)
+  * most functions for inference, modelling, and graphing are happy to be passed a data frame via a `data =` argument as the place to find the variables you're working on; the latest and greatest packages actually __require__ that your data be in a data frame
+  * data frames -- unlike general arrays or, specifically, matrices in R -- can hold variables of different flavors (heuristic term defined later), such as character data (subject ID or name), quantitative data (white blood cell count), and categorical information (treated vs. untreated)
 
-By loading the `gapminder` package, we now have access to a data.frame by the same name. Get an overview of this with `str()`, which displays the structure of an object. It will provide a sensible description of almost anything and, worst case, nothing bad can actually happen. When in doubt, just `str()` some of the recently created objects to get some ideas about what to do next.
+By loading the `gapminder` package, we now have access to a data frame by the same name. Get an overview of this with `str()`, which displays the structure of an object. It will provide a sensible description of almost anything and, worst case, nothing bad can actually happen. When in doubt, just `str()` some of the recently created objects to get some ideas about what to do next.
 
 ```{r}
 str(gapminder)
@@ -68,7 +70,7 @@ tail(gapminder)
 gapminder[sample(nrow(gapminder), 10), ]
 ```
 
-More ways to query basic info on a data.frame. Note: with some of the commands below we're benefiting from the fact that even though data.frames are technically NOT matrices, it's usually fine to think of them that way and many functions have reasonable methods for both types of input.
+More ways to query basic info on a data frame. Note: with some of the commands below we're benefiting from the fact that even though data frames are technically NOT matrices, it's usually fine to think of them that way and many functions have reasonable methods for both types of input.
 ```{r}
 names(gapminder)
 ncol(gapminder)
@@ -97,17 +99,17 @@ plot(lifeExp ~ log(gdpPercap), gapminder)
 > Sidebar on equals: A single equal sign `=` is most commonly used to specify values of arguments when calling functions in R, e.g. `group = continent`. It can be used for assignment but we advise against that, in favor of `<-`. A double equal sign `==` is a binary comparison operator, akin to less than `<` or greater than `>`, returning the logical value `TRUE` in the case of equality and `FALSE` otherwise. Although you may not yet understand exactly why, `subset = country == "Colombia"` restricts operation -- scatterplotting, in above examples -- to observations where the country is Colombia.
 -->
 
-Let's go back to the result of `str()` to talk about data.frames and vectors in R
+Let's go back to the result of `str()` to talk about data frames and vectors in R
 
 ```{r}
 str(gapminder)
 ```
 
-A data.frame is a special case of a *list*, which is used in R to hold just about anything. data.frames are the special case where the length of each list component is the same. data.frames are superior to matrices in R because they can hold vectors of different flavors (heuristic term explained below), e.g. numeric, character, and categorical data can be stored together. This comes up alot.
+A data frame is a special case of a *list*, which is used in R to hold just about anything. data frames are the special case where the length of each list component is the same. data frames are superior to matrices in R because they can hold vectors of different flavors (heuristic term explained below), e.g. numeric, character, and categorical data can be stored together. This comes up alot.
 
-### Look at the variables inside a data.frame
+### Look at the variables inside a data frame
 
-To specify a single variable from a data.frame, use the dollar sign `$`. Let's explore the numeric variable for life expectancy.
+To specify a single variable from a data frame, use the dollar sign `$`. Let's explore the numeric variable for life expectancy.
 
 ```{r histogram-lifeExp}
 head(gapminder$lifeExp)
@@ -161,11 +163,11 @@ p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent) +
   geom_smooth(lwd = 1.5, se = FALSE)
 ```
 
-### `subset()` is a nice way to isolate bits of data.frames (and other things)
+### `subset()` is a nice way to isolate bits of data frames (and other things)
 
-Logical little pieces of data.frames are useful for sanity checking, prototyping visualizations or computations for later scale-up, etc. Many functions are happy to restrict their operations to a subset of observations via a formal `subset =` argument. There is a stand-alone function, also confusingly called `subset()`, that can isolate pieces of an object for inspection or assignment. Although `subset()` can work on objects other than data.frames, we focus on that usage here.
+Logical little pieces of data frames are useful for sanity checking, prototyping visualizations or computations for later scale-up, etc. Many functions are happy to restrict their operations to a subset of observations via a formal `subset =` argument. There is a stand-alone function, also confusingly called `subset()`, that can isolate pieces of an object for inspection or assignment. Although `subset()` can work on objects other than data frames, we focus on that usage here.
 
-The `subset()` function has a `subset =` argument (sorry, not my fault it's so confusing) for specifying which observations to keep. This expression will be evaluated within the specified data.frame, which is non-standard but convenient.
+The `subset()` function has a `subset =` argument (sorry, not my fault it's so confusing) for specifying which observations to keep. This expression will be evaluated within the specified data frame, which is non-standard but convenient.
 
 ```{r}
 subset(gapminder, subset = country == "Uruguay")
@@ -223,7 +225,7 @@ plot(lifeExp ~ log(gdpPercap), gapminder, subset = year == 2007)
 ## how many rows? how many observations per continent?
 --->
 
-Many of the functions for inference, modelling, and graphics that permit you to specify a data.frame via `data = ` also offer a `subset =` argument that limits the computation to certain observations. Here's an example of subsetting the data to make a plot just for Colombia and a similar call to `lm` for fitting a linear model to just the data from Colombia.
+Many of the functions for inference, modelling, and graphics that permit you to specify a data frame via `data = ` also offer a `subset =` argument that limits the computation to certain observations. Here's an example of subsetting the data to make a plot just for Colombia and a similar call to `lm` for fitting a linear model to just the data from Colombia.
 
 ```{r just-colombia}
 p <- ggplot(subset(gapminder, country == "Colombia"),
@@ -235,17 +237,17 @@ myFit <- lm(lifeExp ~ I(year - minYear), gapminder,
 summary(myFit)
 ```
 
-### Review of data.frames and the best ways to exploit them
+### Review of data frames and the best ways to exploit them
 
-Use data.frames!!!
+Use data frames!!!
 
-The most modern, slick way to work with data.frame is with the `dplyr` package. We will cover this extensively in the coming weeks. Here's material for 2014, though these will likely get an update:
+The most modern, slick way to work with data frame is with the `dplyr` package. We will cover this extensively in the coming weeks. Here's material for 2014, though these will likely get an update:
 
   * [Introduction to dplyr](block009_dplyr-intro.html)
   * [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
   * [Cheatsheet for `dplyr` joins](bit001_dplyr-cheatsheet.html), i.e. "two table" operations
   
-Work within your data.frames by passing them to the `data =` argument of functions that offer that. If you need to restrict operations, use the `subset =` argument. Do computations or make figures *in situ* -- don't create little copies and excerpts of your data. This will leave a cleaner workspace and cleaner code.
+Work within your data frames by passing them to the `data =` argument of functions that offer that. If you need to restrict operations, use the `subset =` argument. Do computations or make figures *in situ* -- don't create little copies and excerpts of your data. This will leave a cleaner workspace and cleaner code.
 
 This workstyle leaves behind code that is also fairly self-documenting, e.g.,
 
@@ -263,7 +265,7 @@ Two important practices
   
 This will produce code that is self-documenting and more robust. Variable names often propagate to downstream outputs like figures and numerical tables and therefore good names have a positive multiplier effect throughout an analysis.
 
-If a function doesn't have a `data =` argument where you can provide a data.frame, you can fake it with `with()`. `with()` helps you avoid the creation of temporary, confusing little partial copies of your data. Use it -- possibly in combination with `subset()` -- to do specific computations without creating all the intermediate temporary objects you have no lasting interest in. `with()` is also useful if you are tempted to use `attach()` in order to save some typing. __Never ever use `attach()`. It is evil.__ If you've never heard of it, consider yourself lucky.
+If a function doesn't have a `data =` argument where you can provide a data frame, you can fake it with `with()`. `with()` helps you avoid the creation of temporary, confusing little partial copies of your data. Use it -- possibly in combination with `subset()` -- to do specific computations without creating all the intermediate temporary objects you have no lasting interest in. `with()` is also useful if you are tempted to use `attach()` in order to save some typing. __Never ever use `attach()`. It is evil.__ If you've never heard of it, consider yourself lucky.
 
 Example: How would you compute the correlation of life expectancy and GDP per capita for the country of Colombia? The `cor()` function sadly does not offer the usual `data =` and `subset =` arguments. Here's a nice way to combine `with()` and `subset()` to accomplish without unnecessary object creation and with fairly readable code.
 
