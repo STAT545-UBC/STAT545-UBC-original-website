@@ -18,7 +18,7 @@ output:
     - [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
     - A first look at `ggplot2`
     - [`ggplot2` tutorial](https://github.com/jennybc/ggplot2-tutorial)
-  * Start reading in [R for Data Science](http://r4ds.had.co.nz)
+  * Read the "Explore" chapters in [R for Data Science](http://r4ds.had.co.nz)
    
 #### Slides
 
