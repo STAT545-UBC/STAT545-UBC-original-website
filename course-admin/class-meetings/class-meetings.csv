@@ -4,7 +4,7 @@ cm002,STAT545A,thurs,september,8,TRUE,Deep Thoughts about data analytic work; in
 cm003,STAT545A,tues,september,13,TRUE,"Git(Hub) test drive, run/render an R script"
 cm004,STAT545A,thurs,september,15,TRUE,"R Markdown test drive, care and feeding of tibbles"
 cm005,STAT545A,tues,september,20,TRUE,"Care and feeding of tibbles, begin ggplot2 intro"
-cm006,STAT545A,thurs,september,22,FALSE,R Markdown
+cm006,STAT545A,thurs,september,22,TRUE,"Care and feeding of tibbles, begin ggplot2 intro, cont'd"
 cm007,STAT545A,tues,september,27,FALSE,dplyr: the pipe and single table verbs
 cm008,STAT545A,thurs,september,29,FALSE,dplyr: group_by
 cm009,STAT545A,tues,october,4,FALSE,Basic flavors of R objects

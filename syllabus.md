@@ -32,7 +32,7 @@ sep-08 thurs   <a href="cm002_r-rstudio-intro.html">cm002</a>: Deep Thoughts abo
 sep-13 tues    <a href="cm003_render-git-github-test-drive.html">cm003</a>: Git(Hub) test drive, run/render an R script           
 sep-15 thurs   <a href="cm004_claim-repo-test-drive-rmd.html">cm004</a>: R Markdown test drive, care and feeding of tibbles       
 sep-20 tues    <a href="cm005_tidyverse-ggplot2-intro.html">cm005</a>: Care and feeding of tibbles, begin ggplot2 intro           
-sep-22 thurs   cm006: R Markdown                                                                                                  
+sep-22 thurs   <a href="cm006_tidyverse-ggplot2-intro-2.html">cm006</a>: Care and feeding of tibbles, begin ggplot2 intro, cont'd 
 sep-27 tues    cm007: dplyr: the pipe and single table verbs                                                                      
 sep-29 thurs   cm008: dplyr: group_by                                                                                             
 oct-04 tues    cm009: Basic flavors of R objects                                                                                  

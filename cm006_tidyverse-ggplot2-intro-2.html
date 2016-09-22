@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#cm006-2016-09-22-thursday-overview">cm006 2016-09-22 Thursday overview</a><ul>
+<li><a href="#slides">Slides</a></li>
+<li><a href="#links">Links</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="cm006-2016-09-22-thursday-overview" class="section level3">
+<h3>cm006 2016-09-22 Thursday overview</h3>
+<ul>
+<li>You should have submitted <a href="hw01_edit-README.html">Homework 01</a> Tuesday.
+<ul>
+<li>Peer review is open, as described in <a href="https://github.com/STAT545-UBC/Discussion/issues/330">this issue</a>.</li>
+<li>Technically it’s “due” Monday but I’d prefer you do it sooner. You might learn something from seeing your peer’s work or <em>vice versa</em>, which could lead to better work on Homework 02.</li>
+</ul></li>
+<li>Homework 02 due next Tuesday 2016-09-27. It will be a mash-up and variation on 2015’s <a href="hw02_explore-gapminder-use-rmarkdown.html">Homework 02</a> and <a href="hw03_dplyr-and-more-ggplot2.html">Homework 03</a>. We’re moving a bit faster / differently from last year, so I’ll adjust to make it suitable given how our week goes.</li>
+<li>Today. Continuing to draw from (and then revising) these topics:
+<ul>
+<li>Care and feeding of data frames – or tibbles! – with the <a href="https://github.com/hadley/tidyverse"><code>tidyverse</code></a></li>
+<li><a href="block006_care-feeding-data.html">Basic care and feeding of data in R</a></li>
+<li><a href="block009_dplyr-intro.html">Introduction to dplyr</a></li>
+<li><a href="block010_dplyr-end-single-table.html"><code>dplyr</code> functions for a single dataset</a></li>
+<li>A first look at <code>ggplot2</code></li>
+<li><a href="https://github.com/jennybc/ggplot2-tutorial"><code>ggplot2</code> tutorial</a></li>
+</ul></li>
+<li>Start reading in <a href="http://r4ds.had.co.nz">R for Data Science</a></li>
+</ul>
+<div id="slides" class="section level4">
+<h4>Slides</h4>
+<p>Slides for my ggplot2 tutorial are available on <a href="https://speakerdeck.com/jennybc/ggplot2-tutorial">speakerdeck</a></p>
+<script async class="speakerdeck-embed" data-id="f5ebca79660c4c3eb05b5bfbe1018545" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+<div style="margin-bottom:5px">
+<strong> <a href="https://speakerdeck.com/jennybc/ggplot2-tutorial" title="ggplot2 tutorial" target="_blank">ggplot2 tutorial</a> </strong> from <strong><a href="https://speakerdeck.com/jennybc" target="_blank">Jennifer Bryan</a></strong>
+</div>
+</div>
+<div id="links" class="section level4">
+<h4>Links</h4>
+<p>All the material for a tutorial I give on <code>ggplot2</code> is on Github:</p>
+<ul>
+<li><a href="https://github.com/jennybc/ggplot2-tutorial" class="uri">https://github.com/jennybc/ggplot2-tutorial</a></li>
+</ul>
+<p><a href="http://www.amazon.com/dp/0387981403/ref=cm_sw_su_dp?tag=ggplot2-20">ggplot2: Elegant Graphics for Data Analysis</a>, the <code>ggplot2</code> book by Hadley Wickham. Hadley and Carson Sievert are working on a new edition. You can watch the whole process and get all the content from GitHub:</p>
+<ul>
+<li><a href="https://github.com/hadley/ggplot2-book" class="uri">https://github.com/hadley/ggplot2-book</a></li>
+<li>The <a href="http://ggplot2.org/book/">companion website</a> for the existing edition offers one R script per chapter, providing the code used in the book.</li>
+</ul>
+<p><a href="http://docs.ggplot2.org/current/"><code>ggplot2</code> online docs</a></p>
+<p><a href="http://ggplot2.org"><code>ggplot2</code> “homepage”</a></p>
+<p><a href="https://github.com/hadley/ggplot2"><code>ggplot2</code> package development on github</a></p>
+<p><a href="http://shop.oreilly.com/product/0636920023135.do">The R Graphics Cookbook</a>, an excellent book by Winston Chang. <em>I really really love this book.</em></p>
+<ul>
+<li>The <a href="http://www.cookbook-r.com/Graphs/">graphs section</a> of Winston Chang’s website Cookbook for R. The book listed above contains much more material, but the website is good too.</li>
+</ul>
+<p>A <a href="http://stcorp.nl/R_course/tutorial_ggplot2.html"><code>ggplot2</code> tutorial</a> by Paul Hiemstra, one of <a href="http://stcorp.nl/R_course/">many excellent R courses</a> he offers.</p>
+<p><a href="http://inundata.org/2013/04/10/a-quick-introduction-to-ggplot2/">A quick introduction to ggplot2</a> by Karthik Ram. Slides and code from a 2 hour talk/hands on presentation for ggplot2 beginners.</p>
+<p>Why do I teach <code>ggplot2</code>? Shouldn’t beginners see “base” graphics first? I think not. David Robinson explains it well in <a href="http://varianceexplained.org/r/teach_ggplot2_to_beginners/">Don’t teach built-in plotting to beginners (teach ggplot2)</a>.</p>
+<p>Zev Ross has a lovely blog post: <a href="http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/">Beautiful plotting in R: A ggplot2 cheatsheet</a></p>
+</div>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
