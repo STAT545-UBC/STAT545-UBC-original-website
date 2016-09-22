@@ -10,6 +10,7 @@ output:
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
+set.seed(4561)
 ```
 
 ### Buckle your seatbelt
@@ -28,6 +29,18 @@ Finally, open a new R script and develop and run your code from there. In RStudi
 
 Another great idea is to do this in an R Markdown document. See [Test drive R Markdown](block007_first-use-rmarkdown.html) for a refresher.
 
+### Data frames are awesome
+
+Whenever you have rectangular, spreadsheet-y data, your default data receptacle in R is a data frame. Do not depart from this without good reason. Data frames are awesome because...
+
+  * Data frames package related variables neatly together,
+    - keeping them in sync vis-a-vis row order
+    - applying any filtering of observations uniformly.
+  * Most functions for inference, modelling, and graphing are happy to be passed a data frame via a `data =` argument. This has been true in base R for a long time.
+  * The set of packages known as the [`tidyverse`](https://github.com/hadley/tidyverse) takes this one step further and explicitly prioritizes the processing of data frames. This includes popular packages like `dplyr` and `ggplot2`. In fact the tidyverse prioritizes a special flavor of data frame, called a "tibble."
+
+Data frames -- unlike general arrays or, specifically, matrices in R -- can hold variables of different flavors, such as character data (subject ID or name), quantitative data (white blood cell count), and categorical information (treated vs. untreated). If you use homogenous structures, like matrices, for data analysis, you will are likely to make the terrible mistake of spreading a dataset out over multiple, unlinked objects. Why? Because you can't put character data, such as subject name, into the numeric matrix that holds white blood cell count. This fragmentation is a Bad Idea.
+
 ### Get the Gapminder data
 
 We will work with some of the data from the [Gapminder project](http://www.gapminder.org). I've released this as an R package, so we can install it from CRAN like so:
@@ -42,43 +55,56 @@ Now load the package:
 library(gapminder)
 ```
 
-### Meet your first data frame
+### Meet the `gapminder` data frame or "tibble"
 
-Whenever you have rectangular, spreadsheet-y data, your default data receptacle in R is a data frame. Do not depart from this without good reason. data frames are awesome because...
-
-  * data frames package related variables neatly together,
-    - keeping them in sync vis-a-vis row order
-    - applying any filtering of observations uniformly
-  * most functions for inference, modelling, and graphing are happy to be passed a data frame via a `data =` argument as the place to find the variables you're working on; the latest and greatest packages actually __require__ that your data be in a data frame
-  * data frames -- unlike general arrays or, specifically, matrices in R -- can hold variables of different flavors (heuristic term defined later), such as character data (subject ID or name), quantitative data (white blood cell count), and categorical information (treated vs. untreated)
-
-By loading the `gapminder` package, we now have access to a data frame by the same name. Get an overview of this with `str()`, which displays the structure of an object. It will provide a sensible description of almost anything and, worst case, nothing bad can actually happen. When in doubt, just `str()` some of the recently created objects to get some ideas about what to do next.
+By loading the `gapminder` package, we now have access to a data frame by the same name. Get an overview of this with `str()`, which displays the structure of an object.
 
 ```{r}
 str(gapminder)
 ```
 
-We could print the whole thing to screen (not so useful with datasets of any size) but it's nicer to look at the first bit or the last bit or a random snippet.
+`str()` will provide a sensible description of almost anything and, worst case, nothing bad can actually happen. When in doubt, just `str()` some of the recently created objects to get some ideas about what to do next.
 
-```{r include = FALSE}
-set.seed(4561)
+We could print the `gapminder` object itself to screen. However, if you've used R before, you might be reluctant to do this, because large datasets just fill up your Console and provide very little insight.
+
+This is the first big win for **tibbles**. The [`tidyverse`](https://github.com/hadley/tidyverse) offers a special case of R's default data frame: the "tibble", which is a nod to the actual class of these objects, `tbl_df`.
+
+If you have not already done so, install the `tidyverse` meta-package now:
+
+```{r eval = FALSE}
+install.packages("tidyverse")
 ```
+
+Now load it:
+
+```{r}
+library(tidyverse)
+```
+
+Now we can boldly print `gapminder` to screen! It is a tibble (and also a regular data frame) and the `tidyverse` provides a nice print method that shows the most important stuff and doesn't fill up your Console.
+
+```{r}
+## see? it's still a regular data frame, but also a tibble
+class(gapminder)
+gapminder
+```
+
+If you are dealing with plain vanilla data frames, you can rein in data frame printing explicitly with `head()` and `tail()`. Or turn it into a tibble with `as_tibble()`!
 
 ```{r}
 head(gapminder)
 tail(gapminder)
-gapminder[sample(nrow(gapminder), 10), ]
+as_tibble(iris)
 ```
 
-More ways to query basic info on a data frame. Note: with some of the commands below we're benefiting from the fact that even though data frames are technically NOT matrices, it's usually fine to think of them that way and many functions have reasonable methods for both types of input.
+More ways to query basic info on a data frame:
+
 ```{r}
 names(gapminder)
 ncol(gapminder)
 length(gapminder)
-head(rownames(gapminder))
 dim(gapminder)
 nrow(gapminder)
-#dimnames(gapminder) # ill-advised here ... too many rows
 ```
 
 A statistical overview can be obtained with `summary()`
@@ -99,13 +125,13 @@ plot(lifeExp ~ log(gdpPercap), gapminder)
 > Sidebar on equals: A single equal sign `=` is most commonly used to specify values of arguments when calling functions in R, e.g. `group = continent`. It can be used for assignment but we advise against that, in favor of `<-`. A double equal sign `==` is a binary comparison operator, akin to less than `<` or greater than `>`, returning the logical value `TRUE` in the case of equality and `FALSE` otherwise. Although you may not yet understand exactly why, `subset = country == "Colombia"` restricts operation -- scatterplotting, in above examples -- to observations where the country is Colombia.
 -->
 
-Let's go back to the result of `str()` to talk about data frames and vectors in R
+Let's go back to the result of `str()` to talk about what a data frame is.
 
 ```{r}
 str(gapminder)
 ```
 
-A data frame is a special case of a *list*, which is used in R to hold just about anything. data frames are the special case where the length of each list component is the same. data frames are superior to matrices in R because they can hold vectors of different flavors (heuristic term explained below), e.g. numeric, character, and categorical data can be stored together. This comes up alot.
+A data frame is a special case of a *list*, which is used in R to hold just about anything. Data frames are a special case where the length of each list component is the same. Data frames are superior to matrices in R because they can hold vectors of different flavors, e.g. numeric, character, and categorical data can be stored together. This comes up alot!
 
 ### Look at the variables inside a data frame
 
@@ -150,10 +176,8 @@ barplot(table(gapminder$continent))
 In the figures below, we see how factors can be put to work in figures. The `continent` factor is easily mapped into "facets" or colors and a legend by the `ggplot2` package. *Making figures with `ggplot2` is covered elsewhere so feel free to just sit back and enjoy these plots or blindly copy/paste.*
 
 ```{r factors-nice-for-plots, fig.show = 'hold', out.width = '49%'}
-## install ggplot2 if you don't have it!
-## install.packages("ggplot2")
-library(ggplot2)
-p <- ggplot(subset(gapminder, continent != "Oceania"),
+## we exploit the fact that ggplot2 was installed and loaded via the tidyverse
+p <- ggplot(filter(gapminder, continent != "Oceania"),
             aes(x = gdpPercap, y = lifeExp)) # just initializes
 p <- p + scale_x_log10() # log the x axis the right way
 p + geom_point() # scatterplot
@@ -163,39 +187,8 @@ p + geom_point(alpha = (1/3), size = 3) + facet_wrap(~ continent) +
   geom_smooth(lwd = 1.5, se = FALSE)
 ```
 
-### `subset()` is a nice way to isolate bits of data frames (and other things)
-
-Logical little pieces of data frames are useful for sanity checking, prototyping visualizations or computations for later scale-up, etc. Many functions are happy to restrict their operations to a subset of observations via a formal `subset =` argument. There is a stand-alone function, also confusingly called `subset()`, that can isolate pieces of an object for inspection or assignment. Although `subset()` can work on objects other than data frames, we focus on that usage here.
-
-The `subset()` function has a `subset =` argument (sorry, not my fault it's so confusing) for specifying which observations to keep. This expression will be evaluated within the specified data frame, which is non-standard but convenient.
-
-```{r}
-subset(gapminder, subset = country == "Uruguay")
-```
-
-Contrast the above command with this one accomplishing the same thing:
-
-```{r}
-gapminder[1621:1632, ]
-```
-
-Yes, these both return the same result. But the second command is horrible for these reasons:
-
-  * It contains [Magic Numbers](http://en.wikipedia.org/wiki/Magic_number_(programming)). The reason for keeping rows 1621 to 1632 will be non-obvious to someone else and that includes __you__ in a couple of weeks.
-  * It is fragile. If the rows of `gapminder` are reordered or if some observations are eliminated, these rows may no longer correspond to the Uruguay data.
-
-In contrast, the first command, using `subset()`, is self-documenting; one does not need to be an R expert to take a pretty good guess at what's happening. It's also more robust. It will still produce the correct result even if `gapminder` has undergone some reasonable set of transformations.
-
-The `subset()` function can also be used to select certain variables via the `select` argument. It also offers unusual flexibility, so you can, for example, provide the names of variables you wish to keep without surrounding by quotes. I suppose this is mostly a good thing, but even the documentation stresses that the `subset()` function is intended for interactive use (which I interpret more broadly to mean data analysis, as opposed to programming).
-
-You can use `subset =` and `select =` together to simultaneously filter rows and columns or variables.
-```{r}
-subset(gapminder, subset = country == "Mexico",
-       select = c(country, year, lifeExp))
-```
-
 <!---
-TO DO: CLEAN UP AND UN-COMMENT THESE EXERCISES FOR THE STUDENT
+EXERCISES I have used and let languish.
 Let's get the data for just 2007.
 How many rows?
 How many observations per continent?
@@ -225,51 +218,18 @@ plot(lifeExp ~ log(gdpPercap), gapminder, subset = year == 2007)
 ## how many rows? how many observations per continent?
 --->
 
-Many of the functions for inference, modelling, and graphics that permit you to specify a data frame via `data = ` also offer a `subset =` argument that limits the computation to certain observations. Here's an example of subsetting the data to make a plot just for Colombia and a similar call to `lm` for fitting a linear model to just the data from Colombia.
-
-```{r just-colombia}
-p <- ggplot(subset(gapminder, country == "Colombia"),
-            aes(x = year, y = lifeExp))
-p + geom_point() + geom_smooth(lwd = 1, se = FALSE, method = "lm")
-(minYear <- min(gapminder$year))
-myFit <- lm(lifeExp ~ I(year - minYear), gapminder,
-            subset = country == "Colombia")
-summary(myFit)
-```
-
-### Review of data frames and the best ways to exploit them
+### Recap
 
 Use data frames!!!
 
-The most modern, slick way to work with data frame is with the `dplyr` package. We will cover this extensively in the coming weeks. Here's material for 2014, though these will likely get an update:
+Use the [`tidyverse`](https://github.com/hadley/tidyverse)!!! This will provide a special type of data frame called a "tibble" that has nice default printing behavior.
 
-  * [Introduction to dplyr](block009_dplyr-intro.html)
-  * [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
-  * [Cheatsheet for `dplyr` joins](bit001_dplyr-cheatsheet.html), i.e. "two table" operations
-  
-Work within your data frames by passing them to the `data =` argument of functions that offer that. If you need to restrict operations, use the `subset =` argument. Do computations or make figures *in situ* -- don't create little copies and excerpts of your data. This will leave a cleaner workspace and cleaner code.
+When in doubt, `str()` something or print something.
 
-This workstyle leaves behind code that is also fairly self-documenting, e.g.,
+Always understand the basic extent of your data frames: number of rows and columns.
 
-```{r, eval = FALSE}
-lm(lifeExp ~ year, gapminder, subset = country == "Colombia")
-plot(lifeExp ~ year, gapminder, subset = country == "Colombia")
-```
+Understand what flavor the variables are.
 
-The availability and handling of `data =` and `subset =` arguments is broad enough-- though sadly not universal -- that sometimes you can even copy and paste these argument specifications, for example, from an exploratory plotting command into a model-fitting command. Consistent use of this convention also makes you faster at writing and reading such code. 
+Do basic statistical and visual sanity checking of each variable.
 
-Two important practices
-
-  * give variables short informative names (`lifeExp` versus "X5")
-  * refer to variables by name, not by column number
-  
-This will produce code that is self-documenting and more robust. Variable names often propagate to downstream outputs like figures and numerical tables and therefore good names have a positive multiplier effect throughout an analysis.
-
-If a function doesn't have a `data =` argument where you can provide a data frame, you can fake it with `with()`. `with()` helps you avoid the creation of temporary, confusing little partial copies of your data. Use it -- possibly in combination with `subset()` -- to do specific computations without creating all the intermediate temporary objects you have no lasting interest in. `with()` is also useful if you are tempted to use `attach()` in order to save some typing. __Never ever use `attach()`. It is evil.__ If you've never heard of it, consider yourself lucky.
-
-Example: How would you compute the correlation of life expectancy and GDP per capita for the country of Colombia? The `cor()` function sadly does not offer the usual `data =` and `subset =` arguments. Here's a nice way to combine `with()` and `subset()` to accomplish without unnecessary object creation and with fairly readable code.
-
-```{r}
-with(subset(gapminder, subset = country == "Colombia"),
-     cor(lifeExp, gdpPercap))
-```
+Refer to variables by name, e.g., `gapminder$lifeExp`, not by column number. Your code will be more robust and readable.
