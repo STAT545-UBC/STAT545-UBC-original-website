@@ -12,62 +12,58 @@ knitr::opts_chunk$set(error = TRUE)
 
 ### Intro
 
-`dplyr` is a new package for data manipulation. It is built to be fast, highly expressive, and open-minded about how your data is stored. It is developed by Hadley Wickham and Romain Francois.
+`dplyr` is a package for data manipulation, developed by Hadley Wickham and Romain Francois. It is built to be fast, highly expressive, and open-minded about how your data is stored. It is installed as part of the the [`tidyverse`](https://github.com/hadley/tidyverse) meta-package and, as a core package, it is also among those loaded via `library(tidyverse)`.
 
-`dplyr`'s roots are in an earlier, still-very-useful package called [`plyr`](http://plyr.had.co.nz), which implements the "split-apply-combine" strategy for data analysis. Where `plyr` covers a diverse set of inputs and outputs (e.g., arrays, data.frames, lists), `dplyr` has a laser-like focus on data.frames and related structures.
+`dplyr`'s roots are in an earlier, still-very-useful package called [`plyr`](http://plyr.had.co.nz), which implements the "split-apply-combine" strategy for data analysis. Where `plyr` covers a diverse set of inputs and outputs (e.g., arrays, data frames, lists), `dplyr` has a laser-like focus on data frames or, in the `tidyverse`, "tibbles".
 
-Have no idea what I'm talking about? Not sure if you care? If you use these base R functions: `subset()`, `apply()`, `[sl]apply()`, `tapply()`, `aggregate()`, `split()`, `do.call()`, then you should keep reading.
+Have no idea what I'm talking about? Not sure if you care? If you use these base R functions: `subset()`, `apply()`, `[sl]apply()`, `tapply()`, `aggregate()`, `split()`, `do.call()`, `with()`, `within()`, then you should keep reading. Also, if you use `for()` loops alot, you might enjoy learning other ways to iterate over rows or groups of rows or variables in a data frame.
 
 #### Load `dplyr` and `gapminder`
 
+I choose to load the `tidyverse`, which will load `dplyr`, among other packages we use incidentally below. Also load `gapminder`.
+
 ```{r}
-## install if you do not already have
-
-## from CRAN:
-## install.packages("dplyr")
-
-## from GitHub using devtools (which you also might need to install!):
-## if (packageVersion("devtools") < 1.6) {
-##   install.packages("devtools")
-## }
-## devtools::install_github("hadley/lazyeval")
-## devtools::install_github("hadley/dplyr")
-suppressPackageStartupMessages(library(dplyr))
 library(gapminder)
+library(tidyverse)
 ```
 
-#### Load the Gapminder data
+#### Say hello to the Gapminder tibble
 
-An excerpt of the Gapminder data which we work with alot.
+The `gapminder` data frame is a special kind of data frame: a tibble.
 
 ```{r}
-str(gapminder)
-head(gapminder)
+gapminder
 ```
 
-### Meet `tbl_df`, an upgrade to `data.frame`
+It's tibble-ness is why we get nice compact printing. For a reminder of the problems with base data frame printing, go type `iris` in the R Console or, better yet, print a data frame to screen that has lots of columns.
+
+Note how gapminder's `class()` includes `tbl_df`; the "tibble" terminology is a nod to this.
 
 ```{r}
-gtbl <- tbl_df(gapminder)
-gtbl
-glimpse(gtbl)
+class(gapminder)
 ```
 
-A `tbl_df` is basically an improved data.frame, for which `dplyr` provides nice methods for high-level inspection. Specifically, these methods do something sensible for datasets with many observations and/or variables. You do __NOT__ need to turn your data.frames into `tbl_df`s to use `dplyr`. I do so here for demonstration purposes only.
+There will be some functions, like `print()`, that know about tibbles and do something special. There will others that do not, like `summary()`. In which case the regular data frame treatment will happen, because every tibble is also a regular data frame.
+
+To turn any data frame into a tibble use `as_tibble()`:
+
+```{r}
+as_tibble(iris)
+```
 
 ### Think before you create excerpts of your data ...
 
 If you feel the urge to store a little snippet of your data:
 
 ```{r}
-(snippet <- subset(gapminder, country == "Canada"))
+(canada <- gapminder[241:252, ])
 ```
 
 Stop and ask yourself ...
 
 > Do I want to create mini datasets for each level of some factor (or unique combination of several factors) ... in order to compute or graph something?  
 
-If YES, __use proper data aggregation techniques__ or facetting in `ggplot2` plots or conditioning in `lattice` -- __don’t subset the data__. Or, more realistic, only subset the data as a temporary measure while you develop your elegant code for computing on or visualizing these data subsets.
+If YES, __use proper data aggregation techniques__ or facetting in `ggplot2` -- __don’t subset the data__. Or, more realistic, only subset the data as a temporary measure while you develop your elegant code for computing on or visualizing these data subsets.
 
 If NO, then maybe you really do need to store a copy of a subset of the data. But seriously consider whether you can achieve your goals by simply using the `subset =` argument of, e.g., the `lm()` function, to limit computation to your excerpt of choice. Lots of functions offer a `subset =` argument!
 
@@ -80,30 +76,47 @@ Reality can also lie somewhere in between. You will find the workflows presented
 `filter()` takes logical expressions and returns the rows for which all are `TRUE`.
 
 ```{r}
-filter(gtbl, lifeExp < 29)
-filter(gtbl, country == "Rwanda")
-filter(gtbl, country %in% c("Rwanda", "Afghanistan"))
+filter(gapminder, lifeExp < 29)
+filter(gapminder, country == "Rwanda")
+filter(gapminder, country %in% c("Rwanda", "Afghanistan"))
 ```
 
 Compare with some base R code to accomplish the same things
 ```{r eval = FALSE}
 gapminder[gapminder$lifeExp < 29, ] ## repeat `gapminder`, [i, j] indexing is distracting
-subset(gapminder, country == "Rwanda") ## almost same as filter ... but wait ...
+subset(gapminder, country == "Rwanda") ## almost same as filter; quite nice actually
 ```
+
+Under no circumstances should you subset your data the way I did at first:
+
+```{r eval = FALSE}
+excerpt <- gapminder[241:252, ]
+```
+
+Why is this a terrible idea?
+
+  * It is not self-documenting. What is so special about rows 241 through 252?
+  * It is fragile. This line of code will produce different results if someone changes the row order of `gapminder`, e.g. sorts the data earlier in the script.
+  
+```{r eval = FALSE}
+filter(gapminder, country == "Canada")
+```
+
+This call explains itself and is fairly robust.
 
 ### Meet the new pipe operator
 
-Before we go any further, we should exploit the new pipe operator that `dplyr` imports from the [`magrittr`](https://github.com/smbache/magrittr) package by Stefan Bache. This is going to change your data analytical life. You no longer need to enact multi-operation commands by nesting them inside each other, like so many [Russian nesting dolls](http://blogue.us/wp-content/uploads/2009/07/Unknown-21.jpeg). This new syntax leads to code that is much easier to write and to read.
+Before we go any further, we should exploit the new pipe operator that the tidyverse imports from the [`magrittr`](https://github.com/smbache/magrittr) package by Stefan Bache. This is going to change your data analytical life. You no longer need to enact multi-operation commands by nesting them inside each other, like so many [Russian nesting dolls](http://blogue.us/wp-content/uploads/2009/07/Unknown-21.jpeg). This new syntax leads to code that is much easier to write and to read.
 
 Here's what it looks like: `%>%`. The RStudio keyboard shortcut: Ctrl + Shift + M (Windows), Cmd + Shift + M (Mac).
 
 Let's demo then I'll explain:
 
 ```{r}
-gapminder %>% head
+gapminder %>% head()
 ```
 
-This is equivalent to `head(gapminder)`. This pipe operator takes the thing on the left-hand-side and __pipes__ it into the function call on the right-hand-side -- literally, drops it in as the first argument.
+This is equivalent to `head(gapminder)`. The pipe operator takes the thing on the left-hand-side and __pipes__ it into the function call on the right-hand-side -- literally, drops it in as the first argument.
 
 Never fear, you can still specify other arguments to this function! To see the first 3 rows of Gapminder, we could say `head(gapminder, 3)` or this:
 
@@ -122,24 +135,24 @@ Back to `dplyr` ...
 Use `select()` to subset the data on variables or columns. Here's a conventional call:
 
 ```{r}
-select(gtbl, year, lifeExp) ## tbl_df prevents TMI from printing
+select(gapminder, year, lifeExp)
 ```
 
-And here's similar operation, but written with the pipe operator and piped through `head`:
+And here's the same operation, but written with the pipe operator and piped through `head()`:
 ```{r}
-gtbl %>%
+gapminder %>%
   select(year, lifeExp) %>%
   head(4)
 ```
 
-Think: "Take `gtbl`, then select the variables year and lifeExp, then show the first 4 rows."
+Think: "Take `gapminder`, then select the variables year and lifeExp, then show the first 4 rows."
 
 ### Revel in the convenience
 
 Here's the data for Cambodia, but only certain variables:
 
 ```{r}
-gtbl %>%
+gapminder %>%
   filter(country == "Cambodia") %>%
   select(year, lifeExp)
 ```
@@ -150,13 +163,7 @@ and what a typical base R call would look like:
 gapminder[gapminder$country == "Cambodia", c("year", "lifeExp")]
 ```
 
-or, possibly?, a nicer look using base R's `subset()` function:
-
-```{r}
-subset(gapminder, country == "Cambodia", select = c(year, lifeExp))
-```
-
-### Pause to reflect
+### Pure, predictable, pipeable
 
 We've barely scratched the surface of `dplyr` but I want to point out key principles you may start to appreciate. If you're new to R or "programming with data", feel free skip this section and [move on](block010_dplyr-end-single-table.html).
 
@@ -164,7 +171,9 @@ We've barely scratched the surface of `dplyr` but I want to point out key princi
 
 > The functions that are the easiest to understand and reason about are pure functions: functions that always map the same input to the same output and have no other impact on the workspace. In other words, pure functions have no side effects: they don’t affect the state of the world in any way apart from the value they return.
 
-In fact, these verbs are a special case of pure functions: they take the same flavor of object as input and output. Namely, a data.frame or one of the other data receptacles `dplyr` supports. And finally, the data is __always__ the very first argument of the verb functions.
+In fact, these verbs are a special case of pure functions: they take the same flavor of object as input and output. Namely, a data frame or one of the other data receptacles `dplyr` supports.
+
+And finally, the data is __always__ the very first argument of the verb functions.
 
 This set of deliberate design choices, together with the new pipe operator, produces a highly effective, low friction [domain-specific language](http://adv-r.had.co.nz/dsl.html) for data analysis.
 
@@ -180,7 +189,7 @@ Go to the next block, [`dplyr` functions for a single dataset](block010_dplyr-en
   * development home [on GitHub](https://github.com/hadley/dplyr)
   * [tutorial HW delivered](https://www.dropbox.com/sh/i8qnluwmuieicxc/AAAgt9tIKoIm7WZKIyK25lh6a) (note this links to a DropBox folder) at useR! 2014 conference
 
-[RStudio `dplyr` and `tidyr` cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf?version=0.99.687&mode=desktop). Remember you can get to these via *Help > Cheatsheets.*
+[RStudio Data Wrangling cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf), covering `dplyr` and `tidyr`. Remember you can get to these via *Help > Cheatsheets.* 
 
 [Excellent slides](https://github.com/tjmahr/MadR_Pipelines) on pipelines and `dplyr` by TJ Mahr, talk given to the Madison R Users Group.
 
