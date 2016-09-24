@@ -1,15 +1,37 @@
 ## Topic list
 
-  * [Install R and Rstudio](block000_r-rstudio-install.html)
-  * [Basic R and RStudio, workspace, working directory, RStudio Project](block002_hello-r-workspace-wd-project.html)
+This material gets updated during Sept - Nov each year. Right now it's a mix of 2015 and 2016 content.
+
+  * Get your R act together
+    - [Install R and Rstudio](block000_r-rstudio-install.html) (or update! get current!)
+    - [Basic R and RStudio, workspace, working directory, RStudio Project](block002_hello-r-workspace-wd-project.html)
+    - [Test drive R Markdown](block007_first-use-rmarkdown.html)
   * [All the Git and GitHub (and RStudio) things](git00_index.html)
     - Content now here: <http://happygitwithr.com>
       - Install Git, install a Git client or GUI, establish pull/push connection from computer to GitHub in the shell, establish GitHub connection via RStudio, credential caching, troubleshooting.
     - [Take possession of your STAT 545 repo](git08_claim-stat545-repo.html)
-    - [The Shell](git09_shell.html)
-  * [Basic care and feeding of data in R](block006_care-feeding-data.html)
-  * [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
-  * [Test drive R Markdown](block007_first-use-rmarkdown.html)
+  * Data analysis 1: data frames, the tidyverse, and tibbles
+    - [Basic care and feeding of data in R](block006_care-feeding-data.html)
+    - [Introduction to dplyr](block009_dplyr-intro.html)
+    - [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
+    - Overview of split-apply-combine: [slides on speakerdeck](https://speakerdeck.com/jennybc/ubc-stat545-split-apply-combine-intro)
+    - [Split-apply-combine with `dplyr::do()`](block023_dplyr-do.html)
+    - Example: [a wrapper around `lm` to use with `dplyr::do()`](block025_lm-poly.html)
+    - [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
+    - Legacy material on [split-apply-combine with `plyr`](block013_plyr-ddply.html)
+    - [Why and how to tidy data](bit002_tidying-lotr-data.html)
+  * Data analysis 2: vectors, files, 
+    - [Be the boss of your factors](block014_factors.html)
+    - [Writing and reading files](block026_file-out-in.html)
+    - Strings and Regular Expressions
+      - [(2014) Intro to regular expressions](block022_regular-expression.html) and more about character data
+      - [(2015) Regular expressions and character data in R](block027_regular-expressions.html): applying regex in R
+  * R as a programming language
+    - [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
+    - Writing your own R functions [Part 1](block011_write-your-own-function-01.html): get something that works, check arguments
+    - Writing your own R functions [Part 2](block011_write-your-own-function-02.html): generalize, set default argument values
+    - Writing your own R functions [Part 3](block011_write-your-own-function-03.html):`NA` handling, `...`, unit test
+    - [Function-writing Practicum](block012_function-regress-lifeexp-on-year.html): fit a linear model and return estimated coefficients
   * [All the graph things](graph00_index.html)
     - R graphics landscape *[slides](https://speakerdeck.com/jennybc/ggplot2-tutorial)*
     - [`ggplot2` tutorial](https://github.com/jennybc/ggplot2-tutorial), heavy on code and examples
@@ -20,25 +42,6 @@
     - [Secrets of a happy graphing life](block016_secrets-happy-graphing.html)
     - [Writing figures to file](block017_write-figure-to-file.html)
     - [Multiple plots on a page](block020_multiple-plots-on-a-page.html)
-  * The `dplyr` package for data manipulation
-    - [Introduction to dplyr](block009_dplyr-intro.html)
-    - [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
-    - Overview of split-apply-combine: [slides on speakerdeck](https://speakerdeck.com/jennybc/ubc-stat545-split-apply-combine-intro)
-    - [Split-apply-combine with `dplyr::do()`](block023_dplyr-do.html)
-    - Example: [a wrapper around `lm` to use with `dplyr::do()`](block025_lm-poly.html)
-    - [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
-    - Legacy material on [split-apply-combine with `plyr`](block013_plyr-ddply.html)
-  * Writing your own R functions
-    - [Part 1](block011_write-your-own-function-01.html): get something that works, check arguments
-    - [Part 2](block011_write-your-own-function-02.html): generalize, set default argument values
-    - [Part 3](block011_write-your-own-function-03.html):`NA` handling, `...`, unit test
-    - [Function-writing Practicum](block012_function-regress-lifeexp-on-year.html): fit a linear model and return estimated coefficients
-  * [Be the boss of your factors](block014_factors.html)
-  * [Writing and reading files](block026_file-out-in.html)
-  * [Why and how to tidy data](bit002_tidying-lotr-data.html)
-  * Strings and Regular Expressions
-    - [(2014) Intro to regular expressions](block022_regular-expression.html) and more about character data
-    - [(2015) Regular expressions and character data in R](block027_regular-expressions.html): applying regex in R
   * [All the package things](packages00_index.html)
     - [slides](https://speakerdeck.com/jennybc/ubc-stat545-2015-writing-your-first-r-package)
     - [System preparation for package development](packages01_system-prep.html)
