@@ -17,16 +17,14 @@ Learn how to
 
 ### Selected topics
 
-  * Introduction to [R](http://www.r-project.org) and the [RStudio IDE](http://www.rstudio.com/products/rstudio/); scripts, the workspace, RStudio Projects
+  * Introduction to [R](http://www.r-project.org) and the [RStudio IDE](http://www.rstudio.com/products/rstudio/): scripts, the workspace, RStudio Projects, daily workflow
   * Generate reports from R scripts and [R Markdown](http://rmarkdown.rstudio.com)
-  * Care and feeding of data in R
-  * Data manipulation and split-apply-combine with [`dplyr`](https://cran.r-project.org/web/packages/dplyr/index.html),  [`tidyr`](https://cran.r-project.org/web/packages/tidyr/index.html), and [`purrr`](https://cran.r-project.org/web/packages/purrr/index.html)
+  * Coding style, file and project organization
+  * Data frames or "tibbles" are the core data structure for data analysis: care for them with the tidyverse
   * Data visualization with [`ggplot2`](http://ggplot2.org)
-  * Graphs and descriptive stats for quantitative and categorical variables
-  * Writing R functions
-  * Coding style and project organization
+  * How to write functions and work with R in a functional style
   * Version control with Git; collaboration via [GitHub](https://github.com)
-  * Character data; regular expressions
+  * Be the boss of non-numeric data, esp. character and factor
   * Interactive pages, apps, and graphics with [Shiny](http://shiny.rstudio.com)
   * Get data off the web and expose data, code, results on the web
   * Distribute data and code via an R package
