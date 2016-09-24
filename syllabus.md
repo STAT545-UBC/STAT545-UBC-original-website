@@ -30,22 +30,22 @@ date           notes
 sep-06 tues    <a href="cm001_course-intro-sw-install-account-signup.html">cm001</a>: Intro to course; S/W install; acct sign-ups 
 sep-08 thurs   <a href="cm002_r-rstudio-intro.html">cm002</a>: Deep Thoughts about data analytic work; intro to R and RStudio     
 sep-13 tues    <a href="cm003_render-git-github-test-drive.html">cm003</a>: Git(Hub) test drive, run/render an R script           
-sep-15 thurs   <a href="cm004_claim-repo-test-drive-rmd.html">cm004</a>: R Markdown test drive, care and feeding of tibbles       
-sep-20 tues    <a href="cm005_tidyverse-ggplot2-intro.html">cm005</a>: Care and feeding of tibbles, begin ggplot2 intro           
-sep-22 thurs   <a href="cm006_tidyverse-ggplot2-intro-2.html">cm006</a>: Care and feeding of tibbles, begin ggplot2 intro, cont'd 
-sep-27 tues    cm007: dplyr: the pipe and single table verbs                                                                      
-sep-29 thurs   cm008: dplyr: group_by                                                                                             
-oct-04 tues    cm009: Basic flavors of R objects                                                                                  
-oct-06 thurs   cm010: Writing your own R functions                                                                                
-oct-11 tues    cm011: Split-Apply-Combine                                                                                         
-oct-13 thurs   cm012: Tidy data and reshaping; be the boss of your factors                                                        
-oct-18 tues    cm013: Practical graphing tips                                                                                     
+sep-15 thurs   <a href="cm004_claim-repo-test-drive-rmd.html">cm004</a>: R Markdown test drive                                    
+sep-20 tues    <a href="cm005_tidyverse-tibbles.html">cm005</a>: Care and feeding of data frames or "tibbles"                     
+sep-22 thurs   <a href="cm006_tibbles-dplyr-ggplot2.html">cm006</a>: First look at dplyr, %>%, and ggplot2                        
+sep-27 tues    cm007: ggplot2                                                                                                     
+sep-29 thurs   cm008: dplyr: mutate, group, summarize                                                                             
+oct-04 tues    cm009: Tidy data, reshaping, dplyr joins                                                                           
+oct-06 thurs   cm010: Minimum "need to know" re: R as a programming language                                                      
+oct-11 tues    cm011: Getting data out of R (and back in)                                                                         
+oct-13 thurs   cm012: Be the boss of your factors                                                                                 
+oct-18 tues    cm013: Revisit ggplot, practicalities of daily figure-making                                                       
 oct-20 thurs   cm014: Visualization Analysis and Design: Tamara Munzer guest lecture (TBC)                                        
 
   * [Homework 01](hw01_edit-README.html) Edit `README.md`, use R Markdown to explore Gapminder
   * [Homework 02](hw02_explore-gapminder-dplyr.html) Explore Gapminder as a tibble and starting using dplyr and ggplot2
-  * Homework 03 Manipulate, summarize, visualize Gapminder with the tidyverse
-  * Homework 04 Use your own functions with split-apply-combine and functional programming
+  * Homework 03 Manipulate, summarize, visualize Gapminder with the tidyverse and ggplot2
+  * Homework 04 ~~Use your own functions with split-apply-combine and functional programming~~ *no, this will change*
   * Homework 05 Prove you are in control of factors and figures. Clean up your repo.
   * Homework 06 *did not exist; it's "clean up your repo" and was folded into homework 05*
 
@@ -54,10 +54,10 @@ oct-20 thurs   cm014: Visualization Analysis and Design: Tamara Munzer guest lec
 
 date           notes                                            
 -------------  -------------------------------------------------
-oct-25 tues    cm101: Getting data out of R (and back in)       
-oct-27 thurs   cm102: Regular expressions and character data    
-nov-01 tues    cm103: Grand Finale: Wrangling the Candy Survey  
-nov-03 thurs   cm104: Grand Finale: Wrangling the Candy Survey  
+oct-25 tues    cm101: Regular expressions and character data    
+oct-27 thurs   cm102: Writing your own R functions              
+nov-01 tues    cm103: purrr, list-columns, nested data frames 1 
+nov-03 thurs   cm104: purrr, list-columns, nested data frames 2 
 nov-08 tues    cm105: Build your first R package                
 nov-10 thurs   cm106: ditto                                     
 nov-15 tues    cm107: Build your first Shiny app                

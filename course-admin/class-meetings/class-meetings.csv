@@ -2,21 +2,21 @@ cm,course,dow,month,day,link_it,raw_notes
 cm001,STAT545A,tues,september,6,TRUE,Intro to course; S/W install; acct sign-ups
 cm002,STAT545A,thurs,september,8,TRUE,Deep Thoughts about data analytic work; intro to R and RStudio
 cm003,STAT545A,tues,september,13,TRUE,"Git(Hub) test drive, run/render an R script"
-cm004,STAT545A,thurs,september,15,TRUE,"R Markdown test drive, care and feeding of tibbles"
-cm005,STAT545A,tues,september,20,TRUE,"Care and feeding of tibbles, begin ggplot2 intro"
-cm006,STAT545A,thurs,september,22,TRUE,"Care and feeding of tibbles, begin ggplot2 intro, cont'd"
-cm007,STAT545A,tues,september,27,FALSE,dplyr: the pipe and single table verbs
-cm008,STAT545A,thurs,september,29,FALSE,dplyr: group_by
-cm009,STAT545A,tues,october,4,FALSE,Basic flavors of R objects
-cm010,STAT545A,thurs,october,6,FALSE,Writing your own R functions
-cm011,STAT545A,tues,october,11,FALSE,Split-Apply-Combine
-cm012,STAT545A,thurs,october,13,FALSE,Tidy data and reshaping; be the boss of your factors
-cm013,STAT545A,tues,october,18,FALSE,Practical graphing tips
+cm004,STAT545A,thurs,september,15,TRUE,R Markdown test drive
+cm005,STAT545A,tues,september,20,TRUE,"Care and feeding of data frames or ""tibbles"""
+cm006,STAT545A,thurs,september,22,TRUE,"First look at dplyr, %>%, and ggplot2"
+cm007,STAT545A,tues,september,27,FALSE,ggplot2
+cm008,STAT545A,thurs,september,29,FALSE,"dplyr: mutate, group, summarize"
+cm009,STAT545A,tues,october,4,FALSE,"Tidy data, reshaping, dplyr joins"
+cm010,STAT545A,thurs,october,6,FALSE,"Minimum ""need to know"" re: R as a programming language"
+cm011,STAT545A,tues,october,11,FALSE,Getting data out of R (and back in)
+cm012,STAT545A,thurs,october,13,FALSE,Be the boss of your factors
+cm013,STAT545A,tues,october,18,FALSE,"Revisit ggplot, practicalities of daily figure-making"
 cm014,STAT545A,thurs,october,20,FALSE,Visualization Analysis and Design: Tamara Munzer guest lecture (TBC)
-cm101,STAT547M,tues,october,25,FALSE,Getting data out of R (and back in)
-cm102,STAT547M,thurs,october,27,FALSE,Regular expressions and character data
-cm103,STAT547M,tues,november,1,FALSE,Grand Finale: Wrangling the Candy Survey
-cm104,STAT547M,thurs,november,3,FALSE,Grand Finale: Wrangling the Candy Survey
+cm101,STAT547M,tues,october,25,FALSE,Regular expressions and character data
+cm102,STAT547M,thurs,october,27,FALSE,Writing your own R functions
+cm103,STAT547M,tues,november,1,FALSE,"purrr, list-columns, nested data frames 1"
+cm104,STAT547M,thurs,november,3,FALSE,"purrr, list-columns, nested data frames 2"
 cm105,STAT547M,tues,november,8,FALSE,Build your first R package
 cm106,STAT547M,thurs,november,10,FALSE,ditto
 cm107,STAT547M,tues,november,15,FALSE,Build your first Shiny app
