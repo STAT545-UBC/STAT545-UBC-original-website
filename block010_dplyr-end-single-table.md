@@ -4,37 +4,69 @@
 
 ### Where were we?
 
-In the [introduction to `plyr`](block009_dplyr-intro.html), we used two very important verbs and an operator:
+In the [introduction to dplyr](block009_dplyr-intro.html), we used two very important verbs and an operator:
 
-  * `filter()` for subsetting data row-wise
+  * `filter()` for subsetting data with row logic
   * `select()` for subsetting data variable- or column-wise
   * the pipe operator `%>%`, which feeds the LHS as the first argument to the expression on the RHS
   
-Here we explore other `dplyr` functions, especially more verbs, for working with a single dataset.
+We also discussed dplyr's role inside the tidyverse and tibbles:
 
-#### Load `dplyr` and the Gapminder data
+  * dplyr is a core package in the [tidyverse](https://github.com/hadley/tidyverse) meta-package. Since we often make incidental usage of the others, we will load dplyr and the others via `library(tidyverse)`.
+  * The tidyverse embraces a special flavor of data frame, called a tibble. The `gapminder` dataset is stored as a tibble.  
 
-We use an excerpt of the Gapminder data and store it as a `tbl_df` object, basically an enhanced data.frame
+### Load dplyr and gapminder
+
+I choose to load the tidyverse, which will load dplyr, among other packages we use incidentally below. Also load gapminder.
 
 
 ```r
-suppressPackageStartupMessages(library(dplyr))
 library(gapminder)
-gtbl <- gapminder %>%
-  tbl_df
-gtbl %>%
-  glimpse
+library(tidyverse)
 ```
 
 ```
-## Observations: 1,704
-## Variables: 6
-## $ country   (fctr) Afghanistan, Afghanistan, Afghanistan, Afghanistan,...
-## $ continent (fctr) Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asi...
-## $ year      (dbl) 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992...
-## $ lifeExp   (dbl) 28.801, 30.332, 31.997, 34.020, 36.088, 38.438, 39.8...
-## $ pop       (dbl) 8425333, 9240934, 10267083, 11537966, 13079460, 1488...
-## $ gdpPercap (dbl) 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 78...
+## Loading tidyverse: ggplot2
+## Loading tidyverse: tibble
+## Loading tidyverse: tidyr
+## Loading tidyverse: readr
+## Loading tidyverse: purrr
+## Loading tidyverse: dplyr
+```
+
+```
+## Conflicts with tidy packages ----------------------------------------------
+```
+
+```
+## filter(): dplyr, stats
+## lag():    dplyr, stats
+```
+
+### Create a copy of gapminder
+
+We're going to be making changes to the `gapminder` tibble. To eliminate any confusion about whether you're operating on the version that comes with the package or whatnot, we create an explicit copy of `gapminder` for our experiments.
+
+
+```r
+(my_gap <- gapminder)
+```
+
+```
+## # A tibble: 1,704 × 6
+##        country continent  year lifeExp      pop gdpPercap
+##         <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
+## 1  Afghanistan      Asia  1952  28.801  8425333  779.4453
+## 2  Afghanistan      Asia  1957  30.332  9240934  820.8530
+## 3  Afghanistan      Asia  1962  31.997 10267083  853.1007
+## 4  Afghanistan      Asia  1967  34.020 11537966  836.1971
+## 5  Afghanistan      Asia  1972  36.088 13079460  739.9811
+## 6  Afghanistan      Asia  1977  38.438 14880372  786.1134
+## 7  Afghanistan      Asia  1982  39.854 12881816  978.0114
+## 8  Afghanistan      Asia  1987  40.822 13867957  852.3959
+## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414
+## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
+## # ... with 1,694 more rows
 ```
 
 ### Use `mutate()` to add new variables
@@ -43,74 +75,94 @@ Imagine we wanted to recover each country's GDP. After all, the Gapminder data h
 
 
 ```r
-gtbl <- gtbl %>%
+my_gap <- my_gap %>%
   mutate(gdp = pop * gdpPercap)
-gtbl %>%
-  glimpse
+my_gap
 ```
 
 ```
-## Observations: 1,704
-## Variables: 7
-## $ country   (fctr) Afghanistan, Afghanistan, Afghanistan, Afghanistan,...
-## $ continent (fctr) Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asia, Asi...
-## $ year      (dbl) 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992...
-## $ lifeExp   (dbl) 28.801, 30.332, 31.997, 34.020, 36.088, 38.438, 39.8...
-## $ pop       (dbl) 8425333, 9240934, 10267083, 11537966, 13079460, 1488...
-## $ gdpPercap (dbl) 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 78...
-## $ gdp       (dbl) 6567086330, 7585448670, 8758855797, 9648014150, 9678...
+## # A tibble: 1,704 × 7
+##        country continent  year lifeExp      pop gdpPercap         gdp
+##         <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>       <dbl>
+## 1  Afghanistan      Asia  1952  28.801  8425333  779.4453  6567086330
+## 2  Afghanistan      Asia  1957  30.332  9240934  820.8530  7585448670
+## 3  Afghanistan      Asia  1962  31.997 10267083  853.1007  8758855797
+## 4  Afghanistan      Asia  1967  34.020 11537966  836.1971  9648014150
+## 5  Afghanistan      Asia  1972  36.088 13079460  739.9811  9678553274
+## 6  Afghanistan      Asia  1977  38.438 14880372  786.1134 11697659231
+## 7  Afghanistan      Asia  1982  39.854 12881816  978.0114 12598563401
+## 8  Afghanistan      Asia  1987  40.822 13867957  852.3959 11820990309
+## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414 10595901589
+## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414 14121995875
+## # ... with 1,694 more rows
 ```
 
-Hmmmm ... those GDP numbers are almost uselessly large and abstract. Consider the [advice of Randall Munroe of xkcd](http://fivethirtyeight.com/datalab/xkcd-randall-munroe-qanda-what-if/): "One thing that bothers me is large numbers presented without context... 'If I added a zero to this number, would the sentence containing it mean something different to me?' If the answer is 'no,' maybe the number has no business being in the sentence in the first place." Maybe it would be more meaningful to consumers of my tables and figures if I reported GDP per capita, *relative to some benchmark country*. Since Canada is my adopted home, I'll go with that.
+Hmmmm ... those GDP numbers are almost uselessly large and abstract. Consider the [advice of Randall Munroe of xkcd](http://fivethirtyeight.com/datalab/xkcd-randall-munroe-qanda-what-if/):
+
+>One thing that bothers me is large numbers presented without context... 'If I added a zero to this number, would the sentence containing it mean something different to me?' If the answer is 'no,' maybe the number has no business being in the sentence in the first place."
+
+Maybe it would be more meaningful to consumers of my tables and figures to stick with GDP per capita. But what if I reported GDP per capita, *relative to some benchmark country*. Since Canada is my adopted home, I'll go with that. How I achieve:
+
+  * Filter down to the rows for Canada.
+  * Create a new variable in `my_gap` by:
+    - Extracting the `gdpPercap` variable from the Canadian data.
+    - Replicating it once per country in the dataset, so it has the right length.
+  * Divide raw `gdpPercap` by this Canadian figure.
+  * Remove the temporary variable of replicated Canadian `gdpPercap`.
 
 
 ```r
-just_canada <- gtbl %>%
+canada <- my_gap %>%
   filter(country == "Canada")
-## this is a dangerous way to add this variable
+## this is a semi-dangerous way to add this variable
 ## doing it this way so we don't get too fancy yet
-gtbl <- gtbl %>%
-  mutate(canada = rep(just_canada$gdpPercap, nlevels(country)),
-         gdpPercapRel = gdpPercap / canada)
-gtbl %>%
-  select(country, year, gdpPercap, canada, gdpPercapRel)
+## it would be nicer to join on year
+my_gap <- my_gap %>%
+  mutate(canada = rep(canada$gdpPercap, nlevels(country)),
+         gdpPercapRel = gdpPercap / canada,
+         canada = NULL)
 ```
 
-```
-## Source: local data frame [1,704 x 5]
-## 
-##        country  year gdpPercap   canada gdpPercapRel
-##         (fctr) (dbl)     (dbl)    (dbl)        (dbl)
-## 1  Afghanistan  1952  779.4453 11367.16   0.06856992
-## 2  Afghanistan  1957  820.8530 12489.95   0.06572108
-## 3  Afghanistan  1962  853.1007 13462.49   0.06336874
-## 4  Afghanistan  1967  836.1971 16076.59   0.05201335
-## 5  Afghanistan  1972  739.9811 18970.57   0.03900679
-## 6  Afghanistan  1977  786.1134 22090.88   0.03558542
-## 7  Afghanistan  1982  978.0114 22898.79   0.04271018
-## 8  Afghanistan  1987  852.3959 26626.52   0.03201305
-## 9  Afghanistan  1992  649.3414 26342.88   0.02464959
-## 10 Afghanistan  1997  635.3414 28954.93   0.02194243
-## ..         ...   ...       ...      ...          ...
-```
+Note that, `mutate()` builds new variables sequentially so you can reference earlier ones (like `canada`) when defining later ones (like `gdpPercapRel`). Also, you can get rid of a variable by setting it to `NULL`.
+
+How could we sanity check that this worked? The Canadian values for `gdpPercapRel` better all be 1!
+
 
 ```r
-gtbl %>%
-  select(gdpPercapRel) %>%
-  summary
+my_gap %>% 
+  filter(country == "Canada") %>% 
+  select(country, year, gdpPercapRel)
 ```
 
 ```
-##   gdpPercapRel     
-##  Min.   :0.007236  
-##  1st Qu.:0.061648  
-##  Median :0.171521  
-##  Mean   :0.326659  
-##  3rd Qu.:0.446564  
-##  Max.   :9.534690
+## # A tibble: 12 × 3
+##    country  year gdpPercapRel
+##     <fctr> <int>        <dbl>
+## 1   Canada  1952            1
+## 2   Canada  1957            1
+## 3   Canada  1962            1
+## 4   Canada  1967            1
+## 5   Canada  1972            1
+## 6   Canada  1977            1
+## 7   Canada  1982            1
+## 8   Canada  1987            1
+## 9   Canada  1992            1
+## 10  Canada  1997            1
+## 11  Canada  2002            1
+## 12  Canada  2007            1
 ```
 
-Note that, `mutate()` builds new variables sequentially so you can reference earlier ones (like `canada`) when defining later ones (like `gdpPercapRel`).
+I perceive Canada to be a "high GDP" country, so I predict that the distribution of `gdpPercapRel` is located below 1, possibly even well below. Check your intuition!
+
+
+```r
+summary(my_gap$gdpPercapRel)
+```
+
+```
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## 0.007236 0.061650 0.171500 0.326700 0.446600 9.535000
+```
 
 The relative GDP per capita numbers are, in general, well below 1. We see that most of the countries covered by this dataset have substantially lower GDP per capita, relative to Canada, across the entire time period.
 
@@ -120,15 +172,14 @@ Imagine you wanted this data ordered by year then country, as opposed to by coun
 
 
 ```r
-gtbl %>%
+my_gap %>%
   arrange(year, country)
 ```
 
 ```
-## Source: local data frame [1,704 x 9]
-## 
+## # A tibble: 1,704 × 8
 ##        country continent  year lifeExp      pop  gdpPercap          gdp
-##         (fctr)    (fctr) (dbl)   (dbl)    (dbl)      (dbl)        (dbl)
+##         <fctr>    <fctr> <int>   <dbl>    <int>      <dbl>        <dbl>
 ## 1  Afghanistan      Asia  1952  28.801  8425333   779.4453   6567086330
 ## 2      Albania    Europe  1952  55.230  1282697  1601.0561   2053669902
 ## 3      Algeria    Africa  1952  43.077  9279525  2449.0082  22725632678
@@ -139,24 +190,22 @@ gtbl %>%
 ## 8      Bahrain      Asia  1952  50.939   120447  9867.0848   1188460759
 ## 9   Bangladesh      Asia  1952  37.484 46886859   684.2442  32082059995
 ## 10     Belgium    Europe  1952  68.000  8730405  8343.1051  72838686716
-## ..         ...       ...   ...     ...      ...        ...          ...
-## Variables not shown: canada (dbl), gdpPercapRel (dbl)
+## # ... with 1,694 more rows, and 1 more variables: gdpPercapRel <dbl>
 ```
 
 Or maybe you want just the data from 2007, sorted on life expectancy?
 
 
 ```r
-gtbl %>%
+my_gap %>%
   filter(year == 2007) %>%
   arrange(lifeExp)
 ```
 
 ```
-## Source: local data frame [142 x 9]
-## 
+## # A tibble: 142 × 8
 ##                     country continent  year lifeExp      pop gdpPercap
-##                      (fctr)    (fctr) (dbl)   (dbl)    (dbl)     (dbl)
+##                      <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
 ## 1                 Swaziland    Africa  2007  39.613  1133066 4513.4806
 ## 2                Mozambique    Africa  2007  42.082 19951656  823.6856
 ## 3                    Zambia    Africa  2007  42.384 11746035 1271.2116
@@ -167,24 +216,23 @@ gtbl %>%
 ## 8               Afghanistan      Asia  2007  43.828 31889923  974.5803
 ## 9  Central African Republic    Africa  2007  44.741  4369038  706.0165
 ## 10                  Liberia    Africa  2007  45.678  3193942  414.5073
-## ..                      ...       ...   ...     ...      ...       ...
-## Variables not shown: gdp (dbl), canada (dbl), gdpPercapRel (dbl)
+## # ... with 132 more rows, and 2 more variables: gdp <dbl>,
+## #   gdpPercapRel <dbl>
 ```
 
 Oh, you'd like to sort on life expectancy in __desc__ending order? Then use `desc()`.
 
 
 ```r
-gtbl %>%
+my_gap %>%
   filter(year == 2007) %>%
   arrange(desc(lifeExp))
 ```
 
 ```
-## Source: local data frame [142 x 9]
-## 
+## # A tibble: 142 × 8
 ##             country continent  year lifeExp       pop gdpPercap
-##              (fctr)    (fctr) (dbl)   (dbl)     (dbl)     (dbl)
+##              <fctr>    <fctr> <int>   <dbl>     <int>     <dbl>
 ## 1             Japan      Asia  2007  82.603 127467972  31656.07
 ## 2  Hong Kong, China      Asia  2007  82.208   6980412  39724.98
 ## 3           Iceland    Europe  2007  81.757    301931  36180.79
@@ -195,8 +243,8 @@ gtbl %>%
 ## 8            Israel      Asia  2007  80.745   6426679  25523.28
 ## 9            France    Europe  2007  80.657  61083916  30470.02
 ## 10           Canada  Americas  2007  80.653  33390141  36319.24
-## ..              ...       ...   ...     ...       ...       ...
-## Variables not shown: gdp (dbl), canada (dbl), gdpPercapRel (dbl)
+## # ... with 132 more rows, and 2 more variables: gdp <dbl>,
+## #   gdpPercapRel <dbl>
 ```
 
 I advise that your analyses NEVER rely on rows or variables being in a specific order. But it's still true that human beings write the code and the interactive development process can be much nicer if you reorder the rows of your data as you go along. Also, once you are preparing tables for human eyeballs, it is imperative that you step up and take control of row order.
@@ -207,17 +255,16 @@ When I first cleaned this Gapminder excerpt, I was a [`camelCase`](http://en.wik
 
 
 ```r
-gtbl %>%
+my_gap %>%
   rename(life_exp = lifeExp,
          gdp_percap = gdpPercap,
          gdp_percap_rel = gdpPercapRel)
 ```
 
 ```
-## Source: local data frame [1,704 x 9]
-## 
+## # A tibble: 1,704 × 8
 ##        country continent  year life_exp      pop gdp_percap         gdp
-##         (fctr)    (fctr) (dbl)    (dbl)    (dbl)      (dbl)       (dbl)
+##         <fctr>    <fctr> <int>    <dbl>    <int>      <dbl>       <dbl>
 ## 1  Afghanistan      Asia  1952   28.801  8425333   779.4453  6567086330
 ## 2  Afghanistan      Asia  1957   30.332  9240934   820.8530  7585448670
 ## 3  Afghanistan      Asia  1962   31.997 10267083   853.1007  8758855797
@@ -228,22 +275,21 @@ gtbl %>%
 ## 8  Afghanistan      Asia  1987   40.822 13867957   852.3959 11820990309
 ## 9  Afghanistan      Asia  1992   41.674 16317921   649.3414 10595901589
 ## 10 Afghanistan      Asia  1997   41.763 22227415   635.3414 14121995875
-## ..         ...       ...   ...      ...      ...        ...         ...
-## Variables not shown: canada (dbl), gdp_percap_rel (dbl)
+## # ... with 1,694 more rows, and 1 more variables: gdp_percap_rel <dbl>
 ```
 
-I did NOT assign the post-rename object back to `gtbl` because that would make the chunks in this tutorial harder to copy/paste and run out of order. In real life, I would probably assign this back to `gtbl`, in a data preparation script, and proceed with the new variable names.
+I did NOT assign the post-rename object back to `my_gap` because that would make the chunks in this tutorial harder to copy/paste and run out of order. In real life, I would probably assign this back to `my_gap`, in a data preparation script, and proceed with the new variable names.
 
-### `group_by()` is a mighty weapon
+### `group_by()` + `summarize()` is a mighty weapon
 
 I have found ~~friends and family~~ collaborators love to ask seemingly innocuous questions like, "which country experienced the sharpest 5-year drop in life expectancy?". In fact, that is a totally natural question to ask. But if you are using a language that doesn't know about data, it's an incredibly annoying question to answer.
 
-`dplyr` offers powerful tools to solve this class of problem.
+dplyr offers powerful tools to solve this class of problem.
 
   * `group_by()` adds extra structure to your dataset -- grouping information -- which lays the groundwork for computations within the groups.
   * `summarize()` takes a dataset with $n$ observations, computes requested summaries, and returns a dataset with 1 observation.
   * window functions take a dataset with $n$ observations and return a dataset with $n$ observations.
-  * `do()` is the most general function you will use in a grouped data situation.
+  * You can also do very general computations on your groups with `do()`, though elsewhere in this course, I advocate hard for other approaches that I find more intuitive.
   
 Combined with the verbs you already know, these new tools allow you to solve an extremely diverse set of problems with relative ease.
 
@@ -253,16 +299,15 @@ Let's start with simple counting.  How many observations do we have per continen
 
 
 ```r
-gtbl %>%
+my_gap %>%
   group_by(continent) %>%
   summarize(n_obs = n())
 ```
 
 ```
-## Source: local data frame [5 x 2]
-## 
+## # A tibble: 5 × 2
 ##   continent n_obs
-##      (fctr) (int)
+##      <fctr> <int>
 ## 1    Africa   624
 ## 2  Americas   300
 ## 3      Asia   396
@@ -274,16 +319,15 @@ The `tally()` function is a convenience function for this sort of thing.
 
 
 ```r
-gtbl %>%
+my_gap %>%
   group_by(continent) %>%
-  tally
+  tally()
 ```
 
 ```
-## Source: local data frame [5 x 2]
-## 
+## # A tibble: 5 × 2
 ##   continent     n
-##      (fctr) (int)
+##      <fctr> <int>
 ## 1    Africa   624
 ## 2  Americas   300
 ## 3      Asia   396
@@ -291,21 +335,39 @@ gtbl %>%
 ## 5   Oceania    24
 ```
 
-What if we wanted to add the number of unique countries for each continent?
+The `count()` function is even more convenient!
 
 
 ```r
-gtbl %>%
+my_gap %>% 
+  count(continent)
+```
+
+```
+## # A tibble: 5 × 2
+##   continent     n
+##      <fctr> <int>
+## 1    Africa   624
+## 2  Americas   300
+## 3      Asia   396
+## 4    Europe   360
+## 5   Oceania    24
+```
+
+What if we wanted to add the number of unique countries for each continent? Use `n_distinct()`.
+
+
+```r
+my_gap %>%
   group_by(continent) %>%
   summarize(n_obs = n(),
             n_countries = n_distinct(country))
 ```
 
 ```
-## Source: local data frame [5 x 3]
-## 
+## # A tibble: 5 × 3
 ##   continent n_obs n_countries
-##      (fctr) (int)       (int)
+##      <fctr> <int>       <int>
 ## 1    Africa   624          52
 ## 2  Americas   300          25
 ## 3      Asia   396          33
@@ -315,22 +377,21 @@ gtbl %>%
 
 #### General summarization
 
-The functions you'll apply within `summarize()` include classical statistical summaries, like `mean()`, `median()`, `sd()`, and `IQR`. Remember they are functions that take $n$ inputs and distill them down into 1 output.
+The functions you'll apply within `summarize()` include classical statistical summaries, like `mean()`, `median()`, `sd()`, and `IQR()`. Remember they are functions that take $n$ inputs and distill them down into 1 output.
 
 Although this may be statistically ill-advised, let's compute the average life expectancy by continent.
 
 
 ```r
-gtbl %>%
+my_gap %>%
   group_by(continent) %>%
   summarize(avg_lifeExp = mean(lifeExp))
 ```
 
 ```
-## Source: local data frame [5 x 2]
-## 
+## # A tibble: 5 × 2
 ##   continent avg_lifeExp
-##      (fctr)       (dbl)
+##      <fctr>       <dbl>
 ## 1    Africa    48.86533
 ## 2  Americas    64.65874
 ## 3      Asia    60.06490
@@ -342,7 +403,7 @@ gtbl %>%
 
 
 ```r
-gtbl %>%
+my_gap %>%
   filter(year %in% c(1952, 2007)) %>%
   group_by(continent, year) %>%
   summarise_each(funs(mean, median), lifeExp, gdpPercap)
@@ -353,7 +414,7 @@ gtbl %>%
 ## Groups: continent [?]
 ## 
 ##    continent  year lifeExp_mean gdpPercap_mean lifeExp_median
-##       (fctr) (dbl)        (dbl)          (dbl)          (dbl)
+##       <fctr> <int>        <dbl>          <dbl>          <dbl>
 ## 1     Africa  1952     39.13550       1252.572        38.8330
 ## 2     Africa  2007     54.80604       3089.033        52.9265
 ## 3   Americas  1952     53.27984       4079.063        54.7450
@@ -364,23 +425,23 @@ gtbl %>%
 ## 8     Europe  2007     77.64860      25054.482        78.6085
 ## 9    Oceania  1952     69.25500      10298.086        69.2550
 ## 10   Oceania  2007     80.71950      29810.188        80.7195
-## Variables not shown: gdpPercap_median (dbl)
+## # ... with 1 more variables: gdpPercap_median <dbl>
 ```
 
 Let's focus just on Asia. What are the minimum and maximum life expectancies seen by year?
 
+
 ```r
-gtbl %>%
+my_gap %>%
   filter(continent == "Asia") %>%
   group_by(year) %>%
   summarize(min_lifeExp = min(lifeExp), max_lifeExp = max(lifeExp))
 ```
 
 ```
-## Source: local data frame [12 x 3]
-## 
+## # A tibble: 12 × 3
 ##     year min_lifeExp max_lifeExp
-##    (dbl)       (dbl)       (dbl)
+##    <int>       <dbl>       <dbl>
 ## 1   1952      28.801      65.390
 ## 2   1957      30.332      67.840
 ## 3   1962      31.997      69.390
@@ -405,12 +466,13 @@ Let's revisit the worst and best life expectancies in Asia over time, but retain
 
 
 ```r
-gtbl %>%
+my_gap %>%
   filter(continent == "Asia") %>%
   select(year, country, lifeExp) %>%
-  arrange(year) %>%
   group_by(year) %>%
-  filter(min_rank(desc(lifeExp)) < 2 | min_rank(lifeExp) < 2)
+  filter(min_rank(desc(lifeExp)) < 2 | min_rank(lifeExp) < 2) %>% 
+  arrange(year) %>%
+  print(n = Inf)
 ```
 
 ```
@@ -418,7 +480,7 @@ gtbl %>%
 ## Groups: year [12]
 ## 
 ##     year     country lifeExp
-##    (dbl)      (fctr)   (dbl)
+##    <int>      <fctr>   <dbl>
 ## 1   1952 Afghanistan  28.801
 ## 2   1952      Israel  65.390
 ## 3   1957 Afghanistan  30.332
@@ -429,19 +491,31 @@ gtbl %>%
 ## 8   1967       Japan  71.430
 ## 9   1972 Afghanistan  36.088
 ## 10  1972       Japan  73.420
-## ..   ...         ...     ...
+## 11  1977    Cambodia  31.220
+## 12  1977       Japan  75.380
+## 13  1982 Afghanistan  39.854
+## 14  1982       Japan  77.110
+## 15  1987 Afghanistan  40.822
+## 16  1987       Japan  78.670
+## 17  1992 Afghanistan  41.674
+## 18  1992       Japan  79.360
+## 19  1997 Afghanistan  41.763
+## 20  1997       Japan  80.690
+## 21  2002 Afghanistan  42.129
+## 22  2002       Japan  82.000
+## 23  2007 Afghanistan  43.828
+## 24  2007       Japan  82.603
 ```
 
 We see that (min = Agfhanistan, max = Japan) is the most frequent result, but Cambodia and Israel pop up at least once each as the min or max, respectively. That table should make you impatient for our upcoming work on tidying and reshaping data! Wouldn't it be nice to have one row per year?
 
-How did that actually work? First, I store and view the result including everything but the last `filter()` statement. All of these operations are familiar.
+How did that actually work? First, I store and view the result including everything but the last `filter()` statement. All of these operations should be familiar.
 
 
 ```r
-asia <- gtbl %>%
+asia <- my_gap %>%
   filter(continent == "Asia") %>%
   select(year, country, lifeExp) %>%
-  arrange(year) %>%
   group_by(year)
 asia
 ```
@@ -450,48 +524,51 @@ asia
 ## Source: local data frame [396 x 3]
 ## Groups: year [12]
 ## 
-##     year          country lifeExp
-##    (dbl)           (fctr)   (dbl)
-## 1   1952      Afghanistan  28.801
-## 2   1952          Bahrain  50.939
-## 3   1952       Bangladesh  37.484
-## 4   1952         Cambodia  39.417
-## 5   1952            China  44.000
-## 6   1952 Hong Kong, China  60.960
-## 7   1952            India  37.373
-## 8   1952        Indonesia  37.468
-## 9   1952             Iran  44.869
-## 10  1952             Iraq  45.320
-## ..   ...              ...     ...
+##     year     country lifeExp
+##    <int>      <fctr>   <dbl>
+## 1   1952 Afghanistan  28.801
+## 2   1957 Afghanistan  30.332
+## 3   1962 Afghanistan  31.997
+## 4   1967 Afghanistan  34.020
+## 5   1972 Afghanistan  36.088
+## 6   1977 Afghanistan  38.438
+## 7   1982 Afghanistan  39.854
+## 8   1987 Afghanistan  40.822
+## 9   1992 Afghanistan  41.674
+## 10  1997 Afghanistan  41.763
+## # ... with 386 more rows
 ```
 
 Now we apply a window function -- `min_rank()`. Since `asia` is grouped by year, `min_rank()` operates within mini-datasets, each for a specific year. Applied to the variable `lifeExp`, `min_rank()` returns the rank of each country's observed life expectancy. FYI, the `min` part just specifies how ties are broken. Here is an explicit peek at these within-year life expectancy ranks, in both the (default) ascending and descending order.
+
+For concreteness, I use `mutate()` to actually create these variables, even though I dropped this in the solution above. Let's look at a bit of that.
 
 
 ```r
 asia %>%
   mutate(le_rank = min_rank(lifeExp),
-         le_desc_rank = min_rank(desc(lifeExp)))
+         le_desc_rank = min_rank(desc(lifeExp))) %>% 
+  filter(country %in% c("Afghanistan", "Japan", "Thailand"), year > 1995)
 ```
 
 ```
-## Source: local data frame [396 x 5]
-## Groups: year [12]
+## Source: local data frame [9 x 5]
+## Groups: year [3]
 ## 
-##     year          country lifeExp le_rank le_desc_rank
-##    (dbl)           (fctr)   (dbl)   (int)        (int)
-## 1   1952      Afghanistan  28.801       1           33
-## 2   1952          Bahrain  50.939      25            9
-## 3   1952       Bangladesh  37.484       7           27
-## 4   1952         Cambodia  39.417       9           25
-## 5   1952            China  44.000      16           18
-## 6   1952 Hong Kong, China  60.960      31            3
-## 7   1952            India  37.373       5           29
-## 8   1952        Indonesia  37.468       6           28
-## 9   1952             Iran  44.869      17           17
-## 10  1952             Iraq  45.320      18           16
-## ..   ...              ...     ...     ...          ...
+##    year     country lifeExp le_rank le_desc_rank
+##   <int>      <fctr>   <dbl>   <int>        <int>
+## 1  1997 Afghanistan  41.763       1           33
+## 2  2002 Afghanistan  42.129       1           33
+## 3  2007 Afghanistan  43.828       1           33
+## 4  1997       Japan  80.690      33            1
+## 5  2002       Japan  82.000      33            1
+## 6  2007       Japan  82.603      33            1
+## 7  1997    Thailand  67.521      12           22
+## 8  2002    Thailand  68.564      12           22
+## 9  2007    Thailand  70.616      12           22
 ```
+
+Afghanistan tends to present 1's in the `le_rank` variable, Japan tends to present 1's in the `le_desc_rank` variable and other countries, like Thailand, present less extreme ranks.
 
 You can understand the original `filter()` statement now:
 
@@ -504,14 +581,15 @@ These two sets of ranks are formed, within year group, and `filter()` retains ro
 
 If we had wanted just the min OR the max, an alternative approach using `top_n()` would have worked.
 
+
 ```r
-gtbl %>%
+my_gap %>%
   filter(continent == "Asia") %>%
   select(year, country, lifeExp) %>%
   arrange(year) %>%
   group_by(year) %>%
-  #top_n(1)               ## gets the min
-  top_n(1, desc(lifeExp)) ## gets the max
+  #top_n(1, wt = lifeExp)        ## gets the min
+  top_n(1, wt = desc(lifeExp)) ## gets the max
 ```
 
 ```
@@ -519,7 +597,7 @@ gtbl %>%
 ## Groups: year [12]
 ## 
 ##     year     country lifeExp
-##    (dbl)      (fctr)   (dbl)
+##    <int>      <fctr>   <dbl>
 ## 1   1952 Afghanistan  28.801
 ## 2   1957 Afghanistan  30.332
 ## 3   1962 Afghanistan  31.997
@@ -542,12 +620,16 @@ At this point, that's just too easy, so let's do it by continent while we're at 
 
 
 ```r
-gtbl %>%
-  group_by(continent, country) %>%
+my_gap %>%
   select(country, year, continent, lifeExp) %>%
-  mutate(le_delta = lifeExp - lag(lifeExp)) %>%
-  summarize(worst_le_delta = min(le_delta, na.rm = TRUE)) %>%
-  filter(min_rank(worst_le_delta) < 2) %>%
+  group_by(continent, country) %>%
+  ## within country, take (lifeExp in year i) - (lifeExp in year i - 1)
+  ## positive means lifeExp went up, negative means it went down
+  mutate(le_delta = lifeExp - lag(lifeExp)) %>% 
+  ## within country, retain the worst lifeExp change = smallest or most negative
+  summarize(worst_le_delta = min(le_delta, na.rm = TRUE)) %>% 
+  ## within continent, retain the row with the lowest worst_le_delta
+  top_n(-1, wt = worst_le_delta) %>% 
   arrange(worst_le_delta)
 ```
 
@@ -556,10 +638,10 @@ gtbl %>%
 ## Groups: continent [5]
 ## 
 ##   continent     country worst_le_delta
-##      (fctr)      (fctr)          (dbl)
+##      <fctr>      <fctr>          <dbl>
 ## 1    Africa      Rwanda        -20.421
-## 2  Americas El Salvador         -1.511
-## 3      Asia    Cambodia         -9.097
+## 2      Asia    Cambodia         -9.097
+## 3  Americas El Salvador         -1.511
 ## 4    Europe  Montenegro         -1.464
 ## 5   Oceania   Australia          0.170
 ```
@@ -568,7 +650,7 @@ Ponder that for a while. The subject matter and the code. Mostly you're seeing w
 
 Break the code into pieces, starting at the top, and inspect the intermediate results. That's certainly how I was able to *write* such a thing. These commands do not [leap fully formed out of anyone's forehead](http://tinyurl.com/athenaforehead) -- they are built up gradually, with lots of errors and refinements along the way. I'm not even sure it's a great idea to do so much manipulation in one fell swoop. Is the statement above really hard for you to read? If yes, then by all means break it into pieces and make some intermediate objects. Your code should be easy to write and read when you're done.
 
-In later tutorials, we'll explore more of `dplyr`, such as operations based on two datasets.
+In later tutorials, we'll explore more of dplyr, such as operations based on two datasets.
 
 ### Resources
 
@@ -580,7 +662,7 @@ In later tutorials, we'll explore more of `dplyr`, such as operations based on t
   * development home [on GitHub](https://github.com/hadley/dplyr)
   * [tutorial HW delivered](https://www.dropbox.com/sh/i8qnluwmuieicxc/AAAgt9tIKoIm7WZKIyK25lh6a) (note this links to a DropBox folder) at useR! 2014 conference
 
-[RStudio `dplyr` and `tidyr` cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf?version=0.99.687&mode=desktop). Remember you can get to these via *Help > Cheatsheets.*
+[RStudio Data Wrangling cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf), covering `dplyr` and `tidyr`. Remember you can get to these via *Help > Cheatsheets.* 
 
 [Excellent slides](https://github.com/tjmahr/MadR_Pipelines) on pipelines and `dplyr` by TJ Mahr, talk given to the Madison R Users Group.
 

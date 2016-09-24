@@ -12,25 +12,32 @@ knitr::opts_chunk$set(error = TRUE)
 
 ### Where were we?
 
-In the [introduction to `plyr`](block009_dplyr-intro.html), we used two very important verbs and an operator:
+In the [introduction to dplyr](block009_dplyr-intro.html), we used two very important verbs and an operator:
 
-  * `filter()` for subsetting data row-wise
+  * `filter()` for subsetting data with row logic
   * `select()` for subsetting data variable- or column-wise
   * the pipe operator `%>%`, which feeds the LHS as the first argument to the expression on the RHS
   
-Here we explore other `dplyr` functions, especially more verbs, for working with a single dataset.
+We also discussed dplyr's role inside the tidyverse and tibbles:
 
-#### Load `dplyr` and the Gapminder data
+  * dplyr is a core package in the [tidyverse](https://github.com/hadley/tidyverse) meta-package. Since we often make incidental usage of the others, we will load dplyr and the others via `library(tidyverse)`.
+  * The tidyverse embraces a special flavor of data frame, called a tibble. The `gapminder` dataset is stored as a tibble.  
 
-We use an excerpt of the Gapminder data and store it as a `tbl_df` object, basically an enhanced data.frame
+### Load dplyr and gapminder
+
+I choose to load the tidyverse, which will load dplyr, among other packages we use incidentally below. Also load gapminder.
 
 ```{r}
-suppressPackageStartupMessages(library(dplyr))
 library(gapminder)
-gtbl <- gapminder %>%
-  tbl_df
-gtbl %>%
-  glimpse
+library(tidyverse)
+```
+
+### Create a copy of gapminder
+
+We're going to be making changes to the `gapminder` tibble. To eliminate any confusion about whether you're operating on the version that comes with the package or whatnot, we create an explicit copy of `gapminder` for our experiments.
+
+```{r}
+(my_gap <- gapminder)
 ```
 
 ### Use `mutate()` to add new variables
@@ -38,30 +45,51 @@ gtbl %>%
 Imagine we wanted to recover each country's GDP. After all, the Gapminder data has a variable for population and GDP per capita. Let's multiply them together.
 
 ```{r}
-gtbl <- gtbl %>%
+my_gap <- my_gap %>%
   mutate(gdp = pop * gdpPercap)
-gtbl %>%
-  glimpse
+my_gap
 ```
 
-Hmmmm ... those GDP numbers are almost uselessly large and abstract. Consider the [advice of Randall Munroe of xkcd](http://fivethirtyeight.com/datalab/xkcd-randall-munroe-qanda-what-if/): "One thing that bothers me is large numbers presented without context... 'If I added a zero to this number, would the sentence containing it mean something different to me?' If the answer is 'no,' maybe the number has no business being in the sentence in the first place." Maybe it would be more meaningful to consumers of my tables and figures if I reported GDP per capita, *relative to some benchmark country*. Since Canada is my adopted home, I'll go with that.
+Hmmmm ... those GDP numbers are almost uselessly large and abstract. Consider the [advice of Randall Munroe of xkcd](http://fivethirtyeight.com/datalab/xkcd-randall-munroe-qanda-what-if/):
+
+>One thing that bothers me is large numbers presented without context... 'If I added a zero to this number, would the sentence containing it mean something different to me?' If the answer is 'no,' maybe the number has no business being in the sentence in the first place."
+
+Maybe it would be more meaningful to consumers of my tables and figures to stick with GDP per capita. But what if I reported GDP per capita, *relative to some benchmark country*. Since Canada is my adopted home, I'll go with that. How I achieve:
+
+  * Filter down to the rows for Canada.
+  * Create a new variable in `my_gap` by:
+    - Extracting the `gdpPercap` variable from the Canadian data.
+    - Replicating it once per country in the dataset, so it has the right length.
+  * Divide raw `gdpPercap` by this Canadian figure.
+  * Remove the temporary variable of replicated Canadian `gdpPercap`.
 
 ```{r}
-just_canada <- gtbl %>%
+canada <- my_gap %>%
   filter(country == "Canada")
-## this is a dangerous way to add this variable
+## this is a semi-dangerous way to add this variable
 ## doing it this way so we don't get too fancy yet
-gtbl <- gtbl %>%
-  mutate(canada = rep(just_canada$gdpPercap, nlevels(country)),
-         gdpPercapRel = gdpPercap / canada)
-gtbl %>%
-  select(country, year, gdpPercap, canada, gdpPercapRel)
-gtbl %>%
-  select(gdpPercapRel) %>%
-  summary
+## it would be nicer to join on year
+my_gap <- my_gap %>%
+  mutate(canada = rep(canada$gdpPercap, nlevels(country)),
+         gdpPercapRel = gdpPercap / canada,
+         canada = NULL)
 ```
 
-Note that, `mutate()` builds new variables sequentially so you can reference earlier ones (like `canada`) when defining later ones (like `gdpPercapRel`).
+Note that, `mutate()` builds new variables sequentially so you can reference earlier ones (like `canada`) when defining later ones (like `gdpPercapRel`). Also, you can get rid of a variable by setting it to `NULL`.
+
+How could we sanity check that this worked? The Canadian values for `gdpPercapRel` better all be 1!
+
+```{r}
+my_gap %>% 
+  filter(country == "Canada") %>% 
+  select(country, year, gdpPercapRel)
+```
+
+I perceive Canada to be a "high GDP" country, so I predict that the distribution of `gdpPercapRel` is located below 1, possibly even well below. Check your intuition!
+
+```{r}
+summary(my_gap$gdpPercapRel)
+```
 
 The relative GDP per capita numbers are, in general, well below 1. We see that most of the countries covered by this dataset have substantially lower GDP per capita, relative to Canada, across the entire time period.
 
@@ -70,14 +98,14 @@ The relative GDP per capita numbers are, in general, well below 1. We see that m
 Imagine you wanted this data ordered by year then country, as opposed to by country then year.
 
 ```{r}
-gtbl %>%
+my_gap %>%
   arrange(year, country)
 ```
 
 Or maybe you want just the data from 2007, sorted on life expectancy?
 
 ```{r}
-gtbl %>%
+my_gap %>%
   filter(year == 2007) %>%
   arrange(lifeExp)
 ```
@@ -85,7 +113,7 @@ gtbl %>%
 Oh, you'd like to sort on life expectancy in __desc__ending order? Then use `desc()`.
 
 ```{r}
-gtbl %>%
+my_gap %>%
   filter(year == 2007) %>%
   arrange(desc(lifeExp))
 ```
@@ -97,24 +125,24 @@ I advise that your analyses NEVER rely on rows or variables being in a specific 
 When I first cleaned this Gapminder excerpt, I was a [`camelCase`](http://en.wikipedia.org/wiki/CamelCase) person, but now I'm all about [`snake_case`](http://en.wikipedia.org/wiki/Snake_case). So I am vexed by the variable names I chose when I cleaned this data years ago. Let's rename some variables!
 
 ```{r}
-gtbl %>%
+my_gap %>%
   rename(life_exp = lifeExp,
          gdp_percap = gdpPercap,
          gdp_percap_rel = gdpPercapRel)
 ```
 
-I did NOT assign the post-rename object back to `gtbl` because that would make the chunks in this tutorial harder to copy/paste and run out of order. In real life, I would probably assign this back to `gtbl`, in a data preparation script, and proceed with the new variable names.
+I did NOT assign the post-rename object back to `my_gap` because that would make the chunks in this tutorial harder to copy/paste and run out of order. In real life, I would probably assign this back to `my_gap`, in a data preparation script, and proceed with the new variable names.
 
-### `group_by()` is a mighty weapon
+### `group_by()` + `summarize()` is a mighty weapon
 
 I have found ~~friends and family~~ collaborators love to ask seemingly innocuous questions like, "which country experienced the sharpest 5-year drop in life expectancy?". In fact, that is a totally natural question to ask. But if you are using a language that doesn't know about data, it's an incredibly annoying question to answer.
 
-`dplyr` offers powerful tools to solve this class of problem.
+dplyr offers powerful tools to solve this class of problem.
 
   * `group_by()` adds extra structure to your dataset -- grouping information -- which lays the groundwork for computations within the groups.
   * `summarize()` takes a dataset with $n$ observations, computes requested summaries, and returns a dataset with 1 observation.
   * window functions take a dataset with $n$ observations and return a dataset with $n$ observations.
-  * `do()` is the most general function you will use in a grouped data situation.
+  * You can also do very general computations on your groups with `do()`, though elsewhere in this course, I advocate hard for other approaches that I find more intuitive.
   
 Combined with the verbs you already know, these new tools allow you to solve an extremely diverse set of problems with relative ease.
 
@@ -123,7 +151,7 @@ Combined with the verbs you already know, these new tools allow you to solve an 
 Let's start with simple counting.  How many observations do we have per continent?
 
 ```{r}
-gtbl %>%
+my_gap %>%
   group_by(continent) %>%
   summarize(n_obs = n())
 ```
@@ -131,15 +159,22 @@ gtbl %>%
 The `tally()` function is a convenience function for this sort of thing.
 
 ```{r}
-gtbl %>%
+my_gap %>%
   group_by(continent) %>%
-  tally
+  tally()
 ```
 
-What if we wanted to add the number of unique countries for each continent?
+The `count()` function is even more convenient!
 
 ```{r}
-gtbl %>%
+my_gap %>% 
+  count(continent)
+```
+
+What if we wanted to add the number of unique countries for each continent? Use `n_distinct()`.
+
+```{r}
+my_gap %>%
   group_by(continent) %>%
   summarize(n_obs = n(),
             n_countries = n_distinct(country))
@@ -147,12 +182,12 @@ gtbl %>%
 
 #### General summarization
 
-The functions you'll apply within `summarize()` include classical statistical summaries, like `mean()`, `median()`, `sd()`, and `IQR`. Remember they are functions that take $n$ inputs and distill them down into 1 output.
+The functions you'll apply within `summarize()` include classical statistical summaries, like `mean()`, `median()`, `sd()`, and `IQR()`. Remember they are functions that take $n$ inputs and distill them down into 1 output.
 
 Although this may be statistically ill-advised, let's compute the average life expectancy by continent.
 
 ```{r}
-gtbl %>%
+my_gap %>%
   group_by(continent) %>%
   summarize(avg_lifeExp = mean(lifeExp))
 ```
@@ -160,15 +195,16 @@ gtbl %>%
 `summarize_each()` applies the same summary function(s) to multiple variables. Let's compute average and median life expectancy and GDP per capita by continent by year ... but only for 1952 and 2007.
 
 ```{r}
-gtbl %>%
+my_gap %>%
   filter(year %in% c(1952, 2007)) %>%
   group_by(continent, year) %>%
   summarise_each(funs(mean, median), lifeExp, gdpPercap)
 ```
 
 Let's focus just on Asia. What are the minimum and maximum life expectancies seen by year?
+
 ```{r}
-gtbl %>%
+my_gap %>%
   filter(continent == "Asia") %>%
   group_by(year) %>%
   summarize(min_lifeExp = min(lifeExp), max_lifeExp = max(lifeExp))
@@ -183,34 +219,39 @@ Recall that window functions take $n$ inputs and give back $n$ outputs. Here we 
 Let's revisit the worst and best life expectancies in Asia over time, but retaining info about *which* country contributes these extreme values.
 
 ```{r}
-gtbl %>%
+my_gap %>%
   filter(continent == "Asia") %>%
   select(year, country, lifeExp) %>%
-  arrange(year) %>%
   group_by(year) %>%
-  filter(min_rank(desc(lifeExp)) < 2 | min_rank(lifeExp) < 2)
+  filter(min_rank(desc(lifeExp)) < 2 | min_rank(lifeExp) < 2) %>% 
+  arrange(year) %>%
+  print(n = Inf)
 ```
 
 We see that (min = Agfhanistan, max = Japan) is the most frequent result, but Cambodia and Israel pop up at least once each as the min or max, respectively. That table should make you impatient for our upcoming work on tidying and reshaping data! Wouldn't it be nice to have one row per year?
 
-How did that actually work? First, I store and view the result including everything but the last `filter()` statement. All of these operations are familiar.
+How did that actually work? First, I store and view the result including everything but the last `filter()` statement. All of these operations should be familiar.
 
 ```{r}
-asia <- gtbl %>%
+asia <- my_gap %>%
   filter(continent == "Asia") %>%
   select(year, country, lifeExp) %>%
-  arrange(year) %>%
   group_by(year)
 asia
 ```
 
 Now we apply a window function -- `min_rank()`. Since `asia` is grouped by year, `min_rank()` operates within mini-datasets, each for a specific year. Applied to the variable `lifeExp`, `min_rank()` returns the rank of each country's observed life expectancy. FYI, the `min` part just specifies how ties are broken. Here is an explicit peek at these within-year life expectancy ranks, in both the (default) ascending and descending order.
 
+For concreteness, I use `mutate()` to actually create these variables, even though I dropped this in the solution above. Let's look at a bit of that.
+
 ```{r}
 asia %>%
   mutate(le_rank = min_rank(lifeExp),
-         le_desc_rank = min_rank(desc(lifeExp)))
+         le_desc_rank = min_rank(desc(lifeExp))) %>% 
+  filter(country %in% c("Afghanistan", "Japan", "Thailand"), year > 1995)
 ```
+
+Afghanistan tends to present 1's in the `le_rank` variable, Japan tends to present 1's in the `le_desc_rank` variable and other countries, like Thailand, present less extreme ranks.
 
 You can understand the original `filter()` statement now:
 
@@ -221,14 +262,15 @@ filter(min_rank(desc(lifeExp)) < 2 | min_rank(lifeExp) < 2)
 These two sets of ranks are formed, within year group, and `filter()` retains rows with rank less than 2, which means ... the row with rank = 1. Since we do for ascending and descending ranks, we get both the min and the max.
 
 If we had wanted just the min OR the max, an alternative approach using `top_n()` would have worked.
+
 ```{r}
-gtbl %>%
+my_gap %>%
   filter(continent == "Asia") %>%
   select(year, country, lifeExp) %>%
   arrange(year) %>%
   group_by(year) %>%
-  #top_n(1)               ## gets the min
-  top_n(1, desc(lifeExp)) ## gets the max
+  #top_n(1, wt = lifeExp)        ## gets the min
+  top_n(1, wt = desc(lifeExp)) ## gets the max
 ```
 
 #### Grand Finale
@@ -238,12 +280,16 @@ So let's answer that "simple" question: which country experienced the sharpest 5
 At this point, that's just too easy, so let's do it by continent while we're at it.
 
 ```{r}
-gtbl %>%
-  group_by(continent, country) %>%
+my_gap %>%
   select(country, year, continent, lifeExp) %>%
-  mutate(le_delta = lifeExp - lag(lifeExp)) %>%
-  summarize(worst_le_delta = min(le_delta, na.rm = TRUE)) %>%
-  filter(min_rank(worst_le_delta) < 2) %>%
+  group_by(continent, country) %>%
+  ## within country, take (lifeExp in year i) - (lifeExp in year i - 1)
+  ## positive means lifeExp went up, negative means it went down
+  mutate(le_delta = lifeExp - lag(lifeExp)) %>% 
+  ## within country, retain the worst lifeExp change = smallest or most negative
+  summarize(worst_le_delta = min(le_delta, na.rm = TRUE)) %>% 
+  ## within continent, retain the row with the lowest worst_le_delta
+  top_n(-1, wt = worst_le_delta) %>% 
   arrange(worst_le_delta)
 ```
 
@@ -251,7 +297,7 @@ Ponder that for a while. The subject matter and the code. Mostly you're seeing w
 
 Break the code into pieces, starting at the top, and inspect the intermediate results. That's certainly how I was able to *write* such a thing. These commands do not [leap fully formed out of anyone's forehead](http://tinyurl.com/athenaforehead) -- they are built up gradually, with lots of errors and refinements along the way. I'm not even sure it's a great idea to do so much manipulation in one fell swoop. Is the statement above really hard for you to read? If yes, then by all means break it into pieces and make some intermediate objects. Your code should be easy to write and read when you're done.
 
-In later tutorials, we'll explore more of `dplyr`, such as operations based on two datasets.
+In later tutorials, we'll explore more of dplyr, such as operations based on two datasets.
 
 ### Resources
 
@@ -263,7 +309,7 @@ In later tutorials, we'll explore more of `dplyr`, such as operations based on t
   * development home [on GitHub](https://github.com/hadley/dplyr)
   * [tutorial HW delivered](https://www.dropbox.com/sh/i8qnluwmuieicxc/AAAgt9tIKoIm7WZKIyK25lh6a) (note this links to a DropBox folder) at useR! 2014 conference
 
-[RStudio `dplyr` and `tidyr` cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf?version=0.99.687&mode=desktop). Remember you can get to these via *Help > Cheatsheets.*
+[RStudio Data Wrangling cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf), covering `dplyr` and `tidyr`. Remember you can get to these via *Help > Cheatsheets.* 
 
 [Excellent slides](https://github.com/tjmahr/MadR_Pipelines) on pipelines and `dplyr` by TJ Mahr, talk given to the Madison R Users Group.
 
