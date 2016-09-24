@@ -11,7 +11,7 @@
 
 
 
-<title>Homework 02: Explore Gapminder and use R markdown</title>
+<title>Homework 02: Explore Gapminder and use dplyr</title>
 
 <script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -144,7 +144,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Homework 02: Explore Gapminder and use R markdown</h1>
+<h1 class="title toc-ignore">Homework 02: Explore Gapminder and use dplyr</h1>
 
 </div>
 
@@ -155,6 +155,7 @@ $(document).ready(function () {
 <li><a href="#smell-test-the-data">Smell test the data</a></li>
 <li><a href="#explore-individual-variables">Explore individual variables</a></li>
 <li><a href="#explore-various-plot-types">Explore various plot types</a></li>
+<li><a href="#use-filter-select-and">Use <code>filter()</code>, <code>select()</code> and <code>%&gt;%</code></a></li>
 <li><a href="#but-i-want-to-do-more">But I want to do more!</a></li>
 </ul></li>
 <li><a href="#report-your-process">Report your process</a></li>
@@ -163,12 +164,11 @@ $(document).ready(function () {
 </ul>
 </div>
 
-<p><strong>WARNING: 2015 version!!</strong></p>
 <div id="overview" class="section level3">
 <h3>Overview</h3>
 <p>Consult the <a href="hw00_homework-guidelines.html">general homework guidelines</a>.</p>
-<p>Due sometime Tuesday 2015-09-29. Before class is better but get help in class or office hours of you need it.</p>
-<p>The goal is to explore a new-to-you dataset. In particular, to establish workflows based on <code>data.frame</code>. You will make several figures with <code>ggplot2</code>. You will learn how to author a dynamic report in R Markdown and share it on the web.</p>
+<p>Due sometime Tuesday 2016-09-27. Before class is better but get help in class or office hours of you need it.</p>
+<p>The goal is to explore a new-to-you dataset. In particular, to begin to establish a workflow for data frames or “tibbles”. You will use dplyr and ggplot2 to do some description and visualization.</p>
 <p>Remember the <a href="http://en.wikipedia.org/wiki/Sampler_(needlework)">sampler concept</a>. Your homework should serve as your own personal cheatsheet in the future for things to do with a new dataset. Give yourself the cheatsheet you deserve!</p>
 <div id="bring-rectangular-data-in" class="section level4">
 <h4>Bring rectangular data in</h4>
@@ -177,13 +177,16 @@ $(document).ready(function () {
 <p>Install it if you have not done so already and remember to load it.</p>
 <pre class="r"><code>install.packages(&quot;gapminder&quot;)
 library(gapminder)</code></pre>
+<p>Install and load dplyr. Probably via the tidyverse meta-package.</p>
+<pre class="r"><code>install.packages(&quot;tidyverse&quot;)
+library(tidyverse)</code></pre>
 </div>
 <div id="smell-test-the-data" class="section level4">
 <h4>Smell test the data</h4>
 <p>Explore the <code>gapminder</code> object:</p>
 <ul>
 <li>Is it a data.frame, a matrix, a vector, a list?</li>
-<li>What’s its mode, class?</li>
+<li>What’s its class?</li>
 <li>How many variables/columns?</li>
 <li>How many rows/observations?</li>
 <li>Can you get these facts about “extent” or “size” in more than one way? Can you imagine different functions being useful in different contexts?</li>
@@ -201,18 +204,38 @@ library(gapminder)</code></pre>
 </div>
 <div id="explore-various-plot-types" class="section level4">
 <h4>Explore various plot types</h4>
-<p>See the <a href="https://github.com/jennybc/ggplot2-tutorial"><code>ggplot2</code> tutorial</a>, which also uses the <code>gapminder</code> data for ideas. But I want to see you exploring multiple types of plot.</p>
+<p>See the <a href="https://github.com/jennybc/ggplot2-tutorial"><code>ggplot2</code> tutorial</a>, which also uses the <code>gapminder</code> data, for ideas.</p>
+<p>Make a few plots, probably of the same variable you chose to characterize numerically. Try to explore more than one plot type. <strong>Just as an example</strong> of what I mean:</p>
+<ul>
+<li>A scatterplot of two quantitative variables.</li>
+<li>A plot of one quantitative variable. Maybe a histogram or densityplot or frequency polygon.</li>
+<li>A plot of one quantitative variable and one categorical. Maybe boxplots for several continents or countries.</li>
+</ul>
+<p>You don’t have to use all the data in every plot! It’s fine to filter down to one country or small handful of countries.</p>
+</div>
+<div id="use-filter-select-and" class="section level4">
+<h4>Use <code>filter()</code>, <code>select()</code> and <code>%&gt;%</code></h4>
+<p>Use <code>filter()</code> to create data subsets that you want to plot.</p>
+<p>Practice piping together <code>filter()</code> and <code>select()</code>. Possibly even piping into <code>ggplot()</code>.</p>
 </div>
 <div id="but-i-want-to-do-more" class="section level4">
 <h4>But I want to do more!</h4>
-<p><em>This is just for people who want to take things further! NOT REQUIRED!</em></p>
-<p>Do more statistical summarization and visual exploration. For example, start to look at the relationships between variables.</p>
+<p><em>For people who want to take things further.</em></p>
+<p>Evaluate this code and describe the result. Presumably the analyst’s intent was to get the data for Rwanda and Afghanistan. Did she succeed? Why or why not? If not, what is the correct way to do this?</p>
+<pre><code>filter(gapminder, country == c(&quot;Rwanda&quot;, &quot;Afghanistan&quot;))</code></pre>
 <p>Read <a href="http://simplystatistics.org/2014/06/13/what-i-do-when-i-get-a-new-data-set-as-told-through-tweets/">What I do when I get a new data set as told through tweets</a> from <a href="http://simplystatistics.org">SimplyStatistics</a> to get some ideas!</p>
+<p>Present numerical tables in a more attractive form, such as using <code>knitr::kable()</code>.</p>
+<p>Use more of the dplyr functions for operating on a single table.</p>
+<ul>
+<li><a href="block009_dplyr-intro.html">Introduction to dplyr</a></li>
+<li><a href="block010_dplyr-end-single-table.html"><code>dplyr</code> functions for a single dataset</a></li>
+</ul>
+<p>Adapt exercises from the chapters in the “Explore” section of <a href="http://r4ds.had.co.nz">R for Data Science</a> to the Gapminder dataset.</p>
 </div>
 </div>
 <div id="report-your-process" class="section level3">
 <h3>Report your process</h3>
-<p>You’re encouraged to reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc.</p>
+<p>Reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc. What things were hard, even though you saw them in class? What was easy(-ish) even though we haven’t done it in class?</p>
 </div>
 <div id="submit-the-assignment" class="section level3">
 <h3>Submit the assignment</h3>
@@ -221,9 +244,9 @@ library(gapminder)</code></pre>
 <div id="rubric" class="section level3">
 <h3>Rubric</h3>
 <p>Our <a href="peer-review01_marking-rubric.html">general rubric</a> applies, but also …</p>
-<p>Check minus: Hits the elements listed above in a really minimal or rote way, maybe even with a few mistakes/omissions. And/or it’s hard to figure out which file I’m even supposed to be looking at.</p>
+<p>Check minus: There are some mistakes or omissions, such as the number of rows or variables in the data frame. Or maybe no confirmation of its class or that of the variables inside. There are no plots or there’s just one type of plot (and its probably a scatterplot). There’s no use of <code>filter()</code> or <code>select()</code>. It’s hard to figure out which file I’m supposed to be looking at. Maybe the student forgot to commit and push the figures to GitHub.</p>
 <p>Check: Hits all the elements. No obvious mistakes. Pleasant to read. No heroic detective work required. Solid.</p>
-<p>Check plus: Some “above and beyond”, creativity, etc. You learned something new from reviewing their work and you’re eager to incorporate it into your work now.</p>
+<p>Check plus: Some “above and beyond”, creativity, etc. You learned something new from reviewing their work and you’re eager to incorporate it into your work now. Use of dplyr goes beyond <code>filter()</code> and <code>select()</code>. The ggplot2 figures are quite diverse. The repo is very organized and it’s a breeze to find the file for this homework specifically.</p>
 </div>
 
 <div class="footer">

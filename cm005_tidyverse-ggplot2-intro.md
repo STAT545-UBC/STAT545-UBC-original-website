@@ -10,7 +10,7 @@ output:
   * You should submit [Homework 01](hw01_edit-README.html) sometime today!
     - Get help in class [office hours](https://github.com/STAT545-UBC/Discussion/issues/312) if you're struggling.
   * Peer review will be set in motion soon via Issues. I'll announce via [Discussion](https://github.com/STAT545-UBC/Discussion/issues) so you'll know when to look for notification.
-  * Homework 02 due before class next Tuesday 2016-09-27. It will be a lightly refreshed version of 2015's [Homework 02](hw02_explore-gapminder-use-rmarkdown.html).
+  * [Homework 02](hw02_explore-gapminder-dplyr.html) due next Tuesday 2016-09-27.
   * Today. I will be drawing from (and then revising) these topics:
     - Care and feeding of data frames -- or tibbles! -- with the [`tidyverse`](https://github.com/hadley/tidyverse)
     - Slides with very simple view of some R objects [on Speakerdeck](https://speakerdeck.com/jennybc/simple-view-of-r-objects)

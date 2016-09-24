@@ -43,7 +43,7 @@ oct-18 tues    cm013: Practical graphing tips
 oct-20 thurs   cm014: Visualization Analysis and Design: Tamara Munzer guest lecture (TBC)                                        
 
   * [Homework 01](hw01_edit-README.html) Edit `README.md`, use R Markdown to explore Gapminder
-  * Homework 02 More Gapminder and R markdown, but add `ggplot2`
+  * [Homework 02](hw02_explore-gapminder-dplyr.html) Explore Gapminder as a tibble and starting using dplyr and ggplot2
   * Homework 03 Manipulate, summarize, visualize Gapminder with the tidyverse
   * Homework 04 Use your own functions with split-apply-combine and functional programming
   * Homework 05 Prove you are in control of factors and figures. Clean up your repo.
