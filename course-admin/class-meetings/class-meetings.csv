@@ -12,16 +12,16 @@ cm010,STAT545A,thurs,october,6,FALSE,"Minimum ""need to know"" re: R as a progra
 cm011,STAT545A,tues,october,11,FALSE,Getting data out of R (and back in)
 cm012,STAT545A,thurs,october,13,FALSE,Be the boss of your factors
 cm013,STAT545A,tues,october,18,FALSE,"Revisit ggplot, practicalities of daily figure-making"
-cm014,STAT545A,thurs,october,20,FALSE,Visualization Analysis and Design: Tamara Munzer guest lecture (TBC)
+cm014,STAT545A,thurs,october,20,FALSE,Visualization Analysis and Design: Tamara Munzer guest lecture
 cm101,STAT547M,tues,october,25,FALSE,Regular expressions and character data
 cm102,STAT547M,thurs,october,27,FALSE,Writing your own R functions
 cm103,STAT547M,tues,november,1,FALSE,"purrr, list-columns, nested data frames 1"
 cm104,STAT547M,thurs,november,3,FALSE,"purrr, list-columns, nested data frames 2"
-cm105,STAT547M,tues,november,8,FALSE,Build your first R package
+cm105,STAT547M,tues,november,8,FALSE,Automate tasks and pipelines
 cm106,STAT547M,thurs,november,10,FALSE,ditto
 cm107,STAT547M,tues,november,15,FALSE,Build your first Shiny app
 cm108,STAT547M,thurs,november,17,FALSE,ditto
-cm109,STAT547M,tues,november,22,FALSE,Get data from the web (scraping and APIs)
+cm109,STAT547M,tues,november,22,FALSE,Build your first R package
 cm110,STAT547M,thurs,november,24,FALSE,ditto
-cm111,STAT547M,tues,november,29,FALSE,Automate tasks and pipelines
+cm111,STAT547M,tues,november,29,FALSE,Get data from the web (scraping and APIs)
 cm112,STAT547M,thurs,december,1,FALSE,ditto
