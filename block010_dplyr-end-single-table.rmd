@@ -44,6 +44,8 @@ We're going to be making changes to the `gapminder` tibble. To eliminate any con
 
 Imagine we wanted to recover each country's GDP. After all, the Gapminder data has a variable for population and GDP per capita. Let's multiply them together.
 
+`mutate()` is a function that defines and inserts new variables into a tibble. You can refer to existing variables by name.
+
 ```{r}
 my_gap <- my_gap %>%
   mutate(gdp = pop * gdpPercap)
@@ -54,21 +56,24 @@ Hmmmm ... those GDP numbers are almost uselessly large and abstract. Consider th
 
 >One thing that bothers me is large numbers presented without context... 'If I added a zero to this number, would the sentence containing it mean something different to me?' If the answer is 'no,' maybe the number has no business being in the sentence in the first place."
 
-Maybe it would be more meaningful to consumers of my tables and figures to stick with GDP per capita. But what if I reported GDP per capita, *relative to some benchmark country*. Since Canada is my adopted home, I'll go with that. How I achieve:
+Maybe it would be more meaningful to consumers of my tables and figures to stick with GDP per capita. But what if I reported GDP per capita, *relative to some benchmark country*. Since Canada is my adopted home, I'll go with that. 
+
+I need to create a new variable that is `gdpPercap` divided by Canadian `gdpPercap`, taking care that I always divide two numbers that pertain to the same year.
+
+How I achieve:
 
   * Filter down to the rows for Canada.
-  * Create a new variable in `my_gap` by:
-    - Extracting the `gdpPercap` variable from the Canadian data.
-    - Replicating it once per country in the dataset, so it has the right length.
+  * Create a new variable in `my_gap`:
+    - Extract the `gdpPercap` variable from the Canadian data.
+    - Replicate it once per country in the dataset, so it has the right length.
   * Divide raw `gdpPercap` by this Canadian figure.
-  * Remove the temporary variable of replicated Canadian `gdpPercap`.
+  * Discard the temporary variable of replicated Canadian `gdpPercap`.
 
 ```{r}
 canada <- my_gap %>%
   filter(country == "Canada")
 ## this is a semi-dangerous way to add this variable
-## doing it this way so we don't get too fancy yet
-## it would be nicer to join on year
+## I'd prefer to join on year, but we haven't covered joins yet
 my_gap <- my_gap %>%
   mutate(canada = rep(canada$gdpPercap, nlevels(country)),
          gdpPercapRel = gdpPercap / canada,
@@ -93,9 +98,11 @@ summary(my_gap$gdpPercapRel)
 
 The relative GDP per capita numbers are, in general, well below 1. We see that most of the countries covered by this dataset have substantially lower GDP per capita, relative to Canada, across the entire time period.
 
+Remember: Trust No One. Including (especially?) yourself. Always try to find a way to check that you've done what meant to. Prepare to be horrified.
+
 ### Use `arrange()` to row-order data in a principled way
 
-Imagine you wanted this data ordered by year then country, as opposed to by country then year.
+`arrange()` reorders the rows in a data frame. Imagine you wanted this data ordered by year then country, as opposed to by country then year.
 
 ```{r}
 my_gap %>%
@@ -110,7 +117,7 @@ my_gap %>%
   arrange(lifeExp)
 ```
 
-Oh, you'd like to sort on life expectancy in __desc__ending order? Then use `desc()`.
+Oh, you'd like to sort on life expectancy in **desc**ending order? Then use `desc()`.
 
 ```{r}
 my_gap %>%
@@ -133,7 +140,7 @@ my_gap %>%
 
 I did NOT assign the post-rename object back to `my_gap` because that would make the chunks in this tutorial harder to copy/paste and run out of order. In real life, I would probably assign this back to `my_gap`, in a data preparation script, and proceed with the new variable names.
 
-### `group_by()` + `summarize()` is a mighty weapon
+### `group_by()` is a mighty weapon
 
 I have found ~~friends and family~~ collaborators love to ask seemingly innocuous questions like, "which country experienced the sharpest 5-year drop in life expectancy?". In fact, that is a totally natural question to ask. But if you are using a language that doesn't know about data, it's an incredibly annoying question to answer.
 
@@ -141,8 +148,9 @@ dplyr offers powerful tools to solve this class of problem.
 
   * `group_by()` adds extra structure to your dataset -- grouping information -- which lays the groundwork for computations within the groups.
   * `summarize()` takes a dataset with $n$ observations, computes requested summaries, and returns a dataset with 1 observation.
-  * window functions take a dataset with $n$ observations and return a dataset with $n$ observations.
-  * You can also do very general computations on your groups with `do()`, though elsewhere in this course, I advocate hard for other approaches that I find more intuitive.
+  * Window functions take a dataset with $n$ observations and return a dataset with $n$ observations.
+  * `mutate()` will honor the groups.
+  * You can also do very general computations on your groups with `do()`, though elsewhere in this course, I advocate for other approaches that I find more intuitive, using the `purrr` package.
   
 Combined with the verbs you already know, these new tools allow you to solve an extremely diverse set of problems with relative ease.
 
@@ -156,7 +164,16 @@ my_gap %>%
   summarize(n_obs = n())
 ```
 
-The `tally()` function is a convenience function for this sort of thing.
+Let us pause here to think about the tidyverse. You could get these same frequencies using `table()` from base R.
+
+```{r}
+table(gapminder$continent)
+str(table(gapminder$continent))
+```
+
+But the object of class `table` that you get back often makes downstream computation a bit fiddlier than you'd like. For example, it's too bad the continent levels come back only as *names* and not as a proper factor, with the original set of levels.
+
+The `tally()` function is a convenience function that knows to count rows.
 
 ```{r}
 my_gap %>%
@@ -164,14 +181,14 @@ my_gap %>%
   tally()
 ```
 
-The `count()` function is even more convenient!
+The `count()` function is an even more convenient function that does both grouping and counting.
 
 ```{r}
 my_gap %>% 
   count(continent)
 ```
 
-What if we wanted to add the number of unique countries for each continent? Use `n_distinct()`.
+What if we wanted to add the number of unique countries for each continent? You can compute multiple summaries inside `summarize()`. Use the `n_distinct()` function to count the number of distinct countries within each continent.
 
 ```{r}
 my_gap %>%
@@ -228,9 +245,9 @@ my_gap %>%
   print(n = Inf)
 ```
 
-We see that (min = Agfhanistan, max = Japan) is the most frequent result, but Cambodia and Israel pop up at least once each as the min or max, respectively. That table should make you impatient for our upcoming work on tidying and reshaping data! Wouldn't it be nice to have one row per year?
+We see that (min = Afghanistan, max = Japan) is the most frequent result, but Cambodia and Israel pop up at least once each as the min or max, respectively. That table should make you impatient for our upcoming work on tidying and reshaping data! Wouldn't it be nice to have one row per year?
 
-How did that actually work? First, I store and view the result including everything but the last `filter()` statement. All of these operations should be familiar.
+How did that actually work? First, I store and view a partial that leaves off the `filter()` statement. All of these operations should be familiar.
 
 ```{r}
 asia <- my_gap %>%
@@ -259,7 +276,7 @@ You can understand the original `filter()` statement now:
 filter(min_rank(desc(lifeExp)) < 2 | min_rank(lifeExp) < 2)
 ```
 
-These two sets of ranks are formed, within year group, and `filter()` retains rows with rank less than 2, which means ... the row with rank = 1. Since we do for ascending and descending ranks, we get both the min and the max.
+These two sets of ranks are formed on-the-fly, within year group, and `filter()` retains rows with rank less than 2, which means ... the row with rank = 1. Since we do for ascending and descending ranks, we get both the min and the max.
 
 If we had wanted just the min OR the max, an alternative approach using `top_n()` would have worked.
 

@@ -156,7 +156,7 @@ $(document).ready(function () {
 <li><a href="#use-mutate-to-add-new-variables">Use <code>mutate()</code> to add new variables</a></li>
 <li><a href="#use-arrange-to-row-order-data-in-a-principled-way">Use <code>arrange()</code> to row-order data in a principled way</a></li>
 <li><a href="#use-rename-to-rename-variables">Use <code>rename()</code> to rename variables</a></li>
-<li><a href="#group_by-summarize-is-a-mighty-weapon"><code>group_by()</code> + <code>summarize()</code> is a mighty weapon</a><ul>
+<li><a href="#group_by-is-a-mighty-weapon"><code>group_by()</code> is a mighty weapon</a><ul>
 <li><a href="#counting-things-up">Counting things up</a></li>
 <li><a href="#general-summarization">General summarization</a></li>
 <li><a href="#window-functions">Window functions</a></li>
@@ -217,6 +217,7 @@ library(tidyverse)</code></pre>
 <div id="use-mutate-to-add-new-variables" class="section level3">
 <h3>Use <code>mutate()</code> to add new variables</h3>
 <p>Imagine we wanted to recover each country’s GDP. After all, the Gapminder data has a variable for population and GDP per capita. Let’s multiply them together.</p>
+<p><code>mutate()</code> is a function that defines and inserts new variables into a tibble. You can refer to existing variables by name.</p>
 <pre class="r"><code>my_gap &lt;- my_gap %&gt;%
   mutate(gdp = pop * gdpPercap)
 my_gap</code></pre>
@@ -238,22 +239,23 @@ my_gap</code></pre>
 <blockquote>
 <p>One thing that bothers me is large numbers presented without context… ‘If I added a zero to this number, would the sentence containing it mean something different to me?’ If the answer is ‘no,’ maybe the number has no business being in the sentence in the first place.&quot;</p>
 </blockquote>
-<p>Maybe it would be more meaningful to consumers of my tables and figures to stick with GDP per capita. But what if I reported GDP per capita, <em>relative to some benchmark country</em>. Since Canada is my adopted home, I’ll go with that. How I achieve:</p>
+<p>Maybe it would be more meaningful to consumers of my tables and figures to stick with GDP per capita. But what if I reported GDP per capita, <em>relative to some benchmark country</em>. Since Canada is my adopted home, I’ll go with that.</p>
+<p>I need to create a new variable that is <code>gdpPercap</code> divided by Canadian <code>gdpPercap</code>, taking care that I always divide two numbers that pertain to the same year.</p>
+<p>How I achieve:</p>
 <ul>
 <li>Filter down to the rows for Canada.</li>
-<li>Create a new variable in <code>my_gap</code> by:
+<li>Create a new variable in <code>my_gap</code>:
 <ul>
-<li>Extracting the <code>gdpPercap</code> variable from the Canadian data.</li>
-<li>Replicating it once per country in the dataset, so it has the right length.</li>
+<li>Extract the <code>gdpPercap</code> variable from the Canadian data.</li>
+<li>Replicate it once per country in the dataset, so it has the right length.</li>
 </ul></li>
 <li>Divide raw <code>gdpPercap</code> by this Canadian figure.</li>
-<li>Remove the temporary variable of replicated Canadian <code>gdpPercap</code>.</li>
+<li>Discard the temporary variable of replicated Canadian <code>gdpPercap</code>.</li>
 </ul>
 <pre class="r"><code>canada &lt;- my_gap %&gt;%
   filter(country == &quot;Canada&quot;)
 ## this is a semi-dangerous way to add this variable
-## doing it this way so we don&#39;t get too fancy yet
-## it would be nicer to join on year
+## I&#39;d prefer to join on year, but we haven&#39;t covered joins yet
 my_gap &lt;- my_gap %&gt;%
   mutate(canada = rep(canada$gdpPercap, nlevels(country)),
          gdpPercapRel = gdpPercap / canada,
@@ -283,10 +285,11 @@ my_gap &lt;- my_gap %&gt;%
 <pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
 ## 0.007236 0.061650 0.171500 0.326700 0.446600 9.535000</code></pre>
 <p>The relative GDP per capita numbers are, in general, well below 1. We see that most of the countries covered by this dataset have substantially lower GDP per capita, relative to Canada, across the entire time period.</p>
+<p>Remember: Trust No One. Including (especially?) yourself. Always try to find a way to check that you’ve done what meant to. Prepare to be horrified.</p>
 </div>
 <div id="use-arrange-to-row-order-data-in-a-principled-way" class="section level3">
 <h3>Use <code>arrange()</code> to row-order data in a principled way</h3>
-<p>Imagine you wanted this data ordered by year then country, as opposed to by country then year.</p>
+<p><code>arrange()</code> reorders the rows in a data frame. Imagine you wanted this data ordered by year then country, as opposed to by country then year.</p>
 <pre class="r"><code>my_gap %&gt;%
   arrange(year, country)</code></pre>
 <pre><code>## # A tibble: 1,704 × 8
@@ -322,7 +325,7 @@ my_gap &lt;- my_gap %&gt;%
 ## 10                  Liberia    Africa  2007  45.678  3193942  414.5073
 ## # ... with 132 more rows, and 2 more variables: gdp &lt;dbl&gt;,
 ## #   gdpPercapRel &lt;dbl&gt;</code></pre>
-<p>Oh, you’d like to sort on life expectancy in __desc__ending order? Then use <code>desc()</code>.</p>
+<p>Oh, you’d like to sort on life expectancy in <strong>desc</strong>ending order? Then use <code>desc()</code>.</p>
 <pre class="r"><code>my_gap %&gt;%
   filter(year == 2007) %&gt;%
   arrange(desc(lifeExp))</code></pre>
@@ -366,15 +369,16 @@ my_gap &lt;- my_gap %&gt;%
 ## # ... with 1,694 more rows, and 1 more variables: gdp_percap_rel &lt;dbl&gt;</code></pre>
 <p>I did NOT assign the post-rename object back to <code>my_gap</code> because that would make the chunks in this tutorial harder to copy/paste and run out of order. In real life, I would probably assign this back to <code>my_gap</code>, in a data preparation script, and proceed with the new variable names.</p>
 </div>
-<div id="group_by-summarize-is-a-mighty-weapon" class="section level3">
-<h3><code>group_by()</code> + <code>summarize()</code> is a mighty weapon</h3>
+<div id="group_by-is-a-mighty-weapon" class="section level3">
+<h3><code>group_by()</code> is a mighty weapon</h3>
 <p>I have found <del>friends and family</del> collaborators love to ask seemingly innocuous questions like, “which country experienced the sharpest 5-year drop in life expectancy?”. In fact, that is a totally natural question to ask. But if you are using a language that doesn’t know about data, it’s an incredibly annoying question to answer.</p>
 <p>dplyr offers powerful tools to solve this class of problem.</p>
 <ul>
 <li><code>group_by()</code> adds extra structure to your dataset – grouping information – which lays the groundwork for computations within the groups.</li>
 <li><code>summarize()</code> takes a dataset with <span class="math inline">\(n\)</span> observations, computes requested summaries, and returns a dataset with 1 observation.</li>
-<li>window functions take a dataset with <span class="math inline">\(n\)</span> observations and return a dataset with <span class="math inline">\(n\)</span> observations.</li>
-<li>You can also do very general computations on your groups with <code>do()</code>, though elsewhere in this course, I advocate hard for other approaches that I find more intuitive.</li>
+<li>Window functions take a dataset with <span class="math inline">\(n\)</span> observations and return a dataset with <span class="math inline">\(n\)</span> observations.</li>
+<li><code>mutate()</code> will honor the groups.</li>
+<li>You can also do very general computations on your groups with <code>do()</code>, though elsewhere in this course, I advocate for other approaches that I find more intuitive, using the <code>purrr</code> package.</li>
 </ul>
 <p>Combined with the verbs you already know, these new tools allow you to solve an extremely diverse set of problems with relative ease.</p>
 <div id="counting-things-up" class="section level4">
@@ -391,7 +395,17 @@ my_gap &lt;- my_gap %&gt;%
 ## 3      Asia   396
 ## 4    Europe   360
 ## 5   Oceania    24</code></pre>
-<p>The <code>tally()</code> function is a convenience function for this sort of thing.</p>
+<p>Let us pause here to think about the tidyverse. You could get these same frequencies using <code>table()</code> from base R.</p>
+<pre class="r"><code>table(gapminder$continent)</code></pre>
+<pre><code>## 
+##   Africa Americas     Asia   Europe  Oceania 
+##      624      300      396      360       24</code></pre>
+<pre class="r"><code>str(table(gapminder$continent))</code></pre>
+<pre><code>##  &#39;table&#39; int [1:5(1d)] 624 300 396 360 24
+##  - attr(*, &quot;dimnames&quot;)=List of 1
+##   ..$ : chr [1:5] &quot;Africa&quot; &quot;Americas&quot; &quot;Asia&quot; &quot;Europe&quot; ...</code></pre>
+<p>But the object of class <code>table</code> that you get back often makes downstream computation a bit fiddlier than you’d like. For example, it’s too bad the continent levels come back only as <em>names</em> and not as a proper factor, with the original set of levels.</p>
+<p>The <code>tally()</code> function is a convenience function that knows to count rows.</p>
 <pre class="r"><code>my_gap %&gt;%
   group_by(continent) %&gt;%
   tally()</code></pre>
@@ -403,7 +417,7 @@ my_gap &lt;- my_gap %&gt;%
 ## 3      Asia   396
 ## 4    Europe   360
 ## 5   Oceania    24</code></pre>
-<p>The <code>count()</code> function is even more convenient!</p>
+<p>The <code>count()</code> function is an even more convenient function that does both grouping and counting.</p>
 <pre class="r"><code>my_gap %&gt;% 
   count(continent)</code></pre>
 <pre><code>## # A tibble: 5 × 2
@@ -414,7 +428,7 @@ my_gap &lt;- my_gap %&gt;%
 ## 3      Asia   396
 ## 4    Europe   360
 ## 5   Oceania    24</code></pre>
-<p>What if we wanted to add the number of unique countries for each continent? Use <code>n_distinct()</code>.</p>
+<p>What if we wanted to add the number of unique countries for each continent? You can compute multiple summaries inside <code>summarize()</code>. Use the <code>n_distinct()</code> function to count the number of distinct countries within each continent.</p>
 <pre class="r"><code>my_gap %&gt;%
   group_by(continent) %&gt;%
   summarize(n_obs = n(),
@@ -526,8 +540,8 @@ my_gap &lt;- my_gap %&gt;%
 ## 22  2002       Japan  82.000
 ## 23  2007 Afghanistan  43.828
 ## 24  2007       Japan  82.603</code></pre>
-<p>We see that (min = Agfhanistan, max = Japan) is the most frequent result, but Cambodia and Israel pop up at least once each as the min or max, respectively. That table should make you impatient for our upcoming work on tidying and reshaping data! Wouldn’t it be nice to have one row per year?</p>
-<p>How did that actually work? First, I store and view the result including everything but the last <code>filter()</code> statement. All of these operations should be familiar.</p>
+<p>We see that (min = Afghanistan, max = Japan) is the most frequent result, but Cambodia and Israel pop up at least once each as the min or max, respectively. That table should make you impatient for our upcoming work on tidying and reshaping data! Wouldn’t it be nice to have one row per year?</p>
+<p>How did that actually work? First, I store and view a partial that leaves off the <code>filter()</code> statement. All of these operations should be familiar.</p>
 <pre class="r"><code>asia &lt;- my_gap %&gt;%
   filter(continent == &quot;Asia&quot;) %&gt;%
   select(year, country, lifeExp) %&gt;%
@@ -572,7 +586,7 @@ asia</code></pre>
 <p>Afghanistan tends to present 1’s in the <code>le_rank</code> variable, Japan tends to present 1’s in the <code>le_desc_rank</code> variable and other countries, like Thailand, present less extreme ranks.</p>
 <p>You can understand the original <code>filter()</code> statement now:</p>
 <pre class="r"><code>filter(min_rank(desc(lifeExp)) &lt; 2 | min_rank(lifeExp) &lt; 2)</code></pre>
-<p>These two sets of ranks are formed, within year group, and <code>filter()</code> retains rows with rank less than 2, which means … the row with rank = 1. Since we do for ascending and descending ranks, we get both the min and the max.</p>
+<p>These two sets of ranks are formed on-the-fly, within year group, and <code>filter()</code> retains rows with rank less than 2, which means … the row with rank = 1. Since we do for ascending and descending ranks, we get both the min and the max.</p>
 <p>If we had wanted just the min OR the max, an alternative approach using <code>top_n()</code> would have worked.</p>
 <pre class="r"><code>my_gap %&gt;%
   filter(continent == &quot;Asia&quot;) %&gt;%
