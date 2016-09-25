@@ -12,9 +12,9 @@ knitr::opts_chunk$set(error = TRUE)
 
 ### Intro
 
-`dplyr` is a package for data manipulation, developed by Hadley Wickham and Romain Francois. It is built to be fast, highly expressive, and open-minded about how your data is stored. It is installed as part of the the [`tidyverse`](https://github.com/hadley/tidyverse) meta-package and, as a core package, it is also among those loaded via `library(tidyverse)`.
+`dplyr` is a package for data manipulation, developed by Hadley Wickham and Romain Francois. It is built to be fast, highly expressive, and open-minded about how your data is stored. It is installed as part of the the [`tidyverse`](https://github.com/hadley/tidyverse) meta-package and, as a core package, it is among those loaded via `library(tidyverse)`.
 
-`dplyr`'s roots are in an earlier, still-very-useful package called [`plyr`](http://plyr.had.co.nz), which implements the "split-apply-combine" strategy for data analysis. Where `plyr` covers a diverse set of inputs and outputs (e.g., arrays, data frames, lists), `dplyr` has a laser-like focus on data frames or, in the `tidyverse`, "tibbles".
+`dplyr`'s roots are in an earlier package called [`plyr`](http://plyr.had.co.nz), which implements the ["split-apply-combine" strategy for data analysis](https://www.jstatsoft.org/article/view/v040i01) (PDF). Where `plyr` covers a diverse set of inputs and outputs (e.g., arrays, data frames, lists), `dplyr` has a laser-like focus on data frames or, in the `tidyverse`, "tibbles". `dplyr` is a package-level treament of the `ddply()` function from `plyr`, because "data frame in, data frame out" proved to be so incredibly important.
 
 Have no idea what I'm talking about? Not sure if you care? If you use these base R functions: `subset()`, `apply()`, `[sl]apply()`, `tapply()`, `aggregate()`, `split()`, `do.call()`, `with()`, `within()`, then you should keep reading. Also, if you use `for()` loops alot, you might enjoy learning other ways to iterate over rows or groups of rows or variables in a data frame.
 
@@ -77,7 +77,7 @@ Reality can also lie somewhere in between. You will find the workflows presented
 
 ```{r}
 filter(gapminder, lifeExp < 29)
-filter(gapminder, country == "Rwanda")
+filter(gapminder, country == "Rwanda", year > 1979)
 filter(gapminder, country %in% c("Rwanda", "Afghanistan"))
 ```
 

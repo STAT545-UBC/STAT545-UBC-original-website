@@ -166,8 +166,8 @@ $(document).ready(function () {
 
 <div id="intro" class="section level3">
 <h3>Intro</h3>
-<p><code>dplyr</code> is a package for data manipulation, developed by Hadley Wickham and Romain Francois. It is built to be fast, highly expressive, and open-minded about how your data is stored. It is installed as part of the the <a href="https://github.com/hadley/tidyverse"><code>tidyverse</code></a> meta-package and, as a core package, it is also among those loaded via <code>library(tidyverse)</code>.</p>
-<p><code>dplyr</code>’s roots are in an earlier, still-very-useful package called <a href="http://plyr.had.co.nz"><code>plyr</code></a>, which implements the “split-apply-combine” strategy for data analysis. Where <code>plyr</code> covers a diverse set of inputs and outputs (e.g., arrays, data frames, lists), <code>dplyr</code> has a laser-like focus on data frames or, in the <code>tidyverse</code>, “tibbles”.</p>
+<p><code>dplyr</code> is a package for data manipulation, developed by Hadley Wickham and Romain Francois. It is built to be fast, highly expressive, and open-minded about how your data is stored. It is installed as part of the the <a href="https://github.com/hadley/tidyverse"><code>tidyverse</code></a> meta-package and, as a core package, it is among those loaded via <code>library(tidyverse)</code>.</p>
+<p><code>dplyr</code>’s roots are in an earlier package called <a href="http://plyr.had.co.nz"><code>plyr</code></a>, which implements the <a href="https://www.jstatsoft.org/article/view/v040i01">“split-apply-combine” strategy for data analysis</a> (PDF). Where <code>plyr</code> covers a diverse set of inputs and outputs (e.g., arrays, data frames, lists), <code>dplyr</code> has a laser-like focus on data frames or, in the <code>tidyverse</code>, “tibbles”. <code>dplyr</code> is a package-level treament of the <code>ddply()</code> function from <code>plyr</code>, because “data frame in, data frame out” proved to be so incredibly important.</p>
 <p>Have no idea what I’m talking about? Not sure if you care? If you use these base R functions: <code>subset()</code>, <code>apply()</code>, <code>[sl]apply()</code>, <code>tapply()</code>, <code>aggregate()</code>, <code>split()</code>, <code>do.call()</code>, <code>with()</code>, <code>within()</code>, then you should keep reading. Also, if you use <code>for()</code> loops alot, you might enjoy learning other ways to iterate over rows or groups of rows or variables in a data frame.</p>
 <div id="load-dplyr-and-gapminder" class="section level4">
 <h4>Load <code>dplyr</code> and <code>gapminder</code></h4>
@@ -262,22 +262,16 @@ library(tidyverse)</code></pre>
 ##        &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;
 ## 1 Afghanistan      Asia  1952  28.801 8425333  779.4453
 ## 2      Rwanda    Africa  1992  23.599 7290203  737.0686</code></pre>
-<pre class="r"><code>filter(gapminder, country == &quot;Rwanda&quot;)</code></pre>
-<pre><code>## # A tibble: 12 × 6
-##    country continent  year lifeExp     pop gdpPercap
-##     &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;
-## 1   Rwanda    Africa  1952  40.000 2534927  493.3239
-## 2   Rwanda    Africa  1957  41.500 2822082  540.2894
-## 3   Rwanda    Africa  1962  43.000 3051242  597.4731
-## 4   Rwanda    Africa  1967  44.100 3451079  510.9637
-## 5   Rwanda    Africa  1972  44.600 3992121  590.5807
-## 6   Rwanda    Africa  1977  45.000 4657072  670.0806
-## 7   Rwanda    Africa  1982  46.218 5507565  881.5706
-## 8   Rwanda    Africa  1987  44.020 6349365  847.9912
-## 9   Rwanda    Africa  1992  23.599 7290203  737.0686
-## 10  Rwanda    Africa  1997  36.087 7212583  589.9445
-## 11  Rwanda    Africa  2002  43.413 7852401  785.6538
-## 12  Rwanda    Africa  2007  46.242 8860588  863.0885</code></pre>
+<pre class="r"><code>filter(gapminder, country == &quot;Rwanda&quot;, year &gt; 1979)</code></pre>
+<pre><code>## # A tibble: 6 × 6
+##   country continent  year lifeExp     pop gdpPercap
+##    &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;
+## 1  Rwanda    Africa  1982  46.218 5507565  881.5706
+## 2  Rwanda    Africa  1987  44.020 6349365  847.9912
+## 3  Rwanda    Africa  1992  23.599 7290203  737.0686
+## 4  Rwanda    Africa  1997  36.087 7212583  589.9445
+## 5  Rwanda    Africa  2002  43.413 7852401  785.6538
+## 6  Rwanda    Africa  2007  46.242 8860588  863.0885</code></pre>
 <pre class="r"><code>filter(gapminder, country %in% c(&quot;Rwanda&quot;, &quot;Afghanistan&quot;))</code></pre>
 <pre><code>## # A tibble: 24 × 6
 ##        country continent  year lifeExp      pop gdpPercap

@@ -4,9 +4,9 @@
 
 ### Intro
 
-`dplyr` is a package for data manipulation, developed by Hadley Wickham and Romain Francois. It is built to be fast, highly expressive, and open-minded about how your data is stored. It is installed as part of the the [`tidyverse`](https://github.com/hadley/tidyverse) meta-package and, as a core package, it is also among those loaded via `library(tidyverse)`.
+`dplyr` is a package for data manipulation, developed by Hadley Wickham and Romain Francois. It is built to be fast, highly expressive, and open-minded about how your data is stored. It is installed as part of the the [`tidyverse`](https://github.com/hadley/tidyverse) meta-package and, as a core package, it is among those loaded via `library(tidyverse)`.
 
-`dplyr`'s roots are in an earlier, still-very-useful package called [`plyr`](http://plyr.had.co.nz), which implements the "split-apply-combine" strategy for data analysis. Where `plyr` covers a diverse set of inputs and outputs (e.g., arrays, data frames, lists), `dplyr` has a laser-like focus on data frames or, in the `tidyverse`, "tibbles".
+`dplyr`'s roots are in an earlier package called [`plyr`](http://plyr.had.co.nz), which implements the ["split-apply-combine" strategy for data analysis](https://www.jstatsoft.org/article/view/v040i01) (PDF). Where `plyr` covers a diverse set of inputs and outputs (e.g., arrays, data frames, lists), `dplyr` has a laser-like focus on data frames or, in the `tidyverse`, "tibbles". `dplyr` is a package-level treament of the `ddply()` function from `plyr`, because "data frame in, data frame out" proved to be so incredibly important.
 
 Have no idea what I'm talking about? Not sure if you care? If you use these base R functions: `subset()`, `apply()`, `[sl]apply()`, `tapply()`, `aggregate()`, `split()`, `do.call()`, `with()`, `within()`, then you should keep reading. Also, if you use `for()` loops alot, you might enjoy learning other ways to iterate over rows or groups of rows or variables in a data frame.
 
@@ -160,25 +160,19 @@ filter(gapminder, lifeExp < 29)
 ```
 
 ```r
-filter(gapminder, country == "Rwanda")
+filter(gapminder, country == "Rwanda", year > 1979)
 ```
 
 ```
-## # A tibble: 12 × 6
-##    country continent  year lifeExp     pop gdpPercap
-##     <fctr>    <fctr> <int>   <dbl>   <int>     <dbl>
-## 1   Rwanda    Africa  1952  40.000 2534927  493.3239
-## 2   Rwanda    Africa  1957  41.500 2822082  540.2894
-## 3   Rwanda    Africa  1962  43.000 3051242  597.4731
-## 4   Rwanda    Africa  1967  44.100 3451079  510.9637
-## 5   Rwanda    Africa  1972  44.600 3992121  590.5807
-## 6   Rwanda    Africa  1977  45.000 4657072  670.0806
-## 7   Rwanda    Africa  1982  46.218 5507565  881.5706
-## 8   Rwanda    Africa  1987  44.020 6349365  847.9912
-## 9   Rwanda    Africa  1992  23.599 7290203  737.0686
-## 10  Rwanda    Africa  1997  36.087 7212583  589.9445
-## 11  Rwanda    Africa  2002  43.413 7852401  785.6538
-## 12  Rwanda    Africa  2007  46.242 8860588  863.0885
+## # A tibble: 6 × 6
+##   country continent  year lifeExp     pop gdpPercap
+##    <fctr>    <fctr> <int>   <dbl>   <int>     <dbl>
+## 1  Rwanda    Africa  1982  46.218 5507565  881.5706
+## 2  Rwanda    Africa  1987  44.020 6349365  847.9912
+## 3  Rwanda    Africa  1992  23.599 7290203  737.0686
+## 4  Rwanda    Africa  1997  36.087 7212583  589.9445
+## 5  Rwanda    Africa  2002  43.413 7852401  785.6538
+## 6  Rwanda    Africa  2007  46.242 8860588  863.0885
 ```
 
 ```r
