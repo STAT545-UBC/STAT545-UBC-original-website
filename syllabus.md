@@ -51,20 +51,20 @@ oct-20 thurs   cm014: Visualization Analysis and Design: Tamara Munzer guest lec
 #### STAT 547M
 
 
-date           notes                                            
--------------  -------------------------------------------------
-oct-25 tues    cm101: Regular expressions and character data    
-oct-27 thurs   cm102: Writing your own R functions              
-nov-01 tues    cm103: purrr, list-columns, nested data frames 1 
-nov-03 thurs   cm104: purrr, list-columns, nested data frames 2 
-nov-08 tues    cm105: Automate tasks and pipelines              
-nov-10 thurs   cm106: ditto                                     
-nov-15 tues    cm107: Build your first Shiny app                
-nov-17 thurs   cm108: ditto                                     
-nov-22 tues    cm109: Build your first R package                
-nov-24 thurs   cm110: ditto                                     
-nov-29 tues    cm111: Get data from the web (scraping and APIs) 
-dec-01 thurs   cm112: ditto                                     
+date           notes                                               
+-------------  ----------------------------------------------------
+oct-25 tues    cm101: Regular expressions and character data       
+oct-27 thurs   cm102: Writing your own R functions                 
+nov-01 tues    cm103: purrr, list-columns, nested data frames 1    
+nov-03 thurs   cm104: purrr, list-columns, nested data frames 2    
+nov-08 tues    cm105: Automate tasks and pipelines (Shaun Jackman) 
+nov-10 thurs   cm106: ditto                                        
+nov-15 tues    cm107: Build your first Shiny app (Dean Attali)     
+nov-17 thurs   cm108: ditto                                        
+nov-22 tues    cm109: Build your first R package                   
+nov-24 thurs   cm110: ditto                                        
+nov-29 tues    cm111: Get data from the web (scraping and APIs)    
+dec-01 thurs   cm112: ditto                                        
 
   * Homework 06 Alpha-to-omega data cleaning and wrangling Grand Finale. Possibly using your own data or the `candy` survey or the `bellybutton` data.
   * *Assignments below will be renumbered in 2016 (hw07 - hw10) and, obviously, ordered according to when the topics appear in class. Please just humor me for now.*
