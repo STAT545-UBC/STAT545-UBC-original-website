@@ -28,7 +28,7 @@ Whenever you have rectangular, spreadsheet-y data, your default data receptacle 
   * Most functions for inference, modelling, and graphing are happy to be passed a data frame via a `data =` argument. This has been true in base R for a long time.
   * The set of packages known as the [`tidyverse`](https://github.com/hadley/tidyverse) takes this one step further and explicitly prioritizes the processing of data frames. This includes popular packages like `dplyr` and `ggplot2`. In fact the tidyverse prioritizes a special flavor of data frame, called a "tibble."
 
-Data frames -- unlike general arrays or, specifically, matrices in R -- can hold variables of different flavors, such as character data (subject ID or name), quantitative data (white blood cell count), and categorical information (treated vs. untreated). If you use homogenous structures, like matrices, for data analysis, you will are likely to make the terrible mistake of spreading a dataset out over multiple, unlinked objects. Why? Because you can't put character data, such as subject name, into the numeric matrix that holds white blood cell count. This fragmentation is a Bad Idea.
+Data frames -- unlike general arrays or, specifically, matrices in R -- can hold variables of different flavors, such as character data (subject ID or name), quantitative data (white blood cell count), and categorical information (treated vs. untreated). If you use homogenous structures, like matrices, for data analysis, you  are likely to make the terrible mistake of spreading a dataset out over multiple, unlinked objects. Why? Because you can't put character data, such as subject name, into the numeric matrix that holds white blood cell count. This fragmentation is a Bad Idea.
 
 ### Get the Gapminder data
 
@@ -252,7 +252,7 @@ hist(gapminder$lifeExp)
 
 ![](block006_care-feeding-data_files/figure-html/histogram-lifeExp-1.png)<!-- -->
 
-The year variable is a numeric integer variable, but since there are so few unique values it also functions a bit like a categorical variable.
+The year variable is an integer variable, but since there are so few unique values it also functions a bit like a categorical variable.
 
 
 ```r
@@ -365,13 +365,15 @@ plot(lifeExp ~ log(gdpPercap), gapminder, subset = year == 2007)
 
 Use data frames!!!
 
-Use the [`tidyverse`](https://github.com/hadley/tidyverse)!!! This will provide a special type of data frame called a "tibble" that has nice default printing behavior.
+Use the [`tidyverse`](https://github.com/hadley/tidyverse)!!! This will provide a special type of data frame called a "tibble" that has nice default printing behavior, among other benefits.
 
 When in doubt, `str()` something or print something.
 
 Always understand the basic extent of your data frames: number of rows and columns.
 
 Understand what flavor the variables are.
+
+Use factors!!! But with intention and care.
 
 Do basic statistical and visual sanity checking of each variable.
 
