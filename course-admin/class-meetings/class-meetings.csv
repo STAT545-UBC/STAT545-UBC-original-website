@@ -5,8 +5,8 @@ cm003,STAT545A,tues,september,13,TRUE,"Git(Hub) test drive, run/render an R scri
 cm004,STAT545A,thurs,september,15,TRUE,R Markdown test drive
 cm005,STAT545A,tues,september,20,TRUE,"Care and feeding of data frames or ""tibbles"""
 cm006,STAT545A,thurs,september,22,TRUE,"First look at dplyr, %>%, and ggplot2"
-cm007,STAT545A,tues,september,27,FALSE,ggplot2
-cm008,STAT545A,thurs,september,29,FALSE,"dplyr: mutate, group, summarize"
+cm007,STAT545A,tues,september,27,TRUE,ggplot2
+cm008,STAT545A,thurs,september,29,TRUE,"dplyr: mutate, group, summarize"
 cm009,STAT545A,tues,october,4,FALSE,"Tidy data, reshaping, dplyr joins"
 cm010,STAT545A,thurs,october,6,FALSE,"Minimum ""need to know"" re: R as a programming language"
 cm011,STAT545A,tues,october,11,FALSE,Getting data out of R (and back in)
