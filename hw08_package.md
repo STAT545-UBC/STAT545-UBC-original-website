@@ -55,6 +55,15 @@ Ideas for more functions to write:
   - write a version of `factor()` that sets levels to the order in which they appear in the data, i.e. set the levels "as is"
   - functions to write and read data frames to plain text delimited files while retaining factor evels; maybe by writing/reading a companion file?
 
+#### But I want to do more!
+
+*For people who want to take things further.*
+
+Try making your own personal R Markdown template!
+You just need to create two files, an R Markdown "skeleton", and a template.yaml file naming the template. In depth instructions can be found [on the RStudio website](http://rmarkdown.rstudio.com/developer_document_templates.html)
+
+Try creating your own Rstudio keyboard shortcuts!  To do so, you need to create an addins file specifying the function you would like your keyboard shortcut to execute. In depth instructions can be found also [on the Rstudio website](https://rstudio.github.io/rstudioaddins/#addin-basics)
+
 ### Due date
 
 Submit an issue with a link to your package sometime on Friday November 20.
