@@ -156,8 +156,9 @@ $(document).ready(function () {
 <li><a href="#use-mutate-to-add-new-variables">Use <code>mutate()</code> to add new variables</a></li>
 <li><a href="#use-arrange-to-row-order-data-in-a-principled-way">Use <code>arrange()</code> to row-order data in a principled way</a></li>
 <li><a href="#use-rename-to-rename-variables">Use <code>rename()</code> to rename variables</a></li>
-<li><a href="#group_by-is-a-mighty-weapon"><code>group_by()</code> is a mighty weapon</a><ul>
-<li><a href="#counting-things-up">Counting things up</a></li>
+<li><a href="#select-can-rename-and-reposition-variables"><code>select()</code> can rename and reposition variables</a></li>
+<li><a href="#group_by-is-a-mighty-weapon"><code>group_by()</code> is a mighty weapon</a></li>
+<li><a href="#counting-things-up">Counting things up</a><ul>
 <li><a href="#general-summarization">General summarization</a></li>
 <li><a href="#window-functions">Window functions</a></li>
 <li><a href="#grand-finale">Grand Finale</a></li>
@@ -369,6 +370,25 @@ my_gap &lt;- my_gap %&gt;%
 ## # ... with 1,694 more rows, and 1 more variables: gdp_percap_rel &lt;dbl&gt;</code></pre>
 <p>I did NOT assign the post-rename object back to <code>my_gap</code> because that would make the chunks in this tutorial harder to copy/paste and run out of order. In real life, I would probably assign this back to <code>my_gap</code>, in a data preparation script, and proceed with the new variable names.</p>
 </div>
+<div id="select-can-rename-and-reposition-variables" class="section level3">
+<h3><code>select()</code> can rename and reposition variables</h3>
+<p>You’ve seen simple use of <code>select()</code>. There are two tricks you might enjoy:</p>
+<ol style="list-style-type: decimal">
+<li><code>select()</code> can rename the variables you request to keep.</li>
+<li><code>select()</code> can be used with <code>everything()</code> to hoist a variable up to the front of the tibble.</li>
+</ol>
+<pre class="r"><code>my_gap %&gt;%
+  filter(country == &quot;Burundi&quot;, year &gt; 1996) %&gt;% 
+  select(WHEN = year, lifeExp, gdpPercap) %&gt;% 
+  select(gdpPercap, everything())</code></pre>
+<pre><code>## # A tibble: 3 × 3
+##   gdpPercap  WHEN lifeExp
+##       &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
+## 1  463.1151  1997  45.326
+## 2  446.4035  2002  47.360
+## 3  430.0707  2007  49.580</code></pre>
+<p><code>everything()</code> is one of several helpers for variable selection. Read it’s help to see the rest.</p>
+</div>
 <div id="group_by-is-a-mighty-weapon" class="section level3">
 <h3><code>group_by()</code> is a mighty weapon</h3>
 <p>I have found <del>friends and family</del> collaborators love to ask seemingly innocuous questions like, “which country experienced the sharpest 5-year drop in life expectancy?”. In fact, that is a totally natural question to ask. But if you are using a language that doesn’t know about data, it’s an incredibly annoying question to answer.</p>
@@ -377,12 +397,13 @@ my_gap &lt;- my_gap %&gt;%
 <li><code>group_by()</code> adds extra structure to your dataset – grouping information – which lays the groundwork for computations within the groups.</li>
 <li><code>summarize()</code> takes a dataset with <span class="math inline">\(n\)</span> observations, computes requested summaries, and returns a dataset with 1 observation.</li>
 <li>Window functions take a dataset with <span class="math inline">\(n\)</span> observations and return a dataset with <span class="math inline">\(n\)</span> observations.</li>
-<li><code>mutate()</code> will honor the groups.</li>
+<li><code>mutate()</code> and <code>summarize()</code> will honor groups.</li>
 <li>You can also do very general computations on your groups with <code>do()</code>, though elsewhere in this course, I advocate for other approaches that I find more intuitive, using the <code>purrr</code> package.</li>
 </ul>
 <p>Combined with the verbs you already know, these new tools allow you to solve an extremely diverse set of problems with relative ease.</p>
-<div id="counting-things-up" class="section level4">
-<h4>Counting things up</h4>
+</div>
+<div id="counting-things-up" class="section level3">
+<h3>Counting things up</h3>
 <p>Let’s start with simple counting. How many observations do we have per continent?</p>
 <pre class="r"><code>my_gap %&gt;%
   group_by(continent) %&gt;%
@@ -404,8 +425,8 @@ my_gap &lt;- my_gap %&gt;%
 <pre><code>##  &#39;table&#39; int [1:5(1d)] 624 300 396 360 24
 ##  - attr(*, &quot;dimnames&quot;)=List of 1
 ##   ..$ : chr [1:5] &quot;Africa&quot; &quot;Americas&quot; &quot;Asia&quot; &quot;Europe&quot; ...</code></pre>
-<p>But the object of class <code>table</code> that you get back often makes downstream computation a bit fiddlier than you’d like. For example, it’s too bad the continent levels come back only as <em>names</em> and not as a proper factor, with the original set of levels.</p>
-<p>The <code>tally()</code> function is a convenience function that knows to count rows.</p>
+<p>But the object of class <code>table</code> that is returned makes downstream computation a bit fiddlier than you’d like. For example, it’s too bad the continent levels come back only as <em>names</em> and not as a proper factor, with the original set of levels. This is an example of how the tidyverse smooths transitions where you want the output of step i to become the input of step i + 1.</p>
+<p>The <code>tally()</code> function is a convenience function that knows to count rows. It honors groups.</p>
 <pre class="r"><code>my_gap %&gt;%
   group_by(continent) %&gt;%
   tally()</code></pre>
@@ -441,10 +462,9 @@ my_gap &lt;- my_gap %&gt;%
 ## 3      Asia   396          33
 ## 4    Europe   360          30
 ## 5   Oceania    24           2</code></pre>
-</div>
 <div id="general-summarization" class="section level4">
 <h4>General summarization</h4>
-<p>The functions you’ll apply within <code>summarize()</code> include classical statistical summaries, like <code>mean()</code>, <code>median()</code>, <code>sd()</code>, and <code>IQR()</code>. Remember they are functions that take <span class="math inline">\(n\)</span> inputs and distill them down into 1 output.</p>
+<p>The functions you’ll apply within <code>summarize()</code> include classical statistical summaries, like <code>mean()</code>, <code>median()</code>, <code>var()</code>, <code>sd()</code>, <code>mad()</code>, <code>IQR()</code>, <code>min()</code>, and <code>max()</code>. Remember they are functions that take <span class="math inline">\(n\)</span> inputs and distill them down into 1 output.</p>
 <p>Although this may be statistically ill-advised, let’s compute the average life expectancy by continent.</p>
 <pre class="r"><code>my_gap %&gt;%
   group_by(continent) %&gt;%

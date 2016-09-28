@@ -140,6 +140,22 @@ my_gap %>%
 
 I did NOT assign the post-rename object back to `my_gap` because that would make the chunks in this tutorial harder to copy/paste and run out of order. In real life, I would probably assign this back to `my_gap`, in a data preparation script, and proceed with the new variable names.
 
+### `select()` can rename and reposition variables
+
+You've seen simple use of `select()`. There are two tricks you might enjoy:
+
+  1. `select()` can rename the variables you request to keep.
+  1. `select()` can be used with `everything()` to hoist a variable up to the front of the tibble.
+  
+```{r}
+my_gap %>%
+  filter(country == "Burundi", year > 1996) %>% 
+  select(WHEN = year, lifeExp, gdpPercap) %>% 
+  select(gdpPercap, everything())
+```
+
+`everything()` is one of several helpers for variable selection. Read it's help to see the rest.
+
 ### `group_by()` is a mighty weapon
 
 I have found ~~friends and family~~ collaborators love to ask seemingly innocuous questions like, "which country experienced the sharpest 5-year drop in life expectancy?". In fact, that is a totally natural question to ask. But if you are using a language that doesn't know about data, it's an incredibly annoying question to answer.
@@ -149,12 +165,12 @@ dplyr offers powerful tools to solve this class of problem.
   * `group_by()` adds extra structure to your dataset -- grouping information -- which lays the groundwork for computations within the groups.
   * `summarize()` takes a dataset with $n$ observations, computes requested summaries, and returns a dataset with 1 observation.
   * Window functions take a dataset with $n$ observations and return a dataset with $n$ observations.
-  * `mutate()` will honor the groups.
+  * `mutate()` and `summarize()` will honor groups.
   * You can also do very general computations on your groups with `do()`, though elsewhere in this course, I advocate for other approaches that I find more intuitive, using the `purrr` package.
   
 Combined with the verbs you already know, these new tools allow you to solve an extremely diverse set of problems with relative ease.
 
-#### Counting things up
+### Counting things up
 
 Let's start with simple counting.  How many observations do we have per continent?
 
@@ -171,9 +187,9 @@ table(gapminder$continent)
 str(table(gapminder$continent))
 ```
 
-But the object of class `table` that you get back often makes downstream computation a bit fiddlier than you'd like. For example, it's too bad the continent levels come back only as *names* and not as a proper factor, with the original set of levels.
+But the object of class `table` that is returned makes downstream computation a bit fiddlier than you'd like. For example, it's too bad the continent levels come back only as *names* and not as a proper factor, with the original set of levels. This is an example of how the tidyverse smooths transitions where you want the output of step i to become the input of step i + 1.
 
-The `tally()` function is a convenience function that knows to count rows.
+The `tally()` function is a convenience function that knows to count rows. It honors groups.
 
 ```{r}
 my_gap %>%
@@ -199,7 +215,7 @@ my_gap %>%
 
 #### General summarization
 
-The functions you'll apply within `summarize()` include classical statistical summaries, like `mean()`, `median()`, `sd()`, and `IQR()`. Remember they are functions that take $n$ inputs and distill them down into 1 output.
+The functions you'll apply within `summarize()` include classical statistical summaries, like  `mean()`, `median()`, `var()`, `sd()`, `mad()`, `IQR()`, `min()`, and `max()`. Remember they are functions that take $n$ inputs and distill them down into 1 output.
 
 Although this may be statistically ill-advised, let's compute the average life expectancy by continent.
 
