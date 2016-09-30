@@ -198,7 +198,7 @@ library(tidyverse)</code></pre>
 </div>
 <div id="create-a-copy-of-gapminder" class="section level3">
 <h3>Create a copy of gapminder</h3>
-<p>We’re going to be making changes to the <code>gapminder</code> tibble. To eliminate any confusion about whether you’re operating on the version that comes with the package or whatnot, we create an explicit copy of <code>gapminder</code> for our experiments.</p>
+<p>We’re going to make changes to the <code>gapminder</code> tibble. To eliminate any fear that you’re damaging the data that comes with the package, we create an explicit copy of <code>gapminder</code> for our experiments.</p>
 <pre class="r"><code>(my_gap &lt;- gapminder)</code></pre>
 <pre><code>## # A tibble: 1,704 × 6
 ##        country continent  year lifeExp      pop gdpPercap
@@ -214,6 +214,12 @@ library(tidyverse)</code></pre>
 ## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414
 ## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
 ## # ... with 1,694 more rows</code></pre>
+<p><strong>Pay close attention</strong> to when we evaluate statements but let the output just print to screen:</p>
+<pre class="r"><code>## let output print to screen, but do not store
+my_gap %&gt;% filter(country == &quot;Canada&quot;)</code></pre>
+<p>… versus when we assign the output to an object, possibly overwriting or editing an existing object.</p>
+<pre class="r"><code>## store the output as an R object
+my_precious &lt;- my_gap %&gt;% filter(country == &quot;Canada&quot;)</code></pre>
 </div>
 <div id="use-mutate-to-add-new-variables" class="section level3">
 <h3>Use <code>mutate()</code> to add new variables</h3>

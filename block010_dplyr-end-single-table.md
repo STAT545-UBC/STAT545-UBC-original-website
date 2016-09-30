@@ -45,7 +45,7 @@ library(tidyverse)
 
 ### Create a copy of gapminder
 
-We're going to be making changes to the `gapminder` tibble. To eliminate any confusion about whether you're operating on the version that comes with the package or whatnot, we create an explicit copy of `gapminder` for our experiments.
+We're going to make changes to the `gapminder` tibble. To eliminate any fear that you're damaging the data that comes with the package, we create an explicit copy of `gapminder` for our experiments.
 
 
 ```r
@@ -67,6 +67,22 @@ We're going to be making changes to the `gapminder` tibble. To eliminate any con
 ## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414
 ## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
 ## # ... with 1,694 more rows
+```
+
+**Pay close attention** to when we evaluate statements but let the output just print to screen:
+
+
+```r
+## let output print to screen, but do not store
+my_gap %>% filter(country == "Canada")
+```
+
+... versus when we assign the output to an object, possibly overwriting or editing an existing object.
+
+
+```r
+## store the output as an R object
+my_precious <- my_gap %>% filter(country == "Canada")
 ```
 
 ### Use `mutate()` to add new variables
