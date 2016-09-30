@@ -77,9 +77,8 @@ Imagine we wanted to recover each country's GDP. After all, the Gapminder data h
 
 
 ```r
-my_gap <- my_gap %>%
+my_gap %>%
   mutate(gdp = pop * gdpPercap)
-my_gap
 ```
 
 ```
@@ -110,7 +109,7 @@ I need to create a new variable that is `gdpPercap` divided by Canadian `gdpPerc
 How I achieve:
 
   * Filter down to the rows for Canada.
-  * Create a new variable in `my_gap`:
+  * Create a new temporary variable in `my_gap`:
     - Extract the `gdpPercap` variable from the Canadian data.
     - Replicate it once per country in the dataset, so it has the right length.
   * Divide raw `gdpPercap` by this Canadian figure.
@@ -118,17 +117,17 @@ How I achieve:
 
 
 ```r
-canada <- my_gap %>%
+ctib <- my_gap %>%
   filter(country == "Canada")
 ## this is a semi-dangerous way to add this variable
 ## I'd prefer to join on year, but we haven't covered joins yet
 my_gap <- my_gap %>%
-  mutate(canada = rep(canada$gdpPercap, nlevels(country)),
-         gdpPercapRel = gdpPercap / canada,
-         canada = NULL)
+  mutate(tmp = rep(ctib$gdpPercap, nlevels(country)),
+         gdpPercapRel = gdpPercap / tmp,
+         tmp = NULL)
 ```
 
-Note that, `mutate()` builds new variables sequentially so you can reference earlier ones (like `canada`) when defining later ones (like `gdpPercapRel`). Also, you can get rid of a variable by setting it to `NULL`.
+Note that, `mutate()` builds new variables sequentially so you can reference earlier ones (like `tmp`) when defining later ones (like `gdpPercapRel`). Also, you can get rid of a variable by setting it to `NULL`.
 
 How could we sanity check that this worked? The Canadian values for `gdpPercapRel` better all be 1!
 
@@ -184,20 +183,20 @@ my_gap %>%
 ```
 
 ```
-## # A tibble: 1,704 × 8
-##        country continent  year lifeExp      pop  gdpPercap          gdp
+## # A tibble: 1,704 × 7
+##        country continent  year lifeExp      pop  gdpPercap gdpPercapRel
 ##         <fctr>    <fctr> <int>   <dbl>    <int>      <dbl>        <dbl>
-## 1  Afghanistan      Asia  1952  28.801  8425333   779.4453   6567086330
-## 2      Albania    Europe  1952  55.230  1282697  1601.0561   2053669902
-## 3      Algeria    Africa  1952  43.077  9279525  2449.0082  22725632678
-## 4       Angola    Africa  1952  30.015  4232095  3520.6103  14899557133
-## 5    Argentina  Americas  1952  62.485 17876956  5911.3151 105676319105
-## 6    Australia   Oceania  1952  69.120  8691212 10039.5956  87256254102
-## 7      Austria    Europe  1952  66.800  6927772  6137.0765  42516266683
-## 8      Bahrain      Asia  1952  50.939   120447  9867.0848   1188460759
-## 9   Bangladesh      Asia  1952  37.484 46886859   684.2442  32082059995
-## 10     Belgium    Europe  1952  68.000  8730405  8343.1051  72838686716
-## # ... with 1,694 more rows, and 1 more variables: gdpPercapRel <dbl>
+## 1  Afghanistan      Asia  1952  28.801  8425333   779.4453   0.06856992
+## 2      Albania    Europe  1952  55.230  1282697  1601.0561   0.14084925
+## 3      Algeria    Africa  1952  43.077  9279525  2449.0082   0.21544589
+## 4       Angola    Africa  1952  30.015  4232095  3520.6103   0.30971764
+## 5    Argentina  Americas  1952  62.485 17876956  5911.3151   0.52003442
+## 6    Australia   Oceania  1952  69.120  8691212 10039.5956   0.88321046
+## 7      Austria    Europe  1952  66.800  6927772  6137.0765   0.53989527
+## 8      Bahrain      Asia  1952  50.939   120447  9867.0848   0.86803421
+## 9   Bangladesh      Asia  1952  37.484 46886859   684.2442   0.06019482
+## 10     Belgium    Europe  1952  68.000  8730405  8343.1051   0.73396559
+## # ... with 1,694 more rows
 ```
 
 Or maybe you want just the data from 2007, sorted on life expectancy?
@@ -210,7 +209,7 @@ my_gap %>%
 ```
 
 ```
-## # A tibble: 142 × 8
+## # A tibble: 142 × 7
 ##                     country continent  year lifeExp      pop gdpPercap
 ##                      <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
 ## 1                 Swaziland    Africa  2007  39.613  1133066 4513.4806
@@ -223,8 +222,7 @@ my_gap %>%
 ## 8               Afghanistan      Asia  2007  43.828 31889923  974.5803
 ## 9  Central African Republic    Africa  2007  44.741  4369038  706.0165
 ## 10                  Liberia    Africa  2007  45.678  3193942  414.5073
-## # ... with 132 more rows, and 2 more variables: gdp <dbl>,
-## #   gdpPercapRel <dbl>
+## # ... with 132 more rows, and 1 more variables: gdpPercapRel <dbl>
 ```
 
 Oh, you'd like to sort on life expectancy in **desc**ending order? Then use `desc()`.
@@ -237,7 +235,7 @@ my_gap %>%
 ```
 
 ```
-## # A tibble: 142 × 8
+## # A tibble: 142 × 7
 ##             country continent  year lifeExp       pop gdpPercap
 ##              <fctr>    <fctr> <int>   <dbl>     <int>     <dbl>
 ## 1             Japan      Asia  2007  82.603 127467972  31656.07
@@ -250,8 +248,7 @@ my_gap %>%
 ## 8            Israel      Asia  2007  80.745   6426679  25523.28
 ## 9            France    Europe  2007  80.657  61083916  30470.02
 ## 10           Canada  Americas  2007  80.653  33390141  36319.24
-## # ... with 132 more rows, and 2 more variables: gdp <dbl>,
-## #   gdpPercapRel <dbl>
+## # ... with 132 more rows, and 1 more variables: gdpPercapRel <dbl>
 ```
 
 I advise that your analyses NEVER rely on rows or variables being in a specific order. But it's still true that human beings write the code and the interactive development process can be much nicer if you reorder the rows of your data as you go along. Also, once you are preparing tables for human eyeballs, it is imperative that you step up and take control of row order.
@@ -269,20 +266,20 @@ my_gap %>%
 ```
 
 ```
-## # A tibble: 1,704 × 8
-##        country continent  year life_exp      pop gdp_percap         gdp
-##         <fctr>    <fctr> <int>    <dbl>    <int>      <dbl>       <dbl>
-## 1  Afghanistan      Asia  1952   28.801  8425333   779.4453  6567086330
-## 2  Afghanistan      Asia  1957   30.332  9240934   820.8530  7585448670
-## 3  Afghanistan      Asia  1962   31.997 10267083   853.1007  8758855797
-## 4  Afghanistan      Asia  1967   34.020 11537966   836.1971  9648014150
-## 5  Afghanistan      Asia  1972   36.088 13079460   739.9811  9678553274
-## 6  Afghanistan      Asia  1977   38.438 14880372   786.1134 11697659231
-## 7  Afghanistan      Asia  1982   39.854 12881816   978.0114 12598563401
-## 8  Afghanistan      Asia  1987   40.822 13867957   852.3959 11820990309
-## 9  Afghanistan      Asia  1992   41.674 16317921   649.3414 10595901589
-## 10 Afghanistan      Asia  1997   41.763 22227415   635.3414 14121995875
-## # ... with 1,694 more rows, and 1 more variables: gdp_percap_rel <dbl>
+## # A tibble: 1,704 × 7
+##        country continent  year life_exp      pop gdp_percap gdp_percap_rel
+##         <fctr>    <fctr> <int>    <dbl>    <int>      <dbl>          <dbl>
+## 1  Afghanistan      Asia  1952   28.801  8425333   779.4453     0.06856992
+## 2  Afghanistan      Asia  1957   30.332  9240934   820.8530     0.06572108
+## 3  Afghanistan      Asia  1962   31.997 10267083   853.1007     0.06336874
+## 4  Afghanistan      Asia  1967   34.020 11537966   836.1971     0.05201335
+## 5  Afghanistan      Asia  1972   36.088 13079460   739.9811     0.03900679
+## 6  Afghanistan      Asia  1977   38.438 14880372   786.1134     0.03558542
+## 7  Afghanistan      Asia  1982   39.854 12881816   978.0114     0.04271018
+## 8  Afghanistan      Asia  1987   40.822 13867957   852.3959     0.03201305
+## 9  Afghanistan      Asia  1992   41.674 16317921   649.3414     0.02464959
+## 10 Afghanistan      Asia  1997   41.763 22227415   635.3414     0.02194243
+## # ... with 1,694 more rows
 ```
 
 I did NOT assign the post-rename object back to `my_gap` because that would make the chunks in this tutorial harder to copy/paste and run out of order. In real life, I would probably assign this back to `my_gap`, in a data preparation script, and proceed with the new variable names.
@@ -298,20 +295,20 @@ You've seen simple use of `select()`. There are two tricks you might enjoy:
 ```r
 my_gap %>%
   filter(country == "Burundi", year > 1996) %>% 
-  select(WHEN = year, lifeExp, gdpPercap) %>% 
+  select(yr = year, lifeExp, gdpPercap) %>% 
   select(gdpPercap, everything())
 ```
 
 ```
 ## # A tibble: 3 × 3
-##   gdpPercap  WHEN lifeExp
+##   gdpPercap    yr lifeExp
 ##       <dbl> <int>   <dbl>
 ## 1  463.1151  1997  45.326
 ## 2  446.4035  2002  47.360
 ## 3  430.0707  2007  49.580
 ```
 
-`everything()` is one of several helpers for variable selection. Read it's help to see the rest.
+`everything()` is one of several helpers for variable selection. Read its help to see the rest.
 
 ### `group_by()` is a mighty weapon
 
@@ -335,12 +332,12 @@ Let's start with simple counting.  How many observations do we have per continen
 ```r
 my_gap %>%
   group_by(continent) %>%
-  summarize(n_obs = n())
+  summarize(n = n())
 ```
 
 ```
 ## # A tibble: 5 × 2
-##   continent n_obs
+##   continent     n
 ##      <fctr> <int>
 ## 1    Africa   624
 ## 2  Americas   300
@@ -419,13 +416,13 @@ What if we wanted to add the number of unique countries for each continent? You 
 ```r
 my_gap %>%
   group_by(continent) %>%
-  summarize(n_obs = n(),
+  summarize(n = n(),
             n_countries = n_distinct(country))
 ```
 
 ```
 ## # A tibble: 5 × 3
-##   continent n_obs n_countries
+##   continent     n n_countries
 ##      <fctr> <int>       <int>
 ## 1    Africa   624          52
 ## 2  Americas   300          25

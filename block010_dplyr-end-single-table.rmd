@@ -47,9 +47,8 @@ Imagine we wanted to recover each country's GDP. After all, the Gapminder data h
 `mutate()` is a function that defines and inserts new variables into a tibble. You can refer to existing variables by name.
 
 ```{r}
-my_gap <- my_gap %>%
+my_gap %>%
   mutate(gdp = pop * gdpPercap)
-my_gap
 ```
 
 Hmmmm ... those GDP numbers are almost uselessly large and abstract. Consider the [advice of Randall Munroe of xkcd](http://fivethirtyeight.com/datalab/xkcd-randall-munroe-qanda-what-if/):
@@ -63,24 +62,24 @@ I need to create a new variable that is `gdpPercap` divided by Canadian `gdpPerc
 How I achieve:
 
   * Filter down to the rows for Canada.
-  * Create a new variable in `my_gap`:
+  * Create a new temporary variable in `my_gap`:
     - Extract the `gdpPercap` variable from the Canadian data.
     - Replicate it once per country in the dataset, so it has the right length.
   * Divide raw `gdpPercap` by this Canadian figure.
   * Discard the temporary variable of replicated Canadian `gdpPercap`.
 
 ```{r}
-canada <- my_gap %>%
+ctib <- my_gap %>%
   filter(country == "Canada")
 ## this is a semi-dangerous way to add this variable
 ## I'd prefer to join on year, but we haven't covered joins yet
 my_gap <- my_gap %>%
-  mutate(canada = rep(canada$gdpPercap, nlevels(country)),
-         gdpPercapRel = gdpPercap / canada,
-         canada = NULL)
+  mutate(tmp = rep(ctib$gdpPercap, nlevels(country)),
+         gdpPercapRel = gdpPercap / tmp,
+         tmp = NULL)
 ```
 
-Note that, `mutate()` builds new variables sequentially so you can reference earlier ones (like `canada`) when defining later ones (like `gdpPercapRel`). Also, you can get rid of a variable by setting it to `NULL`.
+Note that, `mutate()` builds new variables sequentially so you can reference earlier ones (like `tmp`) when defining later ones (like `gdpPercapRel`). Also, you can get rid of a variable by setting it to `NULL`.
 
 How could we sanity check that this worked? The Canadian values for `gdpPercapRel` better all be 1!
 
@@ -150,11 +149,11 @@ You've seen simple use of `select()`. There are two tricks you might enjoy:
 ```{r}
 my_gap %>%
   filter(country == "Burundi", year > 1996) %>% 
-  select(WHEN = year, lifeExp, gdpPercap) %>% 
+  select(yr = year, lifeExp, gdpPercap) %>% 
   select(gdpPercap, everything())
 ```
 
-`everything()` is one of several helpers for variable selection. Read it's help to see the rest.
+`everything()` is one of several helpers for variable selection. Read its help to see the rest.
 
 ### `group_by()` is a mighty weapon
 
@@ -177,7 +176,7 @@ Let's start with simple counting.  How many observations do we have per continen
 ```{r}
 my_gap %>%
   group_by(continent) %>%
-  summarize(n_obs = n())
+  summarize(n = n())
 ```
 
 Let us pause here to think about the tidyverse. You could get these same frequencies using `table()` from base R.
@@ -209,7 +208,7 @@ What if we wanted to add the number of unique countries for each continent? You 
 ```{r}
 my_gap %>%
   group_by(continent) %>%
-  summarize(n_obs = n(),
+  summarize(n = n(),
             n_countries = n_distinct(country))
 ```
 
