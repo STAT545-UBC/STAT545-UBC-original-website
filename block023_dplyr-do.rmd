@@ -10,6 +10,8 @@ output:
 knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
 ```
 
+*This material was last used in 2015. Since then, we've turned to different strategies for data aggregation. Specifically, using nested and possibly split data frames with `purrr::map()`, possibly inside `dplyr::mutate()`. But if you use `dplyr::do()`, maybe this is still useful.*
+
 ### Think before you create excerpts of your data ...
 
 If you feel the urge to store a little snippet of your data:
