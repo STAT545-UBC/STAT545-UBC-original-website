@@ -6,21 +6,16 @@ This material gets updated during Sept - Nov each year. Right now it's a mix of 
     - [Install R and Rstudio](block000_r-rstudio-install.html) (or update! get current!)
     - [Basic R and RStudio, workspace, working directory, RStudio Project](block002_hello-r-workspace-wd-project.html)
     - [Test drive R Markdown](block007_first-use-rmarkdown.html)
-  * [All the Git and GitHub (and RStudio) things](git00_index.html)
-    - Content now here: <http://happygitwithr.com>
-      - Install Git, install a Git client or GUI, establish pull/push connection from computer to GitHub in the shell, establish GitHub connection via RStudio, credential caching, troubleshooting.
+  * [Git, GitHub, and RStudio](http://happygitwithr.com)
+    - Content now here: <http://happygitwithr.com>. Install Git, install a Git client or GUI, establish pull/push connection from computer to GitHub in the shell, establish GitHub connection via RStudio, credential caching, troubleshooting.
     - [Take possession of your STAT 545 repo](git08_claim-stat545-repo.html)
   * Data analysis 1: data frames, the tidyverse, and tibbles
     - [Basic care and feeding of data in R](block006_care-feeding-data.html)
     - [Introduction to dplyr](block009_dplyr-intro.html)
-    - [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
+    - [dplyr functions for a single dataset](block010_dplyr-end-single-table.html)
     - Overview of split-apply-combine: [slides on speakerdeck](https://speakerdeck.com/jennybc/ubc-stat545-split-apply-combine-intro)
-    - [Split-apply-combine with `dplyr::do()`](block023_dplyr-do.html)
-    - Example: [a wrapper around `lm` to use with `dplyr::do()`](block025_lm-poly.html)
     - [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
-    - Legacy material on [split-apply-combine with `plyr`](block013_plyr-ddply.html)
-    - [Why and how to tidy data](bit002_tidying-lotr-data.html)
-  * Data analysis 2: vectors, files, 
+  * Data analysis 2: vectors and files
     - [Be the boss of your factors](block014_factors.html)
     - [Writing and reading files](block026_file-out-in.html)
     - Strings and Regular Expressions
@@ -62,6 +57,11 @@ This material gets updated during Sept - Nov each year. Right now it's a mix of 
   * [All the Shiny things](shiny00_index.html)
     - [Slides on Google Docs](https://docs.google.com/presentation/d/1dXhqqsD7dPOOdcC5Y7RW--dEU7UfU52qlb0YD3kKeLw/edit?usp=sharing)
     - [Shiny tutorial with hands-on activity to build app with BC Liquor Store dataset](shiny01_activity.html)
+  * Deprecated material that I no longer use. But last I checked, it's not actually *wrong*.
+    - [Split-apply-combine with `dplyr::do()`](block023_dplyr-do.html)
+    - Example: [a wrapper around `lm` to use with `dplyr::do()`](block025_lm-poly.html)
+    - [Split-apply-combine with `plyr`](block013_plyr-ddply.html)
+    - [Why and how to tidy data](bit002_tidying-lotr-data.html)
 
 ## Short random things
 
