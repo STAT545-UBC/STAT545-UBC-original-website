@@ -157,12 +157,15 @@ $(document).ready(function () {
 <li><a href="#use-arrange-to-row-order-data-in-a-principled-way">Use <code>arrange()</code> to row-order data in a principled way</a></li>
 <li><a href="#use-rename-to-rename-variables">Use <code>rename()</code> to rename variables</a></li>
 <li><a href="#select-can-rename-and-reposition-variables"><code>select()</code> can rename and reposition variables</a></li>
-<li><a href="#group_by-is-a-mighty-weapon"><code>group_by()</code> is a mighty weapon</a></li>
-<li><a href="#counting-things-up">Counting things up</a><ul>
+<li><a href="#group_by-is-a-mighty-weapon"><code>group_by()</code> is a mighty weapon</a><ul>
+<li><a href="#counting-things-up">Counting things up</a></li>
 <li><a href="#general-summarization">General summarization</a></li>
-<li><a href="#window-functions">Window functions</a></li>
-<li><a href="#grand-finale">Grand Finale</a></li>
 </ul></li>
+<li><a href="#grouped-mutate">Grouped mutate</a><ul>
+<li><a href="#computing-with-group-wise-summaries">Computing with group-wise summaries</a></li>
+<li><a href="#window-functions">Window functions</a></li>
+</ul></li>
+<li><a href="#grand-finale">Grand Finale</a></li>
 <li><a href="#resources">Resources</a></li>
 </ul>
 </div>
@@ -217,7 +220,7 @@ library(tidyverse)</code></pre>
 <p><strong>Pay close attention</strong> to when we evaluate statements but let the output just print to screen:</p>
 <pre class="r"><code>## let output print to screen, but do not store
 my_gap %&gt;% filter(country == &quot;Canada&quot;)</code></pre>
-<p>… versus when we assign the output to an object, possibly overwriting or editing an existing object.</p>
+<p>… versus when we assign the output to an object, possibly overwriting an existing object.</p>
 <pre class="r"><code>## store the output as an R object
 my_precious &lt;- my_gap %&gt;% filter(country == &quot;Canada&quot;)</code></pre>
 </div>
@@ -404,9 +407,8 @@ my_gap &lt;- my_gap %&gt;%
 <li>You can also do very general computations on your groups with <code>do()</code>, though elsewhere in this course, I advocate for other approaches that I find more intuitive, using the <code>purrr</code> package.</li>
 </ul>
 <p>Combined with the verbs you already know, these new tools allow you to solve an extremely diverse set of problems with relative ease.</p>
-</div>
-<div id="counting-things-up" class="section level3">
-<h3>Counting things up</h3>
+<div id="counting-things-up" class="section level4">
+<h4>Counting things up</h4>
 <p>Let’s start with simple counting. How many observations do we have per continent?</p>
 <pre class="r"><code>my_gap %&gt;%
   group_by(continent) %&gt;%
@@ -465,6 +467,7 @@ my_gap &lt;- my_gap %&gt;%
 ## 3      Asia   396          33
 ## 4    Europe   360          30
 ## 5   Oceania    24           2</code></pre>
+</div>
 <div id="general-summarization" class="section level4">
 <h4>General summarization</h4>
 <p>The functions you’ll apply within <code>summarize()</code> include classical statistical summaries, like <code>mean()</code>, <code>median()</code>, <code>var()</code>, <code>sd()</code>, <code>mad()</code>, <code>IQR()</code>, <code>min()</code>, and <code>max()</code>. Remember they are functions that take <span class="math inline">\(n\)</span> inputs and distill them down into 1 output.</p>
@@ -523,9 +526,39 @@ my_gap &lt;- my_gap %&gt;%
 ## 12  2007      43.828      82.603</code></pre>
 <p>Of course it would be much more interesting to see <em>which</em> country contributed these extreme observations. Is the minimum (maximum) always coming from the same country? That’s where window functions come in.</p>
 </div>
+</div>
+<div id="grouped-mutate" class="section level3">
+<h3>Grouped mutate</h3>
+<p>Sometimes you don’t want to collapse the <span class="math inline">\(n\)</span> rows for each group into one row. But you do want to do a group-informed computation.</p>
+<div id="computing-with-group-wise-summaries" class="section level4">
+<h4>Computing with group-wise summaries</h4>
+<p>Let’s make a new variable that is the years of life expectancy gained (lost) relative to 1952, for each individual country. We group by country and use <code>mutate()</code>. The <code>first()</code> function extracts the first value from a vector and notice that it is operating on the vector of life expectancies <em>within each country group</em>.</p>
+<pre class="r"><code>my_gap %&gt;% 
+  group_by(country) %&gt;% 
+  select(country, year, lifeExp) %&gt;% 
+  mutate(lifeExp_gain = lifeExp - first(lifeExp)) %&gt;% 
+  filter(year &lt; 1963)</code></pre>
+<pre><code>## Source: local data frame [426 x 4]
+## Groups: country [142]
+## 
+##        country  year lifeExp lifeExp_gain
+##         &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;        &lt;dbl&gt;
+## 1  Afghanistan  1952  28.801        0.000
+## 2  Afghanistan  1957  30.332        1.531
+## 3  Afghanistan  1962  31.997        3.196
+## 4      Albania  1952  55.230        0.000
+## 5      Albania  1957  59.280        4.050
+## 6      Albania  1962  64.820        9.590
+## 7      Algeria  1952  43.077        0.000
+## 8      Algeria  1957  45.685        2.608
+## 9      Algeria  1962  48.303        5.226
+## 10      Angola  1952  30.015        0.000
+## # ... with 416 more rows</code></pre>
+<p>Within country, we take the difference between life expectancy in year <span class="math inline">\(i\)</span> life expectancy in 1952. Therefore we always see zeroes for 1952 and, for most countries, a sequence of positive and increasing numbers.</p>
+</div>
 <div id="window-functions" class="section level4">
 <h4>Window functions</h4>
-<p>Recall that window functions take <span class="math inline">\(n\)</span> inputs and give back <span class="math inline">\(n\)</span> outputs. Here we use window functions based on ranks and offsets.</p>
+<p>Window functions take <span class="math inline">\(n\)</span> inputs and give back <span class="math inline">\(n\)</span> outputs. Here we use window functions based on ranks and offsets.</p>
 <p>Let’s revisit the worst and best life expectancies in Asia over time, but retaining info about <em>which</em> country contributes these extreme values.</p>
 <pre class="r"><code>my_gap %&gt;%
   filter(continent == &quot;Asia&quot;) %&gt;%
@@ -636,8 +669,9 @@ asia</code></pre>
 ## 11  2002 Afghanistan  42.129
 ## 12  2007 Afghanistan  43.828</code></pre>
 </div>
-<div id="grand-finale" class="section level4">
-<h4>Grand Finale</h4>
+</div>
+<div id="grand-finale" class="section level3">
+<h3>Grand Finale</h3>
 <p>So let’s answer that “simple” question: which country experienced the sharpest 5-year drop in life expectancy? Recall that this excerpt of the Gapminder data only has data every five years, e.g. for 1952, 1957, etc. So this really means looking at life expectancy changes between adjacent timepoints.</p>
 <p>At this point, that’s just too easy, so let’s do it by continent while we’re at it.</p>
 <pre class="r"><code>my_gap %&gt;%
@@ -664,7 +698,6 @@ asia</code></pre>
 <p>Ponder that for a while. The subject matter and the code. Mostly you’re seeing what genocide looks like in dry statistics on average life expectancy.</p>
 <p>Break the code into pieces, starting at the top, and inspect the intermediate results. That’s certainly how I was able to <em>write</em> such a thing. These commands do not <a href="http://tinyurl.com/athenaforehead">leap fully formed out of anyone’s forehead</a> – they are built up gradually, with lots of errors and refinements along the way. I’m not even sure it’s a great idea to do so much manipulation in one fell swoop. Is the statement above really hard for you to read? If yes, then by all means break it into pieces and make some intermediate objects. Your code should be easy to write and read when you’re done.</p>
 <p>In later tutorials, we’ll explore more of dplyr, such as operations based on two datasets.</p>
-</div>
 </div>
 <div id="resources" class="section level3">
 <h3>Resources</h3>

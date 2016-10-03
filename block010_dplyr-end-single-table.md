@@ -77,7 +77,7 @@ We're going to make changes to the `gapminder` tibble. To eliminate any fear tha
 my_gap %>% filter(country == "Canada")
 ```
 
-... versus when we assign the output to an object, possibly overwriting or editing an existing object.
+... versus when we assign the output to an object, possibly overwriting an existing object.
 
 
 ```r
@@ -340,7 +340,7 @@ dplyr offers powerful tools to solve this class of problem.
   
 Combined with the verbs you already know, these new tools allow you to solve an extremely diverse set of problems with relative ease.
 
-### Counting things up
+#### Counting things up
 
 Let's start with simple counting.  How many observations do we have per continent?
 
@@ -530,9 +530,47 @@ my_gap %>%
 
 Of course it would be much more interesting to see *which* country contributed these extreme observations. Is the minimum (maximum) always coming from the same country? That's where window functions come in.
 
+### Grouped mutate
+
+Sometimes you don't want to collapse the $n$ rows for each group into one row. But you do want to do a group-informed computation.
+
+#### Computing with group-wise summaries
+
+Let's make a new variable that is the years of life expectancy gained (lost) relative to 1952, for each individual country. We group by country and use `mutate()`. The `first()` function extracts the first value from a vector and notice that it is operating on the vector of life expectancies *within each country group*.
+
+
+```r
+my_gap %>% 
+  group_by(country) %>% 
+  select(country, year, lifeExp) %>% 
+  mutate(lifeExp_gain = lifeExp - first(lifeExp)) %>% 
+  filter(year < 1963)
+```
+
+```
+## Source: local data frame [426 x 4]
+## Groups: country [142]
+## 
+##        country  year lifeExp lifeExp_gain
+##         <fctr> <int>   <dbl>        <dbl>
+## 1  Afghanistan  1952  28.801        0.000
+## 2  Afghanistan  1957  30.332        1.531
+## 3  Afghanistan  1962  31.997        3.196
+## 4      Albania  1952  55.230        0.000
+## 5      Albania  1957  59.280        4.050
+## 6      Albania  1962  64.820        9.590
+## 7      Algeria  1952  43.077        0.000
+## 8      Algeria  1957  45.685        2.608
+## 9      Algeria  1962  48.303        5.226
+## 10      Angola  1952  30.015        0.000
+## # ... with 416 more rows
+```
+
+Within country, we take the difference between life expectancy in year $i$ life expectancy in 1952. Therefore we always see zeroes for 1952 and, for most countries, a sequence of positive and increasing numbers.
+
 #### Window functions
 
-Recall that window functions take $n$ inputs and give back $n$ outputs. Here we use window functions based on ranks and offsets.
+Window functions take $n$ inputs and give back $n$ outputs. Here we use window functions based on ranks and offsets.
 
 Let's revisit the worst and best life expectancies in Asia over time, but retaining info about *which* country contributes these extreme values.
 
@@ -684,7 +722,7 @@ my_gap %>%
 ## 12  2007 Afghanistan  43.828
 ```
 
-#### Grand Finale
+### Grand Finale
 
 So let's answer that "simple" question: which country experienced the sharpest 5-year drop in life expectancy? Recall that this excerpt of the Gapminder data only has data every five years, e.g. for 1952, 1957, etc. So this really means looking at life expectancy changes between adjacent timepoints.
 
