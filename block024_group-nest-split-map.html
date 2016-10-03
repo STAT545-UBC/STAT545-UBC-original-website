@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Split-Apply-Combine</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Split-Apply-Combine</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#think-before-you-create-excerpts-of-your-data">Think before you create excerpts of your data …</a><ul>
+<li><a href="#load-dplyr-tidyr-purrr-and-gapminder">Load dplyr, tidyr, purrr and gapminder</a></li>
+<li><a href="#split-apply-combine">Split Apply Combine</a></li>
+<li><a href="#entry-level-dplyrgroup_by">Entry level: <code>dplyr::group_by()</code></a></li>
+<li><a href="#general-approach-nesting">General approach: nesting</a></li>
+<li><a href="#apply-a-function-map-and-mutate">Apply a function <code>map()</code> and <code>mutate()</code></a></li>
+<li><a href="#always-have-an-exit-strategy">Always have an exit strategy</a></li>
+<li><a href="#simplify-and-combine">Simplify and combine</a></li>
+<li><a href="#recap">Recap</a></li>
+<li><a href="#enjoy-the-payoff-of-your-work">Enjoy the payoff of your work</a></li>
+</ul></li>
+</ul>
+</div>
+
+<p><strong>WORK IN PROGRESS. Revamping for 2016 to use tidyverse and an approach based on nested data frames, list columns, <code>purrr::map()</code>, and <code>dplyr::mutate()</code>.</strong></p>
+<div id="think-before-you-create-excerpts-of-your-data" class="section level2">
+<h2>Think before you create excerpts of your data …</h2>
+<p>If you feel the urge to store a little snippet of your data:</p>
+<pre class="r"><code>snippet &lt;- my_big_dataset %&gt;%
+  filter(some_variable == some_value)
+## or
+snippet &lt;- subset(my_big_dataset, some_variable == some_value)</code></pre>
+<p>Stop and ask yourself …</p>
+<blockquote>
+<p>Do I want to create mini datasets for each level of some factor (or unique combination of several factors) … in order to compute or graph something?<br />
+If YES, <strong>use proper data aggregation techniques</strong> or facetting in <code>ggplot2</code> – <strong>don’t subset the data</strong>. Or, more realistically, only subset the data as a temporary measure while you develop your elegant code for computing on or visualizing these data subsets.</p>
+</blockquote>
+<p>If NO, then maybe you really do need to store a copy of a subset of the data. But seriously consider whether one of these strategies that subset at “compute time” will get the job done:</p>
+<ul>
+<li><p>Pass an intact data frame and use the <code>subset =</code> argument of a command. Many functions have it!</p>
+<pre class="r"><code>## regress life expectancy on year for Canada
+canada_fit &lt;-
+  lm(lifeExp ~ year, data = gapminder, subset = country == &quot;Canada&quot;)</code></pre></li>
+<li><p>Pipe filtered data into a command. A very general solution.</p>
+<pre class="r"><code>## compare gdpPercap in Australia vs New Zealand
+oceania_ttest &lt;- gapminder %&gt;%
+  filter(continent == &quot;Asia&quot;) %&gt;% 
+  t.test(gdpPercap ~ country, data = .)</code></pre></li>
+</ul>
+<p>Creating copies and excerpts of your data clutters up your workspace, script, and mind, often leading to confusion and mistakes. It can be useful during development, but try to eliminate this as you polish your analysis.</p>
+<div id="load-dplyr-tidyr-purrr-and-gapminder" class="section level3">
+<h3>Load dplyr, tidyr, purrr and gapminder</h3>
+<p>I choose to load the entire tidyverse. Also load gapminder.</p>
+<pre class="r"><code>library(gapminder)
+library(tidyverse)
+#&gt; Loading tidyverse: ggplot2
+#&gt; Loading tidyverse: tibble
+#&gt; Loading tidyverse: tidyr
+#&gt; Loading tidyverse: readr
+#&gt; Loading tidyverse: purrr
+#&gt; Loading tidyverse: dplyr
+#&gt; Conflicts with tidy packages ----------------------------------------------
+#&gt; filter(): dplyr, stats
+#&gt; lag():    dplyr, stats</code></pre>
+</div>
+<div id="split-apply-combine" class="section level3">
+<h3>Split Apply Combine</h3>
+<p>A common analytical pattern is to</p>
+<ul>
+<li>split data into pieces,</li>
+<li>apply some function to each piece,</li>
+<li>combine the results back together again.</li>
+</ul>
+<p>R has specialized tools for this that are much nicer than whatever DIY approach you might be contemplating. Especially if it involves <code>for()</code> loops. There’s nothing inherently wrong or evil about <code>for()</code> loops, but you will spend alot of time and characters on bookkeeping tasks. That can be a great way to pilot a computation, because it is so blessedly concrete. But consider revisiting your implementation with higher-level data aggregation tools once you’ve established proof-of-principle.</p>
+<p>In base R, these are the “apply” functions, such as <code>apply()</code>, <code>aggregate()</code>, <code>tapply()</code>, and <code>by()</code>. We prefer to use similar tools from the tidyverse, due to a more consistent interface, analysis-friendly output, and a more concise way to describe what to compute. This article by Hadley Wickham – <a href="http://www.jstatsoft.org/v40/i01/paper">The split-apply-combine strategy for data analysis</a> – provides a good high-level overview, but know that the tidyverse approaches outlined here now supercede the plyr package described there.</p>
+</div>
+<div id="entry-level-dplyrgroup_by" class="section level3">
+<h3>Entry level: <code>dplyr::group_by()</code></h3>
+<p>The most lightweight solution is given by <code>dplyr::group_by()</code>. <code>group_by()</code> adds some extra grouping structure to a data frame, based on levels of one or more categorical variables, but leaves the data frame intact. Then you can do group-wise computations using various functions in the tidyverse that automatically honor these groups.</p>
+<p>The main function here is <code>summarize()</code>, which collapses each group into a single row in a new group-summarized data frame. This is described in detail in <a href="block010_dplyr-end-single-table.html">dplyr functions for a single dataset</a>, so we don’t repeat that here.</p>
+<p>When does this break down? If anything you want to compute for a group is more complicated than, say, a single number, you have outgrown <code>dplyr::summarize()</code>. Example: get the range of life expectancies seen for each continent.</p>
+<pre class="r"><code>gapminder %&gt;%
+  group_by(continent) %&gt;%
+  summarize(range = range(lifeExp))
+#&gt; Error in eval(expr, envir, enclos): expecting a single value</code></pre>
+<p>Now, in this case, we could reframe this in a <code>summarize()</code>-friendly form, but that doesn’t work in general.</p>
+<pre class="r"><code>gapminder %&gt;%
+  group_by(continent) %&gt;%
+  summarize_each(funs(min, max), lifeExp)
+#&gt; # A tibble: 5 × 3
+#&gt;   continent    min    max
+#&gt;      &lt;fctr&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+#&gt; 1    Africa 23.599 76.442
+#&gt; 2  Americas 37.579 80.653
+#&gt; 3      Asia 28.801 82.603
+#&gt; 4    Europe 43.585 81.757
+#&gt; 5   Oceania 69.120 81.235</code></pre>
+</div>
+<div id="general-approach-nesting" class="section level3">
+<h3>General approach: nesting</h3>
+<p>We use <strong>nesting</strong> as an extension of <strong>grouping</strong> in order to support more general group-wise computation. The collapse to a single row per group happens right away here, unlike the simple grouping above. When you nest data, the non-grouping variables are packaged into group-specific data frames that are held in a special variable called a list-column. You then apply your computation to the components of this list, i.e. the data frames. List-columns take a little getting used to, but the payoff is huge.</p>
+<p>Let’s get ready to fit a model for each country in the Gapminder dataset. First we group, as above, and then nest. We group by country and continent in order to keep those two variables “on the outside”.</p>
+<pre class="r"><code>(gap_nested &lt;- gapminder %&gt;% 
+   group_by(continent, country) %&gt;% 
+   nest())
+#&gt; # A tibble: 142 × 3
+#&gt;    continent     country              data
+#&gt;       &lt;fctr&gt;      &lt;fctr&gt;            &lt;list&gt;
+#&gt; 1       Asia Afghanistan &lt;tibble [12 × 4]&gt;
+#&gt; 2     Europe     Albania &lt;tibble [12 × 4]&gt;
+#&gt; 3     Africa     Algeria &lt;tibble [12 × 4]&gt;
+#&gt; 4     Africa      Angola &lt;tibble [12 × 4]&gt;
+#&gt; 5   Americas   Argentina &lt;tibble [12 × 4]&gt;
+#&gt; 6    Oceania   Australia &lt;tibble [12 × 4]&gt;
+#&gt; 7     Europe     Austria &lt;tibble [12 × 4]&gt;
+#&gt; 8       Asia     Bahrain &lt;tibble [12 × 4]&gt;
+#&gt; 9       Asia  Bangladesh &lt;tibble [12 × 4]&gt;
+#&gt; 10    Europe     Belgium &lt;tibble [12 × 4]&gt;
+#&gt; # ... with 132 more rows</code></pre>
+<p>What do you notice?</p>
+<ul>
+<li>The immediate collapse to 142 rows, one per country.</li>
+<li>The familiar presence of <code>continent</code> and <code>country</code>.</li>
+<li>The unfamiliar look of the new <code>data</code> variable, which is … a list! It is a list-column of continent-specific tibbles.</li>
+</ul>
+<p>How on earth do you inspect it?!? In RStudio, <code>gap_nested %&gt;% View()</code> is often helpful (moderately so in this case). It’s often nicer to inspect a single element like so:</p>
+<pre class="r"><code>gap_nested[[1, &quot;data&quot;]]
+#&gt; # A tibble: 12 × 4
+#&gt;     year lifeExp      pop gdpPercap
+#&gt;    &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+#&gt; 1   1952  28.801  8425333  779.4453
+#&gt; 2   1957  30.332  9240934  820.8530
+#&gt; 3   1962  31.997 10267083  853.1007
+#&gt; 4   1967  34.020 11537966  836.1971
+#&gt; 5   1972  36.088 13079460  739.9811
+#&gt; 6   1977  38.438 14880372  786.1134
+#&gt; 7   1982  39.854 12881816  978.0114
+#&gt; 8   1987  40.822 13867957  852.3959
+#&gt; 9   1992  41.674 16317921  649.3414
+#&gt; 10  1997  41.763 22227415  635.3414
+#&gt; 11  2002  42.129 25268405  726.7341
+#&gt; 12  2007  43.828 31889923  974.5803</code></pre>
+<p><a href="block004_basic-r-objects.html">Remember that</a> double square brackets can only be used to extract a single element and they are simplifying. An equivalent call is <code>gap_nested[[&quot;data&quot;]][[1]]</code> (which I find even more opaque) or <code>gap_nested$data[[1]]</code> (which is pretty nice). We’re looking at the first of 142 country-specific data frames, which happens to be for Afghanistan.</p>
+<p>The presence of list-columns is always a temporary, uncomfortable state.</p>
+</div>
+<div id="apply-a-function-map-and-mutate" class="section level3">
+<h3>Apply a function <code>map()</code> and <code>mutate()</code></h3>
+<p>How do we now iterate over the elements of <code>gap_nested$data</code>? It is a list, so we use general approaches for applying a function to each element of a list. In base R, this means <code>lapply()</code>, but we will use the tidyverse function <code>purrr::map()</code>, which has a few advantages <a href="https://speakerdeck.com/jennybc/purrr-tutorial-intro-very-rough-draft">described elsewhere</a>.</p>
+<p>Walk before you run, i.e. do an example first!</p>
+<p>Let’s fit a model to the data from Afghanistan. The form of the right-hand side is so that our intercept has a nice interpretation.</p>
+<pre class="r"><code>(fit &lt;- lm(lifeExp ~ I(year - 1950), data = gap_nested[[1, &quot;data&quot;]]))
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = lifeExp ~ I(year - 1950), data = gap_nested[[1, 
+#&gt;     &quot;data&quot;]])
+#&gt; 
+#&gt; Coefficients:
+#&gt;    (Intercept)  I(year - 1950)  
+#&gt;        29.3566          0.2753</code></pre>
+<p>Let’s capture that logic in a function and informally test that it returns the same results for Afghanistan.</p>
+<pre class="r"><code>le_vs_yr &lt;- function(df) {
+  lm(lifeExp ~ I(year - 1950), data = df)
+}
+le_vs_yr(gap_nested[[1, &quot;data&quot;]])
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = lifeExp ~ I(year - 1950), data = df)
+#&gt; 
+#&gt; Coefficients:
+#&gt;    (Intercept)  I(year - 1950)  
+#&gt;        29.3566          0.2753</code></pre>
+<p>After you walk, jog before you run. Use <code>purrr::map()</code> to apply the fitting function <code>le_vs_yr()</code> to the first two elements of <code>gap_nested$data</code>.</p>
+<pre class="r"><code>fits &lt;- map(gap_nested$data[1:2], le_vs_yr)
+fits
+#&gt; [[1]]
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = lifeExp ~ I(year - 1950), data = df)
+#&gt; 
+#&gt; Coefficients:
+#&gt;    (Intercept)  I(year - 1950)  
+#&gt;        29.3566          0.2753  
+#&gt; 
+#&gt; 
+#&gt; [[2]]
+#&gt; 
+#&gt; Call:
+#&gt; lm(formula = lifeExp ~ I(year - 1950), data = df)
+#&gt; 
+#&gt; Coefficients:
+#&gt;    (Intercept)  I(year - 1950)  
+#&gt;        58.5598          0.3347</code></pre>
+<p>So, how do we run, i.e. scale this up to all countries? And where do we put these fitted models? We’ll use <code>map()</code> inside <code>mutate()</code>, meaning we store the models inside <code>gap_nested</code> in another list-column.</p>
+<pre class="r"><code>(gap_nested &lt;- gap_nested %&gt;% 
+   mutate(fit = map(data, le_vs_yr)))
+#&gt; # A tibble: 142 × 4
+#&gt;    continent     country              data      fit
+#&gt;       &lt;fctr&gt;      &lt;fctr&gt;            &lt;list&gt;   &lt;list&gt;
+#&gt; 1       Asia Afghanistan &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+#&gt; 2     Europe     Albania &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+#&gt; 3     Africa     Algeria &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+#&gt; 4     Africa      Angola &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+#&gt; 5   Americas   Argentina &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+#&gt; 6    Oceania   Australia &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+#&gt; 7     Europe     Austria &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+#&gt; 8       Asia     Bahrain &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+#&gt; 9       Asia  Bangladesh &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+#&gt; 10    Europe     Belgium &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt;
+#&gt; # ... with 132 more rows</code></pre>
+<p>We have a new list-column <code>fit</code> that is even more intimidating than the previous, <code>data</code>. The <code>fit</code> variable holds 142 fitted linear models. What shall we do with that?</p>
+</div>
+<div id="always-have-an-exit-strategy" class="section level3">
+<h3>Always have an exit strategy</h3>
+<p>The list-column state is an uncomfortable and temporary one. The goal is always to pull information out of these complicated objects and package as something simpler, usually a tibble. You always want a list-column exit strategy!</p>
+<p>We are not afraid to fit linear models in this example because there is a fantastic package called <a href="https://github.com/dgrtwo/broom">broom</a> from David Robinson that provides exactly this for <code>lm()</code> and many other functions.</p>
+<p>broom provides three key functions that take a <code>lm()</code> fit as input and give a useful tibble back:</p>
+<ul>
+<li><code>tidy()</code>: a tidy version of <code>summary()</code>, e.g. a table with one row per parameter estimate</li>
+<li><code>augment()</code>: the original data, augmented with columns such as fitted values and residuals</li>
+<li><code>glance()</code>: a one-row model summary</li>
+</ul>
+<p>All of these are much friendlier than a fitted <code>lm()</code> object and set us up for interesting downstream analyses and plots.</p>
+</div>
+<div id="simplify-and-combine" class="section level3">
+<h3>Simplify and combine</h3>
+<p>Let’s look at the result of <code>broom::tidy()</code> for a single model. Walk before you run.</p>
+<pre class="r"><code>library(broom)
+tidy(gap_nested$fit[[1]])
+#&gt;             term   estimate  std.error statistic      p.value
+#&gt; 1    (Intercept) 29.3566375 0.69898128  41.99918 1.404235e-12
+#&gt; 2 I(year - 1950)  0.2753287 0.02045093  13.46289 9.835213e-08</code></pre>
+<p>We get a two row data frame, one with results for the intercept and one for the slope. This is much more approachable than fitted <code>lm</code> objects!</p>
+<p>Apply <code>tidy()</code> to the model for each country with the same <code>map()</code> inside <code>mutate()</code> strategy as above.</p>
+<pre class="r"><code>(gap_nested &lt;- gap_nested %&gt;% 
+  mutate(tidy = map(fit, tidy)))
+#&gt; # A tibble: 142 × 5
+#&gt;    continent     country              data      fit                 tidy
+#&gt;       &lt;fctr&gt;      &lt;fctr&gt;            &lt;list&gt;   &lt;list&gt;               &lt;list&gt;
+#&gt; 1       Asia Afghanistan &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+#&gt; 2     Europe     Albania &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+#&gt; 3     Africa     Algeria &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+#&gt; 4     Africa      Angola &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+#&gt; 5   Americas   Argentina &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+#&gt; 6    Oceania   Australia &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+#&gt; 7     Europe     Austria &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+#&gt; 8       Asia     Bahrain &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+#&gt; 9       Asia  Bangladesh &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+#&gt; 10    Europe     Belgium &lt;tibble [12 × 4]&gt; &lt;S3: lm&gt; &lt;data.frame [2 × 5]&gt;
+#&gt; # ... with 132 more rows</code></pre>
+<p>The last step is now to simplify, preferably back to a normal tibble. We do this by retaining variables that are amenable to simplification and using <code>unnest()</code>, thus completing the circle.</p>
+<pre class="r"><code>(gap_coefs &lt;- gap_nested %&gt;% 
+   select(continent, country, tidy) %&gt;% 
+   unnest(tidy))
+#&gt; # A tibble: 284 × 7
+#&gt;    continent     country           term   estimate   std.error  statistic
+#&gt;       &lt;fctr&gt;      &lt;fctr&gt;          &lt;chr&gt;      &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
+#&gt; 1       Asia Afghanistan    (Intercept) 29.3566375 0.698981278  41.999176
+#&gt; 2       Asia Afghanistan I(year - 1950)  0.2753287 0.020450934  13.462890
+#&gt; 3     Europe     Albania    (Intercept) 58.5597618 1.133575812  51.659325
+#&gt; 4     Europe     Albania I(year - 1950)  0.3346832 0.033166387  10.091036
+#&gt; 5     Africa     Algeria    (Intercept) 42.2364149 0.756269040  55.848399
+#&gt; 6     Africa     Algeria I(year - 1950)  0.5692797 0.022127070  25.727749
+#&gt; 7     Africa      Angola    (Intercept) 31.7079741 0.804287463  39.423683
+#&gt; 8     Africa      Angola I(year - 1950)  0.2093399 0.023532003   8.895964
+#&gt; 9   Americas   Argentina    (Intercept) 62.2250191 0.167091314 372.401279
+#&gt; 10  Americas   Argentina I(year - 1950)  0.2317084 0.004888791  47.395847
+#&gt; # ... with 274 more rows, and 1 more variables: p.value &lt;dbl&gt;</code></pre>
+</div>
+<div id="recap" class="section level3">
+<h3>Recap</h3>
+<p>The whole point of this was to get apply a computation to all the pieces of a dataset and glue the results back together. First, let’s review all of our work so far in one place. It’s remarkably compact.</p>
+<pre class="r"><code>gap_nested &lt;- gapminder %&gt;% 
+  group_by(continent, country) %&gt;% 
+  nest()
+
+le_vs_yr &lt;- function(df) {
+  lm(lifeExp ~ I(year - 1950), data = df)
+}
+
+gap_coefs &lt;- gap_nested %&gt;% 
+  mutate(fit = map(data, le_vs_yr),
+         tidy = map(fit, tidy)) %&gt;% 
+  select(continent, country, tidy) %&gt;% 
+  unnest(tidy)</code></pre>
+<p>Reflect on how you would have obtained a data frame of country-specific intercepts and slopes from a regression of life expectancy on year. Did you know any approaches for solving this problem? If no, then rejoice that you now have one! If yes, does the approach outlined here seem simpler?</p>
+<p>List-columns take some getting used to, but they are a required component of the strategy laid out above for general-purpose split-apply-combine.</p>
+</div>
+<div id="enjoy-the-payoff-of-your-work" class="section level3">
+<h3>Enjoy the payoff of your work</h3>
+<p>Let’s celebrate by exploring the estimated slopes and intercepts a bit. First we recode the variable corresponding to “intercept” vs “slope”.</p>
+<pre class="r"><code>(gap_coefs &lt;- gap_coefs %&gt;%
+   mutate(term = recode(term,
+                        `(Intercept)` = &quot;intercept&quot;,
+                        `I(year - 1950)` = &quot;slope&quot;)))
+#&gt; # A tibble: 284 × 7
+#&gt;    continent     country      term   estimate   std.error  statistic
+#&gt;       &lt;fctr&gt;      &lt;fctr&gt;     &lt;chr&gt;      &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
+#&gt; 1       Asia Afghanistan intercept 29.3566375 0.698981278  41.999176
+#&gt; 2       Asia Afghanistan     slope  0.2753287 0.020450934  13.462890
+#&gt; 3     Europe     Albania intercept 58.5597618 1.133575812  51.659325
+#&gt; 4     Europe     Albania     slope  0.3346832 0.033166387  10.091036
+#&gt; 5     Africa     Algeria intercept 42.2364149 0.756269040  55.848399
+#&gt; 6     Africa     Algeria     slope  0.5692797 0.022127070  25.727749
+#&gt; 7     Africa      Angola intercept 31.7079741 0.804287463  39.423683
+#&gt; 8     Africa      Angola     slope  0.2093399 0.023532003   8.895964
+#&gt; 9   Americas   Argentina intercept 62.2250191 0.167091314 372.401279
+#&gt; 10  Americas   Argentina     slope  0.2317084 0.004888791  47.395847
+#&gt; # ... with 274 more rows, and 1 more variables: p.value &lt;dbl&gt;</code></pre>
+<p>Due to the way we parametrized the model, the intercepts correspond to expected life expectancy in 1950. These numbers should be plausible as human life expectancies. The slopes correspond to change in expected life expectancy from one year to the next. We expect positive numbers to dominate, but they’ll probably less than one. A reshaped version of the estimates, <code>gap_ests</code>, is handy for numerical summarization and visualization.</p>
+<pre class="r"><code>(gap_ests &lt;- gap_coefs %&gt;% 
+   select(continent:estimate) %&gt;% 
+   spread(key = term, value = estimate))
+#&gt; # A tibble: 142 × 4
+#&gt;    continent                  country intercept      slope
+#&gt; *     &lt;fctr&gt;                   &lt;fctr&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+#&gt; 1     Africa                  Algeria  42.23641 0.56927972
+#&gt; 2     Africa                   Angola  31.70797 0.20933986
+#&gt; 3     Africa                    Benin  38.92005 0.33423287
+#&gt; 4     Africa                 Botswana  52.80778 0.06066853
+#&gt; 5     Africa             Burkina Faso  33.95674 0.36397483
+#&gt; 6     Africa                  Burundi  40.27037 0.15413427
+#&gt; 7     Africa                 Cameroon  40.74917 0.25014685
+#&gt; 8     Africa Central African Republic  38.44170 0.18390559
+#&gt; 9     Africa                     Chad  39.30288 0.25324406
+#&gt; 10    Africa                  Comoros  39.09522 0.45039091
+#&gt; # ... with 132 more rows
+gap_ests %&gt;% 
+  select(intercept, slope) %&gt;% 
+  summary()
+#&gt;    intercept         slope         
+#&gt;  Min.   :27.24   Min.   :-0.09302  
+#&gt;  1st Qu.:39.36   1st Qu.: 0.20832  
+#&gt;  Median :47.42   Median : 0.32145  
+#&gt;  Mean   :49.86   Mean   : 0.32590  
+#&gt;  3rd Qu.:62.05   3rd Qu.: 0.44948  
+#&gt;  Max.   :71.95   Max.   : 0.77218</code></pre>
+<p>The numerical summaries look reasonable. We conclude with a look at the full distribution.</p>
+<pre class="r"><code>ggplot(gap_coefs, aes(x = estimate)) +
+  geom_density() + geom_rug() + facet_wrap(~ term, scales = &quot;free&quot;)</code></pre>
+<p><img src="block024_group-nest-split-map_files/figure-html/intercept-slope-1.png" /><!-- --></p>
+<pre class="r"><code>ggplot(gap_ests, aes(x = intercept, y = slope)) +
+  geom_point() +
+  geom_smooth(se = FALSE, lwd = 2)</code></pre>
+<p><img src="block024_group-nest-split-map_files/figure-html/intercept-slope-2.png" /><!-- --></p>
+</div>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

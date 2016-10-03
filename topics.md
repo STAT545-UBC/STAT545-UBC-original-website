@@ -13,7 +13,7 @@ This material gets updated during Sept - Nov each year. Right now it's a mix of 
     - [Basic care and feeding of data in R](block006_care-feeding-data.html)
     - [Introduction to dplyr](block009_dplyr-intro.html)
     - [dplyr functions for a single dataset](block010_dplyr-end-single-table.html)
-    - Overview of split-apply-combine: [slides on speakerdeck](https://speakerdeck.com/jennybc/ubc-stat545-split-apply-combine-intro)
+    - [Split-Apply-Combine](block024_group-nest-split-map.html) with the tidyverse (nesting, list-columns, map inside mutate).
     - [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
   * Data analysis 2: vectors and files
     - [Be the boss of your factors](block014_factors.html)
@@ -58,6 +58,7 @@ This material gets updated during Sept - Nov each year. Right now it's a mix of 
     - [Slides on Google Docs](https://docs.google.com/presentation/d/1dXhqqsD7dPOOdcC5Y7RW--dEU7UfU52qlb0YD3kKeLw/edit?usp=sharing)
     - [Shiny tutorial with hands-on activity to build app with BC Liquor Store dataset](shiny01_activity.html)
   * Deprecated material that I no longer use. But last I checked, it's not actually *wrong*.
+      - Overview of split-apply-combine: [slides on speakerdeck](https://speakerdeck.com/jennybc/ubc-stat545-split-apply-combine-intro)
     - [Split-apply-combine with `dplyr::do()`](block023_dplyr-do.html)
     - Example: [a wrapper around `lm` to use with `dplyr::do()`](block025_lm-poly.html)
     - [Split-apply-combine with `plyr`](block013_plyr-ddply.html)
