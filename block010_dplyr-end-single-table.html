@@ -524,15 +524,15 @@ my_gap &lt;- my_gap %&gt;%
 ## 10  1997      41.763      80.690
 ## 11  2002      42.129      82.000
 ## 12  2007      43.828      82.603</code></pre>
-<p>Of course it would be much more interesting to see <em>which</em> country contributed these extreme observations. Is the minimum (maximum) always coming from the same country? That’s where window functions come in.</p>
+<p>Of course it would be much more interesting to see <em>which</em> country contributed these extreme observations. Is the minimum (maximum) always coming from the same country? We tackle that with window functions shortly.</p>
 </div>
 </div>
 <div id="grouped-mutate" class="section level3">
 <h3>Grouped mutate</h3>
-<p>Sometimes you don’t want to collapse the <span class="math inline">\(n\)</span> rows for each group into one row. But you do want to do a group-informed computation.</p>
+<p>Sometimes you don’t want to collapse the <span class="math inline">\(n\)</span> rows for each group into one row. You want to keep your groups, but compute within them.</p>
 <div id="computing-with-group-wise-summaries" class="section level4">
 <h4>Computing with group-wise summaries</h4>
-<p>Let’s make a new variable that is the years of life expectancy gained (lost) relative to 1952, for each individual country. We group by country and use <code>mutate()</code>. The <code>first()</code> function extracts the first value from a vector and notice that it is operating on the vector of life expectancies <em>within each country group</em>.</p>
+<p>Let’s make a new variable that is the years of life expectancy gained (lost) relative to 1952, for each individual country. We group by country and use <code>mutate()</code> to make a new variable. The <code>first()</code> function extracts the first value from a vector. Notice that <code>first()</code> is operating on the vector of life expectancies <em>within each country group</em>.</p>
 <pre class="r"><code>my_gap %&gt;% 
   group_by(country) %&gt;% 
   select(country, year, lifeExp) %&gt;% 
@@ -554,11 +554,11 @@ my_gap &lt;- my_gap %&gt;%
 ## 9      Algeria  1962  48.303        5.226
 ## 10      Angola  1952  30.015        0.000
 ## # ... with 416 more rows</code></pre>
-<p>Within country, we take the difference between life expectancy in year <span class="math inline">\(i\)</span> life expectancy in 1952. Therefore we always see zeroes for 1952 and, for most countries, a sequence of positive and increasing numbers.</p>
+<p>Within country, we take the difference between life expectancy in year <span class="math inline">\(i\)</span> and life expectancy in 1952. Therefore we always see zeroes for 1952 and, for most countries, a sequence of positive and increasing numbers.</p>
 </div>
 <div id="window-functions" class="section level4">
 <h4>Window functions</h4>
-<p>Window functions take <span class="math inline">\(n\)</span> inputs and give back <span class="math inline">\(n\)</span> outputs. Here we use window functions based on ranks and offsets.</p>
+<p>Window functions take <span class="math inline">\(n\)</span> inputs and give back <span class="math inline">\(n\)</span> outputs. Furthermore, the output depends on all the values. So <code>rank()</code> is a window function but <code>log()</code> is not. Here we use window functions based on ranks and offsets.</p>
 <p>Let’s revisit the worst and best life expectancies in Asia over time, but retaining info about <em>which</em> country contributes these extreme values.</p>
 <pre class="r"><code>my_gap %&gt;%
   filter(continent == &quot;Asia&quot;) %&gt;%
@@ -712,6 +712,7 @@ asia</code></pre>
 <li><a href="https://www.dropbox.com/sh/i8qnluwmuieicxc/AAAgt9tIKoIm7WZKIyK25lh6a">tutorial HW delivered</a> (note this links to a DropBox folder) at useR! 2014 conference</li>
 </ul>
 <p><a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">RStudio Data Wrangling cheatsheet</a>, covering <code>dplyr</code> and <code>tidyr</code>. Remember you can get to these via <em>Help &gt; Cheatsheets.</em></p>
+<p><a href="http://r4ds.had.co.nz/transform.html">Data transformation</a> chapter of <a href="http://r4ds.had.co.nz">R for Data Science</a></p>
 <p><a href="https://github.com/tjmahr/MadR_Pipelines">Excellent slides</a> on pipelines and <code>dplyr</code> by TJ Mahr, talk given to the Madison R Users Group.</p>
 <p>Blog post <a href="http://www.dataschool.io/dplyr-tutorial-for-faster-data-manipulation-in-r/">Hands-on dplyr tutorial for faster data manipulation in R</a> by Data School, that includes a link to an R Markdown document and links to videos</p>
 <p><a href="bit001_dplyr-cheatsheet.html">Cheatsheet</a> I made for <code>dplyr</code> join functions (not relevant yet but soon)</p>

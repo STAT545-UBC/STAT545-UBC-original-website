@@ -256,15 +256,15 @@ my_gap %>%
   summarize(min_lifeExp = min(lifeExp), max_lifeExp = max(lifeExp))
 ```
 
-Of course it would be much more interesting to see *which* country contributed these extreme observations. Is the minimum (maximum) always coming from the same country? That's where window functions come in.
+Of course it would be much more interesting to see *which* country contributed these extreme observations. Is the minimum (maximum) always coming from the same country? We tackle that with window functions shortly.
 
 ### Grouped mutate
 
-Sometimes you don't want to collapse the $n$ rows for each group into one row. But you do want to do a group-informed computation.
+Sometimes you don't want to collapse the $n$ rows for each group into one row. You want to keep your groups, but compute within them.
 
 #### Computing with group-wise summaries
 
-Let's make a new variable that is the years of life expectancy gained (lost) relative to 1952, for each individual country. We group by country and use `mutate()`. The `first()` function extracts the first value from a vector and notice that it is operating on the vector of life expectancies *within each country group*.
+Let's make a new variable that is the years of life expectancy gained (lost) relative to 1952, for each individual country. We group by country and use `mutate()` to make a new variable. The `first()` function extracts the first value from a vector. Notice that `first()` is operating on the vector of life expectancies *within each country group*.
 
 ```{r}
 my_gap %>% 
@@ -274,11 +274,11 @@ my_gap %>%
   filter(year < 1963)
 ```
 
-Within country, we take the difference between life expectancy in year $i$ life expectancy in 1952. Therefore we always see zeroes for 1952 and, for most countries, a sequence of positive and increasing numbers.
+Within country, we take the difference between life expectancy in year $i$ and life expectancy in 1952. Therefore we always see zeroes for 1952 and, for most countries, a sequence of positive and increasing numbers.
 
 #### Window functions
 
-Window functions take $n$ inputs and give back $n$ outputs. Here we use window functions based on ranks and offsets.
+Window functions take $n$ inputs and give back $n$ outputs. Furthermore, the output depends on all the values. So `rank()` is a window function but `log()` is not. Here we use window functions based on ranks and offsets.
 
 Let's revisit the worst and best life expectancies in Asia over time, but retaining info about *which* country contributes these extreme values.
 
@@ -374,6 +374,8 @@ In later tutorials, we'll explore more of dplyr, such as operations based on two
   * [tutorial HW delivered](https://www.dropbox.com/sh/i8qnluwmuieicxc/AAAgt9tIKoIm7WZKIyK25lh6a) (note this links to a DropBox folder) at useR! 2014 conference
 
 [RStudio Data Wrangling cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf), covering `dplyr` and `tidyr`. Remember you can get to these via *Help > Cheatsheets.* 
+
+[Data transformation](http://r4ds.had.co.nz/transform.html) chapter of [R for Data Science](http://r4ds.had.co.nz)
 
 [Excellent slides](https://github.com/tjmahr/MadR_Pipelines) on pipelines and `dplyr` by TJ Mahr, talk given to the Madison R Users Group.
 
