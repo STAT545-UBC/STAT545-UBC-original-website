@@ -78,7 +78,7 @@ knitr::kable(dat[["STAT545A"]] %>% select(date, notes))
 knitr::kable(dat[["STAT547M"]] %>% select(date, notes))
 ```
 
-  * Homework 06 Alpha-to-omega data cleaning and wrangling Grand Finale. Possibly using your own data or the `candy` survey or the `bellybutton` data.
+  * Homework 06 Your choice: Use your own functions with split-apply-combine and functional programming or Alpha-to-omega data cleaning and wrangling with your own data or the `candy` survey or the `bellybutton` data.
   * *Assignments below will be renumbered in 2016 (hw07 - hw10) and, obviously, ordered according to when the topics appear in class. Please just humor me for now.*
   * [Homework 08](hw08_package.html) Write an R package (2015 version)
   * [Homework 09](hw09_automation.html) Automate a data analysis pipeline (2015 version)

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Homework 06: Use split-apply-combine with your functions within data.frames</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Homework 06: Use split-apply-combine with your functions within data.frames</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#overview">Overview</a><ul>
+<li><a href="#gapminder-data">Gapminder data</a></li>
+</ul></li>
+<li><a href="#your-mission-high-level">Your mission, high-level</a></li>
+<li><a href="#inspiration-for-what-to-compute">Inspiration for what to compute</a></li>
+<li><a href="#exploration-of-the-results">Exploration of the results</a></li>
+<li><a href="#but-i-want-to-do-more">But I want to do more!</a></li>
+<li><a href="#report-your-process">Report your process</a></li>
+<li><a href="#submit-the-assignment">Submit the assignment</a></li>
+<li><a href="#rubric">Rubric</a></li>
+</ul>
+</div>
+
+<p><strong>NOTE: this is the 2015 version. Will receive some update in 2016.</strong></p>
+<div id="overview" class="section level3">
+<h3>Overview</h3>
+<p>Consult the <a href="hw00_homework-guidelines.html">general homework guidelines</a>.</p>
+<p>Due sometime Friday 2015-10-16. <em>I am open to negotiation if the lateness of this posting is creating hardship.</em></p>
+<p>The goal is to write one (or more) custom functions that do something useful to pieces of the Gapminder data. Then use <code>dplyr::do()</code> to apply to all such pieces. Then use <code>dplyr()</code> and or <code>ggplot2</code> to explore what you got back.</p>
+<p>Remember the <a href="http://en.wikipedia.org/wiki/Sampler_(needlework)">sampler concept</a>. Your homework should serve as your own personal cheatsheet in the future for how to write a function and how to scale up its application with data aggregation machinery.</p>
+<div id="gapminder-data" class="section level4">
+<h4>Gapminder data</h4>
+<p>Work with the <a href="https://cran.r-project.org/package=gapminder">Gapminder excerpt</a>. <em>If you really, really want to, you can explore a different dataset but get permission from Jenny.</em></p>
+</div>
+</div>
+<div id="your-mission-high-level" class="section level3">
+<h3>Your mission, high-level</h3>
+<p>Write a function to compute something interesting on a piece of the Gapminder data. Make it something you can’t easily do with built-in functions. Make it something that’s not trivial to do with the simple <code>dplyr</code> verbs.</p>
+<ul>
+<li>The linear regression function <a href="block012_function-regress-lifeexp-on-year.html">we wrote together in cm011</a> is a good example.</li>
+<li>Record some of the process. In fact, you might want to draft two R Markdown files for this assignment. One to develop and test the function. Another to apply it and explore results. Just like we split it up in class.</li>
+</ul>
+<p>Use <code>dplyr::do()</code> to apply your function to all possible pieces of the Gapminder dataset and return the combined result.</p>
+<p>Explore the results you get back. Use all your usual tricks, so I expect to see alot of <code>dplyr</code> and <code>ggplot2</code> here.</p>
+<p>Make observations about what your tables/figures show and about the process.</p>
+</div>
+<div id="inspiration-for-what-to-compute" class="section level3">
+<h3>Inspiration for what to compute</h3>
+<p>Find countries with interesting stories. Remember this one from last week? You are even better equipped to tackle it now. Here are some ideas to get you thinking. Feel free to riff on them – I don’t expect rote implementation. Some of these ideas will impact the function you write AND the follow-up exploration.</p>
+<ul>
+<li><p>Sudden, substantial departures from the temporal trend is interesting. This goes for life expectancy, GDP per capita, or population. How could you operationalize this notion of “interesting”?</p></li>
+<li><p>Fit a regression of the response vs. time. Use the residuals to detect countries where your model is a terrible fit. Example:</p>
+<ul>
+<li><p>Are there are 1 or more freakishly large residuals, in an absolute sense or relative to some estimate of background variability?</p></li>
+<li><p>Are there strong patterns in the sign of the residuals? E.g., all pos, then all neg, then pos again.</p></li>
+</ul></li>
+<li><p>Fit a regression using ordinary least squares and a robust technique. Determine the difference in estimated parameters under the two approaches. If it is large, consider that country “interesting”. Check out <code>lmrob()</code> in <a href="http://cran.r-project.org/web/packages/robustbase/index.html"><code>robustbase</code></a>.</p></li>
+</ul>
+<p>Wear your statistical hat and characterize how well/poorly the simple linear model is working. Via residual analysis. Or by fitting something more complicated (but still appropriate for <span class="math inline">\(n\)</span> = 12!) – like a degree 2 polynomial. Retain quantities that speak to goodness-of-fit and explore that across all 142 countries.</p>
+<p>Do anything we’ve discussed so far but for a different combination of variables. How is GDP per capita changing over time? How about the relationship between GDP per capita and life expectancy?</p>
+</div>
+<div id="exploration-of-the-results" class="section level3">
+<h3>Exploration of the results</h3>
+<p>Once you’ve found something interesting to compute and you’ve used <code>dplyr::do()</code> to enact the computation broadly, it’s vital that you digest and interpret the results.</p>
+<p>This will probably mean some sorting, filtering, etc. All your <code>dplyr</code> skills will come in handy. There’s probably a couple of interesting tables to make.</p>
+<p>Whenever possible, include a companion figure that adds context to the numbers and bolsters your comments. The figure does not have to depict exactly or only what the table does – it just needs to reinforce the connection back to the underlying data.</p>
+</div>
+<div id="but-i-want-to-do-more" class="section level3">
+<h3>But I want to do more!</h3>
+<p>Do your main data aggregation task with <code>dplyr::group_by() + do()</code> AND <code>plyr::ddply()</code>. Reflect on the pros/cons of the two approaches.</p>
+<p>Explore more functions in the <code>broom</code> package.</p>
+<p>Explore <code>plyr</code>’s capabilities to work with vectors, multi-dimensional arrays, and lists. Get outside the safe little world of data.frames.</p>
+<p>Take a look at <a href="https://github.com/hadley/purrr"><code>purrr</code></a> for functional programming more generally. Here’s a <a href="http://lionel-.github.io/2015/10/08/using-purrr-with-dplyr/">blog post</a> by one of the authors on combining <code>purrr</code> and <code>dplyr</code>.</p>
+</div>
+<div id="report-your-process" class="section level3">
+<h3>Report your process</h3>
+<p>You’re encouraged to reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc. Give credit to your sources, whether it’s a blog post, a fellow student, an online tutorial, etc.</p>
+</div>
+<div id="submit-the-assignment" class="section level3">
+<h3>Submit the assignment</h3>
+<p>Follow instructions on <a href="hw00_homework-guidelines.html#how-to-submit-homework">How to submit homework</a></p>
+</div>
+<div id="rubric" class="section level3">
+<h3>Rubric</h3>
+<p><strong>Start using our <a href="peer-review01_marking-rubric.html">general rubric</a> for specifics to evaluate! The form will require you to do so!</strong></p>
+<p>Check minus: <em>One or more problems such as …</em> Student’s custom function was exactly what we did in class or a very modest extension. Exploration of the data aggregation results is missing or minimal. Student missed clear opportunities to complement numbers with a figure. Technical problem(s) that are relatively easy to fix. Repository organization – or lack thereof – leaves work for the reader, in terms of finding the necessary files.</p>
+<p>Check: Hits all the elements. No obvious mistakes. Pleasant to read. No heroic detective work required. Solid.</p>
+<p>Check plus: Exceeded the requirements in number of dimensions. Developed novel tasks that were indeed interesting and “worked”. Impressive use of <code>dplyr</code>, <code>plyr</code>, <code>broom</code>, and/or <code>ggplot2</code>. Impeccable organization of repo and report. You learned something new from reviewing their work and you’re eager to incorporate it into your work.</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

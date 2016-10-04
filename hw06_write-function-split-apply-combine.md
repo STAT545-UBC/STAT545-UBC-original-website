@@ -1,10 +1,12 @@
 ---
-title: "Homework 04: Use split-apply-combine with your functions within data.frames"
+title: "Homework 06: Use split-apply-combine with your functions within data.frames"
 output:
   html_document:
     toc: true
     toc_depth: 4
 ---
+
+**NOTE: this is the 2015 version. Will receive some update in 2016.**
 
 ### Overview
 
