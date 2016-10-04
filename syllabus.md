@@ -35,7 +35,7 @@ sep-20 tues    <a href="cm005_tidyverse-tibbles.html">cm005</a>: Care and feedin
 sep-22 thurs   <a href="cm006_tibbles-dplyr-ggplot2.html">cm006</a>: First look at dplyr, %>%, and ggplot2                        
 sep-27 tues    <a href="cm007_ggplot2.html">cm007</a>: ggplot2                                                                    
 sep-29 thurs   <a href="cm008_dplyr-single-table.html">cm008</a>: dplyr: mutate, group, summarize                                 
-oct-04 tues    cm009: Tidy data, reshaping, dplyr joins                                                                           
+oct-04 tues    <a href="cm009_tidy-data-joins.html">cm009</a>: Tidy data, reshaping, dplyr joins                                  
 oct-06 thurs   cm010: Minimum "need to know" re: R as a programming language                                                      
 oct-11 tues    cm011: Getting data out of R (and back in)                                                                         
 oct-13 thurs   cm012: Be the boss of your factors                                                                                 
