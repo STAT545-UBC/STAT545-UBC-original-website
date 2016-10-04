@@ -13,6 +13,7 @@ This material gets updated during Sept - Nov each year. Right now it's a mix of 
     - [Basic care and feeding of data in R](block006_care-feeding-data.html)
     - [Introduction to dplyr](block009_dplyr-intro.html)
     - [dplyr functions for a single dataset](block010_dplyr-end-single-table.html)
+    - [Tidy data using Lord of the Rings](https://github.com/jennybc/lotr-tidy)
     - [Split-Apply-Combine](block024_group-nest-split-map.html) with the tidyverse (nesting, list-columns, map inside mutate).
     - [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
   * Data analysis 2: vectors and files
