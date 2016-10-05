@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Be the boss of your factors</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Be the boss of your factors</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#factors-where-they-fit-in">Factors: where they fit in</a></li>
+<li><a href="#the-forcats-package">The forcats package</a></li>
+<li><a href="#load-tidyverse-forcats-gapminder">Load tidyverse, forcats, gapminder</a></li>
+<li><a href="#factor-inspection">Factor inspection</a></li>
+<li><a href="#dropping-unused-levels">Dropping unused levels</a></li>
+<li><a href="#change-order-of-the-levels-principled">Change order of the levels, principled</a></li>
+<li><a href="#change-order-of-the-levels-because-i-said-so">Change order of the levels, “because I said so”</a></li>
+<li><a href="#recode-the-levels">Recode the levels</a></li>
+</ul>
+</div>
+
+<p><em>Under development</em></p>
+<div id="factors-where-they-fit-in" class="section level3">
+<h3>Factors: where they fit in</h3>
+<p>We’ve spent alot of time working with big, beautiful data frame, like the Gapminder data. But we also need to manage the individual variables housed within.</p>
+<p>Factors are the variable type that useRs love to hate. It is how we store truly categorical information in R. The values a factor can take on are called the <strong>levels</strong>. For example, the levels of the factor <code>continent</code> in Gapminder are are “Africa”, “Americas”, etc. and this is what’s usually presented to your eyeballs by R. In general, the levels are friendly human-readable character strings, like “male/female” and “control/treated”. But <em>never ever ever</em> forget that, under the hood, R is really storing integer codes 1, 2, 3, etc.</p>
+<p>This <a href="http://en.wikipedia.org/wiki/Janus">Janus</a>-like nature of factors means they are rich with booby traps for the unsuspecting but they are a necessary evil. I recommend you learn how to be the boss of your factors. The pros far outweigh the cons. Specifically in modelling and figure-making, factors are anticipated and accommodated by the functions and packages you will want to exploit.</p>
+<p>The worst kind of factor is the stealth factor. The variable that you think of as character, but that is actually a factor (numeric!!). This is one of the classic gotchas in R. Check your variable types explicitly when things seem weird. Where do stealth factors come from? Base R has a burning desire to turn character information into factor. The most common place this happens is at data import via <code>read.table()</code> and friends. To shut this down, use <code>stringsAsFactors = FALSE</code> or – even better – use the tidyverse functions <code>read_csv()</code>, <code>read_tsv()</code>, etc.</p>
+<p>Good articles about how the factor fiasco came to be:</p>
+<ul>
+<li><a href="http://simplystatistics.org/2015/07/24/stringsasfactors-an-unauthorized-biography/">stringsAsFactors: An unauthorized biography</a> by Roger Peng</li>
+<li><a href="http://notstatschat.tumblr.com/post/124987394001/stringsasfactors-sigh">stringsAsFactors = <sigh></a> by Thomas Lumley</li>
+</ul>
+</div>
+<div id="the-forcats-package" class="section level3">
+<h3>The forcats package</h3>
+<p>This is a reboot of the <a href="block014_factors.html">STAT 545 factor material from 2015 and before</a>, in light of the very recent birth of the <a href="https://blog.rstudio.org/2016/08/31/forcats-0-1-0/">forcats</a> package.</p>
+<p>forcats is a non-core package in the tidyverse. It is installed via <code>install.packages(&quot;tidyverse&quot;)</code>, but not loaded via <code>library(tidyverse)</code>. Load it yourself as needed via <code>library(forcats)</code>. Main functions start with <code>fct_</code>. There really is no coherent family of base functions that forcats replaces – that’s why it’s such a welcome addition.</p>
+<p>Currently this lesson will be mostly code vs prose. See the previous lesson for more discussion during the transition.</p>
+</div>
+<div id="load-tidyverse-forcats-gapminder" class="section level3">
+<h3>Load tidyverse, forcats, gapminder</h3>
+<pre class="r"><code>library(tidyverse)
+#&gt; Loading tidyverse: ggplot2
+#&gt; Loading tidyverse: tibble
+#&gt; Loading tidyverse: tidyr
+#&gt; Loading tidyverse: readr
+#&gt; Loading tidyverse: purrr
+#&gt; Loading tidyverse: dplyr
+#&gt; Conflicts with tidy packages ----------------------------------------------
+#&gt; filter(): dplyr, stats
+#&gt; lag():    dplyr, stats
+library(forcats)
+library(gapminder)</code></pre>
+</div>
+<div id="factor-inspection" class="section level3">
+<h3>Factor inspection</h3>
+<p>Get to know your factor before you start touching it! It’s polite.</p>
+<pre class="r"><code>gapminder
+#&gt; # A tibble: 1,704 × 6
+#&gt;        country continent  year lifeExp      pop gdpPercap
+#&gt;         &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+#&gt; 1  Afghanistan      Asia  1952  28.801  8425333  779.4453
+#&gt; 2  Afghanistan      Asia  1957  30.332  9240934  820.8530
+#&gt; 3  Afghanistan      Asia  1962  31.997 10267083  853.1007
+#&gt; 4  Afghanistan      Asia  1967  34.020 11537966  836.1971
+#&gt; 5  Afghanistan      Asia  1972  36.088 13079460  739.9811
+#&gt; 6  Afghanistan      Asia  1977  38.438 14880372  786.1134
+#&gt; 7  Afghanistan      Asia  1982  39.854 12881816  978.0114
+#&gt; 8  Afghanistan      Asia  1987  40.822 13867957  852.3959
+#&gt; 9  Afghanistan      Asia  1992  41.674 16317921  649.3414
+#&gt; 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
+#&gt; # ... with 1,694 more rows
+str(gapminder)
+#&gt; Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    1704 obs. of  6 variables:
+#&gt;  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+#&gt;  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+#&gt;  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+#&gt;  $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
+#&gt;  $ gdpPercap: num  779 821 853 836 740 ...
+str(gapminder$continent)
+#&gt;  Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+levels(gapminder$continent)
+#&gt; [1] &quot;Africa&quot;   &quot;Americas&quot; &quot;Asia&quot;     &quot;Europe&quot;   &quot;Oceania&quot;
+nlevels(gapminder$continent)
+#&gt; [1] 5
+class(gapminder$continent)
+#&gt; [1] &quot;factor&quot;
+summary(gapminder$continent)
+#&gt;   Africa Americas     Asia   Europe  Oceania 
+#&gt;      624      300      396      360       24</code></pre>
+<p>Get a result similar to <code>dplyr::count()</code> but on a naked factor.</p>
+<pre class="r"><code>gapminder %&gt;% 
+  count(continent)
+#&gt; # A tibble: 5 × 2
+#&gt;   continent     n
+#&gt;      &lt;fctr&gt; &lt;int&gt;
+#&gt; 1    Africa   624
+#&gt; 2  Americas   300
+#&gt; 3      Asia   396
+#&gt; 4    Europe   360
+#&gt; 5   Oceania    24
+fct_count(gapminder$continent)
+#&gt; # A tibble: 5 × 2
+#&gt;          f     n
+#&gt;     &lt;fctr&gt; &lt;int&gt;
+#&gt; 1   Africa   624
+#&gt; 2 Americas   300
+#&gt; 3     Asia   396
+#&gt; 4   Europe   360
+#&gt; 5  Oceania    24</code></pre>
+</div>
+<div id="dropping-unused-levels" class="section level3">
+<h3>Dropping unused levels</h3>
+<p><code>droplevels()</code> for operating on factors living in a data frame (or on a single factor).<br />
+<code>fct_drop()</code> for operating on a factor directly.</p>
+<pre class="r"><code>h_countries &lt;- c(&quot;Egypt&quot;, &quot;Haiti&quot;, &quot;Romania&quot;, &quot;Thailand&quot;, &quot;Venezuela&quot;)
+h_gap &lt;- gapminder %&gt;%
+  filter(country %in% h_countries)
+h_gap %&gt;% str()
+#&gt; Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    60 obs. of  6 variables:
+#&gt;  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 39 39 39 39 39 39 39 39 39 39 ...
+#&gt;  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+#&gt;  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+#&gt;  $ lifeExp  : num  41.9 44.4 47 49.3 51.1 ...
+#&gt;  $ pop      : int  22223309 25009741 28173309 31681188 34807417 38783863 45681811 52799062 59402198 66134291 ...
+#&gt;  $ gdpPercap: num  1419 1459 1693 1815 2024 ...
+nlevels(h_gap$country)
+#&gt; [1] 142
+
+## in data frame context
+h_gap_dropped &lt;- h_gap %&gt;% 
+  droplevels()
+nlevels(h_gap_dropped$country)
+#&gt; [1] 5
+
+## in a factor vector context
+h_gap$country %&gt;% levels()
+#&gt;   [1] &quot;Afghanistan&quot;              &quot;Albania&quot;                 
+#&gt;   [3] &quot;Algeria&quot;                  &quot;Angola&quot;                  
+#&gt;   [5] &quot;Argentina&quot;                &quot;Australia&quot;               
+#&gt;   [7] &quot;Austria&quot;                  &quot;Bahrain&quot;                 
+#&gt;   [9] &quot;Bangladesh&quot;               &quot;Belgium&quot;                 
+#&gt;  [11] &quot;Benin&quot;                    &quot;Bolivia&quot;                 
+#&gt;  [13] &quot;Bosnia and Herzegovina&quot;   &quot;Botswana&quot;                
+#&gt;  [15] &quot;Brazil&quot;                   &quot;Bulgaria&quot;                
+#&gt;  [17] &quot;Burkina Faso&quot;             &quot;Burundi&quot;                 
+#&gt;  [19] &quot;Cambodia&quot;                 &quot;Cameroon&quot;                
+#&gt;  [21] &quot;Canada&quot;                   &quot;Central African Republic&quot;
+#&gt;  [23] &quot;Chad&quot;                     &quot;Chile&quot;                   
+#&gt;  [25] &quot;China&quot;                    &quot;Colombia&quot;                
+#&gt;  [27] &quot;Comoros&quot;                  &quot;Congo, Dem. Rep.&quot;        
+#&gt;  [29] &quot;Congo, Rep.&quot;              &quot;Costa Rica&quot;              
+#&gt;  [31] &quot;Cote d&#39;Ivoire&quot;            &quot;Croatia&quot;                 
+#&gt;  [33] &quot;Cuba&quot;                     &quot;Czech Republic&quot;          
+#&gt;  [35] &quot;Denmark&quot;                  &quot;Djibouti&quot;                
+#&gt;  [37] &quot;Dominican Republic&quot;       &quot;Ecuador&quot;                 
+#&gt;  [39] &quot;Egypt&quot;                    &quot;El Salvador&quot;             
+#&gt;  [41] &quot;Equatorial Guinea&quot;        &quot;Eritrea&quot;                 
+#&gt;  [43] &quot;Ethiopia&quot;                 &quot;Finland&quot;                 
+#&gt;  [45] &quot;France&quot;                   &quot;Gabon&quot;                   
+#&gt;  [47] &quot;Gambia&quot;                   &quot;Germany&quot;                 
+#&gt;  [49] &quot;Ghana&quot;                    &quot;Greece&quot;                  
+#&gt;  [51] &quot;Guatemala&quot;                &quot;Guinea&quot;                  
+#&gt;  [53] &quot;Guinea-Bissau&quot;            &quot;Haiti&quot;                   
+#&gt;  [55] &quot;Honduras&quot;                 &quot;Hong Kong, China&quot;        
+#&gt;  [57] &quot;Hungary&quot;                  &quot;Iceland&quot;                 
+#&gt;  [59] &quot;India&quot;                    &quot;Indonesia&quot;               
+#&gt;  [61] &quot;Iran&quot;                     &quot;Iraq&quot;                    
+#&gt;  [63] &quot;Ireland&quot;                  &quot;Israel&quot;                  
+#&gt;  [65] &quot;Italy&quot;                    &quot;Jamaica&quot;                 
+#&gt;  [67] &quot;Japan&quot;                    &quot;Jordan&quot;                  
+#&gt;  [69] &quot;Kenya&quot;                    &quot;Korea, Dem. Rep.&quot;        
+#&gt;  [71] &quot;Korea, Rep.&quot;              &quot;Kuwait&quot;                  
+#&gt;  [73] &quot;Lebanon&quot;                  &quot;Lesotho&quot;                 
+#&gt;  [75] &quot;Liberia&quot;                  &quot;Libya&quot;                   
+#&gt;  [77] &quot;Madagascar&quot;               &quot;Malawi&quot;                  
+#&gt;  [79] &quot;Malaysia&quot;                 &quot;Mali&quot;                    
+#&gt;  [81] &quot;Mauritania&quot;               &quot;Mauritius&quot;               
+#&gt;  [83] &quot;Mexico&quot;                   &quot;Mongolia&quot;                
+#&gt;  [85] &quot;Montenegro&quot;               &quot;Morocco&quot;                 
+#&gt;  [87] &quot;Mozambique&quot;               &quot;Myanmar&quot;                 
+#&gt;  [89] &quot;Namibia&quot;                  &quot;Nepal&quot;                   
+#&gt;  [91] &quot;Netherlands&quot;              &quot;New Zealand&quot;             
+#&gt;  [93] &quot;Nicaragua&quot;                &quot;Niger&quot;                   
+#&gt;  [95] &quot;Nigeria&quot;                  &quot;Norway&quot;                  
+#&gt;  [97] &quot;Oman&quot;                     &quot;Pakistan&quot;                
+#&gt;  [99] &quot;Panama&quot;                   &quot;Paraguay&quot;                
+#&gt; [101] &quot;Peru&quot;                     &quot;Philippines&quot;             
+#&gt; [103] &quot;Poland&quot;                   &quot;Portugal&quot;                
+#&gt; [105] &quot;Puerto Rico&quot;              &quot;Reunion&quot;                 
+#&gt; [107] &quot;Romania&quot;                  &quot;Rwanda&quot;                  
+#&gt; [109] &quot;Sao Tome and Principe&quot;    &quot;Saudi Arabia&quot;            
+#&gt; [111] &quot;Senegal&quot;                  &quot;Serbia&quot;                  
+#&gt; [113] &quot;Sierra Leone&quot;             &quot;Singapore&quot;               
+#&gt; [115] &quot;Slovak Republic&quot;          &quot;Slovenia&quot;                
+#&gt; [117] &quot;Somalia&quot;                  &quot;South Africa&quot;            
+#&gt; [119] &quot;Spain&quot;                    &quot;Sri Lanka&quot;               
+#&gt; [121] &quot;Sudan&quot;                    &quot;Swaziland&quot;               
+#&gt; [123] &quot;Sweden&quot;                   &quot;Switzerland&quot;             
+#&gt; [125] &quot;Syria&quot;                    &quot;Taiwan&quot;                  
+#&gt; [127] &quot;Tanzania&quot;                 &quot;Thailand&quot;                
+#&gt; [129] &quot;Togo&quot;                     &quot;Trinidad and Tobago&quot;     
+#&gt; [131] &quot;Tunisia&quot;                  &quot;Turkey&quot;                  
+#&gt; [133] &quot;Uganda&quot;                   &quot;United Kingdom&quot;          
+#&gt; [135] &quot;United States&quot;            &quot;Uruguay&quot;                 
+#&gt; [137] &quot;Venezuela&quot;                &quot;Vietnam&quot;                 
+#&gt; [139] &quot;West Bank and Gaza&quot;       &quot;Yemen, Rep.&quot;             
+#&gt; [141] &quot;Zambia&quot;                   &quot;Zimbabwe&quot;
+h_gap$country %&gt;% fct_drop() %&gt;% levels()
+#&gt; [1] &quot;Egypt&quot;     &quot;Haiti&quot;     &quot;Romania&quot;   &quot;Thailand&quot;  &quot;Venezuela&quot;</code></pre>
+</div>
+<div id="change-order-of-the-levels-principled" class="section level3">
+<h3>Change order of the levels, principled</h3>
+<p>Default order is alphabetical. Which is practically random, when you think about it! It is preferable to order the levels according to some principle:</p>
+<ul>
+<li>Frequency. Make the most common level the first and so on.</li>
+<li>Another variable. Order factor levels according to a summary statistic for another variable. Example: order Gapminder countries by life expectancy.</li>
+</ul>
+<p>Order by frequency, forwards and backwards. Motivated by the downstream need to make tables and figures, esp. frequency barplots.</p>
+<pre class="r"><code>## order by frequency
+gapminder$continent %&gt;%
+  levels()
+#&gt; [1] &quot;Africa&quot;   &quot;Americas&quot; &quot;Asia&quot;     &quot;Europe&quot;   &quot;Oceania&quot;
+gapminder$continent %&gt;% 
+  fct_infreq() %&gt;%
+  levels() %&gt;% head()
+#&gt; [1] &quot;Africa&quot;   &quot;Asia&quot;     &quot;Europe&quot;   &quot;Americas&quot; &quot;Oceania&quot;
+## backwards!
+gapminder$continent %&gt;% 
+  fct_infreq() %&gt;%
+  fct_rev() %&gt;% 
+  levels() %&gt;% head()
+#&gt; [1] &quot;Oceania&quot;  &quot;Americas&quot; &quot;Europe&quot;   &quot;Asia&quot;     &quot;Africa&quot;</code></pre>
+<p>Order by another variable, forwards and backwards. This other variable is usually quantitative and you will order the factor accoding to a grouped summary. The factor is the grouping variable and the default summarizing function is <code>median()</code>.</p>
+<pre class="r"><code>fct_reorder(gapminder$country, gapminder$lifeExp) %&gt;% 
+  levels() %&gt;% head()
+#&gt; [1] &quot;Sierra Leone&quot;  &quot;Guinea-Bissau&quot; &quot;Afghanistan&quot;   &quot;Angola&quot;       
+#&gt; [5] &quot;Somalia&quot;       &quot;Guinea&quot;
+## order accoring to minimum life exp instead of median
+fct_reorder(gapminder$country, gapminder$lifeExp, min) %&gt;% 
+  levels() %&gt;% head()
+#&gt; [1] &quot;Rwanda&quot;       &quot;Afghanistan&quot;  &quot;Gambia&quot;       &quot;Angola&quot;      
+#&gt; [5] &quot;Sierra Leone&quot; &quot;Cambodia&quot;
+## backwards!
+fct_reorder(gapminder$country, gapminder$lifeExp, .desc = TRUE) %&gt;% 
+  levels() %&gt;% head()
+#&gt; [1] &quot;Iceland&quot;     &quot;Japan&quot;       &quot;Sweden&quot;      &quot;Switzerland&quot; &quot;Netherlands&quot;
+#&gt; [6] &quot;Norway&quot;</code></pre>
+<p>Example of why we reorder factor levels: often makes plots much better! When a factor is mapped to x or y, it should almost always be reordered by the quantitative variable you are mapping to the other one.</p>
+<pre class="r"><code>gap_asia_2007 &lt;- gapminder %&gt;% filter(year == 2007, continent == &quot;Asia&quot;)
+ggplot(gap_asia_2007, aes(x = lifeExp, y = country)) + geom_point()
+ggplot(gap_asia_2007, aes(x = lifeExp, y = fct_reorder(country, lifeExp))) +
+  geom_point()</code></pre>
+<p><img src="block029_factors_files/figure-html/alpha-order-silly-1.png" width="49%" /><img src="block029_factors_files/figure-html/alpha-order-silly-2.png" width="49%" /></p>
+<p>Use <code>fct_reorder2()</code> when you have a line chart of a quantitative x against another quantitative y and your factor provides the color. This way the legend appears in some order as the data!</p>
+<pre class="r"><code>h_countries &lt;- c(&quot;Egypt&quot;, &quot;Haiti&quot;, &quot;Romania&quot;, &quot;Thailand&quot;, &quot;Venezuela&quot;)
+h_gap &lt;- gapminder %&gt;%
+  filter(country %in% h_countries) %&gt;% 
+  droplevels()
+ggplot(h_gap, aes(x = year, y = lifeExp, color = country)) +
+  geom_line()
+ggplot(h_gap, aes(x = year, y = lifeExp,
+                  color = fct_reorder2(country, year, lifeExp))) +
+  geom_line() +
+  labs(color = &quot;country&quot;)</code></pre>
+<p><img src="block029_factors_files/figure-html/legends-made-for-humans-1.png" width="49%" /><img src="block029_factors_files/figure-html/legends-made-for-humans-2.png" width="49%" /></p>
+</div>
+<div id="change-order-of-the-levels-because-i-said-so" class="section level3">
+<h3>Change order of the levels, “because I said so”</h3>
+<p>Sometimes you just want to hoist one or more level to the front. Because I said so. This resembles what we do when we move variables to the front with <code>dplyr::select(var1, var, everything())</code>.</p>
+<pre class="r"><code>h_gap$country %&gt;% levels()
+#&gt; [1] &quot;Egypt&quot;     &quot;Haiti&quot;     &quot;Romania&quot;   &quot;Thailand&quot;  &quot;Venezuela&quot;
+h_gap$country %&gt;% fct_relevel(&quot;Romania&quot;, &quot;Haiti&quot;) %&gt;% levels()
+#&gt; [1] &quot;Romania&quot;   &quot;Haiti&quot;     &quot;Egypt&quot;     &quot;Thailand&quot;  &quot;Venezuela&quot;</code></pre>
+</div>
+<div id="recode-the-levels" class="section level3">
+<h3>Recode the levels</h3>
+<pre class="r"><code>i_gap &lt;- gapminder %&gt;% 
+  filter(country %in% c(&quot;United States&quot;, &quot;Sweden&quot;, &quot;Australia&quot;)) %&gt;% 
+  droplevels()
+i_gap$country %&gt;% levels()
+#&gt; [1] &quot;Australia&quot;     &quot;Sweden&quot;        &quot;United States&quot;
+## oops United States is giving me trouble
+i_gap$country %&gt;%
+  fct_recode(&quot;USA&quot; = &quot;United States&quot;, &quot;Oz&quot; = &quot;Australia&quot;)%&gt;% levels()
+#&gt; [1] &quot;Oz&quot;     &quot;Sweden&quot; &quot;USA&quot;
+
+fct_count(gapminder$continent)
+#&gt; # A tibble: 5 × 2
+#&gt;          f     n
+#&gt;     &lt;fctr&gt; &lt;int&gt;
+#&gt; 1   Africa   624
+#&gt; 2 Americas   300
+#&gt; 3     Asia   396
+#&gt; 4   Europe   360
+#&gt; 5  Oceania    24</code></pre>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

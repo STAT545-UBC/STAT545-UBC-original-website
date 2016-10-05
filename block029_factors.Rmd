@@ -1,0 +1,180 @@
+---
+title: "Be the boss of your factors"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
+```
+
+*Under development*
+
+### Factors: where they fit in
+
+We've spent alot of time working with big, beautiful data frame, like the Gapminder data. But we also need to manage the individual variables housed within.
+
+Factors are the variable type that useRs love to hate. It is how we store truly categorical information in R. The values a factor can take on are called the **levels**. For example, the levels of the factor `continent` in Gapminder are are "Africa", "Americas", etc. and this is what's usually presented to your eyeballs by R. In general, the levels are friendly human-readable character strings, like "male/female" and "control/treated". But *never ever ever* forget that, under the hood, R is really storing integer codes 1, 2, 3, etc.
+
+This [Janus](http://en.wikipedia.org/wiki/Janus)-like nature of factors means they are rich with booby traps for the unsuspecting but they are a necessary evil. I recommend you learn how to be the boss of your factors. The pros far outweigh the cons. Specifically in modelling and figure-making, factors are anticipated and accommodated by the functions and packages you will want to exploit.
+
+The worst kind of factor is the stealth factor. The variable that you think of as character, but that is actually a factor (numeric!!). This is one of the classic gotchas in R. Check your variable types explicitly when things seem weird. Where do stealth factors come from? Base R has a burning desire to turn character information into factor. The most common place this happens is at data import via `read.table()` and friends. To shut this down, use `stringsAsFactors = FALSE` or -- even better -- use the tidyverse functions `read_csv()`, `read_tsv()`, etc.
+
+Good articles about how the factor fiasco came to be:
+
+  * [stringsAsFactors: An unauthorized biography](http://simplystatistics.org/2015/07/24/stringsasfactors-an-unauthorized-biography/) by Roger Peng
+  * [stringsAsFactors = <sigh>](http://notstatschat.tumblr.com/post/124987394001/stringsasfactors-sigh) by Thomas Lumley
+
+### The forcats package
+
+This is a reboot of the [STAT 545 factor material from 2015 and before](block014_factors.html), in light of the very recent birth of the [forcats](https://blog.rstudio.org/2016/08/31/forcats-0-1-0/) package. 
+
+forcats is a non-core package in the tidyverse. It is installed via `install.packages("tidyverse")`, but not loaded via `library(tidyverse)`. Load it yourself as needed via `library(forcats)`. Main functions start with `fct_`. There really is no coherent family of base functions that forcats replaces -- that's why it's such a welcome addition.
+
+Currently this lesson will be mostly code vs prose. See the previous lesson for more discussion during the transition.
+
+### Load tidyverse, forcats, gapminder
+
+```{r}
+library(tidyverse)
+library(forcats)
+library(gapminder)
+```
+
+### Factor inspection
+
+Get to know your factor before you start touching it! It's polite.
+
+```{r}
+gapminder
+str(gapminder)
+str(gapminder$continent)
+levels(gapminder$continent)
+nlevels(gapminder$continent)
+class(gapminder$continent)
+summary(gapminder$continent)
+```
+
+Get a result similar to `dplyr::count()` but on a naked factor.
+
+```{r}
+gapminder %>% 
+  count(continent)
+fct_count(gapminder$continent)
+```
+
+
+### Dropping unused levels
+
+`droplevels()` for operating on factors living in a data frame (or on a single factor).  
+`fct_drop()` for operating on a factor directly.
+
+```{r}
+h_countries <- c("Egypt", "Haiti", "Romania", "Thailand", "Venezuela")
+h_gap <- gapminder %>%
+  filter(country %in% h_countries)
+h_gap %>% str()
+nlevels(h_gap$country)
+
+## in data frame context
+h_gap_dropped <- h_gap %>% 
+  droplevels()
+nlevels(h_gap_dropped$country)
+
+## in a factor vector context
+h_gap$country %>% levels()
+h_gap$country %>% fct_drop() %>% levels()
+```
+
+### Change order of the levels, principled
+
+Default order is alphabetical. Which is practically random, when you think about it! It is preferable to order the levels according to some principle:
+
+  * Frequency. Make the most common level the first and so on.
+  * Another variable. Order factor levels according to a summary statistic for another variable. Example: order Gapminder countries by life expectancy.
+
+Order by frequency, forwards and backwards. Motivated by the downstream need to make tables and figures, esp. frequency barplots.
+
+```{r}
+## order by frequency
+gapminder$continent %>%
+  levels()
+gapminder$continent %>% 
+  fct_infreq() %>%
+  levels() %>% head()
+## backwards!
+gapminder$continent %>% 
+  fct_infreq() %>%
+  fct_rev() %>% 
+  levels() %>% head()
+```
+
+Order by another variable, forwards and backwards. This other variable is usually quantitative and you will order the factor accoding to a grouped summary. The factor is the grouping variable and the default summarizing function is `median()`.
+
+```{r}
+fct_reorder(gapminder$country, gapminder$lifeExp) %>% 
+  levels() %>% head()
+## order accoring to minimum life exp instead of median
+fct_reorder(gapminder$country, gapminder$lifeExp, min) %>% 
+  levels() %>% head()
+## backwards!
+fct_reorder(gapminder$country, gapminder$lifeExp, .desc = TRUE) %>% 
+  levels() %>% head()
+```
+
+Example of why we reorder factor levels: often makes plots much better! When a factor is mapped to x or y, it should almost always be reordered by the quantitative variable you are mapping to the other one.
+
+```{r include = FALSE, eval = FALSE}
+boxplot(Sepal.Width ~ Species, data = iris)
+boxplot(Sepal.Width ~ fct_reorder(Species, Sepal.Width), data = iris)
+boxplot(Sepal.Width ~ fct_reorder(Species, Sepal.Width, .desc = TRUE), data = iris)
+```
+
+```{r alpha-order-silly, fig.show = 'hold', out.width = '49%'}
+gap_asia_2007 <- gapminder %>% filter(year == 2007, continent == "Asia")
+ggplot(gap_asia_2007, aes(x = lifeExp, y = country)) + geom_point()
+ggplot(gap_asia_2007, aes(x = lifeExp, y = fct_reorder(country, lifeExp))) +
+  geom_point()
+```
+
+
+Use `fct_reorder2()` when you have a line chart of a quantitative x against another quantitative y and your factor provides the color. This way the legend appears in some order as the data!
+
+```{r legends-made-for-humans, fig.show = 'hold', out.width = '49%'}
+h_countries <- c("Egypt", "Haiti", "Romania", "Thailand", "Venezuela")
+h_gap <- gapminder %>%
+  filter(country %in% h_countries) %>% 
+  droplevels()
+ggplot(h_gap, aes(x = year, y = lifeExp, color = country)) +
+  geom_line()
+ggplot(h_gap, aes(x = year, y = lifeExp,
+                  color = fct_reorder2(country, year, lifeExp))) +
+  geom_line() +
+  labs(color = "country")
+```
+
+### Change order of the levels, "because I said so"
+
+Sometimes you just want to hoist one or more level to the front. Because I said so. This resembles what we do when we move variables to the front with `dplyr::select(var1, var, everything())`.
+
+```{r}
+h_gap$country %>% levels()
+h_gap$country %>% fct_relevel("Romania", "Haiti") %>% levels()
+```
+
+### Recode the levels
+
+```{r}
+i_gap <- gapminder %>% 
+  filter(country %in% c("United States", "Sweden", "Australia")) %>% 
+  droplevels()
+i_gap$country %>% levels()
+## oops United States is giving me trouble
+i_gap$country %>%
+  fct_recode("USA" = "United States", "Oz" = "Australia")%>% levels()
+
+fct_count(gapminder$continent)
+```
+

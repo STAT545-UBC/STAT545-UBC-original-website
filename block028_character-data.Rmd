@@ -7,7 +7,7 @@ output:
 ---
 
 ```{r setup, include = FALSE, cache = FALSE}
-knitr::opts_chunk$set(error = TRUE)
+knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
 ```
 
 *Under development*
@@ -17,6 +17,10 @@ knitr::opts_chunk$set(error = TRUE)
 We've spent alot of time working with big, beautiful data frames. That are clean and wholesome, like the Gapminder data.
 
 But real life will be much nastier. You will bring data into R from the outside world and discover there are problems. Big problems.
+
+  * [Stack Exchange outage](http://stackstatus.net/post/147710624694/outage-postmortem-july-20-2016)
+  * [Regexes to validate/match email addresses](http://emailregex.com)
+  * [Fixing an Atom bug](http://davidvgalbraith.com/how-i-fixed-atom/)
 
 Here we discuss common remedial tasks for cleaning and transforming character data, also known as "strings". A data frame or tibble will consist of one or more *atomic vectors* of a certain class. This lesson deals with things you can do with vectors of class `character`.
 
@@ -53,6 +57,7 @@ Encoding
   * Screeds on the Minimum Everyone Needs to Know about encoding
     - [The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)](http://www.joelonsoftware.com/articles/Unicode.html)
     - [What Every Programmer Absolutely, Positively Needs To Know About Encodings And Character Sets To Work With Text](http://kunststube.net/encoding/)
+  * [Guide to fixing encoding problems in Ruby](http://www.justinweiss.com/articles/3-steps-to-fix-encoding-problems-in-ruby/) *parking here temporariliy ... looks useful but, obviously, it's about Ruby not R*
     
 ### Load stringr
 
