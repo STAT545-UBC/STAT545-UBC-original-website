@@ -1,0 +1,226 @@
+---
+title: "Character data"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+*Under development*
+
+### Character vectors: where they fit in
+
+We've spent alot of time working with big, beautiful data frames. That are clean and wholesome, like the Gapminder data.
+
+But real life will be much nastier. You will bring data into R from the outside world and discover there are problems. Big problems.
+
+Here we discuss common remedial tasks for cleaning and transforming character data, also known as "strings". A data frame or tibble will consist of one or more *atomic vectors* of a certain class. This lesson deals with things you can do with vectors of class `character`.
+
+### Resources
+
+I start with this because we cannot possibly do this topic justice in a short amount of time. Our goal is to make you aware of broad classes of problems and their respective solutions. Once you have a character problem in real life, these resources will be extremely helpful as you delve deeper.
+
+Manipulating character vectors
+
+  * [stringr package](https://cran.r-project.org/web/packages/stringr/index.html)
+    - A non-core package in the tidyverse. It is installed via `install.packages("tidyverse")`, but not loaded via `library(tidyverse)`. Load it yourself as needed via `library(stringr)`.
+    - Main functions start with `str_`.  
+    - Replacements for base functions re: manipulation and (see below) regular expressions.
+  * [tidyr package]()
+    - Functions for splitting 1 character vector into many and *vice versa*: `separate()`, `unite()`, `extract()`.
+  * Base functions: `nchar()`, `strsplit()`, `substr()`, `paste()`, `paste0()`
+
+Regular expressions: a God-awful language for expressing patterns to match in text or to do search-and-replace. Frequently described as "write only", because regular expressions are easier to write than to read/understand. And they are not particularly easy to write.
+
+  * The [Strings chapter](http://r4ds.had.co.nz/strings.html) of [R for Data Science](http://r4ds.had.co.nz)
+  * STAT 545 lessons on regular expressions:
+    -  [2014 Intro to regular expressions](block022_regular-expression.html) by TA Gloria Li
+    - [2015 Regular expressions and character data in R](block027_regular-expressions.html) by TA Kieran Samuk
+  * RStudio Cheat Sheet on [Regular Expressions in R](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf)
+  * Regex testers
+    - [regex101.com](https://regex101.com)
+  * [rex R package](https://github.com/kevinushey/rex): make regular expression from human readable expressions
+
+![](img/regexbytrialanderror-big-smaller.png)
+
+Encoding
+
+  * [Strings subsection of data import chapter](http://r4ds.had.co.nz/data-import.html#readr-strings) in R for Data Science
+  * Screeds on the Minimum Everyone Needs to Know about encoding
+    - [The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)](http://www.joelonsoftware.com/articles/Unicode.html)
+    - [What Every Programmer Absolutely, Positively Needs To Know About Encodings And Character Sets To Work With Text](http://kunststube.net/encoding/)
+    
+### Load stringr
+
+```{r}
+library(tidyverse)
+library(stringr)
+```
+
+### Basic string manipulation with stringr and tidyr
+
+`fruit`, `words`, and `sentences` are character vectors that ship with `stringr` for practicing.
+
+Count characters with `str_length()`.
+
+```{r}
+fruit
+str_length(fruit)
+```
+
+Find matches with `str_detect()`.
+
+```{r}
+str_detect(fruit, "berry")
+fruit[str_detect(fruit, "berry")]
+fruit[!str_detect(fruit, "berry")]
+```
+
+Keep matching elements with `str_subset()`.
+
+```{r}
+(berries <- str_subset(fruit, "berry"))
+```
+
+Split strings up
+
+  * `stringr::str_split()`, base `strsplit()`. Vector in, list out.
+  * `stringr::str_split_fixed()`. Vector in, matrix out.
+  * `tidyr::separate()`. Tibble in, tibble out.
+
+```{r}
+## get lists back because length is unknown, not constant
+str_split(berries, " ")
+strsplit(berries, " ")
+
+## if you can commit to the number of items, you can get matrix back
+str_split_fixed(berries, " ", 2)
+
+## if you have a variable in a data frame, use tidyr::separate()
+(berries_df <- tibble(berries))
+berries_df %>% 
+  separate(berries, into = c("pre", "post"), sep = "be")
+```
+
+Glue strings together, collapse string vectors.
+
+```{r}
+fruit1 <- fruit[1:4]
+fruit2 <- fruit[5:8]
+
+str_c(fruit1, fruit2, sep = " & ")
+str_c(fruit1, collapse = ", ")
+str_c(fruit1, fruit2, sep = " & ", collapse = ", ")
+
+## if the variables live in a data frame, use tidyr::unite()
+fruit_df <- tibble(fruit1, fruit2)
+fruit_df %>% 
+  unite("flavor_combo", fruit1, fruit2)
+```
+
+Replace matches
+
+```{r}
+str_replace(fruit, "berry", "thingy")
+str_replace(berries, "berry", "thingy")
+```
+
+Replace NAs specifically
+
+```{r}
+(melons <- str_subset(fruit, "melon"))
+melons[2] <- NA
+str_replace_na(melons, "UNKNOWN MELON")
+
+## if it's a variable inside a data frame, use tidyr::replace_na()
+(melon_df <- tibble(melons))
+melon_df %>% 
+  replace_na(replace = list(melons = "UNKNOWN MELON"))
+```
+
+### Regular expression with stringr
+
+[2014 STAT 545 lesson an regular expressions](block022_regular-expression.html) has good coverage of characters with special meaning in regex and escape sequences.
+
+```{r}
+library(gapminder)
+```
+
+We've been doing this already: looking for exact strings.
+
+```{r}
+countries <- levels(gapminder$country)
+str_subset(countries, "land")
+```
+
+The period `.` is a placeholder that matches anything but newline.
+
+```{r}
+str_subset(countries, "a.b")
+```
+
+Anchors indicate the beginning `^` and end `$` of the string.
+
+```{r}
+str_subset(countries, "ia")
+str_subset(countries, "ia$")
+str_subset(fruit, "^a")
+str_subset(fruit, "a")
+```
+
+You can also indicate word boundary with `\b` and not a word boundary with `\B`. The backslash has to be "escaped" by adding another backslash.
+
+```{r}
+str_subset(fruit, "berry")
+str_subset(fruit, "\\bberry")
+str_subset(fruit, "\\Bberry")
+```
+
+Characters can be specified via classes. You make them "by hand" or use some pre-existing ones.  The [2014 STAT 545 regex lesson](block022_regular-expression.html) has detailed coverage of other classes.
+
+```{r}
+## making the class by hand
+str_subset(countries, "[nls]ia$")
+## negation
+str_subset(countries, "[^nls]ia$")
+## remember this?
+str_split_fixed(fruit, " ", 2)
+## another way to say 'a character of whitespace' (space, tab, newline)
+str_split_fixed(fruit, "\\s", 2)
+## punctuation
+str_subset(countries, ",")
+str_subset(countries, "[[:punct:]]")
+```
+
+You can modify with a quantifier:
+
+  * `*` means "0 or more"
+  * `+` means "1 or more"
+  * `?` means "exactly 0 or 1"
+  * `{n}` means "exactly n times"
+  * `{n,}` means "at least n times"
+  * `{,m}` means "at most m times"
+  * `{n,m}` means "between n and m times"
+  
+  
+```{r}
+str_subset(countries, "e")
+str_subset(countries, "ee")
+str_subset(countries, "e{2}")
+str_subset(countries, ",")
+```
+
+Combine your new knowledge of regex with extraction, replacement, splitting.
+
+```{r}
+str_extract(countries, "lia")
+str_extract(countries, "[dnlrst]ia")
+str_replace(countries, "[dnrlst]ia", "LAND")
+str_split(countries, "\\W") ## \W mean 'not a word character'
+```
+
+File listing is more good practice.

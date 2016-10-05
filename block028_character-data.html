@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Character data</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Character data</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#character-vectors-where-they-fit-in">Character vectors: where they fit in</a></li>
+<li><a href="#resources">Resources</a></li>
+<li><a href="#load-stringr">Load stringr</a></li>
+<li><a href="#basic-string-manipulation-with-stringr-and-tidyr">Basic string manipulation with stringr and tidyr</a></li>
+<li><a href="#regular-expression-with-stringr">Regular expression with stringr</a></li>
+</ul>
+</div>
+
+<p><em>Under development</em></p>
+<div id="character-vectors-where-they-fit-in" class="section level3">
+<h3>Character vectors: where they fit in</h3>
+<p>We’ve spent alot of time working with big, beautiful data frames. That are clean and wholesome, like the Gapminder data.</p>
+<p>But real life will be much nastier. You will bring data into R from the outside world and discover there are problems. Big problems.</p>
+<p>Here we discuss common remedial tasks for cleaning and transforming character data, also known as “strings”. A data frame or tibble will consist of one or more <em>atomic vectors</em> of a certain class. This lesson deals with things you can do with vectors of class <code>character</code>.</p>
+</div>
+<div id="resources" class="section level3">
+<h3>Resources</h3>
+<p>I start with this because we cannot possibly do this topic justice in a short amount of time. Our goal is to make you aware of broad classes of problems and their respective solutions. Once you have a character problem in real life, these resources will be extremely helpful as you delve deeper.</p>
+<p>Manipulating character vectors</p>
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/stringr/index.html">stringr package</a>
+<ul>
+<li>A non-core package in the tidyverse. It is installed via <code>install.packages(&quot;tidyverse&quot;)</code>, but not loaded via <code>library(tidyverse)</code>. Load it yourself as needed via <code>library(stringr)</code>.</li>
+<li>Main functions start with <code>str_</code>.<br />
+</li>
+<li>Replacements for base functions re: manipulation and (see below) regular expressions.</li>
+</ul></li>
+<li><a href="">tidyr package</a>
+<ul>
+<li>Functions for splitting 1 character vector into many and <em>vice versa</em>: <code>separate()</code>, <code>unite()</code>, <code>extract()</code>.</li>
+</ul></li>
+<li>Base functions: <code>nchar()</code>, <code>strsplit()</code>, <code>substr()</code>, <code>paste()</code>, <code>paste0()</code></li>
+</ul>
+<p>Regular expressions: a God-awful language for expressing patterns to match in text or to do search-and-replace. Frequently described as “write only”, because regular expressions are easier to write than to read/understand. And they are not particularly easy to write.</p>
+<ul>
+<li>The <a href="http://r4ds.had.co.nz/strings.html">Strings chapter</a> of <a href="http://r4ds.had.co.nz">R for Data Science</a></li>
+<li>STAT 545 lessons on regular expressions:
+<ul>
+<li><a href="block022_regular-expression.html">2014 Intro to regular expressions</a> by TA Gloria Li</li>
+<li><a href="block027_regular-expressions.html">2015 Regular expressions and character data in R</a> by TA Kieran Samuk</li>
+</ul></li>
+<li>RStudio Cheat Sheet on <a href="https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf">Regular Expressions in R</a></li>
+<li>Regex testers
+<ul>
+<li><a href="https://regex101.com">regex101.com</a></li>
+</ul></li>
+<li><a href="https://github.com/kevinushey/rex">rex R package</a>: make regular expression from human readable expressions</li>
+</ul>
+<div class="figure">
+<img src="img/regexbytrialanderror-big-smaller.png" />
+
+</div>
+<p>Encoding</p>
+<ul>
+<li><a href="http://r4ds.had.co.nz/data-import.html#readr-strings">Strings subsection of data import chapter</a> in R for Data Science</li>
+<li>Screeds on the Minimum Everyone Needs to Know about encoding
+<ul>
+<li><a href="http://www.joelonsoftware.com/articles/Unicode.html">The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</a></li>
+<li><a href="http://kunststube.net/encoding/">What Every Programmer Absolutely, Positively Needs To Know About Encodings And Character Sets To Work With Text</a></li>
+</ul></li>
+</ul>
+</div>
+<div id="load-stringr" class="section level3">
+<h3>Load stringr</h3>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## Loading tidyverse: ggplot2
+## Loading tidyverse: tibble
+## Loading tidyverse: tidyr
+## Loading tidyverse: readr
+## Loading tidyverse: purrr
+## Loading tidyverse: dplyr</code></pre>
+<pre><code>## Conflicts with tidy packages ----------------------------------------------</code></pre>
+<pre><code>## filter(): dplyr, stats
+## lag():    dplyr, stats</code></pre>
+<pre class="r"><code>library(stringr)</code></pre>
+</div>
+<div id="basic-string-manipulation-with-stringr-and-tidyr" class="section level3">
+<h3>Basic string manipulation with stringr and tidyr</h3>
+<p><code>fruit</code>, <code>words</code>, and <code>sentences</code> are character vectors that ship with <code>stringr</code> for practicing.</p>
+<p>Count characters with <code>str_length()</code>.</p>
+<pre class="r"><code>fruit</code></pre>
+<pre><code>##  [1] &quot;apple&quot;             &quot;apricot&quot;           &quot;avocado&quot;          
+##  [4] &quot;banana&quot;            &quot;bell pepper&quot;       &quot;bilberry&quot;         
+##  [7] &quot;blackberry&quot;        &quot;blackcurrant&quot;      &quot;blood orange&quot;     
+## [10] &quot;blueberry&quot;         &quot;boysenberry&quot;       &quot;breadfruit&quot;       
+## [13] &quot;canary melon&quot;      &quot;cantaloupe&quot;        &quot;cherimoya&quot;        
+## [16] &quot;cherry&quot;            &quot;chili pepper&quot;      &quot;clementine&quot;       
+## [19] &quot;cloudberry&quot;        &quot;coconut&quot;           &quot;cranberry&quot;        
+## [22] &quot;cucumber&quot;          &quot;currant&quot;           &quot;damson&quot;           
+## [25] &quot;date&quot;              &quot;dragonfruit&quot;       &quot;durian&quot;           
+## [28] &quot;eggplant&quot;          &quot;elderberry&quot;        &quot;feijoa&quot;           
+## [31] &quot;fig&quot;               &quot;goji berry&quot;        &quot;gooseberry&quot;       
+## [34] &quot;grape&quot;             &quot;grapefruit&quot;        &quot;guava&quot;            
+## [37] &quot;honeydew&quot;          &quot;huckleberry&quot;       &quot;jackfruit&quot;        
+## [40] &quot;jambul&quot;            &quot;jujube&quot;            &quot;kiwi fruit&quot;       
+## [43] &quot;kumquat&quot;           &quot;lemon&quot;             &quot;lime&quot;             
+## [46] &quot;loquat&quot;            &quot;lychee&quot;            &quot;mandarine&quot;        
+## [49] &quot;mango&quot;             &quot;mulberry&quot;          &quot;nectarine&quot;        
+## [52] &quot;nut&quot;               &quot;olive&quot;             &quot;orange&quot;           
+## [55] &quot;pamelo&quot;            &quot;papaya&quot;            &quot;passionfruit&quot;     
+## [58] &quot;peach&quot;             &quot;pear&quot;              &quot;persimmon&quot;        
+## [61] &quot;physalis&quot;          &quot;pineapple&quot;         &quot;plum&quot;             
+## [64] &quot;pomegranate&quot;       &quot;pomelo&quot;            &quot;purple mangosteen&quot;
+## [67] &quot;quince&quot;            &quot;raisin&quot;            &quot;rambutan&quot;         
+## [70] &quot;raspberry&quot;         &quot;redcurrant&quot;        &quot;rock melon&quot;       
+## [73] &quot;salal berry&quot;       &quot;satsuma&quot;           &quot;star fruit&quot;       
+## [76] &quot;strawberry&quot;        &quot;tamarillo&quot;         &quot;tangerine&quot;        
+## [79] &quot;ugli fruit&quot;        &quot;watermelon&quot;</code></pre>
+<pre class="r"><code>str_length(fruit)</code></pre>
+<pre><code>##  [1]  5  7  7  6 11  8 10 12 12  9 11 10 12 10  9  6 12 10 10  7  9  8  7
+## [24]  6  4 11  6  8 10  6  3 10 10  5 10  5  8 11  9  6  6 10  7  5  4  6
+## [47]  6  9  5  8  9  3  5  6  6  6 12  5  4  9  8  9  4 11  6 17  6  6  8
+## [70]  9 10 10 11  7 10 10  9  9 10 10</code></pre>
+<p>Find matches with <code>str_detect()</code>.</p>
+<pre class="r"><code>str_detect(fruit, &quot;berry&quot;)</code></pre>
+<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE  TRUE  TRUE
+## [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE
+## [23] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE
+## [34] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
+## [45] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+## [56] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [67] FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE
+## [78] FALSE FALSE FALSE</code></pre>
+<pre class="r"><code>fruit[str_detect(fruit, &quot;berry&quot;)]</code></pre>
+<pre><code>##  [1] &quot;bilberry&quot;    &quot;blackberry&quot;  &quot;blueberry&quot;   &quot;boysenberry&quot; &quot;cloudberry&quot; 
+##  [6] &quot;cranberry&quot;   &quot;elderberry&quot;  &quot;goji berry&quot;  &quot;gooseberry&quot;  &quot;huckleberry&quot;
+## [11] &quot;mulberry&quot;    &quot;raspberry&quot;   &quot;salal berry&quot; &quot;strawberry&quot;</code></pre>
+<pre class="r"><code>fruit[!str_detect(fruit, &quot;berry&quot;)]</code></pre>
+<pre><code>##  [1] &quot;apple&quot;             &quot;apricot&quot;           &quot;avocado&quot;          
+##  [4] &quot;banana&quot;            &quot;bell pepper&quot;       &quot;blackcurrant&quot;     
+##  [7] &quot;blood orange&quot;      &quot;breadfruit&quot;        &quot;canary melon&quot;     
+## [10] &quot;cantaloupe&quot;        &quot;cherimoya&quot;         &quot;cherry&quot;           
+## [13] &quot;chili pepper&quot;      &quot;clementine&quot;        &quot;coconut&quot;          
+## [16] &quot;cucumber&quot;          &quot;currant&quot;           &quot;damson&quot;           
+## [19] &quot;date&quot;              &quot;dragonfruit&quot;       &quot;durian&quot;           
+## [22] &quot;eggplant&quot;          &quot;feijoa&quot;            &quot;fig&quot;              
+## [25] &quot;grape&quot;             &quot;grapefruit&quot;        &quot;guava&quot;            
+## [28] &quot;honeydew&quot;          &quot;jackfruit&quot;         &quot;jambul&quot;           
+## [31] &quot;jujube&quot;            &quot;kiwi fruit&quot;        &quot;kumquat&quot;          
+## [34] &quot;lemon&quot;             &quot;lime&quot;              &quot;loquat&quot;           
+## [37] &quot;lychee&quot;            &quot;mandarine&quot;         &quot;mango&quot;            
+## [40] &quot;nectarine&quot;         &quot;nut&quot;               &quot;olive&quot;            
+## [43] &quot;orange&quot;            &quot;pamelo&quot;            &quot;papaya&quot;           
+## [46] &quot;passionfruit&quot;      &quot;peach&quot;             &quot;pear&quot;             
+## [49] &quot;persimmon&quot;         &quot;physalis&quot;          &quot;pineapple&quot;        
+## [52] &quot;plum&quot;              &quot;pomegranate&quot;       &quot;pomelo&quot;           
+## [55] &quot;purple mangosteen&quot; &quot;quince&quot;            &quot;raisin&quot;           
+## [58] &quot;rambutan&quot;          &quot;redcurrant&quot;        &quot;rock melon&quot;       
+## [61] &quot;satsuma&quot;           &quot;star fruit&quot;        &quot;tamarillo&quot;        
+## [64] &quot;tangerine&quot;         &quot;ugli fruit&quot;        &quot;watermelon&quot;</code></pre>
+<p>Keep matching elements with <code>str_subset()</code>.</p>
+<pre class="r"><code>(berries &lt;- str_subset(fruit, &quot;berry&quot;))</code></pre>
+<pre><code>##  [1] &quot;bilberry&quot;    &quot;blackberry&quot;  &quot;blueberry&quot;   &quot;boysenberry&quot; &quot;cloudberry&quot; 
+##  [6] &quot;cranberry&quot;   &quot;elderberry&quot;  &quot;goji berry&quot;  &quot;gooseberry&quot;  &quot;huckleberry&quot;
+## [11] &quot;mulberry&quot;    &quot;raspberry&quot;   &quot;salal berry&quot; &quot;strawberry&quot;</code></pre>
+<p>Split strings up</p>
+<ul>
+<li><code>stringr::str_split()</code>, base <code>strsplit()</code>. Vector in, list out.</li>
+<li><code>stringr::str_split_fixed()</code>. Vector in, matrix out.</li>
+<li><code>tidyr::separate()</code>. Tibble in, tibble out.</li>
+</ul>
+<pre class="r"><code>## get lists back because length is unknown, not constant
+str_split(berries, &quot; &quot;)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;bilberry&quot;
+## 
+## [[2]]
+## [1] &quot;blackberry&quot;
+## 
+## [[3]]
+## [1] &quot;blueberry&quot;
+## 
+## [[4]]
+## [1] &quot;boysenberry&quot;
+## 
+## [[5]]
+## [1] &quot;cloudberry&quot;
+## 
+## [[6]]
+## [1] &quot;cranberry&quot;
+## 
+## [[7]]
+## [1] &quot;elderberry&quot;
+## 
+## [[8]]
+## [1] &quot;goji&quot;  &quot;berry&quot;
+## 
+## [[9]]
+## [1] &quot;gooseberry&quot;
+## 
+## [[10]]
+## [1] &quot;huckleberry&quot;
+## 
+## [[11]]
+## [1] &quot;mulberry&quot;
+## 
+## [[12]]
+## [1] &quot;raspberry&quot;
+## 
+## [[13]]
+## [1] &quot;salal&quot; &quot;berry&quot;
+## 
+## [[14]]
+## [1] &quot;strawberry&quot;</code></pre>
+<pre class="r"><code>strsplit(berries, &quot; &quot;)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;bilberry&quot;
+## 
+## [[2]]
+## [1] &quot;blackberry&quot;
+## 
+## [[3]]
+## [1] &quot;blueberry&quot;
+## 
+## [[4]]
+## [1] &quot;boysenberry&quot;
+## 
+## [[5]]
+## [1] &quot;cloudberry&quot;
+## 
+## [[6]]
+## [1] &quot;cranberry&quot;
+## 
+## [[7]]
+## [1] &quot;elderberry&quot;
+## 
+## [[8]]
+## [1] &quot;goji&quot;  &quot;berry&quot;
+## 
+## [[9]]
+## [1] &quot;gooseberry&quot;
+## 
+## [[10]]
+## [1] &quot;huckleberry&quot;
+## 
+## [[11]]
+## [1] &quot;mulberry&quot;
+## 
+## [[12]]
+## [1] &quot;raspberry&quot;
+## 
+## [[13]]
+## [1] &quot;salal&quot; &quot;berry&quot;
+## 
+## [[14]]
+## [1] &quot;strawberry&quot;</code></pre>
+<pre class="r"><code>## if you can commit to the number of items, you can get matrix back
+str_split_fixed(berries, &quot; &quot;, 2)</code></pre>
+<pre><code>##       [,1]          [,2]   
+##  [1,] &quot;bilberry&quot;    &quot;&quot;     
+##  [2,] &quot;blackberry&quot;  &quot;&quot;     
+##  [3,] &quot;blueberry&quot;   &quot;&quot;     
+##  [4,] &quot;boysenberry&quot; &quot;&quot;     
+##  [5,] &quot;cloudberry&quot;  &quot;&quot;     
+##  [6,] &quot;cranberry&quot;   &quot;&quot;     
+##  [7,] &quot;elderberry&quot;  &quot;&quot;     
+##  [8,] &quot;goji&quot;        &quot;berry&quot;
+##  [9,] &quot;gooseberry&quot;  &quot;&quot;     
+## [10,] &quot;huckleberry&quot; &quot;&quot;     
+## [11,] &quot;mulberry&quot;    &quot;&quot;     
+## [12,] &quot;raspberry&quot;   &quot;&quot;     
+## [13,] &quot;salal&quot;       &quot;berry&quot;
+## [14,] &quot;strawberry&quot;  &quot;&quot;</code></pre>
+<pre class="r"><code>## if you have a variable in a data frame, use tidyr::separate()
+(berries_df &lt;- tibble(berries))</code></pre>
+<pre><code>## # A tibble: 14 × 1
+##        berries
+##          &lt;chr&gt;
+## 1     bilberry
+## 2   blackberry
+## 3    blueberry
+## 4  boysenberry
+## 5   cloudberry
+## 6    cranberry
+## 7   elderberry
+## 8   goji berry
+## 9   gooseberry
+## 10 huckleberry
+## 11    mulberry
+## 12   raspberry
+## 13 salal berry
+## 14  strawberry</code></pre>
+<pre class="r"><code>berries_df %&gt;% 
+  separate(berries, into = c(&quot;pre&quot;, &quot;post&quot;), sep = &quot;be&quot;)</code></pre>
+<pre><code>## # A tibble: 14 × 2
+##       pre  post
+## *   &lt;chr&gt; &lt;chr&gt;
+## 1     bil   rry
+## 2   black   rry
+## 3    blue   rry
+## 4  boysen   rry
+## 5   cloud   rry
+## 6    cran   rry
+## 7   elder   rry
+## 8   goji    rry
+## 9   goose   rry
+## 10 huckle   rry
+## 11    mul   rry
+## 12   rasp   rry
+## 13 salal    rry
+## 14  straw   rry</code></pre>
+<p>Glue strings together, collapse string vectors.</p>
+<pre class="r"><code>fruit1 &lt;- fruit[1:4]
+fruit2 &lt;- fruit[5:8]
+
+str_c(fruit1, fruit2, sep = &quot; &amp; &quot;)</code></pre>
+<pre><code>## [1] &quot;apple &amp; bell pepper&quot;   &quot;apricot &amp; bilberry&quot;    &quot;avocado &amp; blackberry&quot; 
+## [4] &quot;banana &amp; blackcurrant&quot;</code></pre>
+<pre class="r"><code>str_c(fruit1, collapse = &quot;, &quot;)</code></pre>
+<pre><code>## [1] &quot;apple, apricot, avocado, banana&quot;</code></pre>
+<pre class="r"><code>str_c(fruit1, fruit2, sep = &quot; &amp; &quot;, collapse = &quot;, &quot;)</code></pre>
+<pre><code>## [1] &quot;apple &amp; bell pepper, apricot &amp; bilberry, avocado &amp; blackberry, banana &amp; blackcurrant&quot;</code></pre>
+<pre class="r"><code>## if the variables live in a data frame, use tidyr::unite()
+fruit_df &lt;- tibble(fruit1, fruit2)
+fruit_df %&gt;% 
+  unite(&quot;flavor_combo&quot;, fruit1, fruit2)</code></pre>
+<pre><code>## # A tibble: 4 × 1
+##          flavor_combo
+## *               &lt;chr&gt;
+## 1   apple_bell pepper
+## 2    apricot_bilberry
+## 3  avocado_blackberry
+## 4 banana_blackcurrant</code></pre>
+<p>Replace matches</p>
+<pre class="r"><code>str_replace(fruit, &quot;berry&quot;, &quot;thingy&quot;)</code></pre>
+<pre><code>##  [1] &quot;apple&quot;             &quot;apricot&quot;           &quot;avocado&quot;          
+##  [4] &quot;banana&quot;            &quot;bell pepper&quot;       &quot;bilthingy&quot;        
+##  [7] &quot;blackthingy&quot;       &quot;blackcurrant&quot;      &quot;blood orange&quot;     
+## [10] &quot;bluethingy&quot;        &quot;boysenthingy&quot;      &quot;breadfruit&quot;       
+## [13] &quot;canary melon&quot;      &quot;cantaloupe&quot;        &quot;cherimoya&quot;        
+## [16] &quot;cherry&quot;            &quot;chili pepper&quot;      &quot;clementine&quot;       
+## [19] &quot;cloudthingy&quot;       &quot;coconut&quot;           &quot;cranthingy&quot;       
+## [22] &quot;cucumber&quot;          &quot;currant&quot;           &quot;damson&quot;           
+## [25] &quot;date&quot;              &quot;dragonfruit&quot;       &quot;durian&quot;           
+## [28] &quot;eggplant&quot;          &quot;elderthingy&quot;       &quot;feijoa&quot;           
+## [31] &quot;fig&quot;               &quot;goji thingy&quot;       &quot;goosethingy&quot;      
+## [34] &quot;grape&quot;             &quot;grapefruit&quot;        &quot;guava&quot;            
+## [37] &quot;honeydew&quot;          &quot;hucklethingy&quot;      &quot;jackfruit&quot;        
+## [40] &quot;jambul&quot;            &quot;jujube&quot;            &quot;kiwi fruit&quot;       
+## [43] &quot;kumquat&quot;           &quot;lemon&quot;             &quot;lime&quot;             
+## [46] &quot;loquat&quot;            &quot;lychee&quot;            &quot;mandarine&quot;        
+## [49] &quot;mango&quot;             &quot;multhingy&quot;         &quot;nectarine&quot;        
+## [52] &quot;nut&quot;               &quot;olive&quot;             &quot;orange&quot;           
+## [55] &quot;pamelo&quot;            &quot;papaya&quot;            &quot;passionfruit&quot;     
+## [58] &quot;peach&quot;             &quot;pear&quot;              &quot;persimmon&quot;        
+## [61] &quot;physalis&quot;          &quot;pineapple&quot;         &quot;plum&quot;             
+## [64] &quot;pomegranate&quot;       &quot;pomelo&quot;            &quot;purple mangosteen&quot;
+## [67] &quot;quince&quot;            &quot;raisin&quot;            &quot;rambutan&quot;         
+## [70] &quot;raspthingy&quot;        &quot;redcurrant&quot;        &quot;rock melon&quot;       
+## [73] &quot;salal thingy&quot;      &quot;satsuma&quot;           &quot;star fruit&quot;       
+## [76] &quot;strawthingy&quot;       &quot;tamarillo&quot;         &quot;tangerine&quot;        
+## [79] &quot;ugli fruit&quot;        &quot;watermelon&quot;</code></pre>
+<pre class="r"><code>str_replace(berries, &quot;berry&quot;, &quot;thingy&quot;)</code></pre>
+<pre><code>##  [1] &quot;bilthingy&quot;    &quot;blackthingy&quot;  &quot;bluethingy&quot;   &quot;boysenthingy&quot;
+##  [5] &quot;cloudthingy&quot;  &quot;cranthingy&quot;   &quot;elderthingy&quot;  &quot;goji thingy&quot; 
+##  [9] &quot;goosethingy&quot;  &quot;hucklethingy&quot; &quot;multhingy&quot;    &quot;raspthingy&quot;  
+## [13] &quot;salal thingy&quot; &quot;strawthingy&quot;</code></pre>
+<p>Replace NAs specifically</p>
+<pre class="r"><code>(melons &lt;- str_subset(fruit, &quot;melon&quot;))</code></pre>
+<pre><code>## [1] &quot;canary melon&quot; &quot;rock melon&quot;   &quot;watermelon&quot;</code></pre>
+<pre class="r"><code>melons[2] &lt;- NA
+str_replace_na(melons, &quot;UNKNOWN MELON&quot;)</code></pre>
+<pre><code>## [1] &quot;canary melon&quot;  &quot;UNKNOWN MELON&quot; &quot;watermelon&quot;</code></pre>
+<pre class="r"><code>## if it&#39;s a variable inside a data frame, use tidyr::replace_na()
+(melon_df &lt;- tibble(melons))</code></pre>
+<pre><code>## # A tibble: 3 × 1
+##         melons
+##          &lt;chr&gt;
+## 1 canary melon
+## 2         &lt;NA&gt;
+## 3   watermelon</code></pre>
+<pre class="r"><code>melon_df %&gt;% 
+  replace_na(replace = list(melons = &quot;UNKNOWN MELON&quot;))</code></pre>
+<pre><code>## # A tibble: 3 × 1
+##          melons
+##           &lt;chr&gt;
+## 1  canary melon
+## 2 UNKNOWN MELON
+## 3    watermelon</code></pre>
+</div>
+<div id="regular-expression-with-stringr" class="section level3">
+<h3>Regular expression with stringr</h3>
+<p><a href="block022_regular-expression.html">2014 STAT 545 lesson an regular expressions</a> has good coverage of characters with special meaning in regex and escape sequences.</p>
+<pre class="r"><code>library(gapminder)</code></pre>
+<p>We’ve been doing this already: looking for exact strings.</p>
+<pre class="r"><code>countries &lt;- levels(gapminder$country)
+str_subset(countries, &quot;land&quot;)</code></pre>
+<pre><code>## [1] &quot;Finland&quot;     &quot;Iceland&quot;     &quot;Ireland&quot;     &quot;Netherlands&quot; &quot;New Zealand&quot;
+## [6] &quot;Poland&quot;      &quot;Swaziland&quot;   &quot;Switzerland&quot; &quot;Thailand&quot;</code></pre>
+<p>The period <code>.</code> is a placeholder that matches anything but newline.</p>
+<pre class="r"><code>str_subset(countries, &quot;a.b&quot;)</code></pre>
+<pre><code>## [1] &quot;Cambodia&quot;   &quot;Gambia&quot;     &quot;Mozambique&quot; &quot;Zambia&quot;</code></pre>
+<p>Anchors indicate the beginning <code>^</code> and end <code>$</code> of the string.</p>
+<pre class="r"><code>str_subset(countries, &quot;ia&quot;)</code></pre>
+<pre><code>##  [1] &quot;Albania&quot;                &quot;Algeria&quot;               
+##  [3] &quot;Australia&quot;              &quot;Austria&quot;               
+##  [5] &quot;Bolivia&quot;                &quot;Bosnia and Herzegovina&quot;
+##  [7] &quot;Bulgaria&quot;               &quot;Cambodia&quot;              
+##  [9] &quot;Colombia&quot;               &quot;Croatia&quot;               
+## [11] &quot;Equatorial Guinea&quot;      &quot;Ethiopia&quot;              
+## [13] &quot;Gambia&quot;                 &quot;India&quot;                 
+## [15] &quot;Indonesia&quot;              &quot;Liberia&quot;               
+## [17] &quot;Malaysia&quot;               &quot;Mauritania&quot;            
+## [19] &quot;Mongolia&quot;               &quot;Namibia&quot;               
+## [21] &quot;Nigeria&quot;                &quot;Romania&quot;               
+## [23] &quot;Saudi Arabia&quot;           &quot;Serbia&quot;                
+## [25] &quot;Slovenia&quot;               &quot;Somalia&quot;               
+## [27] &quot;Syria&quot;                  &quot;Tanzania&quot;              
+## [29] &quot;Tunisia&quot;                &quot;Zambia&quot;</code></pre>
+<pre class="r"><code>str_subset(countries, &quot;ia$&quot;)</code></pre>
+<pre><code>##  [1] &quot;Albania&quot;      &quot;Algeria&quot;      &quot;Australia&quot;    &quot;Austria&quot;     
+##  [5] &quot;Bolivia&quot;      &quot;Bulgaria&quot;     &quot;Cambodia&quot;     &quot;Colombia&quot;    
+##  [9] &quot;Croatia&quot;      &quot;Ethiopia&quot;     &quot;Gambia&quot;       &quot;India&quot;       
+## [13] &quot;Indonesia&quot;    &quot;Liberia&quot;      &quot;Malaysia&quot;     &quot;Mauritania&quot;  
+## [17] &quot;Mongolia&quot;     &quot;Namibia&quot;      &quot;Nigeria&quot;      &quot;Romania&quot;     
+## [21] &quot;Saudi Arabia&quot; &quot;Serbia&quot;       &quot;Slovenia&quot;     &quot;Somalia&quot;     
+## [25] &quot;Syria&quot;        &quot;Tanzania&quot;     &quot;Tunisia&quot;      &quot;Zambia&quot;</code></pre>
+<pre class="r"><code>str_subset(fruit, &quot;^a&quot;)</code></pre>
+<pre><code>## [1] &quot;apple&quot;   &quot;apricot&quot; &quot;avocado&quot;</code></pre>
+<pre class="r"><code>str_subset(fruit, &quot;a&quot;)</code></pre>
+<pre><code>##  [1] &quot;apple&quot;             &quot;apricot&quot;           &quot;avocado&quot;          
+##  [4] &quot;banana&quot;            &quot;blackberry&quot;        &quot;blackcurrant&quot;     
+##  [7] &quot;blood orange&quot;      &quot;breadfruit&quot;        &quot;canary melon&quot;     
+## [10] &quot;cantaloupe&quot;        &quot;cherimoya&quot;         &quot;cranberry&quot;        
+## [13] &quot;currant&quot;           &quot;damson&quot;            &quot;date&quot;             
+## [16] &quot;dragonfruit&quot;       &quot;durian&quot;            &quot;eggplant&quot;         
+## [19] &quot;feijoa&quot;            &quot;grape&quot;             &quot;grapefruit&quot;       
+## [22] &quot;guava&quot;             &quot;jackfruit&quot;         &quot;jambul&quot;           
+## [25] &quot;kumquat&quot;           &quot;loquat&quot;            &quot;mandarine&quot;        
+## [28] &quot;mango&quot;             &quot;nectarine&quot;         &quot;orange&quot;           
+## [31] &quot;pamelo&quot;            &quot;papaya&quot;            &quot;passionfruit&quot;     
+## [34] &quot;peach&quot;             &quot;pear&quot;              &quot;physalis&quot;         
+## [37] &quot;pineapple&quot;         &quot;pomegranate&quot;       &quot;purple mangosteen&quot;
+## [40] &quot;raisin&quot;            &quot;rambutan&quot;          &quot;raspberry&quot;        
+## [43] &quot;redcurrant&quot;        &quot;salal berry&quot;       &quot;satsuma&quot;          
+## [46] &quot;star fruit&quot;        &quot;strawberry&quot;        &quot;tamarillo&quot;        
+## [49] &quot;tangerine&quot;         &quot;watermelon&quot;</code></pre>
+<p>You can also indicate word boundary with <code>\b</code> and not a word boundary with <code>\B</code>. The backslash has to be “escaped” by adding another backslash.</p>
+<pre class="r"><code>str_subset(fruit, &quot;berry&quot;)</code></pre>
+<pre><code>##  [1] &quot;bilberry&quot;    &quot;blackberry&quot;  &quot;blueberry&quot;   &quot;boysenberry&quot; &quot;cloudberry&quot; 
+##  [6] &quot;cranberry&quot;   &quot;elderberry&quot;  &quot;goji berry&quot;  &quot;gooseberry&quot;  &quot;huckleberry&quot;
+## [11] &quot;mulberry&quot;    &quot;raspberry&quot;   &quot;salal berry&quot; &quot;strawberry&quot;</code></pre>
+<pre class="r"><code>str_subset(fruit, &quot;\\bberry&quot;)</code></pre>
+<pre><code>## [1] &quot;goji berry&quot;  &quot;salal berry&quot;</code></pre>
+<pre class="r"><code>str_subset(fruit, &quot;\\Bberry&quot;)</code></pre>
+<pre><code>##  [1] &quot;bilberry&quot;    &quot;blackberry&quot;  &quot;blueberry&quot;   &quot;boysenberry&quot; &quot;cloudberry&quot; 
+##  [6] &quot;cranberry&quot;   &quot;elderberry&quot;  &quot;gooseberry&quot;  &quot;huckleberry&quot; &quot;mulberry&quot;   
+## [11] &quot;raspberry&quot;   &quot;strawberry&quot;</code></pre>
+<p>Characters can be specified via classes. You make them “by hand” or use some pre-existing ones. The <a href="block022_regular-expression.html">2014 STAT 545 regex lesson</a> has detailed coverage of other classes.</p>
+<pre class="r"><code>## making the class by hand
+str_subset(countries, &quot;[nls]ia$&quot;)</code></pre>
+<pre><code>##  [1] &quot;Albania&quot;    &quot;Australia&quot;  &quot;Indonesia&quot;  &quot;Malaysia&quot;   &quot;Mauritania&quot;
+##  [6] &quot;Mongolia&quot;   &quot;Romania&quot;    &quot;Slovenia&quot;   &quot;Somalia&quot;    &quot;Tanzania&quot;  
+## [11] &quot;Tunisia&quot;</code></pre>
+<pre class="r"><code>## negation
+str_subset(countries, &quot;[^nls]ia$&quot;)</code></pre>
+<pre><code>##  [1] &quot;Algeria&quot;      &quot;Austria&quot;      &quot;Bolivia&quot;      &quot;Bulgaria&quot;    
+##  [5] &quot;Cambodia&quot;     &quot;Colombia&quot;     &quot;Croatia&quot;      &quot;Ethiopia&quot;    
+##  [9] &quot;Gambia&quot;       &quot;India&quot;        &quot;Liberia&quot;      &quot;Namibia&quot;     
+## [13] &quot;Nigeria&quot;      &quot;Saudi Arabia&quot; &quot;Serbia&quot;       &quot;Syria&quot;       
+## [17] &quot;Zambia&quot;</code></pre>
+<pre class="r"><code>## remember this?
+str_split_fixed(fruit, &quot; &quot;, 2)</code></pre>
+<pre><code>##       [,1]           [,2]        
+##  [1,] &quot;apple&quot;        &quot;&quot;          
+##  [2,] &quot;apricot&quot;      &quot;&quot;          
+##  [3,] &quot;avocado&quot;      &quot;&quot;          
+##  [4,] &quot;banana&quot;       &quot;&quot;          
+##  [5,] &quot;bell&quot;         &quot;pepper&quot;    
+##  [6,] &quot;bilberry&quot;     &quot;&quot;          
+##  [7,] &quot;blackberry&quot;   &quot;&quot;          
+##  [8,] &quot;blackcurrant&quot; &quot;&quot;          
+##  [9,] &quot;blood&quot;        &quot;orange&quot;    
+## [10,] &quot;blueberry&quot;    &quot;&quot;          
+## [11,] &quot;boysenberry&quot;  &quot;&quot;          
+## [12,] &quot;breadfruit&quot;   &quot;&quot;          
+## [13,] &quot;canary&quot;       &quot;melon&quot;     
+## [14,] &quot;cantaloupe&quot;   &quot;&quot;          
+## [15,] &quot;cherimoya&quot;    &quot;&quot;          
+## [16,] &quot;cherry&quot;       &quot;&quot;          
+## [17,] &quot;chili&quot;        &quot;pepper&quot;    
+## [18,] &quot;clementine&quot;   &quot;&quot;          
+## [19,] &quot;cloudberry&quot;   &quot;&quot;          
+## [20,] &quot;coconut&quot;      &quot;&quot;          
+## [21,] &quot;cranberry&quot;    &quot;&quot;          
+## [22,] &quot;cucumber&quot;     &quot;&quot;          
+## [23,] &quot;currant&quot;      &quot;&quot;          
+## [24,] &quot;damson&quot;       &quot;&quot;          
+## [25,] &quot;date&quot;         &quot;&quot;          
+## [26,] &quot;dragonfruit&quot;  &quot;&quot;          
+## [27,] &quot;durian&quot;       &quot;&quot;          
+## [28,] &quot;eggplant&quot;     &quot;&quot;          
+## [29,] &quot;elderberry&quot;   &quot;&quot;          
+## [30,] &quot;feijoa&quot;       &quot;&quot;          
+## [31,] &quot;fig&quot;          &quot;&quot;          
+## [32,] &quot;goji&quot;         &quot;berry&quot;     
+## [33,] &quot;gooseberry&quot;   &quot;&quot;          
+## [34,] &quot;grape&quot;        &quot;&quot;          
+## [35,] &quot;grapefruit&quot;   &quot;&quot;          
+## [36,] &quot;guava&quot;        &quot;&quot;          
+## [37,] &quot;honeydew&quot;     &quot;&quot;          
+## [38,] &quot;huckleberry&quot;  &quot;&quot;          
+## [39,] &quot;jackfruit&quot;    &quot;&quot;          
+## [40,] &quot;jambul&quot;       &quot;&quot;          
+## [41,] &quot;jujube&quot;       &quot;&quot;          
+## [42,] &quot;kiwi&quot;         &quot;fruit&quot;     
+## [43,] &quot;kumquat&quot;      &quot;&quot;          
+## [44,] &quot;lemon&quot;        &quot;&quot;          
+## [45,] &quot;lime&quot;         &quot;&quot;          
+## [46,] &quot;loquat&quot;       &quot;&quot;          
+## [47,] &quot;lychee&quot;       &quot;&quot;          
+## [48,] &quot;mandarine&quot;    &quot;&quot;          
+## [49,] &quot;mango&quot;        &quot;&quot;          
+## [50,] &quot;mulberry&quot;     &quot;&quot;          
+## [51,] &quot;nectarine&quot;    &quot;&quot;          
+## [52,] &quot;nut&quot;          &quot;&quot;          
+## [53,] &quot;olive&quot;        &quot;&quot;          
+## [54,] &quot;orange&quot;       &quot;&quot;          
+## [55,] &quot;pamelo&quot;       &quot;&quot;          
+## [56,] &quot;papaya&quot;       &quot;&quot;          
+## [57,] &quot;passionfruit&quot; &quot;&quot;          
+## [58,] &quot;peach&quot;        &quot;&quot;          
+## [59,] &quot;pear&quot;         &quot;&quot;          
+## [60,] &quot;persimmon&quot;    &quot;&quot;          
+## [61,] &quot;physalis&quot;     &quot;&quot;          
+## [62,] &quot;pineapple&quot;    &quot;&quot;          
+## [63,] &quot;plum&quot;         &quot;&quot;          
+## [64,] &quot;pomegranate&quot;  &quot;&quot;          
+## [65,] &quot;pomelo&quot;       &quot;&quot;          
+## [66,] &quot;purple&quot;       &quot;mangosteen&quot;
+## [67,] &quot;quince&quot;       &quot;&quot;          
+## [68,] &quot;raisin&quot;       &quot;&quot;          
+## [69,] &quot;rambutan&quot;     &quot;&quot;          
+## [70,] &quot;raspberry&quot;    &quot;&quot;          
+## [71,] &quot;redcurrant&quot;   &quot;&quot;          
+## [72,] &quot;rock&quot;         &quot;melon&quot;     
+## [73,] &quot;salal&quot;        &quot;berry&quot;     
+## [74,] &quot;satsuma&quot;      &quot;&quot;          
+## [75,] &quot;star&quot;         &quot;fruit&quot;     
+## [76,] &quot;strawberry&quot;   &quot;&quot;          
+## [77,] &quot;tamarillo&quot;    &quot;&quot;          
+## [78,] &quot;tangerine&quot;    &quot;&quot;          
+## [79,] &quot;ugli&quot;         &quot;fruit&quot;     
+## [80,] &quot;watermelon&quot;   &quot;&quot;</code></pre>
+<pre class="r"><code>## another way to say &#39;a character of whitespace&#39; (space, tab, newline)
+str_split_fixed(fruit, &quot;\\s&quot;, 2)</code></pre>
+<pre><code>##       [,1]           [,2]        
+##  [1,] &quot;apple&quot;        &quot;&quot;          
+##  [2,] &quot;apricot&quot;      &quot;&quot;          
+##  [3,] &quot;avocado&quot;      &quot;&quot;          
+##  [4,] &quot;banana&quot;       &quot;&quot;          
+##  [5,] &quot;bell&quot;         &quot;pepper&quot;    
+##  [6,] &quot;bilberry&quot;     &quot;&quot;          
+##  [7,] &quot;blackberry&quot;   &quot;&quot;          
+##  [8,] &quot;blackcurrant&quot; &quot;&quot;          
+##  [9,] &quot;blood&quot;        &quot;orange&quot;    
+## [10,] &quot;blueberry&quot;    &quot;&quot;          
+## [11,] &quot;boysenberry&quot;  &quot;&quot;          
+## [12,] &quot;breadfruit&quot;   &quot;&quot;          
+## [13,] &quot;canary&quot;       &quot;melon&quot;     
+## [14,] &quot;cantaloupe&quot;   &quot;&quot;          
+## [15,] &quot;cherimoya&quot;    &quot;&quot;          
+## [16,] &quot;cherry&quot;       &quot;&quot;          
+## [17,] &quot;chili&quot;        &quot;pepper&quot;    
+## [18,] &quot;clementine&quot;   &quot;&quot;          
+## [19,] &quot;cloudberry&quot;   &quot;&quot;          
+## [20,] &quot;coconut&quot;      &quot;&quot;          
+## [21,] &quot;cranberry&quot;    &quot;&quot;          
+## [22,] &quot;cucumber&quot;     &quot;&quot;          
+## [23,] &quot;currant&quot;      &quot;&quot;          
+## [24,] &quot;damson&quot;       &quot;&quot;          
+## [25,] &quot;date&quot;         &quot;&quot;          
+## [26,] &quot;dragonfruit&quot;  &quot;&quot;          
+## [27,] &quot;durian&quot;       &quot;&quot;          
+## [28,] &quot;eggplant&quot;     &quot;&quot;          
+## [29,] &quot;elderberry&quot;   &quot;&quot;          
+## [30,] &quot;feijoa&quot;       &quot;&quot;          
+## [31,] &quot;fig&quot;          &quot;&quot;          
+## [32,] &quot;goji&quot;         &quot;berry&quot;     
+## [33,] &quot;gooseberry&quot;   &quot;&quot;          
+## [34,] &quot;grape&quot;        &quot;&quot;          
+## [35,] &quot;grapefruit&quot;   &quot;&quot;          
+## [36,] &quot;guava&quot;        &quot;&quot;          
+## [37,] &quot;honeydew&quot;     &quot;&quot;          
+## [38,] &quot;huckleberry&quot;  &quot;&quot;          
+## [39,] &quot;jackfruit&quot;    &quot;&quot;          
+## [40,] &quot;jambul&quot;       &quot;&quot;          
+## [41,] &quot;jujube&quot;       &quot;&quot;          
+## [42,] &quot;kiwi&quot;         &quot;fruit&quot;     
+## [43,] &quot;kumquat&quot;      &quot;&quot;          
+## [44,] &quot;lemon&quot;        &quot;&quot;          
+## [45,] &quot;lime&quot;         &quot;&quot;          
+## [46,] &quot;loquat&quot;       &quot;&quot;          
+## [47,] &quot;lychee&quot;       &quot;&quot;          
+## [48,] &quot;mandarine&quot;    &quot;&quot;          
+## [49,] &quot;mango&quot;        &quot;&quot;          
+## [50,] &quot;mulberry&quot;     &quot;&quot;          
+## [51,] &quot;nectarine&quot;    &quot;&quot;          
+## [52,] &quot;nut&quot;          &quot;&quot;          
+## [53,] &quot;olive&quot;        &quot;&quot;          
+## [54,] &quot;orange&quot;       &quot;&quot;          
+## [55,] &quot;pamelo&quot;       &quot;&quot;          
+## [56,] &quot;papaya&quot;       &quot;&quot;          
+## [57,] &quot;passionfruit&quot; &quot;&quot;          
+## [58,] &quot;peach&quot;        &quot;&quot;          
+## [59,] &quot;pear&quot;         &quot;&quot;          
+## [60,] &quot;persimmon&quot;    &quot;&quot;          
+## [61,] &quot;physalis&quot;     &quot;&quot;          
+## [62,] &quot;pineapple&quot;    &quot;&quot;          
+## [63,] &quot;plum&quot;         &quot;&quot;          
+## [64,] &quot;pomegranate&quot;  &quot;&quot;          
+## [65,] &quot;pomelo&quot;       &quot;&quot;          
+## [66,] &quot;purple&quot;       &quot;mangosteen&quot;
+## [67,] &quot;quince&quot;       &quot;&quot;          
+## [68,] &quot;raisin&quot;       &quot;&quot;          
+## [69,] &quot;rambutan&quot;     &quot;&quot;          
+## [70,] &quot;raspberry&quot;    &quot;&quot;          
+## [71,] &quot;redcurrant&quot;   &quot;&quot;          
+## [72,] &quot;rock&quot;         &quot;melon&quot;     
+## [73,] &quot;salal&quot;        &quot;berry&quot;     
+## [74,] &quot;satsuma&quot;      &quot;&quot;          
+## [75,] &quot;star&quot;         &quot;fruit&quot;     
+## [76,] &quot;strawberry&quot;   &quot;&quot;          
+## [77,] &quot;tamarillo&quot;    &quot;&quot;          
+## [78,] &quot;tangerine&quot;    &quot;&quot;          
+## [79,] &quot;ugli&quot;         &quot;fruit&quot;     
+## [80,] &quot;watermelon&quot;   &quot;&quot;</code></pre>
+<pre class="r"><code>## punctuation
+str_subset(countries, &quot;,&quot;)</code></pre>
+<pre><code>## [1] &quot;Congo, Dem. Rep.&quot; &quot;Congo, Rep.&quot;      &quot;Hong Kong, China&quot;
+## [4] &quot;Korea, Dem. Rep.&quot; &quot;Korea, Rep.&quot;      &quot;Yemen, Rep.&quot;</code></pre>
+<pre class="r"><code>str_subset(countries, &quot;[[:punct:]]&quot;)</code></pre>
+<pre><code>## [1] &quot;Congo, Dem. Rep.&quot; &quot;Congo, Rep.&quot;      &quot;Cote d&#39;Ivoire&quot;   
+## [4] &quot;Guinea-Bissau&quot;    &quot;Hong Kong, China&quot; &quot;Korea, Dem. Rep.&quot;
+## [7] &quot;Korea, Rep.&quot;      &quot;Yemen, Rep.&quot;</code></pre>
+<p>You can modify with a quantifier:</p>
+<ul>
+<li><code>*</code> means “0 or more”</li>
+<li><code>+</code> means “1 or more”</li>
+<li><code>?</code> means “exactly 0 or 1”</li>
+<li><code>{n}</code> means “exactly n times”</li>
+<li><code>{n,}</code> means “at least n times”</li>
+<li><code>{,m}</code> means “at most m times”</li>
+<li><code>{n,m}</code> means “between n and m times”</li>
+</ul>
+<pre class="r"><code>str_subset(countries, &quot;e&quot;)</code></pre>
+<pre><code>##  [1] &quot;Algeria&quot;                  &quot;Argentina&quot;               
+##  [3] &quot;Bangladesh&quot;               &quot;Belgium&quot;                 
+##  [5] &quot;Benin&quot;                    &quot;Bosnia and Herzegovina&quot;  
+##  [7] &quot;Cameroon&quot;                 &quot;Central African Republic&quot;
+##  [9] &quot;Chile&quot;                    &quot;Congo, Dem. Rep.&quot;        
+## [11] &quot;Congo, Rep.&quot;              &quot;Cote d&#39;Ivoire&quot;           
+## [13] &quot;Czech Republic&quot;           &quot;Denmark&quot;                 
+## [15] &quot;Dominican Republic&quot;       &quot;Equatorial Guinea&quot;       
+## [17] &quot;Eritrea&quot;                  &quot;France&quot;                  
+## [19] &quot;Germany&quot;                  &quot;Greece&quot;                  
+## [21] &quot;Guatemala&quot;                &quot;Guinea&quot;                  
+## [23] &quot;Guinea-Bissau&quot;            &quot;Iceland&quot;                 
+## [25] &quot;Indonesia&quot;                &quot;Ireland&quot;                 
+## [27] &quot;Israel&quot;                   &quot;Kenya&quot;                   
+## [29] &quot;Korea, Dem. Rep.&quot;         &quot;Korea, Rep.&quot;             
+## [31] &quot;Lebanon&quot;                  &quot;Lesotho&quot;                 
+## [33] &quot;Liberia&quot;                  &quot;Mexico&quot;                  
+## [35] &quot;Montenegro&quot;               &quot;Mozambique&quot;              
+## [37] &quot;Nepal&quot;                    &quot;Netherlands&quot;             
+## [39] &quot;New Zealand&quot;              &quot;Niger&quot;                   
+## [41] &quot;Nigeria&quot;                  &quot;Peru&quot;                    
+## [43] &quot;Philippines&quot;              &quot;Puerto Rico&quot;             
+## [45] &quot;Reunion&quot;                  &quot;Sao Tome and Principe&quot;   
+## [47] &quot;Senegal&quot;                  &quot;Serbia&quot;                  
+## [49] &quot;Sierra Leone&quot;             &quot;Singapore&quot;               
+## [51] &quot;Slovak Republic&quot;          &quot;Slovenia&quot;                
+## [53] &quot;Sweden&quot;                   &quot;Switzerland&quot;             
+## [55] &quot;Turkey&quot;                   &quot;United Kingdom&quot;          
+## [57] &quot;United States&quot;            &quot;Venezuela&quot;               
+## [59] &quot;Vietnam&quot;                  &quot;West Bank and Gaza&quot;      
+## [61] &quot;Yemen, Rep.&quot;              &quot;Zimbabwe&quot;</code></pre>
+<pre class="r"><code>str_subset(countries, &quot;ee&quot;)</code></pre>
+<pre><code>## [1] &quot;Greece&quot;</code></pre>
+<pre class="r"><code>str_subset(countries, &quot;e{2}&quot;)</code></pre>
+<pre><code>## [1] &quot;Greece&quot;</code></pre>
+<pre class="r"><code>str_subset(countries, &quot;,&quot;)</code></pre>
+<pre><code>## [1] &quot;Congo, Dem. Rep.&quot; &quot;Congo, Rep.&quot;      &quot;Hong Kong, China&quot;
+## [4] &quot;Korea, Dem. Rep.&quot; &quot;Korea, Rep.&quot;      &quot;Yemen, Rep.&quot;</code></pre>
+<p>Combine your new knowledge of regex with extraction, replacement, splitting.</p>
+<pre class="r"><code>str_extract(countries, &quot;lia&quot;)</code></pre>
+<pre><code>##   [1] NA    NA    NA    NA    NA    &quot;lia&quot; NA    NA    NA    NA    NA   
+##  [12] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
+##  [23] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
+##  [34] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
+##  [45] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
+##  [56] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
+##  [67] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
+##  [78] NA    NA    NA    NA    NA    NA    &quot;lia&quot; NA    NA    NA    NA   
+##  [89] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
+## [100] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
+## [111] NA    NA    NA    NA    NA    NA    &quot;lia&quot; NA    NA    NA    NA   
+## [122] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
+## [133] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</code></pre>
+<pre class="r"><code>str_extract(countries, &quot;[dnlrst]ia&quot;)</code></pre>
+<pre><code>##   [1] NA    &quot;nia&quot; &quot;ria&quot; NA    NA    &quot;lia&quot; &quot;ria&quot; NA    NA    NA    NA   
+##  [12] NA    &quot;nia&quot; NA    NA    &quot;ria&quot; NA    NA    &quot;dia&quot; NA    NA    NA   
+##  [23] NA    NA    NA    NA    NA    NA    NA    NA    NA    &quot;tia&quot; NA   
+##  [34] NA    NA    NA    NA    NA    NA    NA    &quot;ria&quot; NA    NA    NA   
+##  [45] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
+##  [56] NA    NA    NA    &quot;dia&quot; &quot;sia&quot; NA    NA    NA    NA    NA    NA   
+##  [67] NA    NA    NA    NA    NA    NA    NA    NA    &quot;ria&quot; NA    NA   
+##  [78] NA    &quot;sia&quot; NA    &quot;nia&quot; NA    NA    &quot;lia&quot; NA    NA    NA    NA   
+##  [89] NA    NA    NA    NA    NA    NA    &quot;ria&quot; NA    NA    NA    NA   
+## [100] NA    NA    NA    NA    NA    NA    NA    &quot;nia&quot; NA    NA    NA   
+## [111] NA    NA    NA    NA    NA    &quot;nia&quot; &quot;lia&quot; NA    NA    NA    NA   
+## [122] NA    NA    NA    &quot;ria&quot; NA    &quot;nia&quot; NA    NA    NA    &quot;sia&quot; NA   
+## [133] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA</code></pre>
+<pre class="r"><code>str_replace(countries, &quot;[dnrlst]ia&quot;, &quot;LAND&quot;)</code></pre>
+<pre><code>##   [1] &quot;Afghanistan&quot;              &quot;AlbaLAND&quot;                
+##   [3] &quot;AlgeLAND&quot;                 &quot;Angola&quot;                  
+##   [5] &quot;Argentina&quot;                &quot;AustraLAND&quot;              
+##   [7] &quot;AustLAND&quot;                 &quot;Bahrain&quot;                 
+##   [9] &quot;Bangladesh&quot;               &quot;Belgium&quot;                 
+##  [11] &quot;Benin&quot;                    &quot;Bolivia&quot;                 
+##  [13] &quot;BosLAND and Herzegovina&quot;  &quot;Botswana&quot;                
+##  [15] &quot;Brazil&quot;                   &quot;BulgaLAND&quot;               
+##  [17] &quot;Burkina Faso&quot;             &quot;Burundi&quot;                 
+##  [19] &quot;CamboLAND&quot;                &quot;Cameroon&quot;                
+##  [21] &quot;Canada&quot;                   &quot;Central African Republic&quot;
+##  [23] &quot;Chad&quot;                     &quot;Chile&quot;                   
+##  [25] &quot;China&quot;                    &quot;Colombia&quot;                
+##  [27] &quot;Comoros&quot;                  &quot;Congo, Dem. Rep.&quot;        
+##  [29] &quot;Congo, Rep.&quot;              &quot;Costa Rica&quot;              
+##  [31] &quot;Cote d&#39;Ivoire&quot;            &quot;CroaLAND&quot;                
+##  [33] &quot;Cuba&quot;                     &quot;Czech Republic&quot;          
+##  [35] &quot;Denmark&quot;                  &quot;Djibouti&quot;                
+##  [37] &quot;Dominican Republic&quot;       &quot;Ecuador&quot;                 
+##  [39] &quot;Egypt&quot;                    &quot;El Salvador&quot;             
+##  [41] &quot;EquatoLANDl Guinea&quot;       &quot;Eritrea&quot;                 
+##  [43] &quot;Ethiopia&quot;                 &quot;Finland&quot;                 
+##  [45] &quot;France&quot;                   &quot;Gabon&quot;                   
+##  [47] &quot;Gambia&quot;                   &quot;Germany&quot;                 
+##  [49] &quot;Ghana&quot;                    &quot;Greece&quot;                  
+##  [51] &quot;Guatemala&quot;                &quot;Guinea&quot;                  
+##  [53] &quot;Guinea-Bissau&quot;            &quot;Haiti&quot;                   
+##  [55] &quot;Honduras&quot;                 &quot;Hong Kong, China&quot;        
+##  [57] &quot;Hungary&quot;                  &quot;Iceland&quot;                 
+##  [59] &quot;InLAND&quot;                   &quot;IndoneLAND&quot;              
+##  [61] &quot;Iran&quot;                     &quot;Iraq&quot;                    
+##  [63] &quot;Ireland&quot;                  &quot;Israel&quot;                  
+##  [65] &quot;Italy&quot;                    &quot;Jamaica&quot;                 
+##  [67] &quot;Japan&quot;                    &quot;Jordan&quot;                  
+##  [69] &quot;Kenya&quot;                    &quot;Korea, Dem. Rep.&quot;        
+##  [71] &quot;Korea, Rep.&quot;              &quot;Kuwait&quot;                  
+##  [73] &quot;Lebanon&quot;                  &quot;Lesotho&quot;                 
+##  [75] &quot;LibeLAND&quot;                 &quot;Libya&quot;                   
+##  [77] &quot;Madagascar&quot;               &quot;Malawi&quot;                  
+##  [79] &quot;MalayLAND&quot;                &quot;Mali&quot;                    
+##  [81] &quot;MauritaLAND&quot;              &quot;Mauritius&quot;               
+##  [83] &quot;Mexico&quot;                   &quot;MongoLAND&quot;               
+##  [85] &quot;Montenegro&quot;               &quot;Morocco&quot;                 
+##  [87] &quot;Mozambique&quot;               &quot;Myanmar&quot;                 
+##  [89] &quot;Namibia&quot;                  &quot;Nepal&quot;                   
+##  [91] &quot;Netherlands&quot;              &quot;New Zealand&quot;             
+##  [93] &quot;Nicaragua&quot;                &quot;Niger&quot;                   
+##  [95] &quot;NigeLAND&quot;                 &quot;Norway&quot;                  
+##  [97] &quot;Oman&quot;                     &quot;Pakistan&quot;                
+##  [99] &quot;Panama&quot;                   &quot;Paraguay&quot;                
+## [101] &quot;Peru&quot;                     &quot;Philippines&quot;             
+## [103] &quot;Poland&quot;                   &quot;Portugal&quot;                
+## [105] &quot;Puerto Rico&quot;              &quot;Reunion&quot;                 
+## [107] &quot;RomaLAND&quot;                 &quot;Rwanda&quot;                  
+## [109] &quot;Sao Tome and Principe&quot;    &quot;Saudi Arabia&quot;            
+## [111] &quot;Senegal&quot;                  &quot;Serbia&quot;                  
+## [113] &quot;Sierra Leone&quot;             &quot;Singapore&quot;               
+## [115] &quot;Slovak Republic&quot;          &quot;SloveLAND&quot;               
+## [117] &quot;SomaLAND&quot;                 &quot;South Africa&quot;            
+## [119] &quot;Spain&quot;                    &quot;Sri Lanka&quot;               
+## [121] &quot;Sudan&quot;                    &quot;Swaziland&quot;               
+## [123] &quot;Sweden&quot;                   &quot;Switzerland&quot;             
+## [125] &quot;SyLAND&quot;                   &quot;Taiwan&quot;                  
+## [127] &quot;TanzaLAND&quot;                &quot;Thailand&quot;                
+## [129] &quot;Togo&quot;                     &quot;Trinidad and Tobago&quot;     
+## [131] &quot;TuniLAND&quot;                 &quot;Turkey&quot;                  
+## [133] &quot;Uganda&quot;                   &quot;United Kingdom&quot;          
+## [135] &quot;United States&quot;            &quot;Uruguay&quot;                 
+## [137] &quot;Venezuela&quot;                &quot;Vietnam&quot;                 
+## [139] &quot;West Bank and Gaza&quot;       &quot;Yemen, Rep.&quot;             
+## [141] &quot;Zambia&quot;                   &quot;Zimbabwe&quot;</code></pre>
+<pre class="r"><code>str_split(countries, &quot;\\W&quot;) ## \W mean &#39;not a word character&#39;</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;Afghanistan&quot;
+## 
+## [[2]]
+## [1] &quot;Albania&quot;
+## 
+## [[3]]
+## [1] &quot;Algeria&quot;
+## 
+## [[4]]
+## [1] &quot;Angola&quot;
+## 
+## [[5]]
+## [1] &quot;Argentina&quot;
+## 
+## [[6]]
+## [1] &quot;Australia&quot;
+## 
+## [[7]]
+## [1] &quot;Austria&quot;
+## 
+## [[8]]
+## [1] &quot;Bahrain&quot;
+## 
+## [[9]]
+## [1] &quot;Bangladesh&quot;
+## 
+## [[10]]
+## [1] &quot;Belgium&quot;
+## 
+## [[11]]
+## [1] &quot;Benin&quot;
+## 
+## [[12]]
+## [1] &quot;Bolivia&quot;
+## 
+## [[13]]
+## [1] &quot;Bosnia&quot;      &quot;and&quot;         &quot;Herzegovina&quot;
+## 
+## [[14]]
+## [1] &quot;Botswana&quot;
+## 
+## [[15]]
+## [1] &quot;Brazil&quot;
+## 
+## [[16]]
+## [1] &quot;Bulgaria&quot;
+## 
+## [[17]]
+## [1] &quot;Burkina&quot; &quot;Faso&quot;   
+## 
+## [[18]]
+## [1] &quot;Burundi&quot;
+## 
+## [[19]]
+## [1] &quot;Cambodia&quot;
+## 
+## [[20]]
+## [1] &quot;Cameroon&quot;
+## 
+## [[21]]
+## [1] &quot;Canada&quot;
+## 
+## [[22]]
+## [1] &quot;Central&quot;  &quot;African&quot;  &quot;Republic&quot;
+## 
+## [[23]]
+## [1] &quot;Chad&quot;
+## 
+## [[24]]
+## [1] &quot;Chile&quot;
+## 
+## [[25]]
+## [1] &quot;China&quot;
+## 
+## [[26]]
+## [1] &quot;Colombia&quot;
+## 
+## [[27]]
+## [1] &quot;Comoros&quot;
+## 
+## [[28]]
+## [1] &quot;Congo&quot; &quot;&quot;      &quot;Dem&quot;   &quot;&quot;      &quot;Rep&quot;   &quot;&quot;     
+## 
+## [[29]]
+## [1] &quot;Congo&quot; &quot;&quot;      &quot;Rep&quot;   &quot;&quot;     
+## 
+## [[30]]
+## [1] &quot;Costa&quot; &quot;Rica&quot; 
+## 
+## [[31]]
+## [1] &quot;Cote&quot;   &quot;d&quot;      &quot;Ivoire&quot;
+## 
+## [[32]]
+## [1] &quot;Croatia&quot;
+## 
+## [[33]]
+## [1] &quot;Cuba&quot;
+## 
+## [[34]]
+## [1] &quot;Czech&quot;    &quot;Republic&quot;
+## 
+## [[35]]
+## [1] &quot;Denmark&quot;
+## 
+## [[36]]
+## [1] &quot;Djibouti&quot;
+## 
+## [[37]]
+## [1] &quot;Dominican&quot; &quot;Republic&quot; 
+## 
+## [[38]]
+## [1] &quot;Ecuador&quot;
+## 
+## [[39]]
+## [1] &quot;Egypt&quot;
+## 
+## [[40]]
+## [1] &quot;El&quot;       &quot;Salvador&quot;
+## 
+## [[41]]
+## [1] &quot;Equatorial&quot; &quot;Guinea&quot;    
+## 
+## [[42]]
+## [1] &quot;Eritrea&quot;
+## 
+## [[43]]
+## [1] &quot;Ethiopia&quot;
+## 
+## [[44]]
+## [1] &quot;Finland&quot;
+## 
+## [[45]]
+## [1] &quot;France&quot;
+## 
+## [[46]]
+## [1] &quot;Gabon&quot;
+## 
+## [[47]]
+## [1] &quot;Gambia&quot;
+## 
+## [[48]]
+## [1] &quot;Germany&quot;
+## 
+## [[49]]
+## [1] &quot;Ghana&quot;
+## 
+## [[50]]
+## [1] &quot;Greece&quot;
+## 
+## [[51]]
+## [1] &quot;Guatemala&quot;
+## 
+## [[52]]
+## [1] &quot;Guinea&quot;
+## 
+## [[53]]
+## [1] &quot;Guinea&quot; &quot;Bissau&quot;
+## 
+## [[54]]
+## [1] &quot;Haiti&quot;
+## 
+## [[55]]
+## [1] &quot;Honduras&quot;
+## 
+## [[56]]
+## [1] &quot;Hong&quot;  &quot;Kong&quot;  &quot;&quot;      &quot;China&quot;
+## 
+## [[57]]
+## [1] &quot;Hungary&quot;
+## 
+## [[58]]
+## [1] &quot;Iceland&quot;
+## 
+## [[59]]
+## [1] &quot;India&quot;
+## 
+## [[60]]
+## [1] &quot;Indonesia&quot;
+## 
+## [[61]]
+## [1] &quot;Iran&quot;
+## 
+## [[62]]
+## [1] &quot;Iraq&quot;
+## 
+## [[63]]
+## [1] &quot;Ireland&quot;
+## 
+## [[64]]
+## [1] &quot;Israel&quot;
+## 
+## [[65]]
+## [1] &quot;Italy&quot;
+## 
+## [[66]]
+## [1] &quot;Jamaica&quot;
+## 
+## [[67]]
+## [1] &quot;Japan&quot;
+## 
+## [[68]]
+## [1] &quot;Jordan&quot;
+## 
+## [[69]]
+## [1] &quot;Kenya&quot;
+## 
+## [[70]]
+## [1] &quot;Korea&quot; &quot;&quot;      &quot;Dem&quot;   &quot;&quot;      &quot;Rep&quot;   &quot;&quot;     
+## 
+## [[71]]
+## [1] &quot;Korea&quot; &quot;&quot;      &quot;Rep&quot;   &quot;&quot;     
+## 
+## [[72]]
+## [1] &quot;Kuwait&quot;
+## 
+## [[73]]
+## [1] &quot;Lebanon&quot;
+## 
+## [[74]]
+## [1] &quot;Lesotho&quot;
+## 
+## [[75]]
+## [1] &quot;Liberia&quot;
+## 
+## [[76]]
+## [1] &quot;Libya&quot;
+## 
+## [[77]]
+## [1] &quot;Madagascar&quot;
+## 
+## [[78]]
+## [1] &quot;Malawi&quot;
+## 
+## [[79]]
+## [1] &quot;Malaysia&quot;
+## 
+## [[80]]
+## [1] &quot;Mali&quot;
+## 
+## [[81]]
+## [1] &quot;Mauritania&quot;
+## 
+## [[82]]
+## [1] &quot;Mauritius&quot;
+## 
+## [[83]]
+## [1] &quot;Mexico&quot;
+## 
+## [[84]]
+## [1] &quot;Mongolia&quot;
+## 
+## [[85]]
+## [1] &quot;Montenegro&quot;
+## 
+## [[86]]
+## [1] &quot;Morocco&quot;
+## 
+## [[87]]
+## [1] &quot;Mozambique&quot;
+## 
+## [[88]]
+## [1] &quot;Myanmar&quot;
+## 
+## [[89]]
+## [1] &quot;Namibia&quot;
+## 
+## [[90]]
+## [1] &quot;Nepal&quot;
+## 
+## [[91]]
+## [1] &quot;Netherlands&quot;
+## 
+## [[92]]
+## [1] &quot;New&quot;     &quot;Zealand&quot;
+## 
+## [[93]]
+## [1] &quot;Nicaragua&quot;
+## 
+## [[94]]
+## [1] &quot;Niger&quot;
+## 
+## [[95]]
+## [1] &quot;Nigeria&quot;
+## 
+## [[96]]
+## [1] &quot;Norway&quot;
+## 
+## [[97]]
+## [1] &quot;Oman&quot;
+## 
+## [[98]]
+## [1] &quot;Pakistan&quot;
+## 
+## [[99]]
+## [1] &quot;Panama&quot;
+## 
+## [[100]]
+## [1] &quot;Paraguay&quot;
+## 
+## [[101]]
+## [1] &quot;Peru&quot;
+## 
+## [[102]]
+## [1] &quot;Philippines&quot;
+## 
+## [[103]]
+## [1] &quot;Poland&quot;
+## 
+## [[104]]
+## [1] &quot;Portugal&quot;
+## 
+## [[105]]
+## [1] &quot;Puerto&quot; &quot;Rico&quot;  
+## 
+## [[106]]
+## [1] &quot;Reunion&quot;
+## 
+## [[107]]
+## [1] &quot;Romania&quot;
+## 
+## [[108]]
+## [1] &quot;Rwanda&quot;
+## 
+## [[109]]
+## [1] &quot;Sao&quot;      &quot;Tome&quot;     &quot;and&quot;      &quot;Principe&quot;
+## 
+## [[110]]
+## [1] &quot;Saudi&quot;  &quot;Arabia&quot;
+## 
+## [[111]]
+## [1] &quot;Senegal&quot;
+## 
+## [[112]]
+## [1] &quot;Serbia&quot;
+## 
+## [[113]]
+## [1] &quot;Sierra&quot; &quot;Leone&quot; 
+## 
+## [[114]]
+## [1] &quot;Singapore&quot;
+## 
+## [[115]]
+## [1] &quot;Slovak&quot;   &quot;Republic&quot;
+## 
+## [[116]]
+## [1] &quot;Slovenia&quot;
+## 
+## [[117]]
+## [1] &quot;Somalia&quot;
+## 
+## [[118]]
+## [1] &quot;South&quot;  &quot;Africa&quot;
+## 
+## [[119]]
+## [1] &quot;Spain&quot;
+## 
+## [[120]]
+## [1] &quot;Sri&quot;   &quot;Lanka&quot;
+## 
+## [[121]]
+## [1] &quot;Sudan&quot;
+## 
+## [[122]]
+## [1] &quot;Swaziland&quot;
+## 
+## [[123]]
+## [1] &quot;Sweden&quot;
+## 
+## [[124]]
+## [1] &quot;Switzerland&quot;
+## 
+## [[125]]
+## [1] &quot;Syria&quot;
+## 
+## [[126]]
+## [1] &quot;Taiwan&quot;
+## 
+## [[127]]
+## [1] &quot;Tanzania&quot;
+## 
+## [[128]]
+## [1] &quot;Thailand&quot;
+## 
+## [[129]]
+## [1] &quot;Togo&quot;
+## 
+## [[130]]
+## [1] &quot;Trinidad&quot; &quot;and&quot;      &quot;Tobago&quot;  
+## 
+## [[131]]
+## [1] &quot;Tunisia&quot;
+## 
+## [[132]]
+## [1] &quot;Turkey&quot;
+## 
+## [[133]]
+## [1] &quot;Uganda&quot;
+## 
+## [[134]]
+## [1] &quot;United&quot;  &quot;Kingdom&quot;
+## 
+## [[135]]
+## [1] &quot;United&quot; &quot;States&quot;
+## 
+## [[136]]
+## [1] &quot;Uruguay&quot;
+## 
+## [[137]]
+## [1] &quot;Venezuela&quot;
+## 
+## [[138]]
+## [1] &quot;Vietnam&quot;
+## 
+## [[139]]
+## [1] &quot;West&quot; &quot;Bank&quot; &quot;and&quot;  &quot;Gaza&quot;
+## 
+## [[140]]
+## [1] &quot;Yemen&quot; &quot;&quot;      &quot;Rep&quot;   &quot;&quot;     
+## 
+## [[141]]
+## [1] &quot;Zambia&quot;
+## 
+## [[142]]
+## [1] &quot;Zimbabwe&quot;</code></pre>
+<p>File listing is more good practice.</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
