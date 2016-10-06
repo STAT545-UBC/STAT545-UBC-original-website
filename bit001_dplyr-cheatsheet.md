@@ -1,11 +1,13 @@
 # Cheatsheet for dplyr join functions
 Jenny Bryan  
 
+
+
 #### Why the cheatsheet
 
 Examples for those of us who don't speak SQL so good. There are lots of [Venn diagrams re: SQL joins on the interwebs](//encrypted.google.com/search?q=sql+join&tbm=isch), but I wanted R examples.
 
-[Full documentation](http://www.rdocumentation.org/packages/dplyr) for the `dplyr` package, which is developed by Hadley Wickham and Romain Francois on [GitHub](https://github.com/hadley/dplyr). The [vignette on Two-table verbs](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html) covers the joins shown here.
+[Full documentation](http://www.rdocumentation.org/packages/dplyr) for the dplyr package, which is developed by Hadley Wickham and Romain Francois on [GitHub](https://github.com/hadley/dplyr). The [vignette on Two-table verbs](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html) covers the joins shown here.
 
 Working with two small data.frames, `superheroes` and `publishers`.
 
@@ -14,7 +16,7 @@ Working with two small data.frames, `superheroes` and `publishers`.
 suppressPackageStartupMessages(library(dplyr))
 library(readr)
 
-superheroes <-"
+superheroes <- "
     name, alignment, gender,         publisher
  Magneto,       bad,   male,            Marvel
    Storm,      good, female,            Marvel
@@ -46,23 +48,16 @@ Sub-plot: watch the row and variable order of the join results for a healthy rem
 
 ```r
 (ijsp <- inner_join(superheroes, publishers))
-```
-
-```
-## Joining by: "publisher"
-```
-
-```
-## Source: local data frame [6 x 5]
-## 
-##       name alignment gender publisher yr_founded
-##      (chr)     (chr)  (chr)     (chr)      (int)
-## 1  Magneto       bad   male    Marvel       1939
-## 2    Storm      good female    Marvel       1939
-## 3 Mystique       bad female    Marvel       1939
-## 4   Batman      good   male        DC       1934
-## 5    Joker       bad   male        DC       1934
-## 6 Catwoman       bad female        DC       1934
+#> Joining, by = "publisher"
+#> # A tibble: 6 × 5
+#>       name alignment gender publisher yr_founded
+#>      <chr>     <chr>  <chr>     <chr>      <int>
+#> 1  Magneto       bad   male    Marvel       1939
+#> 2    Storm      good female    Marvel       1939
+#> 3 Mystique       bad female    Marvel       1939
+#> 4   Batman      good   male        DC       1934
+#> 5    Joker       bad   male        DC       1934
+#> 6 Catwoman       bad female        DC       1934
 ```
 
 We lose Hellboy in the join because, although he appears in `x = superheroes`, his publisher Dark Horse Comics does not appear in `y = publishers`. The join result has all variables from `x = superheroes` plus `yr_founded`, from `y`.
@@ -125,23 +120,16 @@ Catwoman   bad         female   DC                 1934
 
 ```r
 (sjsp <- semi_join(superheroes, publishers))
-```
-
-```
-## Joining by: "publisher"
-```
-
-```
-## Source: local data frame [6 x 4]
-## 
-##       name alignment gender publisher
-##      (chr)     (chr)  (chr)     (chr)
-## 1   Batman      good   male        DC
-## 2    Joker       bad   male        DC
-## 3 Catwoman       bad female        DC
-## 4  Magneto       bad   male    Marvel
-## 5    Storm      good female    Marvel
-## 6 Mystique       bad female    Marvel
+#> Joining, by = "publisher"
+#> # A tibble: 6 × 4
+#>       name alignment gender publisher
+#>      <chr>     <chr>  <chr>     <chr>
+#> 1   Batman      good   male        DC
+#> 2    Joker       bad   male        DC
+#> 3 Catwoman       bad female        DC
+#> 4  Magneto       bad   male    Marvel
+#> 5    Storm      good female    Marvel
+#> 6 Mystique       bad female    Marvel
 ```
 
 We get a similar result as with `inner_join()` but the join result contains only the variables originally found in `x = superheroes`. But note the row order has changed.
@@ -203,24 +191,17 @@ Mystique   bad         female   Marvel
 
 ```r
 (ljsp <- left_join(superheroes, publishers))
-```
-
-```
-## Joining by: "publisher"
-```
-
-```
-## Source: local data frame [7 x 5]
-## 
-##       name alignment gender         publisher yr_founded
-##      (chr)     (chr)  (chr)             (chr)      (int)
-## 1  Magneto       bad   male            Marvel       1939
-## 2    Storm      good female            Marvel       1939
-## 3 Mystique       bad female            Marvel       1939
-## 4   Batman      good   male                DC       1934
-## 5    Joker       bad   male                DC       1934
-## 6 Catwoman       bad female                DC       1934
-## 7  Hellboy      good   male Dark Horse Comics         NA
+#> Joining, by = "publisher"
+#> # A tibble: 7 × 5
+#>       name alignment gender         publisher yr_founded
+#>      <chr>     <chr>  <chr>             <chr>      <int>
+#> 1  Magneto       bad   male            Marvel       1939
+#> 2    Storm      good female            Marvel       1939
+#> 3 Mystique       bad female            Marvel       1939
+#> 4   Batman      good   male                DC       1934
+#> 5    Joker       bad   male                DC       1934
+#> 6 Catwoman       bad female                DC       1934
+#> 7  Hellboy      good   male Dark Horse Comics         NA
 ```
 
 We basically get `x = superheroes` back, but with the addition of variable `yr_founded`, which is unique to `y = publishers`. Hellboy, whose publisher does not appear in `y = publishers`, has an `NA` for `yr_founded`.
@@ -283,18 +264,11 @@ Hellboy    good        male     Dark Horse Comics            NA
 
 ```r
 (ajsp <- anti_join(superheroes, publishers))
-```
-
-```
-## Joining by: "publisher"
-```
-
-```
-## Source: local data frame [1 x 4]
-## 
-##      name alignment gender         publisher
-##     (chr)     (chr)  (chr)             (chr)
-## 1 Hellboy      good   male Dark Horse Comics
+#> Joining, by = "publisher"
+#> # A tibble: 1 × 4
+#>      name alignment gender         publisher
+#>     <chr>     <chr>  <chr>             <chr>
+#> 1 Hellboy      good   male Dark Horse Comics
 ```
 
 We keep __only__ Hellboy now (and do not get `yr_founded`).
@@ -351,23 +325,16 @@ Hellboy   good        male     Dark Horse Comics
 
 ```r
 (ijps <- inner_join(publishers, superheroes))
-```
-
-```
-## Joining by: "publisher"
-```
-
-```
-## Source: local data frame [6 x 5]
-## 
-##   publisher yr_founded     name alignment gender
-##       (chr)      (int)    (chr)     (chr)  (chr)
-## 1        DC       1934   Batman      good   male
-## 2        DC       1934    Joker       bad   male
-## 3        DC       1934 Catwoman       bad female
-## 4    Marvel       1939  Magneto       bad   male
-## 5    Marvel       1939    Storm      good female
-## 6    Marvel       1939 Mystique       bad female
+#> Joining, by = "publisher"
+#> # A tibble: 6 × 5
+#>   publisher yr_founded     name alignment gender
+#>       <chr>      <int>    <chr>     <chr>  <chr>
+#> 1        DC       1934   Batman      good   male
+#> 2        DC       1934    Joker       bad   male
+#> 3        DC       1934 Catwoman       bad female
+#> 4    Marvel       1939  Magneto       bad   male
+#> 5    Marvel       1939    Storm      good female
+#> 6    Marvel       1939 Mystique       bad female
 ```
 
 In a way, this does illustrate multiple matches, if you think about it from the `x = publishers` direction. Every publisher that has a match in `y = superheroes` appears multiple times in the result, once for each match. In fact, we're getting the same result as with `inner_join(superheroes, publishers)`, up to variable order (which you should also never rely on in an analysis).
@@ -429,19 +396,12 @@ Marvel             1939  Mystique   bad         female
 
 ```r
 (sjps <- semi_join(x = publishers, y = superheroes))
-```
-
-```
-## Joining by: "publisher"
-```
-
-```
-## Source: local data frame [2 x 2]
-## 
-##   publisher yr_founded
-##       (chr)      (int)
-## 1    Marvel       1939
-## 2        DC       1934
+#> Joining, by = "publisher"
+#> # A tibble: 2 × 2
+#>   publisher yr_founded
+#>       <chr>      <int>
+#> 1    Marvel       1939
+#> 2        DC       1934
 ```
 
 Now the effects of switching the `x` and `y` roles is more clear. The result resembles `x = publishers`, but the publisher Image is lost, because there are no observations where `publisher == "Image"` in `y = superheroes`.
@@ -500,24 +460,17 @@ DC                 1934
 
 ```r
 (ljps <- left_join(publishers, superheroes))
-```
-
-```
-## Joining by: "publisher"
-```
-
-```
-## Source: local data frame [7 x 5]
-## 
-##   publisher yr_founded     name alignment gender
-##       (chr)      (int)    (chr)     (chr)  (chr)
-## 1        DC       1934   Batman      good   male
-## 2        DC       1934    Joker       bad   male
-## 3        DC       1934 Catwoman       bad female
-## 4    Marvel       1939  Magneto       bad   male
-## 5    Marvel       1939    Storm      good female
-## 6    Marvel       1939 Mystique       bad female
-## 7     Image       1992       NA        NA     NA
+#> Joining, by = "publisher"
+#> # A tibble: 7 × 5
+#>   publisher yr_founded     name alignment gender
+#>       <chr>      <int>    <chr>     <chr>  <chr>
+#> 1        DC       1934   Batman      good   male
+#> 2        DC       1934    Joker       bad   male
+#> 3        DC       1934 Catwoman       bad female
+#> 4    Marvel       1939  Magneto       bad   male
+#> 5    Marvel       1939    Storm      good female
+#> 6    Marvel       1939 Mystique       bad female
+#> 7     Image       1992     <NA>      <NA>   <NA>
 ```
 
 We get a similar result as with `inner_join()` but the publisher Image survives in the join, even though no superheroes from Image appear in `y = superheroes`. As a result, Image has `NA`s for `name`, `alignment`, and `gender`.
@@ -580,18 +533,11 @@ Image              1992  NA         NA          NA
 
 ```r
 (ajps <- anti_join(publishers, superheroes))
-```
-
-```
-## Joining by: "publisher"
-```
-
-```
-## Source: local data frame [1 x 2]
-## 
-##   publisher yr_founded
-##       (chr)      (int)
-## 1     Image       1992
+#> Joining, by = "publisher"
+#> # A tibble: 1 × 2
+#>   publisher yr_founded
+#>       <chr>      <int>
+#> 1     Image       1992
 ```
 
 We keep __only__ publisher Image now (and the variables found in `x = publishers`).
@@ -649,25 +595,18 @@ Image              1992
 
 ```r
 (fjsp <- full_join(superheroes, publishers))
-```
-
-```
-## Joining by: "publisher"
-```
-
-```
-## Source: local data frame [8 x 5]
-## 
-##       name alignment gender         publisher yr_founded
-##      (chr)     (chr)  (chr)             (chr)      (int)
-## 1  Magneto       bad   male            Marvel       1939
-## 2    Storm      good female            Marvel       1939
-## 3 Mystique       bad female            Marvel       1939
-## 4   Batman      good   male                DC       1934
-## 5    Joker       bad   male                DC       1934
-## 6 Catwoman       bad female                DC       1934
-## 7  Hellboy      good   male Dark Horse Comics         NA
-## 8       NA        NA     NA             Image       1992
+#> Joining, by = "publisher"
+#> # A tibble: 8 × 5
+#>       name alignment gender         publisher yr_founded
+#>      <chr>     <chr>  <chr>             <chr>      <int>
+#> 1  Magneto       bad   male            Marvel       1939
+#> 2    Storm      good female            Marvel       1939
+#> 3 Mystique       bad female            Marvel       1939
+#> 4   Batman      good   male                DC       1934
+#> 5    Joker       bad   male                DC       1934
+#> 6 Catwoman       bad female                DC       1934
+#> 7  Hellboy      good   male Dark Horse Comics         NA
+#> 8     <NA>      <NA>   <NA>             Image       1992
 ```
 
 We get all rows of `x = superheroes` plus a new row from `y = publishers`, containing the publisher Image. We get all variables from `x = superheroes` AND all variables from `y = publishers`. Any row that derives solely from one table or the other carries `NA`s in the variables found only in the other table.
@@ -729,47 +668,37 @@ NA         NA          NA       Image                      1992
 
 ```r
 devtools::session_info()
-```
-
-```
-## Session info --------------------------------------------------------------
-```
-
-```
-##  setting  value                       
-##  version  R version 3.2.2 (2015-08-14)
-##  system   x86_64, darwin13.4.0        
-##  ui       X11                         
-##  language (EN)                        
-##  collate  en_CA.UTF-8                 
-##  tz       America/Vancouver           
-##  date     2015-11-11
-```
-
-```
-## Packages ------------------------------------------------------------------
-```
-
-```
-##  package    * version    date       source                       
-##  assertthat   0.1        2013-12-06 CRAN (R 3.2.0)               
-##  DBI          0.3.1      2014-09-24 CRAN (R 3.2.0)               
-##  devtools     1.9.1.9000 2015-11-11 local                        
-##  digest       0.6.8      2014-12-31 CRAN (R 3.2.0)               
-##  dplyr      * 0.4.3.9000 2015-11-11 Github (hadley/dplyr@4ea9475)
-##  evaluate     0.8        2015-09-18 CRAN (R 3.2.0)               
-##  formatR      1.2.1      2015-09-18 CRAN (R 3.2.0)               
-##  highr        0.5.1      2015-09-18 CRAN (R 3.2.0)               
-##  htmltools    0.2.6      2014-09-08 CRAN (R 3.2.0)               
-##  knitr        1.11       2015-08-14 CRAN (R 3.2.2)               
-##  magrittr     1.5        2014-11-22 CRAN (R 3.2.0)               
-##  memoise      0.2.1      2014-04-22 CRAN (R 3.2.0)               
-##  R6           2.1.1      2015-08-19 CRAN (R 3.2.0)               
-##  Rcpp         0.12.1     2015-09-10 CRAN (R 3.2.0)               
-##  readr      * 0.2.2      2015-10-22 CRAN (R 3.2.0)               
-##  rmarkdown    0.8.1      2015-10-10 CRAN (R 3.2.2)               
-##  stringi      1.0-1      2015-10-22 CRAN (R 3.2.0)               
-##  stringr      1.0.0      2015-04-30 CRAN (R 3.2.0)               
-##  yaml         2.1.13     2014-06-12 CRAN (R 3.2.0)
+#> Session info -------------------------------------------------------------
+#>  setting  value                       
+#>  version  R version 3.3.1 (2016-06-21)
+#>  system   x86_64, darwin13.4.0        
+#>  ui       X11                         
+#>  language (EN)                        
+#>  collate  en_CA.UTF-8                 
+#>  tz       America/Vancouver           
+#>  date     2016-10-06
+#> Packages -----------------------------------------------------------------
+#>  package    * version     date       source                            
+#>  assertthat   0.1         2013-12-06 CRAN (R 3.2.0)                    
+#>  DBI          0.4-1       2016-05-08 cran (@0.4-1)                     
+#>  devtools     1.12.0.9000 2016-09-26 Github (hadley/devtools@26c507b)  
+#>  digest       0.6.10      2016-08-02 cran (@0.6.10)                    
+#>  dplyr      * 0.5.0       2016-06-24 CRAN (R 3.3.0)                    
+#>  evaluate     0.9         2016-04-29 CRAN (R 3.3.0)                    
+#>  formatR      1.4         2016-05-09 CRAN (R 3.3.0)                    
+#>  highr        0.6         2016-05-09 CRAN (R 3.3.0)                    
+#>  htmltools    0.3.5       2016-03-21 CRAN (R 3.2.4)                    
+#>  knitr        1.14.2      2016-09-07 Github (yihui/knitr@f02600d)      
+#>  magrittr     1.5         2014-11-22 CRAN (R 3.2.0)                    
+#>  memoise      1.0.0       2016-01-29 CRAN (R 3.2.3)                    
+#>  R6           2.1.3       2016-08-19 cran (@2.1.3)                     
+#>  Rcpp         0.12.7      2016-09-05 cran (@0.12.7)                    
+#>  readr      * 1.0.0.9000  2016-09-07 Github (hadley/readr@37d6eda)     
+#>  rmarkdown    1.0.9014    2016-09-20 Github (rstudio/rmarkdown@81c2092)
+#>  stringi      1.1.1       2016-05-27 cran (@1.1.1)                     
+#>  stringr      1.1.0       2016-08-19 CRAN (R 3.3.0)                    
+#>  tibble       1.2         2016-08-26 cran (@1.2)                       
+#>  withr        1.0.2       2016-06-20 cran (@1.0.2)                     
+#>  yaml         2.1.13      2014-06-12 CRAN (R 3.2.0)
 ```
 

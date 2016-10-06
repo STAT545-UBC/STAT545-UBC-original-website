@@ -7,19 +7,23 @@ output:
     toc_depth: 4
 ---
 
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
+```
+
 #### Why the cheatsheet
 
 Examples for those of us who don't speak SQL so good. There are lots of [Venn diagrams re: SQL joins on the interwebs](//encrypted.google.com/search?q=sql+join&tbm=isch), but I wanted R examples.
 
-[Full documentation](http://www.rdocumentation.org/packages/dplyr) for the `dplyr` package, which is developed by Hadley Wickham and Romain Francois on [GitHub](https://github.com/hadley/dplyr). The [vignette on Two-table verbs](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html) covers the joins shown here.
+[Full documentation](http://www.rdocumentation.org/packages/dplyr) for the dplyr package, which is developed by Hadley Wickham and Romain Francois on [GitHub](https://github.com/hadley/dplyr). The [vignette on Two-table verbs](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html) covers the joins shown here.
 
 Working with two small data.frames, `superheroes` and `publishers`.
 
-```{r collapse = TRUE}
+```{r}
 suppressPackageStartupMessages(library(dplyr))
 library(readr)
 
-superheroes <-"
+superheroes <- "
     name, alignment, gender,         publisher
  Magneto,       bad,   male,            Marvel
    Storm,      good, female,            Marvel
