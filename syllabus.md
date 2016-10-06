@@ -45,7 +45,7 @@ oct-20 thurs   cm014: Visualization Analysis and Design: Tamara Munzer guest lec
   * [Homework 01](hw01_edit-README.html) Edit `README.md`, use R Markdown to explore Gapminder
   * [Homework 02](hw02_explore-gapminder-dplyr.html) Explore Gapminder as a tibble and starting using dplyr and ggplot2
   * [Homework 03](hw03_dplyr-and-more-ggplot2.html) Manipulate, summarize, visualize Gapminder with dplyr and ggplot2
-  * [Homework 04](hw04_tidy-data-joins.html)
+  * [Homework 04](hw04_tidy-data-joins.html) Tidy data and joins
   * Homework 05 Prove you are in control of factors and figures. Clean up your repo.
 
 #### STAT 547M
