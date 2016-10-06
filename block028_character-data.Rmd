@@ -32,21 +32,24 @@ Manipulating character vectors
 
   * [stringr package](https://cran.r-project.org/web/packages/stringr/index.html)
     - A non-core package in the tidyverse. It is installed via `install.packages("tidyverse")`, but not loaded via `library(tidyverse)`. Load it yourself as needed via `library(stringr)`.
-    - Main functions start with `str_`.  
-    - Replacements for base functions re: manipulation and (see below) regular expressions.
-  * [tidyr package]()
-    - Functions for splitting 1 character vector into many and *vice versa*: `separate()`, `unite()`, `extract()`.
-  * Base functions: `nchar()`, `strsplit()`, `substr()`, `paste()`, `paste0()`
+    - Main functions start with `str_`. Auto-complete is your friend.
+    - Replacements for base functions re: string manipulation and regular expressions (see below).
+    - Main advantage over base functions: greater consistency about inputs and outputs. Outputs are more ready for your next analytical task.
+    - Wraps [stringi](https://cran.r-project.org/web/packages/stringi/index.html), which is a great place to look if stringr isn't powerful enough.
+  * [tidyr package](https://cran.r-project.org/web/packages/tidyr/index.html)
+    - Especially useful for functions that split 1 character vector into many and *vice versa*: `separate()`, `unite()`, `extract()`.
+  * Base functions: `nchar()`, `strsplit()`, `substr()`, `paste()`, `paste0()`.
 
-Regular expressions: a God-awful language for expressing patterns to match in text or to do search-and-replace. Frequently described as "write only", because regular expressions are easier to write than to read/understand. And they are not particularly easy to write.
+Regular expressions: a God-awful language for expressing patterns to match in text or to for search-and-replace. Frequently described as "write only", because regular expressions are easier to write than to read/understand. And they are not particularly easy to write.
 
-  * The [Strings chapter](http://r4ds.had.co.nz/strings.html) of [R for Data Science](http://r4ds.had.co.nz)
+  * The [Strings chapter](http://r4ds.had.co.nz/strings.html) of [R for Data Science](http://r4ds.had.co.nz) is excellent.
   * STAT 545 lessons on regular expressions:
-    -  [2014 Intro to regular expressions](block022_regular-expression.html) by TA Gloria Li
-    - [2015 Regular expressions and character data in R](block027_regular-expressions.html) by TA Kieran Samuk
+    -  [2014 Intro to regular expressions](block022_regular-expression.html) by TA Gloria Li.
+    - [2015 Regular expressions and character data in R](block027_regular-expressions.html) by TA Kieran Samuk.
   * RStudio Cheat Sheet on [Regular Expressions in R](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf)
   * Regex testers
     - [regex101.com](https://regex101.com)
+    - [regexr.com](http://regexr.com)
   * [rex R package](https://github.com/kevinushey/rex): make regular expression from human readable expressions
 
 ![](img/regexbytrialanderror-big-smaller.png)
@@ -73,7 +76,8 @@ library(stringr)
 Count characters with `str_length()`.
 
 ```{r}
-fruit
+head(fruit)
+length(fruit)
 str_length(fruit)
 ```
 
@@ -97,21 +101,30 @@ Split strings up
   * `stringr::str_split_fixed()`. Vector in, matrix out.
   * `tidyr::separate()`. Tibble in, tibble out.
 
+In full generality, split strings must return list, because who knows how many pieces there will be?
+
 ```{r}
-## get lists back because length is unknown, not constant
-str_split(berries, " ")
-strsplit(berries, " ")
-
-## if you can commit to the number of items, you can get matrix back
-str_split_fixed(berries, " ", 2)
-
-## if you have a variable in a data frame, use tidyr::separate()
-(berries_df <- tibble(berries))
-berries_df %>% 
-  separate(berries, into = c("pre", "post"), sep = "be")
+str_split(berries, " ") %>% head(8)
+#strsplit(berries, " ")
 ```
 
-Glue strings together, collapse string vectors.
+If you are willing to commit to the number of items, you can have a character matrix. You're welcome!
+
+```{r}
+str_split_fixed(berries, " ", n = 2)
+```
+
+If the to-be-split variable lives in a data frame, `tidyr::separate()` will split it into 2 or more variables.
+
+```{r}
+berries_df <- tibble(berries)
+berries_df %>% 
+  separate(berries, into = c("pre", "post"), sep = " ")
+```
+
+You can stick two character vectors together, elementwise.  
+You can collapse a character vector into a string.  
+You can do both at once.
 
 ```{r}
 fruit1 <- fruit[1:4]
@@ -120,21 +133,24 @@ fruit2 <- fruit[5:8]
 str_c(fruit1, fruit2, sep = " & ")
 str_c(fruit1, collapse = ", ")
 str_c(fruit1, fruit2, sep = " & ", collapse = ", ")
-
-## if the variables live in a data frame, use tidyr::unite()
-fruit_df <- tibble(fruit1, fruit2)
-fruit_df %>% 
-  unite("flavor_combo", fruit1, fruit2)
 ```
 
-Replace matches
+If the to-be-combined vectors live in a data frame, you can use `tidyr::unite()` to make a single new vector from them
 
 ```{r}
-str_replace(fruit, "berry", "thingy")
+fruit_df <- tibble(fruit1, fruit2)
+fruit_df %>% 
+  unite("flavor_combo", fruit1, fruit2, sep = " & ")
+```
+
+Replace matches.
+
+```{r}
+#str_replace(fruit, "berry", "thingy")
 str_replace(berries, "berry", "thingy")
 ```
 
-Replace NAs specifically
+Replace NAs specifically, which comes up often.
 
 ```{r}
 (melons <- str_subset(fruit, "melon"))
