@@ -1,6 +1,6 @@
 ## Topic list
 
-This material gets updated during Sept - Nov each year. Right now it's a mix of 2015 and 2016 content.
+This material gets updated during Sept - Nov each year. Right now we're in awkward teenage phase -- it's a mix of 2015 and 2016 content. 
 
   * Get your R act together
     - [Install R and Rstudio](block000_r-rstudio-install.html) (or update! get current!)
@@ -10,18 +10,19 @@ This material gets updated during Sept - Nov each year. Right now it's a mix of 
     - Content now here: <http://happygitwithr.com>. Install Git, install a Git client or GUI, establish pull/push connection from computer to GitHub in the shell, establish GitHub connection via RStudio, credential caching, troubleshooting.
     - [Take possession of your STAT 545 repo](git08_claim-stat545-repo.html)
   * Data analysis 1: data frames, the tidyverse, and tibbles
-    - [Basic care and feeding of data in R](block006_care-feeding-data.html)
-    - [Introduction to dplyr](block009_dplyr-intro.html)
-    - [dplyr functions for a single dataset](block010_dplyr-end-single-table.html)
-    - [Tidy data using Lord of the Rings](https://github.com/jennybc/lotr-tidy)
+    - [Basic care and feeding of data in R](block006_care-feeding-data.html): data frames (and tibbles) are awesome.
+    - [Introduction to dplyr](block009_dplyr-intro.html): filter, select, the pipe.
+    - [dplyr functions for a single dataset](block010_dplyr-end-single-table.html): single table verbs.
+    - [Tidy data using Lord of the Rings](https://github.com/jennybc/lotr-tidy): tidy data, tidyr.
+    - [Cheatsheet](bit001_dplyr-cheatsheet.html) for dplyr join functions    
     - [Split-Apply-Combine](block024_group-nest-split-map.html) with the tidyverse (nesting, list-columns, map inside mutate) *under development*.
-    - [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
   * Data analysis 2: vectors and files
-    - [Be the boss of your factors](block014_factors.html)
+    - Be the boss of your factors: [2016 version with forcats](block029_factors.html) *under development*
+    - Be the boss of your factors: [2015 version](block014_factors.html)  
+    - Character vectors: [2016 version with stringr!](block028_character-data.html) *under development*
+    - Character vectors: [2015 lesson](block027_regular-expressions.html) by TA Kieran Samuk
+    - Character vectors: [2014 lesson](block022_regular-expression.html) by TA Gloria Li
     - [Writing and reading files](block026_file-out-in.html)
-    - Strings and Regular Expressions
-      - [(2014) Intro to regular expressions](block022_regular-expression.html) and more about character data
-      - [(2015) Regular expressions and character data in R](block027_regular-expressions.html): applying regex in R
   * R as a programming language
     - [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
     - Writing your own R functions [Part 1](block011_write-your-own-function-01.html): get something that works, check arguments
