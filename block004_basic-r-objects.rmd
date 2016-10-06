@@ -7,7 +7,7 @@ output:
 ---
 
 ```{r setup, include = FALSE, cache = FALSE}
-knitr::opts_chunk$set(error = TRUE)
+knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
 ```
 
 > "Rigor and clarity are not synonymous" -- Larry Wasserman
@@ -161,6 +161,8 @@ names(a)
 ```
 
 Indexing a list is similar to indexing a vector but it is necessarily more complex. The fundamental issue is this: if you request a single element from the list, do you want a list of length 1 containing only that element or do you want the element itself? For the former (desired return value is a list), we use single square brackets, `[` and `]`, just like indexing a vector. For the latter (desired return value is a single element), we use a dollar sign `$`, which you've already used to get one variable from a data.frame, or double square brackets, `[[` and `]]`.
+
+The ["pepper shaker photos" in R for Data Science](http://r4ds.had.co.nz/vectors.html#lists-of-condiments) are a splendid visual explanation of the different ways to get stuff out of a list. Highly recommended.
 
 > Warning: the rest of this section might make your eyes glaze over. Skip to the next section if you need to; come back later when some list is ruining your day.
 
@@ -432,4 +434,6 @@ subset(jDat, subset = z)
 
 Thinking about objects according to the flavors above will work fairly well for most purposes most of the time, at least when you're first getting started. Notice that most rows in the table are quite homogeneous, i.e. a logical vector is a logical vector is a logical vector. But the row pertaining to factors is an exception, which highlights the special nature of factors. (for more, go [here](block08_bossYourFactors.html)).
 
+<!--
 > JB note to self. Possible TO ADD but probably belongs in separate tutorial on changing and adding to data.frames: cbind and rbind with data.frames, transform(). do.call() tricks for data.frames. adding/removing variables to/from data.frames. Does this belong in earlier tutorial on the care and feeding of a data.frame? Fits in well with subset(), after all.
+-->
