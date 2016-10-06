@@ -7,8 +7,8 @@ cm005,STAT545A,tues,september,20,TRUE,"Care and feeding of data frames or ""tibb
 cm006,STAT545A,thurs,september,22,TRUE,"First look at dplyr, %>%, and ggplot2"
 cm007,STAT545A,tues,september,27,TRUE,ggplot2
 cm008,STAT545A,thurs,september,29,TRUE,"dplyr: mutate, group, summarize"
-cm009,STAT545A,tues,october,4,TRUE,"Tidy data, reshaping, dplyr joins"
-cm010,STAT545A,thurs,october,6,FALSE,"Minimum ""need to know"" re: R as a programming language"
+cm009,STAT545A,tues,october,4,TRUE,"Tidy data, reshaping"
+cm010,STAT545A,thurs,october,6,TRUE,"dplyr joins, minimum ""need to know"" re: R as a programming language"
 cm011,STAT545A,tues,october,11,FALSE,Getting data out of R (and back in)
 cm012,STAT545A,thurs,october,13,FALSE,Be the boss of your factors
 cm013,STAT545A,tues,october,18,FALSE,"Revisit ggplot, practicalities of daily figure-making"
