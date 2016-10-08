@@ -8,7 +8,7 @@
 
 We've spent alot of time working with big, beautiful data frames. That are clean and wholesome, like the Gapminder data.
 
-But real life will be much nastier. You will bring data into R from the outside world and discover there are problems. Big problems.
+But real life will be much nastier. You will bring data into R from the outside world and discover there are problems. You might think: how hard can it be to deal with character data? And the answer is: it can be very hard!
 
   * [Stack Exchange outage](http://stackstatus.net/post/147710624694/outage-postmortem-july-20-2016)
   * [Regexes to validate/match email addresses](http://emailregex.com)
@@ -23,7 +23,7 @@ I start with this because we cannot possibly do this topic justice in a short am
 Manipulating character vectors
 
   * [stringr package](https://cran.r-project.org/web/packages/stringr/index.html)
-    - A non-core package in the tidyverse. It is installed via `install.packages("tidyverse")`, but not loaded via `library(tidyverse)`. Load it yourself as needed via `library(stringr)`.
+    - A non-core package in the tidyverse. It is installed via `install.packages("tidyverse")`, but not loaded via `library(tidyverse)`. Load it as needed via `library(stringr)`.
     - Main functions start with `str_`. Auto-complete is your friend.
     - Replacements for base functions re: string manipulation and regular expressions (see below).
     - Main advantage over base functions: greater consistency about inputs and outputs. Outputs are more ready for your next analytical task.
@@ -32,12 +32,13 @@ Manipulating character vectors
     - Especially useful for functions that split 1 character vector into many and *vice versa*: `separate()`, `unite()`, `extract()`.
   * Base functions: `nchar()`, `strsplit()`, `substr()`, `paste()`, `paste0()`.
 
-Regular expressions: a God-awful language for expressing patterns to match in text or to for search-and-replace. Frequently described as "write only", because regular expressions are easier to write than to read/understand. And they are not particularly easy to write.
+Regular expressions: a God-awful and powerful language for expressing patterns to match in text or for search-and-replace. Frequently described as "write only", because regular expressions are easier to write than to read/understand. And they are not particularly easy to write.
 
   * The [Strings chapter](http://r4ds.had.co.nz/strings.html) of [R for Data Science](http://r4ds.had.co.nz) is excellent.
   * STAT 545 lessons on regular expressions:
     -  [2014 Intro to regular expressions](block022_regular-expression.html) by TA Gloria Li.
     - [2015 Regular expressions and character data in R](block027_regular-expressions.html) by TA Kieran Samuk.
+    - Excellent content in both. Why am I redeveloping, then? To be more consistent re: using stringr and to use examples whose availability is easier for me to support long-term.
   * RStudio Cheat Sheet on [Regular Expressions in R](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf)
   * Regex testers
     - [regex101.com](https://regex101.com)
@@ -54,7 +55,7 @@ Encoding
     - [What Every Programmer Absolutely, Positively Needs To Know About Encodings And Character Sets To Work With Text](http://kunststube.net/encoding/)
   * [Guide to fixing encoding problems in Ruby](http://www.justinweiss.com/articles/3-steps-to-fix-encoding-problems-in-ruby/) *parking here temporariliy ... looks useful but, obviously, it's about Ruby not R*
     
-### Load stringr
+### Load stringr and the core tidyverse
 
 
 ```r
@@ -73,186 +74,204 @@ library(stringr)
 
 ### Basic string manipulation with stringr and tidyr
 
-`fruit`, `words`, and `sentences` are character vectors that ship with `stringr` for practicing.
+Basic string manipulation tasks:
 
-Count characters with `str_length()`.
+  * Study a single character vector
+    - How long are the strings?
+    - Presence/absence of a literal string
+  * Operate on a single character vector
+    - Keep/discard elements that contain a literal string
+    - Split into two or more character vectors using a fixed delimiter    
+    - Snip out pieces of the strings based on character position
+    - Collapse into a single string
+  * Operate on two or more character vectors
+    - Glue them together element-wise to get a new character vector.
+
+*`fruit`, `words`, and `sentences` are character vectors that ship with `stringr` for practicing.*
+
+#### Detect or filter on a target string
+
+Determine presence/absence of a literal string with `str_detect()`. Spoiler: this will also work for regular expressions (see below).
+
+Which fruits actually use the word "fruit"?
 
 
 ```r
-head(fruit)
-#> [1] "apple"       "apricot"     "avocado"     "banana"      "bell pepper"
-#> [6] "bilberry"
-length(fruit)
-#> [1] 80
-str_length(fruit)
-#>  [1]  5  7  7  6 11  8 10 12 12  9 11 10 12 10  9  6 12 10 10  7  9  8  7
-#> [24]  6  4 11  6  8 10  6  3 10 10  5 10  5  8 11  9  6  6 10  7  5  4  6
-#> [47]  6  9  5  8  9  3  5  6  6  6 12  5  4  9  8  9  4 11  6 17  6  6  8
-#> [70]  9 10 10 11  7 10 10  9  9 10 10
+str_detect(fruit, "fruit")
+#>  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+#> [12]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+#> [23] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+#> [34] FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE
+#> [45] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+#> [56] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+#> [67] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+#> [78] FALSE  TRUE FALSE
 ```
 
-Find matches with `str_detect()`.
+What's the easiest way to get the actual fruits that match? Use `str_subset()` to keep only the matching elements. Note we are storing this new vector `my_fruit` to use in later examples!
 
 
 ```r
-str_detect(fruit, "berry")
-#>  [1] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE  TRUE  TRUE
-#> [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE
-#> [23] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE
-#> [34] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
-#> [45] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
-#> [56] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-#> [67] FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE
-#> [78] FALSE FALSE FALSE
-fruit[str_detect(fruit, "berry")]
-#>  [1] "bilberry"    "blackberry"  "blueberry"   "boysenberry" "cloudberry" 
-#>  [6] "cranberry"   "elderberry"  "goji berry"  "gooseberry"  "huckleberry"
-#> [11] "mulberry"    "raspberry"   "salal berry" "strawberry"
-fruit[!str_detect(fruit, "berry")]
-#>  [1] "apple"             "apricot"           "avocado"          
-#>  [4] "banana"            "bell pepper"       "blackcurrant"     
-#>  [7] "blood orange"      "breadfruit"        "canary melon"     
-#> [10] "cantaloupe"        "cherimoya"         "cherry"           
-#> [13] "chili pepper"      "clementine"        "coconut"          
-#> [16] "cucumber"          "currant"           "damson"           
-#> [19] "date"              "dragonfruit"       "durian"           
-#> [22] "eggplant"          "feijoa"            "fig"              
-#> [25] "grape"             "grapefruit"        "guava"            
-#> [28] "honeydew"          "jackfruit"         "jambul"           
-#> [31] "jujube"            "kiwi fruit"        "kumquat"          
-#> [34] "lemon"             "lime"              "loquat"           
-#> [37] "lychee"            "mandarine"         "mango"            
-#> [40] "nectarine"         "nut"               "olive"            
-#> [43] "orange"            "pamelo"            "papaya"           
-#> [46] "passionfruit"      "peach"             "pear"             
-#> [49] "persimmon"         "physalis"          "pineapple"        
-#> [52] "plum"              "pomegranate"       "pomelo"           
-#> [55] "purple mangosteen" "quince"            "raisin"           
-#> [58] "rambutan"          "redcurrant"        "rock melon"       
-#> [61] "satsuma"           "star fruit"        "tamarillo"        
-#> [64] "tangerine"         "ugli fruit"        "watermelon"
+(my_fruit <- str_subset(fruit, "fruit"))
+#> [1] "breadfruit"   "dragonfruit"  "grapefruit"   "jackfruit"   
+#> [5] "kiwi fruit"   "passionfruit" "star fruit"   "ugli fruit"
 ```
 
-Keep matching elements with `str_subset()`.
+#### String splitting by pattern
+
+Use `stringr::str_split()` to split strings on a delimiter. Some of our fruits are compound words, like "grapefruit", but some have two words, like "ugli fruit". Here we split on a single space `" "`, but show use of a regular expression later. 
 
 
 ```r
-(berries <- str_subset(fruit, "berry"))
-#>  [1] "bilberry"    "blackberry"  "blueberry"   "boysenberry" "cloudberry" 
-#>  [6] "cranberry"   "elderberry"  "goji berry"  "gooseberry"  "huckleberry"
-#> [11] "mulberry"    "raspberry"   "salal berry" "strawberry"
-```
-
-Split strings up
-
-  * `stringr::str_split()`, base `strsplit()`. Vector in, list out.
-  * `stringr::str_split_fixed()`. Vector in, matrix out.
-  * `tidyr::separate()`. Tibble in, tibble out.
-
-In full generality, split strings must return list, because who knows how many pieces there will be?
-
-
-```r
-str_split(berries, " ") %>% head(8)
+str_split(my_fruit, " ")
 #> [[1]]
-#> [1] "bilberry"
+#> [1] "breadfruit"
 #> 
 #> [[2]]
-#> [1] "blackberry"
+#> [1] "dragonfruit"
 #> 
 #> [[3]]
-#> [1] "blueberry"
+#> [1] "grapefruit"
 #> 
 #> [[4]]
-#> [1] "boysenberry"
+#> [1] "jackfruit"
 #> 
 #> [[5]]
-#> [1] "cloudberry"
+#> [1] "kiwi"  "fruit"
 #> 
 #> [[6]]
-#> [1] "cranberry"
+#> [1] "passionfruit"
 #> 
 #> [[7]]
-#> [1] "elderberry"
+#> [1] "star"  "fruit"
 #> 
 #> [[8]]
-#> [1] "goji"  "berry"
-#strsplit(berries, " ")
+#> [1] "ugli"  "fruit"
 ```
 
-If you are willing to commit to the number of items, you can have a character matrix. You're welcome!
+It's bummer that we get a *list* back. But it must be so! In full generality, split strings must return list, because who knows how many pieces there will be?
+
+If you are willing to commit to the number of items, you can use `str_split_fixed()` and get a character matrix. You're welcome!
 
 
 ```r
-str_split_fixed(berries, " ", n = 2)
-#>       [,1]          [,2]   
-#>  [1,] "bilberry"    ""     
-#>  [2,] "blackberry"  ""     
-#>  [3,] "blueberry"   ""     
-#>  [4,] "boysenberry" ""     
-#>  [5,] "cloudberry"  ""     
-#>  [6,] "cranberry"   ""     
-#>  [7,] "elderberry"  ""     
-#>  [8,] "goji"        "berry"
-#>  [9,] "gooseberry"  ""     
-#> [10,] "huckleberry" ""     
-#> [11,] "mulberry"    ""     
-#> [12,] "raspberry"   ""     
-#> [13,] "salal"       "berry"
-#> [14,] "strawberry"  ""
+str_split_fixed(my_fruit, " ", n = 2)
+#>      [,1]           [,2]   
+#> [1,] "breadfruit"   ""     
+#> [2,] "dragonfruit"  ""     
+#> [3,] "grapefruit"   ""     
+#> [4,] "jackfruit"    ""     
+#> [5,] "kiwi"         "fruit"
+#> [6,] "passionfruit" ""     
+#> [7,] "star"         "fruit"
+#> [8,] "ugli"         "fruit"
 ```
 
 If the to-be-split variable lives in a data frame, `tidyr::separate()` will split it into 2 or more variables.
 
 
 ```r
-berries_df <- tibble(berries)
-berries_df %>% 
-  separate(berries, into = c("pre", "post"), sep = " ")
-#> Warning: Too few values at 12 locations: 1, 2, 3, 4, 5, 6, 7, 9, 10, 11,
-#> 12, 14
-#> # A tibble: 14 × 2
+my_fruit_df <- tibble(my_fruit)
+my_fruit_df %>% 
+  separate(my_fruit, into = c("pre", "post"), sep = " ")
+#> Warning: Too few values at 5 locations: 1, 2, 3, 4, 6
+#> # A tibble: 8 × 2
 #>            pre  post
 #> *        <chr> <chr>
-#> 1     bilberry  <NA>
-#> 2   blackberry  <NA>
-#> 3    blueberry  <NA>
-#> 4  boysenberry  <NA>
-#> 5   cloudberry  <NA>
-#> 6    cranberry  <NA>
-#> 7   elderberry  <NA>
-#> 8         goji berry
-#> 9   gooseberry  <NA>
-#> 10 huckleberry  <NA>
-#> 11    mulberry  <NA>
-#> 12   raspberry  <NA>
-#> 13       salal berry
-#> 14  strawberry  <NA>
+#> 1   breadfruit  <NA>
+#> 2  dragonfruit  <NA>
+#> 3   grapefruit  <NA>
+#> 4    jackfruit  <NA>
+#> 5         kiwi fruit
+#> 6 passionfruit  <NA>
+#> 7         star fruit
+#> 8         ugli fruit
 ```
 
-You can stick two character vectors together, elementwise.  
-You can collapse a character vector into a string.  
-You can do both at once.
+#### Substring extraction (and replacement) by position
+
+Count characters in your strings with `str_length()`. Note this is different from the length of the character vector itself.
 
 
 ```r
-fruit1 <- fruit[1:4]
-fruit2 <- fruit[5:8]
+length(my_fruit)
+#> [1] 8
+str_length(my_fruit)
+#> [1] 10 11 10  9 10 12 10 10
+```
 
-str_c(fruit1, fruit2, sep = " & ")
+You can snip out substrings based on character position with `str_sub()`.
+
+
+```r
+head(fruit) %>% 
+  str_sub(1, 3)
+#> [1] "app" "apr" "avo" "ban" "bel" "bil"
+```
+
+The `start` and `end` arguments are vectorised.
+
+
+```r
+tibble(fruit) %>% 
+  head() %>% 
+  mutate(snip = str_sub(fruit, 1:6, 3:8))
+#> # A tibble: 6 × 2
+#>         fruit  snip
+#>         <chr> <chr>
+#> 1       apple   app
+#> 2     apricot   pri
+#> 3     avocado   oca
+#> 4      banana   ana
+#> 5 bell pepper    pe
+#> 6    bilberry   rry
+```
+
+Finally, `str_sub()` also works for assignment, i.e. on the left hand side of `<-`.
+
+
+```r
+x <- head(fruit, 3)
+str_sub(x, 1, 3) <- "AAA"
+x
+#> [1] "AAAle"   "AAAicot" "AAAcado"
+```
+
+#### Collapse a vector
+
+You can collapse a character of length `n > 1` to a single string with `str_c()`, which also has other uses (see next section).
+
+
+```r
+head(fruit) %>% 
+  str_c(collapse = ", ")
+#> [1] "apple, apricot, avocado, banana, bell pepper, bilberry"
+```
+
+#### Create a character vector by catenating multiple vectors
+
+If you have two or more character vectors of the same length, you can glue them together element-wise, to get a new vector of that length. Here are some ... awful smoothie flavors?
+
+
+```r
+str_c(fruit[1:4], fruit[5:8], sep = " & ")
 #> [1] "apple & bell pepper"   "apricot & bilberry"    "avocado & blackberry" 
 #> [4] "banana & blackcurrant"
-str_c(fruit1, collapse = ", ")
-#> [1] "apple, apricot, avocado, banana"
-str_c(fruit1, fruit2, sep = " & ", collapse = ", ")
+```
+
+Element-wise catenation can be combined with collapsing.
+
+
+```r
+str_c(fruit[1:4], fruit[5:8], sep = " & ", collapse = ", ")
 #> [1] "apple & bell pepper, apricot & bilberry, avocado & blackberry, banana & blackcurrant"
 ```
 
-If the to-be-combined vectors live in a data frame, you can use `tidyr::unite()` to make a single new vector from them
+If the to-be-combined vectors are variables in a data frame, you can use `tidyr::unite()` to make a single new variable from them
 
 
 ```r
-fruit_df <- tibble(fruit1, fruit2)
+fruit_df <- tibble(fruit1 = fruit[1:4], fruit2 = fruit[5:8])
 fruit_df %>% 
   unite("flavor_combo", fruit1, fruit2, sep = " & ")
 #> # A tibble: 4 × 1
@@ -264,37 +283,34 @@ fruit_df %>%
 #> 4 banana & blackcurrant
 ```
 
-Replace matches.
+#### Substring replacement
+
+You can replace a pattern with `str_replace()`. Here we use an explicit string-to-replace, but later we revisit with a regular expression.
 
 
 ```r
-#str_replace(fruit, "berry", "thingy")
-str_replace(berries, "berry", "thingy")
-#>  [1] "bilthingy"    "blackthingy"  "bluethingy"   "boysenthingy"
-#>  [5] "cloudthingy"  "cranthingy"   "elderthingy"  "goji thingy" 
-#>  [9] "goosethingy"  "hucklethingy" "multhingy"    "raspthingy"  
-#> [13] "salal thingy" "strawthingy"
+str_replace(my_fruit, "fruit", "THINGY")
+#> [1] "breadTHINGY"   "dragonTHINGY"  "grapeTHINGY"   "jackTHINGY"   
+#> [5] "kiwi THINGY"   "passionTHINGY" "star THINGY"   "ugli THINGY"
 ```
 
-Replace NAs specifically, which comes up often.
+A special case that comes up alot is replacing `NA`, for which there is `str_replace_na()`.
 
 
 ```r
-(melons <- str_subset(fruit, "melon"))
-#> [1] "canary melon" "rock melon"   "watermelon"
+melons <- str_subset(fruit, "melon")
 melons[2] <- NA
+melons
+#> [1] "canary melon" NA             "watermelon"
 str_replace_na(melons, "UNKNOWN MELON")
 #> [1] "canary melon"  "UNKNOWN MELON" "watermelon"
+```
 
-## if it's a variable inside a data frame, use tidyr::replace_na()
-(melon_df <- tibble(melons))
-#> # A tibble: 3 × 1
-#>         melons
-#>          <chr>
-#> 1 canary melon
-#> 2         <NA>
-#> 3   watermelon
-melon_df %>% 
+If the `NA`-afflicted variable lives in a data frame, you can use `tidyr::replace_na()`.
+
+
+```r
+tibble(melons) %>% 
   replace_na(replace = list(melons = "UNKNOWN MELON"))
 #> # A tibble: 3 × 1
 #>          melons

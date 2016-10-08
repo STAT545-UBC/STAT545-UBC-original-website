@@ -152,8 +152,15 @@ $(document).ready(function () {
 <ul>
 <li><a href="#character-vectors-where-they-fit-in">Character vectors: where they fit in</a></li>
 <li><a href="#resources">Resources</a></li>
-<li><a href="#load-stringr">Load stringr</a></li>
-<li><a href="#basic-string-manipulation-with-stringr-and-tidyr">Basic string manipulation with stringr and tidyr</a></li>
+<li><a href="#load-stringr-and-the-core-tidyverse">Load stringr and the core tidyverse</a></li>
+<li><a href="#basic-string-manipulation-with-stringr-and-tidyr">Basic string manipulation with stringr and tidyr</a><ul>
+<li><a href="#detect-or-filter-on-a-target-string">Detect or filter on a target string</a></li>
+<li><a href="#string-splitting-by-pattern">String splitting by pattern</a></li>
+<li><a href="#substring-extraction-and-replacement-by-position">Substring extraction (and replacement) by position</a></li>
+<li><a href="#collapse-a-vector">Collapse a vector</a></li>
+<li><a href="#create-a-character-vector-by-catenating-multiple-vectors">Create a character vector by catenating multiple vectors</a></li>
+<li><a href="#substring-replacement">Substring replacement</a></li>
+</ul></li>
 <li><a href="#regular-expression-with-stringr">Regular expression with stringr</a></li>
 </ul>
 </div>
@@ -162,7 +169,7 @@ $(document).ready(function () {
 <div id="character-vectors-where-they-fit-in" class="section level3">
 <h3>Character vectors: where they fit in</h3>
 <p>We’ve spent alot of time working with big, beautiful data frames. That are clean and wholesome, like the Gapminder data.</p>
-<p>But real life will be much nastier. You will bring data into R from the outside world and discover there are problems. Big problems.</p>
+<p>But real life will be much nastier. You will bring data into R from the outside world and discover there are problems. You might think: how hard can it be to deal with character data? And the answer is: it can be very hard!</p>
 <ul>
 <li><a href="http://stackstatus.net/post/147710624694/outage-postmortem-july-20-2016">Stack Exchange outage</a></li>
 <li><a href="http://emailregex.com">Regexes to validate/match email addresses</a></li>
@@ -177,7 +184,7 @@ $(document).ready(function () {
 <ul>
 <li><a href="https://cran.r-project.org/web/packages/stringr/index.html">stringr package</a>
 <ul>
-<li>A non-core package in the tidyverse. It is installed via <code>install.packages(&quot;tidyverse&quot;)</code>, but not loaded via <code>library(tidyverse)</code>. Load it yourself as needed via <code>library(stringr)</code>.</li>
+<li>A non-core package in the tidyverse. It is installed via <code>install.packages(&quot;tidyverse&quot;)</code>, but not loaded via <code>library(tidyverse)</code>. Load it as needed via <code>library(stringr)</code>.</li>
 <li>Main functions start with <code>str_</code>. Auto-complete is your friend.</li>
 <li>Replacements for base functions re: string manipulation and regular expressions (see below).</li>
 <li>Main advantage over base functions: greater consistency about inputs and outputs. Outputs are more ready for your next analytical task.</li>
@@ -189,13 +196,14 @@ $(document).ready(function () {
 </ul></li>
 <li>Base functions: <code>nchar()</code>, <code>strsplit()</code>, <code>substr()</code>, <code>paste()</code>, <code>paste0()</code>.</li>
 </ul>
-<p>Regular expressions: a God-awful language for expressing patterns to match in text or to for search-and-replace. Frequently described as “write only”, because regular expressions are easier to write than to read/understand. And they are not particularly easy to write.</p>
+<p>Regular expressions: a God-awful and powerful language for expressing patterns to match in text or for search-and-replace. Frequently described as “write only”, because regular expressions are easier to write than to read/understand. And they are not particularly easy to write.</p>
 <ul>
 <li>The <a href="http://r4ds.had.co.nz/strings.html">Strings chapter</a> of <a href="http://r4ds.had.co.nz">R for Data Science</a> is excellent.</li>
 <li>STAT 545 lessons on regular expressions:
 <ul>
 <li><a href="block022_regular-expression.html">2014 Intro to regular expressions</a> by TA Gloria Li.</li>
 <li><a href="block027_regular-expressions.html">2015 Regular expressions and character data in R</a> by TA Kieran Samuk.</li>
+<li>Excellent content in both. Why am I redeveloping, then? To be more consistent re: using stringr and to use examples whose availability is easier for me to support long-term.</li>
 </ul></li>
 <li>RStudio Cheat Sheet on <a href="https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf">Regular Expressions in R</a></li>
 <li>Regex testers
@@ -220,8 +228,8 @@ $(document).ready(function () {
 <li><a href="http://www.justinweiss.com/articles/3-steps-to-fix-encoding-problems-in-ruby/">Guide to fixing encoding problems in Ruby</a> <em>parking here temporariliy … looks useful but, obviously, it’s about Ruby not R</em></li>
 </ul>
 </div>
-<div id="load-stringr" class="section level3">
-<h3>Load stringr</h3>
+<div id="load-stringr-and-the-core-tidyverse" class="section level3">
+<h3>Load stringr and the core tidyverse</h3>
 <pre class="r"><code>library(tidyverse)
 #&gt; Loading tidyverse: ggplot2
 #&gt; Loading tidyverse: tibble
@@ -236,147 +244,149 @@ library(stringr)</code></pre>
 </div>
 <div id="basic-string-manipulation-with-stringr-and-tidyr" class="section level3">
 <h3>Basic string manipulation with stringr and tidyr</h3>
-<p><code>fruit</code>, <code>words</code>, and <code>sentences</code> are character vectors that ship with <code>stringr</code> for practicing.</p>
-<p>Count characters with <code>str_length()</code>.</p>
-<pre class="r"><code>head(fruit)
-#&gt; [1] &quot;apple&quot;       &quot;apricot&quot;     &quot;avocado&quot;     &quot;banana&quot;      &quot;bell pepper&quot;
-#&gt; [6] &quot;bilberry&quot;
-length(fruit)
-#&gt; [1] 80
-str_length(fruit)
-#&gt;  [1]  5  7  7  6 11  8 10 12 12  9 11 10 12 10  9  6 12 10 10  7  9  8  7
-#&gt; [24]  6  4 11  6  8 10  6  3 10 10  5 10  5  8 11  9  6  6 10  7  5  4  6
-#&gt; [47]  6  9  5  8  9  3  5  6  6  6 12  5  4  9  8  9  4 11  6 17  6  6  8
-#&gt; [70]  9 10 10 11  7 10 10  9  9 10 10</code></pre>
-<p>Find matches with <code>str_detect()</code>.</p>
-<pre class="r"><code>str_detect(fruit, &quot;berry&quot;)
-#&gt;  [1] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE  TRUE  TRUE
-#&gt; [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE
-#&gt; [23] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE
-#&gt; [34] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
-#&gt; [45] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
-#&gt; [56] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-#&gt; [67] FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE
-#&gt; [78] FALSE FALSE FALSE
-fruit[str_detect(fruit, &quot;berry&quot;)]
-#&gt;  [1] &quot;bilberry&quot;    &quot;blackberry&quot;  &quot;blueberry&quot;   &quot;boysenberry&quot; &quot;cloudberry&quot; 
-#&gt;  [6] &quot;cranberry&quot;   &quot;elderberry&quot;  &quot;goji berry&quot;  &quot;gooseberry&quot;  &quot;huckleberry&quot;
-#&gt; [11] &quot;mulberry&quot;    &quot;raspberry&quot;   &quot;salal berry&quot; &quot;strawberry&quot;
-fruit[!str_detect(fruit, &quot;berry&quot;)]
-#&gt;  [1] &quot;apple&quot;             &quot;apricot&quot;           &quot;avocado&quot;          
-#&gt;  [4] &quot;banana&quot;            &quot;bell pepper&quot;       &quot;blackcurrant&quot;     
-#&gt;  [7] &quot;blood orange&quot;      &quot;breadfruit&quot;        &quot;canary melon&quot;     
-#&gt; [10] &quot;cantaloupe&quot;        &quot;cherimoya&quot;         &quot;cherry&quot;           
-#&gt; [13] &quot;chili pepper&quot;      &quot;clementine&quot;        &quot;coconut&quot;          
-#&gt; [16] &quot;cucumber&quot;          &quot;currant&quot;           &quot;damson&quot;           
-#&gt; [19] &quot;date&quot;              &quot;dragonfruit&quot;       &quot;durian&quot;           
-#&gt; [22] &quot;eggplant&quot;          &quot;feijoa&quot;            &quot;fig&quot;              
-#&gt; [25] &quot;grape&quot;             &quot;grapefruit&quot;        &quot;guava&quot;            
-#&gt; [28] &quot;honeydew&quot;          &quot;jackfruit&quot;         &quot;jambul&quot;           
-#&gt; [31] &quot;jujube&quot;            &quot;kiwi fruit&quot;        &quot;kumquat&quot;          
-#&gt; [34] &quot;lemon&quot;             &quot;lime&quot;              &quot;loquat&quot;           
-#&gt; [37] &quot;lychee&quot;            &quot;mandarine&quot;         &quot;mango&quot;            
-#&gt; [40] &quot;nectarine&quot;         &quot;nut&quot;               &quot;olive&quot;            
-#&gt; [43] &quot;orange&quot;            &quot;pamelo&quot;            &quot;papaya&quot;           
-#&gt; [46] &quot;passionfruit&quot;      &quot;peach&quot;             &quot;pear&quot;             
-#&gt; [49] &quot;persimmon&quot;         &quot;physalis&quot;          &quot;pineapple&quot;        
-#&gt; [52] &quot;plum&quot;              &quot;pomegranate&quot;       &quot;pomelo&quot;           
-#&gt; [55] &quot;purple mangosteen&quot; &quot;quince&quot;            &quot;raisin&quot;           
-#&gt; [58] &quot;rambutan&quot;          &quot;redcurrant&quot;        &quot;rock melon&quot;       
-#&gt; [61] &quot;satsuma&quot;           &quot;star fruit&quot;        &quot;tamarillo&quot;        
-#&gt; [64] &quot;tangerine&quot;         &quot;ugli fruit&quot;        &quot;watermelon&quot;</code></pre>
-<p>Keep matching elements with <code>str_subset()</code>.</p>
-<pre class="r"><code>(berries &lt;- str_subset(fruit, &quot;berry&quot;))
-#&gt;  [1] &quot;bilberry&quot;    &quot;blackberry&quot;  &quot;blueberry&quot;   &quot;boysenberry&quot; &quot;cloudberry&quot; 
-#&gt;  [6] &quot;cranberry&quot;   &quot;elderberry&quot;  &quot;goji berry&quot;  &quot;gooseberry&quot;  &quot;huckleberry&quot;
-#&gt; [11] &quot;mulberry&quot;    &quot;raspberry&quot;   &quot;salal berry&quot; &quot;strawberry&quot;</code></pre>
-<p>Split strings up</p>
+<p>Basic string manipulation tasks:</p>
 <ul>
-<li><code>stringr::str_split()</code>, base <code>strsplit()</code>. Vector in, list out.</li>
-<li><code>stringr::str_split_fixed()</code>. Vector in, matrix out.</li>
-<li><code>tidyr::separate()</code>. Tibble in, tibble out.</li>
+<li>Study a single character vector
+<ul>
+<li>How long are the strings?</li>
+<li>Presence/absence of a literal string</li>
+</ul></li>
+<li>Operate on a single character vector
+<ul>
+<li>Keep/discard elements that contain a literal string</li>
+<li>Split into two or more character vectors using a fixed delimiter<br />
+</li>
+<li>Snip out pieces of the strings based on character position</li>
+<li>Collapse into a single string</li>
+</ul></li>
+<li>Operate on two or more character vectors
+<ul>
+<li>Glue them together element-wise to get a new character vector.</li>
+</ul></li>
 </ul>
-<p>In full generality, split strings must return list, because who knows how many pieces there will be?</p>
-<pre class="r"><code>str_split(berries, &quot; &quot;) %&gt;% head(8)
+<p><em><code>fruit</code>, <code>words</code>, and <code>sentences</code> are character vectors that ship with <code>stringr</code> for practicing.</em></p>
+<div id="detect-or-filter-on-a-target-string" class="section level4">
+<h4>Detect or filter on a target string</h4>
+<p>Determine presence/absence of a literal string with <code>str_detect()</code>. Spoiler: this will also work for regular expressions (see below).</p>
+<p>Which fruits actually use the word “fruit”?</p>
+<pre class="r"><code>str_detect(fruit, &quot;fruit&quot;)
+#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+#&gt; [12]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+#&gt; [23] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+#&gt; [34] FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE
+#&gt; [45] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+#&gt; [56] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+#&gt; [67] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+#&gt; [78] FALSE  TRUE FALSE</code></pre>
+<p>What’s the easiest way to get the actual fruits that match? Use <code>str_subset()</code> to keep only the matching elements. Note we are storing this new vector <code>my_fruit</code> to use in later examples!</p>
+<pre class="r"><code>(my_fruit &lt;- str_subset(fruit, &quot;fruit&quot;))
+#&gt; [1] &quot;breadfruit&quot;   &quot;dragonfruit&quot;  &quot;grapefruit&quot;   &quot;jackfruit&quot;   
+#&gt; [5] &quot;kiwi fruit&quot;   &quot;passionfruit&quot; &quot;star fruit&quot;   &quot;ugli fruit&quot;</code></pre>
+</div>
+<div id="string-splitting-by-pattern" class="section level4">
+<h4>String splitting by pattern</h4>
+<p>Use <code>stringr::str_split()</code> to split strings on a delimiter. Some of our fruits are compound words, like “grapefruit”, but some have two words, like “ugli fruit”. Here we split on a single space <code>&quot; &quot;</code>, but show use of a regular expression later.</p>
+<pre class="r"><code>str_split(my_fruit, &quot; &quot;)
 #&gt; [[1]]
-#&gt; [1] &quot;bilberry&quot;
+#&gt; [1] &quot;breadfruit&quot;
 #&gt; 
 #&gt; [[2]]
-#&gt; [1] &quot;blackberry&quot;
+#&gt; [1] &quot;dragonfruit&quot;
 #&gt; 
 #&gt; [[3]]
-#&gt; [1] &quot;blueberry&quot;
+#&gt; [1] &quot;grapefruit&quot;
 #&gt; 
 #&gt; [[4]]
-#&gt; [1] &quot;boysenberry&quot;
+#&gt; [1] &quot;jackfruit&quot;
 #&gt; 
 #&gt; [[5]]
-#&gt; [1] &quot;cloudberry&quot;
+#&gt; [1] &quot;kiwi&quot;  &quot;fruit&quot;
 #&gt; 
 #&gt; [[6]]
-#&gt; [1] &quot;cranberry&quot;
+#&gt; [1] &quot;passionfruit&quot;
 #&gt; 
 #&gt; [[7]]
-#&gt; [1] &quot;elderberry&quot;
+#&gt; [1] &quot;star&quot;  &quot;fruit&quot;
 #&gt; 
 #&gt; [[8]]
-#&gt; [1] &quot;goji&quot;  &quot;berry&quot;
-#strsplit(berries, &quot; &quot;)</code></pre>
-<p>If you are willing to commit to the number of items, you can have a character matrix. You’re welcome!</p>
-<pre class="r"><code>str_split_fixed(berries, &quot; &quot;, n = 2)
-#&gt;       [,1]          [,2]   
-#&gt;  [1,] &quot;bilberry&quot;    &quot;&quot;     
-#&gt;  [2,] &quot;blackberry&quot;  &quot;&quot;     
-#&gt;  [3,] &quot;blueberry&quot;   &quot;&quot;     
-#&gt;  [4,] &quot;boysenberry&quot; &quot;&quot;     
-#&gt;  [5,] &quot;cloudberry&quot;  &quot;&quot;     
-#&gt;  [6,] &quot;cranberry&quot;   &quot;&quot;     
-#&gt;  [7,] &quot;elderberry&quot;  &quot;&quot;     
-#&gt;  [8,] &quot;goji&quot;        &quot;berry&quot;
-#&gt;  [9,] &quot;gooseberry&quot;  &quot;&quot;     
-#&gt; [10,] &quot;huckleberry&quot; &quot;&quot;     
-#&gt; [11,] &quot;mulberry&quot;    &quot;&quot;     
-#&gt; [12,] &quot;raspberry&quot;   &quot;&quot;     
-#&gt; [13,] &quot;salal&quot;       &quot;berry&quot;
-#&gt; [14,] &quot;strawberry&quot;  &quot;&quot;</code></pre>
+#&gt; [1] &quot;ugli&quot;  &quot;fruit&quot;</code></pre>
+<p>It’s bummer that we get a <em>list</em> back. But it must be so! In full generality, split strings must return list, because who knows how many pieces there will be?</p>
+<p>If you are willing to commit to the number of items, you can use <code>str_split_fixed()</code> and get a character matrix. You’re welcome!</p>
+<pre class="r"><code>str_split_fixed(my_fruit, &quot; &quot;, n = 2)
+#&gt;      [,1]           [,2]   
+#&gt; [1,] &quot;breadfruit&quot;   &quot;&quot;     
+#&gt; [2,] &quot;dragonfruit&quot;  &quot;&quot;     
+#&gt; [3,] &quot;grapefruit&quot;   &quot;&quot;     
+#&gt; [4,] &quot;jackfruit&quot;    &quot;&quot;     
+#&gt; [5,] &quot;kiwi&quot;         &quot;fruit&quot;
+#&gt; [6,] &quot;passionfruit&quot; &quot;&quot;     
+#&gt; [7,] &quot;star&quot;         &quot;fruit&quot;
+#&gt; [8,] &quot;ugli&quot;         &quot;fruit&quot;</code></pre>
 <p>If the to-be-split variable lives in a data frame, <code>tidyr::separate()</code> will split it into 2 or more variables.</p>
-<pre class="r"><code>berries_df &lt;- tibble(berries)
-berries_df %&gt;% 
-  separate(berries, into = c(&quot;pre&quot;, &quot;post&quot;), sep = &quot; &quot;)
-#&gt; Warning: Too few values at 12 locations: 1, 2, 3, 4, 5, 6, 7, 9, 10, 11,
-#&gt; 12, 14
-#&gt; # A tibble: 14 × 2
+<pre class="r"><code>my_fruit_df &lt;- tibble(my_fruit)
+my_fruit_df %&gt;% 
+  separate(my_fruit, into = c(&quot;pre&quot;, &quot;post&quot;), sep = &quot; &quot;)
+#&gt; Warning: Too few values at 5 locations: 1, 2, 3, 4, 6
+#&gt; # A tibble: 8 × 2
 #&gt;            pre  post
 #&gt; *        &lt;chr&gt; &lt;chr&gt;
-#&gt; 1     bilberry  &lt;NA&gt;
-#&gt; 2   blackberry  &lt;NA&gt;
-#&gt; 3    blueberry  &lt;NA&gt;
-#&gt; 4  boysenberry  &lt;NA&gt;
-#&gt; 5   cloudberry  &lt;NA&gt;
-#&gt; 6    cranberry  &lt;NA&gt;
-#&gt; 7   elderberry  &lt;NA&gt;
-#&gt; 8         goji berry
-#&gt; 9   gooseberry  &lt;NA&gt;
-#&gt; 10 huckleberry  &lt;NA&gt;
-#&gt; 11    mulberry  &lt;NA&gt;
-#&gt; 12   raspberry  &lt;NA&gt;
-#&gt; 13       salal berry
-#&gt; 14  strawberry  &lt;NA&gt;</code></pre>
-<p>You can stick two character vectors together, elementwise.<br />
-You can collapse a character vector into a string.<br />
-You can do both at once.</p>
-<pre class="r"><code>fruit1 &lt;- fruit[1:4]
-fruit2 &lt;- fruit[5:8]
-
-str_c(fruit1, fruit2, sep = &quot; &amp; &quot;)
+#&gt; 1   breadfruit  &lt;NA&gt;
+#&gt; 2  dragonfruit  &lt;NA&gt;
+#&gt; 3   grapefruit  &lt;NA&gt;
+#&gt; 4    jackfruit  &lt;NA&gt;
+#&gt; 5         kiwi fruit
+#&gt; 6 passionfruit  &lt;NA&gt;
+#&gt; 7         star fruit
+#&gt; 8         ugli fruit</code></pre>
+</div>
+<div id="substring-extraction-and-replacement-by-position" class="section level4">
+<h4>Substring extraction (and replacement) by position</h4>
+<p>Count characters in your strings with <code>str_length()</code>. Note this is different from the length of the character vector itself.</p>
+<pre class="r"><code>length(my_fruit)
+#&gt; [1] 8
+str_length(my_fruit)
+#&gt; [1] 10 11 10  9 10 12 10 10</code></pre>
+<p>You can snip out substrings based on character position with <code>str_sub()</code>.</p>
+<pre class="r"><code>head(fruit) %&gt;% 
+  str_sub(1, 3)
+#&gt; [1] &quot;app&quot; &quot;apr&quot; &quot;avo&quot; &quot;ban&quot; &quot;bel&quot; &quot;bil&quot;</code></pre>
+<p>The <code>start</code> and <code>end</code> arguments are vectorised.</p>
+<pre class="r"><code>tibble(fruit) %&gt;% 
+  head() %&gt;% 
+  mutate(snip = str_sub(fruit, 1:6, 3:8))
+#&gt; # A tibble: 6 × 2
+#&gt;         fruit  snip
+#&gt;         &lt;chr&gt; &lt;chr&gt;
+#&gt; 1       apple   app
+#&gt; 2     apricot   pri
+#&gt; 3     avocado   oca
+#&gt; 4      banana   ana
+#&gt; 5 bell pepper    pe
+#&gt; 6    bilberry   rry</code></pre>
+<p>Finally, <code>str_sub()</code> also works for assignment, i.e. on the left hand side of <code>&lt;-</code>.</p>
+<pre class="r"><code>x &lt;- head(fruit, 3)
+str_sub(x, 1, 3) &lt;- &quot;AAA&quot;
+x
+#&gt; [1] &quot;AAAle&quot;   &quot;AAAicot&quot; &quot;AAAcado&quot;</code></pre>
+</div>
+<div id="collapse-a-vector" class="section level4">
+<h4>Collapse a vector</h4>
+<p>You can collapse a character of length <code>n &gt; 1</code> to a single string with <code>str_c()</code>, which also has other uses (see next section).</p>
+<pre class="r"><code>head(fruit) %&gt;% 
+  str_c(collapse = &quot;, &quot;)
+#&gt; [1] &quot;apple, apricot, avocado, banana, bell pepper, bilberry&quot;</code></pre>
+</div>
+<div id="create-a-character-vector-by-catenating-multiple-vectors" class="section level4">
+<h4>Create a character vector by catenating multiple vectors</h4>
+<p>If you have two or more character vectors of the same length, you can glue them together element-wise, to get a new vector of that length. Here are some … awful smoothie flavors?</p>
+<pre class="r"><code>str_c(fruit[1:4], fruit[5:8], sep = &quot; &amp; &quot;)
 #&gt; [1] &quot;apple &amp; bell pepper&quot;   &quot;apricot &amp; bilberry&quot;    &quot;avocado &amp; blackberry&quot; 
-#&gt; [4] &quot;banana &amp; blackcurrant&quot;
-str_c(fruit1, collapse = &quot;, &quot;)
-#&gt; [1] &quot;apple, apricot, avocado, banana&quot;
-str_c(fruit1, fruit2, sep = &quot; &amp; &quot;, collapse = &quot;, &quot;)
+#&gt; [4] &quot;banana &amp; blackcurrant&quot;</code></pre>
+<p>Element-wise catenation can be combined with collapsing.</p>
+<pre class="r"><code>str_c(fruit[1:4], fruit[5:8], sep = &quot; &amp; &quot;, collapse = &quot;, &quot;)
 #&gt; [1] &quot;apple &amp; bell pepper, apricot &amp; bilberry, avocado &amp; blackberry, banana &amp; blackcurrant&quot;</code></pre>
-<p>If the to-be-combined vectors live in a data frame, you can use <code>tidyr::unite()</code> to make a single new vector from them</p>
-<pre class="r"><code>fruit_df &lt;- tibble(fruit1, fruit2)
+<p>If the to-be-combined vectors are variables in a data frame, you can use <code>tidyr::unite()</code> to make a single new variable from them</p>
+<pre class="r"><code>fruit_df &lt;- tibble(fruit1 = fruit[1:4], fruit2 = fruit[5:8])
 fruit_df %&gt;% 
   unite(&quot;flavor_combo&quot;, fruit1, fruit2, sep = &quot; &amp; &quot;)
 #&gt; # A tibble: 4 × 1
@@ -386,29 +396,22 @@ fruit_df %&gt;%
 #&gt; 2    apricot &amp; bilberry
 #&gt; 3  avocado &amp; blackberry
 #&gt; 4 banana &amp; blackcurrant</code></pre>
-<p>Replace matches.</p>
-<pre class="r"><code>#str_replace(fruit, &quot;berry&quot;, &quot;thingy&quot;)
-str_replace(berries, &quot;berry&quot;, &quot;thingy&quot;)
-#&gt;  [1] &quot;bilthingy&quot;    &quot;blackthingy&quot;  &quot;bluethingy&quot;   &quot;boysenthingy&quot;
-#&gt;  [5] &quot;cloudthingy&quot;  &quot;cranthingy&quot;   &quot;elderthingy&quot;  &quot;goji thingy&quot; 
-#&gt;  [9] &quot;goosethingy&quot;  &quot;hucklethingy&quot; &quot;multhingy&quot;    &quot;raspthingy&quot;  
-#&gt; [13] &quot;salal thingy&quot; &quot;strawthingy&quot;</code></pre>
-<p>Replace NAs specifically, which comes up often.</p>
-<pre class="r"><code>(melons &lt;- str_subset(fruit, &quot;melon&quot;))
-#&gt; [1] &quot;canary melon&quot; &quot;rock melon&quot;   &quot;watermelon&quot;
+</div>
+<div id="substring-replacement" class="section level4">
+<h4>Substring replacement</h4>
+<p>You can replace a pattern with <code>str_replace()</code>. Here we use an explicit string-to-replace, but later we revisit with a regular expression.</p>
+<pre class="r"><code>str_replace(my_fruit, &quot;fruit&quot;, &quot;THINGY&quot;)
+#&gt; [1] &quot;breadTHINGY&quot;   &quot;dragonTHINGY&quot;  &quot;grapeTHINGY&quot;   &quot;jackTHINGY&quot;   
+#&gt; [5] &quot;kiwi THINGY&quot;   &quot;passionTHINGY&quot; &quot;star THINGY&quot;   &quot;ugli THINGY&quot;</code></pre>
+<p>A special case that comes up alot is replacing <code>NA</code>, for which there is <code>str_replace_na()</code>.</p>
+<pre class="r"><code>melons &lt;- str_subset(fruit, &quot;melon&quot;)
 melons[2] &lt;- NA
+melons
+#&gt; [1] &quot;canary melon&quot; NA             &quot;watermelon&quot;
 str_replace_na(melons, &quot;UNKNOWN MELON&quot;)
-#&gt; [1] &quot;canary melon&quot;  &quot;UNKNOWN MELON&quot; &quot;watermelon&quot;
-
-## if it&#39;s a variable inside a data frame, use tidyr::replace_na()
-(melon_df &lt;- tibble(melons))
-#&gt; # A tibble: 3 × 1
-#&gt;         melons
-#&gt;          &lt;chr&gt;
-#&gt; 1 canary melon
-#&gt; 2         &lt;NA&gt;
-#&gt; 3   watermelon
-melon_df %&gt;% 
+#&gt; [1] &quot;canary melon&quot;  &quot;UNKNOWN MELON&quot; &quot;watermelon&quot;</code></pre>
+<p>If the <code>NA</code>-afflicted variable lives in a data frame, you can use <code>tidyr::replace_na()</code>.</p>
+<pre class="r"><code>tibble(melons) %&gt;% 
   replace_na(replace = list(melons = &quot;UNKNOWN MELON&quot;))
 #&gt; # A tibble: 3 × 1
 #&gt;          melons
@@ -416,6 +419,7 @@ melon_df %&gt;%
 #&gt; 1  canary melon
 #&gt; 2 UNKNOWN MELON
 #&gt; 3    watermelon</code></pre>
+</div>
 </div>
 <div id="regular-expression-with-stringr" class="section level3">
 <h3>Regular expression with stringr</h3>
