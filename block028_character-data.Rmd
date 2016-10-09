@@ -12,7 +12,7 @@ knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
 
 *Under development*
 
-### Character vectors: where they fit in
+## Character vectors: where they fit in
 
 We've spent alot of time working with big, beautiful data frames. That are clean and wholesome, like the Gapminder data.
 
@@ -24,26 +24,31 @@ But real life will be much nastier. You will bring data into R from the outside 
 
 Here we discuss common remedial tasks for cleaning and transforming character data, also known as "strings". A data frame or tibble will consist of one or more *atomic vectors* of a certain class. This lesson deals with things you can do with vectors of class `character`.
 
-### Resources
+## Resources
 
 I start with this because we cannot possibly do this topic justice in a short amount of time. Our goal is to make you aware of broad classes of problems and their respective solutions. Once you have a character problem in real life, these resources will be extremely helpful as you delve deeper.
 
-Manipulating character vectors
+#### Manipulating character vectors
 
   * [stringr package](https://cran.r-project.org/web/packages/stringr/index.html)
     - A non-core package in the tidyverse. It is installed via `install.packages("tidyverse")`, but not loaded via `library(tidyverse)`. Load it as needed via `library(stringr)`.
     - Main functions start with `str_`. Auto-complete is your friend.
     - Replacements for base functions re: string manipulation and regular expressions (see below).
-    - Main advantage over base functions: greater consistency about inputs and outputs. Outputs are more ready for your next analytical task.
-    - Wraps [stringi](https://cran.r-project.org/web/packages/stringi/index.html), which is a great place to look if stringr isn't powerful enough.
+    - Main advantagse over base functions: greater consistency about inputs and outputs. Outputs are more ready for your next analytical task. 
   * [tidyr package](https://cran.r-project.org/web/packages/tidyr/index.html)
     - Especially useful for functions that split 1 character vector into many and *vice versa*: `separate()`, `unite()`, `extract()`.
   * Base functions: `nchar()`, `strsplit()`, `substr()`, `paste()`, `paste0()`.
 
-Regular expressions: a God-awful and powerful language for expressing patterns to match in text or for search-and-replace. Frequently described as "write only", because regular expressions are easier to write than to read/understand. And they are not particularly easy to write.
+#### Regular expressions
 
-  * The [Strings chapter](http://r4ds.had.co.nz/strings.html) of [R for Data Science](http://r4ds.had.co.nz) is excellent.
-  * STAT 545 lessons on regular expressions:
+A God-awful and powerful language for expressing patterns to match in text or for search-and-replace. Frequently described as "write only", because regular expressions are easier to write than to read/understand. And they are not particularly easy to write.
+
+  * We again prefer the [stringr package](https://cran.r-project.org/web/packages/stringr/index.html) over base functions. Why?
+    - Wraps [stringi](https://cran.r-project.org/web/packages/stringi/index.html), which is a great place to look if stringr isn't powerful enough.
+    - Standardized on [ICU regular expressions](http://userguide.icu-project.org/strings/regexp), so you can stop toggling `perl = TRUE/FALSE` at random.
+    - Results come back in a form that is much friendly for downstream work.
+  * The [Strings chapter](http://r4ds.had.co.nz/strings.html) of [R for Data Science](http://r4ds.had.co.nz) is a great resource.
+  * Older STAT 545 lessons on regular expressions:
     -  [2014 Intro to regular expressions](block022_regular-expression.html) by TA Gloria Li.
     - [2015 Regular expressions and character data in R](block027_regular-expressions.html) by TA Kieran Samuk.
     - Excellent content in both. Why am I redeveloping, then? To be more consistent re: using stringr and to use examples whose availability is easier for me to support long-term.
@@ -52,10 +57,11 @@ Regular expressions: a God-awful and powerful language for expressing patterns t
     - [regex101.com](https://regex101.com)
     - [regexr.com](http://regexr.com)
   * [rex R package](https://github.com/kevinushey/rex): make regular expression from human readable expressions
+  * Base functions: `grep()` and friends.
 
 ![](img/regexbytrialanderror-big-smaller.png)
 
-Encoding
+#### Character encoding
 
   * [Strings subsection of data import chapter](http://r4ds.had.co.nz/data-import.html#readr-strings) in R for Data Science
   * Screeds on the Minimum Everyone Needs to Know about encoding
@@ -63,19 +69,19 @@ Encoding
     - [What Every Programmer Absolutely, Positively Needs To Know About Encodings And Character Sets To Work With Text](http://kunststube.net/encoding/)
   * [Guide to fixing encoding problems in Ruby](http://www.justinweiss.com/articles/3-steps-to-fix-encoding-problems-in-ruby/) *parking here temporariliy ... looks useful but, obviously, it's about Ruby not R*
 
-Manipulating character vectors that live in a data frame
+#### Character vectors that live in a data frame
 
   * Certain operations are facilitated by `tidyr`. These are described below.
   * For a general discussion of how to work on variables that live in a data frame, see [Vectors versus tibbles](block031_vector-tibble-relations.html)
 
-### Load stringr and the core tidyverse
+## Load stringr and the core tidyverse
 
 ```{r}
 library(tidyverse)
 library(stringr)
 ```
 
-### Basic string manipulation with stringr and tidyr
+## Regex-free string manipulation with stringr and tidyr
 
 Basic string manipulation tasks:
 
@@ -92,7 +98,7 @@ Basic string manipulation tasks:
 
 *`fruit`, `words`, and `sentences` are character vectors that ship with `stringr` for practicing.*
 
-#### Detect or filter on a target string
+### Detect or filter on a target string
 
 Determine presence/absence of a literal string with `str_detect()`. Spoiler: later we see `str_detect()` also detects regular expressions.
 
@@ -108,7 +114,7 @@ What's the easiest way to get the actual fruits that match? Use `str_subset()` t
 (my_fruit <- str_subset(fruit, "fruit"))
 ```
 
-#### String splitting by pattern
+### String splitting by delimiter
 
 Use `stringr::str_split()` to split strings on a delimiter. Some of our fruits are compound words, like "grapefruit", but some have two words, like "ugli fruit". Here we split on a single space `" "`, but show use of a regular expression later. 
 
@@ -132,7 +138,7 @@ my_fruit_df %>%
   separate(my_fruit, into = c("pre", "post"), sep = " ")
 ```
 
-#### Substring extraction (and replacement) by position
+### Substring extraction (and replacement) by position
 
 Count characters in your strings with `str_length()`. Note this is different from the length of the character vector itself.
 
@@ -164,16 +170,16 @@ str_sub(x, 1, 3) <- "AAA"
 x
 ```
 
-#### Collapse a vector
+### Collapse a vector
 
-You can collapse a character of length `n > 1` to a single string with `str_c()`, which also has other uses (see next section).
+You can collapse a character vector of length `n > 1` to a single string with `str_c()`, which also has other uses (see next section).
 
 ```{r}
 head(fruit) %>% 
   str_c(collapse = ", ")
 ```
 
-#### Create a character vector by catenating multiple vectors
+### Create a character vector by catenating multiple vectors
 
 If you have two or more character vectors of the same length, you can glue them together element-wise, to get a new vector of that length. Here are some ... awful smoothie flavors?
 
@@ -195,7 +201,7 @@ fruit_df %>%
   unite("flavor_combo", fruit1, fruit2, sep = " & ")
 ```
 
-#### Substring replacement
+### Substring replacement
 
 You can replace a pattern with `str_replace()`. Here we use an explicit string-to-replace, but later we revisit with a regular expression.
 
@@ -221,9 +227,9 @@ tibble(melons) %>%
 
 And that concludes our treatment of regex-free manipulations of character data!
 
-### Regular expression with stringr
+## Regular expressions with stringr
 
-#### Load Gapminder
+### Load Gapminder
 
 The country names in the gapminder dataset are convenient for examples. Load it now and store the `r nlevels(gapminder::gapminder$country)` unique country names to the object `countries`.
 
@@ -232,11 +238,11 @@ library(gapminder)
 countries <- levels(gapminder$country)
 ```
 
-#### Characters with special meaning
+### Characters with special meaning
 
 Frequently your string tasks cannot be expressed in terms of a fixed string, but can be described in terms of a **pattern**. Regular expressions, aka "regexes", are the standard way to specify these patterns. In regexes, specific characters and constructs take on special meaning in order to match multiple strings.
 
-The first placeholder is the period `.`, which stands for any single character, except a newline (which by the way, is represented by `\n`). The regex `a.b` will match all countries that have an `a`, followed by any single character, followed by `b`. Yes, regexes are case sensitive.
+The first metacharacter is the period `.`, which stands for any single character, except a newline (which by the way, is represented by `\n`). The regex `a.b` will match all countries that have an `a`, followed by any single character, followed by `b`. Yes, regexes are case sensitive, i.e. "Italy" does not match.
 
 ```{r}
 str_subset(countries, "i.a")
@@ -246,7 +252,7 @@ Notice that `i.a` matches "ina", "ica", "ita", and more.
 
 **Anchors** can be included to express where the expression must occur within the string. The `^` indicates the beginning of string and `$` indicates the end.
 
-Note how the regex `i.a$` matches many fewer countries than `i.a` alone. Likewise, more fruits match `d` in `my_fruit` than `^d`, which requires "d" at string start.
+Note how the regex `i.a$` matches many fewer countries than `i.a` alone. Likewise, more elements of `my_fruit` match `d` than `^d`, which requires "d" at string start.
 
 ```{r}
 str_subset(countries, "i.a$")
@@ -254,7 +260,7 @@ str_subset(my_fruit, "d")
 str_subset(my_fruit, "^d")
 ```
 
-The sequence `\b` indicates a **word boundary** and `\B` indicates NOT a word boundary. This is our first encounter with something called "escaping" and right now I just want you at accept that we need to prepend a second backslash to use these sequences in regexes in R. We'll come back to this tedious point later.
+The metacharacter `\b` indicates a **word boundary** and `\B` indicates NOT a word boundary. This is our first encounter with something called "escaping" and right now I just want you at accept that we need to prepend a second backslash to use these sequences in regexes in R. We'll come back to this tedious point later.
 
 ```{r}
 str_subset(fruit, "melon")
@@ -262,9 +268,9 @@ str_subset(fruit, "\\bmelon")
 str_subset(fruit, "\\Bmelon")
 ```
 
-#### Character classes
+### Character classes
 
-Characters can be specified via classes. You can make them explicitly "by hand" or use some pre-existing ones.  The [2014 STAT 545 regex lesson](block022_regular-expression.html) has a good list of character classes. Character classes are often given inside square brackets, `[]` but a few come up so often that we  have "shorthand", such as `\d` for a single digit, or a POSIX class (examples below).
+Characters can be specified via classes. You can make them explicitly "by hand" or use some pre-existing ones.  The [2014 STAT 545 regex lesson](block022_regular-expression.html) has a good list of character classes. Character classes are usually given inside square brackets, `[]` but a few come up so often that we have a metacharacter for them, such as `\d` for a single digit.
 
 Here we match `ia` at the end of the country name, preceded by one of the characters in the class. Or, in the negated class, preceded by anything but one of those characters.
 
@@ -275,7 +281,7 @@ str_subset(countries, "[nls]ia$")
 str_subset(countries, "[^nls]ia$")
 ```
 
-Here we revisit splitting `my_fruit` with two more general ways to match whitespace: the `\s` shorthand and the POSIX class `[:space:]`. Notice that we must prepend an extra backslash `\` to escape `\s` and the POSIX class has to be surrounded by two sets of square brackets.
+Here we revisit splitting `my_fruit` with two more general ways to match whitespace: the `\s` metacharacter and the POSIX class `[:space:]`. Notice that we must prepend an extra backslash `\` to escape `\s` and the POSIX class has to be surrounded by two sets of square brackets.
 
 ```{r}
 ## remember this?
@@ -291,9 +297,9 @@ Let's see the country names that contain punctuation.
 str_subset(countries, "[[:punct:]]")
 ```
 
-#### Quantifiers
+### Quantifiers
 
-You can decorate characters (and other constructs, like shorthand and classes) with information about how many characters they are allowed to match.
+You can decorate characters (and other constructs, like metacharacters and classes) with information about how many characters they are allowed to match.
 
 | quantifier | meaning   | quantifier | meaning                    |
 |------------|-----------|------------|----------------------------|
@@ -302,22 +308,22 @@ You can decorate characters (and other constructs, like shorthand and classes) w
 | ?          | 0 or 1    | {,m}       | at most m                  |
 |            |           | {n,m}      | between n and m, inclusive |
 
-Explore these by inspecting matches for `l` followed by a `e`, allowing for various numbers of characters in between.
+Explore these by inspecting matches for `l` followed by `e`, allowing for various numbers of characters in between.
 
-`l.*e` will match strings with 0 or more characters in between, i.e. any string with an `l` eventually followed by an `e`.
+`l.*e` will match strings with 0 or more characters in between, i.e. any string with an `l` eventually followed by an `e`. This is the most inclusive regex for this example, so we store the result as `matches` to use as a baseline for comparison.
 
 ```{r}
 (matches <- str_subset(fruit, "l.*e"))
 ```
 
-Change the quantifier to `+` to require at least one intervening character. The strings that no longer match: all have a literal `le` with no preceding `l` and no following `e`.
+Change the quantifier from `*` to `+` to require at least one intervening character. The strings that no longer match: all have a literal `le` with no preceding `l` and no following `e`.
 
 ```{r}
 list(match = intersect(matches, str_subset(fruit, "l.+e")),
      no_match = setdiff(matches, str_subset(fruit, "l.+e")))
 ```
 
-Change the quantifier to `?` to require at most one intervening character. In the strings that no longer match, the shortest gap between `l` and following `e` is at least two characters.
+Change the quantifier from `*` to `?` to require at most one intervening character. In the strings that no longer match, the shortest gap between `l` and following `e` is at least two characters.
 
 ```{r}
 list(match = intersect(matches, str_subset(fruit, "l.?e")),
@@ -331,14 +337,58 @@ list(match = intersect(matches, str_subset(fruit, "le")),
      no_match = setdiff(matches, str_subset(fruit, "le")))
 ```
 
-#### Escaping
+### Escaping
 
-*come back here*
+You've probably caught on by now that there are certain characters with special meaning in regexes, including `$ * + . ? [ ] ^ { } | ( ) \`.
 
-[2014 STAT 545 lesson an regular expressions](block022_regular-expression.html) has good coverage of characters with special meaning in regex and escape sequences.
+What if you really need the plus sign to be a literal plus sign and not a regex quantifier? You will need to *escape* it by prepending a backslash. But wait ... there's more! Before a regex is interpreted as a regular expression, it is also interpreted by R as a string. And backslash is used to escape there as well. So, in the end, you need to preprend two backslashes in order to match a literal plus sign in a regex.
 
-Many characters take on special meaning inside regexes. Of course this implies you have to do extra work to include those actual characters in your pattern. This is called *escaping* and requires prepending a backslash. something called *escaping* and boils down to "add more backslashes".
+This will be more clear with examples!
 
-#### Backreferences
+#### Escapes in plain old strings
 
-*come back here*
+Here is routine, non-regex use of backslash `\` escapes in plain vanilla R strings. We intentionally use `cat()` instead of `print()` here.
+
+  * To escape quotes inside quotes:
+    ```{r}
+    cat("Do you use \"airquotes\" much?")
+    ```
+    Sidebar: eliminating the need for these escapes is exactly why people use double quotes inside single quotes and *vice versa*.
+  * To insert newline (`\n`) or tab (`\t`):
+    ```{r}
+    cat("before the newline\nafter the newline")
+    cat("before the tab\tafter the tab")
+    ```
+
+#### Escapes in regular expressions
+
+Examples of using escapes in regexes to match characters that would otherwise have a special interpretation.
+
+We know several Gapminder country names contain a period. How do we isolate them? Although it's tempting, this command `str_subset(countries, ".")` won't work!
+
+```{r}
+## cheating using a POSIX class ;)
+str_subset(countries, "[[:punct:]]")
+## using two backslashes to escape the period
+str_subset(countries, "\\.")
+```
+
+A last example that matches an actual square bracket.
+
+```{r}
+(x <- c("whatever", "X is distributed U[0,1]"))
+str_subset(x, "\\[")
+```
+
+### Groups and backreferences
+
+Your first use of regex is likely to be simple matching: detecting or isolating strings that match a pattern.
+
+But soon you will want to use regexes to transform the strings in character vectors. That means you need a way to address specific parts of the matching strings and to operate on them.
+
+You can use parentheses inside regexes to define *groups* and you can refer to those groups later with *backreferences*.
+
+For now, this lesson will refer you to other place to read up on this:
+
+  * STAT 545 [2014 Intro to regular expressions](block022_regular-expression.html) by TA Gloria Li.
+  * The [Strings chapter](http://r4ds.had.co.nz/strings.html) of [R for Data Science](http://r4ds.had.co.nz).

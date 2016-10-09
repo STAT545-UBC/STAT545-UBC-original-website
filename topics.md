@@ -19,9 +19,7 @@ This material gets updated during Sept - Nov each year. Right now we're in awkwa
   * Data analysis 2: vectors and files
     - Be the boss of your factors: [2016 version with forcats](block029_factors.html) *under development*
     - Be the boss of your factors: [2015 version](block014_factors.html)  
-    - Character vectors: [2016 version with stringr!](block028_character-data.html) *under development*
-    - Character vectors: [2015 lesson](block027_regular-expressions.html) by TA Kieran Samuk
-    - Character vectors: [2014 lesson](block022_regular-expression.html) by TA Gloria Li
+    - [Character vectors](block028_character-data.html): basic manipulation and regular expressions.
     - [Writing and reading files](block026_file-out-in.html)
   * R as a programming language
     - [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)

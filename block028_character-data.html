@@ -151,30 +151,38 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#character-vectors-where-they-fit-in">Character vectors: where they fit in</a></li>
-<li><a href="#resources">Resources</a></li>
+<li><a href="#resources">Resources</a><ul>
+<li><a href="#manipulating-character-vectors">Manipulating character vectors</a></li>
+<li><a href="#regular-expressions">Regular expressions</a></li>
+<li><a href="#character-encoding">Character encoding</a></li>
+<li><a href="#character-vectors-that-live-in-a-data-frame">Character vectors that live in a data frame</a></li>
+</ul></li>
 <li><a href="#load-stringr-and-the-core-tidyverse">Load stringr and the core tidyverse</a></li>
-<li><a href="#basic-string-manipulation-with-stringr-and-tidyr">Basic string manipulation with stringr and tidyr</a><ul>
+<li><a href="#regex-free-string-manipulation-with-stringr-and-tidyr">Regex-free string manipulation with stringr and tidyr</a><ul>
 <li><a href="#detect-or-filter-on-a-target-string">Detect or filter on a target string</a></li>
-<li><a href="#string-splitting-by-pattern">String splitting by pattern</a></li>
+<li><a href="#string-splitting-by-delimiter">String splitting by delimiter</a></li>
 <li><a href="#substring-extraction-and-replacement-by-position">Substring extraction (and replacement) by position</a></li>
 <li><a href="#collapse-a-vector">Collapse a vector</a></li>
 <li><a href="#create-a-character-vector-by-catenating-multiple-vectors">Create a character vector by catenating multiple vectors</a></li>
 <li><a href="#substring-replacement">Substring replacement</a></li>
 </ul></li>
-<li><a href="#regular-expression-with-stringr">Regular expression with stringr</a><ul>
+<li><a href="#regular-expressions-with-stringr">Regular expressions with stringr</a><ul>
 <li><a href="#load-gapminder">Load Gapminder</a></li>
 <li><a href="#characters-with-special-meaning">Characters with special meaning</a></li>
 <li><a href="#character-classes">Character classes</a></li>
 <li><a href="#quantifiers">Quantifiers</a></li>
-<li><a href="#escaping">Escaping</a></li>
-<li><a href="#backreferences">Backreferences</a></li>
+<li><a href="#escaping">Escaping</a><ul>
+<li><a href="#escapes-in-plain-old-strings">Escapes in plain old strings</a></li>
+<li><a href="#escapes-in-regular-expressions">Escapes in regular expressions</a></li>
+</ul></li>
+<li><a href="#groups-and-backreferences">Groups and backreferences</a></li>
 </ul></li>
 </ul>
 </div>
 
 <p><em>Under development</em></p>
-<div id="character-vectors-where-they-fit-in" class="section level3">
-<h3>Character vectors: where they fit in</h3>
+<div id="character-vectors-where-they-fit-in" class="section level2">
+<h2>Character vectors: where they fit in</h2>
 <p>We’ve spent alot of time working with big, beautiful data frames. That are clean and wholesome, like the Gapminder data.</p>
 <p>But real life will be much nastier. You will bring data into R from the outside world and discover there are problems. You might think: how hard can it be to deal with character data? And the answer is: it can be very hard!</p>
 <ul>
@@ -184,18 +192,18 @@ $(document).ready(function () {
 </ul>
 <p>Here we discuss common remedial tasks for cleaning and transforming character data, also known as “strings”. A data frame or tibble will consist of one or more <em>atomic vectors</em> of a certain class. This lesson deals with things you can do with vectors of class <code>character</code>.</p>
 </div>
-<div id="resources" class="section level3">
-<h3>Resources</h3>
+<div id="resources" class="section level2">
+<h2>Resources</h2>
 <p>I start with this because we cannot possibly do this topic justice in a short amount of time. Our goal is to make you aware of broad classes of problems and their respective solutions. Once you have a character problem in real life, these resources will be extremely helpful as you delve deeper.</p>
-<p>Manipulating character vectors</p>
+<div id="manipulating-character-vectors" class="section level4">
+<h4>Manipulating character vectors</h4>
 <ul>
 <li><a href="https://cran.r-project.org/web/packages/stringr/index.html">stringr package</a>
 <ul>
 <li>A non-core package in the tidyverse. It is installed via <code>install.packages(&quot;tidyverse&quot;)</code>, but not loaded via <code>library(tidyverse)</code>. Load it as needed via <code>library(stringr)</code>.</li>
 <li>Main functions start with <code>str_</code>. Auto-complete is your friend.</li>
 <li>Replacements for base functions re: string manipulation and regular expressions (see below).</li>
-<li>Main advantage over base functions: greater consistency about inputs and outputs. Outputs are more ready for your next analytical task.</li>
-<li>Wraps <a href="https://cran.r-project.org/web/packages/stringi/index.html">stringi</a>, which is a great place to look if stringr isn’t powerful enough.</li>
+<li>Main advantagse over base functions: greater consistency about inputs and outputs. Outputs are more ready for your next analytical task.</li>
 </ul></li>
 <li><a href="https://cran.r-project.org/web/packages/tidyr/index.html">tidyr package</a>
 <ul>
@@ -203,10 +211,19 @@ $(document).ready(function () {
 </ul></li>
 <li>Base functions: <code>nchar()</code>, <code>strsplit()</code>, <code>substr()</code>, <code>paste()</code>, <code>paste0()</code>.</li>
 </ul>
-<p>Regular expressions: a God-awful and powerful language for expressing patterns to match in text or for search-and-replace. Frequently described as “write only”, because regular expressions are easier to write than to read/understand. And they are not particularly easy to write.</p>
+</div>
+<div id="regular-expressions" class="section level4">
+<h4>Regular expressions</h4>
+<p>A God-awful and powerful language for expressing patterns to match in text or for search-and-replace. Frequently described as “write only”, because regular expressions are easier to write than to read/understand. And they are not particularly easy to write.</p>
 <ul>
-<li>The <a href="http://r4ds.had.co.nz/strings.html">Strings chapter</a> of <a href="http://r4ds.had.co.nz">R for Data Science</a> is excellent.</li>
-<li>STAT 545 lessons on regular expressions:
+<li>We again prefer the <a href="https://cran.r-project.org/web/packages/stringr/index.html">stringr package</a> over base functions. Why?
+<ul>
+<li>Wraps <a href="https://cran.r-project.org/web/packages/stringi/index.html">stringi</a>, which is a great place to look if stringr isn’t powerful enough.</li>
+<li>Standardized on <a href="http://userguide.icu-project.org/strings/regexp">ICU regular expressions</a>, so you can stop toggling <code>perl = TRUE/FALSE</code> at random.</li>
+<li>Results come back in a form that is much friendly for downstream work.</li>
+</ul></li>
+<li>The <a href="http://r4ds.had.co.nz/strings.html">Strings chapter</a> of <a href="http://r4ds.had.co.nz">R for Data Science</a> is a great resource.</li>
+<li>Older STAT 545 lessons on regular expressions:
 <ul>
 <li><a href="block022_regular-expression.html">2014 Intro to regular expressions</a> by TA Gloria Li.</li>
 <li><a href="block027_regular-expressions.html">2015 Regular expressions and character data in R</a> by TA Kieran Samuk.</li>
@@ -219,12 +236,15 @@ $(document).ready(function () {
 <li><a href="http://regexr.com">regexr.com</a></li>
 </ul></li>
 <li><a href="https://github.com/kevinushey/rex">rex R package</a>: make regular expression from human readable expressions</li>
+<li>Base functions: <code>grep()</code> and friends.</li>
 </ul>
 <div class="figure">
 <img src="img/regexbytrialanderror-big-smaller.png" />
 
 </div>
-<p>Encoding</p>
+</div>
+<div id="character-encoding" class="section level4">
+<h4>Character encoding</h4>
 <ul>
 <li><a href="http://r4ds.had.co.nz/data-import.html#readr-strings">Strings subsection of data import chapter</a> in R for Data Science</li>
 <li>Screeds on the Minimum Everyone Needs to Know about encoding
@@ -234,14 +254,17 @@ $(document).ready(function () {
 </ul></li>
 <li><a href="http://www.justinweiss.com/articles/3-steps-to-fix-encoding-problems-in-ruby/">Guide to fixing encoding problems in Ruby</a> <em>parking here temporariliy … looks useful but, obviously, it’s about Ruby not R</em></li>
 </ul>
-<p>Manipulating character vectors that live in a data frame</p>
+</div>
+<div id="character-vectors-that-live-in-a-data-frame" class="section level4">
+<h4>Character vectors that live in a data frame</h4>
 <ul>
 <li>Certain operations are facilitated by <code>tidyr</code>. These are described below.</li>
 <li>For a general discussion of how to work on variables that live in a data frame, see <a href="block031_vector-tibble-relations.html">Vectors versus tibbles</a></li>
 </ul>
 </div>
-<div id="load-stringr-and-the-core-tidyverse" class="section level3">
-<h3>Load stringr and the core tidyverse</h3>
+</div>
+<div id="load-stringr-and-the-core-tidyverse" class="section level2">
+<h2>Load stringr and the core tidyverse</h2>
 <pre class="r"><code>library(tidyverse)
 #&gt; Loading tidyverse: ggplot2
 #&gt; Loading tidyverse: tibble
@@ -254,8 +277,8 @@ $(document).ready(function () {
 #&gt; lag():    dplyr, stats
 library(stringr)</code></pre>
 </div>
-<div id="basic-string-manipulation-with-stringr-and-tidyr" class="section level3">
-<h3>Basic string manipulation with stringr and tidyr</h3>
+<div id="regex-free-string-manipulation-with-stringr-and-tidyr" class="section level2">
+<h2>Regex-free string manipulation with stringr and tidyr</h2>
 <p>Basic string manipulation tasks:</p>
 <ul>
 <li>Study a single character vector
@@ -277,8 +300,8 @@ library(stringr)</code></pre>
 </ul></li>
 </ul>
 <p><em><code>fruit</code>, <code>words</code>, and <code>sentences</code> are character vectors that ship with <code>stringr</code> for practicing.</em></p>
-<div id="detect-or-filter-on-a-target-string" class="section level4">
-<h4>Detect or filter on a target string</h4>
+<div id="detect-or-filter-on-a-target-string" class="section level3">
+<h3>Detect or filter on a target string</h3>
 <p>Determine presence/absence of a literal string with <code>str_detect()</code>. Spoiler: later we see <code>str_detect()</code> also detects regular expressions.</p>
 <p>Which fruits actually use the word “fruit”?</p>
 <pre class="r"><code>str_detect(fruit, &quot;fruit&quot;)
@@ -295,8 +318,8 @@ library(stringr)</code></pre>
 #&gt; [1] &quot;breadfruit&quot;   &quot;dragonfruit&quot;  &quot;grapefruit&quot;   &quot;jackfruit&quot;   
 #&gt; [5] &quot;kiwi fruit&quot;   &quot;passionfruit&quot; &quot;star fruit&quot;   &quot;ugli fruit&quot;</code></pre>
 </div>
-<div id="string-splitting-by-pattern" class="section level4">
-<h4>String splitting by pattern</h4>
+<div id="string-splitting-by-delimiter" class="section level3">
+<h3>String splitting by delimiter</h3>
 <p>Use <code>stringr::str_split()</code> to split strings on a delimiter. Some of our fruits are compound words, like “grapefruit”, but some have two words, like “ugli fruit”. Here we split on a single space <code>&quot; &quot;</code>, but show use of a regular expression later.</p>
 <pre class="r"><code>str_split(my_fruit, &quot; &quot;)
 #&gt; [[1]]
@@ -351,8 +374,8 @@ my_fruit_df %&gt;%
 #&gt; 7         star fruit
 #&gt; 8         ugli fruit</code></pre>
 </div>
-<div id="substring-extraction-and-replacement-by-position" class="section level4">
-<h4>Substring extraction (and replacement) by position</h4>
+<div id="substring-extraction-and-replacement-by-position" class="section level3">
+<h3>Substring extraction (and replacement) by position</h3>
 <p>Count characters in your strings with <code>str_length()</code>. Note this is different from the length of the character vector itself.</p>
 <pre class="r"><code>length(my_fruit)
 #&gt; [1] 8
@@ -381,15 +404,15 @@ str_sub(x, 1, 3) &lt;- &quot;AAA&quot;
 x
 #&gt; [1] &quot;AAAle&quot;   &quot;AAAicot&quot; &quot;AAAcado&quot;</code></pre>
 </div>
-<div id="collapse-a-vector" class="section level4">
-<h4>Collapse a vector</h4>
-<p>You can collapse a character of length <code>n &gt; 1</code> to a single string with <code>str_c()</code>, which also has other uses (see next section).</p>
+<div id="collapse-a-vector" class="section level3">
+<h3>Collapse a vector</h3>
+<p>You can collapse a character vector of length <code>n &gt; 1</code> to a single string with <code>str_c()</code>, which also has other uses (see next section).</p>
 <pre class="r"><code>head(fruit) %&gt;% 
   str_c(collapse = &quot;, &quot;)
 #&gt; [1] &quot;apple, apricot, avocado, banana, bell pepper, bilberry&quot;</code></pre>
 </div>
-<div id="create-a-character-vector-by-catenating-multiple-vectors" class="section level4">
-<h4>Create a character vector by catenating multiple vectors</h4>
+<div id="create-a-character-vector-by-catenating-multiple-vectors" class="section level3">
+<h3>Create a character vector by catenating multiple vectors</h3>
 <p>If you have two or more character vectors of the same length, you can glue them together element-wise, to get a new vector of that length. Here are some … awful smoothie flavors?</p>
 <pre class="r"><code>str_c(fruit[1:4], fruit[5:8], sep = &quot; &amp; &quot;)
 #&gt; [1] &quot;apple &amp; bell pepper&quot;   &quot;apricot &amp; bilberry&quot;    &quot;avocado &amp; blackberry&quot; 
@@ -409,8 +432,8 @@ fruit_df %&gt;%
 #&gt; 3  avocado &amp; blackberry
 #&gt; 4 banana &amp; blackcurrant</code></pre>
 </div>
-<div id="substring-replacement" class="section level4">
-<h4>Substring replacement</h4>
+<div id="substring-replacement" class="section level3">
+<h3>Substring replacement</h3>
 <p>You can replace a pattern with <code>str_replace()</code>. Here we use an explicit string-to-replace, but later we revisit with a regular expression.</p>
 <pre class="r"><code>str_replace(my_fruit, &quot;fruit&quot;, &quot;THINGY&quot;)
 #&gt; [1] &quot;breadTHINGY&quot;   &quot;dragonTHINGY&quot;  &quot;grapeTHINGY&quot;   &quot;jackTHINGY&quot;   
@@ -434,18 +457,18 @@ str_replace_na(melons, &quot;UNKNOWN MELON&quot;)
 <p>And that concludes our treatment of regex-free manipulations of character data!</p>
 </div>
 </div>
-<div id="regular-expression-with-stringr" class="section level3">
-<h3>Regular expression with stringr</h3>
-<div id="load-gapminder" class="section level4">
-<h4>Load Gapminder</h4>
+<div id="regular-expressions-with-stringr" class="section level2">
+<h2>Regular expressions with stringr</h2>
+<div id="load-gapminder" class="section level3">
+<h3>Load Gapminder</h3>
 <p>The country names in the gapminder dataset are convenient for examples. Load it now and store the 142 unique country names to the object <code>countries</code>.</p>
 <pre class="r"><code>library(gapminder)
 countries &lt;- levels(gapminder$country)</code></pre>
 </div>
-<div id="characters-with-special-meaning" class="section level4">
-<h4>Characters with special meaning</h4>
+<div id="characters-with-special-meaning" class="section level3">
+<h3>Characters with special meaning</h3>
 <p>Frequently your string tasks cannot be expressed in terms of a fixed string, but can be described in terms of a <strong>pattern</strong>. Regular expressions, aka “regexes”, are the standard way to specify these patterns. In regexes, specific characters and constructs take on special meaning in order to match multiple strings.</p>
-<p>The first placeholder is the period <code>.</code>, which stands for any single character, except a newline (which by the way, is represented by <code>\n</code>). The regex <code>a.b</code> will match all countries that have an <code>a</code>, followed by any single character, followed by <code>b</code>. Yes, regexes are case sensitive.</p>
+<p>The first metacharacter is the period <code>.</code>, which stands for any single character, except a newline (which by the way, is represented by <code>\n</code>). The regex <code>a.b</code> will match all countries that have an <code>a</code>, followed by any single character, followed by <code>b</code>. Yes, regexes are case sensitive, i.e. “Italy” does not match.</p>
 <pre class="r"><code>str_subset(countries, &quot;i.a&quot;)
 #&gt;  [1] &quot;Argentina&quot;                &quot;Bosnia and Herzegovina&quot;  
 #&gt;  [3] &quot;Burkina Faso&quot;             &quot;Central African Republic&quot;
@@ -457,7 +480,7 @@ countries &lt;- levels(gapminder$country)</code></pre>
 #&gt; [15] &quot;Thailand&quot;                 &quot;Trinidad and Tobago&quot;</code></pre>
 <p>Notice that <code>i.a</code> matches “ina”, “ica”, “ita”, and more.</p>
 <p><strong>Anchors</strong> can be included to express where the expression must occur within the string. The <code>^</code> indicates the beginning of string and <code>$</code> indicates the end.</p>
-<p>Note how the regex <code>i.a$</code> matches many fewer countries than <code>i.a</code> alone. Likewise, more fruits match <code>d</code> in <code>my_fruit</code> than <code>^d</code>, which requires “d” at string start.</p>
+<p>Note how the regex <code>i.a$</code> matches many fewer countries than <code>i.a</code> alone. Likewise, more elements of <code>my_fruit</code> match <code>d</code> than <code>^d</code>, which requires “d” at string start.</p>
 <pre class="r"><code>str_subset(countries, &quot;i.a$&quot;)
 #&gt; [1] &quot;Argentina&quot;              &quot;Bosnia and Herzegovina&quot;
 #&gt; [3] &quot;China&quot;                  &quot;Costa Rica&quot;            
@@ -467,7 +490,7 @@ str_subset(my_fruit, &quot;d&quot;)
 #&gt; [1] &quot;breadfruit&quot;  &quot;dragonfruit&quot;
 str_subset(my_fruit, &quot;^d&quot;)
 #&gt; [1] &quot;dragonfruit&quot;</code></pre>
-<p>The sequence <code>\b</code> indicates a <strong>word boundary</strong> and <code>\B</code> indicates NOT a word boundary. This is our first encounter with something called “escaping” and right now I just want you at accept that we need to prepend a second backslash to use these sequences in regexes in R. We’ll come back to this tedious point later.</p>
+<p>The metacharacter <code>\b</code> indicates a <strong>word boundary</strong> and <code>\B</code> indicates NOT a word boundary. This is our first encounter with something called “escaping” and right now I just want you at accept that we need to prepend a second backslash to use these sequences in regexes in R. We’ll come back to this tedious point later.</p>
 <pre class="r"><code>str_subset(fruit, &quot;melon&quot;)
 #&gt; [1] &quot;canary melon&quot; &quot;rock melon&quot;   &quot;watermelon&quot;
 str_subset(fruit, &quot;\\bmelon&quot;)
@@ -475,9 +498,9 @@ str_subset(fruit, &quot;\\bmelon&quot;)
 str_subset(fruit, &quot;\\Bmelon&quot;)
 #&gt; [1] &quot;watermelon&quot;</code></pre>
 </div>
-<div id="character-classes" class="section level4">
-<h4>Character classes</h4>
-<p>Characters can be specified via classes. You can make them explicitly “by hand” or use some pre-existing ones. The <a href="block022_regular-expression.html">2014 STAT 545 regex lesson</a> has a good list of character classes. Character classes are often given inside square brackets, <code>[]</code> but a few come up so often that we have “shorthand”, such as <code>\d</code> for a single digit, or a POSIX class (examples below).</p>
+<div id="character-classes" class="section level3">
+<h3>Character classes</h3>
+<p>Characters can be specified via classes. You can make them explicitly “by hand” or use some pre-existing ones. The <a href="block022_regular-expression.html">2014 STAT 545 regex lesson</a> has a good list of character classes. Character classes are usually given inside square brackets, <code>[]</code> but a few come up so often that we have a metacharacter for them, such as <code>\d</code> for a single digit.</p>
 <p>Here we match <code>ia</code> at the end of the country name, preceded by one of the characters in the class. Or, in the negated class, preceded by anything but one of those characters.</p>
 <pre class="r"><code>## make a class &quot;by hand&quot;
 str_subset(countries, &quot;[nls]ia$&quot;)
@@ -491,7 +514,7 @@ str_subset(countries, &quot;[^nls]ia$&quot;)
 #&gt;  [9] &quot;Gambia&quot;       &quot;India&quot;        &quot;Liberia&quot;      &quot;Namibia&quot;     
 #&gt; [13] &quot;Nigeria&quot;      &quot;Saudi Arabia&quot; &quot;Serbia&quot;       &quot;Syria&quot;       
 #&gt; [17] &quot;Zambia&quot;</code></pre>
-<p>Here we revisit splitting <code>my_fruit</code> with two more general ways to match whitespace: the <code>\s</code> shorthand and the POSIX class <code>[:space:]</code>. Notice that we must prepend an extra backslash <code>\</code> to escape <code>\s</code> and the POSIX class has to be surrounded by two sets of square brackets.</p>
+<p>Here we revisit splitting <code>my_fruit</code> with two more general ways to match whitespace: the <code>\s</code> metacharacter and the POSIX class <code>[:space:]</code>. Notice that we must prepend an extra backslash <code>\</code> to escape <code>\s</code> and the POSIX class has to be surrounded by two sets of square brackets.</p>
 <pre class="r"><code>## remember this?
 # str_split_fixed(fruit, &quot; &quot;, 2)
 ## alternatives
@@ -521,9 +544,9 @@ str_split_fixed(my_fruit, &quot;[[:space:]]&quot;, 2)
 #&gt; [4] &quot;Guinea-Bissau&quot;    &quot;Hong Kong, China&quot; &quot;Korea, Dem. Rep.&quot;
 #&gt; [7] &quot;Korea, Rep.&quot;      &quot;Yemen, Rep.&quot;</code></pre>
 </div>
-<div id="quantifiers" class="section level4">
-<h4>Quantifiers</h4>
-<p>You can decorate characters (and other constructs, like shorthand and classes) with information about how many characters they are allowed to match.</p>
+<div id="quantifiers" class="section level3">
+<h3>Quantifiers</h3>
+<p>You can decorate characters (and other constructs, like metacharacters and classes) with information about how many characters they are allowed to match.</p>
 <table>
 <thead>
 <tr class="header">
@@ -560,8 +583,8 @@ str_split_fixed(my_fruit, &quot;[[:space:]]&quot;, 2)
 </tr>
 </tbody>
 </table>
-<p>Explore these by inspecting matches for <code>l</code> followed by a <code>e</code>, allowing for various numbers of characters in between.</p>
-<p><code>l.*e</code> will match strings with 0 or more characters in between, i.e. any string with an <code>l</code> eventually followed by an <code>e</code>.</p>
+<p>Explore these by inspecting matches for <code>l</code> followed by <code>e</code>, allowing for various numbers of characters in between.</p>
+<p><code>l.*e</code> will match strings with 0 or more characters in between, i.e. any string with an <code>l</code> eventually followed by an <code>e</code>. This is the most inclusive regex for this example, so we store the result as <code>matches</code> to use as a baseline for comparison.</p>
 <pre class="r"><code>(matches &lt;- str_subset(fruit, &quot;l.*e&quot;))
 #&gt;  [1] &quot;apple&quot;             &quot;bell pepper&quot;       &quot;bilberry&quot;         
 #&gt;  [4] &quot;blackberry&quot;        &quot;blood orange&quot;      &quot;blueberry&quot;        
@@ -570,7 +593,7 @@ str_split_fixed(my_fruit, &quot;[[:space:]]&quot;, 2)
 #&gt; [13] &quot;lemon&quot;             &quot;lime&quot;              &quot;lychee&quot;           
 #&gt; [16] &quot;mulberry&quot;          &quot;olive&quot;             &quot;pineapple&quot;        
 #&gt; [19] &quot;purple mangosteen&quot; &quot;salal berry&quot;</code></pre>
-<p>Change the quantifier to <code>+</code> to require at least one intervening character. The strings that no longer match: all have a literal <code>le</code> with no preceding <code>l</code> and no following <code>e</code>.</p>
+<p>Change the quantifier from <code>*</code> to <code>+</code> to require at least one intervening character. The strings that no longer match: all have a literal <code>le</code> with no preceding <code>l</code> and no following <code>e</code>.</p>
 <pre class="r"><code>list(match = intersect(matches, str_subset(fruit, &quot;l.+e&quot;)),
      no_match = setdiff(matches, str_subset(fruit, &quot;l.+e&quot;)))
 #&gt; $match
@@ -583,7 +606,7 @@ str_split_fixed(my_fruit, &quot;[[:space:]]&quot;, 2)
 #&gt; 
 #&gt; $no_match
 #&gt; [1] &quot;apple&quot;     &quot;lemon&quot;     &quot;pineapple&quot;</code></pre>
-<p>Change the quantifier to <code>?</code> to require at most one intervening character. In the strings that no longer match, the shortest gap between <code>l</code> and following <code>e</code> is at least two characters.</p>
+<p>Change the quantifier from <code>*</code> to <code>?</code> to require at most one intervening character. In the strings that no longer match, the shortest gap between <code>l</code> and following <code>e</code> is at least two characters.</p>
 <pre class="r"><code>list(match = intersect(matches, str_subset(fruit, &quot;l.?e&quot;)),
      no_match = setdiff(matches, str_subset(fruit, &quot;l.?e&quot;)))
 #&gt; $match
@@ -609,15 +632,57 @@ str_split_fixed(my_fruit, &quot;[[:space:]]&quot;, 2)
 #&gt;  [9] &quot;elderberry&quot;   &quot;lime&quot;         &quot;lychee&quot;       &quot;mulberry&quot;    
 #&gt; [13] &quot;olive&quot;        &quot;salal berry&quot;</code></pre>
 </div>
-<div id="escaping" class="section level4">
-<h4>Escaping</h4>
-<p><em>come back here</em></p>
-<p><a href="block022_regular-expression.html">2014 STAT 545 lesson an regular expressions</a> has good coverage of characters with special meaning in regex and escape sequences.</p>
-<p>Many characters take on special meaning inside regexes. Of course this implies you have to do extra work to include those actual characters in your pattern. This is called <em>escaping</em> and requires prepending a backslash. something called <em>escaping</em> and boils down to “add more backslashes”.</p>
+<div id="escaping" class="section level3">
+<h3>Escaping</h3>
+<p>You’ve probably caught on by now that there are certain characters with special meaning in regexes, including <code>$ * + . ? [ ] ^ { } | ( ) \</code>.</p>
+<p>What if you really need the plus sign to be a literal plus sign and not a regex quantifier? You will need to <em>escape</em> it by prepending a backslash. But wait … there’s more! Before a regex is interpreted as a regular expression, it is also interpreted by R as a string. And backslash is used to escape there as well. So, in the end, you need to preprend two backslashes in order to match a literal plus sign in a regex.</p>
+<p>This will be more clear with examples!</p>
+<div id="escapes-in-plain-old-strings" class="section level4">
+<h4>Escapes in plain old strings</h4>
+<p>Here is routine, non-regex use of backslash <code>\</code> escapes in plain vanilla R strings. We intentionally use <code>cat()</code> instead of <code>print()</code> here.</p>
+<ul>
+<li><p>To escape quotes inside quotes:</p>
+<pre class="r"><code>cat(&quot;Do you use \&quot;airquotes\&quot; much?&quot;)
+#&gt; Do you use &quot;airquotes&quot; much?</code></pre>
+Sidebar: eliminating the need for these escapes is exactly why people use double quotes inside single quotes and <em>vice versa</em>.</li>
+<li><p>To insert newline (<code>\n</code>) or tab (<code>\t</code>):</p>
+<pre class="r"><code>cat(&quot;before the newline\nafter the newline&quot;)
+#&gt; before the newline
+#&gt; after the newline
+cat(&quot;before the tab\tafter the tab&quot;)
+#&gt; before the tab   after the tab</code></pre></li>
+</ul>
 </div>
-<div id="backreferences" class="section level4">
-<h4>Backreferences</h4>
-<p><em>come back here</em></p>
+<div id="escapes-in-regular-expressions" class="section level4">
+<h4>Escapes in regular expressions</h4>
+<p>Examples of using escapes in regexes to match characters that would otherwise have a special interpretation.</p>
+<p>We know several Gapminder country names contain a period. How do we isolate them? Although it’s tempting, this command <code>str_subset(countries, &quot;.&quot;)</code> won’t work!</p>
+<pre class="r"><code>## cheating using a POSIX class ;)
+str_subset(countries, &quot;[[:punct:]]&quot;)
+#&gt; [1] &quot;Congo, Dem. Rep.&quot; &quot;Congo, Rep.&quot;      &quot;Cote d&#39;Ivoire&quot;   
+#&gt; [4] &quot;Guinea-Bissau&quot;    &quot;Hong Kong, China&quot; &quot;Korea, Dem. Rep.&quot;
+#&gt; [7] &quot;Korea, Rep.&quot;      &quot;Yemen, Rep.&quot;
+## using two backslashes to escape the period
+str_subset(countries, &quot;\\.&quot;)
+#&gt; [1] &quot;Congo, Dem. Rep.&quot; &quot;Congo, Rep.&quot;      &quot;Korea, Dem. Rep.&quot;
+#&gt; [4] &quot;Korea, Rep.&quot;      &quot;Yemen, Rep.&quot;</code></pre>
+<p>A last example that matches an actual square bracket.</p>
+<pre class="r"><code>(x &lt;- c(&quot;whatever&quot;, &quot;X is distributed U[0,1]&quot;))
+#&gt; [1] &quot;whatever&quot;                &quot;X is distributed U[0,1]&quot;
+str_subset(x, &quot;\\[&quot;)
+#&gt; [1] &quot;X is distributed U[0,1]&quot;</code></pre>
+</div>
+</div>
+<div id="groups-and-backreferences" class="section level3">
+<h3>Groups and backreferences</h3>
+<p>Your first use of regex is likely to be simple matching: detecting or isolating strings that match a pattern.</p>
+<p>But soon you will want to use regexes to transform the strings in character vectors. That means you need a way to address specific parts of the matching strings and to operate on them.</p>
+<p>You can use parentheses inside regexes to define <em>groups</em> and you can refer to those groups later with <em>backreferences</em>.</p>
+<p>For now, this lesson will refer you to other place to read up on this:</p>
+<ul>
+<li>STAT 545 <a href="block022_regular-expression.html">2014 Intro to regular expressions</a> by TA Gloria Li.</li>
+<li>The <a href="http://r4ds.had.co.nz/strings.html">Strings chapter</a> of <a href="http://r4ds.had.co.nz">R for Data Science</a>.</li>
+</ul>
 </div>
 </div>
 
