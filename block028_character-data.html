@@ -219,14 +219,13 @@ $(document).ready(function () {
 <ul>
 <li>Wraps <a href="https://cran.r-project.org/web/packages/stringi/index.html">stringi</a>, which is a great place to look if stringr isn’t powerful enough.</li>
 <li>Standardized on <a href="http://userguide.icu-project.org/strings/regexp">ICU regular expressions</a>, so you can stop toggling <code>perl = TRUE/FALSE</code> at random.</li>
-<li>Results come back in a form that is much friendly for downstream work.</li>
+<li>Results come back in a form that is much friendlier for downstream work.</li>
 </ul></li>
 <li>The <a href="http://r4ds.had.co.nz/strings.html">Strings chapter</a> of <a href="http://r4ds.had.co.nz">R for Data Science</a> is a great resource.</li>
-<li>Older STAT 545 lessons on regular expressions:
+<li>Older STAT 545 lessons on regular expressions have some excellent content. This lesson draws on them, but makes more rigorous use of stringr and uses example data that is easier to support long-term.
 <ul>
 <li><a href="block022_regular-expression.html">2014 Intro to regular expressions</a> by TA Gloria Li.</li>
 <li><a href="block027_regular-expressions.html">2015 Regular expressions and character data in R</a> by TA Kieran Samuk.</li>
-<li>Excellent content in both. Why am I redeveloping, then? To be more consistent re: using stringr and to use examples whose availability is easier for me to support long-term.</li>
 </ul></li>
 <li>RStudio Cheat Sheet on <a href="https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf">Regular Expressions in R</a></li>
 <li>Regex testers
@@ -237,10 +236,6 @@ $(document).ready(function () {
 <li><a href="https://github.com/kevinushey/rex">rex R package</a>: make regular expression from human readable expressions</li>
 <li>Base functions: <code>grep()</code> and friends.</li>
 </ul>
-<div class="figure">
-<img src="img/regexbytrialanderror-big-smaller.png" />
-
-</div>
 </div>
 <div id="character-encoding" class="section level4">
 <h4>Character encoding</h4>
@@ -458,6 +453,10 @@ str_replace_na(melons, &quot;UNKNOWN MELON&quot;)
 </div>
 <div id="regular-expressions-with-stringr" class="section level2">
 <h2>Regular expressions with stringr</h2>
+<div class="figure">
+<img src="img/regexbytrialanderror-big-smaller.png" />
+
+</div>
 <div id="load-gapminder" class="section level3">
 <h3>Load Gapminder</h3>
 <p>The country names in the gapminder dataset are convenient for examples. Load it now and store the 142 unique country names to the object <code>countries</code>.</p>

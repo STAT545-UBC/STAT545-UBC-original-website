@@ -36,20 +36,17 @@ A God-awful and powerful language for expressing patterns to match in text or fo
   * We again prefer the [stringr package](https://cran.r-project.org/web/packages/stringr/index.html) over base functions. Why?
     - Wraps [stringi](https://cran.r-project.org/web/packages/stringi/index.html), which is a great place to look if stringr isn't powerful enough.
     - Standardized on [ICU regular expressions](http://userguide.icu-project.org/strings/regexp), so you can stop toggling `perl = TRUE/FALSE` at random.
-    - Results come back in a form that is much friendly for downstream work.
+    - Results come back in a form that is much friendlier for downstream work.
   * The [Strings chapter](http://r4ds.had.co.nz/strings.html) of [R for Data Science](http://r4ds.had.co.nz) is a great resource.
-  * Older STAT 545 lessons on regular expressions:
+  * Older STAT 545 lessons on regular expressions have some excellent content. This lesson draws on them, but makes more rigorous use of stringr and uses example data that is easier to support long-term.
     -  [2014 Intro to regular expressions](block022_regular-expression.html) by TA Gloria Li.
     - [2015 Regular expressions and character data in R](block027_regular-expressions.html) by TA Kieran Samuk.
-    - Excellent content in both. Why am I redeveloping, then? To be more consistent re: using stringr and to use examples whose availability is easier for me to support long-term.
   * RStudio Cheat Sheet on [Regular Expressions in R](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf)
   * Regex testers
     - [regex101.com](https://regex101.com)
     - [regexr.com](http://regexr.com)
   * [rex R package](https://github.com/kevinushey/rex): make regular expression from human readable expressions
   * Base functions: `grep()` and friends.
-
-![](img/regexbytrialanderror-big-smaller.png)
 
 #### Character encoding
 
@@ -332,6 +329,8 @@ tibble(melons) %>%
 And that concludes our treatment of regex-free manipulations of character data!
 
 ## Regular expressions with stringr
+
+![](img/regexbytrialanderror-big-smaller.png)
 
 ### Load Gapminder
 
