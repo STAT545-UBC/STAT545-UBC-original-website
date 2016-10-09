@@ -2,8 +2,6 @@
 
 
 
-*Under development*
-
 ## Character vectors: where they fit in
 
 We've spent alot of time working with big, beautiful data frames. That are clean and wholesome, like the Gapminder data.
