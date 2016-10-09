@@ -62,7 +62,12 @@ Encoding
     - [The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)](http://www.joelonsoftware.com/articles/Unicode.html)
     - [What Every Programmer Absolutely, Positively Needs To Know About Encodings And Character Sets To Work With Text](http://kunststube.net/encoding/)
   * [Guide to fixing encoding problems in Ruby](http://www.justinweiss.com/articles/3-steps-to-fix-encoding-problems-in-ruby/) *parking here temporariliy ... looks useful but, obviously, it's about Ruby not R*
-    
+
+Manipulating character vectors that live in a data frame
+
+  * Certain operations are facilitated by `tidyr`. These are described below.
+  * For a general discussion of how to work on variables that live in a data frame, see [Vectors versus tibbles](block031_vector-tibble-relations.html)
+
 ### Load stringr and the core tidyverse
 
 ```{r}
@@ -89,7 +94,7 @@ Basic string manipulation tasks:
 
 #### Detect or filter on a target string
 
-Determine presence/absence of a literal string with `str_detect()`. Spoiler: this will also work for regular expressions (see below).
+Determine presence/absence of a literal string with `str_detect()`. Spoiler: later we see `str_detect()` also detects regular expressions.
 
 Which fruits actually use the word "fruit"?
 
@@ -113,7 +118,7 @@ str_split(my_fruit, " ")
 
 It's bummer that we get a *list* back. But it must be so! In full generality, split strings must return list, because who knows how many pieces there will be?
 
-If you are willing to commit to the number of items, you can use `str_split_fixed()` and get a character matrix. You're welcome!
+If you are willing to commit to the number of pieces, you can use `str_split_fixed()` and get a character matrix. You're welcome!
 
 ```{r}
 str_split_fixed(my_fruit, " ", n = 2)
@@ -143,7 +148,7 @@ head(fruit) %>%
   str_sub(1, 3)
 ```
 
-The `start` and `end` arguments are vectorised.
+The `start` and `end` arguments are vectorised. Example: a sliding 3-character window.
 
 ```{r}
 tibble(fruit) %>% 
@@ -214,85 +219,126 @@ tibble(melons) %>%
   replace_na(replace = list(melons = "UNKNOWN MELON"))
 ```
 
+And that concludes our treatment of regex-free manipulations of character data!
+
 ### Regular expression with stringr
 
-[2014 STAT 545 lesson an regular expressions](block022_regular-expression.html) has good coverage of characters with special meaning in regex and escape sequences.
+#### Load Gapminder
+
+The country names in the gapminder dataset are convenient for examples. Load it now and store the `r nlevels(gapminder::gapminder$country)` unique country names to the object `countries`.
 
 ```{r}
 library(gapminder)
-```
-
-We've been doing this already: looking for exact strings.
-
-```{r}
 countries <- levels(gapminder$country)
-str_subset(countries, "land")
 ```
 
-The period `.` is a placeholder that matches anything but newline.
+#### Characters with special meaning
+
+Frequently your string tasks cannot be expressed in terms of a fixed string, but can be described in terms of a **pattern**. Regular expressions, aka "regexes", are the standard way to specify these patterns. In regexes, specific characters and constructs take on special meaning in order to match multiple strings.
+
+The first placeholder is the period `.`, which stands for any single character, except a newline (which by the way, is represented by `\n`). The regex `a.b` will match all countries that have an `a`, followed by any single character, followed by `b`. Yes, regexes are case sensitive.
 
 ```{r}
-str_subset(countries, "a.b")
+str_subset(countries, "i.a")
 ```
 
-Anchors indicate the beginning `^` and end `$` of the string.
+Notice that `i.a` matches "ina", "ica", "ita", and more.
+
+**Anchors** can be included to express where the expression must occur within the string. The `^` indicates the beginning of string and `$` indicates the end.
+
+Note how the regex `i.a$` matches many fewer countries than `i.a` alone. Likewise, more fruits match `d` in `my_fruit` than `^d`, which requires "d" at string start.
 
 ```{r}
-str_subset(countries, "ia")
-str_subset(countries, "ia$")
-str_subset(fruit, "^a")
-str_subset(fruit, "a")
+str_subset(countries, "i.a$")
+str_subset(my_fruit, "d")
+str_subset(my_fruit, "^d")
 ```
 
-You can also indicate word boundary with `\b` and not a word boundary with `\B`. The backslash has to be "escaped" by adding another backslash.
+The sequence `\b` indicates a **word boundary** and `\B` indicates NOT a word boundary. This is our first encounter with something called "escaping" and right now I just want you at accept that we need to prepend a second backslash to use these sequences in regexes in R. We'll come back to this tedious point later.
 
 ```{r}
-str_subset(fruit, "berry")
-str_subset(fruit, "\\bberry")
-str_subset(fruit, "\\Bberry")
+str_subset(fruit, "melon")
+str_subset(fruit, "\\bmelon")
+str_subset(fruit, "\\Bmelon")
 ```
 
-Characters can be specified via classes. You make them "by hand" or use some pre-existing ones.  The [2014 STAT 545 regex lesson](block022_regular-expression.html) has detailed coverage of other classes.
+#### Character classes
+
+Characters can be specified via classes. You can make them explicitly "by hand" or use some pre-existing ones.  The [2014 STAT 545 regex lesson](block022_regular-expression.html) has a good list of character classes. Character classes are often given inside square brackets, `[]` but a few come up so often that we  have "shorthand", such as `\d` for a single digit, or a POSIX class (examples below).
+
+Here we match `ia` at the end of the country name, preceded by one of the characters in the class. Or, in the negated class, preceded by anything but one of those characters.
 
 ```{r}
-## making the class by hand
+## make a class "by hand"
 str_subset(countries, "[nls]ia$")
-## negation
+## use ^ to negate the class
 str_subset(countries, "[^nls]ia$")
+```
+
+Here we revisit splitting `my_fruit` with two more general ways to match whitespace: the `\s` shorthand and the POSIX class `[:space:]`. Notice that we must prepend an extra backslash `\` to escape `\s` and the POSIX class has to be surrounded by two sets of square brackets.
+
+```{r}
 ## remember this?
-str_split_fixed(fruit, " ", 2)
-## another way to say 'a character of whitespace' (space, tab, newline)
-str_split_fixed(fruit, "\\s", 2)
-## punctuation
-str_subset(countries, ",")
+# str_split_fixed(fruit, " ", 2)
+## alternatives
+str_split_fixed(my_fruit, "\\s", 2)
+str_split_fixed(my_fruit, "[[:space:]]", 2)
+```
+
+Let's see the country names that contain punctuation.
+
+```{r}
 str_subset(countries, "[[:punct:]]")
 ```
 
-You can modify with a quantifier:
+#### Quantifiers
 
-  * `*` means "0 or more"
-  * `+` means "1 or more"
-  * `?` means "exactly 0 or 1"
-  * `{n}` means "exactly n times"
-  * `{n,}` means "at least n times"
-  * `{,m}` means "at most m times"
-  * `{n,m}` means "between n and m times"
-  
-  
-```{r}
-str_subset(countries, "e")
-str_subset(countries, "ee")
-str_subset(countries, "e{2}")
-str_subset(countries, ",")
-```
+You can decorate characters (and other constructs, like shorthand and classes) with information about how many characters they are allowed to match.
 
-Combine your new knowledge of regex with extraction, replacement, splitting.
+| quantifier | meaning   | quantifier | meaning                    |
+|------------|-----------|------------|----------------------------|
+| *          | 0 or more | {n}        | exactly n                  |
+| +          | 1 or more | {n,}       | at least n                 |
+| ?          | 0 or 1    | {,m}       | at most m                  |
+|            |           | {n,m}      | between n and m, inclusive |
+
+Explore these by inspecting matches for `l` followed by a `e`, allowing for various numbers of characters in between.
+
+`l.*e` will match strings with 0 or more characters in between, i.e. any string with an `l` eventually followed by an `e`.
 
 ```{r}
-str_extract(countries, "lia")
-str_extract(countries, "[dnlrst]ia")
-str_replace(countries, "[dnrlst]ia", "LAND")
-str_split(countries, "\\W") ## \W mean 'not a word character'
+(matches <- str_subset(fruit, "l.*e"))
 ```
 
-File listing is more good practice.
+Change the quantifier to `+` to require at least one intervening character. The strings that no longer match: all have a literal `le` with no preceding `l` and no following `e`.
+
+```{r}
+list(match = intersect(matches, str_subset(fruit, "l.+e")),
+     no_match = setdiff(matches, str_subset(fruit, "l.+e")))
+```
+
+Change the quantifier to `?` to require at most one intervening character. In the strings that no longer match, the shortest gap between `l` and following `e` is at least two characters.
+
+```{r}
+list(match = intersect(matches, str_subset(fruit, "l.?e")),
+     no_match = setdiff(matches, str_subset(fruit, "l.?e")))
+```
+
+Finally, we remove the quantifier and allow for no intervening characters. The strings that no longer match lack a literal `le`.
+
+```{r}
+list(match = intersect(matches, str_subset(fruit, "le")),
+     no_match = setdiff(matches, str_subset(fruit, "le")))
+```
+
+#### Escaping
+
+*come back here*
+
+[2014 STAT 545 lesson an regular expressions](block022_regular-expression.html) has good coverage of characters with special meaning in regex and escape sequences.
+
+Many characters take on special meaning inside regexes. Of course this implies you have to do extra work to include those actual characters in your pattern. This is called *escaping* and requires prepending a backslash. something called *escaping* and boils down to "add more backslashes".
+
+#### Backreferences
+
+*come back here*

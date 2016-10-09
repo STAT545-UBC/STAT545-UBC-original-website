@@ -161,7 +161,14 @@ $(document).ready(function () {
 <li><a href="#create-a-character-vector-by-catenating-multiple-vectors">Create a character vector by catenating multiple vectors</a></li>
 <li><a href="#substring-replacement">Substring replacement</a></li>
 </ul></li>
-<li><a href="#regular-expression-with-stringr">Regular expression with stringr</a></li>
+<li><a href="#regular-expression-with-stringr">Regular expression with stringr</a><ul>
+<li><a href="#load-gapminder">Load Gapminder</a></li>
+<li><a href="#characters-with-special-meaning">Characters with special meaning</a></li>
+<li><a href="#character-classes">Character classes</a></li>
+<li><a href="#quantifiers">Quantifiers</a></li>
+<li><a href="#escaping">Escaping</a></li>
+<li><a href="#backreferences">Backreferences</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -227,6 +234,11 @@ $(document).ready(function () {
 </ul></li>
 <li><a href="http://www.justinweiss.com/articles/3-steps-to-fix-encoding-problems-in-ruby/">Guide to fixing encoding problems in Ruby</a> <em>parking here temporariliy … looks useful but, obviously, it’s about Ruby not R</em></li>
 </ul>
+<p>Manipulating character vectors that live in a data frame</p>
+<ul>
+<li>Certain operations are facilitated by <code>tidyr</code>. These are described below.</li>
+<li>For a general discussion of how to work on variables that live in a data frame, see <a href="block031_vector-tibble-relations.html">Vectors versus tibbles</a></li>
+</ul>
 </div>
 <div id="load-stringr-and-the-core-tidyverse" class="section level3">
 <h3>Load stringr and the core tidyverse</h3>
@@ -267,7 +279,7 @@ library(stringr)</code></pre>
 <p><em><code>fruit</code>, <code>words</code>, and <code>sentences</code> are character vectors that ship with <code>stringr</code> for practicing.</em></p>
 <div id="detect-or-filter-on-a-target-string" class="section level4">
 <h4>Detect or filter on a target string</h4>
-<p>Determine presence/absence of a literal string with <code>str_detect()</code>. Spoiler: this will also work for regular expressions (see below).</p>
+<p>Determine presence/absence of a literal string with <code>str_detect()</code>. Spoiler: later we see <code>str_detect()</code> also detects regular expressions.</p>
 <p>Which fruits actually use the word “fruit”?</p>
 <pre class="r"><code>str_detect(fruit, &quot;fruit&quot;)
 #&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
@@ -311,7 +323,7 @@ library(stringr)</code></pre>
 #&gt; [[8]]
 #&gt; [1] &quot;ugli&quot;  &quot;fruit&quot;</code></pre>
 <p>It’s bummer that we get a <em>list</em> back. But it must be so! In full generality, split strings must return list, because who knows how many pieces there will be?</p>
-<p>If you are willing to commit to the number of items, you can use <code>str_split_fixed()</code> and get a character matrix. You’re welcome!</p>
+<p>If you are willing to commit to the number of pieces, you can use <code>str_split_fixed()</code> and get a character matrix. You’re welcome!</p>
 <pre class="r"><code>str_split_fixed(my_fruit, &quot; &quot;, n = 2)
 #&gt;      [,1]           [,2]   
 #&gt; [1,] &quot;breadfruit&quot;   &quot;&quot;     
@@ -350,7 +362,7 @@ str_length(my_fruit)
 <pre class="r"><code>head(fruit) %&gt;% 
   str_sub(1, 3)
 #&gt; [1] &quot;app&quot; &quot;apr&quot; &quot;avo&quot; &quot;ban&quot; &quot;bel&quot; &quot;bil&quot;</code></pre>
-<p>The <code>start</code> and <code>end</code> arguments are vectorised.</p>
+<p>The <code>start</code> and <code>end</code> arguments are vectorised. Example: a sliding 3-character window.</p>
 <pre class="r"><code>tibble(fruit) %&gt;% 
   head() %&gt;% 
   mutate(snip = str_sub(fruit, 1:6, 3:8))
@@ -419,840 +431,194 @@ str_replace_na(melons, &quot;UNKNOWN MELON&quot;)
 #&gt; 1  canary melon
 #&gt; 2 UNKNOWN MELON
 #&gt; 3    watermelon</code></pre>
+<p>And that concludes our treatment of regex-free manipulations of character data!</p>
 </div>
 </div>
 <div id="regular-expression-with-stringr" class="section level3">
 <h3>Regular expression with stringr</h3>
-<p><a href="block022_regular-expression.html">2014 STAT 545 lesson an regular expressions</a> has good coverage of characters with special meaning in regex and escape sequences.</p>
-<pre class="r"><code>library(gapminder)</code></pre>
-<p>We’ve been doing this already: looking for exact strings.</p>
-<pre class="r"><code>countries &lt;- levels(gapminder$country)
-str_subset(countries, &quot;land&quot;)
-#&gt; [1] &quot;Finland&quot;     &quot;Iceland&quot;     &quot;Ireland&quot;     &quot;Netherlands&quot; &quot;New Zealand&quot;
-#&gt; [6] &quot;Poland&quot;      &quot;Swaziland&quot;   &quot;Switzerland&quot; &quot;Thailand&quot;</code></pre>
-<p>The period <code>.</code> is a placeholder that matches anything but newline.</p>
-<pre class="r"><code>str_subset(countries, &quot;a.b&quot;)
-#&gt; [1] &quot;Cambodia&quot;   &quot;Gambia&quot;     &quot;Mozambique&quot; &quot;Zambia&quot;</code></pre>
-<p>Anchors indicate the beginning <code>^</code> and end <code>$</code> of the string.</p>
-<pre class="r"><code>str_subset(countries, &quot;ia&quot;)
-#&gt;  [1] &quot;Albania&quot;                &quot;Algeria&quot;               
-#&gt;  [3] &quot;Australia&quot;              &quot;Austria&quot;               
-#&gt;  [5] &quot;Bolivia&quot;                &quot;Bosnia and Herzegovina&quot;
-#&gt;  [7] &quot;Bulgaria&quot;               &quot;Cambodia&quot;              
-#&gt;  [9] &quot;Colombia&quot;               &quot;Croatia&quot;               
-#&gt; [11] &quot;Equatorial Guinea&quot;      &quot;Ethiopia&quot;              
-#&gt; [13] &quot;Gambia&quot;                 &quot;India&quot;                 
-#&gt; [15] &quot;Indonesia&quot;              &quot;Liberia&quot;               
-#&gt; [17] &quot;Malaysia&quot;               &quot;Mauritania&quot;            
-#&gt; [19] &quot;Mongolia&quot;               &quot;Namibia&quot;               
-#&gt; [21] &quot;Nigeria&quot;                &quot;Romania&quot;               
-#&gt; [23] &quot;Saudi Arabia&quot;           &quot;Serbia&quot;                
-#&gt; [25] &quot;Slovenia&quot;               &quot;Somalia&quot;               
-#&gt; [27] &quot;Syria&quot;                  &quot;Tanzania&quot;              
-#&gt; [29] &quot;Tunisia&quot;                &quot;Zambia&quot;
-str_subset(countries, &quot;ia$&quot;)
-#&gt;  [1] &quot;Albania&quot;      &quot;Algeria&quot;      &quot;Australia&quot;    &quot;Austria&quot;     
-#&gt;  [5] &quot;Bolivia&quot;      &quot;Bulgaria&quot;     &quot;Cambodia&quot;     &quot;Colombia&quot;    
-#&gt;  [9] &quot;Croatia&quot;      &quot;Ethiopia&quot;     &quot;Gambia&quot;       &quot;India&quot;       
-#&gt; [13] &quot;Indonesia&quot;    &quot;Liberia&quot;      &quot;Malaysia&quot;     &quot;Mauritania&quot;  
-#&gt; [17] &quot;Mongolia&quot;     &quot;Namibia&quot;      &quot;Nigeria&quot;      &quot;Romania&quot;     
-#&gt; [21] &quot;Saudi Arabia&quot; &quot;Serbia&quot;       &quot;Slovenia&quot;     &quot;Somalia&quot;     
-#&gt; [25] &quot;Syria&quot;        &quot;Tanzania&quot;     &quot;Tunisia&quot;      &quot;Zambia&quot;
-str_subset(fruit, &quot;^a&quot;)
-#&gt; [1] &quot;apple&quot;   &quot;apricot&quot; &quot;avocado&quot;
-str_subset(fruit, &quot;a&quot;)
-#&gt;  [1] &quot;apple&quot;             &quot;apricot&quot;           &quot;avocado&quot;          
-#&gt;  [4] &quot;banana&quot;            &quot;blackberry&quot;        &quot;blackcurrant&quot;     
-#&gt;  [7] &quot;blood orange&quot;      &quot;breadfruit&quot;        &quot;canary melon&quot;     
-#&gt; [10] &quot;cantaloupe&quot;        &quot;cherimoya&quot;         &quot;cranberry&quot;        
-#&gt; [13] &quot;currant&quot;           &quot;damson&quot;            &quot;date&quot;             
-#&gt; [16] &quot;dragonfruit&quot;       &quot;durian&quot;            &quot;eggplant&quot;         
-#&gt; [19] &quot;feijoa&quot;            &quot;grape&quot;             &quot;grapefruit&quot;       
-#&gt; [22] &quot;guava&quot;             &quot;jackfruit&quot;         &quot;jambul&quot;           
-#&gt; [25] &quot;kumquat&quot;           &quot;loquat&quot;            &quot;mandarine&quot;        
-#&gt; [28] &quot;mango&quot;             &quot;nectarine&quot;         &quot;orange&quot;           
-#&gt; [31] &quot;pamelo&quot;            &quot;papaya&quot;            &quot;passionfruit&quot;     
-#&gt; [34] &quot;peach&quot;             &quot;pear&quot;              &quot;physalis&quot;         
-#&gt; [37] &quot;pineapple&quot;         &quot;pomegranate&quot;       &quot;purple mangosteen&quot;
-#&gt; [40] &quot;raisin&quot;            &quot;rambutan&quot;          &quot;raspberry&quot;        
-#&gt; [43] &quot;redcurrant&quot;        &quot;salal berry&quot;       &quot;satsuma&quot;          
-#&gt; [46] &quot;star fruit&quot;        &quot;strawberry&quot;        &quot;tamarillo&quot;        
-#&gt; [49] &quot;tangerine&quot;         &quot;watermelon&quot;</code></pre>
-<p>You can also indicate word boundary with <code>\b</code> and not a word boundary with <code>\B</code>. The backslash has to be “escaped” by adding another backslash.</p>
-<pre class="r"><code>str_subset(fruit, &quot;berry&quot;)
-#&gt;  [1] &quot;bilberry&quot;    &quot;blackberry&quot;  &quot;blueberry&quot;   &quot;boysenberry&quot; &quot;cloudberry&quot; 
-#&gt;  [6] &quot;cranberry&quot;   &quot;elderberry&quot;  &quot;goji berry&quot;  &quot;gooseberry&quot;  &quot;huckleberry&quot;
-#&gt; [11] &quot;mulberry&quot;    &quot;raspberry&quot;   &quot;salal berry&quot; &quot;strawberry&quot;
-str_subset(fruit, &quot;\\bberry&quot;)
-#&gt; [1] &quot;goji berry&quot;  &quot;salal berry&quot;
-str_subset(fruit, &quot;\\Bberry&quot;)
-#&gt;  [1] &quot;bilberry&quot;    &quot;blackberry&quot;  &quot;blueberry&quot;   &quot;boysenberry&quot; &quot;cloudberry&quot; 
-#&gt;  [6] &quot;cranberry&quot;   &quot;elderberry&quot;  &quot;gooseberry&quot;  &quot;huckleberry&quot; &quot;mulberry&quot;   
-#&gt; [11] &quot;raspberry&quot;   &quot;strawberry&quot;</code></pre>
-<p>Characters can be specified via classes. You make them “by hand” or use some pre-existing ones. The <a href="block022_regular-expression.html">2014 STAT 545 regex lesson</a> has detailed coverage of other classes.</p>
-<pre class="r"><code>## making the class by hand
+<div id="load-gapminder" class="section level4">
+<h4>Load Gapminder</h4>
+<p>The country names in the gapminder dataset are convenient for examples. Load it now and store the 142 unique country names to the object <code>countries</code>.</p>
+<pre class="r"><code>library(gapminder)
+countries &lt;- levels(gapminder$country)</code></pre>
+</div>
+<div id="characters-with-special-meaning" class="section level4">
+<h4>Characters with special meaning</h4>
+<p>Frequently your string tasks cannot be expressed in terms of a fixed string, but can be described in terms of a <strong>pattern</strong>. Regular expressions, aka “regexes”, are the standard way to specify these patterns. In regexes, specific characters and constructs take on special meaning in order to match multiple strings.</p>
+<p>The first placeholder is the period <code>.</code>, which stands for any single character, except a newline (which by the way, is represented by <code>\n</code>). The regex <code>a.b</code> will match all countries that have an <code>a</code>, followed by any single character, followed by <code>b</code>. Yes, regexes are case sensitive.</p>
+<pre class="r"><code>str_subset(countries, &quot;i.a&quot;)
+#&gt;  [1] &quot;Argentina&quot;                &quot;Bosnia and Herzegovina&quot;  
+#&gt;  [3] &quot;Burkina Faso&quot;             &quot;Central African Republic&quot;
+#&gt;  [5] &quot;China&quot;                    &quot;Costa Rica&quot;              
+#&gt;  [7] &quot;Dominican Republic&quot;       &quot;Hong Kong, China&quot;        
+#&gt;  [9] &quot;Jamaica&quot;                  &quot;Mauritania&quot;              
+#&gt; [11] &quot;Nicaragua&quot;                &quot;South Africa&quot;            
+#&gt; [13] &quot;Swaziland&quot;                &quot;Taiwan&quot;                  
+#&gt; [15] &quot;Thailand&quot;                 &quot;Trinidad and Tobago&quot;</code></pre>
+<p>Notice that <code>i.a</code> matches “ina”, “ica”, “ita”, and more.</p>
+<p><strong>Anchors</strong> can be included to express where the expression must occur within the string. The <code>^</code> indicates the beginning of string and <code>$</code> indicates the end.</p>
+<p>Note how the regex <code>i.a$</code> matches many fewer countries than <code>i.a</code> alone. Likewise, more fruits match <code>d</code> in <code>my_fruit</code> than <code>^d</code>, which requires “d” at string start.</p>
+<pre class="r"><code>str_subset(countries, &quot;i.a$&quot;)
+#&gt; [1] &quot;Argentina&quot;              &quot;Bosnia and Herzegovina&quot;
+#&gt; [3] &quot;China&quot;                  &quot;Costa Rica&quot;            
+#&gt; [5] &quot;Hong Kong, China&quot;       &quot;Jamaica&quot;               
+#&gt; [7] &quot;South Africa&quot;
+str_subset(my_fruit, &quot;d&quot;)
+#&gt; [1] &quot;breadfruit&quot;  &quot;dragonfruit&quot;
+str_subset(my_fruit, &quot;^d&quot;)
+#&gt; [1] &quot;dragonfruit&quot;</code></pre>
+<p>The sequence <code>\b</code> indicates a <strong>word boundary</strong> and <code>\B</code> indicates NOT a word boundary. This is our first encounter with something called “escaping” and right now I just want you at accept that we need to prepend a second backslash to use these sequences in regexes in R. We’ll come back to this tedious point later.</p>
+<pre class="r"><code>str_subset(fruit, &quot;melon&quot;)
+#&gt; [1] &quot;canary melon&quot; &quot;rock melon&quot;   &quot;watermelon&quot;
+str_subset(fruit, &quot;\\bmelon&quot;)
+#&gt; [1] &quot;canary melon&quot; &quot;rock melon&quot;
+str_subset(fruit, &quot;\\Bmelon&quot;)
+#&gt; [1] &quot;watermelon&quot;</code></pre>
+</div>
+<div id="character-classes" class="section level4">
+<h4>Character classes</h4>
+<p>Characters can be specified via classes. You can make them explicitly “by hand” or use some pre-existing ones. The <a href="block022_regular-expression.html">2014 STAT 545 regex lesson</a> has a good list of character classes. Character classes are often given inside square brackets, <code>[]</code> but a few come up so often that we have “shorthand”, such as <code>\d</code> for a single digit, or a POSIX class (examples below).</p>
+<p>Here we match <code>ia</code> at the end of the country name, preceded by one of the characters in the class. Or, in the negated class, preceded by anything but one of those characters.</p>
+<pre class="r"><code>## make a class &quot;by hand&quot;
 str_subset(countries, &quot;[nls]ia$&quot;)
 #&gt;  [1] &quot;Albania&quot;    &quot;Australia&quot;  &quot;Indonesia&quot;  &quot;Malaysia&quot;   &quot;Mauritania&quot;
 #&gt;  [6] &quot;Mongolia&quot;   &quot;Romania&quot;    &quot;Slovenia&quot;   &quot;Somalia&quot;    &quot;Tanzania&quot;  
 #&gt; [11] &quot;Tunisia&quot;
-## negation
+## use ^ to negate the class
 str_subset(countries, &quot;[^nls]ia$&quot;)
 #&gt;  [1] &quot;Algeria&quot;      &quot;Austria&quot;      &quot;Bolivia&quot;      &quot;Bulgaria&quot;    
 #&gt;  [5] &quot;Cambodia&quot;     &quot;Colombia&quot;     &quot;Croatia&quot;      &quot;Ethiopia&quot;    
 #&gt;  [9] &quot;Gambia&quot;       &quot;India&quot;        &quot;Liberia&quot;      &quot;Namibia&quot;     
 #&gt; [13] &quot;Nigeria&quot;      &quot;Saudi Arabia&quot; &quot;Serbia&quot;       &quot;Syria&quot;       
-#&gt; [17] &quot;Zambia&quot;
-## remember this?
-str_split_fixed(fruit, &quot; &quot;, 2)
-#&gt;       [,1]           [,2]        
-#&gt;  [1,] &quot;apple&quot;        &quot;&quot;          
-#&gt;  [2,] &quot;apricot&quot;      &quot;&quot;          
-#&gt;  [3,] &quot;avocado&quot;      &quot;&quot;          
-#&gt;  [4,] &quot;banana&quot;       &quot;&quot;          
-#&gt;  [5,] &quot;bell&quot;         &quot;pepper&quot;    
-#&gt;  [6,] &quot;bilberry&quot;     &quot;&quot;          
-#&gt;  [7,] &quot;blackberry&quot;   &quot;&quot;          
-#&gt;  [8,] &quot;blackcurrant&quot; &quot;&quot;          
-#&gt;  [9,] &quot;blood&quot;        &quot;orange&quot;    
-#&gt; [10,] &quot;blueberry&quot;    &quot;&quot;          
-#&gt; [11,] &quot;boysenberry&quot;  &quot;&quot;          
-#&gt; [12,] &quot;breadfruit&quot;   &quot;&quot;          
-#&gt; [13,] &quot;canary&quot;       &quot;melon&quot;     
-#&gt; [14,] &quot;cantaloupe&quot;   &quot;&quot;          
-#&gt; [15,] &quot;cherimoya&quot;    &quot;&quot;          
-#&gt; [16,] &quot;cherry&quot;       &quot;&quot;          
-#&gt; [17,] &quot;chili&quot;        &quot;pepper&quot;    
-#&gt; [18,] &quot;clementine&quot;   &quot;&quot;          
-#&gt; [19,] &quot;cloudberry&quot;   &quot;&quot;          
-#&gt; [20,] &quot;coconut&quot;      &quot;&quot;          
-#&gt; [21,] &quot;cranberry&quot;    &quot;&quot;          
-#&gt; [22,] &quot;cucumber&quot;     &quot;&quot;          
-#&gt; [23,] &quot;currant&quot;      &quot;&quot;          
-#&gt; [24,] &quot;damson&quot;       &quot;&quot;          
-#&gt; [25,] &quot;date&quot;         &quot;&quot;          
-#&gt; [26,] &quot;dragonfruit&quot;  &quot;&quot;          
-#&gt; [27,] &quot;durian&quot;       &quot;&quot;          
-#&gt; [28,] &quot;eggplant&quot;     &quot;&quot;          
-#&gt; [29,] &quot;elderberry&quot;   &quot;&quot;          
-#&gt; [30,] &quot;feijoa&quot;       &quot;&quot;          
-#&gt; [31,] &quot;fig&quot;          &quot;&quot;          
-#&gt; [32,] &quot;goji&quot;         &quot;berry&quot;     
-#&gt; [33,] &quot;gooseberry&quot;   &quot;&quot;          
-#&gt; [34,] &quot;grape&quot;        &quot;&quot;          
-#&gt; [35,] &quot;grapefruit&quot;   &quot;&quot;          
-#&gt; [36,] &quot;guava&quot;        &quot;&quot;          
-#&gt; [37,] &quot;honeydew&quot;     &quot;&quot;          
-#&gt; [38,] &quot;huckleberry&quot;  &quot;&quot;          
-#&gt; [39,] &quot;jackfruit&quot;    &quot;&quot;          
-#&gt; [40,] &quot;jambul&quot;       &quot;&quot;          
-#&gt; [41,] &quot;jujube&quot;       &quot;&quot;          
-#&gt; [42,] &quot;kiwi&quot;         &quot;fruit&quot;     
-#&gt; [43,] &quot;kumquat&quot;      &quot;&quot;          
-#&gt; [44,] &quot;lemon&quot;        &quot;&quot;          
-#&gt; [45,] &quot;lime&quot;         &quot;&quot;          
-#&gt; [46,] &quot;loquat&quot;       &quot;&quot;          
-#&gt; [47,] &quot;lychee&quot;       &quot;&quot;          
-#&gt; [48,] &quot;mandarine&quot;    &quot;&quot;          
-#&gt; [49,] &quot;mango&quot;        &quot;&quot;          
-#&gt; [50,] &quot;mulberry&quot;     &quot;&quot;          
-#&gt; [51,] &quot;nectarine&quot;    &quot;&quot;          
-#&gt; [52,] &quot;nut&quot;          &quot;&quot;          
-#&gt; [53,] &quot;olive&quot;        &quot;&quot;          
-#&gt; [54,] &quot;orange&quot;       &quot;&quot;          
-#&gt; [55,] &quot;pamelo&quot;       &quot;&quot;          
-#&gt; [56,] &quot;papaya&quot;       &quot;&quot;          
-#&gt; [57,] &quot;passionfruit&quot; &quot;&quot;          
-#&gt; [58,] &quot;peach&quot;        &quot;&quot;          
-#&gt; [59,] &quot;pear&quot;         &quot;&quot;          
-#&gt; [60,] &quot;persimmon&quot;    &quot;&quot;          
-#&gt; [61,] &quot;physalis&quot;     &quot;&quot;          
-#&gt; [62,] &quot;pineapple&quot;    &quot;&quot;          
-#&gt; [63,] &quot;plum&quot;         &quot;&quot;          
-#&gt; [64,] &quot;pomegranate&quot;  &quot;&quot;          
-#&gt; [65,] &quot;pomelo&quot;       &quot;&quot;          
-#&gt; [66,] &quot;purple&quot;       &quot;mangosteen&quot;
-#&gt; [67,] &quot;quince&quot;       &quot;&quot;          
-#&gt; [68,] &quot;raisin&quot;       &quot;&quot;          
-#&gt; [69,] &quot;rambutan&quot;     &quot;&quot;          
-#&gt; [70,] &quot;raspberry&quot;    &quot;&quot;          
-#&gt; [71,] &quot;redcurrant&quot;   &quot;&quot;          
-#&gt; [72,] &quot;rock&quot;         &quot;melon&quot;     
-#&gt; [73,] &quot;salal&quot;        &quot;berry&quot;     
-#&gt; [74,] &quot;satsuma&quot;      &quot;&quot;          
-#&gt; [75,] &quot;star&quot;         &quot;fruit&quot;     
-#&gt; [76,] &quot;strawberry&quot;   &quot;&quot;          
-#&gt; [77,] &quot;tamarillo&quot;    &quot;&quot;          
-#&gt; [78,] &quot;tangerine&quot;    &quot;&quot;          
-#&gt; [79,] &quot;ugli&quot;         &quot;fruit&quot;     
-#&gt; [80,] &quot;watermelon&quot;   &quot;&quot;
-## another way to say &#39;a character of whitespace&#39; (space, tab, newline)
-str_split_fixed(fruit, &quot;\\s&quot;, 2)
-#&gt;       [,1]           [,2]        
-#&gt;  [1,] &quot;apple&quot;        &quot;&quot;          
-#&gt;  [2,] &quot;apricot&quot;      &quot;&quot;          
-#&gt;  [3,] &quot;avocado&quot;      &quot;&quot;          
-#&gt;  [4,] &quot;banana&quot;       &quot;&quot;          
-#&gt;  [5,] &quot;bell&quot;         &quot;pepper&quot;    
-#&gt;  [6,] &quot;bilberry&quot;     &quot;&quot;          
-#&gt;  [7,] &quot;blackberry&quot;   &quot;&quot;          
-#&gt;  [8,] &quot;blackcurrant&quot; &quot;&quot;          
-#&gt;  [9,] &quot;blood&quot;        &quot;orange&quot;    
-#&gt; [10,] &quot;blueberry&quot;    &quot;&quot;          
-#&gt; [11,] &quot;boysenberry&quot;  &quot;&quot;          
-#&gt; [12,] &quot;breadfruit&quot;   &quot;&quot;          
-#&gt; [13,] &quot;canary&quot;       &quot;melon&quot;     
-#&gt; [14,] &quot;cantaloupe&quot;   &quot;&quot;          
-#&gt; [15,] &quot;cherimoya&quot;    &quot;&quot;          
-#&gt; [16,] &quot;cherry&quot;       &quot;&quot;          
-#&gt; [17,] &quot;chili&quot;        &quot;pepper&quot;    
-#&gt; [18,] &quot;clementine&quot;   &quot;&quot;          
-#&gt; [19,] &quot;cloudberry&quot;   &quot;&quot;          
-#&gt; [20,] &quot;coconut&quot;      &quot;&quot;          
-#&gt; [21,] &quot;cranberry&quot;    &quot;&quot;          
-#&gt; [22,] &quot;cucumber&quot;     &quot;&quot;          
-#&gt; [23,] &quot;currant&quot;      &quot;&quot;          
-#&gt; [24,] &quot;damson&quot;       &quot;&quot;          
-#&gt; [25,] &quot;date&quot;         &quot;&quot;          
-#&gt; [26,] &quot;dragonfruit&quot;  &quot;&quot;          
-#&gt; [27,] &quot;durian&quot;       &quot;&quot;          
-#&gt; [28,] &quot;eggplant&quot;     &quot;&quot;          
-#&gt; [29,] &quot;elderberry&quot;   &quot;&quot;          
-#&gt; [30,] &quot;feijoa&quot;       &quot;&quot;          
-#&gt; [31,] &quot;fig&quot;          &quot;&quot;          
-#&gt; [32,] &quot;goji&quot;         &quot;berry&quot;     
-#&gt; [33,] &quot;gooseberry&quot;   &quot;&quot;          
-#&gt; [34,] &quot;grape&quot;        &quot;&quot;          
-#&gt; [35,] &quot;grapefruit&quot;   &quot;&quot;          
-#&gt; [36,] &quot;guava&quot;        &quot;&quot;          
-#&gt; [37,] &quot;honeydew&quot;     &quot;&quot;          
-#&gt; [38,] &quot;huckleberry&quot;  &quot;&quot;          
-#&gt; [39,] &quot;jackfruit&quot;    &quot;&quot;          
-#&gt; [40,] &quot;jambul&quot;       &quot;&quot;          
-#&gt; [41,] &quot;jujube&quot;       &quot;&quot;          
-#&gt; [42,] &quot;kiwi&quot;         &quot;fruit&quot;     
-#&gt; [43,] &quot;kumquat&quot;      &quot;&quot;          
-#&gt; [44,] &quot;lemon&quot;        &quot;&quot;          
-#&gt; [45,] &quot;lime&quot;         &quot;&quot;          
-#&gt; [46,] &quot;loquat&quot;       &quot;&quot;          
-#&gt; [47,] &quot;lychee&quot;       &quot;&quot;          
-#&gt; [48,] &quot;mandarine&quot;    &quot;&quot;          
-#&gt; [49,] &quot;mango&quot;        &quot;&quot;          
-#&gt; [50,] &quot;mulberry&quot;     &quot;&quot;          
-#&gt; [51,] &quot;nectarine&quot;    &quot;&quot;          
-#&gt; [52,] &quot;nut&quot;          &quot;&quot;          
-#&gt; [53,] &quot;olive&quot;        &quot;&quot;          
-#&gt; [54,] &quot;orange&quot;       &quot;&quot;          
-#&gt; [55,] &quot;pamelo&quot;       &quot;&quot;          
-#&gt; [56,] &quot;papaya&quot;       &quot;&quot;          
-#&gt; [57,] &quot;passionfruit&quot; &quot;&quot;          
-#&gt; [58,] &quot;peach&quot;        &quot;&quot;          
-#&gt; [59,] &quot;pear&quot;         &quot;&quot;          
-#&gt; [60,] &quot;persimmon&quot;    &quot;&quot;          
-#&gt; [61,] &quot;physalis&quot;     &quot;&quot;          
-#&gt; [62,] &quot;pineapple&quot;    &quot;&quot;          
-#&gt; [63,] &quot;plum&quot;         &quot;&quot;          
-#&gt; [64,] &quot;pomegranate&quot;  &quot;&quot;          
-#&gt; [65,] &quot;pomelo&quot;       &quot;&quot;          
-#&gt; [66,] &quot;purple&quot;       &quot;mangosteen&quot;
-#&gt; [67,] &quot;quince&quot;       &quot;&quot;          
-#&gt; [68,] &quot;raisin&quot;       &quot;&quot;          
-#&gt; [69,] &quot;rambutan&quot;     &quot;&quot;          
-#&gt; [70,] &quot;raspberry&quot;    &quot;&quot;          
-#&gt; [71,] &quot;redcurrant&quot;   &quot;&quot;          
-#&gt; [72,] &quot;rock&quot;         &quot;melon&quot;     
-#&gt; [73,] &quot;salal&quot;        &quot;berry&quot;     
-#&gt; [74,] &quot;satsuma&quot;      &quot;&quot;          
-#&gt; [75,] &quot;star&quot;         &quot;fruit&quot;     
-#&gt; [76,] &quot;strawberry&quot;   &quot;&quot;          
-#&gt; [77,] &quot;tamarillo&quot;    &quot;&quot;          
-#&gt; [78,] &quot;tangerine&quot;    &quot;&quot;          
-#&gt; [79,] &quot;ugli&quot;         &quot;fruit&quot;     
-#&gt; [80,] &quot;watermelon&quot;   &quot;&quot;
-## punctuation
-str_subset(countries, &quot;,&quot;)
-#&gt; [1] &quot;Congo, Dem. Rep.&quot; &quot;Congo, Rep.&quot;      &quot;Hong Kong, China&quot;
-#&gt; [4] &quot;Korea, Dem. Rep.&quot; &quot;Korea, Rep.&quot;      &quot;Yemen, Rep.&quot;
-str_subset(countries, &quot;[[:punct:]]&quot;)
+#&gt; [17] &quot;Zambia&quot;</code></pre>
+<p>Here we revisit splitting <code>my_fruit</code> with two more general ways to match whitespace: the <code>\s</code> shorthand and the POSIX class <code>[:space:]</code>. Notice that we must prepend an extra backslash <code>\</code> to escape <code>\s</code> and the POSIX class has to be surrounded by two sets of square brackets.</p>
+<pre class="r"><code>## remember this?
+# str_split_fixed(fruit, &quot; &quot;, 2)
+## alternatives
+str_split_fixed(my_fruit, &quot;\\s&quot;, 2)
+#&gt;      [,1]           [,2]   
+#&gt; [1,] &quot;breadfruit&quot;   &quot;&quot;     
+#&gt; [2,] &quot;dragonfruit&quot;  &quot;&quot;     
+#&gt; [3,] &quot;grapefruit&quot;   &quot;&quot;     
+#&gt; [4,] &quot;jackfruit&quot;    &quot;&quot;     
+#&gt; [5,] &quot;kiwi&quot;         &quot;fruit&quot;
+#&gt; [6,] &quot;passionfruit&quot; &quot;&quot;     
+#&gt; [7,] &quot;star&quot;         &quot;fruit&quot;
+#&gt; [8,] &quot;ugli&quot;         &quot;fruit&quot;
+str_split_fixed(my_fruit, &quot;[[:space:]]&quot;, 2)
+#&gt;      [,1]           [,2]   
+#&gt; [1,] &quot;breadfruit&quot;   &quot;&quot;     
+#&gt; [2,] &quot;dragonfruit&quot;  &quot;&quot;     
+#&gt; [3,] &quot;grapefruit&quot;   &quot;&quot;     
+#&gt; [4,] &quot;jackfruit&quot;    &quot;&quot;     
+#&gt; [5,] &quot;kiwi&quot;         &quot;fruit&quot;
+#&gt; [6,] &quot;passionfruit&quot; &quot;&quot;     
+#&gt; [7,] &quot;star&quot;         &quot;fruit&quot;
+#&gt; [8,] &quot;ugli&quot;         &quot;fruit&quot;</code></pre>
+<p>Let’s see the country names that contain punctuation.</p>
+<pre class="r"><code>str_subset(countries, &quot;[[:punct:]]&quot;)
 #&gt; [1] &quot;Congo, Dem. Rep.&quot; &quot;Congo, Rep.&quot;      &quot;Cote d&#39;Ivoire&quot;   
 #&gt; [4] &quot;Guinea-Bissau&quot;    &quot;Hong Kong, China&quot; &quot;Korea, Dem. Rep.&quot;
 #&gt; [7] &quot;Korea, Rep.&quot;      &quot;Yemen, Rep.&quot;</code></pre>
-<p>You can modify with a quantifier:</p>
-<ul>
-<li><code>*</code> means “0 or more”</li>
-<li><code>+</code> means “1 or more”</li>
-<li><code>?</code> means “exactly 0 or 1”</li>
-<li><code>{n}</code> means “exactly n times”</li>
-<li><code>{n,}</code> means “at least n times”</li>
-<li><code>{,m}</code> means “at most m times”</li>
-<li><code>{n,m}</code> means “between n and m times”</li>
-</ul>
-<pre class="r"><code>str_subset(countries, &quot;e&quot;)
-#&gt;  [1] &quot;Algeria&quot;                  &quot;Argentina&quot;               
-#&gt;  [3] &quot;Bangladesh&quot;               &quot;Belgium&quot;                 
-#&gt;  [5] &quot;Benin&quot;                    &quot;Bosnia and Herzegovina&quot;  
-#&gt;  [7] &quot;Cameroon&quot;                 &quot;Central African Republic&quot;
-#&gt;  [9] &quot;Chile&quot;                    &quot;Congo, Dem. Rep.&quot;        
-#&gt; [11] &quot;Congo, Rep.&quot;              &quot;Cote d&#39;Ivoire&quot;           
-#&gt; [13] &quot;Czech Republic&quot;           &quot;Denmark&quot;                 
-#&gt; [15] &quot;Dominican Republic&quot;       &quot;Equatorial Guinea&quot;       
-#&gt; [17] &quot;Eritrea&quot;                  &quot;France&quot;                  
-#&gt; [19] &quot;Germany&quot;                  &quot;Greece&quot;                  
-#&gt; [21] &quot;Guatemala&quot;                &quot;Guinea&quot;                  
-#&gt; [23] &quot;Guinea-Bissau&quot;            &quot;Iceland&quot;                 
-#&gt; [25] &quot;Indonesia&quot;                &quot;Ireland&quot;                 
-#&gt; [27] &quot;Israel&quot;                   &quot;Kenya&quot;                   
-#&gt; [29] &quot;Korea, Dem. Rep.&quot;         &quot;Korea, Rep.&quot;             
-#&gt; [31] &quot;Lebanon&quot;                  &quot;Lesotho&quot;                 
-#&gt; [33] &quot;Liberia&quot;                  &quot;Mexico&quot;                  
-#&gt; [35] &quot;Montenegro&quot;               &quot;Mozambique&quot;              
-#&gt; [37] &quot;Nepal&quot;                    &quot;Netherlands&quot;             
-#&gt; [39] &quot;New Zealand&quot;              &quot;Niger&quot;                   
-#&gt; [41] &quot;Nigeria&quot;                  &quot;Peru&quot;                    
-#&gt; [43] &quot;Philippines&quot;              &quot;Puerto Rico&quot;             
-#&gt; [45] &quot;Reunion&quot;                  &quot;Sao Tome and Principe&quot;   
-#&gt; [47] &quot;Senegal&quot;                  &quot;Serbia&quot;                  
-#&gt; [49] &quot;Sierra Leone&quot;             &quot;Singapore&quot;               
-#&gt; [51] &quot;Slovak Republic&quot;          &quot;Slovenia&quot;                
-#&gt; [53] &quot;Sweden&quot;                   &quot;Switzerland&quot;             
-#&gt; [55] &quot;Turkey&quot;                   &quot;United Kingdom&quot;          
-#&gt; [57] &quot;United States&quot;            &quot;Venezuela&quot;               
-#&gt; [59] &quot;Vietnam&quot;                  &quot;West Bank and Gaza&quot;      
-#&gt; [61] &quot;Yemen, Rep.&quot;              &quot;Zimbabwe&quot;
-str_subset(countries, &quot;ee&quot;)
-#&gt; [1] &quot;Greece&quot;
-str_subset(countries, &quot;e{2}&quot;)
-#&gt; [1] &quot;Greece&quot;
-str_subset(countries, &quot;,&quot;)
-#&gt; [1] &quot;Congo, Dem. Rep.&quot; &quot;Congo, Rep.&quot;      &quot;Hong Kong, China&quot;
-#&gt; [4] &quot;Korea, Dem. Rep.&quot; &quot;Korea, Rep.&quot;      &quot;Yemen, Rep.&quot;</code></pre>
-<p>Combine your new knowledge of regex with extraction, replacement, splitting.</p>
-<pre class="r"><code>str_extract(countries, &quot;lia&quot;)
-#&gt;   [1] NA    NA    NA    NA    NA    &quot;lia&quot; NA    NA    NA    NA    NA   
-#&gt;  [12] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#&gt;  [23] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#&gt;  [34] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#&gt;  [45] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#&gt;  [56] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#&gt;  [67] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#&gt;  [78] NA    NA    NA    NA    NA    NA    &quot;lia&quot; NA    NA    NA    NA   
-#&gt;  [89] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#&gt; [100] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#&gt; [111] NA    NA    NA    NA    NA    NA    &quot;lia&quot; NA    NA    NA    NA   
-#&gt; [122] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#&gt; [133] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA
-str_extract(countries, &quot;[dnlrst]ia&quot;)
-#&gt;   [1] NA    &quot;nia&quot; &quot;ria&quot; NA    NA    &quot;lia&quot; &quot;ria&quot; NA    NA    NA    NA   
-#&gt;  [12] NA    &quot;nia&quot; NA    NA    &quot;ria&quot; NA    NA    &quot;dia&quot; NA    NA    NA   
-#&gt;  [23] NA    NA    NA    NA    NA    NA    NA    NA    NA    &quot;tia&quot; NA   
-#&gt;  [34] NA    NA    NA    NA    NA    NA    NA    &quot;ria&quot; NA    NA    NA   
-#&gt;  [45] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#&gt;  [56] NA    NA    NA    &quot;dia&quot; &quot;sia&quot; NA    NA    NA    NA    NA    NA   
-#&gt;  [67] NA    NA    NA    NA    NA    NA    NA    NA    &quot;ria&quot; NA    NA   
-#&gt;  [78] NA    &quot;sia&quot; NA    &quot;nia&quot; NA    NA    &quot;lia&quot; NA    NA    NA    NA   
-#&gt;  [89] NA    NA    NA    NA    NA    NA    &quot;ria&quot; NA    NA    NA    NA   
-#&gt; [100] NA    NA    NA    NA    NA    NA    NA    &quot;nia&quot; NA    NA    NA   
-#&gt; [111] NA    NA    NA    NA    NA    &quot;nia&quot; &quot;lia&quot; NA    NA    NA    NA   
-#&gt; [122] NA    NA    NA    &quot;ria&quot; NA    &quot;nia&quot; NA    NA    NA    &quot;sia&quot; NA   
-#&gt; [133] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA
-str_replace(countries, &quot;[dnrlst]ia&quot;, &quot;LAND&quot;)
-#&gt;   [1] &quot;Afghanistan&quot;              &quot;AlbaLAND&quot;                
-#&gt;   [3] &quot;AlgeLAND&quot;                 &quot;Angola&quot;                  
-#&gt;   [5] &quot;Argentina&quot;                &quot;AustraLAND&quot;              
-#&gt;   [7] &quot;AustLAND&quot;                 &quot;Bahrain&quot;                 
-#&gt;   [9] &quot;Bangladesh&quot;               &quot;Belgium&quot;                 
-#&gt;  [11] &quot;Benin&quot;                    &quot;Bolivia&quot;                 
-#&gt;  [13] &quot;BosLAND and Herzegovina&quot;  &quot;Botswana&quot;                
-#&gt;  [15] &quot;Brazil&quot;                   &quot;BulgaLAND&quot;               
-#&gt;  [17] &quot;Burkina Faso&quot;             &quot;Burundi&quot;                 
-#&gt;  [19] &quot;CamboLAND&quot;                &quot;Cameroon&quot;                
-#&gt;  [21] &quot;Canada&quot;                   &quot;Central African Republic&quot;
-#&gt;  [23] &quot;Chad&quot;                     &quot;Chile&quot;                   
-#&gt;  [25] &quot;China&quot;                    &quot;Colombia&quot;                
-#&gt;  [27] &quot;Comoros&quot;                  &quot;Congo, Dem. Rep.&quot;        
-#&gt;  [29] &quot;Congo, Rep.&quot;              &quot;Costa Rica&quot;              
-#&gt;  [31] &quot;Cote d&#39;Ivoire&quot;            &quot;CroaLAND&quot;                
-#&gt;  [33] &quot;Cuba&quot;                     &quot;Czech Republic&quot;          
-#&gt;  [35] &quot;Denmark&quot;                  &quot;Djibouti&quot;                
-#&gt;  [37] &quot;Dominican Republic&quot;       &quot;Ecuador&quot;                 
-#&gt;  [39] &quot;Egypt&quot;                    &quot;El Salvador&quot;             
-#&gt;  [41] &quot;EquatoLANDl Guinea&quot;       &quot;Eritrea&quot;                 
-#&gt;  [43] &quot;Ethiopia&quot;                 &quot;Finland&quot;                 
-#&gt;  [45] &quot;France&quot;                   &quot;Gabon&quot;                   
-#&gt;  [47] &quot;Gambia&quot;                   &quot;Germany&quot;                 
-#&gt;  [49] &quot;Ghana&quot;                    &quot;Greece&quot;                  
-#&gt;  [51] &quot;Guatemala&quot;                &quot;Guinea&quot;                  
-#&gt;  [53] &quot;Guinea-Bissau&quot;            &quot;Haiti&quot;                   
-#&gt;  [55] &quot;Honduras&quot;                 &quot;Hong Kong, China&quot;        
-#&gt;  [57] &quot;Hungary&quot;                  &quot;Iceland&quot;                 
-#&gt;  [59] &quot;InLAND&quot;                   &quot;IndoneLAND&quot;              
-#&gt;  [61] &quot;Iran&quot;                     &quot;Iraq&quot;                    
-#&gt;  [63] &quot;Ireland&quot;                  &quot;Israel&quot;                  
-#&gt;  [65] &quot;Italy&quot;                    &quot;Jamaica&quot;                 
-#&gt;  [67] &quot;Japan&quot;                    &quot;Jordan&quot;                  
-#&gt;  [69] &quot;Kenya&quot;                    &quot;Korea, Dem. Rep.&quot;        
-#&gt;  [71] &quot;Korea, Rep.&quot;              &quot;Kuwait&quot;                  
-#&gt;  [73] &quot;Lebanon&quot;                  &quot;Lesotho&quot;                 
-#&gt;  [75] &quot;LibeLAND&quot;                 &quot;Libya&quot;                   
-#&gt;  [77] &quot;Madagascar&quot;               &quot;Malawi&quot;                  
-#&gt;  [79] &quot;MalayLAND&quot;                &quot;Mali&quot;                    
-#&gt;  [81] &quot;MauritaLAND&quot;              &quot;Mauritius&quot;               
-#&gt;  [83] &quot;Mexico&quot;                   &quot;MongoLAND&quot;               
-#&gt;  [85] &quot;Montenegro&quot;               &quot;Morocco&quot;                 
-#&gt;  [87] &quot;Mozambique&quot;               &quot;Myanmar&quot;                 
-#&gt;  [89] &quot;Namibia&quot;                  &quot;Nepal&quot;                   
-#&gt;  [91] &quot;Netherlands&quot;              &quot;New Zealand&quot;             
-#&gt;  [93] &quot;Nicaragua&quot;                &quot;Niger&quot;                   
-#&gt;  [95] &quot;NigeLAND&quot;                 &quot;Norway&quot;                  
-#&gt;  [97] &quot;Oman&quot;                     &quot;Pakistan&quot;                
-#&gt;  [99] &quot;Panama&quot;                   &quot;Paraguay&quot;                
-#&gt; [101] &quot;Peru&quot;                     &quot;Philippines&quot;             
-#&gt; [103] &quot;Poland&quot;                   &quot;Portugal&quot;                
-#&gt; [105] &quot;Puerto Rico&quot;              &quot;Reunion&quot;                 
-#&gt; [107] &quot;RomaLAND&quot;                 &quot;Rwanda&quot;                  
-#&gt; [109] &quot;Sao Tome and Principe&quot;    &quot;Saudi Arabia&quot;            
-#&gt; [111] &quot;Senegal&quot;                  &quot;Serbia&quot;                  
-#&gt; [113] &quot;Sierra Leone&quot;             &quot;Singapore&quot;               
-#&gt; [115] &quot;Slovak Republic&quot;          &quot;SloveLAND&quot;               
-#&gt; [117] &quot;SomaLAND&quot;                 &quot;South Africa&quot;            
-#&gt; [119] &quot;Spain&quot;                    &quot;Sri Lanka&quot;               
-#&gt; [121] &quot;Sudan&quot;                    &quot;Swaziland&quot;               
-#&gt; [123] &quot;Sweden&quot;                   &quot;Switzerland&quot;             
-#&gt; [125] &quot;SyLAND&quot;                   &quot;Taiwan&quot;                  
-#&gt; [127] &quot;TanzaLAND&quot;                &quot;Thailand&quot;                
-#&gt; [129] &quot;Togo&quot;                     &quot;Trinidad and Tobago&quot;     
-#&gt; [131] &quot;TuniLAND&quot;                 &quot;Turkey&quot;                  
-#&gt; [133] &quot;Uganda&quot;                   &quot;United Kingdom&quot;          
-#&gt; [135] &quot;United States&quot;            &quot;Uruguay&quot;                 
-#&gt; [137] &quot;Venezuela&quot;                &quot;Vietnam&quot;                 
-#&gt; [139] &quot;West Bank and Gaza&quot;       &quot;Yemen, Rep.&quot;             
-#&gt; [141] &quot;Zambia&quot;                   &quot;Zimbabwe&quot;
-str_split(countries, &quot;\\W&quot;) ## \W mean &#39;not a word character&#39;
-#&gt; [[1]]
-#&gt; [1] &quot;Afghanistan&quot;
-#&gt; 
-#&gt; [[2]]
-#&gt; [1] &quot;Albania&quot;
-#&gt; 
-#&gt; [[3]]
-#&gt; [1] &quot;Algeria&quot;
-#&gt; 
-#&gt; [[4]]
-#&gt; [1] &quot;Angola&quot;
-#&gt; 
-#&gt; [[5]]
-#&gt; [1] &quot;Argentina&quot;
-#&gt; 
-#&gt; [[6]]
-#&gt; [1] &quot;Australia&quot;
-#&gt; 
-#&gt; [[7]]
-#&gt; [1] &quot;Austria&quot;
-#&gt; 
-#&gt; [[8]]
-#&gt; [1] &quot;Bahrain&quot;
-#&gt; 
-#&gt; [[9]]
-#&gt; [1] &quot;Bangladesh&quot;
-#&gt; 
-#&gt; [[10]]
-#&gt; [1] &quot;Belgium&quot;
-#&gt; 
-#&gt; [[11]]
-#&gt; [1] &quot;Benin&quot;
-#&gt; 
-#&gt; [[12]]
-#&gt; [1] &quot;Bolivia&quot;
-#&gt; 
-#&gt; [[13]]
-#&gt; [1] &quot;Bosnia&quot;      &quot;and&quot;         &quot;Herzegovina&quot;
-#&gt; 
-#&gt; [[14]]
-#&gt; [1] &quot;Botswana&quot;
-#&gt; 
-#&gt; [[15]]
-#&gt; [1] &quot;Brazil&quot;
-#&gt; 
-#&gt; [[16]]
-#&gt; [1] &quot;Bulgaria&quot;
-#&gt; 
-#&gt; [[17]]
-#&gt; [1] &quot;Burkina&quot; &quot;Faso&quot;   
-#&gt; 
-#&gt; [[18]]
-#&gt; [1] &quot;Burundi&quot;
-#&gt; 
-#&gt; [[19]]
-#&gt; [1] &quot;Cambodia&quot;
-#&gt; 
-#&gt; [[20]]
-#&gt; [1] &quot;Cameroon&quot;
-#&gt; 
-#&gt; [[21]]
-#&gt; [1] &quot;Canada&quot;
-#&gt; 
-#&gt; [[22]]
-#&gt; [1] &quot;Central&quot;  &quot;African&quot;  &quot;Republic&quot;
-#&gt; 
-#&gt; [[23]]
-#&gt; [1] &quot;Chad&quot;
-#&gt; 
-#&gt; [[24]]
-#&gt; [1] &quot;Chile&quot;
-#&gt; 
-#&gt; [[25]]
-#&gt; [1] &quot;China&quot;
-#&gt; 
-#&gt; [[26]]
-#&gt; [1] &quot;Colombia&quot;
-#&gt; 
-#&gt; [[27]]
-#&gt; [1] &quot;Comoros&quot;
-#&gt; 
-#&gt; [[28]]
-#&gt; [1] &quot;Congo&quot; &quot;&quot;      &quot;Dem&quot;   &quot;&quot;      &quot;Rep&quot;   &quot;&quot;     
-#&gt; 
-#&gt; [[29]]
-#&gt; [1] &quot;Congo&quot; &quot;&quot;      &quot;Rep&quot;   &quot;&quot;     
-#&gt; 
-#&gt; [[30]]
-#&gt; [1] &quot;Costa&quot; &quot;Rica&quot; 
-#&gt; 
-#&gt; [[31]]
-#&gt; [1] &quot;Cote&quot;   &quot;d&quot;      &quot;Ivoire&quot;
-#&gt; 
-#&gt; [[32]]
-#&gt; [1] &quot;Croatia&quot;
-#&gt; 
-#&gt; [[33]]
-#&gt; [1] &quot;Cuba&quot;
-#&gt; 
-#&gt; [[34]]
-#&gt; [1] &quot;Czech&quot;    &quot;Republic&quot;
-#&gt; 
-#&gt; [[35]]
-#&gt; [1] &quot;Denmark&quot;
-#&gt; 
-#&gt; [[36]]
-#&gt; [1] &quot;Djibouti&quot;
-#&gt; 
-#&gt; [[37]]
-#&gt; [1] &quot;Dominican&quot; &quot;Republic&quot; 
-#&gt; 
-#&gt; [[38]]
-#&gt; [1] &quot;Ecuador&quot;
-#&gt; 
-#&gt; [[39]]
-#&gt; [1] &quot;Egypt&quot;
-#&gt; 
-#&gt; [[40]]
-#&gt; [1] &quot;El&quot;       &quot;Salvador&quot;
-#&gt; 
-#&gt; [[41]]
-#&gt; [1] &quot;Equatorial&quot; &quot;Guinea&quot;    
-#&gt; 
-#&gt; [[42]]
-#&gt; [1] &quot;Eritrea&quot;
-#&gt; 
-#&gt; [[43]]
-#&gt; [1] &quot;Ethiopia&quot;
-#&gt; 
-#&gt; [[44]]
-#&gt; [1] &quot;Finland&quot;
-#&gt; 
-#&gt; [[45]]
-#&gt; [1] &quot;France&quot;
-#&gt; 
-#&gt; [[46]]
-#&gt; [1] &quot;Gabon&quot;
-#&gt; 
-#&gt; [[47]]
-#&gt; [1] &quot;Gambia&quot;
-#&gt; 
-#&gt; [[48]]
-#&gt; [1] &quot;Germany&quot;
-#&gt; 
-#&gt; [[49]]
-#&gt; [1] &quot;Ghana&quot;
-#&gt; 
-#&gt; [[50]]
-#&gt; [1] &quot;Greece&quot;
-#&gt; 
-#&gt; [[51]]
-#&gt; [1] &quot;Guatemala&quot;
-#&gt; 
-#&gt; [[52]]
-#&gt; [1] &quot;Guinea&quot;
-#&gt; 
-#&gt; [[53]]
-#&gt; [1] &quot;Guinea&quot; &quot;Bissau&quot;
-#&gt; 
-#&gt; [[54]]
-#&gt; [1] &quot;Haiti&quot;
-#&gt; 
-#&gt; [[55]]
-#&gt; [1] &quot;Honduras&quot;
-#&gt; 
-#&gt; [[56]]
-#&gt; [1] &quot;Hong&quot;  &quot;Kong&quot;  &quot;&quot;      &quot;China&quot;
-#&gt; 
-#&gt; [[57]]
-#&gt; [1] &quot;Hungary&quot;
-#&gt; 
-#&gt; [[58]]
-#&gt; [1] &quot;Iceland&quot;
-#&gt; 
-#&gt; [[59]]
-#&gt; [1] &quot;India&quot;
-#&gt; 
-#&gt; [[60]]
-#&gt; [1] &quot;Indonesia&quot;
-#&gt; 
-#&gt; [[61]]
-#&gt; [1] &quot;Iran&quot;
-#&gt; 
-#&gt; [[62]]
-#&gt; [1] &quot;Iraq&quot;
-#&gt; 
-#&gt; [[63]]
-#&gt; [1] &quot;Ireland&quot;
-#&gt; 
-#&gt; [[64]]
-#&gt; [1] &quot;Israel&quot;
-#&gt; 
-#&gt; [[65]]
-#&gt; [1] &quot;Italy&quot;
-#&gt; 
-#&gt; [[66]]
-#&gt; [1] &quot;Jamaica&quot;
-#&gt; 
-#&gt; [[67]]
-#&gt; [1] &quot;Japan&quot;
-#&gt; 
-#&gt; [[68]]
-#&gt; [1] &quot;Jordan&quot;
-#&gt; 
-#&gt; [[69]]
-#&gt; [1] &quot;Kenya&quot;
-#&gt; 
-#&gt; [[70]]
-#&gt; [1] &quot;Korea&quot; &quot;&quot;      &quot;Dem&quot;   &quot;&quot;      &quot;Rep&quot;   &quot;&quot;     
-#&gt; 
-#&gt; [[71]]
-#&gt; [1] &quot;Korea&quot; &quot;&quot;      &quot;Rep&quot;   &quot;&quot;     
-#&gt; 
-#&gt; [[72]]
-#&gt; [1] &quot;Kuwait&quot;
-#&gt; 
-#&gt; [[73]]
-#&gt; [1] &quot;Lebanon&quot;
-#&gt; 
-#&gt; [[74]]
-#&gt; [1] &quot;Lesotho&quot;
-#&gt; 
-#&gt; [[75]]
-#&gt; [1] &quot;Liberia&quot;
-#&gt; 
-#&gt; [[76]]
-#&gt; [1] &quot;Libya&quot;
-#&gt; 
-#&gt; [[77]]
-#&gt; [1] &quot;Madagascar&quot;
-#&gt; 
-#&gt; [[78]]
-#&gt; [1] &quot;Malawi&quot;
-#&gt; 
-#&gt; [[79]]
-#&gt; [1] &quot;Malaysia&quot;
-#&gt; 
-#&gt; [[80]]
-#&gt; [1] &quot;Mali&quot;
-#&gt; 
-#&gt; [[81]]
-#&gt; [1] &quot;Mauritania&quot;
-#&gt; 
-#&gt; [[82]]
-#&gt; [1] &quot;Mauritius&quot;
-#&gt; 
-#&gt; [[83]]
-#&gt; [1] &quot;Mexico&quot;
-#&gt; 
-#&gt; [[84]]
-#&gt; [1] &quot;Mongolia&quot;
-#&gt; 
-#&gt; [[85]]
-#&gt; [1] &quot;Montenegro&quot;
-#&gt; 
-#&gt; [[86]]
-#&gt; [1] &quot;Morocco&quot;
-#&gt; 
-#&gt; [[87]]
-#&gt; [1] &quot;Mozambique&quot;
-#&gt; 
-#&gt; [[88]]
-#&gt; [1] &quot;Myanmar&quot;
-#&gt; 
-#&gt; [[89]]
-#&gt; [1] &quot;Namibia&quot;
-#&gt; 
-#&gt; [[90]]
-#&gt; [1] &quot;Nepal&quot;
-#&gt; 
-#&gt; [[91]]
-#&gt; [1] &quot;Netherlands&quot;
-#&gt; 
-#&gt; [[92]]
-#&gt; [1] &quot;New&quot;     &quot;Zealand&quot;
-#&gt; 
-#&gt; [[93]]
-#&gt; [1] &quot;Nicaragua&quot;
-#&gt; 
-#&gt; [[94]]
-#&gt; [1] &quot;Niger&quot;
-#&gt; 
-#&gt; [[95]]
-#&gt; [1] &quot;Nigeria&quot;
-#&gt; 
-#&gt; [[96]]
-#&gt; [1] &quot;Norway&quot;
-#&gt; 
-#&gt; [[97]]
-#&gt; [1] &quot;Oman&quot;
-#&gt; 
-#&gt; [[98]]
-#&gt; [1] &quot;Pakistan&quot;
-#&gt; 
-#&gt; [[99]]
-#&gt; [1] &quot;Panama&quot;
-#&gt; 
-#&gt; [[100]]
-#&gt; [1] &quot;Paraguay&quot;
-#&gt; 
-#&gt; [[101]]
-#&gt; [1] &quot;Peru&quot;
-#&gt; 
-#&gt; [[102]]
-#&gt; [1] &quot;Philippines&quot;
-#&gt; 
-#&gt; [[103]]
-#&gt; [1] &quot;Poland&quot;
-#&gt; 
-#&gt; [[104]]
-#&gt; [1] &quot;Portugal&quot;
-#&gt; 
-#&gt; [[105]]
-#&gt; [1] &quot;Puerto&quot; &quot;Rico&quot;  
-#&gt; 
-#&gt; [[106]]
-#&gt; [1] &quot;Reunion&quot;
-#&gt; 
-#&gt; [[107]]
-#&gt; [1] &quot;Romania&quot;
-#&gt; 
-#&gt; [[108]]
-#&gt; [1] &quot;Rwanda&quot;
-#&gt; 
-#&gt; [[109]]
-#&gt; [1] &quot;Sao&quot;      &quot;Tome&quot;     &quot;and&quot;      &quot;Principe&quot;
-#&gt; 
-#&gt; [[110]]
-#&gt; [1] &quot;Saudi&quot;  &quot;Arabia&quot;
-#&gt; 
-#&gt; [[111]]
-#&gt; [1] &quot;Senegal&quot;
-#&gt; 
-#&gt; [[112]]
-#&gt; [1] &quot;Serbia&quot;
-#&gt; 
-#&gt; [[113]]
-#&gt; [1] &quot;Sierra&quot; &quot;Leone&quot; 
-#&gt; 
-#&gt; [[114]]
-#&gt; [1] &quot;Singapore&quot;
-#&gt; 
-#&gt; [[115]]
-#&gt; [1] &quot;Slovak&quot;   &quot;Republic&quot;
-#&gt; 
-#&gt; [[116]]
-#&gt; [1] &quot;Slovenia&quot;
-#&gt; 
-#&gt; [[117]]
-#&gt; [1] &quot;Somalia&quot;
-#&gt; 
-#&gt; [[118]]
-#&gt; [1] &quot;South&quot;  &quot;Africa&quot;
-#&gt; 
-#&gt; [[119]]
-#&gt; [1] &quot;Spain&quot;
-#&gt; 
-#&gt; [[120]]
-#&gt; [1] &quot;Sri&quot;   &quot;Lanka&quot;
-#&gt; 
-#&gt; [[121]]
-#&gt; [1] &quot;Sudan&quot;
-#&gt; 
-#&gt; [[122]]
-#&gt; [1] &quot;Swaziland&quot;
-#&gt; 
-#&gt; [[123]]
-#&gt; [1] &quot;Sweden&quot;
-#&gt; 
-#&gt; [[124]]
-#&gt; [1] &quot;Switzerland&quot;
-#&gt; 
-#&gt; [[125]]
-#&gt; [1] &quot;Syria&quot;
-#&gt; 
-#&gt; [[126]]
-#&gt; [1] &quot;Taiwan&quot;
-#&gt; 
-#&gt; [[127]]
-#&gt; [1] &quot;Tanzania&quot;
-#&gt; 
-#&gt; [[128]]
-#&gt; [1] &quot;Thailand&quot;
-#&gt; 
-#&gt; [[129]]
-#&gt; [1] &quot;Togo&quot;
-#&gt; 
-#&gt; [[130]]
-#&gt; [1] &quot;Trinidad&quot; &quot;and&quot;      &quot;Tobago&quot;  
-#&gt; 
-#&gt; [[131]]
-#&gt; [1] &quot;Tunisia&quot;
-#&gt; 
-#&gt; [[132]]
-#&gt; [1] &quot;Turkey&quot;
-#&gt; 
-#&gt; [[133]]
-#&gt; [1] &quot;Uganda&quot;
-#&gt; 
-#&gt; [[134]]
-#&gt; [1] &quot;United&quot;  &quot;Kingdom&quot;
-#&gt; 
-#&gt; [[135]]
-#&gt; [1] &quot;United&quot; &quot;States&quot;
-#&gt; 
-#&gt; [[136]]
-#&gt; [1] &quot;Uruguay&quot;
-#&gt; 
-#&gt; [[137]]
-#&gt; [1] &quot;Venezuela&quot;
-#&gt; 
-#&gt; [[138]]
-#&gt; [1] &quot;Vietnam&quot;
-#&gt; 
-#&gt; [[139]]
-#&gt; [1] &quot;West&quot; &quot;Bank&quot; &quot;and&quot;  &quot;Gaza&quot;
-#&gt; 
-#&gt; [[140]]
-#&gt; [1] &quot;Yemen&quot; &quot;&quot;      &quot;Rep&quot;   &quot;&quot;     
-#&gt; 
-#&gt; [[141]]
-#&gt; [1] &quot;Zambia&quot;
-#&gt; 
-#&gt; [[142]]
-#&gt; [1] &quot;Zimbabwe&quot;</code></pre>
-<p>File listing is more good practice.</p>
+</div>
+<div id="quantifiers" class="section level4">
+<h4>Quantifiers</h4>
+<p>You can decorate characters (and other constructs, like shorthand and classes) with information about how many characters they are allowed to match.</p>
+<table>
+<thead>
+<tr class="header">
+<th>quantifier</th>
+<th>meaning</th>
+<th>quantifier</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>*</td>
+<td>0 or more</td>
+<td>{n}</td>
+<td>exactly n</td>
+</tr>
+<tr class="even">
+<td>+</td>
+<td>1 or more</td>
+<td>{n,}</td>
+<td>at least n</td>
+</tr>
+<tr class="odd">
+<td>?</td>
+<td>0 or 1</td>
+<td>{,m}</td>
+<td>at most m</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>{n,m}</td>
+<td>between n and m, inclusive</td>
+</tr>
+</tbody>
+</table>
+<p>Explore these by inspecting matches for <code>l</code> followed by a <code>e</code>, allowing for various numbers of characters in between.</p>
+<p><code>l.*e</code> will match strings with 0 or more characters in between, i.e. any string with an <code>l</code> eventually followed by an <code>e</code>.</p>
+<pre class="r"><code>(matches &lt;- str_subset(fruit, &quot;l.*e&quot;))
+#&gt;  [1] &quot;apple&quot;             &quot;bell pepper&quot;       &quot;bilberry&quot;         
+#&gt;  [4] &quot;blackberry&quot;        &quot;blood orange&quot;      &quot;blueberry&quot;        
+#&gt;  [7] &quot;cantaloupe&quot;        &quot;chili pepper&quot;      &quot;clementine&quot;       
+#&gt; [10] &quot;cloudberry&quot;        &quot;elderberry&quot;        &quot;huckleberry&quot;      
+#&gt; [13] &quot;lemon&quot;             &quot;lime&quot;              &quot;lychee&quot;           
+#&gt; [16] &quot;mulberry&quot;          &quot;olive&quot;             &quot;pineapple&quot;        
+#&gt; [19] &quot;purple mangosteen&quot; &quot;salal berry&quot;</code></pre>
+<p>Change the quantifier to <code>+</code> to require at least one intervening character. The strings that no longer match: all have a literal <code>le</code> with no preceding <code>l</code> and no following <code>e</code>.</p>
+<pre class="r"><code>list(match = intersect(matches, str_subset(fruit, &quot;l.+e&quot;)),
+     no_match = setdiff(matches, str_subset(fruit, &quot;l.+e&quot;)))
+#&gt; $match
+#&gt;  [1] &quot;bell pepper&quot;       &quot;bilberry&quot;          &quot;blackberry&quot;       
+#&gt;  [4] &quot;blood orange&quot;      &quot;blueberry&quot;         &quot;cantaloupe&quot;       
+#&gt;  [7] &quot;chili pepper&quot;      &quot;clementine&quot;        &quot;cloudberry&quot;       
+#&gt; [10] &quot;elderberry&quot;        &quot;huckleberry&quot;       &quot;lime&quot;             
+#&gt; [13] &quot;lychee&quot;            &quot;mulberry&quot;          &quot;olive&quot;            
+#&gt; [16] &quot;purple mangosteen&quot; &quot;salal berry&quot;      
+#&gt; 
+#&gt; $no_match
+#&gt; [1] &quot;apple&quot;     &quot;lemon&quot;     &quot;pineapple&quot;</code></pre>
+<p>Change the quantifier to <code>?</code> to require at most one intervening character. In the strings that no longer match, the shortest gap between <code>l</code> and following <code>e</code> is at least two characters.</p>
+<pre class="r"><code>list(match = intersect(matches, str_subset(fruit, &quot;l.?e&quot;)),
+     no_match = setdiff(matches, str_subset(fruit, &quot;l.?e&quot;)))
+#&gt; $match
+#&gt;  [1] &quot;apple&quot;             &quot;bilberry&quot;          &quot;blueberry&quot;        
+#&gt;  [4] &quot;clementine&quot;        &quot;elderberry&quot;        &quot;huckleberry&quot;      
+#&gt;  [7] &quot;lemon&quot;             &quot;mulberry&quot;          &quot;pineapple&quot;        
+#&gt; [10] &quot;purple mangosteen&quot;
+#&gt; 
+#&gt; $no_match
+#&gt;  [1] &quot;bell pepper&quot;  &quot;blackberry&quot;   &quot;blood orange&quot; &quot;cantaloupe&quot;  
+#&gt;  [5] &quot;chili pepper&quot; &quot;cloudberry&quot;   &quot;lime&quot;         &quot;lychee&quot;      
+#&gt;  [9] &quot;olive&quot;        &quot;salal berry&quot;</code></pre>
+<p>Finally, we remove the quantifier and allow for no intervening characters. The strings that no longer match lack a literal <code>le</code>.</p>
+<pre class="r"><code>list(match = intersect(matches, str_subset(fruit, &quot;le&quot;)),
+     no_match = setdiff(matches, str_subset(fruit, &quot;le&quot;)))
+#&gt; $match
+#&gt; [1] &quot;apple&quot;             &quot;clementine&quot;        &quot;huckleberry&quot;      
+#&gt; [4] &quot;lemon&quot;             &quot;pineapple&quot;         &quot;purple mangosteen&quot;
+#&gt; 
+#&gt; $no_match
+#&gt;  [1] &quot;bell pepper&quot;  &quot;bilberry&quot;     &quot;blackberry&quot;   &quot;blood orange&quot;
+#&gt;  [5] &quot;blueberry&quot;    &quot;cantaloupe&quot;   &quot;chili pepper&quot; &quot;cloudberry&quot;  
+#&gt;  [9] &quot;elderberry&quot;   &quot;lime&quot;         &quot;lychee&quot;       &quot;mulberry&quot;    
+#&gt; [13] &quot;olive&quot;        &quot;salal berry&quot;</code></pre>
+</div>
+<div id="escaping" class="section level4">
+<h4>Escaping</h4>
+<p><em>come back here</em></p>
+<p><a href="block022_regular-expression.html">2014 STAT 545 lesson an regular expressions</a> has good coverage of characters with special meaning in regex and escape sequences.</p>
+<p>Many characters take on special meaning inside regexes. Of course this implies you have to do extra work to include those actual characters in your pattern. This is called <em>escaping</em> and requires prepending a backslash. something called <em>escaping</em> and boils down to “add more backslashes”.</p>
+</div>
+<div id="backreferences" class="section level4">
+<h4>Backreferences</h4>
+<p><em>come back here</em></p>
+</div>
 </div>
 
 <div class="footer">

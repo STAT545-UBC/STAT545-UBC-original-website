@@ -54,7 +54,12 @@ Encoding
     - [The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)](http://www.joelonsoftware.com/articles/Unicode.html)
     - [What Every Programmer Absolutely, Positively Needs To Know About Encodings And Character Sets To Work With Text](http://kunststube.net/encoding/)
   * [Guide to fixing encoding problems in Ruby](http://www.justinweiss.com/articles/3-steps-to-fix-encoding-problems-in-ruby/) *parking here temporariliy ... looks useful but, obviously, it's about Ruby not R*
-    
+
+Manipulating character vectors that live in a data frame
+
+  * Certain operations are facilitated by `tidyr`. These are described below.
+  * For a general discussion of how to work on variables that live in a data frame, see [Vectors versus tibbles](block031_vector-tibble-relations.html)
+
 ### Load stringr and the core tidyverse
 
 
@@ -91,7 +96,7 @@ Basic string manipulation tasks:
 
 #### Detect or filter on a target string
 
-Determine presence/absence of a literal string with `str_detect()`. Spoiler: this will also work for regular expressions (see below).
+Determine presence/absence of a literal string with `str_detect()`. Spoiler: later we see `str_detect()` also detects regular expressions.
 
 Which fruits actually use the word "fruit"?
 
@@ -151,7 +156,7 @@ str_split(my_fruit, " ")
 
 It's bummer that we get a *list* back. But it must be so! In full generality, split strings must return list, because who knows how many pieces there will be?
 
-If you are willing to commit to the number of items, you can use `str_split_fixed()` and get a character matrix. You're welcome!
+If you are willing to commit to the number of pieces, you can use `str_split_fixed()` and get a character matrix. You're welcome!
 
 
 ```r
@@ -209,7 +214,7 @@ head(fruit) %>%
 #> [1] "app" "apr" "avo" "ban" "bel" "bil"
 ```
 
-The `start` and `end` arguments are vectorised.
+The `start` and `end` arguments are vectorised. Example: a sliding 3-character window.
 
 
 ```r
@@ -320,875 +325,219 @@ tibble(melons) %>%
 #> 3    watermelon
 ```
 
+And that concludes our treatment of regex-free manipulations of character data!
+
 ### Regular expression with stringr
 
-[2014 STAT 545 lesson an regular expressions](block022_regular-expression.html) has good coverage of characters with special meaning in regex and escape sequences.
+#### Load Gapminder
+
+The country names in the gapminder dataset are convenient for examples. Load it now and store the 142 unique country names to the object `countries`.
 
 
 ```r
 library(gapminder)
-```
-
-We've been doing this already: looking for exact strings.
-
-
-```r
 countries <- levels(gapminder$country)
-str_subset(countries, "land")
-#> [1] "Finland"     "Iceland"     "Ireland"     "Netherlands" "New Zealand"
-#> [6] "Poland"      "Swaziland"   "Switzerland" "Thailand"
 ```
 
-The period `.` is a placeholder that matches anything but newline.
+#### Characters with special meaning
+
+Frequently your string tasks cannot be expressed in terms of a fixed string, but can be described in terms of a **pattern**. Regular expressions, aka "regexes", are the standard way to specify these patterns. In regexes, specific characters and constructs take on special meaning in order to match multiple strings.
+
+The first placeholder is the period `.`, which stands for any single character, except a newline (which by the way, is represented by `\n`). The regex `a.b` will match all countries that have an `a`, followed by any single character, followed by `b`. Yes, regexes are case sensitive.
 
 
 ```r
-str_subset(countries, "a.b")
-#> [1] "Cambodia"   "Gambia"     "Mozambique" "Zambia"
+str_subset(countries, "i.a")
+#>  [1] "Argentina"                "Bosnia and Herzegovina"  
+#>  [3] "Burkina Faso"             "Central African Republic"
+#>  [5] "China"                    "Costa Rica"              
+#>  [7] "Dominican Republic"       "Hong Kong, China"        
+#>  [9] "Jamaica"                  "Mauritania"              
+#> [11] "Nicaragua"                "South Africa"            
+#> [13] "Swaziland"                "Taiwan"                  
+#> [15] "Thailand"                 "Trinidad and Tobago"
 ```
 
-Anchors indicate the beginning `^` and end `$` of the string.
+Notice that `i.a` matches "ina", "ica", "ita", and more.
+
+**Anchors** can be included to express where the expression must occur within the string. The `^` indicates the beginning of string and `$` indicates the end.
+
+Note how the regex `i.a$` matches many fewer countries than `i.a` alone. Likewise, more fruits match `d` in `my_fruit` than `^d`, which requires "d" at string start.
 
 
 ```r
-str_subset(countries, "ia")
-#>  [1] "Albania"                "Algeria"               
-#>  [3] "Australia"              "Austria"               
-#>  [5] "Bolivia"                "Bosnia and Herzegovina"
-#>  [7] "Bulgaria"               "Cambodia"              
-#>  [9] "Colombia"               "Croatia"               
-#> [11] "Equatorial Guinea"      "Ethiopia"              
-#> [13] "Gambia"                 "India"                 
-#> [15] "Indonesia"              "Liberia"               
-#> [17] "Malaysia"               "Mauritania"            
-#> [19] "Mongolia"               "Namibia"               
-#> [21] "Nigeria"                "Romania"               
-#> [23] "Saudi Arabia"           "Serbia"                
-#> [25] "Slovenia"               "Somalia"               
-#> [27] "Syria"                  "Tanzania"              
-#> [29] "Tunisia"                "Zambia"
-str_subset(countries, "ia$")
-#>  [1] "Albania"      "Algeria"      "Australia"    "Austria"     
-#>  [5] "Bolivia"      "Bulgaria"     "Cambodia"     "Colombia"    
-#>  [9] "Croatia"      "Ethiopia"     "Gambia"       "India"       
-#> [13] "Indonesia"    "Liberia"      "Malaysia"     "Mauritania"  
-#> [17] "Mongolia"     "Namibia"      "Nigeria"      "Romania"     
-#> [21] "Saudi Arabia" "Serbia"       "Slovenia"     "Somalia"     
-#> [25] "Syria"        "Tanzania"     "Tunisia"      "Zambia"
-str_subset(fruit, "^a")
-#> [1] "apple"   "apricot" "avocado"
-str_subset(fruit, "a")
-#>  [1] "apple"             "apricot"           "avocado"          
-#>  [4] "banana"            "blackberry"        "blackcurrant"     
-#>  [7] "blood orange"      "breadfruit"        "canary melon"     
-#> [10] "cantaloupe"        "cherimoya"         "cranberry"        
-#> [13] "currant"           "damson"            "date"             
-#> [16] "dragonfruit"       "durian"            "eggplant"         
-#> [19] "feijoa"            "grape"             "grapefruit"       
-#> [22] "guava"             "jackfruit"         "jambul"           
-#> [25] "kumquat"           "loquat"            "mandarine"        
-#> [28] "mango"             "nectarine"         "orange"           
-#> [31] "pamelo"            "papaya"            "passionfruit"     
-#> [34] "peach"             "pear"              "physalis"         
-#> [37] "pineapple"         "pomegranate"       "purple mangosteen"
-#> [40] "raisin"            "rambutan"          "raspberry"        
-#> [43] "redcurrant"        "salal berry"       "satsuma"          
-#> [46] "star fruit"        "strawberry"        "tamarillo"        
-#> [49] "tangerine"         "watermelon"
+str_subset(countries, "i.a$")
+#> [1] "Argentina"              "Bosnia and Herzegovina"
+#> [3] "China"                  "Costa Rica"            
+#> [5] "Hong Kong, China"       "Jamaica"               
+#> [7] "South Africa"
+str_subset(my_fruit, "d")
+#> [1] "breadfruit"  "dragonfruit"
+str_subset(my_fruit, "^d")
+#> [1] "dragonfruit"
 ```
 
-You can also indicate word boundary with `\b` and not a word boundary with `\B`. The backslash has to be "escaped" by adding another backslash.
+The sequence `\b` indicates a **word boundary** and `\B` indicates NOT a word boundary. This is our first encounter with something called "escaping" and right now I just want you at accept that we need to prepend a second backslash to use these sequences in regexes in R. We'll come back to this tedious point later.
 
 
 ```r
-str_subset(fruit, "berry")
-#>  [1] "bilberry"    "blackberry"  "blueberry"   "boysenberry" "cloudberry" 
-#>  [6] "cranberry"   "elderberry"  "goji berry"  "gooseberry"  "huckleberry"
-#> [11] "mulberry"    "raspberry"   "salal berry" "strawberry"
-str_subset(fruit, "\\bberry")
-#> [1] "goji berry"  "salal berry"
-str_subset(fruit, "\\Bberry")
-#>  [1] "bilberry"    "blackberry"  "blueberry"   "boysenberry" "cloudberry" 
-#>  [6] "cranberry"   "elderberry"  "gooseberry"  "huckleberry" "mulberry"   
-#> [11] "raspberry"   "strawberry"
+str_subset(fruit, "melon")
+#> [1] "canary melon" "rock melon"   "watermelon"
+str_subset(fruit, "\\bmelon")
+#> [1] "canary melon" "rock melon"
+str_subset(fruit, "\\Bmelon")
+#> [1] "watermelon"
 ```
 
-Characters can be specified via classes. You make them "by hand" or use some pre-existing ones.  The [2014 STAT 545 regex lesson](block022_regular-expression.html) has detailed coverage of other classes.
+#### Character classes
+
+Characters can be specified via classes. You can make them explicitly "by hand" or use some pre-existing ones.  The [2014 STAT 545 regex lesson](block022_regular-expression.html) has a good list of character classes. Character classes are often given inside square brackets, `[]` but a few come up so often that we  have "shorthand", such as `\d` for a single digit, or a POSIX class (examples below).
+
+Here we match `ia` at the end of the country name, preceded by one of the characters in the class. Or, in the negated class, preceded by anything but one of those characters.
 
 
 ```r
-## making the class by hand
+## make a class "by hand"
 str_subset(countries, "[nls]ia$")
 #>  [1] "Albania"    "Australia"  "Indonesia"  "Malaysia"   "Mauritania"
 #>  [6] "Mongolia"   "Romania"    "Slovenia"   "Somalia"    "Tanzania"  
 #> [11] "Tunisia"
-## negation
+## use ^ to negate the class
 str_subset(countries, "[^nls]ia$")
 #>  [1] "Algeria"      "Austria"      "Bolivia"      "Bulgaria"    
 #>  [5] "Cambodia"     "Colombia"     "Croatia"      "Ethiopia"    
 #>  [9] "Gambia"       "India"        "Liberia"      "Namibia"     
 #> [13] "Nigeria"      "Saudi Arabia" "Serbia"       "Syria"       
 #> [17] "Zambia"
+```
+
+Here we revisit splitting `my_fruit` with two more general ways to match whitespace: the `\s` shorthand and the POSIX class `[:space:]`. Notice that we must prepend an extra backslash `\` to escape `\s` and the POSIX class has to be surrounded by two sets of square brackets.
+
+
+```r
 ## remember this?
-str_split_fixed(fruit, " ", 2)
-#>       [,1]           [,2]        
-#>  [1,] "apple"        ""          
-#>  [2,] "apricot"      ""          
-#>  [3,] "avocado"      ""          
-#>  [4,] "banana"       ""          
-#>  [5,] "bell"         "pepper"    
-#>  [6,] "bilberry"     ""          
-#>  [7,] "blackberry"   ""          
-#>  [8,] "blackcurrant" ""          
-#>  [9,] "blood"        "orange"    
-#> [10,] "blueberry"    ""          
-#> [11,] "boysenberry"  ""          
-#> [12,] "breadfruit"   ""          
-#> [13,] "canary"       "melon"     
-#> [14,] "cantaloupe"   ""          
-#> [15,] "cherimoya"    ""          
-#> [16,] "cherry"       ""          
-#> [17,] "chili"        "pepper"    
-#> [18,] "clementine"   ""          
-#> [19,] "cloudberry"   ""          
-#> [20,] "coconut"      ""          
-#> [21,] "cranberry"    ""          
-#> [22,] "cucumber"     ""          
-#> [23,] "currant"      ""          
-#> [24,] "damson"       ""          
-#> [25,] "date"         ""          
-#> [26,] "dragonfruit"  ""          
-#> [27,] "durian"       ""          
-#> [28,] "eggplant"     ""          
-#> [29,] "elderberry"   ""          
-#> [30,] "feijoa"       ""          
-#> [31,] "fig"          ""          
-#> [32,] "goji"         "berry"     
-#> [33,] "gooseberry"   ""          
-#> [34,] "grape"        ""          
-#> [35,] "grapefruit"   ""          
-#> [36,] "guava"        ""          
-#> [37,] "honeydew"     ""          
-#> [38,] "huckleberry"  ""          
-#> [39,] "jackfruit"    ""          
-#> [40,] "jambul"       ""          
-#> [41,] "jujube"       ""          
-#> [42,] "kiwi"         "fruit"     
-#> [43,] "kumquat"      ""          
-#> [44,] "lemon"        ""          
-#> [45,] "lime"         ""          
-#> [46,] "loquat"       ""          
-#> [47,] "lychee"       ""          
-#> [48,] "mandarine"    ""          
-#> [49,] "mango"        ""          
-#> [50,] "mulberry"     ""          
-#> [51,] "nectarine"    ""          
-#> [52,] "nut"          ""          
-#> [53,] "olive"        ""          
-#> [54,] "orange"       ""          
-#> [55,] "pamelo"       ""          
-#> [56,] "papaya"       ""          
-#> [57,] "passionfruit" ""          
-#> [58,] "peach"        ""          
-#> [59,] "pear"         ""          
-#> [60,] "persimmon"    ""          
-#> [61,] "physalis"     ""          
-#> [62,] "pineapple"    ""          
-#> [63,] "plum"         ""          
-#> [64,] "pomegranate"  ""          
-#> [65,] "pomelo"       ""          
-#> [66,] "purple"       "mangosteen"
-#> [67,] "quince"       ""          
-#> [68,] "raisin"       ""          
-#> [69,] "rambutan"     ""          
-#> [70,] "raspberry"    ""          
-#> [71,] "redcurrant"   ""          
-#> [72,] "rock"         "melon"     
-#> [73,] "salal"        "berry"     
-#> [74,] "satsuma"      ""          
-#> [75,] "star"         "fruit"     
-#> [76,] "strawberry"   ""          
-#> [77,] "tamarillo"    ""          
-#> [78,] "tangerine"    ""          
-#> [79,] "ugli"         "fruit"     
-#> [80,] "watermelon"   ""
-## another way to say 'a character of whitespace' (space, tab, newline)
-str_split_fixed(fruit, "\\s", 2)
-#>       [,1]           [,2]        
-#>  [1,] "apple"        ""          
-#>  [2,] "apricot"      ""          
-#>  [3,] "avocado"      ""          
-#>  [4,] "banana"       ""          
-#>  [5,] "bell"         "pepper"    
-#>  [6,] "bilberry"     ""          
-#>  [7,] "blackberry"   ""          
-#>  [8,] "blackcurrant" ""          
-#>  [9,] "blood"        "orange"    
-#> [10,] "blueberry"    ""          
-#> [11,] "boysenberry"  ""          
-#> [12,] "breadfruit"   ""          
-#> [13,] "canary"       "melon"     
-#> [14,] "cantaloupe"   ""          
-#> [15,] "cherimoya"    ""          
-#> [16,] "cherry"       ""          
-#> [17,] "chili"        "pepper"    
-#> [18,] "clementine"   ""          
-#> [19,] "cloudberry"   ""          
-#> [20,] "coconut"      ""          
-#> [21,] "cranberry"    ""          
-#> [22,] "cucumber"     ""          
-#> [23,] "currant"      ""          
-#> [24,] "damson"       ""          
-#> [25,] "date"         ""          
-#> [26,] "dragonfruit"  ""          
-#> [27,] "durian"       ""          
-#> [28,] "eggplant"     ""          
-#> [29,] "elderberry"   ""          
-#> [30,] "feijoa"       ""          
-#> [31,] "fig"          ""          
-#> [32,] "goji"         "berry"     
-#> [33,] "gooseberry"   ""          
-#> [34,] "grape"        ""          
-#> [35,] "grapefruit"   ""          
-#> [36,] "guava"        ""          
-#> [37,] "honeydew"     ""          
-#> [38,] "huckleberry"  ""          
-#> [39,] "jackfruit"    ""          
-#> [40,] "jambul"       ""          
-#> [41,] "jujube"       ""          
-#> [42,] "kiwi"         "fruit"     
-#> [43,] "kumquat"      ""          
-#> [44,] "lemon"        ""          
-#> [45,] "lime"         ""          
-#> [46,] "loquat"       ""          
-#> [47,] "lychee"       ""          
-#> [48,] "mandarine"    ""          
-#> [49,] "mango"        ""          
-#> [50,] "mulberry"     ""          
-#> [51,] "nectarine"    ""          
-#> [52,] "nut"          ""          
-#> [53,] "olive"        ""          
-#> [54,] "orange"       ""          
-#> [55,] "pamelo"       ""          
-#> [56,] "papaya"       ""          
-#> [57,] "passionfruit" ""          
-#> [58,] "peach"        ""          
-#> [59,] "pear"         ""          
-#> [60,] "persimmon"    ""          
-#> [61,] "physalis"     ""          
-#> [62,] "pineapple"    ""          
-#> [63,] "plum"         ""          
-#> [64,] "pomegranate"  ""          
-#> [65,] "pomelo"       ""          
-#> [66,] "purple"       "mangosteen"
-#> [67,] "quince"       ""          
-#> [68,] "raisin"       ""          
-#> [69,] "rambutan"     ""          
-#> [70,] "raspberry"    ""          
-#> [71,] "redcurrant"   ""          
-#> [72,] "rock"         "melon"     
-#> [73,] "salal"        "berry"     
-#> [74,] "satsuma"      ""          
-#> [75,] "star"         "fruit"     
-#> [76,] "strawberry"   ""          
-#> [77,] "tamarillo"    ""          
-#> [78,] "tangerine"    ""          
-#> [79,] "ugli"         "fruit"     
-#> [80,] "watermelon"   ""
-## punctuation
-str_subset(countries, ",")
-#> [1] "Congo, Dem. Rep." "Congo, Rep."      "Hong Kong, China"
-#> [4] "Korea, Dem. Rep." "Korea, Rep."      "Yemen, Rep."
+# str_split_fixed(fruit, " ", 2)
+## alternatives
+str_split_fixed(my_fruit, "\\s", 2)
+#>      [,1]           [,2]   
+#> [1,] "breadfruit"   ""     
+#> [2,] "dragonfruit"  ""     
+#> [3,] "grapefruit"   ""     
+#> [4,] "jackfruit"    ""     
+#> [5,] "kiwi"         "fruit"
+#> [6,] "passionfruit" ""     
+#> [7,] "star"         "fruit"
+#> [8,] "ugli"         "fruit"
+str_split_fixed(my_fruit, "[[:space:]]", 2)
+#>      [,1]           [,2]   
+#> [1,] "breadfruit"   ""     
+#> [2,] "dragonfruit"  ""     
+#> [3,] "grapefruit"   ""     
+#> [4,] "jackfruit"    ""     
+#> [5,] "kiwi"         "fruit"
+#> [6,] "passionfruit" ""     
+#> [7,] "star"         "fruit"
+#> [8,] "ugli"         "fruit"
+```
+
+Let's see the country names that contain punctuation.
+
+
+```r
 str_subset(countries, "[[:punct:]]")
 #> [1] "Congo, Dem. Rep." "Congo, Rep."      "Cote d'Ivoire"   
 #> [4] "Guinea-Bissau"    "Hong Kong, China" "Korea, Dem. Rep."
 #> [7] "Korea, Rep."      "Yemen, Rep."
 ```
 
-You can modify with a quantifier:
+#### Quantifiers
 
-  * `*` means "0 or more"
-  * `+` means "1 or more"
-  * `?` means "exactly 0 or 1"
-  * `{n}` means "exactly n times"
-  * `{n,}` means "at least n times"
-  * `{,m}` means "at most m times"
-  * `{n,m}` means "between n and m times"
-  
-  
+You can decorate characters (and other constructs, like shorthand and classes) with information about how many characters they are allowed to match.
 
-```r
-str_subset(countries, "e")
-#>  [1] "Algeria"                  "Argentina"               
-#>  [3] "Bangladesh"               "Belgium"                 
-#>  [5] "Benin"                    "Bosnia and Herzegovina"  
-#>  [7] "Cameroon"                 "Central African Republic"
-#>  [9] "Chile"                    "Congo, Dem. Rep."        
-#> [11] "Congo, Rep."              "Cote d'Ivoire"           
-#> [13] "Czech Republic"           "Denmark"                 
-#> [15] "Dominican Republic"       "Equatorial Guinea"       
-#> [17] "Eritrea"                  "France"                  
-#> [19] "Germany"                  "Greece"                  
-#> [21] "Guatemala"                "Guinea"                  
-#> [23] "Guinea-Bissau"            "Iceland"                 
-#> [25] "Indonesia"                "Ireland"                 
-#> [27] "Israel"                   "Kenya"                   
-#> [29] "Korea, Dem. Rep."         "Korea, Rep."             
-#> [31] "Lebanon"                  "Lesotho"                 
-#> [33] "Liberia"                  "Mexico"                  
-#> [35] "Montenegro"               "Mozambique"              
-#> [37] "Nepal"                    "Netherlands"             
-#> [39] "New Zealand"              "Niger"                   
-#> [41] "Nigeria"                  "Peru"                    
-#> [43] "Philippines"              "Puerto Rico"             
-#> [45] "Reunion"                  "Sao Tome and Principe"   
-#> [47] "Senegal"                  "Serbia"                  
-#> [49] "Sierra Leone"             "Singapore"               
-#> [51] "Slovak Republic"          "Slovenia"                
-#> [53] "Sweden"                   "Switzerland"             
-#> [55] "Turkey"                   "United Kingdom"          
-#> [57] "United States"            "Venezuela"               
-#> [59] "Vietnam"                  "West Bank and Gaza"      
-#> [61] "Yemen, Rep."              "Zimbabwe"
-str_subset(countries, "ee")
-#> [1] "Greece"
-str_subset(countries, "e{2}")
-#> [1] "Greece"
-str_subset(countries, ",")
-#> [1] "Congo, Dem. Rep." "Congo, Rep."      "Hong Kong, China"
-#> [4] "Korea, Dem. Rep." "Korea, Rep."      "Yemen, Rep."
-```
+| quantifier | meaning   | quantifier | meaning                    |
+|------------|-----------|------------|----------------------------|
+| *          | 0 or more | {n}        | exactly n                  |
+| +          | 1 or more | {n,}       | at least n                 |
+| ?          | 0 or 1    | {,m}       | at most m                  |
+|            |           | {n,m}      | between n and m, inclusive |
 
-Combine your new knowledge of regex with extraction, replacement, splitting.
+Explore these by inspecting matches for `l` followed by a `e`, allowing for various numbers of characters in between.
+
+`l.*e` will match strings with 0 or more characters in between, i.e. any string with an `l` eventually followed by an `e`.
 
 
 ```r
-str_extract(countries, "lia")
-#>   [1] NA    NA    NA    NA    NA    "lia" NA    NA    NA    NA    NA   
-#>  [12] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#>  [23] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#>  [34] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#>  [45] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#>  [56] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#>  [67] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#>  [78] NA    NA    NA    NA    NA    NA    "lia" NA    NA    NA    NA   
-#>  [89] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#> [100] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#> [111] NA    NA    NA    NA    NA    NA    "lia" NA    NA    NA    NA   
-#> [122] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#> [133] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA
-str_extract(countries, "[dnlrst]ia")
-#>   [1] NA    "nia" "ria" NA    NA    "lia" "ria" NA    NA    NA    NA   
-#>  [12] NA    "nia" NA    NA    "ria" NA    NA    "dia" NA    NA    NA   
-#>  [23] NA    NA    NA    NA    NA    NA    NA    NA    NA    "tia" NA   
-#>  [34] NA    NA    NA    NA    NA    NA    NA    "ria" NA    NA    NA   
-#>  [45] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA   
-#>  [56] NA    NA    NA    "dia" "sia" NA    NA    NA    NA    NA    NA   
-#>  [67] NA    NA    NA    NA    NA    NA    NA    NA    "ria" NA    NA   
-#>  [78] NA    "sia" NA    "nia" NA    NA    "lia" NA    NA    NA    NA   
-#>  [89] NA    NA    NA    NA    NA    NA    "ria" NA    NA    NA    NA   
-#> [100] NA    NA    NA    NA    NA    NA    NA    "nia" NA    NA    NA   
-#> [111] NA    NA    NA    NA    NA    "nia" "lia" NA    NA    NA    NA   
-#> [122] NA    NA    NA    "ria" NA    "nia" NA    NA    NA    "sia" NA   
-#> [133] NA    NA    NA    NA    NA    NA    NA    NA    NA    NA
-str_replace(countries, "[dnrlst]ia", "LAND")
-#>   [1] "Afghanistan"              "AlbaLAND"                
-#>   [3] "AlgeLAND"                 "Angola"                  
-#>   [5] "Argentina"                "AustraLAND"              
-#>   [7] "AustLAND"                 "Bahrain"                 
-#>   [9] "Bangladesh"               "Belgium"                 
-#>  [11] "Benin"                    "Bolivia"                 
-#>  [13] "BosLAND and Herzegovina"  "Botswana"                
-#>  [15] "Brazil"                   "BulgaLAND"               
-#>  [17] "Burkina Faso"             "Burundi"                 
-#>  [19] "CamboLAND"                "Cameroon"                
-#>  [21] "Canada"                   "Central African Republic"
-#>  [23] "Chad"                     "Chile"                   
-#>  [25] "China"                    "Colombia"                
-#>  [27] "Comoros"                  "Congo, Dem. Rep."        
-#>  [29] "Congo, Rep."              "Costa Rica"              
-#>  [31] "Cote d'Ivoire"            "CroaLAND"                
-#>  [33] "Cuba"                     "Czech Republic"          
-#>  [35] "Denmark"                  "Djibouti"                
-#>  [37] "Dominican Republic"       "Ecuador"                 
-#>  [39] "Egypt"                    "El Salvador"             
-#>  [41] "EquatoLANDl Guinea"       "Eritrea"                 
-#>  [43] "Ethiopia"                 "Finland"                 
-#>  [45] "France"                   "Gabon"                   
-#>  [47] "Gambia"                   "Germany"                 
-#>  [49] "Ghana"                    "Greece"                  
-#>  [51] "Guatemala"                "Guinea"                  
-#>  [53] "Guinea-Bissau"            "Haiti"                   
-#>  [55] "Honduras"                 "Hong Kong, China"        
-#>  [57] "Hungary"                  "Iceland"                 
-#>  [59] "InLAND"                   "IndoneLAND"              
-#>  [61] "Iran"                     "Iraq"                    
-#>  [63] "Ireland"                  "Israel"                  
-#>  [65] "Italy"                    "Jamaica"                 
-#>  [67] "Japan"                    "Jordan"                  
-#>  [69] "Kenya"                    "Korea, Dem. Rep."        
-#>  [71] "Korea, Rep."              "Kuwait"                  
-#>  [73] "Lebanon"                  "Lesotho"                 
-#>  [75] "LibeLAND"                 "Libya"                   
-#>  [77] "Madagascar"               "Malawi"                  
-#>  [79] "MalayLAND"                "Mali"                    
-#>  [81] "MauritaLAND"              "Mauritius"               
-#>  [83] "Mexico"                   "MongoLAND"               
-#>  [85] "Montenegro"               "Morocco"                 
-#>  [87] "Mozambique"               "Myanmar"                 
-#>  [89] "Namibia"                  "Nepal"                   
-#>  [91] "Netherlands"              "New Zealand"             
-#>  [93] "Nicaragua"                "Niger"                   
-#>  [95] "NigeLAND"                 "Norway"                  
-#>  [97] "Oman"                     "Pakistan"                
-#>  [99] "Panama"                   "Paraguay"                
-#> [101] "Peru"                     "Philippines"             
-#> [103] "Poland"                   "Portugal"                
-#> [105] "Puerto Rico"              "Reunion"                 
-#> [107] "RomaLAND"                 "Rwanda"                  
-#> [109] "Sao Tome and Principe"    "Saudi Arabia"            
-#> [111] "Senegal"                  "Serbia"                  
-#> [113] "Sierra Leone"             "Singapore"               
-#> [115] "Slovak Republic"          "SloveLAND"               
-#> [117] "SomaLAND"                 "South Africa"            
-#> [119] "Spain"                    "Sri Lanka"               
-#> [121] "Sudan"                    "Swaziland"               
-#> [123] "Sweden"                   "Switzerland"             
-#> [125] "SyLAND"                   "Taiwan"                  
-#> [127] "TanzaLAND"                "Thailand"                
-#> [129] "Togo"                     "Trinidad and Tobago"     
-#> [131] "TuniLAND"                 "Turkey"                  
-#> [133] "Uganda"                   "United Kingdom"          
-#> [135] "United States"            "Uruguay"                 
-#> [137] "Venezuela"                "Vietnam"                 
-#> [139] "West Bank and Gaza"       "Yemen, Rep."             
-#> [141] "Zambia"                   "Zimbabwe"
-str_split(countries, "\\W") ## \W mean 'not a word character'
-#> [[1]]
-#> [1] "Afghanistan"
-#> 
-#> [[2]]
-#> [1] "Albania"
-#> 
-#> [[3]]
-#> [1] "Algeria"
-#> 
-#> [[4]]
-#> [1] "Angola"
-#> 
-#> [[5]]
-#> [1] "Argentina"
-#> 
-#> [[6]]
-#> [1] "Australia"
-#> 
-#> [[7]]
-#> [1] "Austria"
-#> 
-#> [[8]]
-#> [1] "Bahrain"
-#> 
-#> [[9]]
-#> [1] "Bangladesh"
-#> 
-#> [[10]]
-#> [1] "Belgium"
-#> 
-#> [[11]]
-#> [1] "Benin"
-#> 
-#> [[12]]
-#> [1] "Bolivia"
-#> 
-#> [[13]]
-#> [1] "Bosnia"      "and"         "Herzegovina"
-#> 
-#> [[14]]
-#> [1] "Botswana"
-#> 
-#> [[15]]
-#> [1] "Brazil"
-#> 
-#> [[16]]
-#> [1] "Bulgaria"
-#> 
-#> [[17]]
-#> [1] "Burkina" "Faso"   
-#> 
-#> [[18]]
-#> [1] "Burundi"
-#> 
-#> [[19]]
-#> [1] "Cambodia"
-#> 
-#> [[20]]
-#> [1] "Cameroon"
-#> 
-#> [[21]]
-#> [1] "Canada"
-#> 
-#> [[22]]
-#> [1] "Central"  "African"  "Republic"
-#> 
-#> [[23]]
-#> [1] "Chad"
-#> 
-#> [[24]]
-#> [1] "Chile"
-#> 
-#> [[25]]
-#> [1] "China"
-#> 
-#> [[26]]
-#> [1] "Colombia"
-#> 
-#> [[27]]
-#> [1] "Comoros"
-#> 
-#> [[28]]
-#> [1] "Congo" ""      "Dem"   ""      "Rep"   ""     
-#> 
-#> [[29]]
-#> [1] "Congo" ""      "Rep"   ""     
-#> 
-#> [[30]]
-#> [1] "Costa" "Rica" 
-#> 
-#> [[31]]
-#> [1] "Cote"   "d"      "Ivoire"
-#> 
-#> [[32]]
-#> [1] "Croatia"
-#> 
-#> [[33]]
-#> [1] "Cuba"
-#> 
-#> [[34]]
-#> [1] "Czech"    "Republic"
-#> 
-#> [[35]]
-#> [1] "Denmark"
-#> 
-#> [[36]]
-#> [1] "Djibouti"
-#> 
-#> [[37]]
-#> [1] "Dominican" "Republic" 
-#> 
-#> [[38]]
-#> [1] "Ecuador"
-#> 
-#> [[39]]
-#> [1] "Egypt"
-#> 
-#> [[40]]
-#> [1] "El"       "Salvador"
-#> 
-#> [[41]]
-#> [1] "Equatorial" "Guinea"    
-#> 
-#> [[42]]
-#> [1] "Eritrea"
-#> 
-#> [[43]]
-#> [1] "Ethiopia"
-#> 
-#> [[44]]
-#> [1] "Finland"
-#> 
-#> [[45]]
-#> [1] "France"
-#> 
-#> [[46]]
-#> [1] "Gabon"
-#> 
-#> [[47]]
-#> [1] "Gambia"
-#> 
-#> [[48]]
-#> [1] "Germany"
-#> 
-#> [[49]]
-#> [1] "Ghana"
-#> 
-#> [[50]]
-#> [1] "Greece"
-#> 
-#> [[51]]
-#> [1] "Guatemala"
-#> 
-#> [[52]]
-#> [1] "Guinea"
-#> 
-#> [[53]]
-#> [1] "Guinea" "Bissau"
-#> 
-#> [[54]]
-#> [1] "Haiti"
-#> 
-#> [[55]]
-#> [1] "Honduras"
-#> 
-#> [[56]]
-#> [1] "Hong"  "Kong"  ""      "China"
-#> 
-#> [[57]]
-#> [1] "Hungary"
-#> 
-#> [[58]]
-#> [1] "Iceland"
-#> 
-#> [[59]]
-#> [1] "India"
-#> 
-#> [[60]]
-#> [1] "Indonesia"
-#> 
-#> [[61]]
-#> [1] "Iran"
-#> 
-#> [[62]]
-#> [1] "Iraq"
-#> 
-#> [[63]]
-#> [1] "Ireland"
-#> 
-#> [[64]]
-#> [1] "Israel"
-#> 
-#> [[65]]
-#> [1] "Italy"
-#> 
-#> [[66]]
-#> [1] "Jamaica"
-#> 
-#> [[67]]
-#> [1] "Japan"
-#> 
-#> [[68]]
-#> [1] "Jordan"
-#> 
-#> [[69]]
-#> [1] "Kenya"
-#> 
-#> [[70]]
-#> [1] "Korea" ""      "Dem"   ""      "Rep"   ""     
-#> 
-#> [[71]]
-#> [1] "Korea" ""      "Rep"   ""     
-#> 
-#> [[72]]
-#> [1] "Kuwait"
-#> 
-#> [[73]]
-#> [1] "Lebanon"
-#> 
-#> [[74]]
-#> [1] "Lesotho"
-#> 
-#> [[75]]
-#> [1] "Liberia"
-#> 
-#> [[76]]
-#> [1] "Libya"
-#> 
-#> [[77]]
-#> [1] "Madagascar"
-#> 
-#> [[78]]
-#> [1] "Malawi"
-#> 
-#> [[79]]
-#> [1] "Malaysia"
-#> 
-#> [[80]]
-#> [1] "Mali"
-#> 
-#> [[81]]
-#> [1] "Mauritania"
-#> 
-#> [[82]]
-#> [1] "Mauritius"
-#> 
-#> [[83]]
-#> [1] "Mexico"
-#> 
-#> [[84]]
-#> [1] "Mongolia"
-#> 
-#> [[85]]
-#> [1] "Montenegro"
-#> 
-#> [[86]]
-#> [1] "Morocco"
-#> 
-#> [[87]]
-#> [1] "Mozambique"
-#> 
-#> [[88]]
-#> [1] "Myanmar"
-#> 
-#> [[89]]
-#> [1] "Namibia"
-#> 
-#> [[90]]
-#> [1] "Nepal"
-#> 
-#> [[91]]
-#> [1] "Netherlands"
-#> 
-#> [[92]]
-#> [1] "New"     "Zealand"
-#> 
-#> [[93]]
-#> [1] "Nicaragua"
-#> 
-#> [[94]]
-#> [1] "Niger"
-#> 
-#> [[95]]
-#> [1] "Nigeria"
-#> 
-#> [[96]]
-#> [1] "Norway"
-#> 
-#> [[97]]
-#> [1] "Oman"
-#> 
-#> [[98]]
-#> [1] "Pakistan"
-#> 
-#> [[99]]
-#> [1] "Panama"
-#> 
-#> [[100]]
-#> [1] "Paraguay"
-#> 
-#> [[101]]
-#> [1] "Peru"
-#> 
-#> [[102]]
-#> [1] "Philippines"
-#> 
-#> [[103]]
-#> [1] "Poland"
-#> 
-#> [[104]]
-#> [1] "Portugal"
-#> 
-#> [[105]]
-#> [1] "Puerto" "Rico"  
-#> 
-#> [[106]]
-#> [1] "Reunion"
-#> 
-#> [[107]]
-#> [1] "Romania"
-#> 
-#> [[108]]
-#> [1] "Rwanda"
-#> 
-#> [[109]]
-#> [1] "Sao"      "Tome"     "and"      "Principe"
-#> 
-#> [[110]]
-#> [1] "Saudi"  "Arabia"
-#> 
-#> [[111]]
-#> [1] "Senegal"
-#> 
-#> [[112]]
-#> [1] "Serbia"
-#> 
-#> [[113]]
-#> [1] "Sierra" "Leone" 
-#> 
-#> [[114]]
-#> [1] "Singapore"
-#> 
-#> [[115]]
-#> [1] "Slovak"   "Republic"
-#> 
-#> [[116]]
-#> [1] "Slovenia"
-#> 
-#> [[117]]
-#> [1] "Somalia"
-#> 
-#> [[118]]
-#> [1] "South"  "Africa"
-#> 
-#> [[119]]
-#> [1] "Spain"
-#> 
-#> [[120]]
-#> [1] "Sri"   "Lanka"
-#> 
-#> [[121]]
-#> [1] "Sudan"
-#> 
-#> [[122]]
-#> [1] "Swaziland"
-#> 
-#> [[123]]
-#> [1] "Sweden"
-#> 
-#> [[124]]
-#> [1] "Switzerland"
-#> 
-#> [[125]]
-#> [1] "Syria"
-#> 
-#> [[126]]
-#> [1] "Taiwan"
-#> 
-#> [[127]]
-#> [1] "Tanzania"
-#> 
-#> [[128]]
-#> [1] "Thailand"
-#> 
-#> [[129]]
-#> [1] "Togo"
-#> 
-#> [[130]]
-#> [1] "Trinidad" "and"      "Tobago"  
-#> 
-#> [[131]]
-#> [1] "Tunisia"
-#> 
-#> [[132]]
-#> [1] "Turkey"
-#> 
-#> [[133]]
-#> [1] "Uganda"
-#> 
-#> [[134]]
-#> [1] "United"  "Kingdom"
-#> 
-#> [[135]]
-#> [1] "United" "States"
-#> 
-#> [[136]]
-#> [1] "Uruguay"
-#> 
-#> [[137]]
-#> [1] "Venezuela"
-#> 
-#> [[138]]
-#> [1] "Vietnam"
-#> 
-#> [[139]]
-#> [1] "West" "Bank" "and"  "Gaza"
-#> 
-#> [[140]]
-#> [1] "Yemen" ""      "Rep"   ""     
-#> 
-#> [[141]]
-#> [1] "Zambia"
-#> 
-#> [[142]]
-#> [1] "Zimbabwe"
+(matches <- str_subset(fruit, "l.*e"))
+#>  [1] "apple"             "bell pepper"       "bilberry"         
+#>  [4] "blackberry"        "blood orange"      "blueberry"        
+#>  [7] "cantaloupe"        "chili pepper"      "clementine"       
+#> [10] "cloudberry"        "elderberry"        "huckleberry"      
+#> [13] "lemon"             "lime"              "lychee"           
+#> [16] "mulberry"          "olive"             "pineapple"        
+#> [19] "purple mangosteen" "salal berry"
 ```
 
-File listing is more good practice.
+Change the quantifier to `+` to require at least one intervening character. The strings that no longer match: all have a literal `le` with no preceding `l` and no following `e`.
+
+
+```r
+list(match = intersect(matches, str_subset(fruit, "l.+e")),
+     no_match = setdiff(matches, str_subset(fruit, "l.+e")))
+#> $match
+#>  [1] "bell pepper"       "bilberry"          "blackberry"       
+#>  [4] "blood orange"      "blueberry"         "cantaloupe"       
+#>  [7] "chili pepper"      "clementine"        "cloudberry"       
+#> [10] "elderberry"        "huckleberry"       "lime"             
+#> [13] "lychee"            "mulberry"          "olive"            
+#> [16] "purple mangosteen" "salal berry"      
+#> 
+#> $no_match
+#> [1] "apple"     "lemon"     "pineapple"
+```
+
+Change the quantifier to `?` to require at most one intervening character. In the strings that no longer match, the shortest gap between `l` and following `e` is at least two characters.
+
+
+```r
+list(match = intersect(matches, str_subset(fruit, "l.?e")),
+     no_match = setdiff(matches, str_subset(fruit, "l.?e")))
+#> $match
+#>  [1] "apple"             "bilberry"          "blueberry"        
+#>  [4] "clementine"        "elderberry"        "huckleberry"      
+#>  [7] "lemon"             "mulberry"          "pineapple"        
+#> [10] "purple mangosteen"
+#> 
+#> $no_match
+#>  [1] "bell pepper"  "blackberry"   "blood orange" "cantaloupe"  
+#>  [5] "chili pepper" "cloudberry"   "lime"         "lychee"      
+#>  [9] "olive"        "salal berry"
+```
+
+Finally, we remove the quantifier and allow for no intervening characters. The strings that no longer match lack a literal `le`.
+
+
+```r
+list(match = intersect(matches, str_subset(fruit, "le")),
+     no_match = setdiff(matches, str_subset(fruit, "le")))
+#> $match
+#> [1] "apple"             "clementine"        "huckleberry"      
+#> [4] "lemon"             "pineapple"         "purple mangosteen"
+#> 
+#> $no_match
+#>  [1] "bell pepper"  "bilberry"     "blackberry"   "blood orange"
+#>  [5] "blueberry"    "cantaloupe"   "chili pepper" "cloudberry"  
+#>  [9] "elderberry"   "lime"         "lychee"       "mulberry"    
+#> [13] "olive"        "salal berry"
+```
+
+#### Escaping
+
+*come back here*
+
+[2014 STAT 545 lesson an regular expressions](block022_regular-expression.html) has good coverage of characters with special meaning in regex and escape sequences.
+
+Many characters take on special meaning inside regexes. Of course this implies you have to do extra work to include those actual characters in your pattern. This is called *escaping* and requires prepending a backslash. something called *escaping* and boils down to "add more backslashes".
+
+#### Backreferences
+
+*come back here*
