@@ -37,7 +37,7 @@ sep-27 tues    <a href="cm007_ggplot2.html">cm007</a>: ggplot2
 sep-29 thurs   <a href="cm008_dplyr-single-table.html">cm008</a>: dplyr: mutate, group, summarize                                      
 oct-04 tues    <a href="cm009_tidy-data.html">cm009</a>: Tidy data, reshaping                                                          
 oct-06 thurs   <a href="cm010_joins-r-programming.html">cm010</a>: dplyr joins, minimum "need to know" re: R as a programming language 
-oct-11 tues    cm011: Getting data out of R (and back in)                                                                              
+oct-11 tues    <a href="">cm011</a>: R as a programming language, getting data out of R (and back in)                                  
 oct-13 thurs   cm012: Be the boss of your factors                                                                                      
 oct-18 tues    cm013: Revisit ggplot, practicalities of daily figure-making                                                            
 oct-20 thurs   cm014: Visualization Analysis and Design: Tamara Munzer guest lecture                                                   
@@ -46,7 +46,7 @@ oct-20 thurs   cm014: Visualization Analysis and Design: Tamara Munzer guest lec
   * [Homework 02](hw02_explore-gapminder-dplyr.html) Explore Gapminder as a tibble and starting using dplyr and ggplot2
   * [Homework 03](hw03_dplyr-and-more-ggplot2.html) Manipulate, summarize, visualize Gapminder with dplyr and ggplot2
   * [Homework 04](hw04_tidy-data-joins.html) Tidy data and joins
-  * Homework 05 Prove you are in control of factors and figures. Clean up your repo.
+  * [Homework 05](hw05_factor-figure-boss-repo-hygiene.html) Prove you are in control of factors and figures. Clean up your repo.
 
 #### STAT 547M
 
