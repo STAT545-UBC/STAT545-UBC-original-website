@@ -30,9 +30,28 @@ Second tip: don't be too cute or clever. A plain text file that is readable by a
 
 How does this fit with our emphasis on dynamic reporting via R Markdown? There is a time and place for everything. There are projects and documents where the scope and personnel will allow you to geek out with `knitr` and R Markdown. But there are lots of good reasons why (parts of) an analysis should not (only) be embedded in a dynamic report. Maybe you are just doing data cleaning to produce a valid input dataset. Maybe you are making a small but crucial contribution to a giant multi-author paper. Etc. Also remember there are other tools and workflows for making something reproducible. I'm looking at you, [make](http://kbroman.github.io/minimal_make/).
 
+### Load the tidyverse and forcats
+
+The main function we will be using is readr, which provides drop-in substitutes for `read.table()` and friends. However, to make some points about data export and import, it is nice to reorder factor levels. For that, we will also load and use the forcats package.
+
+
+```r
+library(tidyverse)
+## Loading tidyverse: ggplot2
+## Loading tidyverse: tibble
+## Loading tidyverse: tidyr
+## Loading tidyverse: readr
+## Loading tidyverse: purrr
+## Loading tidyverse: dplyr
+## Conflicts with tidy packages ----------------------------------------------
+## filter(): dplyr, stats
+## lag():    dplyr, stats
+library(forcats)
+```
+
 ### Locate the Gapminder data
 
-We could load the data from the package as usual, but instead we will load it from tab delimited file. The `gapminder` package includes the data normally found in the `gapminder` data.frame as a `.tsv`. So let's get the path to that file on *your* system.
+We could load the data from the package as usual, but instead we will load it from tab delimited file. The gapminder package includes the data normally found in the `gapminder` data frame as a `.tsv`. So let's get the path to that file on *your* system.
 
 
 ```r
@@ -42,181 +61,110 @@ We could load the data from the package as usual, but instead we will load it fr
 
 ### Bring rectangular data in
 
-The workhorse data import function of base R is `read.table()`. Here's the call we'd need to get the usual data.frame we know and love:
+The workhorse data import function of readr is `read_delim()`. Here we'll use a variant, `read_tsv()`, that anticipates tab-delimited data:
 
 
 ```r
-gapminder <- read.table(gap_tsv, header = TRUE, sep = "\t", quote = "")
-str(gapminder)
-## 'data.frame':	1704 obs. of  6 variables:
-##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
-##  $ gdpPercap: num  779 821 853 836 740 ...
-```
-
-There are pre-built wrappers around `read.table()` that have some of the arguments set to common combinations of values. We can get the usual data with a much simpler call to `read.delim()`, which is for tab-delimited data:
-
-
-```r
-gapminder <- read.delim(gap_tsv)
-str(gapminder)
-## 'data.frame':	1704 obs. of  6 variables:
-##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
-##  $ gdpPercap: num  779 821 853 836 740 ...
-```
-
-There's a similar convenience wrapper for comma-separated values, `read.csv()`.
-
-Finally, I encourage you to use a new-ish package `readr` (on [CRAN](https://cran.r-project.org/web/packages/readr/index.html), on [GitHub](https://github.com/hadley/readr))
-
-
-```r
-library(readr)
 gapminder <- read_tsv(gap_tsv)
-str(gapminder)
+## Parsed with column specification:
+## cols(
+##   country = col_character(),
+##   continent = col_character(),
+##   year = col_integer(),
+##   lifeExp = col_double(),
+##   pop = col_integer(),
+##   gdpPercap = col_double()
+## )
+str(gapminder, give.attr = FALSE)
 ## Classes 'tbl_df', 'tbl' and 'data.frame':	1704 obs. of  6 variables:
 ##  $ country  : chr  "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
 ##  $ continent: chr  "Asia" "Asia" "Asia" "Asia" ...
 ##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
 ##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
 ##  $ gdpPercap: num  779 821 853 836 740 ...
 ```
 
-Notice that the default behavior is to NOT convert strings to factors, i.e. `country` and `continent` are character immediately after import. In the grand scheme of things, this is better default behavior, although we go ahead and convert them to factor here. Do not be deceived -- in general, you will do less post-import fussing if you use `readr`.
+For full flexibility re: specifying the delimiter, you can always use `readr::read_delim()`.
+
+There's a similar convenience wrapper for comma-separated values, `read_csv()`.
+
+The most noticeable difference between the readr functions and base is that readr does NOT convert strings to factors by default. In the grand scheme of things, this is better default behavior, although we go ahead and convert them to factor here. Do not be deceived -- in general, you will do less post-import fussing if you use readr.
 
 
 ```r
-gapminder$country <- factor(gapminder$country)
-gapminder$continent <- factor(gapminder$continent)
+gapminder <- gapminder %>%
+  mutate(country = factor(country),
+         continent = factor(continent))
 str(gapminder)
 ## Classes 'tbl_df', 'tbl' and 'data.frame':	1704 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
 ##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
 ##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
 ##  $ gdpPercap: num  779 821 853 836 740 ...
 ```
 
 #### Bring rectangular data in -- summary
 
-Base R: `read.table()` and friends. Use the arguments!
+Default to `readr::read_delim()` and friends. Use the arguments!
 
-The `readr` package: the `read_delim()` family of functions. The Gapminder data is too clean and simple to show off the great features of `readr`, so I encourage you to check out the vignette on [column types](https://cran.r-project.org/web/packages/readr/vignettes/column-types.html). Highly recommended.
+The Gapminder data is too clean and simple to show off the great features of readr, so I encourage you to check out the vignette on [column types](https://cran.r-project.org/web/packages/readr/vignettes/column-types.html). There are many variable types that you will be able to parse correctly upon import, thereby eliminating a great deal of post-timport fussing.
 
 ### Compute something worthy of export
 
-We need compute something worth writing to file. We'll quickly redo [the linear regression of life expectancy on year, for each country](block023_dplyr-do.html). We store only the estimated slope and intercept.
+We need compute something worth writing to file. Let's create a country-level summary of maximum life expectancy.
 
 
 ```r
-suppressPackageStartupMessages(library(dplyr))
-le_lin_fit <- function(dat, offset = 1952) {
-  the_fit <- lm(lifeExp ~ I(year - offset), dat)
-  setNames(data.frame(t(coef(the_fit))), c("intercept", "slope"))
-}
-gfits <- gapminder %>%
+gap_life_exp <- gapminder %>%
   group_by(country, continent) %>% 
-  do(le_lin_fit(.)) %>% 
+  summarise(life_exp = max(lifeExp)) %>% 
   ungroup()
-gfits
-## Source: local data frame [142 x 4]
-## 
-##        country continent intercept     slope
-##         (fctr)    (fctr)     (dbl)     (dbl)
-## 1  Afghanistan      Asia  29.90729 0.2753287
-## 2      Albania    Europe  59.22913 0.3346832
-## 3      Algeria    Africa  43.37497 0.5692797
-## 4       Angola    Africa  32.12665 0.2093399
-## 5    Argentina  Americas  62.68844 0.2317084
-## 6    Australia   Oceania  68.40051 0.2277238
-## 7      Austria    Europe  66.44846 0.2419923
-## 8      Bahrain      Asia  52.74921 0.4675077
-## 9   Bangladesh      Asia  36.13549 0.4981308
-## 10     Belgium    Europe  67.89192 0.2090846
-## ..         ...       ...       ...       ...
+gap_life_exp
+## # A tibble: 142 × 3
+##        country continent life_exp
+##         <fctr>    <fctr>    <dbl>
+## 1  Afghanistan      Asia   43.828
+## 2      Albania    Europe   76.423
+## 3      Algeria    Africa   72.301
+## 4       Angola    Africa   42.731
+## 5    Argentina  Americas   75.320
+## 6    Australia   Oceania   81.235
+## 7      Austria    Europe   79.829
+## 8      Bahrain      Asia   75.635
+## 9   Bangladesh      Asia   64.062
+## 10     Belgium    Europe   79.441
+## # ... with 132 more rows
 ```
 
-The `gfits` data.frame is an example of an intermediate result that we want to store for the future and for downstream analyses or visualizations.
+The `gap_life_exp` data frame is an example of an intermediate result that we want to store for the future and for downstream analyses or visualizations.
 
 ### Write rectangular data out
 
-The workhorse export function for rectangular data in base R is `write.table()`.
+The workhorse export function for rectangular data in readr is `write_delim()` and friends. Let's use `write_csv()` to get a comma-delimited file.
 
 
 ```r
-write.table(gfits, "gfits.tsv")
+write_csv(gap_life_exp, "gap_life_exp.csv")
 ```
 
-Let's look at the first few lines of `gfits.tsv`. If you're following along, you should be able to open this file or, in a shell, use `head` on it.
-
-
-```
-"country" "continent" "intercept" "slope"
-"1" "Afghanistan" "Asia" 29.9072948717949 0.275328671328671
-"2" "Albania" "Europe" 59.2291282051282 0.334683216783216
-"3" "Algeria" "Africa" 43.3749743589744 0.56927972027972
-"4" "Angola" "Africa" 32.1266538461539 0.20933986013986
-"5" "Argentina" "Americas" 62.6884358974359 0.231708391608391
-```
-
-Such disappointment. All those quotes! Quoted stupid numerical rownames! No visible alignment! Must it be this ugly?
-
-  * The character information is protected by quotes (and yes, factors are character for this purpose, for that's what's written to file). Note this affects variable names, rownames, and variables themselves in the current example. For future re-import, this quoting is often not strictly necessary. In particular, these quotes are often not necessary for typical re-importation into R, so I often suppress. See [Pitfalls of delimited files](#pitfalls) below for more details.
-  * The stupid character-coerced default numerical rownames are dispensable. I never use rownames -- if the info is important to me, it goes into a proper variable.
-  * It's not really fair to complain about the lack of visible alignment. Remember we are ["writing data for computers"](https://twitter.com/vsbuffalo/statuses/358699162679787521). If you really want to browse around the file, open it in Microsoft Excel (!) but don't succumb to the temptation to start doing artisanal data manipulations there ... get back to R and construct commands that you can re-run the next 15 times you import/clean/aggregate/export the same dataset. Trust me, it will happen.
-  
-Let's write to file again, using some of `write.table()`'s many arguments to impose our will.
-
-
-```r
-write.table(gfits, "gfits.tsv", quote = FALSE, sep = "\t", row.names = FALSE)
-```
-
-Examine the first few lines again:
+Let's look at the first few lines of `gap_life_exp.csv`. If you're following along, you should be able to open this file or, in a shell, use `head` on it.
 
 
 ```
-country	continent	intercept	slope
-Afghanistan	Asia	29.9072948717949	0.275328671328671
-Albania	Europe	59.2291282051282	0.334683216783216
-Algeria	Africa	43.3749743589744	0.56927972027972
-Angola	Africa	32.1266538461539	0.20933986013986
-Argentina	Americas	62.6884358974359	0.231708391608391
+country,continent,life_exp
+Afghanistan,Asia,43.828
+Albania,Europe,76.423
+Algeria,Africa,72.301
+Angola,Africa,42.731
+Argentina,Americas,75.32
 ```
 
-Much better.
+This is pretty decent looking, though there is no visible alignment or separation into columns. Had we used the base function `read.csv()`, we would be seeing rownames and lots of quotes, unless we had explicitly shut that down. Nicer default behavior is the main reason we are using `readr::write_csv()` over `write.csv()`.
 
-There's a convenience wrapper for comma-separated values, `write.csv()`.
-
-But again, I encourage you to use `readr` for data export.
-
-
-```r
-write_tsv(gfits, "gfits.tsv")
-```
-
-Examine the first few lines one last time:
-
-
-```
-country	continent	intercept	slope
-Afghanistan	Asia	29.9072948717949	0.275328671328671
-Albania	Europe	59.2291282051282	0.334683216783216
-Algeria	Africa	43.3749743589744	0.56927972027972
-Angola	Africa	32.1266538461539	0.20933986013986
-Argentina	Americas	62.6884358974359	0.231708391608391
-```
-
-Now you've gotten a nice look at the typically cleaner interface of `readr`.
+  * It's not really fair to complain about the lack of visible alignment. Remember we are ["writing data for computers"](https://twitter.com/vsbuffalo/statuses/358699162679787521). If you really want to browse around the file, use `View()` in RStudio or open it in Microsoft Excel (!) but don't succumb to the temptation to start doing artisanal data manipulations there ... get back to R and construct commands that you can re-run the next 15 times you import/clean/aggregate/export the same dataset. Trust me, it will happen.
 
 ### Invertibility
 
@@ -227,7 +175,7 @@ It turns out these self-imposed rules are often in conflict with one another
   * Be the boss of factors: order the levels in a meaningful, usually non-alphabetical way
   * Avoid duplication of code and data
 
-Example: after performing the country-specific linear fits, we reorder the levels of the country factor. We could order based on the intercept or the slope, possibly ordering within continent, perhaps even after reordering the continent levels themselves! In any case, those reordering operations are conceptually important and must be embodied in R commands stored in a script. However, as soon as we write `gfits` to a plain text file, that meta-information about the countries and continents is lost. Upon re-import with `read.table()`, we are back to alphabetically ordered factor levels. Any measure we take to avoid this loss immediately breaks another one of our rules.
+Example: after performing the country-level summarization, we reorder the levels of the country factor, based on life expectancy. This reordering operation is conceptually important and must be embodied in R commands stored in a script. However, as soon as we write `gap_life_exp` to a plain text file, that meta-information about the countries is lost. Upon re-import with `read_delim()` and friends, we are back to alphabetically ordered factor levels. Any measure we take to avoid this loss immediately breaks another one of our rules.
 
 So what do I do? I must admit I save (and re-load) R-specific binary files. Right after I save the plain text file. [Belt and suspenders](http://www.wisegeek.com/what-does-it-mean-to-wear-belt-and-suspenders.htm).
 
@@ -235,40 +183,39 @@ I have toyed with the idea of writing import helper functions for a specific pro
 
 ### Reordering the levels of the country factor
 
-The topic of [factor level reordering is covered elsewhere](block08_bossYourFactors.html), so let's Just. Do. It. I reorder the country factor levels according to the intercept, i.e. the life expectancy in 1952.
+The topic of [factor level reordering is covered elsewhere](block08_bossYourFactors.html), so let's Just. Do. It. I reorder the country factor levels according to the life expectancy summary we've already computed.
 
 
 ```r
-head(levels(gfits$country)) # alphabetical order
+head(levels(gap_life_exp$country)) # alphabetical order
 ## [1] "Afghanistan" "Albania"     "Algeria"     "Angola"      "Argentina"  
 ## [6] "Australia"
-gfits <- gfits %>% 
-  mutate(country = reorder(country, intercept))
-head(levels(gfits$country)) # in increasing order of 1952 life expectancy
-## [1] "Gambia"        "Afghanistan"   "Yemen, Rep."   "Sierra Leone" 
-## [5] "Guinea"        "Guinea-Bissau"
-head(gfits)
-## Source: local data frame [6 x 4]
-## 
-##       country continent intercept     slope
-##        (fctr)    (fctr)     (dbl)     (dbl)
-## 1 Afghanistan      Asia  29.90729 0.2753287
-## 2     Albania    Europe  59.22913 0.3346832
-## 3     Algeria    Africa  43.37497 0.5692797
-## 4      Angola    Africa  32.12665 0.2093399
-## 5   Argentina  Americas  62.68844 0.2317084
-## 6   Australia   Oceania  68.40051 0.2277238
+gap_life_exp <- gap_life_exp %>% 
+  mutate(country = fct_reorder(country, life_exp))
+head(levels(gap_life_exp$country)) # in increasing order of maximum life expectancy
+## [1] "Sierra Leone" "Angola"       "Afghanistan"  "Liberia"     
+## [5] "Rwanda"       "Mozambique"
+head(gap_life_exp)
+## # A tibble: 6 × 3
+##       country continent life_exp
+##        <fctr>    <fctr>    <dbl>
+## 1 Afghanistan      Asia   43.828
+## 2     Albania    Europe   76.423
+## 3     Algeria    Africa   72.301
+## 4      Angola    Africa   42.731
+## 5   Argentina  Americas   75.320
+## 6   Australia   Oceania   81.235
 ```
 
-Note that the __row order of `gfits` has not changed__. I could choose to reorder the rows of the data.frame if, for example, I was about to prepare a table to present to people. But I'm not, so I won't.
+Note that the __row order of `gap_life_exp` has not changed__. I could choose to reorder the rows of the data frame if, for example, I was about to prepare a table to present to people. But I'm not, so I won't.
 
 ### `saveRDS()` and `readRDS()`
 
-If you have a data.frame AND you have exerted yourself to rationalize the factor levels, you have my blessing to save it to file in a way that will preserve this hard work upon re-import. Use `saveRDS()`.
+If you have a data frame AND you have exerted yourself to rationalize the factor levels, you have my blessing to save it to file in a way that will preserve this hard work upon re-import. Use `saveRDS()`.
 
 
 ```r
-saveRDS(gfits, "gfits.rds")
+saveRDS(gap_life_exp, "gap_life_exp.rds")
 ```
 
 `saveRDS()` serializes an R object to a binary file. It's not a file you will able to open in an editor, diff nicely with Git(Hub), or share with non-R friends. It's a special purpose, limited use function that I use in specific situations.
@@ -277,26 +224,25 @@ The opposite of `saveRDS()` is `readRDS()`. You must assign the return value to 
 
 
 ```r
-rm(gfits)
-gfits
-## Error in eval(expr, envir, enclos): object 'gfits' not found
-gfits <- readRDS("gfits.rds")
-gfits
-## Source: local data frame [142 x 4]
-## 
-##        country continent intercept     slope
-##         (fctr)    (fctr)     (dbl)     (dbl)
-## 1  Afghanistan      Asia  29.90729 0.2753287
-## 2      Albania    Europe  59.22913 0.3346832
-## 3      Algeria    Africa  43.37497 0.5692797
-## 4       Angola    Africa  32.12665 0.2093399
-## 5    Argentina  Americas  62.68844 0.2317084
-## 6    Australia   Oceania  68.40051 0.2277238
-## 7      Austria    Europe  66.44846 0.2419923
-## 8      Bahrain      Asia  52.74921 0.4675077
-## 9   Bangladesh      Asia  36.13549 0.4981308
-## 10     Belgium    Europe  67.89192 0.2090846
-## ..         ...       ...       ...       ...
+rm(gap_life_exp)
+gap_life_exp
+## Error in eval(expr, envir, enclos): object 'gap_life_exp' not found
+gap_life_exp <- readRDS("gap_life_exp.rds")
+gap_life_exp
+## # A tibble: 142 × 3
+##        country continent life_exp
+##         <fctr>    <fctr>    <dbl>
+## 1  Afghanistan      Asia   43.828
+## 2      Albania    Europe   76.423
+## 3      Algeria    Africa   72.301
+## 4       Angola    Africa   42.731
+## 5    Argentina  Americas   75.320
+## 6    Australia   Oceania   81.235
+## 7      Austria    Europe   79.829
+## 8      Bahrain      Asia   75.635
+## 9   Bangladesh      Asia   64.062
+## 10     Belgium    Europe   79.441
+## # ... with 132 more rows
 ```
 
 `saveRDS()` has more arguments, in particular `compress` for controlling compression, so read the help for more advanced usage. It is also very handy for saving non-rectangular objects, like a fitted regression model, that took a nontrivial amount of time to compute.
@@ -305,49 +251,51 @@ You will eventually hear about `save()` + `load()` and even `save.image()`. You 
 
 ### Retaining factor levels upon re-import
 
-Concrete demonstration of how non-alphabetical factor level order is lost with `write.table()` / `read.table()` workflows but maintained with `saveRDS()` / `readRDS()`.
+Concrete demonstration of how non-alphabetical factor level order is lost with `write_delim()` / `read_delim()` workflows but maintained with `saveRDS()` / `readRDS()`.
 
 
 ```r
-gfits <- gapminder %>%
-  group_by(country, continent) %>% 
-  do(le_lin_fit(.)) %>% 
-  ungroup() %>% 
-  mutate(country = reorder(country, intercept))
-str(gfits)
-## Classes 'tbl_df', 'tbl' and 'data.frame':	142 obs. of  4 variables:
-##  $ country  : Factor w/ 142 levels "Gambia","Afghanistan",..: 2 98 52 7 109 132 120 83 17 131 ...
-##   ..- attr(*, "scores")= num [1:142(1d)] 29.9 59.2 43.4 32.1 62.7 ...
-##   .. ..- attr(*, "dimnames")=List of 1
-##   .. .. ..$ : chr  "Afghanistan" "Albania" "Algeria" "Angola" ...
-##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 4 1 1 2 5 4 3 3 4 ...
-##  $ intercept: num  29.9 59.2 43.4 32.1 62.7 ...
-##  $ slope    : num  0.275 0.335 0.569 0.209 0.232 ...
-country_levels <- data_frame(original = head(levels(gfits$country)))
+(country_levels <- tibble(original = head(levels(gap_life_exp$country))))
+## # A tibble: 6 × 1
+##       original
+##          <chr>
+## 1 Sierra Leone
+## 2       Angola
+## 3  Afghanistan
+## 4      Liberia
+## 5       Rwanda
+## 6   Mozambique
 write.table(gfits, "gfits.tsv", sep = "\t")
-saveRDS(gfits, "gfits.rds")
-rm(gfits)
-head(gfits) # will cause error! proving gfits is really gone 
-## Error in head(gfits): object 'gfits' not found
-gfits_via_tsv <- read.delim("gfits.tsv")
-gfits_via_rds <- readRDS("gfits.rds")
+## Error in is.data.frame(x): object 'gfits' not found
+saveRDS(gap_life_exp, "gap_life_exp.rds")
+rm(gap_life_exp)
+head(gap_life_exp) # will cause error! proving gfits is really gone 
+## Error in head(gap_life_exp): object 'gap_life_exp' not found
+gap_via_csv <- read_csv("gap_life_exp.csv") %>% 
+  mutate(country = factor(country))
+## Parsed with column specification:
+## cols(
+##   country = col_character(),
+##   continent = col_character(),
+##   life_exp = col_double()
+## )
+gap_via_rds <- readRDS("gap_life_exp.rds")
 country_levels <- country_levels %>% 
-  mutate(via_tsv = head(levels(gfits_via_tsv$country)),
-         via_rds = head(levels(gfits_via_rds$country)))
+  mutate(via_csv = head(levels(gap_via_csv$country)),
+         via_rds = head(levels(gap_via_rds$country)))
 country_levels
-## Source: local data frame [6 x 3]
-## 
-##        original     via_tsv       via_rds
-##           (chr)       (chr)         (chr)
-## 1        Gambia Afghanistan        Gambia
-## 2   Afghanistan     Albania   Afghanistan
-## 3   Yemen, Rep.     Algeria   Yemen, Rep.
-## 4  Sierra Leone      Angola  Sierra Leone
-## 5        Guinea   Argentina        Guinea
-## 6 Guinea-Bissau   Australia Guinea-Bissau
+## # A tibble: 6 × 3
+##       original     via_csv      via_rds
+##          <chr>       <chr>        <chr>
+## 1 Sierra Leone Afghanistan Sierra Leone
+## 2       Angola     Albania       Angola
+## 3  Afghanistan     Algeria  Afghanistan
+## 4      Liberia      Angola      Liberia
+## 5       Rwanda   Argentina       Rwanda
+## 6   Mozambique   Australia   Mozambique
 ```
 
-Note how the original, post-reordering country factor levels are restored using the `saveRDS()` / `readRDS()` strategy but revert to alphabetical ordering using `write.table()` / `read.table()`.
+Note how the original, post-reordering country factor levels are restored using the `saveRDS()` / `readRDS()` strategy but revert to alphabetical ordering using `write_csv()` / `read_csv()`.
 
 ### `dput()` and `dget()`
 
@@ -356,40 +304,39 @@ One last method of saving and restoring data deserves a mention: `dput()` and `d
 
 ```r
 ## first restore gfits with our desired country factor level order
-gfits <- readRDS("gfits.rds")
-dput(gfits, "gfits-dput.txt")
+gap_life_exp <- readRDS("gap_life_exp.rds")
+dput(gap_life_exp, "gap_life_exp-dput.txt")
 ```
 
 Now let's look at the first few lines of the file `gfits-dput.txt`.
 
 
 ```
-structure(list(country = structure(c(2L, 98L, 52L, 7L, 109L, 
-132L, 120L, 83L, 17L, 131L, 33L, 27L, 95L, 84L, 81L, 115L, 13L, 
-38L, 23L, 42L, 136L, 28L, 34L, 88L, 70L, 86L, 36L, 44L, 69L, 
-97L, 61L, 111L, 105L, 127L, 138L, 18L, 74L, 75L, 40L, 66L, 10L, 
-15L, 16L, 121L, 130L, 29L, 1L, 129L, 53L, 126L, 46L, 5L, 6L, 
-31L, 49L, 110L, 117L, 141L, 32L, 21L, 62L, 79L, 128L, 119L, 123L, 
+structure(list(country = structure(c(3L, 107L, 74L, 2L, 98L, 
+138L, 128L, 102L, 49L, 125L, 26L, 56L, 96L, 47L, 75L, 85L, 18L, 
+12L, 37L, 24L, 133L, 13L, 16L, 117L, 84L, 82L, 53L, 9L, 28L, 
+120L, 22L, 104L, 114L, 109L, 115L, 23L, 73L, 97L, 66L, 71L, 15L, 
+29L, 20L, 122L, 134L, 40L, 35L, 123L, 38L, 126L, 60L, 25L, 7L, 
+39L, 59L, 141L, 86L, 140L, 51L, 63L, 64L, 52L, 121L, 135L, 132L, 
 ```
 
 Huh? Don't worry about it. Remember we are ["writing data for computers"](https://twitter.com/vsbuffalo/statuses/358699162679787521). The partner function `dget()` reads this representation back in.
 
 
 ```r
-gfits_dget <- dget("gfits-dput.txt")
+gap_life_exp_dget <- dget("gap_life_exp-dput.txt")
 country_levels <- country_levels %>% 
-  mutate(via_dput = head(levels(gfits_dget$country)))
+  mutate(via_dput = head(levels(gap_life_exp_dget$country)))
 country_levels
-## Source: local data frame [6 x 4]
-## 
-##        original     via_tsv       via_rds      via_dput
-##           (chr)       (chr)         (chr)         (chr)
-## 1        Gambia Afghanistan        Gambia        Gambia
-## 2   Afghanistan     Albania   Afghanistan   Afghanistan
-## 3   Yemen, Rep.     Algeria   Yemen, Rep.   Yemen, Rep.
-## 4  Sierra Leone      Angola  Sierra Leone  Sierra Leone
-## 5        Guinea   Argentina        Guinea        Guinea
-## 6 Guinea-Bissau   Australia Guinea-Bissau Guinea-Bissau
+## # A tibble: 6 × 4
+##       original     via_csv      via_rds     via_dput
+##          <chr>       <chr>        <chr>        <chr>
+## 1 Sierra Leone Afghanistan Sierra Leone Sierra Leone
+## 2       Angola     Albania       Angola       Angola
+## 3  Afghanistan     Algeria  Afghanistan  Afghanistan
+## 4      Liberia      Angola      Liberia      Liberia
+## 5       Rwanda   Argentina       Rwanda       Rwanda
+## 6   Mozambique   Australia   Mozambique   Mozambique
 ```
 
 Note how the original, post-reordering country factor levels are restored using the `dput()` / `dget()` strategy.
@@ -408,7 +355,7 @@ We've written several files in this tutorial. Some of them are not of lasting va
 
 
 ```r
-file.remove(list.files(pattern = "^gfits"))
+file.remove(list.files(pattern = "^gap_life_exp"))
 ## [1] TRUE TRUE TRUE
 ```
 
@@ -421,6 +368,8 @@ When the header fields (often, but not always, the variable names) or actual dat
 Sometimes, instead of rigid tab-delimiting, whitespace is used as the delimiter. That is, in fact, the default for both `read.table()` and `write.table()`. Assuming you will write/read variable names from the first line (a.k.a. the `header` in `write.table()` and `read.table()`), they must be valid R variable names ... or they will be coerced into something valid. So, for these two reasons, it is good practice to use "one word" variable names whenever possible. If you need to evoke multiple words, use `snake_case` or `camelCase` to cope. Example: the header entry for the field holding the subject's last name should be `last_name` or `lastName` NOT `last name`. With the `readr` package, "column names are left as is, not munged into valid R identifiers (i.e. there is no `check.names = TRUE`)". So you can get away with whitespace in variable names and yet I recommend that you do not.
 
 ### References
+
+[Data import](http://r4ds.had.co.nz/data-import.html) chapter of [R for Data Science](http://r4ds.had.co.nz) by Hadley Wickahm and Garrett Grolemund.
 
 Nine simple ways to make it easier to (re)use your data by Ethan P White, Elita Baldridge, Zachary T. Brym, Kenneth J. Locey, Daniel J. McGlinn, Sarah R. Supp.
 
