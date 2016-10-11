@@ -10,36 +10,37 @@ output:
 
 Consult the [general homework guidelines](hw00_homework-guidelines.html).
 
-Due anytime Wednesday 2015-10-28.
+Due anytime Friday 2016-10-21.
 
 Goals:
 
   * Reorder a factor in a principled way based on the data and demonstrate the effect in arranged data and in figures.
-  * Remake at least one previously made figure, in light of recent coverage of visualization design principles.
+  * Remake at least one previously made figure (or make a completely new figure), using new knowledge, such as ability to control the color scheme, better figure making mechanics, visualization design principles.
   * Write a figure to file explicitly and include it your R Markdown report via `![Alt text](/path/to/img.png)`.
-  * Clean up your repo, to celebrate the completion of STAT 545 and/or to prepare for the glorious future of STAT 547.
+  * Clean up and organize your entire repository, to celebrate the completion of STAT 545 and/or to prepare for the glorious future of STAT 547.
 
 Remember the [sampler concept](http://en.wikipedia.org/wiki/Sampler_(needlework)). Your homework should serve as your own personal cheatsheet in the future for canonical tasks. Make things nice -- your future self will thank you!
 
 #### Gapminder data ... or whatever
 
-You can work with the [Gapminder excerpt](http://tiny.cc/gapminder) or take this chance to play with something else. In which case, you'll have to create comparable tasks for yourself.
+You can work with the gapminder data or take this chance to play with something else. In which case, you'll have to create comparable tasks for yourself.
 
 ### Factor management
 
-**Drop Oceania.** Filter the Gapminder data to remove observations associated with the `continent` of Oceania. Additionally, Use `droplevels()` to remove unused factor levels. Provide concrete information on the data before and after removing these rows and Oceania; address the number of rows and the levels of the affected factors. Use a figure that includes a legend to further explore the effects of filtering data and/or changing factor levels.
+**Drop Oceania.** Filter the Gapminder data to remove observations associated with the `continent` of Oceania.  Additionally, remove unused factor levels. Provide concrete information on the data before and after removing these rows and Oceania; address the number of rows and the levels of the affected factors.
 
-**Reorder the levels of `country` or `continent`.** Use `reorder()` to change the order of the factor levels, based on a summary statistic of one of the quantitative variables or another derived quantity, such as estimated intercept or slope. If you use a summary of, e.g., life expectancy, try something besides the default of `mean()`.
+**Reorder the levels of `country` or `continent`.** Use the forcats package to change the order of the factor levels, based on a principled summary of one of the quantitative variables. Consider experimenting with a summary statistic beyond the most basic choice of the mean.
 
 Characterize the (derived) data before and after your factor re-leveling.
 
   * Explore the effects of `arrange()`. Does merely arranging the data have any effect on, say, a figure?
-  * Explore the effects of `reorder()` and `reorder()` + `arrange()`. What effect does this have on a figure?
-  * These explorations should involve the data, the factor levels, and some figures.
+  * Explore the effects of reordering a factor and factor reordering coupled with `arrange()`. Especially, what effect does this have on a figure?
+
+These explorations should involve the data, the factor levels, and some figures.
 
 ### Visualization design
 
-Remake at least one figure, in light of something you learned in the recent class meetings about visualization design and color. Maybe juxtapose before and after and reflect on the differences. Consult the guest lecture from Tamara Munzner and [everything here](graph00_index.html).
+Remake at least one figure, in light of something you learned in the recent class meetings about visualization design and color. Maybe juxtapose before and after and reflect on the differences. Use the country or continent color scheme that ships with Gapminder. Consult the guest lecture from Tamara Munzner and [everything here](graph00_index.html).
 
 ### Writing figures to file
 
@@ -51,7 +52,7 @@ Use `ggsave()` to explicitly write a figure to file. Then use `![Alt text](/path
   
 ### Clean up your repo!
 
-You have 6 weeks of R Markdown and GitHub experience now. You've reviewed 8 peer assignments. Surely there are aspects of your current repo organization that could be better. Deal with that. Ideas:
+You have 6 weeks of R Markdown and GitHub experience now. You've reviewed 4 peer assignments. Surely there are aspects of your current repo organization that could be better. Deal with that. Ideas:
 
   * A nice Table of Contents in top-level README that links to individual pieces of work.
     - Good for future: `hw03 dplyr verbs`
@@ -62,22 +63,13 @@ You have 6 weeks of R Markdown and GitHub experience now. You've reviewed 8 peer
 
 ### But I want to do more!
 
-Play with the `factor(, ... levels = ...)` function for explicitly setting factor levels. It's behavior can be surprising!
-
-  - Can you create a gotcha, i.e. do something that seems natural but gives an unexpected result?
-  - Experiment with using `stringsAsFactors = FALSE` in `read.table()` followed by an explicit call to `factor()`. When might you do this?
-  - Can you use it to set factor levels to the order in which they appear in the data? Can you exploit that as a way to transmit factor level order even with the `write.table() / read.table()` workflow?
-  - Can you use it to apply factor levels from one version of a factor to another? Specifically, reorder `country` based on estimated slope or intercept in `j_coefs` THEN apply those factor levels back to `country` in the raw Gapminder data.
+Make a deeper exploration of the forcats packages, i.e. try more of the factor level reordering functions.
   
 Revalue a factor
 
-  * Pick a handful of countries, each of which you can associate with a stereotypical food (or any other non-controversial thing ... sport? hobby? type of music, art or dance? animal? landscape feature?). Create an excerpt of the Gapminder data, filtered to just these countries. Create a new factor -- you pick the name! -- and use one or more of these functions to map the existing `country` factor levels into new ones.
-    - from `plyr` package: `revalue()` or `mapvalues()`
-    - from `car` package: `recode()` 
-    * Examples: Italy --> wine, Germany --> beer, Japan --> sake. (Austria, Germany) --> German, (Mexico, Spain) --> Spanish, (Portugal, Brazil) --> Portuguese. Let your creativity flourish.
+  * Pick a handful of countries, each of which you can associate with a stereotypical food (or any other non-controversial thing ... sport? hobby? type of music, art or dance? animal? landscape feature?). Create an excerpt of the Gapminder data, filtered to just these countries. Create a new factor -- you pick the name! -- by mapping the existing country factor levels to the new levels.
+    - Examples: Italy --> wine, Germany --> beer, Japan --> sake. (Austria, Germany) --> German, (Mexico, Spain) --> Spanish, (Portugal, Brazil) --> Portuguese. Let your creativity flourish.
     
-Experiment with gluing two factors together. What if they have the same levels? Different levels? Try it gluing two "naked" factors together, then try it again when those factors are embedded in conformable two data.frames.
-
 ### Report your process
 
 You're encouraged to reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc. Give credit to your sources, whether it's a blog post, a fellow student, an online tutorial, etc.
