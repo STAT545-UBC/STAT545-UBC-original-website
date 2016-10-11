@@ -37,7 +37,7 @@ sep-27 tues    <a href="cm007_ggplot2.html">cm007</a>: ggplot2
 sep-29 thurs   <a href="cm008_dplyr-single-table.html">cm008</a>: dplyr: mutate, group, summarize                                      
 oct-04 tues    <a href="cm009_tidy-data.html">cm009</a>: Tidy data, reshaping                                                          
 oct-06 thurs   <a href="cm010_joins-r-programming.html">cm010</a>: dplyr joins, minimum "need to know" re: R as a programming language 
-oct-11 tues    <a href="">cm011</a>: R as a programming language, getting data out of R (and back in)                                  
+oct-11 tues    <a href="cm011_r-programming-file-io.html">cm011</a>: R as a programming language, getting data out of R (and back in)  
 oct-13 thurs   cm012: Be the boss of your factors                                                                                      
 oct-18 tues    cm013: Revisit ggplot, practicalities of daily figure-making                                                            
 oct-20 thurs   cm014: Visualization Analysis and Design: Tamara Munzer guest lecture                                                   
