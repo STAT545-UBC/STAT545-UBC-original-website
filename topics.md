@@ -13,7 +13,7 @@ This material gets updated during Sept - Nov each year. Right now we're in awkwa
     - [Basic care and feeding of data in R](block006_care-feeding-data.html): data frames (and tibbles) are awesome.
     - [Introduction to dplyr](block009_dplyr-intro.html): filter, select, the pipe.
     - [dplyr functions for a single dataset](block010_dplyr-end-single-table.html): single table verbs.
-    - [Tidy data using Lord of the Rings](https://github.com/jennybc/lotr-tidy): tidy data, tidyr.
+    - [Tidy data using Lord of the Rings](https://github.com/jennybc/lotr-tidy#readme): tidy data, tidyr.
     - [Cheatsheet](bit001_dplyr-cheatsheet.html) for dplyr join functions    
     - [Split-Apply-Combine](block024_group-nest-split-map.html) with the tidyverse (nesting, list-columns, map inside mutate) *under development*.
   * Data analysis 2: vectors and files
