@@ -108,6 +108,7 @@ button.code-folding-btn:focus {
 </style>
 
 
+
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
@@ -162,6 +163,7 @@ $(document).ready(function () {
 </ul>
 </div>
 
+<p><strong>As of 2016-10-11 this is deprecated. STAT 545 is now using the <a href="https://github.com/tidyverse/forcats">forcats</a> package for factor management, which is covered in the <a href="block029_factors.html">current factor lesson</a>.</strong></p>
 <div id="load-the-gapminder-data" class="section level3">
 <h3>Load the Gapminder data</h3>
 <p>As usual, load the Gapminder excerpt and the <code>ggplot2</code> package. Load <code>plyr</code> and/or <code>dplyr</code>. If you load both, load <code>plyr</code> first.</p>
@@ -189,7 +191,7 @@ gapminder %&gt;%
   do(le_lin_fit(.)) %&gt;% 
   ungroup()
 gcoefs
-## &lt;tibble [142 x 4]&gt;
+## # A tibble: 142 × 4
 ##        country continent intercept     slope
 ##         &lt;fctr&gt;    &lt;fctr&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 ## 1  Afghanistan      Asia  29.90729 0.2753287
@@ -202,7 +204,7 @@ gcoefs
 ## 8      Bahrain      Asia  52.74921 0.4675077
 ## 9   Bangladesh      Asia  36.13549 0.4981308
 ## 10     Belgium    Europe  67.89192 0.2090846
-## ... with 132 more rows</code></pre>
+## # ... with 132 more rows</code></pre>
 <p>Or, if you wish, the <code>plyr</code> way:</p>
 <pre class="r"><code>gcoefs2 &lt;- ddply(gapminder, ~ country + continent, le_lin_fit)
 gcoefs2
@@ -500,7 +502,7 @@ nlevels(iDat$country)
   group_by(country) %&gt;%
   summarize(max_le = max(lifeExp))
 i_le_max
-## &lt;tibble [5 x 2]&gt;
+## # A tibble: 5 × 2
 ##     country max_le
 ##      &lt;fctr&gt;  &lt;dbl&gt;
 ## 1     Egypt 71.338
@@ -547,7 +549,7 @@ ggplot(jDat, aes(x = year, y = lifeExp)) +
 <p>Reorder the <code>continent</code> factor, according to the estimated intercepts.</p>
 <p>To review, remember we have computed the estimated intercept and slope for each country:</p>
 <pre class="r"><code>head(gcoefs)
-## &lt;tibble [6 x 4]&gt;
+## # A tibble: 6 × 4
 ##       country continent intercept     slope
 ##        &lt;fctr&gt;    &lt;fctr&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 ## 1 Afghanistan      Asia  29.90729 0.2753287
@@ -568,7 +570,7 @@ kDat &lt;- gapminder %&gt;%
   filter(country %in% k_countries, year &gt; 2000) %&gt;%
   droplevels()
 kDat
-## &lt;tibble [6 x 6]&gt;
+## # A tibble: 6 × 6
 ##            country continent  year lifeExp      pop gdpPercap
 ##             &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
 ## 1        Australia   Oceania  2002  80.370 19546792 30687.755
@@ -585,14 +587,14 @@ kDat &lt;- kDat %&gt;%
                                  &quot;Korea, Dem. Rep.&quot; = &quot;North Korea&quot;,
                                  &quot;Korea, Rep.&quot; = &quot;South Korea&quot;)))
 data_frame(levels(kDat$country), levels(kDat$new_country))
-## &lt;tibble [3 x 2]&gt;
-##   levels(kDat$country) levels(kDat$new_country)
-##                  &lt;chr&gt;                    &lt;chr&gt;
-## 1            Australia                       Oz
-## 2     Korea, Dem. Rep.              North Korea
-## 3          Korea, Rep.              South Korea
+## # A tibble: 3 × 2
+##   `levels(kDat$country)` `levels(kDat$new_country)`
+##                    &lt;chr&gt;                      &lt;chr&gt;
+## 1              Australia                         Oz
+## 2       Korea, Dem. Rep.                North Korea
+## 3            Korea, Rep.                South Korea
 kDat
-## &lt;tibble [6 x 7]&gt;
+## # A tibble: 6 × 7
 ##            country continent  year lifeExp      pop gdpPercap new_country
 ##             &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;      &lt;fctr&gt;
 ## 1        Australia   Oceania  2002  80.370 19546792 30687.755          Oz
@@ -664,7 +666,7 @@ str(gapminder)
 ##  $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
 ##  $ gdpPercap: num  779 821 853 836 740 ...
 head(gapminder)
-## &lt;tibble [6 x 6]&gt;
+## # A tibble: 6 × 6
 ##       country continent  year lifeExp      pop gdpPercap
 ##        &lt;fctr&gt;     &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
 ## 1 Afghanistan      Asia  1952  28.801  8425333  779.4453
@@ -686,7 +688,7 @@ str(gapminder)
 ##  $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
 ##  $ gdpPercap: num  779 821 853 836 740 ...
 head(gapminder)
-## &lt;tibble [6 x 6]&gt;
+## # A tibble: 6 × 6
 ##       country continent  year lifeExp      pop gdpPercap
 ##        &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
 ## 1 Afghanistan      Asia  1952  28.801  8425333  779.4453
@@ -711,6 +713,7 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 $(document).ready(function () {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 });
+
 
 </script>
 

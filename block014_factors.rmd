@@ -10,6 +10,8 @@ output:
 knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
 ```
 
+**As of 2016-10-11 this is deprecated. STAT 545 is now using the [forcats](https://github.com/tidyverse/forcats) package for factor management, which is covered in the [current factor lesson](block029_factors.html).**
+
 ### Load the Gapminder data
 
 As usual, load the Gapminder excerpt and the `ggplot2` package. Load `plyr` and/or `dplyr`. If you load both, load `plyr` first.
