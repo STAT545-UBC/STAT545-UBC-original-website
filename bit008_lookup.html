@@ -150,8 +150,8 @@ $(document).ready(function () {
 
 
 <p>I try to use <a href="bit001_dplyr-cheatsheet.html">dplyr joins</a> for most tasks that combine data from two tibbles. But sometimes you just need good old “table lookup”. Party like it’s Microsoft Excel <code>LOOKUP()</code> time!</p>
-<div id="load-and-subset-gapminder-and-the-tidyverse" class="section level3">
-<h3>Load (and subset) gapminder and the tidyverse</h3>
+<div id="load-gapminder-and-the-tidyverse" class="section level3">
+<h3>Load gapminder and the tidyverse</h3>
 <pre class="r"><code>library(gapminder)
 library(tidyverse)
 ## Loading tidyverse: ggplot2
@@ -166,6 +166,7 @@ library(tidyverse)
 </div>
 <div id="create-mini-gapminder" class="section level3">
 <h3>Create mini Gapminder</h3>
+<p>Work with a tiny subset of Gapminder, <code>mini_gap</code>.</p>
 <pre class="r"><code>mini_gap &lt;- gapminder %&gt;% 
   filter(country %in% c(&quot;Belgium&quot;, &quot;Canada&quot;, &quot;United States&quot;, &quot;Mexico&quot;),
          year &gt; 2000) %&gt;% 
@@ -186,11 +187,11 @@ mini_gap
 </div>
 <div id="dorky-national-food-example." class="section level3">
 <h3>Dorky national food example.</h3>
-<p>National food. Or at least the stereotype. Make a small table with a subset of the Gapminder countries and a variable of foods. Yes I have intentionally kept Mexico in mini-Gapminder and neglected to put Mexico here.</p>
+<p>Make a lookup table of national foods. Or at least the stereotype. Yes I have intentionally kept Mexico in mini-Gapminder and neglected to put Mexico here.</p>
 <pre class="r"><code>food &lt;- tribble(
-  ~ country, ~ food,
-  &quot;Belgium&quot;, &quot;waffle&quot;,
-  &quot;Canada&quot;, &quot;poutine&quot;,
+        ~ country,    ~ food,
+        &quot;Belgium&quot;,  &quot;waffle&quot;,
+         &quot;Canada&quot;, &quot;poutine&quot;,
   &quot;United States&quot;, &quot;Twinkie&quot;
 )
 food
@@ -203,11 +204,11 @@ food
 </div>
 <div id="lookup-national-food" class="section level3">
 <h3>Lookup national food</h3>
-<p><code>match(x, table)</code> reports where the values in the key <code>x</code> appear in the lookup table <code>table</code>. It returns positive integers for use as indices. It assumes <code>x</code> and <code>table</code> are free-range vectors, i.e. there’s no implicit data frame on the radar here.</p>
-<p>Gapminder’s <code>country</code> will play the role of the key variable <code>x</code>. It is replicated, i.e. non-unique, in <code>mini_gap</code>, but not in <code>food</code>, i.e. no country appears more than once <code>food$country</code>. FYI <code>match()</code> actually allows for multiple matches by only consulting the first.</p>
+<p><code>match(x, table)</code> reports where the values in the key <code>x</code> appear in the lookup variable <code>table</code>. It returns positive integers for use as indices. It assumes <code>x</code> and <code>table</code> are free-range vectors, i.e. there’s no implicit data frame on the radar here.</p>
+<p>Gapminder’s <code>country</code> plays the role of the key <code>x</code>. It is replicated, i.e. non-unique, in <code>mini_gap</code>, but not in <code>food</code>, i.e. no country appears more than once <code>food$country</code>. FYI <code>match()</code> actually allows for multiple matches by only consulting the first.</p>
 <pre class="r"><code>match(x = mini_gap$country, table = food$country)
 ## [1]  1  1  2  2 NA NA  3  3</code></pre>
-<p>In table lookup, there is always a value variable <code>y</code> that you plan to index with the <code>match(x, table)</code> result. It often lives together with <code>table</code> in a data frame; they should certainly be the same length and synced up with respect to row order..</p>
+<p>In table lookup, there is always a value variable <code>y</code> that you plan to index with the <code>match(x, table)</code> result. It often lives together with <code>table</code> in a data frame; they should certainly be the same length and synced up with respect to row order.</p>
 <p>But first …</p>
 <p>I get <code>x</code> and <code>table</code> backwards some non-negligible percentage of the time. So I store the match indices and index the data frame where <code>table</code> lives with it. Add <code>x</code> as a column and eyeball-o-metrically assess that all is well.</p>
 <pre class="r"><code>(indices &lt;- match(x = mini_gap$country, table = food$country))
