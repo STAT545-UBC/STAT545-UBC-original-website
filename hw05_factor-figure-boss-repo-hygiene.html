@@ -154,6 +154,7 @@ $(document).ready(function () {
 <li><a href="#gapminder-data-or-whatever">Gapminder data … or whatever</a></li>
 </ul></li>
 <li><a href="#factor-management">Factor management</a></li>
+<li><a href="#file-io">File I/O</a></li>
 <li><a href="#visualization-design">Visualization design</a></li>
 <li><a href="#writing-figures-to-file">Writing figures to file</a></li>
 <li><a href="#clean-up-your-repo">Clean up your repo!</a></li>
@@ -171,7 +172,8 @@ $(document).ready(function () {
 <p>Goals:</p>
 <ul>
 <li>Reorder a factor in a principled way based on the data and demonstrate the effect in arranged data and in figures.</li>
-<li>Remake at least one previously made figure (or make a completely new figure), using new knowledge, such as ability to control the color scheme, better figure making mechanics, visualization design principles.</li>
+<li>Write some data to file and bring it back into R.</li>
+<li>Remake at least one previously made figure (or make a completely new figure), using new knowledge, such as ability to control the color scheme, empowerment about factor levels, better figure making mechanics, or visualization design principles.</li>
 <li>Write a figure to file explicitly and include it your R Markdown report via <code>![Alt text](/path/to/img.png)</code>.</li>
 <li>Clean up and organize your entire repository, to celebrate the completion of STAT 545 and/or to prepare for the glorious future of STAT 547.</li>
 </ul>
@@ -184,13 +186,17 @@ $(document).ready(function () {
 <div id="factor-management" class="section level3">
 <h3>Factor management</h3>
 <p><strong>Drop Oceania.</strong> Filter the Gapminder data to remove observations associated with the <code>continent</code> of Oceania. Additionally, remove unused factor levels. Provide concrete information on the data before and after removing these rows and Oceania; address the number of rows and the levels of the affected factors.</p>
-<p><strong>Reorder the levels of <code>country</code> or <code>continent</code>.</strong> Use the forcats package to change the order of the factor levels, based on a principled summary of one of the quantitative variables. Consider experimenting with a summary statistic beyond the most basic choice of the mean.</p>
+<p><strong>Reorder the levels of <code>country</code> or <code>continent</code>.</strong> Use the forcats package to change the order of the factor levels, based on a principled summary of one of the quantitative variables. Consider experimenting with a summary statistic beyond the most basic choice of the median. While you’re here, practice writing to file and reading back in (see next section).</p>
 <p>Characterize the (derived) data before and after your factor re-leveling.</p>
 <ul>
 <li>Explore the effects of <code>arrange()</code>. Does merely arranging the data have any effect on, say, a figure?</li>
 <li>Explore the effects of reordering a factor and factor reordering coupled with <code>arrange()</code>. Especially, what effect does this have on a figure?</li>
 </ul>
 <p>These explorations should involve the data, the factor levels, and some figures.</p>
+</div>
+<div id="file-io" class="section level3">
+<h3>File I/O</h3>
+<p>Experiment with one or more of <code>write_csv()/read_csv()</code> (and/or TSV friends), <code>saveRDS()/readRDS()</code>, <code>dput()/dget()</code>. Create something new, probably by filtering or grouped-summarization of Gapminder. I highly recommend you fiddle with the factor levels, i.e. make them non-alphabetical (see previous section). Explore whether this survives the round trip of writing to file then reading back in.</p>
 </div>
 <div id="visualization-design" class="section level3">
 <h3>Visualization design</h3>

@@ -15,7 +15,8 @@ Due anytime Friday 2016-10-21.
 Goals:
 
   * Reorder a factor in a principled way based on the data and demonstrate the effect in arranged data and in figures.
-  * Remake at least one previously made figure (or make a completely new figure), using new knowledge, such as ability to control the color scheme, better figure making mechanics, visualization design principles.
+  * Write some data to file and bring it back into R.
+  * Remake at least one previously made figure (or make a completely new figure), using new knowledge, such as ability to control the color scheme, empowerment about factor levels, better figure making mechanics, or visualization design principles.
   * Write a figure to file explicitly and include it your R Markdown report via `![Alt text](/path/to/img.png)`.
   * Clean up and organize your entire repository, to celebrate the completion of STAT 545 and/or to prepare for the glorious future of STAT 547.
 
@@ -29,7 +30,7 @@ You can work with the gapminder data or take this chance to play with something 
 
 **Drop Oceania.** Filter the Gapminder data to remove observations associated with the `continent` of Oceania.  Additionally, remove unused factor levels. Provide concrete information on the data before and after removing these rows and Oceania; address the number of rows and the levels of the affected factors.
 
-**Reorder the levels of `country` or `continent`.** Use the forcats package to change the order of the factor levels, based on a principled summary of one of the quantitative variables. Consider experimenting with a summary statistic beyond the most basic choice of the mean.
+**Reorder the levels of `country` or `continent`.** Use the forcats package to change the order of the factor levels, based on a principled summary of one of the quantitative variables. Consider experimenting with a summary statistic beyond the most basic choice of the median. While you're here, practice writing to file and reading back in (see next section).
 
 Characterize the (derived) data before and after your factor re-leveling.
 
@@ -37,6 +38,10 @@ Characterize the (derived) data before and after your factor re-leveling.
   * Explore the effects of reordering a factor and factor reordering coupled with `arrange()`. Especially, what effect does this have on a figure?
 
 These explorations should involve the data, the factor levels, and some figures.
+
+### File I/O
+
+Experiment with one or more of `write_csv()/read_csv()` (and/or TSV friends), `saveRDS()/readRDS()`, `dput()/dget()`. Create something new, probably by filtering or grouped-summarization of Gapminder. I highly recommend you fiddle with the factor levels, i.e. make them non-alphabetical (see previous section). Explore whether this survives the round trip of writing to file then reading back in.
 
 ### Visualization design
 
