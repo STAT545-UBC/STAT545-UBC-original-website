@@ -2,7 +2,7 @@
 
 
 
-*Under development*
+*Under development ... really just a placeholder / collection of links*
 
 ### Date-time vectors: where they fit in
 
@@ -16,7 +16,7 @@ Here we discuss common remedial tasks for dealing with date-times.
 
 I start with this because we cannot possibly do this topic justice in a short amount of time. Our goal is to make you aware of specific problems and solutions. Once you have a character problem in real life, these resources will be extremely helpful as you delve deeper.
 
-[Dates and times](http://r4ds.had.co.nz/dates-and-times.html) chapter from [R for Data Science](http://r4ds.had.co.nz) by Hadley Wickham and Garrett Grolemund
+[Dates and times](http://r4ds.had.co.nz/dates-and-times.html) chapter from [R for Data Science](http://r4ds.had.co.nz) by Hadley Wickham and Garrett Grolemund. See also the subsection on dates and times in the [Data import chapter](http://r4ds.had.co.nz/data-import.html).
 
 The [lubridate](https://cran.r-project.org/package=lubridate) package. [Main vignette](https://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html).
 
@@ -54,9 +54,9 @@ Use base `Sys.Date()` or lubridate's `today()` to get today's date, without any 
 
 ```r
 Sys.Date()
-#> [1] "2016-10-11"
+#> [1] "2016-10-12"
 today()
-#> [1] "2016-10-11"
+#> [1] "2016-10-12"
 ```
 
 They both give you something of class `Date`.
@@ -64,11 +64,11 @@ They both give you something of class `Date`.
 
 ```r
 str(Sys.Date())
-#>  Date[1:1], format: "2016-10-11"
+#>  Date[1:1], format: "2016-10-12"
 class(Sys.Date())
 #> [1] "Date"
 str(today())
-#>  Date[1:1], format: "2016-10-11"
+#>  Date[1:1], format: "2016-10-12"
 class(today())
 #> [1] "Date"
 ```
@@ -78,9 +78,9 @@ Use base `Sys.time()` or lubridate's `now()` to get RIGHT NOW, meaning the date 
 
 ```r
 Sys.time()
-#> [1] "2016-10-11 23:12:58 PDT"
+#> [1] "2016-10-12 08:46:55 PDT"
 now()
-#> [1] "2016-10-11 23:12:58 PDT"
+#> [1] "2016-10-12 08:46:55 PDT"
 ```
 
 They both give you something of class `POSIXct` in R jargon.
@@ -88,11 +88,11 @@ They both give you something of class `POSIXct` in R jargon.
 
 ```r
 str(Sys.time())
-#>  POSIXct[1:1], format: "2016-10-11 23:12:58"
+#>  POSIXct[1:1], format: "2016-10-12 08:46:55"
 class(Sys.time())
 #> [1] "POSIXct" "POSIXt"
 str(now())
-#>  POSIXct[1:1], format: "2016-10-11 23:12:58"
+#>  POSIXct[1:1], format: "2016-10-12 08:46:55"
 class(now())
 #> [1] "POSIXct" "POSIXt"
 ```

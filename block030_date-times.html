@@ -162,7 +162,7 @@ $(document).ready(function () {
 </ul>
 </div>
 
-<p><em>Under development</em></p>
+<p><em>Under development … really just a placeholder / collection of links</em></p>
 <div id="date-time-vectors-where-they-fit-in" class="section level3">
 <h3>Date-time vectors: where they fit in</h3>
 <p>We’ve spent alot of time working with big, beautiful data frames. That are clean and wholesome, like the Gapminder data. With crude temporal information like, “THE YEAR IS 1952”.</p>
@@ -172,7 +172,7 @@ $(document).ready(function () {
 <div id="resources" class="section level3">
 <h3>Resources</h3>
 <p>I start with this because we cannot possibly do this topic justice in a short amount of time. Our goal is to make you aware of specific problems and solutions. Once you have a character problem in real life, these resources will be extremely helpful as you delve deeper.</p>
-<p><a href="http://r4ds.had.co.nz/dates-and-times.html">Dates and times</a> chapter from <a href="http://r4ds.had.co.nz">R for Data Science</a> by Hadley Wickham and Garrett Grolemund</p>
+<p><a href="http://r4ds.had.co.nz/dates-and-times.html">Dates and times</a> chapter from <a href="http://r4ds.had.co.nz">R for Data Science</a> by Hadley Wickham and Garrett Grolemund. See also the subsection on dates and times in the <a href="http://r4ds.had.co.nz/data-import.html">Data import chapter</a>.</p>
 <p>The <a href="https://cran.r-project.org/package=lubridate">lubridate</a> package. <a href="https://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html">Main vignette</a>.</p>
 <p>Grolemund, G., &amp; Wickham, H. (2011). Dates and Times Made Easy with lubridate. Journal of Statistical Software, 40(3), 1 - 25. <a href="http://dx.doi.org/10.18637/jss.v040.i03" class="uri">http://dx.doi.org/10.18637/jss.v040.i03</a></p>
 <p>Exercises to push you to learn <a href="https://cran.r-project.org/web/packages/lubridate/index.html">lubridate</a>: <a href="http://r-exercises.com/2016/08/15/dates-and-times-simple-and-easy-with-lubridate-part-1/">part 1</a>, <a href="http://r-exercises.com/2016/08/29/dates-and-times-simple-and-easy-with-lubridate-exercises-part-2/">part 2</a>, <a href="http://r-exercises.com/2016/10/04/dates-and-times-simple-and-easy-with-lubridate-exercises-part-3/">part 3</a> <em>posts include links to answers!</em></p>
@@ -200,30 +200,30 @@ library(lubridate)
 <h3>Get your hands on some dates or date-times</h3>
 <p>Use base <code>Sys.Date()</code> or lubridate’s <code>today()</code> to get today’s date, without any time.</p>
 <pre class="r"><code>Sys.Date()
-#&gt; [1] &quot;2016-10-11&quot;
+#&gt; [1] &quot;2016-10-12&quot;
 today()
-#&gt; [1] &quot;2016-10-11&quot;</code></pre>
+#&gt; [1] &quot;2016-10-12&quot;</code></pre>
 <p>They both give you something of class <code>Date</code>.</p>
 <pre class="r"><code>str(Sys.Date())
-#&gt;  Date[1:1], format: &quot;2016-10-11&quot;
+#&gt;  Date[1:1], format: &quot;2016-10-12&quot;
 class(Sys.Date())
 #&gt; [1] &quot;Date&quot;
 str(today())
-#&gt;  Date[1:1], format: &quot;2016-10-11&quot;
+#&gt;  Date[1:1], format: &quot;2016-10-12&quot;
 class(today())
 #&gt; [1] &quot;Date&quot;</code></pre>
 <p>Use base <code>Sys.time()</code> or lubridate’s <code>now()</code> to get RIGHT NOW, meaning the date and the time.</p>
 <pre class="r"><code>Sys.time()
-#&gt; [1] &quot;2016-10-11 23:12:58 PDT&quot;
+#&gt; [1] &quot;2016-10-12 08:46:55 PDT&quot;
 now()
-#&gt; [1] &quot;2016-10-11 23:12:58 PDT&quot;</code></pre>
+#&gt; [1] &quot;2016-10-12 08:46:55 PDT&quot;</code></pre>
 <p>They both give you something of class <code>POSIXct</code> in R jargon.</p>
 <pre class="r"><code>str(Sys.time())
-#&gt;  POSIXct[1:1], format: &quot;2016-10-11 23:12:58&quot;
+#&gt;  POSIXct[1:1], format: &quot;2016-10-12 08:46:55&quot;
 class(Sys.time())
 #&gt; [1] &quot;POSIXct&quot; &quot;POSIXt&quot;
 str(now())
-#&gt;  POSIXct[1:1], format: &quot;2016-10-11 23:12:58&quot;
+#&gt;  POSIXct[1:1], format: &quot;2016-10-12 08:46:55&quot;
 class(now())
 #&gt; [1] &quot;POSIXct&quot; &quot;POSIXt&quot;</code></pre>
 </div>

@@ -10,7 +10,7 @@ output:
 knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
 ```
 
-*Under development*
+*Under development ... really just a placeholder / collection of links*
 
 ### Date-time vectors: where they fit in
 
@@ -24,7 +24,7 @@ Here we discuss common remedial tasks for dealing with date-times.
 
 I start with this because we cannot possibly do this topic justice in a short amount of time. Our goal is to make you aware of specific problems and solutions. Once you have a character problem in real life, these resources will be extremely helpful as you delve deeper.
 
-[Dates and times](http://r4ds.had.co.nz/dates-and-times.html) chapter from [R for Data Science](http://r4ds.had.co.nz) by Hadley Wickham and Garrett Grolemund
+[Dates and times](http://r4ds.had.co.nz/dates-and-times.html) chapter from [R for Data Science](http://r4ds.had.co.nz) by Hadley Wickham and Garrett Grolemund. See also the subsection on dates and times in the [Data import chapter](http://r4ds.had.co.nz/data-import.html).
 
 The [lubridate](https://cran.r-project.org/package=lubridate) package. [Main vignette](https://cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html).
 
