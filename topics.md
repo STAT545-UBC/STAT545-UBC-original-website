@@ -16,6 +16,7 @@ This material gets updated during Sept - Nov each year. Right now we're in awkwa
     - [Tidy data using Lord of the Rings](https://github.com/jennybc/lotr-tidy#readme): tidy data, tidyr.
     - [Cheatsheet](bit001_dplyr-cheatsheet.html) for dplyr join functions    
     - [Split-Apply-Combine](block024_group-nest-split-map.html) with the tidyverse (nesting, list-columns, map inside mutate) *under development*.
+    - [Table look up](bit008_lookup.html).
   * Data analysis 2: vectors and files
     - [Be the boss of your factors](block029_factors.html) *under development, in light of forcats*
     - [Character vectors](block028_character-data.html): basic manipulation and regular expressions.

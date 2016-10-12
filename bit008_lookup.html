@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Table lookup</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Table lookup</h1>
+
+</div>
+
+
+<p>I try to use <a href="bit001_dplyr-cheatsheet.html">dplyr joins</a> for most tasks that combine data from two tibbles. But sometimes you just need good old “table lookup”. Party like it’s Microsoft Excel!</p>
+<div id="load-and-subset-gapminder-and-the-tidyverse" class="section level3">
+<h3>Load (and subset) gapminder and the tidyverse</h3>
+<pre class="r"><code>library(gapminder)
+library(tidyverse)
+## Loading tidyverse: ggplot2
+## Loading tidyverse: tibble
+## Loading tidyverse: tidyr
+## Loading tidyverse: readr
+## Loading tidyverse: purrr
+## Loading tidyverse: dplyr
+## Conflicts with tidy packages ----------------------------------------------
+## filter(): dplyr, stats
+## lag():    dplyr, stats</code></pre>
+</div>
+<div id="create-mini-gapminder" class="section level3">
+<h3>Create mini Gapminder</h3>
+<pre class="r"><code>mini_gap &lt;- gapminder %&gt;% 
+  filter(country %in% c(&quot;Belgium&quot;, &quot;Canada&quot;, &quot;United States&quot;, &quot;Mexico&quot;),
+         year &gt; 2000) %&gt;% 
+  select(-pop, -gdpPercap) %&gt;% 
+  droplevels()
+mini_gap
+## # A tibble: 8 × 4
+##         country continent  year lifeExp
+##          &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;
+## 1       Belgium    Europe  2002  78.320
+## 2       Belgium    Europe  2007  79.441
+## 3        Canada  Americas  2002  79.770
+## 4        Canada  Americas  2007  80.653
+## 5        Mexico  Americas  2002  74.902
+## 6        Mexico  Americas  2007  76.195
+## 7 United States  Americas  2002  77.310
+## 8 United States  Americas  2007  78.242</code></pre>
+</div>
+<div id="dorky-national-food-example." class="section level3">
+<h3>Dorky national food example.</h3>
+<p>National food. Or at least the stereotype. Make a small table with a subset of the Gapminder countries and a variable of foods. Yes I have intentionally kept Mexico in mini-Gapminder and neglected to put Mexico here.</p>
+<pre class="r"><code>food &lt;- tribble(
+  ~ country, ~ food,
+  &quot;Belgium&quot;, &quot;waffle&quot;,
+  &quot;Canada&quot;, &quot;poutine&quot;,
+  &quot;United States&quot;, &quot;Twinkie&quot;
+)
+food
+## # A tibble: 3 × 2
+##         country    food
+##           &lt;chr&gt;   &lt;chr&gt;
+## 1       Belgium  waffle
+## 2        Canada poutine
+## 3 United States Twinkie</code></pre>
+</div>
+<div id="lookup-national-food" class="section level3">
+<h3>Lookup national food</h3>
+<p><code>match(x, table)</code> reports where the values in the key <code>x</code> appear in the lookup table <code>table</code>. It returns positive integers for use as indices. It assumes <code>x</code> and <code>table</code> are free-range vectors, i.e. there’s no implicit data frame on the radar here.</p>
+<p>Gapminder’s <code>country</code> will play the role of the key variable <code>x</code>. It is replicated, i.e. non-unique, in <code>mini_gap</code>, but not in <code>food</code>, i.e. no country appears more than once <code>food$country</code>. FYI <code>match()</code> actually allows for multiple matches by only consulting the first.</p>
+<pre class="r"><code>match(x = mini_gap$country, table = food$country)
+## [1]  1  1  2  2 NA NA  3  3</code></pre>
+<p>In table lookup, there is always a value variable <code>y</code> that you plan to index with the <code>match(x, table)</code> result. It often lives together with <code>table</code> in a data frame; they should certainly be the same length and synced up with respect to row order..</p>
+<p>But first …</p>
+<p>I get <code>x</code> and <code>table</code> backwards some non-negligible percentage of the time. So I store the match indices and index the data frame where <code>table</code> lives with it. Add <code>x</code> as a column and eyeball-o-metrically assess that all is well.</p>
+<pre class="r"><code>(indices &lt;- match(x = mini_gap$country, table = food$country))
+## [1]  1  1  2  2 NA NA  3  3
+add_column(food[indices, ], x = mini_gap$country)
+## # A tibble: 8 × 3
+##         country    food             x
+##           &lt;chr&gt;   &lt;chr&gt;        &lt;fctr&gt;
+## 1       Belgium  waffle       Belgium
+## 2       Belgium  waffle       Belgium
+## 3        Canada poutine        Canada
+## 4        Canada poutine        Canada
+## 5          &lt;NA&gt;    &lt;NA&gt;        Mexico
+## 6          &lt;NA&gt;    &lt;NA&gt;        Mexico
+## 7 United States Twinkie United States
+## 8 United States Twinkie United States</code></pre>
+<p>Once all looks good, do the actual table lookup and, possibly, add the new info to your main table.</p>
+<pre class="r"><code>mini_gap %&gt;% 
+  mutate(food = food$food[indices])
+## # A tibble: 8 × 5
+##         country continent  year lifeExp    food
+##          &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;chr&gt;
+## 1       Belgium    Europe  2002  78.320  waffle
+## 2       Belgium    Europe  2007  79.441  waffle
+## 3        Canada  Americas  2002  79.770 poutine
+## 4        Canada  Americas  2007  80.653 poutine
+## 5        Mexico  Americas  2002  74.902    &lt;NA&gt;
+## 6        Mexico  Americas  2007  76.195    &lt;NA&gt;
+## 7 United States  Americas  2002  77.310 Twinkie
+## 8 United States  Americas  2007  78.242 Twinkie</code></pre>
+<p>Of course, if this was really our exact task, we could have used a join!</p>
+<pre class="r"><code>mini_gap %&gt;% 
+  left_join(food)
+## Joining, by = &quot;country&quot;
+## Warning in left_join_impl(x, y, by$x, by$y, suffix$x, suffix$y): joining
+## character vector and factor, coercing into character vector
+## # A tibble: 8 × 5
+##         country continent  year lifeExp    food
+##           &lt;chr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;chr&gt;
+## 1       Belgium    Europe  2002  78.320  waffle
+## 2       Belgium    Europe  2007  79.441  waffle
+## 3        Canada  Americas  2002  79.770 poutine
+## 4        Canada  Americas  2007  80.653 poutine
+## 5        Mexico  Americas  2002  74.902    &lt;NA&gt;
+## 6        Mexico  Americas  2007  76.195    &lt;NA&gt;
+## 7 United States  Americas  2002  77.310 Twinkie
+## 8 United States  Americas  2007  78.242 Twinkie</code></pre>
+<p>But sometimes you have a substantive reason (or psychological hangup) that makes you prefer the table look up interface.</p>
+</div>
+<div id="worlds-laziest-table-lookup" class="section level3">
+<h3>World’s laziest table lookup</h3>
+<p>While I’m here, let’s demo another standard R trick that’s based on indexing by name.</p>
+<p>Imagine the table you want to consult isn’t even a tibble but is, instead, a named character vector.</p>
+<pre class="r"><code>(food_vec &lt;- setNames(food$food, food$country))
+##       Belgium        Canada United States 
+##      &quot;waffle&quot;     &quot;poutine&quot;     &quot;Twinkie&quot;</code></pre>
+<p>Another way to get the national foods for mini-Gapminder is to simply index <code>food_vec</code> with <code>mini_gap$country</code>.</p>
+<pre class="r"><code>mini_gap %&gt;% 
+  mutate(food = food_vec[country])
+## # A tibble: 8 × 5
+##         country continent  year lifeExp    food
+##          &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;chr&gt;
+## 1       Belgium    Europe  2002  78.320  waffle
+## 2       Belgium    Europe  2007  79.441  waffle
+## 3        Canada  Americas  2002  79.770 poutine
+## 4        Canada  Americas  2007  80.653 poutine
+## 5        Mexico  Americas  2002  74.902 Twinkie
+## 6        Mexico  Americas  2007  76.195 Twinkie
+## 7 United States  Americas  2002  77.310    &lt;NA&gt;
+## 8 United States  Americas  2007  78.242    &lt;NA&gt;</code></pre>
+<p>HOLD ON. STOP. Twinkies aren’t the national food of Mexico!?! What went wrong?</p>
+<p>Remember <code>mini_gap$country</code> is a factor. So when we use it in an indexing context, it’s integer nature is expressed. It is pure luck that we get the right foods for Belgium and Canada. Luckily the Mexico - United States situation tipped us off. Here’s what we are really indexing <code>food_vec</code> by above:</p>
+<pre class="r"><code>unclass(mini_gap$country)
+## [1] 1 1 2 2 3 3 4 4
+## attr(,&quot;levels&quot;)
+## [1] &quot;Belgium&quot;       &quot;Canada&quot;        &quot;Mexico&quot;        &quot;United States&quot;</code></pre>
+<p>To get our desired result, we need to explicitly coerce <code>mini_gap$country</code> to character.</p>
+<pre class="r"><code>mini_gap %&gt;% 
+  mutate(food = food_vec[as.character(country)])
+## # A tibble: 8 × 5
+##         country continent  year lifeExp    food
+##          &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;chr&gt;
+## 1       Belgium    Europe  2002  78.320  waffle
+## 2       Belgium    Europe  2007  79.441  waffle
+## 3        Canada  Americas  2002  79.770 poutine
+## 4        Canada  Americas  2007  80.653 poutine
+## 5        Mexico  Americas  2002  74.902    &lt;NA&gt;
+## 6        Mexico  Americas  2007  76.195    &lt;NA&gt;
+## 7 United States  Americas  2002  77.310 Twinkie
+## 8 United States  Americas  2007  78.242 Twinkie</code></pre>
+<p>When your key variable is character (and not a factor), you can skip this step.</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

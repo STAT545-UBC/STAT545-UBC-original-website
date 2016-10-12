@@ -1,0 +1,113 @@
+---
+title: "Table lookup"
+output: github_document
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, error = TRUE)
+```
+
+I try to use [dplyr joins](bit001_dplyr-cheatsheet.html) for most tasks that combine data from two tibbles. But sometimes you just need good old "table lookup". Party like it's Microsoft Excel!
+
+### Load (and subset) gapminder and the tidyverse
+
+```{r}
+library(gapminder)
+library(tidyverse)
+```
+
+### Create mini Gapminder
+
+```{r}
+mini_gap <- gapminder %>% 
+  filter(country %in% c("Belgium", "Canada", "United States", "Mexico"),
+         year > 2000) %>% 
+  select(-pop, -gdpPercap) %>% 
+  droplevels()
+mini_gap
+```
+
+### Dorky national food example.
+
+National food. Or at least the stereotype. Make a small table with a subset of the Gapminder countries and a variable of foods. Yes I have intentionally kept Mexico in mini-Gapminder and neglected to put Mexico here.
+
+```{r}
+food <- tribble(
+  ~ country, ~ food,
+  "Belgium", "waffle",
+  "Canada", "poutine",
+  "United States", "Twinkie"
+)
+food
+```
+
+### Lookup national food
+
+`match(x, table)` reports where the values in the key `x` appear in the lookup table `table`. It returns positive integers for use as indices. It assumes `x` and `table` are free-range vectors, i.e. there's no implicit data frame on the radar here.
+
+Gapminder's `country` will play the role of the key variable `x`. It is replicated, i.e. non-unique, in `mini_gap`, but not in `food`, i.e. no country appears more than once `food$country`. FYI `match()` actually allows for multiple matches by only consulting the first.
+
+```{r}
+match(x = mini_gap$country, table = food$country)
+```
+
+In table lookup, there is always a value variable `y` that you plan to index with the `match(x, table)` result.  It often lives together with `table` in a data frame; they should certainly be the same length and synced up with respect to row order..
+
+But first ...
+
+I get `x` and `table` backwards some non-negligible percentage of the time. So I store the match indices and index the data frame where `table` lives with it. Add `x` as a column and eyeball-o-metrically assess that all is well.
+
+```{r}
+(indices <- match(x = mini_gap$country, table = food$country))
+add_column(food[indices, ], x = mini_gap$country)
+```
+
+Once all looks good, do the actual table lookup and, possibly, add the new info to your main table.
+
+```{r}
+mini_gap %>% 
+  mutate(food = food$food[indices])
+```
+
+Of course, if this was really our exact task, we could have used a join!
+
+```{r}
+mini_gap %>% 
+  left_join(food)
+```
+
+But sometimes you have a substantive reason (or psychological hangup) that makes you prefer the table look up interface.
+
+### World's laziest table lookup
+
+While I'm here, let's demo another standard R trick that's based on indexing by name.
+
+Imagine the table you want to consult isn't even a tibble but is, instead, a named character vector.
+
+```{r}
+(food_vec <- setNames(food$food, food$country))
+```
+
+Another way to get the national foods for mini-Gapminder is to simply index `food_vec` with `mini_gap$country`.
+
+```{r}
+mini_gap %>% 
+  mutate(food = food_vec[country])
+```
+
+HOLD ON. STOP. Twinkies aren't the national food of Mexico!?! What went wrong?
+
+Remember `mini_gap$country` is a factor. So when we use it in an indexing context, it's integer nature is expressed. It is pure luck that we get the right foods for Belgium and Canada. Luckily the Mexico - United States situation tipped us off. Here's what we are really indexing `food_vec` by above:
+
+```{r}
+unclass(mini_gap$country)
+```
+
+To get our desired result, we need to explicitly coerce `mini_gap$country` to character.
+
+```{r}
+mini_gap %>% 
+  mutate(food = food_vec[as.character(country)])
+```
+
+When your key variable is character (and not a factor), you can skip this step.
