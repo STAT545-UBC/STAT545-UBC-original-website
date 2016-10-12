@@ -2,7 +2,7 @@
 
 
 
-I try to use [dplyr joins](bit001_dplyr-cheatsheet.html) for most tasks that combine data from two tibbles. But sometimes you just need good old "table lookup". Party like it's Microsoft Excel!
+I try to use [dplyr joins](bit001_dplyr-cheatsheet.html) for most tasks that combine data from two tibbles. But sometimes you just need good old "table lookup". Party like it's Microsoft Excel `LOOKUP()` time!
 
 ### Load (and subset) gapminder and the tidyverse
 

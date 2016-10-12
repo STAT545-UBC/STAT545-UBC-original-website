@@ -14,9 +14,9 @@ This material gets updated during Sept - Nov each year. Right now we're in awkwa
     - [Introduction to dplyr](block009_dplyr-intro.html): filter, select, the pipe.
     - [dplyr functions for a single dataset](block010_dplyr-end-single-table.html): single table verbs.
     - [Tidy data using Lord of the Rings](https://github.com/jennybc/lotr-tidy#readme): tidy data, tidyr.
-    - [Cheatsheet](bit001_dplyr-cheatsheet.html) for dplyr join functions    
+    - Join (a.k.a. merge) two tables: [dplyr join cheatsheet](bit001_dplyr-cheatsheet.html) with comic characters and publishers
+    - [Table look up](bit008_lookup.html)
     - [Split-Apply-Combine](block024_group-nest-split-map.html) with the tidyverse (nesting, list-columns, map inside mutate) *under development*.
-    - [Table look up](bit008_lookup.html).
   * Data analysis 2: vectors and files
     - [Be the boss of your factors](block029_factors.html) *under development, in light of forcats*
     - [Character vectors](block028_character-data.html): basic manipulation and regular expressions.
