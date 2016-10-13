@@ -5,7 +5,7 @@ output:
     toc_depth: 4
 ---
 
-### cm011 2016-10-10 Tuesday overview
+### cm011 2016-10-11 Tuesday overview
 
   * Peer review for [Homework 03](hw03_dplyr-and-more-ggplot2.html) due today.
   * [Homework 04](hw04_tidy-data-joins.html) due today. Peer review will open shortly.
