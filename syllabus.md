@@ -39,8 +39,8 @@ oct-04 tues    <a href="cm009_tidy-data.html">cm009</a>: Tidy data, reshaping
 oct-06 thurs   <a href="cm010_joins-r-programming.html">cm010</a>: dplyr joins, minimum "need to know" re: R as a programming language 
 oct-11 tues    <a href="cm011_r-programming-file-io.html">cm011</a>: R as a programming language, getting data out of R (and back in)  
 oct-13 thurs   <a href="cm012_file-io-factors.html">cm012</a>: Be the boss of your factors, getting data out of R (and back in)        
-oct-18 tues    cm013: Revisit ggplot, practicalities of daily figure-making                                                            
-oct-20 thurs   cm014: Visualization Analysis and Design: Tamara Munzer guest lecture                                                   
+oct-18 tues    <a href="cm013_ggplot2-continued.html">cm013</a>: Revisit ggplot, practicalities of daily figure-making                 
+oct-20 thurs   <a href="cm014_munzner-guest-lecture.html">cm014</a>: Visualization Analysis and Design: Tamara Munzer guest lecture    
 
   * [Homework 01](hw01_edit-README.html) Edit `README.md`, use R Markdown to explore Gapminder
   * [Homework 02](hw02_explore-gapminder-dplyr.html) Explore Gapminder as a tibble and starting using dplyr and ggplot2
