@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Character encoding</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Character encoding</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#character-encoding-where-it-fits-in">Character encoding: where it fits in</a></li>
+<li><a href="#resources">Resources</a></li>
+<li><a href="#what-is-an-encoding">What is an encoding?</a></li>
+<li><a href="#a-three-step-process-for-fixing-encoding-bugs">A three-step process for fixing encoding bugs</a><ul>
+<li><a href="#discover-which-encoding-your-string-is-actually-in.">Discover which encoding your string is actually in.</a></li>
+<li><a href="#decide-which-encoding-you-want-the-string-to-be">Decide which encoding you want the string to be</a></li>
+<li><a href="#re-encode-your-string">Re-encode your string</a></li>
+</ul></li>
+</ul>
+</div>
+
+<p><em>under development … not clear where this is going</em></p>
+<div id="character-encoding-where-it-fits-in" class="section level2">
+<h2>Character encoding: where it fits in</h2>
+<p>Main page about character data: <a href="block028_character-data.html">Character vectors</a></p>
+</div>
+<div id="resources" class="section level2">
+<h2>Resources</h2>
+<ul>
+<li><a href="http://r4ds.had.co.nz/data-import.html#readr-strings">Strings subsection of data import chapter</a> in R for Data Science</li>
+<li>Screeds on the Minimum Everyone Needs to Know about encoding
+<ul>
+<li><a href="http://www.joelonsoftware.com/articles/Unicode.html">The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</a></li>
+<li><a href="http://kunststube.net/encoding/">What Every Programmer Absolutely, Positively Needs To Know About Encodings And Character Sets To Work With Text</a></li>
+</ul></li>
+<li><a href="http://www.justinweiss.com/articles/3-steps-to-fix-encoding-problems-in-ruby/">Guide to fixing encoding problems in Ruby</a> <em>parking here temporariliy … looks useful but, obviously, it’s about Ruby not R</em></li>
+</ul>
+</div>
+<div id="what-is-an-encoding" class="section level2">
+<h2>What is an encoding?</h2>
+<p>Translating this post literally from Ruby to R: <a href="http://www.justinweiss.com/articles/3-steps-to-fix-encoding-problems-in-ruby/">Guide to fixing encoding problems in Ruby</a></p>
+<p>Look at the string <code>&quot;hello!&quot;</code> in bytes.</p>
+<pre><code>irb(main):001:0&gt; &quot;hello!&quot;.bytes
+=&gt; [104, 101, 108, 108, 111, 33]</code></pre>
+<p>The base function <code>charToRaw()</code> “converts a length-one character string to raw bytes. It does so without taking into account any declared encoding”. It displays bytes in hexadecimal. Use <code>as.integer()</code> to convert to decimal.</p>
+<pre class="r"><code>charToRaw(&quot;hello!&quot;)
+#&gt; [1] 68 65 6c 6c 6f 21
+as.integer(charToRaw(&quot;hello!&quot;))
+#&gt; [1] 104 101 108 108 111  33</code></pre>
+<p>Use a character less common in English:</p>
+<pre><code>irb(main):002:0&gt; &quot;hellṏ!&quot;.bytes
+=&gt; [104, 101, 108, 108, 225, 185, 143, 33]</code></pre>
+<pre class="r"><code>charToRaw(&quot;hellṏ!&quot;)
+#&gt; [1] 68 65 6c 6c e1 b9 8f 21
+as.integer(charToRaw(&quot;hellṏ!&quot;))
+#&gt; [1] 104 101 108 108 225 185 143  33</code></pre>
+<p>Now we see that the <code>&quot;ṏ&quot;</code> is represented by more than one byte. Three in fact: [225, 185, 143]. The encoding of a string defines this relationship.</p>
+<p>Take a look at what a single set of bytes looks like when you try different encodings.</p>
+<p>First, an ISO-8859-1 string with a special character.</p>
+<pre><code>irb(main):003:0&gt; str = &quot;hellÔ!&quot;.encode(&quot;ISO-8859-1&quot;); str.encode(&quot;UTF-8&quot;)
+=&gt; &quot;hellÔ!&quot;
+
+irb(main):004:0&gt; str.bytes
+=&gt; [104, 101, 108, 108, 212, 33]</code></pre>
+<pre class="r"><code>string &lt;- &quot;hellÔ!&quot;
+Encoding(string)
+#&gt; [1] &quot;unknown&quot;
+string_latin &lt;- iconv(string, from = &quot;UTF-8&quot;, to = &quot;Latin1&quot;)
+string_latin
+#&gt; [1] &quot;hell\xd4!&quot;
+charToRaw(string_latin)
+#&gt; [1] 68 65 6c 6c d4 21
+as.integer(charToRaw(string_latin))
+#&gt; [1] 104 101 108 108 212  33</code></pre>
+<p>What would that string look like interpreted as ISO-8859-5 instead?</p>
+<pre><code>irb(main):005:0&gt; str.force_encoding(&quot;ISO-8859-5&quot;); str.encode(&quot;UTF-8&quot;)
+=&gt; &quot;hellд!&quot;</code></pre>
+<pre class="r"><code>iconv(string_latin, from = &quot;ISO-8859-5&quot;, to = &quot;UTF-8&quot;)
+#&gt; [1] &quot;hellд!&quot;</code></pre>
+<p>And not all strings can be represented in all encodings: <code>irb(main):006:0&gt; &quot;hi∑&quot;.encode(&quot;Windows-1252&quot;) Encoding::UndefinedConversionError: U+2211 to WINDOWS-1252 in conversion from UTF-8 to WINDOWS-1252  from (irb):61:in `encode'  from (irb):61  from /usr/local/bin/irb:11:in `&lt;main&gt;'</code></p>
+<pre class="r"><code>(string &lt;- &quot;hi∑&quot;)
+#&gt; [1] &quot;hi∑&quot;
+Encoding(string)
+#&gt; [1] &quot;unknown&quot;
+as.integer(charToRaw(string))
+#&gt; [1] 104 105 226 136 145
+(string_windows &lt;- iconv(string, from = &quot;UTF-8&quot;, to = &quot;Windows-1252&quot;))
+#&gt; [1] NA</code></pre>
+<p>In Ruby, apparently that is an error. In R, we just get <code>NA</code>. Alternatively, and somewhat like Ruby, you can specify a substitution for non-convertible bytes.</p>
+<pre class="r"><code>(string_windows &lt;- iconv(string, from = &quot;UTF-8&quot;, to = &quot;Windows-1252&quot;, sub = &quot;?&quot;))
+#&gt; [1] &quot;hi???&quot;</code></pre>
+<p>In the Ruby post, we’ve seen 3 string functions so far.</p>
+<ul>
+<li><code>encode</code> translates a string to another encoding. We’ve used <code>iconv(x, from = &quot;UTF-8&quot;, to = &lt;DIFFERENT_ENCODING&gt;)</code> here.</li>
+<li><code>bytes</code> shows the bytes that make up a string. We’ve used <code>charToRaw()</code>, which returns hexadecimal in R. For the sake of comparison to the Ruby post, I’ve converted to decimal with <code>as.integer()</code>.</li>
+<li><code>force_encoding</code> shows what the input bytes would look like if interpreted by a different encoding. We’ve used <code>iconv(x, from = &lt;DIFFERENT_ENCODING&gt;, to = &quot;UTF-8&quot;)</code>.</li>
+</ul>
+</div>
+<div id="a-three-step-process-for-fixing-encoding-bugs" class="section level2">
+<h2>A three-step process for fixing encoding bugs</h2>
+<div id="discover-which-encoding-your-string-is-actually-in." class="section level3">
+<h3>Discover which encoding your string is actually in.</h3>
+<p>Shhh. Secret: this is encoded as Windows-1252. <code>\x99</code> should be the trademark symbol ™.</p>
+<pre class="ruby"><code>irb(main):078:0&gt; &quot;hi\x99!&quot;.encoding
+=&gt; #&lt;Encoding:UTF-8&gt;</code></pre>
+<p>This is not encoded as UTF-8, despite what Ruby thinks. R admits it doesn’t know and <code>stringi</code>’s guess is not good.</p>
+<pre class="r"><code>string &lt;- &quot;hi\x99!&quot;
+string
+#&gt; [1] &quot;hi\x99!&quot;
+Encoding(string)
+#&gt; [1] &quot;unknown&quot;
+stringi::stri_enc_detect(string)
+#&gt; [[1]]
+#&gt; [[1]]$Encoding
+#&gt; [1] &quot;UTF-16BE&quot; &quot;UTF-16LE&quot; &quot;EUC-JP&quot;   &quot;EUC-KR&quot;  
+#&gt; 
+#&gt; [[1]]$Language
+#&gt; [1] &quot;&quot;   &quot;&quot;   &quot;ja&quot; &quot;ko&quot;
+#&gt; 
+#&gt; [[1]]$Confidence
+#&gt; [1] 0.1 0.1 0.1 0.1</code></pre>
+<p>Advice given in post is to sleuth it out based on where the data came from or to look at encoding tables.</p>
+</div>
+<div id="decide-which-encoding-you-want-the-string-to-be" class="section level3">
+<h3>Decide which encoding you want the string to be</h3>
+<p>That’s easy. UTF-8. Done.</p>
+</div>
+<div id="re-encode-your-string" class="section level3">
+<h3>Re-encode your string</h3>
+<pre><code>irb(main):088:0&gt; &quot;hi\x99!&quot;.encode(&quot;UTF-8&quot;, &quot;Windows-1252&quot;)
+=&gt; &quot;hi™!&quot;</code></pre>
+<pre class="r"><code>string_windows &lt;- &quot;hi\x99!&quot;
+Encoding(string)
+#&gt; [1] &quot;unknown&quot;
+string_utf8 &lt;- iconv(string_windows, from = &quot;Windows-1252&quot;, to = &quot;UTF-8&quot;)
+Encoding(string_utf8)
+#&gt; [1] &quot;UTF-8&quot;
+string_utf8
+#&gt; [1] &quot;hi™!&quot;</code></pre>
+</div>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
