@@ -28,7 +28,7 @@ library(ggplot2)
 
 ### Use the `arrangeGrob()` function and friends
 
-Store the constituent plots to plot objects and then pass them to `arrangeGrob()`.
+Store the constituent plots to plot objects and then pass them to `grid.arrange()` or `arrangeGrob()`.
 
 
 ```r
@@ -43,9 +43,9 @@ p_scatter <- ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) +
 grid.arrange(p_dens, p_scatter, nrow = 2, heights = c(0.35, 0.65))
 ```
 
-![](block020_multiple-plots-on-a-page_files/figure-html/arrangeGrob-demo-1.png) 
+![](block020_multiple-plots-on-a-page_files/figure-html/arrangeGrob-demo-1.png)<!-- -->
 
-You can find many examples of `arrangeGrob()` usage in the [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/).
+You can find other examples of this workflow in the [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/).
 
 ### Use the `multiplot()` function
 

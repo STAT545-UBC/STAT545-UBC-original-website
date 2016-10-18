@@ -7,7 +7,7 @@ output:
 ---
 
 ```{r setup, include = FALSE, cache = FALSE}
-knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
+knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
 ```
 
 ### Facetting is not a panacea
@@ -34,7 +34,7 @@ library(ggplot2)
 
 ### Use the `arrangeGrob()` function and friends
 
-Store the constituent plots to plot objects and then pass them to `arrangeGrob()`.
+Store the constituent plots to plot objects and then pass them to `grid.arrange()` or `arrangeGrob()`.
 
 ```{r arrangeGrob-demo}
 p_dens <- ggplot(gapminder, aes(x = gdpPercap)) + geom_density() + scale_x_log10() +
@@ -48,7 +48,7 @@ p_scatter <- ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) +
 grid.arrange(p_dens, p_scatter, nrow = 2, heights = c(0.35, 0.65))
 ```
 
-You can find many examples of `arrangeGrob()` usage in the [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/).
+You can find other examples of this workflow in the [R Graph Catalog](http://shinyapps.stat.ubc.ca/r-graph-catalog/).
 
 ### Use the `multiplot()` function
 
