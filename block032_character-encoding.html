@@ -152,11 +152,16 @@ $(document).ready(function () {
 <ul>
 <li><a href="#character-encoding-where-it-fits-in">Character encoding: where it fits in</a></li>
 <li><a href="#resources">Resources</a></li>
+<li><a href="#translating-two-blog-posts-from-ruby-to-r">Translating two blog posts from Ruby to R</a></li>
 <li><a href="#what-is-an-encoding">What is an encoding?</a></li>
 <li><a href="#a-three-step-process-for-fixing-encoding-bugs">A three-step process for fixing encoding bugs</a><ul>
 <li><a href="#discover-which-encoding-your-string-is-actually-in.">Discover which encoding your string is actually in.</a></li>
 <li><a href="#decide-which-encoding-you-want-the-string-to-be">Decide which encoding you want the string to be</a></li>
 <li><a href="#re-encode-your-string">Re-encode your string</a></li>
+</ul></li>
+<li><a href="#how-to-get-from-theyare-to-theyre">How to Get From Theyâ€™re to They’re</a><ul>
+<li><a href="#multi-byte-characters">Multi-byte characters</a></li>
+<li><a href="#encoding-repair">Encoding repair</a></li>
 </ul></li>
 </ul>
 </div>
@@ -175,51 +180,61 @@ $(document).ready(function () {
 <li><a href="http://www.joelonsoftware.com/articles/Unicode.html">The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</a></li>
 <li><a href="http://kunststube.net/encoding/">What Every Programmer Absolutely, Positively Needs To Know About Encodings And Character Sets To Work With Text</a></li>
 </ul></li>
-<li><a href="http://www.justinweiss.com/articles/3-steps-to-fix-encoding-problems-in-ruby/">Guide to fixing encoding problems in Ruby</a> <em>parking here temporariliy … looks useful but, obviously, it’s about Ruby not R</em></li>
 </ul>
+</div>
+<div id="translating-two-blog-posts-from-ruby-to-r" class="section level2">
+<h2>Translating two blog posts from Ruby to R</h2>
+<p>For now, this page walks through these two mini-tutorials (written for Ruby), but translated to R:</p>
+<ul>
+<li><a href="http://www.justinweiss.com/articles/3-steps-to-fix-encoding-problems-in-ruby/">Guide to fixing encoding problems in Ruby</a></li>
+<li><a href="http://www.justinweiss.com/articles/how-to-get-from-theyre-to-theyre/">How to Get From Theyâ€™re to They’re</a></li>
+</ul>
+<p>Don’t expect much creativity from me here. My goal is faithful translation.</p>
 </div>
 <div id="what-is-an-encoding" class="section level2">
 <h2>What is an encoding?</h2>
-<p>Translating this post literally from Ruby to R: <a href="http://www.justinweiss.com/articles/3-steps-to-fix-encoding-problems-in-ruby/">Guide to fixing encoding problems in Ruby</a></p>
-<p>Look at the string <code>&quot;hello!&quot;</code> in bytes.</p>
-<pre><code>irb(main):001:0&gt; &quot;hello!&quot;.bytes
+<p>Look at the string <code>&quot;hello!&quot;</code> in bytes. <em>Ruby</em></p>
+<pre class="ruby"><code>irb(main):001:0&gt; &quot;hello!&quot;.bytes
 =&gt; [104, 101, 108, 108, 111, 33]</code></pre>
-<p>The base function <code>charToRaw()</code> “converts a length-one character string to raw bytes. It does so without taking into account any declared encoding”. It displays bytes in hexadecimal. Use <code>as.integer()</code> to convert to decimal.</p>
+<p>The base function <code>charToRaw()</code> “converts a length-one character string to raw bytes. It does so without taking into account any declared encoding”. It displays bytes in hexadecimal. Use <code>as.integer()</code> to convert to decimal, which is more intuitive and allows us to compare against the Ruby results.</p>
 <pre class="r"><code>charToRaw(&quot;hello!&quot;)
 #&gt; [1] 68 65 6c 6c 6f 21
 as.integer(charToRaw(&quot;hello!&quot;))
 #&gt; [1] 104 101 108 108 111  33</code></pre>
-<p>Use a character less common in English:</p>
+<p>Use a character less common in English: <em>Ruby</em></p>
 <pre><code>irb(main):002:0&gt; &quot;hellṏ!&quot;.bytes
 =&gt; [104, 101, 108, 108, 225, 185, 143, 33]</code></pre>
 <pre class="r"><code>charToRaw(&quot;hellṏ!&quot;)
 #&gt; [1] 68 65 6c 6c e1 b9 8f 21
 as.integer(charToRaw(&quot;hellṏ!&quot;))
 #&gt; [1] 104 101 108 108 225 185 143  33</code></pre>
-<p>Now we see that the <code>&quot;ṏ&quot;</code> is represented by more than one byte. Three in fact: [225, 185, 143]. The encoding of a string defines this relationship.</p>
+<p>Now we see that it takes more than one byte to represent <code>&quot;ṏ&quot;</code>. Three in fact: [225, 185, 143]. The encoding of a string defines this relationship: encoding is a map between one or more bytes and a displayable character.</p>
 <p>Take a look at what a single set of bytes looks like when you try different encodings.</p>
-<p>First, an ISO-8859-1 string with a special character.</p>
+<p>Here’s, a string encoded as ISO-8859-1 (also known as “Latin1”) with a special character. <em>Ruby</em></p>
 <pre><code>irb(main):003:0&gt; str = &quot;hellÔ!&quot;.encode(&quot;ISO-8859-1&quot;); str.encode(&quot;UTF-8&quot;)
 =&gt; &quot;hellÔ!&quot;
 
 irb(main):004:0&gt; str.bytes
 =&gt; [104, 101, 108, 108, 212, 33]</code></pre>
-<pre class="r"><code>string &lt;- &quot;hellÔ!&quot;
-Encoding(string)
-#&gt; [1] &quot;unknown&quot;
-string_latin &lt;- iconv(string, from = &quot;UTF-8&quot;, to = &quot;Latin1&quot;)
+<pre class="r"><code>string_latin &lt;- iconv(&quot;hellÔ!&quot;, from = &quot;UTF-8&quot;, to = &quot;Latin1&quot;)
 string_latin
 #&gt; [1] &quot;hell\xd4!&quot;
 charToRaw(string_latin)
 #&gt; [1] 68 65 6c 6c d4 21
 as.integer(charToRaw(string_latin))
 #&gt; [1] 104 101 108 108 212  33</code></pre>
-<p>What would that string look like interpreted as ISO-8859-5 instead?</p>
+<p>We’ve confirmed that we have the correct bytes (meaning the same as the Ruby example). What would that string look like interpreted as ISO-8859-5 instead? <em>Ruby</em></p>
 <pre><code>irb(main):005:0&gt; str.force_encoding(&quot;ISO-8859-5&quot;); str.encode(&quot;UTF-8&quot;)
 =&gt; &quot;hellд!&quot;</code></pre>
 <pre class="r"><code>iconv(string_latin, from = &quot;ISO-8859-5&quot;, to = &quot;UTF-8&quot;)
 #&gt; [1] &quot;hellд!&quot;</code></pre>
-<p>And not all strings can be represented in all encodings: <code>irb(main):006:0&gt; &quot;hi∑&quot;.encode(&quot;Windows-1252&quot;) Encoding::UndefinedConversionError: U+2211 to WINDOWS-1252 in conversion from UTF-8 to WINDOWS-1252  from (irb):61:in `encode'  from (irb):61  from /usr/local/bin/irb:11:in `&lt;main&gt;'</code></p>
+<p>It’s garbled, which is your first tip-off to an encoding problem.</p>
+<p>Also not all strings can be represented in all encodings: <em>Ruby</em></p>
+<pre><code>irb(main):006:0&gt; &quot;hi∑&quot;.encode(&quot;Windows-1252&quot;)
+Encoding::UndefinedConversionError: U+2211 to WINDOWS-1252 in conversion from UTF-8 to WINDOWS-1252
+ from (irb):61:in `encode&#39;
+ from (irb):61
+ from /usr/local/bin/irb:11:in `&lt;main&gt;&#39;</code></pre>
 <pre class="r"><code>(string &lt;- &quot;hi∑&quot;)
 #&gt; [1] &quot;hi∑&quot;
 Encoding(string)
@@ -231,7 +246,7 @@ as.integer(charToRaw(string))
 <p>In Ruby, apparently that is an error. In R, we just get <code>NA</code>. Alternatively, and somewhat like Ruby, you can specify a substitution for non-convertible bytes.</p>
 <pre class="r"><code>(string_windows &lt;- iconv(string, from = &quot;UTF-8&quot;, to = &quot;Windows-1252&quot;, sub = &quot;?&quot;))
 #&gt; [1] &quot;hi???&quot;</code></pre>
-<p>In the Ruby post, we’ve seen 3 string functions so far.</p>
+<p>In the Ruby post, we’ve seen 3 string functions so far. Review and note which R function was used in the translation.</p>
 <ul>
 <li><code>encode</code> translates a string to another encoding. We’ve used <code>iconv(x, from = &quot;UTF-8&quot;, to = &lt;DIFFERENT_ENCODING&gt;)</code> here.</li>
 <li><code>bytes</code> shows the bytes that make up a string. We’ve used <code>charToRaw()</code>, which returns hexadecimal in R. For the sake of comparison to the Ruby post, I’ve converted to decimal with <code>as.integer()</code>.</li>
@@ -242,10 +257,10 @@ as.integer(charToRaw(string))
 <h2>A three-step process for fixing encoding bugs</h2>
 <div id="discover-which-encoding-your-string-is-actually-in." class="section level3">
 <h3>Discover which encoding your string is actually in.</h3>
-<p>Shhh. Secret: this is encoded as Windows-1252. <code>\x99</code> should be the trademark symbol ™.</p>
+<p>Shhh. Secret: this is encoded as Windows-1252. <code>\x99</code> should be the trademark symbol ™. Ruby can guess at the encoding. <em>Ruby</em></p>
 <pre class="ruby"><code>irb(main):078:0&gt; &quot;hi\x99!&quot;.encoding
 =&gt; #&lt;Encoding:UTF-8&gt;</code></pre>
-<p>This is not encoded as UTF-8, despite what Ruby thinks. R admits it doesn’t know and <code>stringi</code>’s guess is not good.</p>
+<p>Ruby’s guess is bad. This is not encoded as UTF-8. R admits it doesn’t know and <code>stringi</code>’s guess is not good.</p>
 <pre class="r"><code>string &lt;- &quot;hi\x99!&quot;
 string
 #&gt; [1] &quot;hi\x99!&quot;
@@ -261,7 +276,7 @@ stringi::stri_enc_detect(string)
 #&gt; 
 #&gt; [[1]]$Confidence
 #&gt; [1] 0.1 0.1 0.1 0.1</code></pre>
-<p>Advice given in post is to sleuth it out based on where the data came from or to look at encoding tables.</p>
+<p>Advice given in post is to sleuth it out based on where the data came from or to look at encoding tables. With larger amounts of text, each language’s guessing facilities presumably do better than they do here.</p>
 </div>
 <div id="decide-which-encoding-you-want-the-string-to-be" class="section level3">
 <h3>Decide which encoding you want the string to be</h3>
@@ -272,13 +287,72 @@ stringi::stri_enc_detect(string)
 <pre><code>irb(main):088:0&gt; &quot;hi\x99!&quot;.encode(&quot;UTF-8&quot;, &quot;Windows-1252&quot;)
 =&gt; &quot;hi™!&quot;</code></pre>
 <pre class="r"><code>string_windows &lt;- &quot;hi\x99!&quot;
-Encoding(string)
-#&gt; [1] &quot;unknown&quot;
 string_utf8 &lt;- iconv(string_windows, from = &quot;Windows-1252&quot;, to = &quot;UTF-8&quot;)
 Encoding(string_utf8)
 #&gt; [1] &quot;UTF-8&quot;
 string_utf8
 #&gt; [1] &quot;hi™!&quot;</code></pre>
+</div>
+</div>
+<div id="how-to-get-from-theyare-to-theyre" class="section level2">
+<h2>How to Get From Theyâ€™re to They’re</h2>
+<p>Moving on to the second blog post now.</p>
+<div id="multi-byte-characters" class="section level3">
+<h3>Multi-byte characters</h3>
+<p>Since we need to represent more than 256 characters, not all can be represented by a single byte. Let’s look at the curly single quote. <em>Ruby</em></p>
+<pre><code>irb(main):001:0&gt; &quot;they’re&quot;.bytes
+=&gt; [116, 104, 101, 121, 226, 128, 153, 114, 101]</code></pre>
+<pre class="r"><code>string_curly &lt;- &quot;they’re&quot;
+charToRaw(string_curly)
+#&gt; [1] 74 68 65 79 e2 80 99 72 65
+as.integer(charToRaw(string_curly))
+#&gt; [1] 116 104 101 121 226 128 153 114 101
+length(as.integer(charToRaw(string_curly)))
+#&gt; [1] 9
+nchar(string_curly)
+#&gt; [1] 7</code></pre>
+<p>The string has 7 characters, but 9 bytes, because we’re using 3 bytes to represent the curly single quote. Let’s focus just on that. <em>Ruby</em></p>
+<pre><code>irb(main):002:0&gt; &quot;’&quot;.bytes
+=&gt; [226, 128, 153]</code></pre>
+<pre class="r"><code>charToRaw(&quot;’&quot;)
+#&gt; [1] e2 80 99
+as.integer(charToRaw(&quot;’&quot;))
+#&gt; [1] 226 128 153
+length(as.integer(charToRaw(&quot;’&quot;)))
+#&gt; [1] 3</code></pre>
+<p>One of the most common encoding fiascos you’ll see is this: theyâ€™re. Note that the curly single quote has been turned into a 3 character monstrosity. This is no coincidence. Remember those 3 bytes?</p>
+<p>This is what happens when you interpret bytes that represent text in the UTF-8 encoding as if it’s encoded as Windows-1252. Learn to recognize it. <em>Ruby</em></p>
+<pre><code>irb(main):003:0&gt; &quot;they’re&quot;.force_encoding(&quot;Windows-1252&quot;).encode(&quot;UTF-8&quot;)
+=&gt; &quot;theyâ€™re&quot;</code></pre>
+<pre class="r"><code>(string_mis_encoded &lt;- iconv(string_curly, to = &quot;UTF-8&quot;, from = &quot;windows-1252&quot;))
+#&gt; [1] &quot;theyâ€™re&quot;</code></pre>
+<p>Let’s assume this little gem is buried in some large file and you don’t immediately notice. So this string is interpreted with the wrong encoding, i.e. stored as the wrong bytes, either in an R object or in a file on disk. Now what?</p>
+<p>Let’s review the original, correct bytes vs. the current, incorrect bytes and print the associated strings.</p>
+<pre class="r"><code>as.integer(charToRaw(string_curly))
+#&gt; [1] 116 104 101 121 226 128 153 114 101
+as.integer(charToRaw(string_mis_encoded))
+#&gt;  [1] 116 104 101 121 195 162 226 130 172 226 132 162 114 101
+string_curly
+#&gt; [1] &quot;they’re&quot;
+string_mis_encoded
+#&gt; [1] &quot;theyâ€™re&quot;</code></pre>
+</div>
+<div id="encoding-repair" class="section level3">
+<h3>Encoding repair</h3>
+<p>How do you fix this? You have to reverse your steps. You have a UTF-8 encoded string. Convert it back to Windows-1252, to get the original bytes. Then re-encode that as UTF-8. <em>Ruby</em></p>
+<pre><code>irb(main):006:0&gt; &quot;theyâ€™re&quot;.encode(&quot;Windows-1252&quot;).force_encoding(&quot;UTF-8&quot;)
+=&gt; &quot;they’re&quot;</code></pre>
+<pre class="r"><code>string_mis_encoded
+#&gt; [1] &quot;theyâ€™re&quot;
+backwards_one &lt;- iconv(string_mis_encoded, from = &quot;UTF-8&quot;, to = &quot;Windows-1252&quot;)
+backwards_one
+#&gt; [1] &quot;they’re&quot;
+Encoding(backwards_one)
+#&gt; [1] &quot;unknown&quot;
+as.integer(charToRaw(backwards_one))
+#&gt; [1] 116 104 101 121 226 128 153 114 101
+as.integer(charToRaw(string_curly))
+#&gt; [1] 116 104 101 121 226 128 153 114 101</code></pre>
 </div>
 </div>
 
