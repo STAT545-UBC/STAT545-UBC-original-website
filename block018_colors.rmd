@@ -8,7 +8,7 @@ output:
 
 ```{r setup, include = FALSE, cache = FALSE}
 library(knitr)
-knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
+knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
 ```
 
 ### Load the Gapminder data and `dplyr`
@@ -16,7 +16,6 @@ knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
 ```{r}
 suppressPackageStartupMessages(library(dplyr))
 library(gapminder)
-str(gapminder)
 ```
 
 ### Change the default plotting symbol to a solid circle
@@ -42,7 +41,7 @@ Because of the way figures are handled by `knitr`, it is more complicated to cha
 ```{r include = FALSE}
 ## see ch. 10 Hooks of Xie's knitr book
 knit_hooks$set(setPch = function(before, options, envir) {
-  if(before) par(pch = 19)
+  if (before) par(pch = 19)
 })
 opts_chunk$set(setPch = TRUE)
 ```
@@ -58,14 +57,12 @@ j_year <- 2007
 set.seed(1903)
 countries_to_keep <-
   levels(gapminder$country) %>% 
-  sample(size = n_c) %>% 
-  as.character()
+  sample(size = n_c)
 jdat <-
   gapminder %>% 
   filter(country %in% countries_to_keep, year == j_year) %>% 
   droplevels() %>% 
   arrange(gdpPercap)
-#str(jdat)
 ```
 
 ```{r}
@@ -174,7 +171,17 @@ In 2015 Stéfan van der Walt and Nathaniel Smith designed new color maps for mat
 
 > These color maps are designed in such a way that they will analytically be perfectly perceptually-uniform, both in regular form and also when converted to black-and-white. They are also designed to be perceived by readers with the most common form of color blindness.
 
-This package is quite new so I haven't prepared any examples yet but here's a look at the new palettes. I encourage you to install `viridis` and read [the vignette](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html).
+I encourage you to install `viridis` and read [the vignette](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html). It is easy to use these palettes in ggplot2 via `scale_color_viridis()` and `scale_fill_viridis()`. Taking control of color palettes in ggplot is covered elsewhere: [Taking control of qualitative colors in `ggplot2`](block019_enforce-color-scheme.html).
+
+Here's are two examples that show the virids palettes.
+
+```{r}
+library(ggplot2)
+library(viridis)
+ggplot(data.frame(x = rnorm(10000), y = rnorm(10000)), aes(x = x, y = y)) +
+  geom_hex() + coord_fixed() +
+  scale_fill_viridis() + theme_bw()
+```
 
 ![](https://raw.githubusercontent.com/sjmgarnier/viridis/master/img/sample2.png)
 
@@ -234,7 +241,7 @@ foo <- xtable(foo, digits = 0)
 ```
 
 ```{r results = 'asis', echo = FALSE}
-print(foo, type='html', include.rownames = FALSE)
+print(foo, type = 'html', include.rownames = FALSE)
 ```
 
 Note that everywhere you see "gray" above, you will get the same results if you substitute "grey". We see that white corresponds to maximum intensity in all channels and black to the minimum.
