@@ -37,10 +37,10 @@ Read the [R help for `Devices`](http://www.rdocumentation.org/packages/grDevices
 It is very important to understand the difference between [vector graphics](http://en.wikipedia.org/wiki/Vector_graphics) and [raster](http://en.wikipedia.org/wiki/Raster_graphics). Vector graphics are represented in terms of shapes and lines, whereas raster graphics are pixel-based.
 
   * __vector__ examples: PDF, postscript, SVG
-    - Pros: re-size gracefully, good for print. 
+    - Pros: re-size gracefully, good for print. SVG is where the web is heading, though we are not necessarily quite there yet. 
   * __raster__ examples: PNG, JPEG, BMP, GIF 
     - Cons: look awful "blown up" ... in fact, look awful quite frequently
-    - Pros: play very nicely with Microsoft Office products and the web
+    - Pros: play very nicely with Microsoft Office products and the web. Files can be blessedly small!
   
 Tough love: you will not be able to pick vector or raster or a single device and use it all the time. You must think about your downstream use cases and plan accordingly. It is entirely possible that you should save key figures __in more than one format__ for maximum flexibility in the future. Worst case, if you obey the rules given here, you can always remake the figure to save in a new format.
 
@@ -95,13 +95,13 @@ p2 <- p + ggtitle("scale = 2")
 p3 <- p + ggtitle("base_size = 20") + theme_grey(base_size = 20)
 p4 <- p + ggtitle("base_size = 3") + theme_grey(base_size = 3)
 ggsave("img/fig-io-practice-scale-0.3.png", p1, scale = 0.6)
-## Saving 4.2 x 3 in image
+#> Saving 4.2 x 3 in image
 ggsave("img/fig-io-practice-scale-2.png", p2, scale = 2)
-## Saving 14 x 10 in image
+#> Saving 14 x 10 in image
 ggsave("img/fig-io-practice-base-size-20.png", p3)
-## Saving 7 x 5 in image
+#> Saving 7 x 5 in image
 ggsave("img/fig-io-practice-base-size-3.png", p4)
-## Saving 7 x 5 in image
+#> Saving 7 x 5 in image
 ```
 
 <table width="800px" height="100%" border="1">
@@ -126,8 +126,8 @@ Edit your source code in the following way: Precede the figure-making code by op
 pdf("test-fig-proper.pdf") # starts writing a PDF to file
 plot(1:10)                    # makes the actual plot
 dev.off()                     # closes the PDF file
-## quartz_off_screen 
-##                 2
+#> quartz_off_screen 
+#>                 2
 ```
 
 You will see there's a new file in the working directory:
@@ -135,7 +135,7 @@ You will see there's a new file in the working directory:
 
 ```r
 list.files(pattern = "^test-fig*")
-## [1] "test-fig-proper.pdf"
+#> [1] "test-fig-proper.pdf"
 ```
 
 If you run this code interactively, don't be surprised when you don't see the figure appear in your screen device. While you're sending graphics output to, e.g., the `pdf()` device, you'll be "flying blind", which is why it's important to work out the graphics commands in advance. This is like using `sink()`, which diverts the output you'd normally see in R Console.
@@ -149,13 +149,13 @@ If you are staring at a plot you just made on your screen, here's a handy short 
 plot(1:10)            # makes the actual plot
 ```
 
-![](block017_write-figure-to-file_files/figure-html/dev-print-demo-1.png) 
+![](block017_write-figure-to-file_files/figure-html/dev-print-demo-1.png)<!-- -->
 
 ```r
 dev.print(pdf,        # copies the plot to a the PDF file
           "test-fig-quick-dirty.pdf")             
-## quartz_off_screen 
-##                 2
+#> quartz_off_screen 
+#>                 2
 ```
 
 You will see there's now another new file in the working directory:
@@ -163,7 +163,7 @@ You will see there's now another new file in the working directory:
 
 ```r
 list.files(pattern = "^test-fig*")
-## [1] "test-fig-proper.pdf"      "test-fig-quick-dirty.pdf"
+#> [1] "test-fig-proper.pdf"      "test-fig-quick-dirty.pdf"
 ```
 
 The appeal of this method is that you will literally copy the figure in front of your eyeballs to file, which is pleasingly immediate. There's also less code to repeatedly (de-)comment as you run and re-run the script during development.
@@ -231,7 +231,7 @@ Some relevant threads on stackoverflow:
   
 #### Mysterious empty `Rplots.pdf` file
 
-*2015-10-19 update: [This has been fixed](https://github.com/hadley/ggplot2/issues/1326) in the soon-to-be-released version of `ggplot2`. Hallelujah! I will leave this here for a while, since old versions of a package like `ggplot2` linger around for months and years.*
+*Note: [This has been fixed as of ggplot2 v2.0.0](https://github.com/hadley/ggplot2/issues/1326). Hallelujah! I will leave this here for a while, since old versions of a package like ggplot2 linger around for months and years.*
 
 When creating and writing figures from R running non-interactively, you can inadvertently trigger a request to query the active graphics device. For example, `ggsave()` might try to ascertain the physical size of the current device. But when running non-interactively there is often no such device available, which can lead to the unexpected creation of `Rplots.pdf` so this request can be fulfilled.
 
@@ -243,7 +243,7 @@ Some relevant threads on stackoverflow:
 
 ### Chunk name determines figure file name
 
-Coming full circle, we return to the topic of figures produced via an R chunk in an R Markdown file. If you are [keeping the intermediate markdown](http://stat545-ubc.github.io/block007_first-use-rmarkdown.html#step-3-save-the-intermediate-markdown), via `keep_md: true` in the YAML frontmatter, your figures will also be saved to file. Rendering `foo.Rmd` will leave behind `foo.md`, `foo.html`, and a directory `foo_files`, containing any figures created in the document. By default, they will have meaningless names, like `unnamed-chunk-7.png`. This makes it difficult to find specific figures, i.e. for unplanned use in another setting. However, if you name an R chunk, this name will be baked into the figure file name.
+Coming full circle, we return to the topic of figures produced via an R chunk in an R Markdown file. If you are writing [GitHub-flavored markdown or keeping the intermediate markdown](block007_first-use-rmarkdown.html#step-3-take-control-of-the-output-format), your figures will also be saved to file. Rendering `foo.Rmd` will leave behind `foo.md`, maybe `foo.html`, and a directory `foo_files`, containing any figures created in the document. By default, they will have meaningless names, like `unnamed-chunk-7.png`. This makes it difficult to find specific figures, i.e. for unplanned use in another setting. However, if you name an R chunk, this name will be baked into the figure file name.
 
 <!-- the "live" version of the chunk I include verbatim below -->
 
@@ -260,8 +260,8 @@ And it will lead to the creation of a suitably named figure file (you may see ot
 
 ```r
 list.files("block017_write-figure-to-file_files/", recursive = TRUE)
-## [1] "figure-html/dev-print-demo-1.png"             
-## [2] "figure-html/scatterplot-lifeExp-vs-year-1.png"
+#> [1] "figure-html/dev-print-demo-1.png"             
+#> [2] "figure-html/scatterplot-lifeExp-vs-year-1.png"
 ```
 
 If you have concrete plans to use a figure elsewhere, you should probably write it to file using an explicit method described above. But the chunk-naming trick is a nice way to avoid that work, while maintaining flexibility for the future.
@@ -273,5 +273,5 @@ Let's delete the temp files we've created.
 
 ```r
 file.remove(list.files(pattern = "^test-fig*"))
-## [1] TRUE TRUE
+#> [1] TRUE TRUE
 ```

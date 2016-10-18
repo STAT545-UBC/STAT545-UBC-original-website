@@ -7,7 +7,7 @@ output:
 ---
 
 ```{r setup, include = FALSE, cache = FALSE}
-knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
+knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
 ## remove test figures left behind from previous render
 file.remove(list.files(pattern = "^test-fig*"))
 ```
@@ -47,10 +47,10 @@ Read the [R help for `Devices`](http://www.rdocumentation.org/packages/grDevices
 It is very important to understand the difference between [vector graphics](http://en.wikipedia.org/wiki/Vector_graphics) and [raster](http://en.wikipedia.org/wiki/Raster_graphics). Vector graphics are represented in terms of shapes and lines, whereas raster graphics are pixel-based.
 
   * __vector__ examples: PDF, postscript, SVG
-    - Pros: re-size gracefully, good for print. 
+    - Pros: re-size gracefully, good for print. SVG is where the web is heading, though we are not necessarily quite there yet. 
   * __raster__ examples: PNG, JPEG, BMP, GIF 
     - Cons: look awful "blown up" ... in fact, look awful quite frequently
-    - Pros: play very nicely with Microsoft Office products and the web
+    - Pros: play very nicely with Microsoft Office products and the web. Files can be blessedly small!
   
 Tough love: you will not be able to pick vector or raster or a single device and use it all the time. You must think about your downstream use cases and plan accordingly. It is entirely possible that you should save key figures __in more than one format__ for maximum flexibility in the future. Worst case, if you obey the rules given here, you can always remake the figure to save in a new format.
 
@@ -227,7 +227,7 @@ Some relevant threads on stackoverflow:
   
 #### Mysterious empty `Rplots.pdf` file
 
-*2015-10-19 update: [This has been fixed](https://github.com/hadley/ggplot2/issues/1326) in the soon-to-be-released version of `ggplot2`. Hallelujah! I will leave this here for a while, since old versions of a package like `ggplot2` linger around for months and years.*
+*Note: [This has been fixed as of ggplot2 v2.0.0](https://github.com/hadley/ggplot2/issues/1326). Hallelujah! I will leave this here for a while, since old versions of a package like ggplot2 linger around for months and years.*
 
 When creating and writing figures from R running non-interactively, you can inadvertently trigger a request to query the active graphics device. For example, `ggsave()` might try to ascertain the physical size of the current device. But when running non-interactively there is often no such device available, which can lead to the unexpected creation of `Rplots.pdf` so this request can be fulfilled.
 
@@ -239,7 +239,7 @@ Some relevant threads on stackoverflow:
 
 ### Chunk name determines figure file name
 
-Coming full circle, we return to the topic of figures produced via an R chunk in an R Markdown file. If you are [keeping the intermediate markdown](http://stat545-ubc.github.io/block007_first-use-rmarkdown.html#step-3-save-the-intermediate-markdown), via `keep_md: true` in the YAML frontmatter, your figures will also be saved to file. Rendering `foo.Rmd` will leave behind `foo.md`, `foo.html`, and a directory `foo_files`, containing any figures created in the document. By default, they will have meaningless names, like `unnamed-chunk-7.png`. This makes it difficult to find specific figures, i.e. for unplanned use in another setting. However, if you name an R chunk, this name will be baked into the figure file name.
+Coming full circle, we return to the topic of figures produced via an R chunk in an R Markdown file. If you are writing [GitHub-flavored markdown or keeping the intermediate markdown](block007_first-use-rmarkdown.html#step-3-take-control-of-the-output-format), your figures will also be saved to file. Rendering `foo.Rmd` will leave behind `foo.md`, maybe `foo.html`, and a directory `foo_files`, containing any figures created in the document. By default, they will have meaningless names, like `unnamed-chunk-7.png`. This makes it difficult to find specific figures, i.e. for unplanned use in another setting. However, if you name an R chunk, this name will be baked into the figure file name.
 
 <!-- the "live" version of the chunk I include verbatim below -->
 ```{r scatterplot-lifeExp-vs-year, echo = FALSE, fig.show = "hide"}
