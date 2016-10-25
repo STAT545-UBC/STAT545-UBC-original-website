@@ -62,7 +62,7 @@ A God-awful and powerful language for expressing patterns to match in text or fo
   * Screeds on the Minimum Everyone Needs to Know about encoding
     - [The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)](http://www.joelonsoftware.com/articles/Unicode.html)
     - [What Every Programmer Absolutely, Positively Needs To Know About Encodings And Character Sets To Work With Text](http://kunststube.net/encoding/)
-  * [Guide to fixing encoding problems in Ruby](http://www.justinweiss.com/articles/3-steps-to-fix-encoding-problems-in-ruby/) *parking here temporariliy ... looks useful but, obviously, it's about Ruby not R*
+  * I've translated this blog post [Guide to fixing encoding problems in Ruby](http://www.justinweiss.com/articles/3-steps-to-fix-encoding-problems-in-ruby/) into R as the first step to developing a lesson: [Encoding in R](block032_character-encoding.html)
 
 #### Character vectors that live in a data frame
 
