@@ -16,12 +16,12 @@ As usual, load the Gapminder excerpt.
 ```r
 library(gapminder)
 str(gapminder)
-## 'data.frame':	1704 obs. of  6 variables:
+## Classes 'tbl_df', 'tbl' and 'data.frame':	1704 obs. of  6 variables:
 ##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
-##  $ year     : num  1952 1957 1962 1967 1972 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
 ##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-##  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
 ##  $ gdpPercap: num  779 821 853 836 740 ...
 ```
 
@@ -96,7 +96,7 @@ Pick some new artificial inputs where you know (at least approximately) what you
 max_minus_min(1:10)
 ## [1] 9
 max_minus_min(runif(1000))
-## [1] 0.9973395
+## [1] 0.9993907
 ```
 
 I know that 10 minus 1 is 9. I know that random uniform [0, 1] variates will be between 0 and 1. Therefore max - min should be less than 1. If I take LOTS of them, max - min should be pretty close to 1.
@@ -186,13 +186,13 @@ And we see that it catches all of the self-inflicted damage we would like to avo
 mmm2 <- function(x) {
   if(!is.numeric(x)) {
     stop('I am so sorry, but this function only works for numeric input!\n',
-         'You have provided an object of class: ', class(x))
+         'You have provided an object of class: ', class(x)[1])
   }
   max(x) - min(x)
 }
 mmm2(gapminder)
 ## Error in mmm2(gapminder): I am so sorry, but this function only works for numeric input!
-## You have provided an object of class: data.frame
+## You have provided an object of class: tbl_df
 ```
 
 In addition to offering an apology, note the error raised also contains helpful info on *which* function threw the error. Nice touch.
@@ -213,7 +213,7 @@ mmm2
 ## function(x) {
 ##   if(!is.numeric(x)) {
 ##     stop('I am so sorry, but this function only works for numeric input!\n',
-##          'You have provided an object of class: ', class(x))
+##          'You have provided an object of class: ', class(x)[1])
 ##   }
 ##   max(x) - min(x)
 ## }

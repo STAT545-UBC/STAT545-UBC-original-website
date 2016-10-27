@@ -155,7 +155,7 @@ And we see that it catches all of the self-inflicted damage we would like to avo
 mmm2 <- function(x) {
   if(!is.numeric(x)) {
     stop('I am so sorry, but this function only works for numeric input!\n',
-         'You have provided an object of class: ', class(x))
+         'You have provided an object of class: ', class(x)[1])
   }
   max(x) - min(x)
 }

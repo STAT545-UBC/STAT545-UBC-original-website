@@ -163,18 +163,15 @@ test_that('NA handling works', {
   expect_that(qdiff_no_NA(c(1:5, NA)), equals(4))
 })
 ## Error: Test failed: 'NA handling works'
-## Not expected: missing values and NaN's not allowed if 'na.rm' is FALSE
-## 1: withCallingHandlers(eval(code, new_test_environment), error = capture_calls, 
-##        message = function(c) invokeRestart("muffleMessage"))
-## 2: eval(code, new_test_environment)
-## 3: eval(expr, envir, enclos)
-## 4: expect_that(qdiff_no_NA(c(1:5, NA)), equals(4)) at <text>:6
-## 5: condition(object)
-## 6: compare(actual, expected, ...)
-## 7: qdiff_no_NA(c(1:5, NA))
-## 8: quantile(x = x, probs = probs) at <text>:2
-## 9: quantile.default(x = x, probs = probs)
-## 10: stop("missing values and NaN's not allowed if 'na.rm' is FALSE").
+## * missing values and NaN's not allowed if 'na.rm' is FALSE
+## 1: expect_that(qdiff_no_NA(c(1:5, NA)), equals(4)) at <text>:6
+## 2: condition(object)
+## 3: expect_equal(x, expected, ..., expected.label = label)
+## 4: compare(object, expected, ...)
+## 5: qdiff_no_NA(c(1:5, NA))
+## 6: quantile(x = x, probs = probs) at <text>:2
+## 7: quantile.default(x = x, probs = probs)
+## 8: stop("missing values and NaN's not allowed if 'na.rm' is FALSE")
 ```
 
 Similar to the advice to use assertions in data analytical scripts, I recommend you use unit tests to monitor the behavior of functions you (or others) will use often. If your tests cover the function's important behavior, then you can edit the internals freely. You'll rest easy in the knowledge that, if you broke anything important, the tests will fail and alert you to the problem.
