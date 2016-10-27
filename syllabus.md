@@ -54,7 +54,7 @@ oct-20 thurs   <a href="cm014_munzner-guest-lecture.html">cm014</a>: Visualizati
 date           notes                                                                                       
 -------------  --------------------------------------------------------------------------------------------
 oct-25 tues    <a href="cm101_character-data-regex.html">cm101</a>: Regular expressions and character data 
-oct-27 thurs   cm102: Writing your own R functions                                                         
+oct-27 thurs   <a href="cm102_writing-functions.html">cm102</a>: Writing your own R functions              
 nov-01 tues    cm103: purrr, list-columns, nested data frames 1                                            
 nov-03 thurs   cm104: purrr, list-columns, nested data frames 2                                            
 nov-08 tues    cm105: Automate tasks and pipelines (Shaun Jackman)                                         
