@@ -20,6 +20,7 @@ This material gets updated during Sept - Nov each year. Right now we're in awkwa
   * Data analysis 2: vectors and files
     - [Be the boss of your factors](block029_factors.html) *under redevelopment, in light of forcats*
     - [Character vectors](block028_character-data.html): basic manipulation and regular expressions.
+    - [Character encoding](block032_character-encoding.html)
     - [Writing and reading files](block026_file-out-in.html)
   * R as a programming language
     - [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)

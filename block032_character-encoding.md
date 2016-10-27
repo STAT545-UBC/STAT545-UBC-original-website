@@ -168,7 +168,9 @@ stringi::stri_enc_detect(string)
 #> [1] 0.1 0.1 0.1 0.1
 ```
 
-Advice given in post is to sleuth it out based on where the data came from or to look at encoding tables. With larger amounts of text, each language's guessing facilities presumably do better than they do here.
+Advice given in post is to sleuth it out based on where the data came from. With larger amounts of text, each language's guessing facilities presumably do better than they do here. In real life, all of this advice can prove to be ... overly optimistic?
+
+I find it helpful to scrutinize debugging charts and look for the weird stuff showing up in my text. Here's one that shows what UTF-8 bytes look like when erroneously interpreted under Windows-1252 encoding. This phenomenon is known as [*mojibake*](https://en.wikipedia.org/wiki/Mojibake), which is a delightful word for a super-annoying phenomenon. If it helps, know that the most common encodings are UTF-8, ISO-8859-1 (or Latin1), and Windows-1252, so that really narrows things down.
 
 ### Decide which encoding you want the string to be
 
