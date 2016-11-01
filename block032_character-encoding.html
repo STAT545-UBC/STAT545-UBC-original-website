@@ -19,6 +19,9 @@
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -31,10 +34,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -112,7 +111,6 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -285,7 +283,7 @@ stringi::stri_enc_detect(string)
 #&gt; [[1]]$Confidence
 #&gt; [1] 0.1 0.1 0.1 0.1</code></pre>
 <p>Advice given in post is to sleuth it out based on where the data came from. With larger amounts of text, each language’s guessing facilities presumably do better than they do here. In real life, all of this advice can prove to be … overly optimistic?</p>
-<p>I find it helpful to scrutinize debugging charts and look for the weird stuff showing up in my text. Here’s one that shows what UTF-8 bytes look like when erroneously interpreted under Windows-1252 encoding. This phenomenon is known as <a href="https://en.wikipedia.org/wiki/Mojibake"><em>mojibake</em></a>, which is a delightful word for a super-annoying phenomenon. If it helps, know that the most common encodings are UTF-8, ISO-8859-1 (or Latin1), and Windows-1252, so that really narrows things down.</p>
+<p>I find it helpful to scrutinize debugging charts and look for the weird stuff showing up in my text. Here’s <a href="http://www.i18nqa.com/debug/utf8-debug.html">one that shows what UTF-8 bytes look like</a> when erroneously interpreted under Windows-1252 encoding. This phenomenon is known as <a href="https://en.wikipedia.org/wiki/Mojibake"><em>mojibake</em></a>, which is a delightful word for a super-annoying phenomenon. If it helps, know that the most common encodings are UTF-8, ISO-8859-1 (or Latin1), and Windows-1252, so that really narrows things down.</p>
 </div>
 <div id="decide-which-encoding-you-want-the-string-to-be" class="section level3">
 <h3>Decide which encoding you want the string to be</h3>
@@ -376,8 +374,11 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 
