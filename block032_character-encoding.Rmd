@@ -24,6 +24,8 @@ Main page about character data: [Character vectors](block028_character-data.html
     - [What Every Programmer Absolutely, Positively Needs To Know About Encodings And Character Sets To Work With Text](http://kunststube.net/encoding/)
   * Debugging charts
     - [Windows-1252 Characters to UTF-8 Bytes to Latin-1 Characters](http://www.i18nqa.com/debug/utf8-debug.html)
+  * Character inspection
+    - <http://apps.timwhitlock.info/unicode/inspect>
 
 ## Translating two blog posts from Ruby to R
 
