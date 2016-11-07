@@ -7,5 +7,7 @@ output:
 
 ### cm105 2016-11-08 Tuesday overview
 
+[Homework 6](hw06_data-wrangling-conclusion.html) is posted and due anytime Monday 2016-11-14.
+
 [Automating data analysis pipelines](automation00_index.html), taught by Shaun Jackman:
 
