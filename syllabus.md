@@ -57,8 +57,8 @@ oct-25 tues    <a href="cm101_character-data-regex.html">cm101</a>: Regular expr
 oct-27 thurs   <a href="cm102_writing-functions.html">cm102</a>: Writing your own R functions                    
 nov-01 tues    <a href="cm103_list-inspection-mapping.html">cm103</a>: purrr, list-columns, nested data frames 1 
 nov-03 thurs   <a href="cm104_lists-and-data-frames.html">cm104</a>: purrr, list-columns, nested data frames 2   
-nov-08 tues    cm105: Automate tasks and pipelines (Shaun Jackman)                                               
-nov-10 thurs   cm106: ditto                                                                                      
+nov-08 tues    <a href="cm105_automation-and-make.html">cm105</a>: Automate tasks and pipelines (Shaun Jackman)  
+nov-10 thurs   <a href="cm106_automation-and-make.html">cm106</a>: ditto                                         
 nov-15 tues    cm107: Build your first Shiny app (Dean Attali)                                                   
 nov-17 thurs   cm108: ditto                                                                                      
 nov-22 tues    cm109: Build your first R package                                                                 
