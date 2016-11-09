@@ -67,8 +67,8 @@ nov-29 tues    cm111: Get data from the web (scraping and APIs)
 dec-01 thurs   cm112: ditto                                                                                      
 
   * [Homework 06](hw06_data-wrangling-conclusion.html) Choose your adventure! Topics include regular expressions, data ingest/exploration, working with lists, working with nested data frames.
-  * *Assignments below will be renumbered in 2016 (hw07 - hw10) and, obviously, ordered according to when the topics appear in class. Please just humor me for now.*
-  * [Homework 08](hw08_package.html) Write an R package (2015 version)
-  * [Homework 09](hw09_automation.html) Automate a data analysis pipeline (2015 version)
-  * [Homework 10](hw10_data-from-web.html) Get data from the web (2015 version)
+  * [Homework 07](hw07_automation.html) Automate a data analysis pipeline.
+  * *Assignments below will be renumbered in 2016 (hw07 - hw10) and, obviously, ordered according to when the topics appear in class. Please humor us as that unfolds.*
   * [Homework 11](hw11_shiny.html) Build a Shiny apps (2015 version)
+  * [Homework 08](hw08_package.html) Write an R package (2015 version)
+  * [Homework 10](hw10_data-from-web.html) Get data from the web (2015 version)
