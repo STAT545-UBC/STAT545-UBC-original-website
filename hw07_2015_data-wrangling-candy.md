@@ -1,12 +1,12 @@
 ---
-title: "Homework 07: Data Wrangling"
+title: "2015 Homework 07: Data Wrangling"
 output:
   html_document:
     toc: true
     toc_depth: 4
 ---
 
-Due date: Nov 13th
+**NOTE: THIS WAS LAST USED IN 2015.**
 
 ###Overview
 The goal of this homework is to perform a complete data wrangling workflow using the [Candy Survey data]( https://github.com/jennybc/candy).

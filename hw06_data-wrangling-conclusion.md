@@ -41,7 +41,7 @@ use robust regression, using `MASS::rlm()` or `robustbase::lmrob()`.
 
 In 2015, we explored a dataset based on a Halloween candy survey (but it
 included many other odd and interesting questions). Work on something from [this
-homework from 2015](hw07_data-wrangling-candy). It is good practice on basic
+homework from 2015](hw07_2015_data-wrangling-candy.html). It is good practice on basic
 data ingest, exploration, character data cleanup, and wrangling.
 
 ### Work with a list
