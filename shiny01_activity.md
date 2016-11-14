@@ -1052,5 +1052,3 @@ The app we developed is functional, but there are plenty of improvements that ca
     
 - Provide a way for the user to show results from *all* countries (instead of forcing a filter by only one specific country).
     - **Hint:** There are two ways to approach this. You can either add a value of "All" to the dropdown list of country options, you can include a checkbox for "Filter by country" and only show the dropdown 
-
-> If you’ve found this tutorial useful, please consider [supporting me](https://www.paypal.me/daattali/15) for the countless hours I’ve put into this tutorial :)
