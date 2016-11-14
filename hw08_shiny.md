@@ -1,7 +1,6 @@
 ---
 title: "Building Shiny apps - Homework"
 author: "Dean Attali"
-date: '2015-12-03'
 output:
   html_document:
     toc: yes
@@ -10,11 +9,11 @@ output:
 
 ## Deadline
 
-The homework is due Friday, December 11 2015.
+The homework is due Friday, November 25 2016.
 
 ## What we've done
 
-We made a Shiny app that lets you search for products from the BC Liquor Store based on price, alcohol type, and country. We used [this dataset](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/shiny_supp/2015/bcl-data.csv) and [this code](./shiny01_activity.html#final-shiny-app-code) for our app.
+We created a Shiny app that lets you search for products from the BC Liquor Store based on price, alcohol type, and country. We used [this dataset](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/shiny_supp/2016/bcl-data.csv) and [this code](./shiny01_activity.html#final-shiny-app-code) for our app.
 
 ## What you need to do
 

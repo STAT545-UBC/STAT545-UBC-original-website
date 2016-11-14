@@ -8,13 +8,13 @@ output:
 
 ### Overview
 
+- [Shiny tutorial with hands-on activity to build app with BC Liquor Store dataset](shiny01_activity.html)
+
 - [Slides on Google Docs](https://docs.google.com/presentation/d/1dXhqqsD7dPOOdcC5Y7RW--dEU7UfU52qlb0YD3kKeLw/edit?usp=sharing)
 
 - [BC Liquor Store Products and Prices](http://daattali.com/shiny/bcl/): the sample app we'll build this week
 
-- [Shiny tutorial with hands-on activity to build app with BC Liquor Store dataset](shiny01_activity.html)
-
-- [Homework](hw11_shiny.html)
+- [Homework](hw08_shiny.html)
 
 ### Awesome add-on packages to Shiny
 
