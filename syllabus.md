@@ -59,7 +59,7 @@ nov-01 tues    <a href="cm103_list-inspection-mapping.html">cm103</a>: purrr, li
 nov-03 thurs   <a href="cm104_lists-and-data-frames.html">cm104</a>: purrr, list-columns, nested data frames 2   
 nov-08 tues    <a href="cm105_automation-and-make.html">cm105</a>: Automate tasks and pipelines (Shaun Jackman)  
 nov-10 thurs   <a href="cm106_automation-and-make.html">cm106</a>: ditto                                         
-nov-15 tues    cm107: Build your first Shiny app (Dean Attali)                                                   
+nov-15 tues    <a href="cm107_shiny-apps.html">cm107</a>: Build your first Shiny app (Dean Attali)               
 nov-17 thurs   cm108: ditto                                                                                      
 nov-22 tues    cm109: Build your first R package                                                                 
 nov-24 thurs   cm110: ditto                                                                                      
@@ -68,7 +68,7 @@ dec-01 thurs   cm112: ditto
 
   * [Homework 06](hw06_data-wrangling-conclusion.html) Choose your adventure! Topics include regular expressions, data ingest/exploration, working with lists, working with nested data frames.
   * [Homework 07](hw07_automation.html) Automate a data analysis pipeline.
+  * [Homework 08](hw08_shiny.html) Build a Shiny app.
   * *Assignments below will be renumbered in 2016 (hw07 - hw10) and, obviously, ordered according to when the topics appear in class. Please humor us as that unfolds.*
-  * [Homework 11](hw11_shiny.html) Build a Shiny apps (2015 version)
   * [Homework 08](hw08_package.html) Write an R package (2015 version)
   * [Homework 10](hw10_data-from-web.html) Get data from the web (2015 version)
