@@ -61,8 +61,8 @@ nov-08 tues    <a href="cm105_automation-and-make.html">cm105</a>: Automate task
 nov-10 thurs   <a href="cm106_automation-and-make.html">cm106</a>: ditto                                         
 nov-15 tues    <a href="cm107_shiny-apps.html">cm107</a>: Build your first Shiny app (Dean Attali)               
 nov-17 thurs   <a href="cm108_shiny-apps.html">cm108</a>: ditto                                                  
-nov-22 tues    cm109: Build your first R package                                                                 
-nov-24 thurs   cm110: ditto                                                                                      
+nov-22 tues    <a href="cm109_packages.html">cm109</a>: Build your first R package                               
+nov-24 thurs   <a href="cm110_packages.html">cm110</a>: ditto                                                    
 nov-29 tues    cm111: Get data from the web (scraping and APIs)                                                  
 dec-01 thurs   cm112: ditto                                                                                      
 
