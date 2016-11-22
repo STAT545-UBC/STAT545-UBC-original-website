@@ -27,7 +27,7 @@ back to [All the package things](packages00_index.html)
 
 Embarking on your career as an R package developer is an important milestone. Why not celebrate by updating R and RStudio? This is something we recommended early and we recommend doing it often. [Go back to Day 0 of the course](block000_r-rstudio-install.html#r-and-rstudio) for reminders on the process. **DO IT NOW. We are not very interested in solving problems that stem from running outdated versions of R and RStudio.**
 
-*2015-11 FYI: Jenny is running `r paste(unlist(R.version[c('version.string', 'nickname')]), collapse = " ")` and RStudio `r rstudioapi::getVersion()` at the time of writing.*
+*2016-11 FYI: Jenny is running `r paste(unlist(R.version[c('version.string', 'nickname')]), collapse = " ")` and RStudio `r rstudioapi::getVersion()` at the time of writing.*
 
 ### Install `devtools` from CRAN
 
@@ -101,9 +101,9 @@ Install more packages. If you already have them, update them.
   * `roxygen2`
   * `testthat`
 
-*2015-11 FYI: Jenny is running these versions of this packages at the time of writing.*
+*2016-11 FYI: Jenny is running these versions of this packages at the time of writing.*
 
-```{r echo = FALSE}
+```{r echo = FALSE, warning = FALSE}
 library(dplyr)
 devtools::session_info()$packages %>% 
   filter(package %in% c('devtools', 'knitr', 'roxygen2', 'testthat'))

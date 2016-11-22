@@ -45,17 +45,19 @@ Create a new package in a new directory with `devtools::create()`:
 ```r
 library(devtools)
 create("~/tmp/foofactors")
-#> Creating package foofactors in /Users/jenny/tmp
+#> Creating package 'foofactors' in '/Users/jenny/tmp'
 #> No DESCRIPTION found. Creating with values:
 #> Package: foofactors
 #> Title: What the Package Does (one line, title case)
 #> Version: 0.0.0.9000
 #> Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
 #> Description: What the package does (one paragraph).
-#> Depends: R (>= 3.2.2)
+#> Depends: R (>= 3.3.1)
 #> License: What license is it under?
+#> Encoding: UTF-8
 #> LazyData: true
-#> Adding RStudio project file to foofactors
+#> * Creating `foofactors.Rproj` from template.
+#> * Adding `.Rproj.user`, `.Rhistory`, `.RData` to ./.gitignore
 ```
 
 
@@ -91,7 +93,7 @@ Let's make this directory, which is already an RStudio Project and an R source p
 ```r
 use_git()
 #> * Initialising repo
-#> * Adding .Rproj.user, .Rhistory, and .RData to .gitignore
+#> * Adding `.Rproj.user`, `.Rhistory`, `.RData` to ./.gitignore
 #> * Adding files and committing
 ```
 
@@ -109,7 +111,7 @@ Quit and relaunch RStudio in this Project, so that it is recognized as a Git rep
 
 
 ```
-#> [38ed51b] 2015-11-23: Initial commit
+#> [e8ff2fd] 2016-11-21: Initial commit
 ```
 
 FYI RStudio can also initialize a Git repository, in any Project, even if it's not an R package: *Tools > Version Control > Project Setup*. Then choose *Version control system: Git* and *initialize a new git repository for this project*.
@@ -192,7 +194,7 @@ Your most recent commit should look something like this (if you're lucky, you've
 
 
 ```
-#> [39cb828] 2015-11-23: Add fbind()
+#> [ec27c5c] 2016-11-21: Add fbind()
 #> diff --git a/R/fbind.R b/R/fbind.R
 #> new file mode 100644
 #> index 0000000..7b03d75
@@ -256,22 +258,36 @@ We'll fix both soon.
 
 ```r
 check(document = FALSE)
-#> Setting env vars ----------------------------------------------------------
+#> Setting env vars ---------------------------------------------------------
 #> CFLAGS  : -Wall -pedantic
 #> CXXFLAGS: -Wall -pedantic
-#> Building foofactors -------------------------------------------------------
+#> Building foofactors ------------------------------------------------------
 #> '/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
-#>   --no-environ --no-save --no-restore CMD build  \
-#>   '/Users/jenny/tmp/foofactors' --no-resave-data --no-manual 
+#>   --no-environ --no-save --no-restore --quiet CMD build  \
+#>   '/Users/jenny/tmp/foofactors' --no-resave-data --no-manual
 #> 
-#> Setting env vars ----------------------------------------------------------
+#> Setting env vars ---------------------------------------------------------
 #> _R_CHECK_CRAN_INCOMING_ : FALSE
 #> _R_CHECK_FORCE_SUGGESTS_: FALSE
-#> Checking foofactors -------------------------------------------------------
+#> Checking foofactors ------------------------------------------------------
 #> '/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
-#>   --no-environ --no-save --no-restore CMD check  \
-#>   '/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpX4V9Xx/foofactors_0.0.0.9000.tar.gz'  \
-#>   --as-cran --timings
+#>   --no-environ --no-save --no-restore --quiet CMD check  \
+#>   '/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmplOipmc/foofactors_0.0.0.9000.tar.gz'  \
+#>   --as-cran --timings --no-manual
+#> 
+#> R CMD check results
+#> 0 errors | 2 warnings | 0 notes
+#> checking DESCRIPTION meta-information ... WARNING
+#> Non-standard license specification:
+#>   What license is it under?
+#> Standardizable: FALSE
+#> 
+#> checking for missing documentation entries ... WARNING
+#> Undocumented code objects:
+#>   ‘fbind’
+#> All user-level objects in a package should have documentation entries.
+#> See chapter ‘Writing R documentation files’ in the ‘Writing R
+#> Extensions’ manual.
 ```
 
 Once things look OK, you can install your very own `foofactors` package into your library:
@@ -281,9 +297,9 @@ Once things look OK, you can install your very own `foofactors` package into you
 install()
 #> Installing foofactors
 #> '/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
-#>   --no-environ --no-save --no-restore CMD INSTALL  \
+#>   --no-environ --no-save --no-restore --quiet CMD INSTALL  \
 #>   '/Users/jenny/tmp/foofactors'  \
-#>   --library='/Users/jenny/resources/R/library' --install-tests 
+#>   --library='/Users/jenny/resources/R/library' --install-tests
 #> 
 #> Reloading installed foofactors
 ```

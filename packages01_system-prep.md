@@ -10,7 +10,7 @@ back to [All the package things](packages00_index.html)
 
 Embarking on your career as an R package developer is an important milestone. Why not celebrate by updating R and RStudio? This is something we recommended early and we recommend doing it often. [Go back to Day 0 of the course](block000_r-rstudio-install.html#r-and-rstudio) for reminders on the process. **DO IT NOW. We are not very interested in solving problems that stem from running outdated versions of R and RStudio.**
 
-*2015-11 FYI: Jenny is running R version 3.2.2 (2015-08-14) Fire Safety and RStudio 0.99.780 at the time of writing.*
+*2016-11 FYI: Jenny is running R version 3.3.1 (2016-06-21) Bug in Your Hair and RStudio 1.0.44 at the time of writing.*
 
 ### Install `devtools` from CRAN
 
@@ -84,15 +84,15 @@ Install more packages. If you already have them, update them.
   * `roxygen2`
   * `testthat`
 
-*2015-11 FYI: Jenny is running these versions of this packages at the time of writing.*
+*2016-11 FYI: Jenny is running these versions of this packages at the time of writing.*
 
 
 ```
-#>    package *    version       date                              source
-#> 1 devtools * 1.9.1.9000 2015-11-16                               local
-#> 2    knitr *       1.11 2015-08-14                      CRAN (R 3.2.2)
-#> 3 roxygen2 * 5.0.1.9000 2015-11-13 Github (klutometis/roxygen@7133fd6)
-#> 4 testthat *     0.11.0 2015-10-14                      CRAN (R 3.2.0)
+#>    package *     version       date                              source
+#> 1 devtools * 1.12.0.9000 2016-09-26    Github (hadley/devtools@26c507b)
+#> 2    knitr *      1.14.2 2016-09-07        Github (yihui/knitr@f02600d)
+#> 3 roxygen2 *  5.0.1.9000 2016-10-23 Github (klutometis/roxygen@9ffbad0)
+#> 4 testthat *  1.0.2.9000 2016-09-09    Github (hadley/testthat@46d15da)
 ```
 
 How to check which version of a specific package you've got installed:

@@ -10,14 +10,18 @@
 
 
 
+
 <title>Write your own R package, Part Two</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -30,10 +34,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -47,6 +47,34 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 }
 </script>
 
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 <link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
@@ -70,8 +98,30 @@ img {
   max-width:100%;
   height: auto;
 }
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
 </style>
+
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 <header>
   <div class="nav">
@@ -88,8 +138,12 @@ img {
   </div>
 </header>
 
-<div id="header">
-<h1 class="title">Write your own R package, Part Two</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Write your own R package, Part Two</h1>
+
 </div>
 
 <div id="TOC">
@@ -157,7 +211,7 @@ if (interactive()) {
 Title: Make Factors Less Annoying
 Version: 0.0.0.9000
 Authors@R: person(&quot;Jennifer&quot;, &quot;Bryan&quot;, role=c(&quot;aut&quot;, &quot;cre&quot;),
-  email = &quot;jenny@stat.ubc.ca&quot;)
+    email = &quot;jenny@stat.ubc.ca&quot;)
 Description: Factors have driven people to extreme measures, like ordering
     custom conference ribbons and laptop stickers to express how HELLNO we
     feel about stringsAsFactors. And yet, sometimes you need them. Can they
@@ -179,7 +233,7 @@ LazyData: true</code></pre>
 <li>GitHub’s guide at <a href="http://choosealicense.com" class="uri">http://choosealicense.com</a></li>
 </ul>
 <p>To finish specifying the MIT license I chose above, add this in a new file called <code>LICENSE</code>. Fill in the current year and substitute your name.</p>
-<pre><code>YEAR: 2015
+<pre><code>YEAR: 2016
 COPYRIGHT HOLDER: Jennifer Bryan</code></pre>
 </div>
 <div id="document-fbind" class="section level3">
@@ -206,8 +260,7 @@ COPYRIGHT HOLDER: Jennifer Bryan</code></pre>
 <pre class="r"><code>document()
 #&gt; Updating foofactors documentation
 #&gt; Loading foofactors
-#&gt; First time using roxygen2. Upgrading automatically...
-#&gt; Updating roxygen version in  /Users/jenny/tmp/foofactors/DESCRIPTION
+#&gt; Updating roxygen version in /Users/jenny/tmp/foofactors/DESCRIPTION
 #&gt; Writing NAMESPACE
 #&gt; Writing fbind.Rd</code></pre>
 <p>You should now be able to preview your help file like so:</p>
@@ -228,7 +281,10 @@ export(fbind)</code></pre>
 <h3>Add unit tests</h3>
 <p>Remember when we wrote our first R function? In <a href="block011_write-your-own-function-03.html#use-testthat-for-formal-unit-tests">lesson 3</a>, we created some formal unit tests to check that our function produces expected output when given specific input. This seemed like crazy overkill then, but the payoff for writing unit tests is much more clear when you are writing a package.</p>
 <p>Let’s declare our intent to write unit tests. We’ll use the <code>testthat</code> package to help us.</p>
-<pre class="r"><code>use_testthat()</code></pre>
+<pre class="r"><code>use_testthat()
+#&gt; * Adding testthat to Suggests
+#&gt; * Creating `tests/testthat`.
+#&gt; * Creating `tests/testthat.R` from template.</code></pre>
 <p>This will add <code>Suggests: testthat</code> to <code>DESCRIPTION</code> and create the directory <code>tests/testthat</code> and the script <code>test/testthat.R</code>. This prepares the unit testing machinery for your package. If you’re using Git, now is a nice time to look at the current diff and verify the above. And commit.</p>
 <p>However, it’s still up to YOU to write the actual tests!</p>
 <p>Create a new R script in <code>tests/testthat/test_fbind.R</code> consisting of this:</p>
@@ -251,9 +307,9 @@ test_that(&quot;fbind binds factor (or character)&quot;, {
 #&gt; Loading foofactors
 #&gt; Loading required package: testthat
 #&gt; Testing foofactors
-#&gt; Binding factors : ..
-#&gt;
-#&gt; DONE</code></pre>
+#&gt; Binding factors: ..
+#&gt; 
+#&gt; DONE ======================================================================</code></pre>
 <p>If you’re <strong>really lucky</strong>, <code>testthat</code> will praise you. That never seems to happen for me anymore. Did I use up my praise quota?!?</p>
 <p>For much more guidance, read the <a href="http://r-pkgs.had.co.nz/tests.html">testing chapter</a> in R Packages.</p>
 </div>
@@ -263,7 +319,8 @@ test_that(&quot;fbind binds factor (or character)&quot;, {
 <p>There is more than one way to approach this. I am presenting the one I use, which is the one recommended in the <a href="http://r-pkgs.had.co.nz/namespace.html">namespace chapter</a> of R Packages and in the <a href="https://github.com/ropensci/packaging_guide#deps">rOpenSci Packaging Guide</a>.</p>
 <p>Declare your intent to use some functions from the <code>dplyr</code> namespace:</p>
 <pre class="r"><code>use_package(&quot;dplyr&quot;)
-#&gt; Adding dplyr to Imports
+#&gt; * Adding dplyr to Imports
+#&gt; Next:
 #&gt; Refer to functions with dplyr::fun()</code></pre>
 <p>This adds the <code>dplyr</code> package to the “Imports” section of <code>DESCRIPTION</code>. And that is all.</p>
 <p>Now add a new function that does, indeed, use a function from <code>dplyr</code>. Imagine we want a frequency table for a factor, as a regular data frame with decent names, versus as an object of class <code>table</code> or with icky names. Preface your calls to <code>dplyr</code> functions with <code>dplyr::</code>. The general pattern is this: give the name of the external package, then two colons, then the function to call.</p>
@@ -293,7 +350,8 @@ freq_out &lt;- function(x) {
 <p>Let’s start adding package-level documentation. Your package as a whole can have its own <code>.Rd</code> file. You can see an example by entering <code>package?dplyr</code> in R Console. Read more about the uses of package-level documentation in <a href="http://r-pkgs.had.co.nz/man.html#man-packages">R Packages</a>.</p>
 <p>Here is the <code>devtools</code> function to set this up:</p>
 <pre class="r"><code>use_package_doc()
-#&gt; Creating R/foofactors-package.r</code></pre>
+#&gt; * Creating `R/foofactors-package.r` from template.
+#&gt; * Modify `R/foofactors-package.r`.</code></pre>
 <p>This creates a weird dummy file <code>R/foofactors-package.R</code> with a roxygen header, that is documenting just … <code>NULL</code>. Whatever. The purpose of this artificial stuff is simply to create the package-level <code>.Rd</code> file.</p>
 <p>Edit <code>R/foofactors-package.R</code> to look something like this. I just copied info from <code>DESCRIPTION</code> but you can go much farther here and probably should in real life. This file isn’t subject to the same CRAN checks as <code>DESCRIPTION</code>, so you have much more freedom.</p>
 <pre><code>#&#39; foofactors: Make factors less annoying
@@ -317,7 +375,9 @@ NULL</code></pre>
 <p>A piece of package-level documentation that’s probably familiar to you is the vignette. This is a great place to put a fully developed example that calls multiple functions from your package to do something useful and realistic. See the <a href="http://r-pkgs.had.co.nz/vignettes.html">vignettes chapter</a> of R Packages for more.</p>
 <p>Here is how to use <code>devtools</code> to set up a vignette.</p>
 <pre class="r"><code>use_vignette(&quot;hello-foofactors&quot;)
-#&gt; Draft vignette created in /Users/jenny/tmp/foofactors/vignettes/hello-foofactors.Rmd</code></pre>
+#&gt; * Creating `vignettes`.
+#&gt; * Adding `inst/doc` to ./.gitignore
+#&gt; NULL</code></pre>
 <p>Here’s what happens:</p>
 <ul>
 <li>Adds <code>knitr</code> and <code>rmarkdown</code> to <code>Suggests</code> in <code>DESCRIPTION</code></li>
@@ -370,11 +430,6 @@ browseVignettes("foofactors")
 <p>You should see your PAT print to screen.</p>
 <p>Connect your package to a new, public GitHub repo using the https protocol like so:</p>
 <pre class="r"><code>use_github(protocol = &quot;https&quot;)</code></pre>
-<pre><code>#&gt; Using github PAT from envvar GITHUB_PAT
-#&gt; * Creating GitHub repository
-#&gt; * Adding GitHub remote
-#&gt; * Adding GitHub links to DESCRIPTION
-#&gt; * Pushing to GitHub and setting remote tracking branch</code></pre>
 <p>If you have a private repo to spare, feel free to add <code>private = TRUE</code>.</p>
 <p>If you use SSH, remove <code>protocol = &quot;https&quot;</code> (SSH is the default).</p>
 <p>Go look at your package’s repo on GitHub! You should also be able to use the Pull and Push buttons from RStudio now.</p>
@@ -386,8 +441,9 @@ browseVignettes("foofactors")
 <p>It is best to write your <code>README</code> in R markdown, so it can reflect actual usage. Do “Build &amp; Reload” now, so your properly built and installed package is found when you render <code>README.Rmd</code>.</p>
 <p>This <code>devtools</code> function will set things up for <code>README.Rmd</code>:</p>
 <pre class="r"><code>use_readme_rmd()
-#&gt; Creating README.Rmd
-#&gt; Adding pre-commit hook</code></pre>
+#&gt; * Creating `README.Rmd` from template.
+#&gt; * Adding `README.Rmd` to `.Rbuildignore`.
+#&gt; * Modify `README.Rmd`.</code></pre>
 <p>This inserts a boilerplate <code>README.Rmd</code> file, adds some lines to <code>.Rbuildignore</code>, and creates a Git pre-commit hook to help you keep <code>README.Rmd</code> and <code>README.md</code> in sync.</p>
 <p>The <code>README.Rmd</code> we use can be seen here: <a href="https://raw.githubusercontent.com/jennybc/foofactors/master/README.Rmd">README.Rmd</a>.</p>
 <p>Don’t forget to knit it to make <code>README.md</code>! The pre-commit hook should remind you if you try to commit <code>README.Rmd</code> but not <code>README.md</code> and also when <code>README.md</code> appears to be out-of-date.</p>
@@ -401,20 +457,27 @@ browseVignettes("foofactors")
 <p>Feel free to visit the <a href="https://github.com/jennybc/foofactors"><code>foofactors</code> package</a> on GitHub, which is exactly as developed in this tutorial. The commit history reflects each individual step, so use the diffs to see the addition and modification of files, as the package evolved.</p>
 <p>back to <a href="packages00_index.html">All the package things</a></p>
 <p><a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/edit/master/packages05_foofactors-package-02.Rmd">Suggest an edit to this page …</a></p>
+<!-- notes to self: NA handling of table is anothing thing freq_out could improve upon -->
 </div>
 
 <div class="footer">
 This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
 </div>
 
+
+
 </div>
 
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
+
 
 </script>
 

@@ -10,14 +10,18 @@
 
 
 
+
 <title>Write your own R package, Part One</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -30,10 +34,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -47,6 +47,34 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 }
 </script>
 
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 <link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
@@ -70,8 +98,30 @@ img {
   max-width:100%;
   height: auto;
 }
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
 </style>
+
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 <header>
   <div class="nav">
@@ -88,8 +138,12 @@ img {
   </div>
 </header>
 
-<div id="header">
-<h1 class="title">Write your own R package, Part One</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Write your own R package, Part One</h1>
+
 </div>
 
 <div id="TOC">
@@ -135,25 +189,27 @@ img {
 <p>Create a new package in a new directory with <code>devtools::create()</code>:</p>
 <pre class="r"><code>library(devtools)
 create(&quot;~/tmp/foofactors&quot;)
-#&gt; Creating package foofactors in /Users/jenny/tmp
+#&gt; Creating package &#39;foofactors&#39; in &#39;/Users/jenny/tmp&#39;
 #&gt; No DESCRIPTION found. Creating with values:
 #&gt; Package: foofactors
 #&gt; Title: What the Package Does (one line, title case)
 #&gt; Version: 0.0.0.9000
 #&gt; Authors@R: person(&quot;First&quot;, &quot;Last&quot;, email = &quot;first.last@example.com&quot;, role = c(&quot;aut&quot;, &quot;cre&quot;))
 #&gt; Description: What the package does (one paragraph).
-#&gt; Depends: R (&gt;= 3.2.2)
+#&gt; Depends: R (&gt;= 3.3.1)
 #&gt; License: What license is it under?
+#&gt; Encoding: UTF-8
 #&gt; LazyData: true
-#&gt; Adding RStudio project file to foofactors</code></pre>
+#&gt; * Creating `foofactors.Rproj` from template.
+#&gt; * Adding `.Rproj.user`, `.Rhistory`, `.RData` to ./.gitignore</code></pre>
 <p>Navigate to this directory and double click on <code>foofactors.Rproj</code> to launch a new RStudio session in the Project that is your <code>foofactors</code> package.</p>
 <p>What does it look like? Here’s a file listing (locally, you can consult your file browser):</p>
-<pre><code>#&gt;      [,1]
-#&gt; [1,] &quot;.gitignore&quot;
-#&gt; [2,] &quot;.Rbuildignore&quot;
-#&gt; [3,] &quot;DESCRIPTION&quot;
+<pre><code>#&gt;      [,1]              
+#&gt; [1,] &quot;.gitignore&quot;      
+#&gt; [2,] &quot;.Rbuildignore&quot;   
+#&gt; [3,] &quot;DESCRIPTION&quot;     
 #&gt; [4,] &quot;foofactors.Rproj&quot;
-#&gt; [5,] &quot;NAMESPACE&quot;
+#&gt; [5,] &quot;NAMESPACE&quot;       
 #&gt; [6,] &quot;R&quot;</code></pre>
 <ul>
 <li><code>DESCRIPTION</code> provides <a href="http://r-pkgs.had.co.nz/description.html">metadata about your package</a>.</li>
@@ -168,23 +224,23 @@ create(&quot;~/tmp/foofactors&quot;)
 <p>Let’s make this directory, which is already an RStudio Project and an R source package, into a Git repository, with <code>devtools::use_git()</code>.</p>
 <pre class="r"><code>use_git()
 #&gt; * Initialising repo
-#&gt; * Adding .Rproj.user, .Rhistory, and .RData to .gitignore
+#&gt; * Adding `.Rproj.user`, `.Rhistory`, `.RData` to ./.gitignore
 #&gt; * Adding files and committing</code></pre>
 <p>What’s new? Only a <code>.git</code> directory, which will be hidden in most contexts, including the RStudio file browser. Its existence confirms we have indeed initialized a Git repo here.</p>
-<pre><code>#&gt;      [,1]
+<pre><code>#&gt;      [,1]  
 #&gt; [1,] &quot;.git&quot;</code></pre>
 <p>Quit and relaunch RStudio in this Project, so that it is recognized as a Git repo and the Git tab becomes available in the Environment/History/Build pane. Click on History and you should see evidence of our initial commit:</p>
-<pre><code>#&gt; [38ed51b] 2015-11-23: Initial commit</code></pre>
+<pre><code>#&gt; [e8ff2fd] 2016-11-21: Initial commit</code></pre>
 <p>FYI RStudio can also initialize a Git repository, in any Project, even if it’s not an R package: <em>Tools &gt; Version Control &gt; Project Setup</em>. Then choose <em>Version control system: Git</em> and <em>initialize a new git repository for this project</em>.</p>
 </div>
 <div id="add-your-first-function" class="section level3">
 <h3>Add your first function</h3>
 <p>Let’s think of something annoying about factors … hmmmm … gee that’s tough … Let’s catenate two factors.</p>
 <pre class="r"><code>(a &lt;- factor(c(&quot;character&quot;, &quot;hits&quot;, &quot;your&quot;, &quot;eyeballs&quot;)))
-#&gt; [1] character hits      your      eyeballs
+#&gt; [1] character hits      your      eyeballs 
 #&gt; Levels: character eyeballs hits your
 (b &lt;- factor(c(&quot;but&quot;, &quot;integer&quot;, &quot;where it&quot;, &quot;counts&quot;)))
-#&gt; [1] but      integer  where it counts
+#&gt; [1] but      integer  where it counts  
 #&gt; Levels: but counts integer where it
 c(a, b)
 #&gt; [1] 1 3 4 2 1 3 4 2</code></pre>
@@ -214,8 +270,8 @@ c(a, b)
 <pre class="r"><code>exists(&quot;fbind&quot;, where = &quot;.GlobalEnv&quot;, inherits = FALSE)
 #&gt; [1] FALSE
 fbind(a, b)
-#&gt; [1] character hits      your      eyeballs  but       integer   where it
-#&gt; [8] counts
+#&gt; [1] character hits      your      eyeballs  but       integer   where it 
+#&gt; [8] counts   
 #&gt; Levels: but character counts eyeballs hits integer where it your</code></pre>
 <p>We have written our first function, <code>fbind()</code>, to catenate two factors.</p>
 <p>We have used <code>load_all()</code> to quickly make this function available, as if we’d built + installed <code>foofactors</code> and loaded via <code>library(foofactors)</code>.</p>
@@ -226,7 +282,7 @@ fbind(a, b)
 <h3>Commit <code>fbind()</code></h3>
 <p>Use you favorite method to commit the new <code>R/fbind.R</code> file.</p>
 <p>Your most recent commit should look something like this (if you’re lucky, you’ve got a nicer way of inspecting it):</p>
-<pre><code>#&gt; [39cb828] 2015-11-23: Add fbind()
+<pre><code>#&gt; [ec27c5c] 2016-11-21: Add fbind()
 #&gt; diff --git a/R/fbind.R b/R/fbind.R
 #&gt; new file mode 100644
 #&gt; index 0000000..7b03d75
@@ -241,7 +297,10 @@ fbind(a, b)
 <h3>Build, Install, Check</h3>
 <p>OK <code>fbind()</code> works. How can we be even more sure that all the moving parts of the package still work? Sure, we’ve only added the one measly <code>fbind()</code>function. Humor me.</p>
 <p>We could simply try to install and load the package and hope for the best. Recall this figure from <a href="http://r-pkgs.had.co.nz/package.html">R Packages</a>:</p>
-<p><img src="https://raw.githubusercontent.com/hadley/r-pkgs/master/diagrams/installation.png" alt="" /></p>
+<div class="figure">
+<img src="https://raw.githubusercontent.com/hadley/r-pkgs/master/diagrams/installation.png" />
+
+</div>
 <p>We have to somehow move our source package through various stages to get it installed.</p>
 <div id="base-utilities" class="section level4">
 <h4>Base utilities</h4>
@@ -280,30 +339,44 @@ R CMD INSTALL foofactors_0.0.0.9000.tar.gz</code></pre>
 </ul>
 <p>We’ll fix both soon.</p>
 <pre class="r"><code>check(document = FALSE)
-#&gt; Setting env vars ----------------------------------------------------------
+#&gt; Setting env vars ---------------------------------------------------------
 #&gt; CFLAGS  : -Wall -pedantic
 #&gt; CXXFLAGS: -Wall -pedantic
-#&gt; Building foofactors -------------------------------------------------------
+#&gt; Building foofactors ------------------------------------------------------
 #&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; --no-site-file  \
-#&gt;   --no-environ --no-save --no-restore CMD build  \
+#&gt;   --no-environ --no-save --no-restore --quiet CMD build  \
 #&gt;   &#39;/Users/jenny/tmp/foofactors&#39; --no-resave-data --no-manual
-#&gt;
-#&gt; Setting env vars ----------------------------------------------------------
+#&gt; 
+#&gt; Setting env vars ---------------------------------------------------------
 #&gt; _R_CHECK_CRAN_INCOMING_ : FALSE
 #&gt; _R_CHECK_FORCE_SUGGESTS_: FALSE
-#&gt; Checking foofactors -------------------------------------------------------
+#&gt; Checking foofactors ------------------------------------------------------
 #&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; --no-site-file  \
-#&gt;   --no-environ --no-save --no-restore CMD check  \
-#&gt;   &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpX4V9Xx/foofactors_0.0.0.9000.tar.gz&#39;  \
-#&gt;   --as-cran --timings</code></pre>
+#&gt;   --no-environ --no-save --no-restore --quiet CMD check  \
+#&gt;   &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmplOipmc/foofactors_0.0.0.9000.tar.gz&#39;  \
+#&gt;   --as-cran --timings --no-manual
+#&gt; 
+#&gt; R CMD check results
+#&gt; 0 errors | 2 warnings | 0 notes
+#&gt; checking DESCRIPTION meta-information ... WARNING
+#&gt; Non-standard license specification:
+#&gt;   What license is it under?
+#&gt; Standardizable: FALSE
+#&gt; 
+#&gt; checking for missing documentation entries ... WARNING
+#&gt; Undocumented code objects:
+#&gt;   ‘fbind’
+#&gt; All user-level objects in a package should have documentation entries.
+#&gt; See chapter ‘Writing R documentation files’ in the ‘Writing R
+#&gt; Extensions’ manual.</code></pre>
 <p>Once things look OK, you can install your very own <code>foofactors</code> package into your library:</p>
 <pre class="r"><code>install()
 #&gt; Installing foofactors
 #&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; --no-site-file  \
-#&gt;   --no-environ --no-save --no-restore CMD INSTALL  \
+#&gt;   --no-environ --no-save --no-restore --quiet CMD INSTALL  \
 #&gt;   &#39;/Users/jenny/tmp/foofactors&#39;  \
 #&gt;   --library=&#39;/Users/jenny/resources/R/library&#39; --install-tests
-#&gt;
+#&gt; 
 #&gt; Reloading installed foofactors</code></pre>
 <p>Now we can load <code>foofactors</code> just like a regular package and use it.</p>
 <p>A shortcut for “build, install, and reload” is offered by RStudio:</p>
@@ -318,8 +391,8 @@ R CMD INSTALL foofactors_0.0.0.9000.tar.gz</code></pre>
 a &lt;- factor(c(&quot;character&quot;, &quot;hits&quot;, &quot;your&quot;, &quot;eyeballs&quot;))
 b &lt;- factor(c(&quot;but&quot;, &quot;integer&quot;, &quot;where it&quot;, &quot;counts&quot;))
 fbind(a, b)
-#&gt; [1] character hits      your      eyeballs  but       integer   where it
-#&gt; [8] counts
+#&gt; [1] character hits      your      eyeballs  but       integer   where it 
+#&gt; [8] counts   
 #&gt; Levels: but character counts eyeballs hits integer where it your</code></pre>
 <p>Success! That’s enough for now.</p>
 <p>In <a href="packages05_foofactors-package-02.html">part two</a>, we’ll add more bells and whistles to the package.</p>
@@ -332,14 +405,20 @@ fbind(a, b)
 This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
 </div>
 
+
+
 </div>
 
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
+
 
 </script>
 

@@ -100,7 +100,7 @@ Package: foofactors
 Title: Make Factors Less Annoying
 Version: 0.0.0.9000
 Authors@R: person(\"Jennifer\", \"Bryan\", role=c(\"aut\", \"cre\"),
-  email = \"jenny@stat.ubc.ca\")
+    email = \"jenny@stat.ubc.ca\")
 Description: Factors have driven people to extreme measures, like ordering
     custom conference ribbons and laptop stickers to express how HELLNO we
     feel about stringsAsFactors. And yet, sometimes you need them. Can they
@@ -110,6 +110,7 @@ Depends:
 License: MIT + file LICENSE
 LazyData: true
 "
+## COME BACK HERE! PRETTY SURE I SHOULD NOT TRIM WHITESPACE
 writeLines(trimws(DESCRIPTION_fodder), "DESCRIPTION")
 ```
 
@@ -136,7 +137,7 @@ To finish specifying the MIT license I chose above, add this in a new file calle
 
 ```{r include = FALSE}
 LICENSE_fodder <- "
-YEAR: 2015
+YEAR: 2016
 COPYRIGHT HOLDER: Jennifer Bryan
 "
 writeLines(trimws(LICENSE_fodder), "LICENSE")
@@ -592,6 +593,7 @@ Finally, don't forget to do one last commit. And push!
 
 ```{r render-via-wrapper, include = params$debug}
 ## https://gist.github.com/jennybc/1f747c5bb84aa9be9c3c
+install()
 writeLines('rmarkdown::render("README.Rmd", quiet = TRUE)', "render_wrapper.R")
 devtools::clean_source("render_wrapper.R", quiet = TRUE)
 file.remove("render_wrapper.R")
@@ -601,7 +603,7 @@ file.remove("render_wrapper.R")
 paths <- unlist(status(repo))
 add(repo, path = paths)
 commit(repo, message = "Write README.Rmd and render")
-push(repo, credentials = cred_user_pass("EMAIL", Sys.getenv("GITHUB_PAT")))
+#push(repo, credentials = cred_user_pass("EMAIL", Sys.getenv("GITHUB_PAT")))
 ```
 
 ### The End

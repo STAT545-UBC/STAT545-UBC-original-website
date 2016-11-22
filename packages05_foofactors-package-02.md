@@ -69,7 +69,7 @@ Package: foofactors
 Title: Make Factors Less Annoying
 Version: 0.0.0.9000
 Authors@R: person("Jennifer", "Bryan", role=c("aut", "cre"),
-  email = "jenny@stat.ubc.ca")
+    email = "jenny@stat.ubc.ca")
 Description: Factors have driven people to extreme measures, like ordering
     custom conference ribbons and laptop stickers to express how HELLNO we
     feel about stringsAsFactors. And yet, sometimes you need them. Can they
@@ -98,7 +98,7 @@ To finish specifying the MIT license I chose above, add this in a new file calle
 
 
 ```
-YEAR: 2015
+YEAR: 2016
 COPYRIGHT HOLDER: Jennifer Bryan
 ```
 
@@ -145,8 +145,7 @@ In R, call `document()`, which is a wrapper function provided by `devtools`. Und
 document()
 #> Updating foofactors documentation
 #> Loading foofactors
-#> First time using roxygen2. Upgrading automatically...
-#> Updating roxygen version in  /Users/jenny/tmp/foofactors/DESCRIPTION 
+#> Updating roxygen version in /Users/jenny/tmp/foofactors/DESCRIPTION
 #> Writing NAMESPACE
 #> Writing fbind.Rd
 ```
@@ -190,6 +189,9 @@ Let's declare our intent to write unit tests. We'll use the `testthat` package t
 
 ```r
 use_testthat()
+#> * Adding testthat to Suggests
+#> * Creating `tests/testthat`.
+#> * Creating `tests/testthat.R` from template.
 ```
 
 This will add `Suggests: testthat` to `DESCRIPTION` and create the directory `tests/testthat` and the script `test/testthat.R`. This prepares the unit testing machinery for your package. If you're using Git, now is a nice time to look at the current diff and verify the above. And commit.
@@ -233,9 +235,9 @@ test()
 #> Loading foofactors
 #> Loading required package: testthat
 #> Testing foofactors
-#> Binding factors : ..
+#> Binding factors: ..
 #> 
-#> DONE
+#> DONE ======================================================================
 ```
 
 If you're **really lucky**, `testthat` will praise you. That never seems to happen for me anymore. Did I use up my praise quota?!?
@@ -253,7 +255,8 @@ Declare your intent to use some functions from the `dplyr` namespace:
 
 ```r
 use_package("dplyr")
-#> Adding dplyr to Imports
+#> * Adding dplyr to Imports
+#> Next:
 #> Refer to functions with dplyr::fun()
 ```
 
@@ -309,7 +312,8 @@ Here is the `devtools` function to set this up:
 
 ```r
 use_package_doc()
-#> Creating R/foofactors-package.r
+#> * Creating `R/foofactors-package.r` from template.
+#> * Modify `R/foofactors-package.r`.
 ```
 
 This creates a weird dummy file `R/foofactors-package.R` with a roxygen header, that is documenting just ... `NULL`. Whatever. The purpose of this artificial stuff is simply to create the package-level `.Rd` file.
@@ -355,7 +359,9 @@ Here is how to use `devtools` to set up a vignette.
 
 ```r
 use_vignette("hello-foofactors")
-#> Draft vignette created in /Users/jenny/tmp/foofactors/vignettes/hello-foofactors.Rmd
+#> * Creating `vignettes`.
+#> * Adding `inst/doc` to ./.gitignore
+#> NULL
 ```
 
 Here's what happens:
@@ -454,13 +460,6 @@ use_github(protocol = "https")
 ```
 
 
-```
-#> Using github PAT from envvar GITHUB_PAT
-#> * Creating GitHub repository
-#> * Adding GitHub remote
-#> * Adding GitHub links to DESCRIPTION
-#> * Pushing to GitHub and setting remote tracking branch
-```
 
 If you have a private repo to spare, feel free to add `private = TRUE`.
 
@@ -481,8 +480,9 @@ This `devtools` function will set things up for `README.Rmd`:
 
 ```r
 use_readme_rmd()
-#> Creating README.Rmd
-#> Adding pre-commit hook
+#> * Creating `README.Rmd` from template.
+#> * Adding `README.Rmd` to `.Rbuildignore`.
+#> * Modify `README.Rmd`.
 ```
 
 This inserts a boilerplate `README.Rmd` file, adds some lines to `.Rbuildignore`, and creates a Git pre-commit hook to help you keep `README.Rmd` and `README.md` in sync.
@@ -520,3 +520,4 @@ back to [All the package things](packages00_index.html)
 
 [Suggest an edit to this page ...](https://github.com/STAT545-UBC/STAT545-UBC.github.io/edit/master/packages05_foofactors-package-02.Rmd)
 
+<!-- notes to self: NA handling of table is anothing thing freq_out could improve upon -->
