@@ -19,9 +19,6 @@
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="libs/navigation-1.1/tabsets.js"></script>
-<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -34,6 +31,10 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="libs/highlight/default.css"
+      type="text/css" />
+<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -111,6 +112,7 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -279,11 +281,11 @@ table {
 </tr>
 <tr class="odd">
 <td align="left">nov-15 tues</td>
-<td align="left">cm107: Build your first Shiny app (Dean Attali)</td>
+<td align="left"><a href="cm107_shiny-apps.html">cm107</a>: Build your first Shiny app (Dean Attali)</td>
 </tr>
 <tr class="even">
 <td align="left">nov-17 thurs</td>
-<td align="left">cm108: ditto</td>
+<td align="left"><a href="cm108_shiny-apps.html">cm108</a>: ditto</td>
 </tr>
 <tr class="odd">
 <td align="left">nov-22 tues</td>
@@ -306,8 +308,8 @@ table {
 <ul>
 <li><a href="hw06_data-wrangling-conclusion.html">Homework 06</a> Choose your adventure! Topics include regular expressions, data ingest/exploration, working with lists, working with nested data frames.</li>
 <li><a href="hw07_automation.html">Homework 07</a> Automate a data analysis pipeline.</li>
+<li><a href="hw08_shiny.html">Homework 08</a> Build a Shiny app.</li>
 <li><em>Assignments below will be renumbered in 2016 (hw07 - hw10) and, obviously, ordered according to when the topics appear in class. Please humor us as that unfolds.</em></li>
-<li><a href="hw11_shiny.html">Homework 11</a> Build a Shiny apps (2015 version)</li>
 <li><a href="hw08_package.html">Homework 08</a> Write an R package (2015 version)</li>
 <li><a href="hw10_data-from-web.html">Homework 10</a> Get data from the web (2015 version)</li>
 </ul>
@@ -321,11 +323,8 @@ table {
 <script>
 
 // add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
-}
 $(document).ready(function () {
-  bootstrapStylePandocTables();
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 });
 
 

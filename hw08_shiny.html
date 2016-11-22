@@ -8,18 +8,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
+
 <meta name="author" content="Dean Attali" />
 
-<meta name="date" content="2015-12-03" />
 
 <title>Building Shiny apps - Homework</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -50,6 +50,34 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </script>
 
 
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
 <link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
@@ -68,12 +96,35 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 <header>
   <div class="nav">
@@ -90,10 +141,13 @@ img {
   </div>
 </header>
 
-<div id="header">
-<h1 class="title">Building Shiny apps - Homework</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Building Shiny apps - Homework</h1>
 <h4 class="author"><em>Dean Attali</em></h4>
-<h4 class="date"><em>2015-12-03</em></h4>
+
 </div>
 
 <div id="TOC">
@@ -108,11 +162,11 @@ img {
 
 <div id="deadline" class="section level2">
 <h2>Deadline</h2>
-<p>The homework is due Friday, December 11 2015.</p>
+<p>The homework is due Friday, November 25 2016.</p>
 </div>
 <div id="what-weve-done" class="section level2">
 <h2>What we’ve done</h2>
-<p>We made a Shiny app that lets you search for products from the BC Liquor Store based on price, alcohol type, and country. We used <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/shiny_supp/2015/bcl-data.csv">this dataset</a> and <a href="./shiny01_activity.html#final-shiny-app-code">this code</a> for our app.</p>
+<p>We created a Shiny app that lets you search for products from the BC Liquor Store based on price, alcohol type, and country. We used <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/shiny_supp/2016/bcl-data.csv">this dataset</a> and <a href="./shiny01_activity.html#final-shiny-app-code">this code</a> for our app.</p>
 </div>
 <div id="what-you-need-to-do" class="section level2">
 <h2>What you need to do</h2>
@@ -206,6 +260,8 @@ img {
 This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
 </div>
 
+
+
 </div>
 
 <script>
@@ -214,6 +270,7 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 $(document).ready(function () {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 });
+
 
 </script>
 
