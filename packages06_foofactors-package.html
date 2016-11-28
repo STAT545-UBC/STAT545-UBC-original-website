@@ -352,7 +352,7 @@ cbind(setdiff(listing_2, listing_1))
 #&gt;      [,1]  
 #&gt; [1,] &quot;.git&quot;</code></pre>
 <p>If you use RStudio, quit and relaunch this Project, by double clicking on <code>foofactors.Rproj</code>. Now, in addition to package development support, you have access to a basic Git client in the <em>Git</em> tab of the <em>Environment/History/Build</em> pane. Click on History (the clock icon) and you should see the initial commit made by <code>use_git()</code>:</p>
-<pre><code>#&gt; [4c554fe] 2016-11-28: Initial commit</code></pre>
+<pre><code>#&gt; [6c1b5e3] 2016-11-28: Initial commit</code></pre>
 <p>FYI RStudio can initialize a Git repository, in any Project, even if it’s not an R package: <em>Tools &gt; Version Control &gt; Project Setup</em>. Then choose <em>Version control system: Git</em> and <em>initialize a new git repository for this project</em>.</p>
 </div>
 <div id="define-the-first-function" class="section level2">
@@ -410,7 +410,7 @@ c(a, b)
 <div id="commit-fbind" class="section level2">
 <h2>Commit <code>fbind()</code></h2>
 <p>If you’re using Git, use your preferred method to commit the new <code>R/fbind.R</code> file.</p>
-<pre><code>[2ffbcef] 2016-11-28: Add fbind()</code></pre>
+<pre><code>[9d9fc63] 2016-11-28: Add fbind()</code></pre>
 <!--
 The diff associated with this commit should look something like this, though you may have a nicer way of inspecting it:
 -->
@@ -465,8 +465,8 @@ R CMD INSTALL foofactors_0.0.0.9000.tar.gz</code></pre>
 #&gt; _R_CHECK_CRAN_INCOMING_ : FALSE
 #&gt; _R_CHECK_FORCE_SUGGESTS_: FALSE
 #&gt; Checking foofactors ------------------------------------------------------
-#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; CMD check &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpLd536X/foofactors_0.0.0.9000.tar.gz&#39; --as-cran --timings --no-manual
-#&gt; * using log directory ‘/private/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T/RtmpLd536X/foofactors.Rcheck’
+#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; CMD check &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpwRHjRW/foofactors_0.0.0.9000.tar.gz&#39; --as-cran --timings --no-manual
+#&gt; * using log directory ‘/private/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T/RtmpwRHjRW/foofactors.Rcheck’
 #&gt; * using R version 3.3.1 (2016-06-21)
 #&gt; * using platform: x86_64-apple-darwin13.4.0 (64-bit)
 #&gt; * using session charset: UTF-8
@@ -592,7 +592,7 @@ Depends:
     R (&gt;= 3.2.2)
 License: MIT + file LICENSE
 LazyData: true</code></pre>
-<pre><code>[1f4da70] 2016-11-28: Edit DESCRIPTION</code></pre>
+<pre><code>[419de8c] 2016-11-28: Edit DESCRIPTION</code></pre>
 </div>
 <div id="use_mit_license" class="section level2">
 <h2><code>use_mit_license()</code></h2>
@@ -606,7 +606,7 @@ LazyData: true</code></pre>
 <p>Open the newly created <code>LICENSE</code> file and, if necessary, edit it to make sure it has the current year and your name:</p>
 <pre><code>YEAR: 2016
 COPYRIGHT HOLDER: Jennifer Bryan</code></pre>
-<pre><code>[9bdf9ab] 2016-11-28: Add LICENSE</code></pre>
+<pre><code>[4e04244] 2016-11-28: Add LICENSE</code></pre>
 <p>For future projects, there is more guidance on licenses in these sources:</p>
 <ul>
 <li><a href="http://r-pkgs.had.co.nz/description.html#license">R Packages</a></li>
@@ -632,7 +632,7 @@ COPYRIGHT HOLDER: Jennifer Bryan</code></pre>
 #&#39; @export
 #&#39; @examples
 #&#39; fbind(iris$Species[c(1, 51, 101)], PlantGrowth$group[c(1, 11, 21)])</code></pre>
-<pre><code>[9aa2a32] 2016-11-28: Add roxygen header to document fbind()</code></pre>
+<pre><code>[90d273d] 2016-11-28: Add roxygen header to document fbind()</code></pre>
 <p>But we’re not done yet! We still need to trigger the conversion of the roxygen comment into <code>man/fbind.Rd</code>. You can do this from the RStudio IDE or from R:</p>
 <ul>
 <li>From RStudio:
@@ -663,7 +663,7 @@ COPYRIGHT HOLDER: Jennifer Bryan</code></pre>
 export(fbind)</code></pre>
 <p>It no longer has the placeholder content saying “export everything”. Instead, there is now an explicit directive to export the <code>fbind()</code> function.</p>
 <p>The export directive in <code>NAMESPACE</code> is what’s required to “export a function” and it’s what makes <code>fbind()</code> available to a user after loading foofactors via <code>library(foofactors)</code>. Just as it is entirely possible to author <code>.Rd</code> files “by hand”, you can manage <code>NAMESPACE</code> explicitly yourself. But we are opting to delegate this to devtools and roxygen2.</p>
-<pre><code>[472f7ca] 2016-11-28: Run document()</code></pre>
+<pre><code>[9acaa6c] 2016-11-28: Run document()</code></pre>
 </div>
 </div>
 <div id="check" class="section level2">
@@ -687,8 +687,8 @@ export(fbind)</code></pre>
 #&gt; _R_CHECK_CRAN_INCOMING_ : FALSE
 #&gt; _R_CHECK_FORCE_SUGGESTS_: FALSE
 #&gt; Checking foofactors ------------------------------------------------------
-#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; CMD check &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpLd536X/foofactors_0.0.0.9000.tar.gz&#39; --as-cran --timings --no-manual
-#&gt; * using log directory ‘/private/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T/RtmpLd536X/foofactors.Rcheck’
+#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; CMD check &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpwRHjRW/foofactors_0.0.0.9000.tar.gz&#39; --as-cran --timings --no-manual
+#&gt; * using log directory ‘/private/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T/RtmpwRHjRW/foofactors.Rcheck’
 #&gt; * using R version 3.3.1 (2016-06-21)
 #&gt; * using platform: x86_64-apple-darwin13.4.0 (64-bit)
 #&gt; * using session charset: UTF-8
@@ -748,7 +748,7 @@ export(fbind)</code></pre>
 #&gt; * Creating `tests/testthat`.
 #&gt; * Creating `tests/testthat.R` from template.</code></pre>
 <p>This initializes the unit testing machinery for your package. It adds <code>Suggests: testthat</code> to <code>DESCRIPTION</code>, creates the directory <code>tests/testthat</code>, and adds the script <code>test/testthat.R</code>.</p>
-<pre><code>[77f898c] 2016-11-28: Add testing infrastructure</code></pre>
+<pre><code>[3a43268] 2016-11-28: Add testing infrastructure</code></pre>
 <p>However, it’s still up to YOU to write the actual tests!</p>
 <p>Create a new R script in <code>tests/testthat/test_fbind.R</code> consisting of this:</p>
 <pre><code>context(&quot;Binding factors&quot;)
@@ -763,7 +763,7 @@ test_that(&quot;fbind binds factor (or character)&quot;, {
   expect_identical(fbind(x_fact, y), z)
 })</code></pre>
 <p>This tests that <code>fbind()</code> gives an expected result when combining two factors and a character vector and a factor.</p>
-<pre><code>[f92bbc8] 2016-11-28: Test fbind()</code></pre>
+<pre><code>[f8e4030] 2016-11-28: Test fbind()</code></pre>
 <p>Run this test interactively, as you will when you write your own. Note you’ll have to load testthat via <code>library(testthat)</code> in your R session first and you’ll probably want to <code>load_all()</code>.</p>
 <p>Going forward, your tests will mostly run <em>en masse</em> and at arms’s length:</p>
 <ul>
@@ -796,7 +796,7 @@ test_that(&quot;fbind binds factor (or character)&quot;, {
 #&gt; * Adding dplyr to Imports
 #&gt; Next:
 #&gt; Refer to functions with dplyr::fun()</code></pre>
-<pre><code>[2ee0633] 2016-11-28: Declare we will use dplyr</code></pre>
+<pre><code>[aa933c7] 2016-11-28: Declare we will use dplyr</code></pre>
 <p>This adds the dplyr package to the “Imports” section of <code>DESCRIPTION</code>. And that is all.</p>
 <p>Now we add a new function to foofactors that does, indeed, use a function from dplyr. Imagine we want a frequency table for a factor, as a regular data frame with nice variable names, versus as an object of class <code>table</code> or something with odd names. Preface your calls to dplyr functions with <code>dplyr::</code>.</p>
 <p>Create a new file <code>R/freq_out.R</code> with this function definition:</p>
@@ -812,7 +812,7 @@ freq_out &lt;- function(x) {
   xdf &lt;- dplyr::data_frame(x)
   dplyr::count(xdf, x)
 }</code></pre>
-<pre><code>[e75dec3] 2016-11-28: Add freq_out()</code></pre>
+<pre><code>[1e5fa00] 2016-11-28: Add freq_out()</code></pre>
 <p>Try out the new function.</p>
 <pre class="r"><code>load_all()
 #&gt; Loading foofactors
@@ -829,7 +829,7 @@ freq_out(iris$Species)
 #&gt; Loading foofactors
 #&gt; Writing NAMESPACE
 #&gt; Writing freq_out.Rd</code></pre>
-<pre><code>[d52e2d4] 2016-11-28: Document freq_out()</code></pre>
+<pre><code>[d5adb0d] 2016-11-28: Document freq_out()</code></pre>
 </div>
 <div id="use_package_doc" class="section level2">
 <h2><code>use_package_doc()</code></h2>
@@ -851,13 +851,13 @@ freq_out(iris$Species)
 #&#39; @name foofactors
 #&#39; @docType package
 NULL</code></pre>
-<pre><code>[51949b7] 2016-11-28: Add package-level doc</code></pre>
+<pre><code>[9b508be] 2016-11-28: Add package-level doc</code></pre>
 <p>Don’t forget to run <code>document()</code>!</p>
 <pre class="r"><code>document()
 #&gt; Updating foofactors documentation
 #&gt; Loading foofactors
 #&gt; Writing foofactors.Rd</code></pre>
-<pre><code>[93eb021] 2016-11-28: Run document()</code></pre>
+<pre><code>[d87d987] 2016-11-28: Run document()</code></pre>
 <p>Have a look at your new package-level docs:</p>
 <pre class="r"><code>?foofactors</code></pre>
 </div>
@@ -876,7 +876,7 @@ NULL</code></pre>
 <li>Adds <code>inst/doc</code> to <code>.gitignore</code>.</li>
 <li>If using RStudio, open <code>vignettes/hello-foofactors.Rmd</code> for editing.</li>
 </ul>
-<pre><code>[bb7c6cb] 2016-11-28: Init vignette</code></pre>
+<pre><code>[767de7a] 2016-11-28: Init vignette</code></pre>
 <p>Now you need to edit <code>vignettes/hello-foofactors.Rmd</code>. At the very least, do this:</p>
 <ul>
 <li>Replace <strong>both instances</strong> of “Vignette Title” in the YAML with an actual title and with the same title.</li>
@@ -884,7 +884,7 @@ NULL</code></pre>
 <li>Remove the boilerplate content and throw in some usage. Even early on, just mine your examples or tests for something to throw in here. It is better than nothing.</li>
 </ul>
 <p>The vignette source can be seen here: <a href="https://raw.githubusercontent.com/jennybc/foofactors/master/vignettes/hello-foofactors.Rmd">vignettes/hello-foofactors.Rmd</a></p>
-<pre><code>[29c8f79] 2016-11-28: Write vignette</code></pre>
+<pre><code>[371596a] 2016-11-28: Write vignette</code></pre>
 <p>How to see your compiled vignette? For a quick preview, just use RStudio’s “Knit HTML” button. Problem is, the downstream products aren’t saved anywhere in your package, so you’ll need to redo this every time you want to look at the vignette.</p>
 <p>If you want to hold on to a compiled vignette, for your own sake or to push to GitHub, it’s a little fiddly. I’m not executing any of these for real, so don’t expect to see the result in the foofactors repo on GitHub.</p>
 <p>Option 1:</p>
@@ -925,6 +925,19 @@ use_github()
 ## private repo using ssh
 use_github(private = TRUE)
 </code></pre>
+<pre class="r"><code>#&gt; Using GitHub PAT from envvar GITHUB_PAT
+#&gt; * Git is already initialized
+#&gt; * Checking title and description
+#&gt;   Title: Make Factors Less Annoying
+#&gt;   Description: Factors have driven people to extreme measures, like ordering
+#&gt; custom conference ribbons and laptop stickers to express how HELLNO we
+#&gt; feel about stringsAsFactors. And yet, sometimes you need them. Can they
+#&gt; be made less maddening? Let&#39;s find out.
+#&gt; * Creating GitHub repository
+#&gt; * Adding GitHub remote
+#&gt; * Adding GitHub links to DESCRIPTION
+#&gt; * Pushing to GitHub and setting remote tracking branch
+#&gt; * View repo at https://github.com/jennybc/foofactors</code></pre>
 <p>Go look at your package’s repo on GitHub! It should look very similar to the package created by this vignette <a href="https://github.com/jennybc/foofactors" class="uri">https://github.com/jennybc/foofactors</a>. If you use RStudio, your Pull and Push buttons should now work.</p>
 </div>
 <div id="use_readme_rmd" class="section level2">
@@ -949,13 +962,13 @@ use_github(private = TRUE)
 #&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; CMD INSTALL &#39;/Users/jenny/tmp/foofactors&#39;
 #&gt; Reloading installed foofactors</code></pre>
 <p>If RStudio has not already done so, open <code>README.Rmd</code> for editing. Make sure it shows some usage of <code>fbind()</code> and/or <code>freq_out()</code>, for example.</p>
-<pre><code>[927dd8f] 2016-11-28: Set up README.Rmd</code></pre>
+<pre><code>[9b1f758] 2016-11-28: Set up README.Rmd</code></pre>
 <p>The <code>README.Rmd</code> we use can be seen here: <a href="https://raw.githubusercontent.com/jennybc/foofactors/master/README.Rmd">README.Rmd</a>.</p>
 <p>Don’t forget to render it to make <code>README.md</code>! The pre-commit hook should remind you if you try to commit <code>README.Rmd</code> but not <code>README.md</code> and also when <code>README.md</code> appears to be out-of-date.</p>
 <pre class="r"><code>rmarkdown::render(&quot;README.Rmd&quot;) ## or use &quot;Knit HTML&quot;</code></pre>
 <p>You can see the rendered <code>README.md</code> simply by <a href="https://github.com/jennybc/foofactors#readme">visiting foofactors on GitHub</a>.</p>
 <p>Finally, don’t forget to do one last commit. And push!</p>
-<pre><code>[203d28a] 2016-11-28: Write README.Rmd and render</code></pre>
+<pre><code>[f80ec01] 2016-11-28: Write README.Rmd and render</code></pre>
 </div>
 <div id="the-end" class="section level2">
 <h2>The End</h2>
@@ -980,8 +993,8 @@ use_github(private = TRUE)
 #&gt; _R_CHECK_CRAN_INCOMING_ : FALSE
 #&gt; _R_CHECK_FORCE_SUGGESTS_: FALSE
 #&gt; Checking foofactors ------------------------------------------------------
-#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; CMD check &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpLd536X/foofactors_0.0.0.9000.tar.gz&#39; --as-cran --timings --no-manual
-#&gt; * using log directory ‘/private/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T/RtmpLd536X/foofactors.Rcheck’
+#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; CMD check &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpwRHjRW/foofactors_0.0.0.9000.tar.gz&#39; --as-cran --timings --no-manual
+#&gt; * using log directory ‘/private/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T/RtmpwRHjRW/foofactors.Rcheck’
 #&gt; * using R version 3.3.1 (2016-06-21)
 #&gt; * using platform: x86_64-apple-darwin13.4.0 (64-bit)
 #&gt; * using session charset: UTF-8
