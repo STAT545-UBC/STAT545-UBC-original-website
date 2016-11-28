@@ -21,7 +21,7 @@ back to [All the package things](packages00_index.html)
 knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
 ```
 
-### Why `devtools`?
+## Why `devtools`?
 
 We use the `devtools` package to facilitate package development. It's on [CRAN](https://cran.r-project.org/web/packages/devtools/index.html) and developed on [GitHub](https://github.com/hadley/devtools). Why devtools?
 

@@ -6,7 +6,7 @@ back to [All the package things](packages00_index.html)
 
 
 
-### Why `devtools`?
+## Why `devtools`?
 
 We use the `devtools` package to facilitate package development. It's on [CRAN](https://cran.r-project.org/web/packages/devtools/index.html) and developed on [GitHub](https://github.com/hadley/devtools). Why devtools?
 
@@ -151,7 +151,7 @@ If you use RStudio, quit and relaunch this Project, by double clicking on `foofa
 
 
 ```
-#> [6c1b5e3] 2016-11-28: Initial commit
+#> [f985689] 2016-11-28: Initial commit
 ```
 
 FYI RStudio can initialize a Git repository, in any Project, even if it's not an R package: *Tools > Version Control > Project Setup*. Then choose *Version control system: Git* and *initialize a new git repository for this project*.
@@ -237,7 +237,7 @@ If you're using Git, use your preferred method to commit the new `R/fbind.R` fil
 
 
 ```
-[9d9fc63] 2016-11-28: Add fbind()
+[398158b] 2016-11-28: Add fbind()
 ```
 
 <!--
@@ -303,8 +303,8 @@ check(document = FALSE)
 #> _R_CHECK_CRAN_INCOMING_ : FALSE
 #> _R_CHECK_FORCE_SUGGESTS_: FALSE
 #> Checking foofactors ------------------------------------------------------
-#> '/Library/Frameworks/R.framework/Resources/bin/R' CMD check '/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpwRHjRW/foofactors_0.0.0.9000.tar.gz' --as-cran --timings --no-manual
-#> * using log directory ‘/private/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T/RtmpwRHjRW/foofactors.Rcheck’
+#> '/Library/Frameworks/R.framework/Resources/bin/R' CMD check '/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//Rtmp85REiS/foofactors_0.0.0.9000.tar.gz' --as-cran --timings --no-manual
+#> * using log directory ‘/private/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T/Rtmp85REiS/foofactors.Rcheck’
 #> * using R version 3.3.1 (2016-06-21)
 #> * using platform: x86_64-apple-darwin13.4.0 (64-bit)
 #> * using session charset: UTF-8
@@ -456,7 +456,7 @@ LazyData: true
 
 
 ```
-[419de8c] 2016-11-28: Edit DESCRIPTION
+[5300132] 2016-11-28: Edit DESCRIPTION
 ```
 
 ## `use_mit_license()`
@@ -482,7 +482,7 @@ COPYRIGHT HOLDER: Jennifer Bryan
 
 
 ```
-[4e04244] 2016-11-28: Add LICENSE
+[45aa305] 2016-11-28: Add LICENSE
 ```
 
 For future projects, there is more guidance on licenses in these sources:
@@ -519,7 +519,7 @@ If you don't use RStudio, create the comment yourself along these lines:
 
 
 ```
-[90d273d] 2016-11-28: Add roxygen header to document fbind()
+[018b0a5] 2016-11-28: Add roxygen header to document fbind()
 ```
 
 But we're not done yet! We still need to trigger the conversion of the roxygen comment into `man/fbind.Rd`. You can do this from the RStudio IDE or from R:
@@ -570,7 +570,7 @@ The export directive in `NAMESPACE` is what's required to "export a function" an
 
 
 ```
-[9acaa6c] 2016-11-28: Run document()
+[d5b1238] 2016-11-28: Run document()
 ```
 
 ## `check()`
@@ -597,8 +597,8 @@ check()
 #> _R_CHECK_CRAN_INCOMING_ : FALSE
 #> _R_CHECK_FORCE_SUGGESTS_: FALSE
 #> Checking foofactors ------------------------------------------------------
-#> '/Library/Frameworks/R.framework/Resources/bin/R' CMD check '/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpwRHjRW/foofactors_0.0.0.9000.tar.gz' --as-cran --timings --no-manual
-#> * using log directory ‘/private/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T/RtmpwRHjRW/foofactors.Rcheck’
+#> '/Library/Frameworks/R.framework/Resources/bin/R' CMD check '/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//Rtmp85REiS/foofactors_0.0.0.9000.tar.gz' --as-cran --timings --no-manual
+#> * using log directory ‘/private/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T/Rtmp85REiS/foofactors.Rcheck’
 #> * using R version 3.3.1 (2016-06-21)
 #> * using platform: x86_64-apple-darwin13.4.0 (64-bit)
 #> * using session charset: UTF-8
@@ -668,7 +668,7 @@ This initializes the unit testing machinery for your package. It adds `Suggests:
 
 
 ```
-[3a43268] 2016-11-28: Add testing infrastructure
+[0f2256a] 2016-11-28: Add testing infrastructure
 ```
 
 However, it's still up to YOU to write the actual tests!
@@ -694,7 +694,7 @@ This tests that `fbind()` gives an expected result when combining two factors an
 
 
 ```
-[f8e4030] 2016-11-28: Test fbind()
+[e2385f9] 2016-11-28: Test fbind()
 ```
 
 Run this test interactively, as you will when you write your own. Note you'll have to load testthat via `library(testthat)` in your R session first and you'll probably want to `load_all()`.
@@ -741,7 +741,7 @@ use_package("dplyr")
 
 
 ```
-[aa933c7] 2016-11-28: Declare we will use dplyr
+[97a3166] 2016-11-28: Declare we will use dplyr
 ```
 
 This adds the dplyr package to the "Imports" section of `DESCRIPTION`. And that is all.
@@ -768,7 +768,7 @@ freq_out <- function(x) {
 
 
 ```
-[1e5fa00] 2016-11-28: Add freq_out()
+[8d9ef05] 2016-11-28: Add freq_out()
 ```
 
 Try out the new function.
@@ -799,7 +799,7 @@ document()
 
 
 ```
-[d5adb0d] 2016-11-28: Document freq_out()
+[72d039e] 2016-11-28: Document freq_out()
 ```
 
 ## `use_package_doc()`
@@ -837,7 +837,7 @@ NULL
 
 
 ```
-[9b508be] 2016-11-28: Add package-level doc
+[1bbd175] 2016-11-28: Add package-level doc
 ```
 
 Don't forget to run `document()`!
@@ -852,7 +852,7 @@ document()
 
 
 ```
-[d87d987] 2016-11-28: Run document()
+[50eaa12] 2016-11-28: Run document()
 ```
 
 Have a look at your new package-level docs:
@@ -885,7 +885,7 @@ Here's what happens:
 
 
 ```
-[767de7a] 2016-11-28: Init vignette
+[0240dfe] 2016-11-28: Init vignette
 ```
 
 Now you need to edit `vignettes/hello-foofactors.Rmd`. At the very least, do this:
@@ -900,7 +900,7 @@ The vignette source can be seen here: [vignettes/hello-foofactors.Rmd](https://r
 
 
 ```
-[371596a] 2016-11-28: Write vignette
+[6b4cb08] 2016-11-28: Write vignette
 ```
 
 How to see your compiled vignette? For a quick preview, just use RStudio's "Knit HTML" button. Problem is, the downstream products aren't saved anywhere in your package, so you'll need to redo this every time you want to look at the vignette.
@@ -1035,7 +1035,7 @@ If RStudio has not already done so, open `README.Rmd` for editing. Make sure it 
 
 
 ```
-[9b1f758] 2016-11-28: Set up README.Rmd
+[0475efa] 2016-11-28: Set up README.Rmd
 ```
 
 The `README.Rmd` we use can be seen here: [README.Rmd](https://raw.githubusercontent.com/jennybc/foofactors/master/README.Rmd).
@@ -1059,7 +1059,7 @@ Finally, don't forget to do one last commit. And push!
 
 
 ```
-[f80ec01] 2016-11-28: Write README.Rmd and render
+[1c22b22] 2016-11-28: Write README.Rmd and render
 ```
 
 
@@ -1090,8 +1090,8 @@ check()
 #> _R_CHECK_CRAN_INCOMING_ : FALSE
 #> _R_CHECK_FORCE_SUGGESTS_: FALSE
 #> Checking foofactors ------------------------------------------------------
-#> '/Library/Frameworks/R.framework/Resources/bin/R' CMD check '/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpwRHjRW/foofactors_0.0.0.9000.tar.gz' --as-cran --timings --no-manual
-#> * using log directory ‘/private/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T/RtmpwRHjRW/foofactors.Rcheck’
+#> '/Library/Frameworks/R.framework/Resources/bin/R' CMD check '/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//Rtmp85REiS/foofactors_0.0.0.9000.tar.gz' --as-cran --timings --no-manual
+#> * using log directory ‘/private/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T/Rtmp85REiS/foofactors.Rcheck’
 #> * using R version 3.3.1 (2016-06-21)
 #> * using platform: x86_64-apple-darwin13.4.0 (64-bit)
 #> * using session charset: UTF-8
