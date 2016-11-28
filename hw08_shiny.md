@@ -9,7 +9,7 @@ output:
 
 ## Deadline
 
-The homework is due Friday, November 25 2016.
+The homework is due Monday, November 28 2016.
 
 ## What we've done
 
