@@ -197,9 +197,7 @@ find_rtools()</code></pre>
 <ul>
 <li>Minimalist approach (what I do): Install Xcode Command Line Tools.
 <ul>
-<li><a href="https://developer.apple.com/downloads/" class="uri">https://developer.apple.com/downloads/</a></li>
-<li>You will need to sign in with / create a free Apple ID.</li>
-<li>Download “Command Line Tools OS 10.xxx for Xcode 7.x” appropriate for your OS version.</li>
+<li>In the shell: <code>xcode-select --install</code></li>
 </ul></li>
 <li>Install the current release of full Xcode from the Mac App Store. WAY more stuff than you need but advantage is App Store convenience.</li>
 <li>Get older or beta releases of Xcode from <a href="https://developer.apple.com/xcode/download/" class="uri">https://developer.apple.com/xcode/download/</a>.</li>
@@ -225,8 +223,19 @@ has_devel()</code></pre>
 <li><code>testthat</code></li>
 </ul>
 <p><em>2016-11 FYI: Jenny is running these versions of this packages at the time of writing.</em></p>
-<pre><code>#&gt;    package *     version       date                              source
-#&gt; 1 devtools * 1.12.0.9000 2016-09-26    Github (hadley/devtools@26c507b)
+<pre><code>#&gt; 
+#&gt; Attaching package: &#39;dplyr&#39;
+#&gt; The following object is masked from &#39;package:testthat&#39;:
+#&gt; 
+#&gt;     matches
+#&gt; The following objects are masked from &#39;package:stats&#39;:
+#&gt; 
+#&gt;     filter, lag
+#&gt; The following objects are masked from &#39;package:base&#39;:
+#&gt; 
+#&gt;     intersect, setdiff, setequal, union
+#&gt;    package *     version       date                              source
+#&gt; 1 devtools * 1.12.0.9000 2016-11-23                               local
 #&gt; 2    knitr *      1.14.2 2016-09-07        Github (yihui/knitr@f02600d)
 #&gt; 3 roxygen2 *  5.0.1.9000 2016-10-23 Github (klutometis/roxygen@9ffbad0)
 #&gt; 4 testthat *  1.0.2.9000 2016-09-09    Github (hadley/testthat@46d15da)</code></pre>

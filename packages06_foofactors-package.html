@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Write your own R package</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.9em;
+  padding-left: 5px;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+  padding-left: 10px;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Write your own R package</h1>
+
+</div>
+
+
+<p>back to <a href="packages00_index.html">All the package things</a></p>
+<p><a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/edit/master/packages06_foofactors-package.Rmd">Suggest an edit to this page …</a></p>
+<div id="why-devtools" class="section level3">
+<h3>Why <code>devtools</code>?</h3>
+<p>We use the <code>devtools</code> package to facilitate package development. It’s on <a href="https://cran.r-project.org/web/packages/devtools/index.html">CRAN</a> and developed on <a href="https://github.com/hadley/devtools">GitHub</a>. Why devtools?</p>
+<ul>
+<li>ensures your package source has the format of a valid R package</li>
+<li>provides a fluid workflow for package development: tweak it, use it, … lather, rinse, repeat</li>
+</ul>
+<p>The source of R an package is a highly structured set of files that reside in a dedicated directory on your computer. It can be beneficial to also make this directory an RStudio Project and a Git repository and, eventually, associate it with a GitHub remote. <code>devtools</code> ensures that your initial set up is correct and helps you keep it that way as your package evolves.</p>
+<p>As you develop the functions in your package, you need to take them out regularly for a test drive. How do you plan to get them into memory? Various workflows come to mind:</p>
+<ul>
+<li>copy/paste or use IDE magic to send the function definition to R Console</li>
+<li>use <code>source()</code> or IDE magic to evaluate the <code>.R</code> file with function definition</li>
+<li>use <code>R CMD INSTALL</code> in the shell then, in R, load your package</li>
+</ul>
+<p>These workflows may be tolerable at first, but they grow old very quickly. The first two are also suboptimal with respect to package namespace issues. An awkward workflow can lead to bad habits, such as not test driving your package very often, and can make the process totally unpleasant.</p>
+<p><code>devtools</code> helps you iterate quickly between developing your functions and checking if they work as intended.</p>
+</div>
+<div id="system-prep" class="section level2">
+<h2>System prep</h2>
+<p>We assume you have <a href="packages01_system-prep.html">configured your system for R package development</a>. This will ensure you have all the right software installed and that it’s updated. Ignoring this prep will only lead to heartache. <strong>Do it.</strong></p>
+</div>
+<div id="load-devtools" class="section level2">
+<h2>Load devtools</h2>
+<p>Load the devtools package.</p>
+<pre class="r"><code>library(devtools)</code></pre>
+<p>Since devtools is a workflow package, you may consider loading it automatically in all of your interactive R sessions. In general, it’s not a great idea to load packages this way, as it invites you to create R scripts that don’t reflect all of their dependencies via explicit calls to <code>library(foo)</code>. But devtools is meant to smooth the process of package development and is, therefore, unlikely to get baked into any analysis scripts. The pros may outweigh the cons in this case.</p>
+<p>You can do this by adding these lines to your <code>.Rprofile</code>:</p>
+<pre class="r"><code>if (interactive()) {
+  suppressMessages(require(devtools))
+}</code></pre>
+</div>
+<div id="toy-package-foofactors" class="section level2">
+<h2>Toy package: foofactors</h2>
+<p>We use multiple functions from devtools to build a small toy package from scratch, with features commonly seen in released packages:</p>
+<ul>
+<li>Developed under version control (Git, in this case) and in the open (GitHub, in this case). <em>optional, but shown</em></li>
+<li>Documentation for individual functions, using convenience functions in devtools that call <a href="https://CRAN.R-project.org/package=roxygen2">roxygen2</a>.</li>
+<li>Unit testing, using convenience functions in devtools to exploit <a href="https://CRAN.R-project.org/package=testthat">testthat</a>.</li>
+<li>Documentation for the package as a whole, via a package-level help file, a vignette, and an executable <code>README.Rmd</code>.</li>
+</ul>
+<p>We call the package <strong>foofactors</strong> and it will consist of a couple functions for handling factors. Please note that these functions are super simple and definitely not the point! For a proper package for factor handling, please see <a href="https://cran.r-project.org/package=forcats">forcats</a>.</p>
+<p>The foofactors package itself is not the only purpose of this vignette. It is also meant to demonstrate a typical workflow for package development with devtools.</p>
+</div>
+<div id="peek-at-the-finished-product" class="section level2">
+<h2>Peek at the finished product</h2>
+<p>The foofactors package is tracked during its development with the Git version control system. This is purely optional and you can certainly follow along without implementing this. A nice side benefit is that we eventually connect it to a remote repository on GitHub, which means you can see the glorious result we are working towards by visiting foofactors on GitHub: <a href="https://github.com/jennybc/foofactors" class="uri">https://github.com/jennybc/foofactors</a>. By inspecting the <a href="https://github.com/jennybc/foofactors/commits/master">commit history</a> and especially the diffs, you can see exactly what changes at each step of the process laid out below.</p>
+</div>
+<div id="create-the-package" class="section level2">
+<h2><code>create()</code> the package</h2>
+<p>The <code>create()</code> function initializes a new package in a new directory on your computer. The new package will comply with all devtools conventions and will immediately pass <code>R CMD check</code>. Ideally, your package will always be in this happy state and it is something you should verify often.</p>
+<p>Make a deliberate choice about where to create this package on your computer. It should probably be in your home directory, alongside your other R projects. It should not be in, for example, an R package library, which holds packages that have already been built and installed. The conversion of the source package we are creating here into an installed package is part of what devtools facilitates. Don’t try to do devtools’ job for it.</p>
+<p>Create a new package in a new directory with <code>create()</code>:</p>
+<pre class="r"><code>create(&quot;~/tmp/foofactors&quot;)
+#&gt; Creating package &#39;foofactors&#39; in &#39;/Users/jenny/tmp&#39;
+#&gt; No DESCRIPTION found. Creating with values:
+#&gt; Package: foofactors
+#&gt; Title: What the Package Does (one line, title case)
+#&gt; Version: 0.0.0.9000
+#&gt; Authors@R: person(&quot;First&quot;, &quot;Last&quot;, email = &quot;first.last@example.com&quot;, role = c(&quot;aut&quot;, &quot;cre&quot;))
+#&gt; Description: What the package does (one paragraph).
+#&gt; Depends: R (&gt;= 3.3.1)
+#&gt; License: What license is it under?
+#&gt; Encoding: UTF-8
+#&gt; LazyData: true
+#&gt; * Creating `foofactors.Rproj` from template.
+#&gt; * Adding `.Rproj.user`, `.Rhistory`, `.RData` to ./.gitignore</code></pre>
+<p>If you use RStudio, navigate to this directory and double click on <code>foofactors.Rproj</code> to launch a new instance of RStudio in the Project that is also your foofactors package. RStudio has special handling for packages and you should now see a <em>Build</em> tab in the same pane as <em>Environment</em> and <em>History</em>.</p>
+<p>What files are in this new directory? Here’s a listing (locally, you can consult your file browser):</p>
+<pre class="r"><code>cbind(listing_1 &lt;- list.files(all.files = TRUE, no.. = TRUE))
+#&gt;      [,1]              
+#&gt; [1,] &quot;.gitignore&quot;      
+#&gt; [2,] &quot;.Rbuildignore&quot;   
+#&gt; [3,] &quot;DESCRIPTION&quot;     
+#&gt; [4,] &quot;foofactors.Rproj&quot;
+#&gt; [5,] &quot;NAMESPACE&quot;       
+#&gt; [6,] &quot;R&quot;</code></pre>
+<ul>
+<li><code>.gitignore</code> anticipates Git usage and ignores some standard, behind-the-scenes files created by R and RStudio. Even if you do not plan to use Git, this is harmless.</li>
+<li><code>.Rbuildignore</code> lists files that we need to have around but that should not be included when building the R package from this source.</li>
+<li><code>DESCRIPTION</code> provides <a href="http://r-pkgs.had.co.nz/description.html">metadata about your package</a>. We edit this shortly.</li>
+<li><code>foofactors.Rproj</code> is the file that makes this directory an RStudio Project. Even if you don’t use RStudio, this file is harmless. Or you can suppress its creation with <code>create(..., rstudio = FALSE)</code>.</li>
+<li><a href="http://r-pkgs.had.co.nz/namespace.html"><code>NAMESPACE</code></a> declares the functions your package exports for external use and the external functions your package imports from other packages. At the moment, it holds temporary-yet-functional placeholder content.</li>
+<li>The <code>R/</code> directory is the <a href="http://r-pkgs.had.co.nz/r.html">“business end” of your package</a>. It will soon contain <code>.R</code> files with function definitions.</li>
+</ul>
+</div>
+<div id="use_git-for-version-control" class="section level2">
+<h2><code>use_git()</code> for version control</h2>
+<p><em>This is optional, but a recommended practice in the long-term. If you don’t use Git, simply ignore this and subsequent instructions related to version control.</em></p>
+<p>The foofactors directory is an R source package and an RStudio Project. Now we make it also a Git repository, with <code>devtools::use_git()</code>.</p>
+<pre class="r"><code>use_git()
+#&gt; * Initialising repo
+#&gt; * Adding `.Rproj.user`, `.Rhistory`, `.RData` to ./.gitignore
+#&gt; * Adding files and committing</code></pre>
+<p>What’s new? Only the creation of a <code>.git</code> directory, which is hidden in most contexts, including the RStudio file browser. Its existence is evidence that we have indeed initialized a Git repo here.</p>
+<pre class="r"><code>listing_2 &lt;- dir(all.files = TRUE, no.. = TRUE)
+cbind(setdiff(listing_2, listing_1))
+#&gt;      [,1]  
+#&gt; [1,] &quot;.git&quot;</code></pre>
+<p>If you use RStudio, quit and relaunch this Project, by double clicking on <code>foofactors.Rproj</code>. Now, in addition to package development support, you have access to a basic Git client in the <em>Git</em> tab of the <em>Environment/History/Build</em> pane. Click on History (the clock icon) and you should see the initial commit made by <code>use_git()</code>:</p>
+<pre><code>#&gt; [4c554fe] 2016-11-28: Initial commit</code></pre>
+<p>FYI RStudio can initialize a Git repository, in any Project, even if it’s not an R package: <em>Tools &gt; Version Control &gt; Project Setup</em>. Then choose <em>Version control system: Git</em> and <em>initialize a new git repository for this project</em>.</p>
+</div>
+<div id="define-the-first-function" class="section level2">
+<h2>Define the first function</h2>
+<p>It is not too hard to find a puzzling operation involving factors. Let’s see what happens when we catenate two factors.</p>
+<pre class="r"><code>(a &lt;- factor(c(&quot;character&quot;, &quot;hits&quot;, &quot;your&quot;, &quot;eyeballs&quot;)))
+#&gt; [1] character hits      your      eyeballs 
+#&gt; Levels: character eyeballs hits your
+(b &lt;- factor(c(&quot;but&quot;, &quot;integer&quot;, &quot;where it&quot;, &quot;counts&quot;)))
+#&gt; [1] but      integer  where it counts  
+#&gt; Levels: but counts integer where it
+c(a, b)
+#&gt; [1] 1 3 4 2 1 3 4 2</code></pre>
+<p>Huh? Many people do not expect the result of catenating two factors to be an integer vector consisting of the numbers 1, 2, 3, and 4.</p>
+<p>Here’s <code>fbind()</code>, a function that creates a new factor from two factors, a potentially less surprising result:</p>
+<pre><code>fbind &lt;- function(a, b) {
+  factor(c(as.character(a), as.character(b)))
+}</code></pre>
+<p>Where do you put this function definition? Save it in a <code>.R</code> file, in the <code>R/</code> subdirectory of your package. A reasonable default is to make a new <code>.R</code> file for each function in your package and name the file after the function. So we save the above definition of <code>fbind()</code> in the file <code>R/fbind.R</code>. The file should consist solely of this function definition, i.e. it should NOT contain other top-level code we have recently executed, such as <code>library(devtools)</code> or <code>use_git()</code>. Package code should <em>never</em> contain a call to <code>library()</code>.</p>
+<p>How do we test drive <code>fbind()</code>? If this were a regular R script, we might use Rstudio or Emacs/ESS to send the function definition to the R Console, thereby defining <code>fbind()</code> in the global workspace. Or we might do so via <code>source(&quot;R/fbind.R&quot;)</code>. For package development, however, devtools offers a more robust approach.</p>
+</div>
+<div id="load_all-to-test-drive" class="section level2">
+<h2><code>load_all()</code> to test drive</h2>
+<p>Call <code>devtools::load_all()</code>:</p>
+<pre class="r"><code>load_all()
+#&gt; Loading foofactors</code></pre>
+<p>This simulates the process of building, installing, and loading the foofactors package. In the long run, as your package accumulates more functions, some exported, some not, some of which call each other, <code>load_all()</code> gives you the most accurate sense of how the package is developing.</p>
+<p>Call <code>fbind(a, b)</code> to see how it works.</p>
+<pre class="r"><code>fbind(a, b)
+#&gt; [1] character hits      your      eyeballs  but       integer   where it 
+#&gt; [8] counts   
+#&gt; Levels: but character counts eyeballs hits integer where it your</code></pre>
+<p>Note that <code>load_all()</code> has made the <code>fbind()</code> function available, although it does not exist in the global workspace:</p>
+<pre class="r"><code>exists(&quot;fbind&quot;, where = &quot;.GlobalEnv&quot;, inherits = FALSE)
+#&gt; [1] FALSE</code></pre>
+<p>Review so far:</p>
+<ul>
+<li>We wrote our first function, <code>fbind()</code>, to catenate two factors.</li>
+<li>We used <code>load_all()</code> to quickly make this function available for interactive use, as if we’d built and installed foofactors and loaded it via <code>library(foofactors)</code>.</li>
+</ul>
+<p>You may want to learn the RStudio keyboard and menu shortcuts for <code>load_all()</code>:</p>
+<ul>
+<li>Windows &amp; Linux: Ctrl + Shift + L</li>
+<li>Mac: Cmd + Shift + L</li>
+<li>In <em>Environment/History/Build/Git</em> pane:
+<ul>
+<li><em>Build &gt; More &gt; Load All</em></li>
+</ul></li>
+<li>From Build menu:
+<ul>
+<li><em>Build &gt; Load All</em></li>
+</ul></li>
+</ul>
+</div>
+<div id="commit-fbind" class="section level2">
+<h2>Commit <code>fbind()</code></h2>
+<p>If you’re using Git, use your preferred method to commit the new <code>R/fbind.R</code> file.</p>
+<pre><code>[2ffbcef] 2016-11-28: Add fbind()</code></pre>
+<!--
+The diff associated with this commit should look something like this, though you may have a nicer way of inspecting it:
+-->
+<p>From this point on, we make commits after each step, indicated by a brief message like that above. Remember <a href="https://github.com/jennybc/foofactors/commits/master">these commits</a> are available in the public repository.</p>
+</div>
+<div id="check-and-install" class="section level2">
+<h2><code>check()</code> and <code>install()</code></h2>
+<p>We have solid evidence that <code>fbind()</code> works. But how can we be sure that all the moving parts of the package still work? This may seem silly to check, after such a small addition, but it’s good to establish the habit of checking this often.</p>
+<p>How do we move our local source package through the necessary stages to get it properly installed? (Figure from <a href="http://r-pkgs.had.co.nz/package.html#package">R Packages</a>.)</p>
+<p><img src="https://raw.githubusercontent.com/hadley/r-pkgs/master/diagrams/installation.png" width="100%" /></p>
+<div id="base-utilities" class="section level3">
+<h3>Base utilities</h3>
+<p>devtools wraps the base utilities for package management, but in a way favorable for very quick iteration. Under the hood, here are the important commands:</p>
+<ul>
+<li><a href="https://stat.ethz.ch/R-manual/R-patched/library/utils/html/PkgUtils.html"><code>R CMD build</code></a> converts a source package to a bundle or tarball</li>
+<li><a href="https://stat.ethz.ch/R-manual/R-patched/library/utils/html/INSTALL.html"><code>R CMD INSTALL</code></a> installs a package bundle into a library</li>
+<li><a href="https://stat.ethz.ch/R-manual/R-patched/library/utils/html/PkgUtils.html"><code>R CMD check</code></a> runs all sorts of checks. Even if you don’t plan to submit your package to CRAN, it’s a very good idea to make this part of your own quality standard.</li>
+</ul>
+<p>In a shell, with working directory set to the parent of <code>foofactors</code>, here’s what usage might look like:</p>
+<pre class="shell"><code>R CMD build foofactors
+R CMD check foofactors_0.0.0.9000.tar.gz
+R CMD INSTALL foofactors_0.0.0.9000.tar.gz</code></pre>
+</div>
+<div id="devtools-and-rstudio" class="section level3">
+<h3>devtools and RStudio</h3>
+<p>Luckily devtools and RStudio make these utilities very easy to access without going to the shell.</p>
+<p>At intermediate milestones, you should check your package:</p>
+<ul>
+<li>In R Console
+<ul>
+<li><code>devtools::check()</code></li>
+</ul></li>
+<li>From RStudio
+<ul>
+<li><em>Build &gt; Check</em></li>
+</ul></li>
+</ul>
+<p><strong>Just this once, run <code>check()</code> with <code>document = FALSE</code></strong>, so we don’t get ahead of ourselves. Specifically, I don’t want to mess with our <code>NAMESPACE</code> file yet.</p>
+<pre class="r"><code>check(document = FALSE)
+#&gt; Setting env vars ---------------------------------------------------------
+#&gt; CFLAGS  : -Wall -pedantic
+#&gt; CXXFLAGS: -Wall -pedantic
+#&gt; Building foofactors ------------------------------------------------------
+#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; CMD build &#39;/Users/jenny/tmp/foofactors&#39; --no-resave-data --no-manual
+#&gt; * checking for file ‘/Users/jenny/tmp/foofactors/DESCRIPTION’ ... OK
+#&gt; * preparing ‘foofactors’:
+#&gt; * checking DESCRIPTION meta-information ... OK
+#&gt; * checking for LF line-endings in source and make files
+#&gt; * checking for empty or unneeded directories
+#&gt; * building ‘foofactors_0.0.0.9000.tar.gz’
+#&gt; Setting env vars ---------------------------------------------------------
+#&gt; _R_CHECK_CRAN_INCOMING_ : FALSE
+#&gt; _R_CHECK_FORCE_SUGGESTS_: FALSE
+#&gt; Checking foofactors ------------------------------------------------------
+#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; CMD check &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpLd536X/foofactors_0.0.0.9000.tar.gz&#39; --as-cran --timings --no-manual
+#&gt; * using log directory ‘/private/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T/RtmpLd536X/foofactors.Rcheck’
+#&gt; * using R version 3.3.1 (2016-06-21)
+#&gt; * using platform: x86_64-apple-darwin13.4.0 (64-bit)
+#&gt; * using session charset: UTF-8
+#&gt; * using options ‘--no-manual --as-cran’
+#&gt; * checking for file ‘foofactors/DESCRIPTION’ ... OK
+#&gt; * this is package ‘foofactors’ version ‘0.0.0.9000’
+#&gt; * package encoding: UTF-8
+#&gt; * checking package namespace information ... OK
+#&gt; * checking package dependencies ... OK
+#&gt; * checking if this is a source package ... OK
+#&gt; * checking if there is a namespace ... OK
+#&gt; * checking for executable files ... OK
+#&gt; * checking for hidden files and directories ... OK
+#&gt; * checking for portable file names ... OK
+#&gt; * checking for sufficient/correct file permissions ... OK
+#&gt; * checking whether package ‘foofactors’ can be installed ... OK
+#&gt; * checking installed package size ... OK
+#&gt; * checking package directory ... OK
+#&gt; * checking DESCRIPTION meta-information ... WARNING
+#&gt; Non-standard license specification:
+#&gt;   What license is it under?
+#&gt; Standardizable: FALSE
+#&gt; * checking top-level files ... OK
+#&gt; * checking for left-over files ... OK
+#&gt; * checking index information ... OK
+#&gt; * checking package subdirectories ... OK
+#&gt; * checking R files for non-ASCII characters ... OK
+#&gt; * checking R files for syntax errors ... OK
+#&gt; * checking whether the package can be loaded ... OK
+#&gt; * checking whether the package can be loaded with stated dependencies ... OK
+#&gt; * checking whether the package can be unloaded cleanly ... OK
+#&gt; * checking whether the namespace can be loaded with stated dependencies ... OK
+#&gt; * checking whether the namespace can be unloaded cleanly ... OK
+#&gt; * checking loading without being on the library search path ... OK
+#&gt; * checking dependencies in R code ... OK
+#&gt; * checking S3 generic/method consistency ... OK
+#&gt; * checking replacement functions ... OK
+#&gt; * checking foreign function calls ... OK
+#&gt; * checking R code for possible problems ... OK
+#&gt; * checking for missing documentation entries ... WARNING
+#&gt; Undocumented code objects:
+#&gt;   ‘fbind’
+#&gt; All user-level objects in a package should have documentation entries.
+#&gt; See chapter ‘Writing R documentation files’ in the ‘Writing R
+#&gt; Extensions’ manual.
+#&gt; * checking examples ... NONE
+#&gt; * DONE
+#&gt; Status: 2 WARNINGs
+#&gt; R CMD check results
+#&gt; 0 errors | 2 warnings | 0 notes
+#&gt; checking DESCRIPTION meta-information ... WARNING
+#&gt; Non-standard license specification:
+#&gt;   What license is it under?
+#&gt; Standardizable: FALSE
+#&gt; 
+#&gt; checking for missing documentation entries ... WARNING
+#&gt; Undocumented code objects:
+#&gt;   ‘fbind’
+#&gt; All user-level objects in a package should have documentation entries.
+#&gt; See chapter ‘Writing R documentation files’ in the ‘Writing R
+#&gt; Extensions’ manual.</code></pre>
+<p><strong>Read the output of the check!</strong> Deal with problems early and often. It’s just like incremental development of <code>.R</code> and <code>.Rmd</code>. The longer you go between full checks that everything works, the harder it is to pinpoint and solve your problems.</p>
+<p>At this point, we expect 2 warnings (and 0 errors, 0 notes):</p>
+<ul>
+<li><code>Invalid license file pointers: LICENSE</code></li>
+<li><code>Undocumented code objects: 'fbind'</code></li>
+</ul>
+<p>We’ll address both soon.</p>
+<p>Since we’ve already made respectable interim progress, let’s install the foofactors package into your library and load it via <code>devtools::install()</code>:</p>
+<pre class="r"><code>install()
+#&gt; Installing foofactors
+#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; CMD INSTALL &#39;/Users/jenny/tmp/foofactors&#39; 
+#&gt; No man pages found in package  ‘foofactors’
+#&gt; Reloading installed foofactors</code></pre>
+<p>Now we can load and use foofactors like any other package.</p>
+<p>A shortcut for “build, install, and reload” is offered in the RStudio Build pane:</p>
+<ul>
+<li><em>Build &gt; Build &amp; Reload</em></li>
+</ul>
+</div>
+</div>
+<div id="installation-test" class="section level2">
+<h2>Installation test</h2>
+<p>Now that we’ve installed foofactors properly, let’s revisit our small example from the top. This is a good time to restart your R session and ensure you have a clean workspace.</p>
+<p>Is foofactors indeed available for loading?</p>
+<pre class="r"><code>grep(&quot;foofactors&quot;, installed.packages()[ , &quot;Package&quot;], value = TRUE)
+#&gt;   foofactors 
+#&gt; &quot;foofactors&quot;</code></pre>
+<p>Yes! Load and use it.</p>
+<pre class="r"><code>library(foofactors)
+a &lt;- factor(c(&quot;character&quot;, &quot;hits&quot;, &quot;your&quot;, &quot;eyeballs&quot;))
+b &lt;- factor(c(&quot;but&quot;, &quot;integer&quot;, &quot;where it&quot;, &quot;counts&quot;))
+fbind(a, b)
+#&gt; [1] character hits      your      eyeballs  but       integer   where it 
+#&gt; [8] counts   
+#&gt; Levels: but character counts eyeballs hits integer where it your</code></pre>
+<p>Success!</p>
+</div>
+<div id="edit-description" class="section level2">
+<h2>Edit <code>DESCRIPTION</code></h2>
+<p>Before we tackle the warnings about the license and documentation, we replace some of the boilerplate content in <code>DESCRIPTION</code>. The <code>DESCRIPTION</code> file provides metadata about your package:</p>
+<ul>
+<li>read more from <a href="http://r-pkgs.had.co.nz/description.html">R Packages</a></li>
+<li>read more from <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file">Writing R Extensions</a></li>
+</ul>
+<p>Make these edits:</p>
+<ul>
+<li>Make yourself the author.</li>
+<li>Write some descriptive text in the <code>Title</code> and <code>Description</code> fields. Note that CRAN is very particular about these fields, so if you want to keep passing <code>check()</code>, read <a href="http://r-pkgs.had.co.nz/description.html#pkg-description">this section</a> of R Packages.</li>
+<li>Specify a license. We opted for MIT here, which requires a bit more work to complete (see next section).</li>
+</ul>
+<p>When you’re done, <code>DESCRIPTION</code> should look similar to this:</p>
+<pre><code>Package: foofactors
+Title: Make Factors Less Annoying
+Version: 0.0.0.9000
+Authors@R: person(&quot;Jennifer&quot;, &quot;Bryan&quot;, role=c(&quot;aut&quot;, &quot;cre&quot;),
+    email = &quot;jenny@stat.ubc.ca&quot;)
+Description: Factors have driven people to extreme measures, like ordering
+    custom conference ribbons and laptop stickers to express how HELLNO we
+    feel about stringsAsFactors. And yet, sometimes you need them. Can they
+    be made less maddening? Let&#39;s find out.
+Depends:
+    R (&gt;= 3.2.2)
+License: MIT + file LICENSE
+LazyData: true</code></pre>
+<pre><code>[1f4da70] 2016-11-28: Edit DESCRIPTION</code></pre>
+</div>
+<div id="use_mit_license" class="section level2">
+<h2><code>use_mit_license()</code></h2>
+<blockquote>
+<p><a href="http://blog.codinghorror.com/pick-a-license-any-license/">Pick a License, Any License. – Jeff Atwood</a></p>
+</blockquote>
+<p>For foofactors, we use the MIT license. This requires specification in <code>DESCRIPTION</code>, done above, and a file called <code>LICENSE</code>. We create that now via the helper function <code>devtools::use_mit_license()</code>.</p>
+<pre class="r"><code>use_mit_license()
+#&gt; * Updating license field in DESCRIPTION.
+#&gt; * Creating `LICENSE` from template.</code></pre>
+<p>Open the newly created <code>LICENSE</code> file and, if necessary, edit it to make sure it has the current year and your name:</p>
+<pre><code>YEAR: 2016
+COPYRIGHT HOLDER: Jennifer Bryan</code></pre>
+<pre><code>[9bdf9ab] 2016-11-28: Add LICENSE</code></pre>
+<p>For future projects, there is more guidance on licenses in these sources:</p>
+<ul>
+<li><a href="http://r-pkgs.had.co.nz/description.html#license">R Packages</a></li>
+<li><a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Licensing">Writing R Extensions</a></li>
+<li>GitHub’s guide at <a href="http://choosealicense.com" class="uri">http://choosealicense.com</a></li>
+</ul>
+</div>
+<div id="document" class="section level2">
+<h2><code>document()</code></h2>
+<p>Wouldn’t it be nice to get help on <code>fbind()</code>, just like we do with other R functions? This requires that your package have a special R documentation file, <code>man/fbind.Rd</code>, written in an R-specific markup language that is sort of like LaTeX. Luckily we don’t necessarily have to author that directly.</p>
+<p>We write a specially formatted comment right above <code>fbind()</code>, in its source file, and then let a package called <a href="https://CRAN.R-project.org/package=roxygen2">roxygen2</a> handle the creation of <code>man/fbind.Rd</code>. To read more about the motivation and mechanics of roxygen2, read <a href="http://r-pkgs.had.co.nz/man.html">the documentation chapter</a> of R Packages.</p>
+<p>If you use RStudio, open <code>R/fbind.R</code> in the source editor and put the cursor somewhere in the <code>fbind()</code> function definition. Now do <em>Code &gt; Insert roxygen skeleton</em>. A very special comment should appear above your function, in which each line begins with <code>#'</code>. RStudio only inserts a barebones template, so you will need to edit it to look something like that below.</p>
+<p>If you don’t use RStudio, create the comment yourself along these lines:</p>
+<pre><code>#&#39; Bind two factors
+#&#39;
+#&#39; Create a new factor from two existing factors, where the new factor&#39;s levels
+#&#39; are the union of the levels of the input factors.
+#&#39;
+#&#39; @param a factor
+#&#39; @param b factor
+#&#39;
+#&#39; @return factor
+#&#39; @export
+#&#39; @examples
+#&#39; fbind(iris$Species[c(1, 51, 101)], PlantGrowth$group[c(1, 11, 21)])</code></pre>
+<pre><code>[9aa2a32] 2016-11-28: Add roxygen header to document fbind()</code></pre>
+<p>But we’re not done yet! We still need to trigger the conversion of the roxygen comment into <code>man/fbind.Rd</code>. You can do this from the RStudio IDE or from R:</p>
+<ul>
+<li>From RStudio:
+<ul>
+<li><em>Build &gt; More &gt; Document</em></li>
+</ul></li>
+<li>From R:
+<ul>
+<li><code>document()</code>, which is a wrapper function provided by devtools. Under the hood, it’s calling the roxygen2 package.</li>
+</ul></li>
+</ul>
+<pre class="r"><code>document()
+#&gt; Updating foofactors documentation
+#&gt; Loading foofactors
+#&gt; Updating roxygen version in /Users/jenny/tmp/foofactors/DESCRIPTION
+#&gt; Writing NAMESPACE
+#&gt; Writing fbind.Rd</code></pre>
+<p>You should now be able to preview your help file like so:</p>
+<pre class="r"><code>?fbind</code></pre>
+<p>Does it show up in the usual help pane? Looking like real documentation? Isn’t that exciting?</p>
+<p>Your package’s documentation won’t be properly wired up until you do a full “Build &amp; Reload”. I’m referring to the links between help files, the link to the package index, etc.</p>
+<p>The RStudio <a href="https://www.rstudio.com/wp-content/uploads/2015/03/devtools-cheatsheet.pdf">Package Development with devtools Cheat Sheet</a> has really nice coverage of roxygen comment syntax. You can also get information from <em>Help &gt; Roxygen Quick Reference</em>.</p>
+<div id="namespace-changes" class="section level3">
+<h3><code>NAMESPACE</code> changes</h3>
+<p>In addition to converting <code>fbind()</code>’s special comment into <code>man/fbind.Rd</code>, by default, <code>devtools::document()</code> updates the <code>NAMESPACE</code> file, based on <code>@export</code> directives found in roxygen comments. Open <code>NAMESPACE</code> for inspection. It should look like so:</p>
+<pre><code># Generated by roxygen2: do not edit by hand
+
+export(fbind)</code></pre>
+<p>It no longer has the placeholder content saying “export everything”. Instead, there is now an explicit directive to export the <code>fbind()</code> function.</p>
+<p>The export directive in <code>NAMESPACE</code> is what’s required to “export a function” and it’s what makes <code>fbind()</code> available to a user after loading foofactors via <code>library(foofactors)</code>. Just as it is entirely possible to author <code>.Rd</code> files “by hand”, you can manage <code>NAMESPACE</code> explicitly yourself. But we are opting to delegate this to devtools and roxygen2.</p>
+<pre><code>[472f7ca] 2016-11-28: Run document()</code></pre>
+</div>
+</div>
+<div id="check" class="section level2">
+<h2><code>check()</code></h2>
+<p>foofactors should pass <code>R CMD check</code> cleanly now and forever more: 0 errors, 0 warnings, 0 notes.</p>
+<pre class="r"><code>check()
+#&gt; Updating foofactors documentation
+#&gt; Loading foofactors
+#&gt; Setting env vars ---------------------------------------------------------
+#&gt; CFLAGS  : -Wall -pedantic
+#&gt; CXXFLAGS: -Wall -pedantic
+#&gt; Building foofactors ------------------------------------------------------
+#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; CMD build &#39;/Users/jenny/tmp/foofactors&#39; --no-resave-data --no-manual
+#&gt; * checking for file ‘/Users/jenny/tmp/foofactors/DESCRIPTION’ ... OK
+#&gt; * preparing ‘foofactors’:
+#&gt; * checking DESCRIPTION meta-information ... OK
+#&gt; * checking for LF line-endings in source and make files
+#&gt; * checking for empty or unneeded directories
+#&gt; * building ‘foofactors_0.0.0.9000.tar.gz’
+#&gt; Setting env vars ---------------------------------------------------------
+#&gt; _R_CHECK_CRAN_INCOMING_ : FALSE
+#&gt; _R_CHECK_FORCE_SUGGESTS_: FALSE
+#&gt; Checking foofactors ------------------------------------------------------
+#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; CMD check &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpLd536X/foofactors_0.0.0.9000.tar.gz&#39; --as-cran --timings --no-manual
+#&gt; * using log directory ‘/private/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T/RtmpLd536X/foofactors.Rcheck’
+#&gt; * using R version 3.3.1 (2016-06-21)
+#&gt; * using platform: x86_64-apple-darwin13.4.0 (64-bit)
+#&gt; * using session charset: UTF-8
+#&gt; * using options ‘--no-manual --as-cran’
+#&gt; * checking for file ‘foofactors/DESCRIPTION’ ... OK
+#&gt; * this is package ‘foofactors’ version ‘0.0.0.9000’
+#&gt; * checking package namespace information ... OK
+#&gt; * checking package dependencies ... OK
+#&gt; * checking if this is a source package ... OK
+#&gt; * checking if there is a namespace ... OK
+#&gt; * checking for executable files ... OK
+#&gt; * checking for hidden files and directories ... OK
+#&gt; * checking for portable file names ... OK
+#&gt; * checking for sufficient/correct file permissions ... OK
+#&gt; * checking whether package ‘foofactors’ can be installed ... OK
+#&gt; * checking installed package size ... OK
+#&gt; * checking package directory ... OK
+#&gt; * checking DESCRIPTION meta-information ... OK
+#&gt; * checking top-level files ... OK
+#&gt; * checking for left-over files ... OK
+#&gt; * checking index information ... OK
+#&gt; * checking package subdirectories ... OK
+#&gt; * checking R files for non-ASCII characters ... OK
+#&gt; * checking R files for syntax errors ... OK
+#&gt; * checking whether the package can be loaded ... OK
+#&gt; * checking whether the package can be loaded with stated dependencies ... OK
+#&gt; * checking whether the package can be unloaded cleanly ... OK
+#&gt; * checking whether the namespace can be loaded with stated dependencies ... OK
+#&gt; * checking whether the namespace can be unloaded cleanly ... OK
+#&gt; * checking loading without being on the library search path ... OK
+#&gt; * checking dependencies in R code ... OK
+#&gt; * checking S3 generic/method consistency ... OK
+#&gt; * checking replacement functions ... OK
+#&gt; * checking foreign function calls ... OK
+#&gt; * checking R code for possible problems ... OK
+#&gt; * checking Rd files ... OK
+#&gt; * checking Rd metadata ... OK
+#&gt; * checking Rd line widths ... OK
+#&gt; * checking Rd cross-references ... OK
+#&gt; * checking for missing documentation entries ... OK
+#&gt; * checking for code/documentation mismatches ... OK
+#&gt; * checking Rd \usage sections ... OK
+#&gt; * checking Rd contents ... OK
+#&gt; * checking for unstated dependencies in examples ... OK
+#&gt; * checking examples ... OK
+#&gt; * DONE
+#&gt; Status: OK
+#&gt; R CMD check results
+#&gt; 0 errors | 0 warnings | 0 notes</code></pre>
+</div>
+<div id="use_testthat" class="section level2">
+<h2><code>use_testthat()</code></h2>
+<p>We’ve tested <code>fbind()</code> informally, in a single example. We can formalize and expand this with some unit tests. This means we express a few concrete expectations about the correct <code>fbind()</code> result for various inputs.</p>
+<p>First, we declare our intent to write unit tests and to use the testthat package for this, via <code>devtools::use_testthat()</code>:</p>
+<pre class="r"><code>use_testthat()
+#&gt; * Adding testthat to Suggests
+#&gt; * Creating `tests/testthat`.
+#&gt; * Creating `tests/testthat.R` from template.</code></pre>
+<p>This initializes the unit testing machinery for your package. It adds <code>Suggests: testthat</code> to <code>DESCRIPTION</code>, creates the directory <code>tests/testthat</code>, and adds the script <code>test/testthat.R</code>.</p>
+<pre><code>[77f898c] 2016-11-28: Add testing infrastructure</code></pre>
+<p>However, it’s still up to YOU to write the actual tests!</p>
+<p>Create a new R script in <code>tests/testthat/test_fbind.R</code> consisting of this:</p>
+<pre><code>context(&quot;Binding factors&quot;)
+
+test_that(&quot;fbind binds factor (or character)&quot;, {
+  x &lt;- c(&#39;a&#39;, &#39;b&#39;)
+  x_fact &lt;- factor(x)
+  y &lt;- c(&#39;c&#39;, &#39;d&#39;)
+  z &lt;- factor(c(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;))
+
+  expect_identical(fbind(x, y), z)
+  expect_identical(fbind(x_fact, y), z)
+})</code></pre>
+<p>This tests that <code>fbind()</code> gives an expected result when combining two factors and a character vector and a factor.</p>
+<pre><code>[f92bbc8] 2016-11-28: Test fbind()</code></pre>
+<p>Run this test interactively, as you will when you write your own. Note you’ll have to load testthat via <code>library(testthat)</code> in your R session first and you’ll probably want to <code>load_all()</code>.</p>
+<p>Going forward, your tests will mostly run <em>en masse</em> and at arms’s length:</p>
+<ul>
+<li>In RStudio:
+<ul>
+<li><em>Build &gt; Test package</em></li>
+</ul></li>
+<li>In R:
+<ul>
+<li><code>test()</code>, which is a convenience wrapper in devtools that calls the testthat package.</li>
+</ul></li>
+</ul>
+<pre class="r"><code>test()
+#&gt; Loading foofactors
+#&gt; Loading required package: testthat
+#&gt; Testing foofactors
+#&gt; Binding factors: ..
+#&gt; 
+#&gt; DONE ======================================================================</code></pre>
+<p>Your tests are also run whenever you <code>check()</code> the package. In this way, you basically augment the standard checks with some of your own, that are specific to your package.</p>
+<p>For much more guidance, read the <a href="http://r-pkgs.had.co.nz/tests.html">testing chapter</a> in R Packages.</p>
+</div>
+<div id="use_package" class="section level2">
+<h2><code>use_package()</code></h2>
+<p><em>I have some regrets about using <code>dplyr</code> as an example. It invites tricky questions about importing <code>%&gt;%</code> and non-standard evalution as the students extend the package in homework. Seek an alternative external package? Maybe I should use forcats::fct::count()?</em></p>
+<p>You will inevitably want to use a function from another package in your own package. Just as we needed to <strong>export</strong> <code>fbind()</code>, we need to <strong>import</strong> functions from the namespace of other packages. If you plan to submit a package to CRAN, note that this even applies to functions in packages that you think of as “always available”, such as <code>stats::median()</code> or <code>utils::head()</code>.</p>
+<p>There is more than one way to go about this. We use the approach recommended in the <a href="http://r-pkgs.had.co.nz/namespace.html">namespace chapter</a> of R Packages and in the <a href="https://github.com/ropensci/packaging_guide#deps">rOpenSci Packaging Guide</a>. The general usage pattern is this: give the name of the external package, then two colons, then the function to call.</p>
+<p>First, declare your general intent to use some functions from the dplyr namespace with <code>devtools::use_package()</code>:</p>
+<pre class="r"><code>use_package(&quot;dplyr&quot;)
+#&gt; * Adding dplyr to Imports
+#&gt; Next:
+#&gt; Refer to functions with dplyr::fun()</code></pre>
+<pre><code>[2ee0633] 2016-11-28: Declare we will use dplyr</code></pre>
+<p>This adds the dplyr package to the “Imports” section of <code>DESCRIPTION</code>. And that is all.</p>
+<p>Now we add a new function to foofactors that does, indeed, use a function from dplyr. Imagine we want a frequency table for a factor, as a regular data frame with nice variable names, versus as an object of class <code>table</code> or something with odd names. Preface your calls to dplyr functions with <code>dplyr::</code>.</p>
+<p>Create a new file <code>R/freq_out.R</code> with this function definition:</p>
+<pre><code>#&#39; Make a frequency table for a factor
+#&#39;
+#&#39; @param x factor
+#&#39;
+#&#39; @return tbl_df
+#&#39; @export
+#&#39; @examples
+#&#39; freq_out(iris$Species)
+freq_out &lt;- function(x) {
+  xdf &lt;- dplyr::data_frame(x)
+  dplyr::count(xdf, x)
+}</code></pre>
+<pre><code>[e75dec3] 2016-11-28: Add freq_out()</code></pre>
+<p>Try out the new function.</p>
+<pre class="r"><code>load_all()
+#&gt; Loading foofactors
+freq_out(iris$Species)
+#&gt; # A tibble: 3 × 2
+#&gt;            x     n
+#&gt;       &lt;fctr&gt; &lt;int&gt;
+#&gt; 1     setosa    50
+#&gt; 2 versicolor    50
+#&gt; 3  virginica    50</code></pre>
+<p>Generate the associated help file via <code>document()</code> or <em>Build &gt; Document</em>.</p>
+<pre class="r"><code>document()
+#&gt; Updating foofactors documentation
+#&gt; Loading foofactors
+#&gt; Writing NAMESPACE
+#&gt; Writing freq_out.Rd</code></pre>
+<pre><code>[d52e2d4] 2016-11-28: Document freq_out()</code></pre>
+</div>
+<div id="use_package_doc" class="section level2">
+<h2><code>use_package_doc()</code></h2>
+<p><em>Update to use the new sentinel and describe it accurately? Maybe devtools should be updated to do that too?</em></p>
+<p>Let’s start adding package-level documentation. Your package as a whole can have its own <code>.Rd</code> file. You can see an example by entering <code>package?dplyr</code> in R Console. Read more about the uses of package-level documentation in <a href="http://r-pkgs.had.co.nz/man.html#man-packages">R Packages</a>.</p>
+<p>Set this up with <code>devtools::use_package_doc()</code>:</p>
+<pre class="r"><code>use_package_doc()
+#&gt; * Creating `R/foofactors-package.r` from template.
+#&gt; * Modify `R/foofactors-package.r`.</code></pre>
+<p>This creates a peculiar dummy file <code>R/foofactors-package.R</code> with a roxygen header, that is documenting just … <code>NULL</code>. The purpose of this is simply to trigger the generation of a package-level <code>.Rd</code> file.</p>
+<p>Edit <code>R/foofactors-package.R</code> to look something like this. I just copied info from <code>DESCRIPTION</code> but you can add more info here and possibly should in real life. This file isn’t subject to the same CRAN checks as <code>DESCRIPTION</code>, so you have much more freedom.</p>
+<pre><code>#&#39; foofactors: Make factors less annoying
+#&#39;
+#&#39; Factors have driven people to extreme measures, like ordering custom
+#&#39; conference ribbons and laptop stickers to express how HELLNO we feel about
+#&#39; stringsAsFactors. And yet, sometimes you need them. Can they be made less
+#&#39; maddening? Let&#39;s find out.
+#&#39;
+#&#39; @name foofactors
+#&#39; @docType package
+NULL</code></pre>
+<pre><code>[51949b7] 2016-11-28: Add package-level doc</code></pre>
+<p>Don’t forget to run <code>document()</code>!</p>
+<pre class="r"><code>document()
+#&gt; Updating foofactors documentation
+#&gt; Loading foofactors
+#&gt; Writing foofactors.Rd</code></pre>
+<pre><code>[93eb021] 2016-11-28: Run document()</code></pre>
+<p>Have a look at your new package-level docs:</p>
+<pre class="r"><code>?foofactors</code></pre>
+</div>
+<div id="use_vignette" class="section level2">
+<h2><code>use_vignette()</code></h2>
+<p>A piece of package-level documentation that’s probably familiar to you is the vignette. This is a great place to put a fully developed example that calls multiple functions from your package to do something useful and realistic. See the <a href="http://r-pkgs.had.co.nz/vignettes.html">vignettes chapter</a> of R Packages for more.</p>
+<p>Use <code>devtools::use_vignette()</code> to initialize a new vignette:</p>
+<pre class="r"><code>use_vignette(&quot;hello-foofactors&quot;)
+#&gt; * Creating `vignettes`.
+#&gt; * Adding `inst/doc` to ./.gitignore
+#&gt; NULL</code></pre>
+<p>Here’s what happens:</p>
+<ul>
+<li>Adds knitr and rmarkdown to <code>Suggests</code> in <code>DESCRIPTION</code>.</li>
+<li>Creates a new file with boilerplate vignette content, <code>vignettes/hello-foofactors.Rmd</code>.</li>
+<li>Adds <code>inst/doc</code> to <code>.gitignore</code>.</li>
+<li>If using RStudio, open <code>vignettes/hello-foofactors.Rmd</code> for editing.</li>
+</ul>
+<pre><code>[bb7c6cb] 2016-11-28: Init vignette</code></pre>
+<p>Now you need to edit <code>vignettes/hello-foofactors.Rmd</code>. At the very least, do this:</p>
+<ul>
+<li>Replace <strong>both instances</strong> of “Vignette Title” in the YAML with an actual title and with the same title.</li>
+<li>List yourself as author or remove that line.</li>
+<li>Remove the boilerplate content and throw in some usage. Even early on, just mine your examples or tests for something to throw in here. It is better than nothing.</li>
+</ul>
+<p>The vignette source can be seen here: <a href="https://raw.githubusercontent.com/jennybc/foofactors/master/vignettes/hello-foofactors.Rmd">vignettes/hello-foofactors.Rmd</a></p>
+<pre><code>[29c8f79] 2016-11-28: Write vignette</code></pre>
+<p>How to see your compiled vignette? For a quick preview, just use RStudio’s “Knit HTML” button. Problem is, the downstream products aren’t saved anywhere in your package, so you’ll need to redo this every time you want to look at the vignette.</p>
+<p>If you want to hold on to a compiled vignette, for your own sake or to push to GitHub, it’s a little fiddly. I’m not executing any of these for real, so don’t expect to see the result in the foofactors repo on GitHub.</p>
+<p>Option 1:</p>
+<pre class="r"><code>build_vignettes()
+## Build and reload !!!
+browseVignettes(&quot;foofactors&quot;)
+## look at your vignette</code></pre>
+<p>This puts your vignette (<code>.Rmd</code> and any downstream products, such as <code>.html</code>) in <code>inst/doc</code> but because we are gitignoring <code>inst/doc</code> this won’t make a rendered vignette available on GitHub. You can however view it locally.</p>
+<p>Option 2:</p>
+<p>In RStudio, do <em>Tools &gt; Project Options &gt; Build Tools &gt; Generate documentation with Roxygen &gt; Configure &gt; Use roxygen to generate vignettes</em>. Then when you <code>document()</code>, downstream products, such as vignette <code>.html</code> will be left behind in <code>vignettes/</code>. There is nothing stopping you from including something like this in vignette YAML:</p>
+<pre class="yaml"><code>output:
+  rmarkdown::html_vignette:
+    toc: true
+    keep_md: true</code></pre>
+<p>Which means vignette <code>.md</code> would be left behind in <code>vignettes/</code> and therefore potentially available on GitHub.</p>
+<p><em>I’m really not sure what to advise here?</em></p>
+</div>
+<div id="use_github" class="section level2">
+<h2><code>use_github()</code></h2>
+<p>This creates a remote companion repository on GitHub, sets an upstream tracking branch for <code>master</code>, and makes an initial push. If you use RStudio, this means your Push and Pull buttons will work. If you prefer, you can always create the GitHub repo in the browser and use command line Git to add the GitHub remote and set an upstream tracking branch for <code>master</code>.</p>
+<p>To connect to GitHub, under the hood devtools calls the GitHub API. This means you’ll need to use your GitHub account to get a personal access token (PAT).</p>
+<p>Get a PAT here <a href="https://github.com/settings/tokens" class="uri">https://github.com/settings/tokens</a>. Make sure the “repo” scope is included.</p>
+<p>Store your PAT as an environment variable named <code>GITHUB_PAT</code> in <code>~/.Renviron</code>, which holds environment variables that should be available to all R processes. devtools will look here for it, by default. Here “~/” means your home directory. If you’re not sure where that is, execute <code>normalizePath(&quot;~/&quot;)</code> in R console. <strong>This file should be named <code>.Renviron</code>, not <code>.Renviron.R</code>, look like this, and end in a newline:</strong></p>
+<pre class="sh"><code>GITHUB_PAT=??40-RANDOM-LETTERS-AND-DIGITS-GO-HERE??</code></pre>
+<p>Restart R and check that the PAT is now available:</p>
+<pre class="r"><code>Sys.getenv(&quot;GITHUB_PAT&quot;)</code></pre>
+<p>You should see your PAT print to screen.</p>
+<p>Submit the appropriate line below to use <code>devtools::use_github()</code> to connect the local foofactors Git repo to a new GitHub repo:</p>
+<pre class="r"><code>## public repo using https
+use_github(protocol = &quot;https&quot;)
+
+## private repo using https
+use_github(protocol = &quot;https&quot;, private = TRUE)
+
+## public repo using ssh
+use_github()
+
+## private repo using ssh
+use_github(private = TRUE)
+</code></pre>
+<p>Go look at your package’s repo on GitHub! It should look very similar to the package created by this vignette <a href="https://github.com/jennybc/foofactors" class="uri">https://github.com/jennybc/foofactors</a>. If you use RStudio, your Pull and Push buttons should now work.</p>
+</div>
+<div id="use_readme_rmd" class="section level2">
+<h2><code>use_readme_rmd()</code></h2>
+<p>Now that your package is on GitHub, the <code>README.md</code> file matters. It is the package’s home page and welcome mat.</p>
+<p>The <code>devtools::use_readme_rmd()</code> function initializes a basic, executable <code>README.Rmd</code> ready for you to edit:</p>
+<pre class="r"><code>use_readme_rmd()
+#&gt; * Creating `README.Rmd` from template.
+#&gt; * Adding `README.Rmd` to `.Rbuildignore`.
+#&gt; * Modify `README.Rmd`.</code></pre>
+<p>In addition to creating <code>README.Rmd</code>, this adds some lines to <code>.Rbuildignore</code>, and creates a Git pre-commit hook to help you keep <code>README.Rmd</code> and <code>README.md</code> in sync.</p>
+<p><code>README.Rmd</code> already has sections that:</p>
+<ul>
+<li>Prompt you to describe the purpose of the package.</li>
+<li>Provide code to install your package.</li>
+<li>Prompt you to show a bit of usage.</li>
+</ul>
+<p>How to populate this skeleton? Copy stuff liberally from <code>DESCRIPTION</code>, <code>R/foofactors-package.R</code>, examples, and the vignette. Anything is better than nothing. Otherwise … do you expect people to install your package and comb through individual help files to figure out how to use it?</p>
+<p>We write the <code>README</code> in R markdown, so it can feature actual usage. It will load the currently installed version of your package, so this is a good time to do “Build &amp; Reload” in RStudio. Or do this in R Console:</p>
+<pre class="r"><code>install()
+#&gt; Installing foofactors
+#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; CMD INSTALL &#39;/Users/jenny/tmp/foofactors&#39;
+#&gt; Reloading installed foofactors</code></pre>
+<p>If RStudio has not already done so, open <code>README.Rmd</code> for editing. Make sure it shows some usage of <code>fbind()</code> and/or <code>freq_out()</code>, for example.</p>
+<pre><code>[927dd8f] 2016-11-28: Set up README.Rmd</code></pre>
+<p>The <code>README.Rmd</code> we use can be seen here: <a href="https://raw.githubusercontent.com/jennybc/foofactors/master/README.Rmd">README.Rmd</a>.</p>
+<p>Don’t forget to render it to make <code>README.md</code>! The pre-commit hook should remind you if you try to commit <code>README.Rmd</code> but not <code>README.md</code> and also when <code>README.md</code> appears to be out-of-date.</p>
+<pre class="r"><code>rmarkdown::render(&quot;README.Rmd&quot;) ## or use &quot;Knit HTML&quot;</code></pre>
+<p>You can see the rendered <code>README.md</code> simply by <a href="https://github.com/jennybc/foofactors#readme">visiting foofactors on GitHub</a>.</p>
+<p>Finally, don’t forget to do one last commit. And push!</p>
+<pre><code>[203d28a] 2016-11-28: Write README.Rmd and render</code></pre>
+</div>
+<div id="the-end" class="section level2">
+<h2>The End</h2>
+<p>Let’s run <code>check()</code> again to make sure all is still well.</p>
+<pre class="r"><code>check()
+#&gt; Updating foofactors documentation
+#&gt; Loading foofactors
+#&gt; Setting env vars ---------------------------------------------------------
+#&gt; CFLAGS  : -Wall -pedantic
+#&gt; CXXFLAGS: -Wall -pedantic
+#&gt; Building foofactors ------------------------------------------------------
+#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; CMD build &#39;/Users/jenny/tmp/foofactors&#39; --no-resave-data --no-manual
+#&gt; * checking for file ‘/Users/jenny/tmp/foofactors/DESCRIPTION’ ... OK
+#&gt; * preparing ‘foofactors’:
+#&gt; * checking DESCRIPTION meta-information ... OK
+#&gt; * installing the package to build vignettes
+#&gt; * creating vignettes ... OK
+#&gt; * checking for LF line-endings in source and make files
+#&gt; * checking for empty or unneeded directories
+#&gt; * building ‘foofactors_0.0.0.9000.tar.gz’
+#&gt; Setting env vars ---------------------------------------------------------
+#&gt; _R_CHECK_CRAN_INCOMING_ : FALSE
+#&gt; _R_CHECK_FORCE_SUGGESTS_: FALSE
+#&gt; Checking foofactors ------------------------------------------------------
+#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; CMD check &#39;/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T//RtmpLd536X/foofactors_0.0.0.9000.tar.gz&#39; --as-cran --timings --no-manual
+#&gt; * using log directory ‘/private/var/folders/vt/4sdxy0rd1b3b65nqssx4sx_h0000gn/T/RtmpLd536X/foofactors.Rcheck’
+#&gt; * using R version 3.3.1 (2016-06-21)
+#&gt; * using platform: x86_64-apple-darwin13.4.0 (64-bit)
+#&gt; * using session charset: UTF-8
+#&gt; * using options ‘--no-manual --as-cran’
+#&gt; * checking for file ‘foofactors/DESCRIPTION’ ... OK
+#&gt; * this is package ‘foofactors’ version ‘0.0.0.9000’
+#&gt; * checking package namespace information ... OK
+#&gt; * checking package dependencies ... OK
+#&gt; * checking if this is a source package ... OK
+#&gt; * checking if there is a namespace ... OK
+#&gt; * checking for executable files ... OK
+#&gt; * checking for hidden files and directories ... OK
+#&gt; * checking for portable file names ... OK
+#&gt; * checking for sufficient/correct file permissions ... OK
+#&gt; * checking whether package ‘foofactors’ can be installed ... OK
+#&gt; * checking installed package size ... OK
+#&gt; * checking package directory ... OK
+#&gt; * checking ‘build’ directory ... OK
+#&gt; * checking DESCRIPTION meta-information ... OK
+#&gt; * checking top-level files ... OK
+#&gt; * checking for left-over files ... OK
+#&gt; * checking index information ... OK
+#&gt; * checking package subdirectories ... OK
+#&gt; * checking R files for non-ASCII characters ... OK
+#&gt; * checking R files for syntax errors ... OK
+#&gt; * checking whether the package can be loaded ... OK
+#&gt; * checking whether the package can be loaded with stated dependencies ... OK
+#&gt; * checking whether the package can be unloaded cleanly ... OK
+#&gt; * checking whether the namespace can be loaded with stated dependencies ... OK
+#&gt; * checking whether the namespace can be unloaded cleanly ... OK
+#&gt; * checking loading without being on the library search path ... OK
+#&gt; * checking dependencies in R code ... OK
+#&gt; * checking S3 generic/method consistency ... OK
+#&gt; * checking replacement functions ... OK
+#&gt; * checking foreign function calls ... OK
+#&gt; * checking R code for possible problems ... OK
+#&gt; * checking Rd files ... OK
+#&gt; * checking Rd metadata ... OK
+#&gt; * checking Rd line widths ... OK
+#&gt; * checking Rd cross-references ... OK
+#&gt; * checking for missing documentation entries ... OK
+#&gt; * checking for code/documentation mismatches ... OK
+#&gt; * checking Rd \usage sections ... OK
+#&gt; * checking Rd contents ... OK
+#&gt; * checking for unstated dependencies in examples ... OK
+#&gt; * checking installed files from ‘inst/doc’ ... OK
+#&gt; * checking files in ‘vignettes’ ... OK
+#&gt; * checking examples ... OK
+#&gt; * checking for unstated dependencies in ‘tests’ ... OK
+#&gt; * checking tests ...
+#&gt;  OK
+#&gt; * checking for unstated dependencies in vignettes ... OK
+#&gt; * checking package vignettes in ‘inst/doc’ ... OK
+#&gt; * checking re-building of vignette outputs ... OK
+#&gt; * DONE
+#&gt; Status: OK
+#&gt; R CMD check results
+#&gt; 0 errors | 0 warnings | 0 notes</code></pre>
+<p>foofactors should have no errors, warnings or notes. This would be a good time to do “Build and reload” to celebrate.</p>
+<pre class="r"><code>install()
+#&gt; Installing foofactors
+#&gt; &#39;/Library/Frameworks/R.framework/Resources/bin/R&#39; CMD INSTALL &#39;/Users/jenny/tmp/foofactors&#39;
+#&gt; Reloading installed foofactors</code></pre>
+<p>Feel free to visit the <a href="https://github.com/jennybc/foofactors">foofactors package</a> on GitHub, which is exactly as developed in this vignette. The commit history reflects each individual step, so use the diffs to see the addition and modification of files, as the package evolved.</p>
+<p><a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/edit/master/packages05_foofactors-package-02.Rmd">Suggest an edit to this page …</a></p>
+<p>back to <a href="packages00_index.html">All the package things</a></p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

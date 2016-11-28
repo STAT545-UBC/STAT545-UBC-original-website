@@ -72,9 +72,7 @@ Hopefully you will simply see a message saying `TRUE`, indicating that `Rtools` 
 You will not get an *immediate* warning from `devtools` that you need to install anything. But before you can build R package with compiled code, you will also need to install more software. Pick one:
 
   * Minimalist approach (what I do): Install Xcode Command Line Tools.
-    - <https://developer.apple.com/downloads/>
-    - You will need to sign in with / create a free Apple ID.
-    - Download "Command Line Tools OS 10.xxx for Xcode 7.x" appropriate for your OS version.
+    - In the shell: `xcode-select --install`
   * Install the current release of full Xcode from the Mac App Store. WAY more stuff than you need but advantage is App Store convenience.
   * Get older or beta releases of Xcode from <https://developer.apple.com/xcode/download/>.
   

@@ -55,9 +55,7 @@ Hopefully you will simply see a message saying `TRUE`, indicating that `Rtools` 
 You will not get an *immediate* warning from `devtools` that you need to install anything. But before you can build R package with compiled code, you will also need to install more software. Pick one:
 
   * Minimalist approach (what I do): Install Xcode Command Line Tools.
-    - <https://developer.apple.com/downloads/>
-    - You will need to sign in with / create a free Apple ID.
-    - Download "Command Line Tools OS 10.xxx for Xcode 7.x" appropriate for your OS version.
+    - In the shell: `xcode-select --install`
   * Install the current release of full Xcode from the Mac App Store. WAY more stuff than you need but advantage is App Store convenience.
   * Get older or beta releases of Xcode from <https://developer.apple.com/xcode/download/>.
   
@@ -88,8 +86,19 @@ Install more packages. If you already have them, update them.
 
 
 ```
+#> 
+#> Attaching package: 'dplyr'
+#> The following object is masked from 'package:testthat':
+#> 
+#>     matches
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 #>    package *     version       date                              source
-#> 1 devtools * 1.12.0.9000 2016-09-26    Github (hadley/devtools@26c507b)
+#> 1 devtools * 1.12.0.9000 2016-11-23                               local
 #> 2    knitr *      1.14.2 2016-09-07        Github (yihui/knitr@f02600d)
 #> 3 roxygen2 *  5.0.1.9000 2016-10-23 Github (klutometis/roxygen@9ffbad0)
 #> 4 testthat *  1.0.2.9000 2016-09-09    Github (hadley/testthat@46d15da)

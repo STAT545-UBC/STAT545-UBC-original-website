@@ -41,10 +41,7 @@ This material gets updated during Sept - Nov each year. Right now we're in awkwa
   * [All the package things](packages00_index.html)
     - [slides](https://speakerdeck.com/jennybc/ubc-stat545-2015-writing-your-first-r-package)
     - [System preparation for package development](packages01_system-prep.html)
-    - [2015 Hands-on activity, part 1](packages04_foofactors-package-01.html)
-    - [2015 Hands-on activity, part 2](packages05_foofactors-package-02.html)
-    - [2014 Hands-on activity, part 1](packages02_activity.html)
-    - [2014 Hands-on activity, part 2](packages03_activity_part2.html)
+    - [Write your own R package](packages06_foofactors-package.html)
   * [All the automation things](automation00_index.html)
     - <a href="automation01_slides/index.html" target="_blank">slides</a>
     - [Special considerations for Windows](automation02_windows.html)
@@ -65,6 +62,8 @@ This material gets updated during Sept - Nov each year. Right now we're in awkwa
     - [Split-apply-combine with `plyr`](block013_plyr-ddply.html)
     - [Why and how to tidy data](bit002_tidying-lotr-data.html)
     - Be the boss of your factors: [2015 version](block014_factors.html), pre-forcats
+    - [2014 Write an R package, hands-on activity, part 1](packages02_activity.html)
+    - [2014 Write an R package, hands-on activity, part 2](packages03_activity_part2.html)
 
 ## Short random things
 

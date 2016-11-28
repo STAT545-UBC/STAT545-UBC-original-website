@@ -36,23 +36,16 @@ In class example that that shows how to
   * Show off what your package does via a README or a vignette
   * Put your package on GitHub to share with the world
 
-In 2015, we started to build the `foofactors` package, to make the care and feeding of factors less aggravating.
+In 2016 and 2015, we built the `foofactors` package, to make the care and feeding of factors less aggravating.
 
-  * [Write your own R package, part 1](packages04_foofactors-package-01.html)
-  * [Write your own R package, part 2](packages05_foofactors-package-02.html)
-  * [Homework](hw08_package.html): extend `foofactors` from where we left off in class
-
-In 2014, we built the `gameday` package to check if your favorite NHL team has a game today.
-
-  * [2014 Day 1](packages02_activity.html) of hands-on work
-  * [2014 Day 2](packages03_activity_part2.html) of hands-on work
-  * [2014 Homework](hw08_2014_package.html) that builds on the in-class work on `gameday`.
+  * [Write your own R package](packages06_foofactors-package.html)
+  * [Homework](hw08_package.html): extend `foofactors` from where we left off in class *2015 version*
 
 ### Resources
 
 [Writing R Extensions](http://cran.r-project.org/doc/manuals/r-release/R-exts.html), the One True Official Document on creating R packages.
 
-[R packages](http://r-pkgs.had.co.nz) is a new book by Hadley Wickham. The above lessons follow it and the `devtools` package workflow quite faithfully. `devtools` on [CRAN](https://cran.r-project.org/web/packages/devtools/index.html), on [GitHub](https://github.com/hadley/devtools).
+[R packages](http://r-pkgs.had.co.nz) from Hadley Wickham. The above lessons follow it and the `devtools` package workflow quite faithfully. `devtools` on [CRAN](https://cran.r-project.org/web/packages/devtools/index.html), on [GitHub](https://github.com/hadley/devtools).
 
 Hilary Parker's [blog post](http://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/) on the epiphany of writing her first R package
 
