@@ -39,7 +39,7 @@ In class example that that shows how to
 In 2016 and 2015, we built the `foofactors` package, to make the care and feeding of factors less aggravating.
 
   * [Write your own R package](packages06_foofactors-package.html)
-  * [Homework](hw08_package.html): extend `foofactors` from where we left off in class *2015 version*
+  * [Homework](hw09_package.html): extend `foofactors` from where we left off in class.
 
 ### Resources
 

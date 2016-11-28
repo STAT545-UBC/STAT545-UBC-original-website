@@ -15,7 +15,7 @@ If you don't need help with either of these, then carry on.
 
 ## Get to the starting line
 
-Here's how I would start the [homework on making an R package](hw08_package.html). Basically you want to get the fiddliest moving parts working early and then keep it that way. In this case, I assume that means obtaining the `foofactors` package I have left for you to extend and making sure you can develop your own copy and push it back up to GitHub.
+Here's how I would start the [homework on making an R package](hw09_package.html). Basically you want to get the fiddliest moving parts working early and then keep it that way. In this case, I assume that means obtaining the `foofactors` package I have left for you to extend and making sure you can develop your own copy and push it back up to GitHub.
 
 Option #1: Obtain `foofactors`as a ZIP archive
 
@@ -25,7 +25,7 @@ Option #1: Obtain `foofactors`as a ZIP archive
   * Stage and commit `.gitignore` and `foofactors.Rproj`. Push.
   * Refresh view of `foofactors` repo on GitHub. Do `.gitignore` and `foofactors.Rproj` appear? YES, basic local <--> remote repo stuff set up. Yay. 
   * Visit my version of `foofactors` on GitHub and get it.
-    - <https://github.com/STAT545-UBC/foofactors>
+    - <https://github.com/jennybc/foofactors>
     - Click on "Download ZIP" button. For me, this gets automatically un-gzipped and un-tarred when the download completes. YMMV.
     - `foofactors-master` directory now exists in `~/Downloads`.
   * Copy everything from `foofactors-master` (our stuff) into local `foofactors` (your stuff).
@@ -37,9 +37,9 @@ Option #1: Obtain `foofactors`as a ZIP archive
 Option #2: Fork `foofactors` and get your copy the Git way
 
   * Visit my `foofactors` in the browser:
-    - <https://github.com/STAT545-UBC/foofactors>
+    - <https://github.com/jennybc/foofactors>
   * Click "Fork".
-  * You should arrive in a new repo **under your own account** that is clearly indicated to be a fork of `STAT545-UBC/foofactors`.
+  * You should arrive in a new repo **under your own account** that is clearly indicated to be a fork of `jennybc/foofactors`.
   * Copy the https URL of your fork to clipboard.
   * RStudio *File > New Project ... > Version Control > Git*. Paste the URL ... *Create Project*.
   * Test, document, and check the package. Everything OK? Read the errors and deal with them. Check again. OK? Yay. Stage any changes that were necessary, commit, push.

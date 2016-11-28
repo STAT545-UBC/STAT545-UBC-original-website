@@ -10,14 +10,18 @@
 
 
 
+
 <title>Help on the package homework</title>
 
-<script src="libs/jquery-1.11.0/jquery.min.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.1/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.1/shim/respond.min.js"></script>
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -30,10 +34,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -47,6 +47,34 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 }
 </script>
 
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
 
 <link rel="stylesheet" href="libs/local/main.css" type="text/css" />
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
@@ -66,12 +94,34 @@ code {
   color: inherit;
   background-color: rgba(0, 0, 0, 0.04);
 }
-img { 
-  max-width:100%; 
-  height: auto; 
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
 }
 </style>
+
+
+
 <div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
 
 <header>
   <div class="nav">
@@ -88,8 +138,12 @@ img {
   </div>
 </header>
 
-<div id="header">
-<h1 class="title">Help on the package homework</h1>
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Help on the package homework</h1>
+
 </div>
 
 <div id="TOC">
@@ -107,7 +161,7 @@ img {
 <p>If you don’t need help with either of these, then carry on.</p>
 <div id="get-to-the-starting-line" class="section level2">
 <h2>Get to the starting line</h2>
-<p>Here’s how I would start the <a href="hw08_package.html">homework on making an R package</a>. Basically you want to get the fiddliest moving parts working early and then keep it that way. In this case, I assume that means obtaining the <code>foofactors</code> package I have left for you to extend and making sure you can develop your own copy and push it back up to GitHub.</p>
+<p>Here’s how I would start the <a href="hw09_package.html">homework on making an R package</a>. Basically you want to get the fiddliest moving parts working early and then keep it that way. In this case, I assume that means obtaining the <code>foofactors</code> package I have left for you to extend and making sure you can develop your own copy and push it back up to GitHub.</p>
 <p>Option #1: Obtain <code>foofactors</code>as a ZIP archive</p>
 <ul>
 <li>In browser, create new repo on GitHub named <code>foofactors</code>. Public. NO THANKS re: README, .gitignore, license.</li>
@@ -117,7 +171,7 @@ img {
 <li>Refresh view of <code>foofactors</code> repo on GitHub. Do <code>.gitignore</code> and <code>foofactors.Rproj</code> appear? YES, basic local &lt;–&gt; remote repo stuff set up. Yay.</li>
 <li>Visit my version of <code>foofactors</code> on GitHub and get it.
 <ul>
-<li><a href="https://github.com/STAT545-UBC/foofactors" class="uri">https://github.com/STAT545-UBC/foofactors</a></li>
+<li><a href="https://github.com/jennybc/foofactors" class="uri">https://github.com/jennybc/foofactors</a></li>
 <li>Click on “Download ZIP” button. For me, this gets automatically un-gzipped and un-tarred when the download completes. YMMV.</li>
 <li><code>foofactors-master</code> directory now exists in <code>~/Downloads</code>.</li>
 </ul></li>
@@ -131,10 +185,10 @@ img {
 <ul>
 <li>Visit my <code>foofactors</code> in the browser:
 <ul>
-<li><a href="https://github.com/STAT545-UBC/foofactors" class="uri">https://github.com/STAT545-UBC/foofactors</a></li>
+<li><a href="https://github.com/jennybc/foofactors" class="uri">https://github.com/jennybc/foofactors</a></li>
 </ul></li>
 <li>Click “Fork”.</li>
-<li>You should arrive in a new repo <strong>under your own account</strong> that is clearly indicated to be a fork of <code>STAT545-UBC/foofactors</code>.</li>
+<li>You should arrive in a new repo <strong>under your own account</strong> that is clearly indicated to be a fork of <code>jennybc/foofactors</code>.</li>
 <li>Copy the https URL of your fork to clipboard.</li>
 <li>RStudio <em>File &gt; New Project … &gt; Version Control &gt; Git</em>. Paste the URL … <em>Create Project</em>.</li>
 <li>Test, document, and check the package. Everything OK? Read the errors and deal with them. Check again. OK? Yay. Stage any changes that were necessary, commit, push.</li>
@@ -230,14 +284,20 @@ maintainer(&quot;foofactors&quot;)
 This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
 </div>
 
+
+
 </div>
 
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
+
 
 </script>
 
