@@ -63,8 +63,8 @@ nov-15 tues    <a href="cm107_shiny-apps.html">cm107</a>: Build your first Shiny
 nov-17 thurs   <a href="cm108_shiny-apps.html">cm108</a>: ditto                                                  
 nov-22 tues    <a href="cm109_packages.html">cm109</a>: Build your first R package                               
 nov-24 thurs   <a href="cm110_packages.html">cm110</a>: ditto                                                    
-nov-29 tues    cm111: Get data from the web (scraping and APIs)                                                  
-dec-01 thurs   cm112: ditto                                                                                      
+nov-29 tues    <a href="cm111_webdata.html">cm111</a>: Get data from the web (scraping and APIs)                 
+dec-01 thurs   <a href="cm112_webdata.html">cm112</a>: ditto                                                     
 
   * [Homework 06](hw06_data-wrangling-conclusion.html) Choose your adventure! Topics include regular expressions, data ingest/exploration, working with lists, working with nested data frames.
   * [Homework 07](hw07_automation.html) Automate a data analysis pipeline.
