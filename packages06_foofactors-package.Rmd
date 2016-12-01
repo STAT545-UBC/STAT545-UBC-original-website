@@ -373,6 +373,7 @@ Make these edits:
   * Make yourself the author.
   * Write some descriptive text in the `Title` and `Description` fields. Note that CRAN is very particular about these fields, so if you want to keep passing `check()`, read [this section](http://r-pkgs.had.co.nz/description.html#pkg-description) of R Packages.
   * Specify a license. We opted for MIT here, which requires a bit more work to complete (see next section).
+  * Add a `URL` for more information (optional) and add a link to the reposity for `BugReports`.
 
 When you're done, `DESCRIPTION` should look similar to this:
 
@@ -383,6 +384,8 @@ DESCRIPTION_fodder <- c(
   "Version: 0.0.0.9000",
   "Authors@R: person(\"Jennifer\", \"Bryan\", role=c(\"aut\", \"cre\"),",
   "    email = \"jenny@stat.ubc.ca\")",
+  "URL: http://stat545.com",
+  "BugReports: https://github.com/STAT545-UBC/STAT545-UBC.github.io",
   "Description: Factors have driven people to extreme measures, like ordering",
     "    custom conference ribbons and laptop stickers to express how HELLNO we",
     "    feel about stringsAsFactors. And yet, sometimes you need them. Can they",
