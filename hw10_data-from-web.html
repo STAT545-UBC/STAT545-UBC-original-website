@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Data from the Web</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Data from the Web</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#big-picture">Big picture</a></li>
+<li><a href="#general-requirements">General requirements</a></li>
+<li><a href="#make-api-queries-by-hand-using-httr.">Make API queries “by hand” using httr.</a></li>
+<li><a href="#scrape-data">Scrape data</a></li>
+<li><a href="#use-an-r-package-that-wraps-an-api">Use an R package that wraps an API</a><ul>
+<li><a href="#specific-ideas">Specific ideas</a></li>
+</ul></li>
+<li><a href="#rubric">Rubric</a></li>
+</ul>
+</div>
+
+<div id="big-picture" class="section level2">
+<h2>Big picture</h2>
+<p>There are three ways to get data from the internet into R:</p>
+<ul>
+<li>Make API queries “by hand” using httr.</li>
+<li>Use an R package that wraps an API, such as the many from <a href="https://ropensci.org">rOpenSci</a>.</li>
+<li>Scrape the web.</li>
+</ul>
+<p>Pick one of the exercises below. At least one prompt is given for each of the above approaches.</p>
+<p><strong>Due date: Friday 09 December 2016.</strong></p>
+</div>
+<div id="general-requirements" class="section level2">
+<h2>General requirements</h2>
+<p>Reproducibility</p>
+<ul>
+<li>If your process involves obtaining some records (countries, species) at random, provide either the list of things chosen (id numbers, country codes etc.) OR use <code>set.seed()</code> so that a peer could produce the same random sample.</li>
+</ul>
+<p>Security</p>
+<ul>
+<li>Remember to protect any API keys or tokens, if your chosen API requires them! Don’t commit and push those to GitHub.</li>
+</ul>
+<p>Practicality</p>
+<ul>
+<li>Be aware of rate limits on APIs when making repeated requests.</li>
+<li>Don’t download large data repeatedly during development. Consider breaking your work into separate scripts (e.g. download and analysis), using <code>make</code> or a makefile-like R script, or putting the download inside an <code>if()</code> statement that checks if the data already exists.</li>
+</ul>
+<p>Reporting</p>
+<ul>
+<li>Do, or at least, report your work in an R Markdown document.</li>
+<li>What was most difficult? What are you most excited about in your future of getting data from the web? What questions did this raise in your mind?</li>
+</ul>
+</div>
+<div id="make-api-queries-by-hand-using-httr." class="section level2">
+<h2>Make API queries “by hand” using httr.</h2>
+<p>Create a dataset with multiple records by requesting data from an API using the httr package.</p>
+<p>Inspiration for APIs to call</p>
+<ul>
+<li>From in-class activities:
+<ul>
+<li>Star Wars API: <a href="https://swapi.co" class="uri">https://swapi.co</a></li>
+<li>API of Ice and Fire: <a href="https://anapioficeandfire.com" class="uri">https://anapioficeandfire.com</a></li>
+<li>OpenWeatherMap: <a href="https://openweathermap.org/api" class="uri">https://openweathermap.org/api</a></li>
+<li>Open Movie Database: <a href="https://www.omdbapi.com" class="uri">https://www.omdbapi.com</a></li>
+</ul></li>
+<li>Here is a huge list of APIs – you should have no trouble finding one you have some interest in!
+<ul>
+<li><a href="http://www.programmableweb.com/category/all/apis" class="uri">http://www.programmableweb.com/category/all/apis</a></li>
+</ul></li>
+</ul>
+<p><code>GET()</code> data from the API and convert it into a clean and tidy data frame. Store that as a file ready for (hypothetical!) downstream analysis. Do just enough basic exploration of the resulting data, possibly including some plots, that you and a reader are convinced you’ve successfully downloaded and cleaned it.</p>
+<p>Take as many of these opportunities as you can justify to make your task more interesting and realistic, to use techniques from elsewhere in the course (esp. nested list processing with purrr), and to gain experience with more sophisticated usage of httr.</p>
+<ul>
+<li>Get multiple items via the API (i.e. an endpoint that returns multiple items at once) vs. use an iterative framework in R.</li>
+<li>Traverse pages.</li>
+<li>Send an authorization token. <em>The <a href="https://developer.github.com/v3/">GitHub API</a> is definitely good one to practice with here.</em></li>
+<li>Use httr’s facilities to modify the URL and your request, e.g., query parameters, path modification, custom headers.</li>
+</ul>
+</div>
+<div id="scrape-data" class="section level2">
+<h2>Scrape data</h2>
+<p>Work through the <a href="https://github.com/ropensci/user2016-tutorial/blob/master/03-scraping-data-without-an-api.pdf">final set of slides</a> from the <a href="https://github.com/ropensci/user2016-tutorial#readme">rOpenSci UseR! 2016 workshop</a>. This will give you basic orientation, skills, and pointers on the rvest package.</p>
+<p>Scrape a multi-record dataset off the web! Convert it into a clean and tidy data frame. Store that as a file ready for (hypothetical!) downstream analysis. Do just enough basic exploration of the resulting data, possibly including some plots, that you and a reader are convinced you’ve successfully downloaded and cleaned it.</p>
+<p>I think it’s dubious to scrape data that is available through a proper API, so if you do that anyway … perhaps you should get the data both ways and reflect on the comparison. Also, make sure you not violating a site’s terms of service or your own ethical standards with your webscraping. Just because you can, it doesn’t mean you should!</p>
+</div>
+<div id="use-an-r-package-that-wraps-an-api" class="section level2">
+<h2>Use an R package that wraps an API</h2>
+<p>Many APIs have purpose-built R packages that make it even easier to get data from them.</p>
+<p>If you choose one of these options, then you need to go further and combine two datasets, at least one of which is from the web.</p>
+<div id="specific-ideas" class="section level3">
+<h3>Specific ideas</h3>
+<p>These were developed in 2015 by TA Andrew MacDonald</p>
+<p><strong>Prompt 1</strong>: Combine <a href="https://github.com/jennybc/gapminder"><code>gapminder</code></a> and data from <a href="http://www.geonames.org/"><code>geonames</code></a>. Install the <code>geonames</code> package (on <a href="https://cran.r-project.org/web/packages/geonames/index.html">CRAN</a>, on <a href="https://github.com/ropensci/geonames">GitHub</a>). Make a user account and use <code>geonames</code> to access data about the world’s countries. Use data from <code>geonames</code> and <code>gapminder</code> to investigate either of these questions:</p>
+<ul>
+<li>What is the relationship between per-capita GDP and the proportion of the population which lives in urban centers?</li>
+<li>Consider the following graph of population against time (a modification of Jenny’s <a href="https://github.com/jennybc/gapminder">gapminder demo</a>):</li>
+</ul>
+<pre class="r"><code>library(&quot;ggplot2&quot;)
+library(&quot;gapminder&quot;)
+
+ggplot(subset(gapminder, continent != &quot;Oceania&quot;),
+       aes(x = year, y = pop, group = country, color = country)) +
+  geom_line(lwd = 1, show.legend = FALSE) + facet_wrap(~ continent) +
+  scale_color_manual(values = country_colors) + theme_bw() +
+  theme(strip.text = element_text(size = rel(1.1))) + scale_y_log10()</code></pre>
+<p><img src="hw10_data-from-web_files/figure-html/spaghetti-plot-pop-vs-year-1.png" /><!-- --></p>
+<p>Replace population with <em>population density</em>. To do this, look up the country codes in <code>geonames()</code>, obtain the area of each country and compute density as population divided by area. <strong>TIP</strong> check out the handy package <a href="https://github.com/vincentarelbundock/countrycode">countrycode</a> to help you merge country names!</p>
+<p><strong>Prompt 2</strong>: Look at two other rOpenSci packages: <a href="https://github.com/ropensci/rebird"><code>rebird</code></a> and <a href="https://github.com/ropensci/rplos"><code>rplos</code></a>. Both packages are on CRAN and more info is on their GitHub repo READMEs. Find out what data are available from each, and combine them! Here are three suggestions:</p>
+<ul>
+<li><code>rplos</code> and <code>rebird</code> – how many articles are published on a bird species?</li>
+<li><code>rplos</code> and <code>geonames</code> – Choose a subset of countries. How many papers have been published by people from that country? In that country? How does that relate to GDP?</li>
+<li><code>rebird</code> and <code>geonames</code> – Do countries with more bird species also have more languages?</li>
+</ul>
+<p><strong>Prompt x</strong>: Look through the rOpenSci <a href="http://ropensci.org/packages/">packages list</a> and/or the <a href="https://cran.r-project.org/web/views/WebTechnologies.html">CRAN Task View on Web Technologies and Services</a>, find other wrapped APIs that interest you, and remix those instead.</p>
+</div>
+</div>
+<div id="rubric" class="section level2">
+<h2>Rubric</h2>
+<p>Recall the <a href="http://stat545-ubc.github.io/peer-review01_marking-rubric.html">general homework rubric</a>.</p>
+<p>Peers and/or TAs will run the code and try to get the same output. You’ll be evaluated on the clarity and robustness of your workflow.</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

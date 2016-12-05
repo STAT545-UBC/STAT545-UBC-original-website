@@ -70,5 +70,4 @@ dec-01 thurs   <a href="cm112_webdata.html">cm112</a>: ditto
   * [Homework 07](hw07_automation.html) Automate a data analysis pipeline.
   * [Homework 08](hw08_shiny.html) Build a Shiny app.
   * [Homework 09](hw09_package.html) Write an R package.
-  * *Assignments below will be renumbered in 2016 (hw07 - hw10) and, obviously, ordered according to when the topics appear in class. Please humor us as that unfolds.*
-  * [Homework 10](hw10_data-from-web.html) Get data from the web (2015 version)
+  * [Homework 10](hw10_data-from-web.html) Get data from the web
