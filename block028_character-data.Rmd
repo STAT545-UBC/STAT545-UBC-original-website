@@ -29,10 +29,10 @@ I start with this because we cannot possibly do this topic justice in a short am
 #### Manipulating character vectors
 
   * [stringr package](https://cran.r-project.org/web/packages/stringr/index.html)
-    - A non-core package in the tidyverse. It is installed via `install.packages("tidyverse")`, but not loaded via `library(tidyverse)`. Load it as needed via `library(stringr)`.
+    - A non-core package in the tidyverse. It is installed via `install.packages("tidyverse")`, but not loaded via `library(tidyverse)`. Load it as needed via `library(stringr)`.
     - Main functions start with `str_`. Auto-complete is your friend.
     - Replacements for base functions re: string manipulation and regular expressions (see below).
-    - Main advantagse over base functions: greater consistency about inputs and outputs. Outputs are more ready for your next analytical task. 
+    - Main advantage over base functions: greater consistency about inputs and outputs. Outputs are more ready for your next analytical task. 
   * [tidyr package](https://cran.r-project.org/web/packages/tidyr/index.html)
     - Especially useful for functions that split 1 character vector into many and *vice versa*: `separate()`, `unite()`, `extract()`.
   * Base functions: `nchar()`, `strsplit()`, `substr()`, `paste()`, `paste0()`.
