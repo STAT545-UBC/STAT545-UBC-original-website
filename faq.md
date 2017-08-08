@@ -13,7 +13,7 @@ output:
 September - December of each academic year.  
 Typical format: STAT 545A 1.5 credits in September through mid October, followed by STAT 547M 1.5 credits from mid October through early December.  
 Same time slot, same room.  
-This was/is/will be the deal in 2014/2015, 2015/2016 and 2016/2017, at the least.
+This was/is/will be the deal in 2014/2015, 2015/2016, 2016/2017, and 2017/2018 at the least.
 
 ### Course facts for Sept - Dec 2016 run
 
