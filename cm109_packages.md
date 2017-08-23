@@ -5,9 +5,9 @@ output:
     toc_depth: 4
 ---
 
-### cm109 2016-11-22 Tuesday overview
+### cm109 2017-11-21 Tuesday overview
 
-  * [Homework 8 Build a Shiny app](hw08_shiny.html) is posted and due anytime Friday 2016-11-25. Recall you just need to do at least two of the last four homeworks.
+  * [Homework 8 Build a Shiny app](hw08_shiny.html) is posted and due anytime Friday 2017-11-24. Recall you just need to do at least two of the last four homeworks.
   * This weeks is about building R packages!
     - [Landing page for all package-building material](packages00_index.html)
     - [System prep](packages01_system-prep.html)
