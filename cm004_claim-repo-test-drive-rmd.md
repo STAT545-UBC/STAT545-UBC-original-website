@@ -5,7 +5,7 @@ output:
     toc_depth: 4
 ---
 
-### cm004 2016-09-15 Tuesday overview
+### cm004 2017-09-15 Thursday overview
 
   * Please take this survey (yes of course it's a Shiny app!):
     - <http://shiny.stat.ubc.ca/STAT545/stat545-basic-info/>
@@ -20,5 +20,5 @@ output:
   * Care and feeding of data frames!
     - In our first R Markdown document, in your new private repository, we will explore the Gapminder data.
     - [Basic care and feeding of data in R](block006_care-feeding-data.html)
-  * First homework will be due midnight Tuesday September 20, but preferably before class. Go to office hours if struggling!
+  * First homework will be due midnight Tuesday September 19, but preferably before class. Go to office hours if struggling!
     - [Homework 01](hw01_edit-README.html): Edit `README.md`, use R Markdown to explore Gapminder

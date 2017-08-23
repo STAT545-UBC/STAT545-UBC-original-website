@@ -1,5 +1,5 @@
 
-### cm003 2015-09-13 Tuesday overview
+### cm003 2017-09-14 Tuesday overview
 
   * Please take this survey (yes of course it's a Shiny app!):
     - <http://shiny.stat.ubc.ca/STAT545/stat545-basic-info/>
@@ -17,11 +17,11 @@
     - Exploring the Gapminder data
     - `data.frame`
     - `ggplot2`
-  * First homework will be due midnight Tuesday September 20, but preferably before class. Go to office hours if struggling! See the [2015 version here](hw01_edit-README.html) (some changes still coming).
+  * First homework will be due midnight Tuesday September 19, but preferably before class. Go to office hours if struggling! See the [2015 version here](hw01_edit-README.html) (some changes still coming).
 
 ### Good question: who's in this class?
 
-I did some live analysis of the course list. Here's one cross-tabulation.
+Here's one cross-tabulation from 2016:
 
 
 spec1_subject                    BSC   Msthg   PHD   UNCL   total
@@ -55,4 +55,3 @@ Pharmacology                       0       1     0      0       1
 Physics                            0       0     1      0       1
 Plant Science                      0       1     0      0       1
 Resource Mgmt/Envirn Stud          0       1     0      0       1
-
