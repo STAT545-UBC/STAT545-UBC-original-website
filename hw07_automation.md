@@ -6,7 +6,7 @@ output:
     toc_depth: 2
 ---
 
-Due Friday 2016-November-18.
+Due Friday 2017-November-17.
 
 Big picture
 ================================================================================

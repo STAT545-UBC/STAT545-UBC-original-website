@@ -42,12 +42,13 @@ oct-12 thurs   <a href="cm012_file-io-factors.html">cm012</a>: Be the boss of yo
 oct-17 tues    <a href="cm013_ggplot2-continued.html">cm013</a>: Revisit ggplot, practicalities of daily figure-making                 
 oct-19 thurs   <a href="cm014_munzner-guest-lecture.html">cm014</a>: Visualization Analysis and Design: Tamara Munzer guest lecture    
 
+Links to homework will be posted here as they are made available:
 
-  * [Homework 01](hw01_edit-README.html) Edit `README.md`, use R Markdown to explore Gapminder
-  * [Homework 02](hw02_explore-gapminder-dplyr.html) Explore Gapminder as a tibble and starting using dplyr and ggplot2
-  * [Homework 03](hw03_dplyr-and-more-ggplot2.html) Manipulate, summarize, visualize Gapminder with dplyr and ggplot2
-  * [Homework 04](hw04_tidy-data-joins.html) Tidy data and joins
-  * [Homework 05](hw05_factor-figure-boss-repo-hygiene.html) Prove you are in control of factors and figures. Clean up your repo.
+  * Homework 01: Edit `README.md`, use R Markdown to explore Gapminder
+  * Homework 02: Explore Gapminder as a tibble and starting using dplyr and ggplot2
+  * Homework 03: Manipulate, summarize, visualize Gapminder with dplyr and ggplot2
+  * Homework 04: Tidy data and joins
+  * Homework 05: Prove you are in control of factors and figures. Clean up your repo.
 
 #### STAT 547M
 
@@ -67,8 +68,10 @@ nov-23 thurs   <a href="cm110_packages.html">cm110</a>: ditto
 nov-28 tues    <a href="cm111_webdata.html">cm111</a>: Get data from the web (scraping and APIs)                 
 nov-30 thurs   <a href="cm112_webdata.html">cm112</a>: ditto                                                     
 
-  * [Homework 06](hw06_data-wrangling-conclusion.html) Choose your adventure! Topics include regular expressions, data ingest/exploration, working with lists, working with nested data frames.
-  * [Homework 07](hw07_automation.html) Automate a data analysis pipeline.
-  * [Homework 08](hw08_shiny.html) Build a Shiny app.
-  * [Homework 09](hw09_package.html) Write an R package.
-  * [Homework 10](hw10_data-from-web.html) Get data from the web
+Links to homework will be posted here as they are made available:
+
+  * Homework 06: Choose your adventure! Topics include regular expressions, data ingest/exploration, working with lists, working with nested data frames.
+  * Homework 07: Automate a data analysis pipeline.
+  * Homework 08: Build a Shiny app.
+  * Homework 09: Write an R package.
+  * Homework 10: Get data from the web

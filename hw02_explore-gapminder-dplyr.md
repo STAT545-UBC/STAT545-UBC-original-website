@@ -10,7 +10,7 @@ output:
 
 Consult the [general homework guidelines](hw00_homework-guidelines.html).
 
-Due sometime Tuesday 2016-09-27. Before class is better but get help in class or office hours of you need it.
+Due sometime Tuesday 2017-09-26. Before class is better but get help in class or office hours of you need it.
 
 The goal is to explore a new-to-you dataset. In particular, to begin to establish a workflow for data frames or "tibbles". You will use dplyr and ggplot2 to do some description and visualization.
 
@@ -20,7 +20,7 @@ Remember the [sampler concept](http://en.wikipedia.org/wiki/Sampler_(needlework)
 
 Work with the `gapminder` data we explored in class. *If you really want to, you can explore a different dataset but get permission from Jenny. Self-assess the suitability of your dataset by reading [this issue](https://github.com/STAT545-UBC/Discussion/issues/115).*
 
-The Gapminder data is distributed as an R package from [CRAN](https://cran.r-project.org/web/packages/gapminder/index.html). 
+The Gapminder data is distributed as an R package from [CRAN](https://cran.r-project.org/web/packages/gapminder/index.html).
 
 Install it if you have not done so already and remember to load it.
 
@@ -46,7 +46,7 @@ Explore the `gapminder` object:
   * How many rows/observations?
   * Can you get these facts about "extent" or "size" in more than one way? Can you imagine different functions being useful in different contexts?
   * What flavor is each variable?
-  
+
 #### Explore individual variables
 
 Pick __at least__ one categorical variable and at least one quantitative variable to explore.
@@ -54,10 +54,10 @@ Pick __at least__ one categorical variable and at least one quantitative variabl
   * Characterize what's possible, i.e. all possible values or max vs. min ... whatever's appropriate.
   * What's typical? What's the spread? What's the distribution? Etc., tailored to the variable at hand.
   * Feel free to use summary stats, tables, figures. We're NOT expecting high production value (yet).
-  
+
 #### Explore various plot types
 
-See the [`ggplot2` tutorial](https://github.com/jennybc/ggplot2-tutorial), which also uses the `gapminder` data, for ideas. 
+See the [`ggplot2` tutorial](https://github.com/jennybc/ggplot2-tutorial), which also uses the `gapminder` data, for ideas.
 
 Make a few plots, probably of the same variable you chose to characterize numerically. Try to explore more than one plot type. **Just as an example** of what I mean:
 
@@ -72,7 +72,7 @@ You don't have to use all the data in every plot! It's fine to filter down to on
 Use `filter()` to create data subsets that you want to plot.
 
 Practice piping together `filter()` and `select()`. Possibly even piping into `ggplot()`.
-  
+
 #### But I want to do more!
 
 *For people who want to take things further.*
@@ -91,7 +91,7 @@ Use more of the dplyr functions for operating on a single table.
 
   * [Introduction to dplyr](block009_dplyr-intro.html)
   * [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
-  
+
 Adapt exercises from the chapters in the "Explore" section of [R for Data Science](http://r4ds.had.co.nz) to the Gapminder dataset.
 
 ### Report your process
