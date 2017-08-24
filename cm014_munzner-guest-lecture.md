@@ -9,9 +9,4 @@ output:
 
   * [Homework 05](hw05_factor-figure-boss-repo-hygiene.html) due Friday October 20 2017. This is the last HW of STAT 545.
   * Peer review for Homework 05 due Monday October 23 2017. That concludes STAT 545.
-
-#### Last year:
-
   * Guest lecture by [Tamara Munzner](https://www.cs.ubc.ca/~tmm/):
-    - Title: Visualization Analysis & Design
-    - Slides: <http://www.cs.ubc.ca/~tmm/talks.html#vad16bryan>
