@@ -6,15 +6,29 @@ output:
       after_body: include/nothing.html
 ---
 
+### 2017 staff
+
+Vincenzo Coia, instructor (mostly for first half/545)
+
+- <vincen.coia@stat.ubc.ca>
+-
+
+Giulio Valentino Dalla Riva (mostly for second half/547)
+
+- <giulio.riva@stat.ubc.ca>
+- [\@ipnosimmia](https://twitter.com/ipnosimmia)
+
+TA's to be announced soon!
+
 ### 2016 staff
 
 Jennifer (Jenny) Bryan, lead instructor
 
   * <jenny@stat.ubc.ca>
-  * [\@JennyBryan](https://twitter.com/JennyBryan), Twitter as myself 
+  * [\@JennyBryan](https://twitter.com/JennyBryan), Twitter as myself
   * [\@STAT545](https://twitter.com/STAT545), Twitter as STAT 545 instructor
   * [GitHub](https://github.com/jennybc)
-  
+
 Sam Hinshaw, lead TA for STAT 545A and STAT 547M, Bioinformatics PhD  
 Johannes Rebane, School of Population and Public Health MSc  
 Erica Acton, Genome Science and Technology PhD  
@@ -26,7 +40,7 @@ Ogan Mancarci, Bioinformatics PhD
   * [\@sjackman](http://twitter.com/sjackman)
   * [GitHub](https://github.com/sjackman)
 
-  
+
 YOUR NAME COULD GO HERE! [STAT 545 could still use more TAs.](people-help-wanted.html)
 
 ### 2015 staff
@@ -44,8 +58,8 @@ Jenny Bryan
   * <samuk@zoology.ubc.ca>
   * [\@ksamuk](http://twitter.com/ksamuk)
   * [GitHub](https://github.com/ksamuk)
-  
-Additional TAs 
+
+Additional TAs
 
   * Derek Chiu, Statistics MSc
   * Ogan Mancarci, Bioinformatics PhD

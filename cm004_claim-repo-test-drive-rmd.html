@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -19,6 +19,9 @@
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -31,10 +34,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -112,7 +111,6 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -149,12 +147,12 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#cm004-2016-09-15-tuesday-overview">cm004 2016-09-15 Tuesday overview</a></li>
+<li><a href="#cm004-2017-09-15-thursday-overview">cm004 2017-09-15 Thursday overview</a></li>
 </ul>
 </div>
 
-<div id="cm004-2016-09-15-tuesday-overview" class="section level3">
-<h3>cm004 2016-09-15 Tuesday overview</h3>
+<div id="cm004-2017-09-15-thursday-overview" class="section level3">
+<h3>cm004 2017-09-15 Thursday overview</h3>
 <ul>
 <li>Please take this survey (yes of course it’s a Shiny app!):
 <ul>
@@ -177,7 +175,7 @@ $(document).ready(function () {
 <li>In our first R Markdown document, in your new private repository, we will explore the Gapminder data.</li>
 <li><a href="block006_care-feeding-data.html">Basic care and feeding of data in R</a></li>
 </ul></li>
-<li>First homework will be due midnight Tuesday September 20, but preferably before class. Go to office hours if struggling!
+<li>First homework will be due midnight Tuesday September 19, but preferably before class. Go to office hours if struggling!
 <ul>
 <li><a href="hw01_edit-README.html">Homework 01</a>: Edit <code>README.md</code>, use R Markdown to explore Gapminder</li>
 </ul></li>
@@ -195,8 +193,11 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 
@@ -207,7 +208,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

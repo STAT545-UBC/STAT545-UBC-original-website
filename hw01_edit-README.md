@@ -16,7 +16,7 @@ We assume you've been keeping up with our live class activities, which have incl
   * joining the STAT 545 Organization and claiming your private repo
   * successfully rendering R Markdown
 
-Due by midnight Tuesday 2016-09-20, but I **highly recommend** you aim to submit before class. This assignment should go smoothly, but if the computer gods do not smile upon you, we should be able to straighten things out in class or office hours.
+Due by midnight Tuesday 2017-09-19, but I **highly recommend** you aim to submit before class. This assignment should go smoothly, but if the computer gods do not smile upon you, we should be able to straighten things out in class or office hours.
 
 ### Edit `README.md`
 
@@ -57,7 +57,7 @@ Include a description of how you got the changes into `README.md` on GitHub.
 
   * Did you edit in the browser at github.com?
   * Did you pull, edit locally, save, commit, push to github.com?
-  
+
 How did it all work for the R Markdown document?
 
 You're encouraged to reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc. Put this in your README. In a week or two, you can delete this bit.

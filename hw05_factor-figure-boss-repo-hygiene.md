@@ -10,7 +10,7 @@ output:
 
 Consult the [general homework guidelines](hw00_homework-guidelines.html).
 
-Due anytime Friday 2016-10-21.
+Due anytime Friday 2017-10-20.
 
 Goals:
 
@@ -54,7 +54,7 @@ Use `ggsave()` to explicitly write a figure to file. Then use `![Alt text](/path
   * Arguments of `ggsave()`, such as width, height, resolution or text scaling.
   * Various graphics devices, e.g. a vector vs. raster format.
   * Explicit provision of the plot object `p` via `ggsave(..., plot = p)`. Show a situation in which this actually matters.
-  
+
 ### Clean up your repo!
 
 You have 6 weeks of R Markdown and GitHub experience now. You've reviewed 4 peer assignments. Surely there are aspects of your current repo organization that could be better. Deal with that. Ideas:
@@ -69,12 +69,12 @@ You have 6 weeks of R Markdown and GitHub experience now. You've reviewed 4 peer
 ### But I want to do more!
 
 Make a deeper exploration of the forcats packages, i.e. try more of the factor level reordering functions.
-  
+
 Revalue a factor
 
   * Pick a handful of countries, each of which you can associate with a stereotypical food (or any other non-controversial thing ... sport? hobby? type of music, art or dance? animal? landscape feature?). Create an excerpt of the Gapminder data, filtered to just these countries. Create a new factor -- you pick the name! -- by mapping the existing country factor levels to the new levels.
     - Examples: Italy --> wine, Germany --> beer, Japan --> sake. (Austria, Germany) --> German, (Mexico, Spain) --> Spanish, (Portugal, Brazil) --> Portuguese. Let your creativity flourish.
-    
+
 ### Report your process
 
 You're encouraged to reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc. Give credit to your sources, whether it's a blog post, a fellow student, an online tutorial, etc.

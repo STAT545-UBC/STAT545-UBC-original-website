@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -19,6 +19,9 @@
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -31,10 +34,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -108,10 +107,10 @@ button.code-folding-btn:focus {
 </style>
 
 
+
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -148,17 +147,22 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#cm105-2016-11-08-tuesday-overview">cm105 2016-11-08 Tuesday overview</a></li>
+<li><a href="#cm105-2017-11-07-tuesday-overview">cm105 2017-11-07 Tuesday overview</a><ul>
+<li><a href="#last-year">Last year:</a></li>
+</ul></li>
 </ul>
 </div>
 
-<div id="cm105-2016-11-08-tuesday-overview" class="section level3">
-<h3>cm105 2016-11-08 Tuesday overview</h3>
+<div id="cm105-2017-11-07-tuesday-overview" class="section level3">
+<h3>cm105 2017-11-07 Tuesday overview</h3>
 <ul>
-<li><a href="hw06_data-wrangling-conclusion.html">Homework 6</a> is posted and due anytime Monday 2016-11-14.</li>
-<li><a href="hw07_automation.html">Homework 7</a> is posted and due anytime Friday 2016-11-18.</li>
+<li><a href="hw06_data-wrangling-conclusion.html">Homework 6</a> is posted and due anytime Monday 2017-11-13.</li>
+<li><a href="hw07_automation.html">Homework 7</a> is posted and due anytime Friday 2017-11-17.</li>
 </ul>
+<div id="last-year" class="section level4">
+<h4>Last year:</h4>
 <p><a href="automation00_index.html">Automating data analysis pipelines</a>, taught by Shaun Jackman:</p>
+</div>
 </div>
 
 <div class="footer">
@@ -172,9 +176,13 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
+
 
 </script>
 
@@ -183,7 +191,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

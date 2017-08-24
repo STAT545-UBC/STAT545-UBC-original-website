@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -19,6 +19,9 @@
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -31,10 +34,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -112,7 +111,6 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -149,22 +147,22 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#cm007-2016-09-27-tuesday-overview">cm007 2016-09-27 Tuesday overview</a></li>
+<li><a href="#cm007-2017-09-26-tuesday-overview">cm007 2017-09-26 Tuesday overview</a></li>
 </ul>
 </div>
 
-<div id="cm007-2016-09-27-tuesday-overview" class="section level3">
-<h3>cm007 2016-09-27 Tuesday overview</h3>
+<div id="cm007-2017-09-26-tuesday-overview" class="section level3">
+<h3>cm007 2017-09-26 Tuesday overview</h3>
 <ul>
 <li>You should submit <a href="hw02_explore-gapminder-dplyr.html">Homework 02</a> today.</li>
-<li>You should submit <a href="hw03_dplyr-and-more-ggplot2.html">Homework 03</a> sometime next Tuesday October 4.</li>
+<li>You should submit <a href="hw03_dplyr-and-more-ggplot2.html">Homework 03</a> sometime next Tuesday October 3.</li>
 <li>Are you an auditor? Official or unofficial? Please declare your intention to take part in peer review or not! I will assume you are OUT if I don’t hear from you.
 <ul>
-<li>Go here: <a href="https://github.com/STAT545-UBC/2016_hw-peer-review#readme" class="uri">https://github.com/STAT545-UBC/2016_hw-peer-review#readme</a> <em>this link will only work for members of the 2016 STAT 545 students team!</em></li>
+<li>Go here: <a href="https://github.com/STAT545-UBC/2017_hw-peer-review#readme" class="uri">https://github.com/STAT545-UBC/2017_hw-peer-review#readme</a> <em>this link will only work for members of the 2017 STAT 545 students team!</em> – but is currently not active.</li>
 </ul></li>
 <li>Today we complete our introduction to ggplot2.
 <ul>
-<li>We’ll get through as much as we can from my <a href="https://github.com/jennybc/ggplot2-tutorial"><code>ggplot2</code> tutorial</a>.</li>
+<li>We’ll get through as much as we can from Jenny’s <a href="https://github.com/jennybc/ggplot2-tutorial"><code>ggplot2</code> tutorial</a>.</li>
 <li>Whatever we don’t cover, remains as a resource you can draw on in future.</li>
 </ul></li>
 <li>The <a href="http://r4ds.had.co.nz/data-visualisation.html">Data visualisation</a> chapter in <a href="http://r4ds.had.co.nz">R for Data Science</a> is an excellent brief introduction to ggplot2.</li>
@@ -183,8 +181,11 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 
@@ -195,7 +196,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

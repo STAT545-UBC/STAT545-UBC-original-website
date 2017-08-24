@@ -13,7 +13,7 @@ output:
 September - December of each academic year.  
 Typical format: STAT 545A 1.5 credits in September through mid October, followed by STAT 547M 1.5 credits from mid October through early December.  
 Same time slot, same room.  
-This was/is/will be the deal in 2014/2015, 2015/2016 and 2016/2017, at the least.
+This was/is/will be the deal in 2014/2015, 2015/2016, 2016/2017, and 2017/2018 at the least.
 
 ### Course facts for Sept - Dec 2016 run
 
@@ -22,7 +22,7 @@ This was/is/will be the deal in 2014/2015, 2015/2016 and 2016/2017, at the least
 | title    | Exploratory Data Analysis       | Basic Training for Data Science |
 | SSC link | [STAT 545A][SSC 545A]           | [STAT 547M][SSC 547M]           |
 | credits  | 1.5                             | 1.5                             |
-| dates    | Sep 06, 2016 to Oct 20, 2016    | Oct 25, 2016 to Dec 02, 2016    |
+| dates    | Sep 05, 2017 to Oct 19, 2017    | Oct 24, 2017 to Dec 01, 2017    |
 | meets    | Tues Thurs 9:30 - 11am          | Tues Thurs 9:30 - 11am          |
 | where    | [ESB 2012][esb2012]             | [ESB 2012][esb2012]             |
 | pre-req  | none (but see below)            | STAT 545A                       |
@@ -34,8 +34,8 @@ This was/is/will be the deal in 2014/2015, 2015/2016 and 2016/2017, at the least
 
 Office hours:
 
-  * 11am - 1pm Tuesday and Thursday in ESB 3174 = right after class in a room across from the main Statistics office.
-  * The duration and/or days will likely be decreased as term goes on. We will leave [this issue open on GitHub](https://github.com/STAT545-UBC/Discussion/issues/312) for discussion and late-breaking updates, like office hours are cancelled or have ended early due to no interest.
+  * TBD!
+  * The duration and/or days will likely be decreased as term goes on. We will leave [this issue open on GitHub](https://github.com/STAT545-UBC/Discussion/issues/495) for discussion and late-breaking updates, like office hours are cancelled or have ended early due to no interest.
 
 ### What's up with the two half courses?
 
@@ -87,7 +87,7 @@ Each homework will be evaluated by 2 peer reviewers. The performance of thoughtf
 
   * [General homework rubric](peer-review01_marking-rubric.html) to apply in peer review
   * [Evaluation of peer review](peer-review02_peer-evaluation-guidelines.html)
-  
+
 No final exam.
 
 ### How do I get help?

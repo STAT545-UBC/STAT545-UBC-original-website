@@ -11,7 +11,7 @@ output:
   * Students to do for Thurday 2016-09-08 (more below)
     - install software
     - sign up for accounts
-  * Don't panic if there are glitches. That's normal. Come to [office hours](https://github.com/STAT545-UBC/Discussion/issues/312) and start using our [Discussion repo](https://github.com/STAT545-UBC/Discussion/issues) to [ask for help](http://stat545-ubc.github.io/help-STAT545.html).
+  * Don't panic if there are glitches. That's normal. Come to [office hours](https://github.com/STAT545-UBC/Discussion/issues/495) and start using our [Discussion repo](https://github.com/STAT545-UBC/Discussion/issues) to [ask for help](http://stat545-ubc.github.io/help-STAT545.html).
   * What's coming? We'll help you begin to use all your new toys on Thursday!
 
 #### Slides and links
@@ -76,7 +76,7 @@ If you have a pre-existing installation of R and/or RStudio, we **highly recomme
 
 <https://twitter.com>  
 
-I will use the [\@STAT545](https://twitter.com/STAT545) Twitter account to make micro-announcements, share interesting links, and facilitate a conversation amongst ourselves __in public__.
+STAT 545 has a Twitter account! It is currently operated by Jenny Bryan under [\@STAT545](https://twitter.com/STAT545). The Twitter account is used to make micro-announcements, share interesting links, and facilitate a conversation amongst ourselves __in public__.
 
 In class, we talk about Twitter, its scholarly use, and privacy. Some relevant links:
 
@@ -92,7 +92,13 @@ If you choose not to get a Twitter account, you will want to visit the [\@STAT54
 
 If you set up (or already have a Twitter account), you should follow [\@STAT545](https://twitter.com/STAT545). We will elicit your Twitter handle soon so we can follow you back.
 
-You could also follow me as an individual, at [\@JennyBryan](https://twitter.com/JennyBryan). Ditto for the course TAs. You can learn some good people to follow re: data science and R by looking at who we follow and who we have Twitter conversations with.
+You could also follow us as individuals:
+
+- Vincenzo Coia at [\@VincenzoCoia](https://twitter.com/VincenzoCoia)
+- Giulio Dalla Riva at [\@ipnosimmia](https://twitter.com/ipnosimmia)
+- Jenny Bryan at [\@JennyBryan](https://twitter.com/JennyBryan).
+
+Ditto for the course TAs. You can learn some good people to follow re: data science and R by looking at who we follow and who we have Twitter conversations with.
 
 #### RPubs
 
