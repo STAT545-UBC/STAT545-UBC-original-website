@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -19,6 +19,9 @@
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -31,10 +34,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -112,7 +111,6 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -149,7 +147,7 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#cm002-2016-09-08-thursday-overview">cm002 2016-09-08 Thursday overview</a><ul>
+<li><a href="#cm002-2017-09-07-thursday-overview">cm002 2017-09-07 Thursday overview</a><ul>
 <li><a href="#slides-and-links">Slides and links</a></li>
 <li><a href="#for-r-novices">For R novices</a></li>
 <li><a href="#for-those-familiar-with-r">For those familiar with R</a></li>
@@ -157,14 +155,14 @@ $(document).ready(function () {
 </ul>
 </div>
 
-<div id="cm002-2016-09-08-thursday-overview" class="section level3">
-<h3>cm002 2016-09-08 Thursday overview</h3>
+<div id="cm002-2017-09-07-thursday-overview" class="section level3">
+<h3>cm002 2017-09-07 Thursday overview</h3>
 <ul>
 <li>Introduction to R and RStudio. Indicative of our live coding together:
 <ul>
 <li><a href="block002_hello-r-workspace-wd-project.html">R basics, workspace and working directory, RStudio projects</a></li>
 </ul></li>
-<li>What to do before next class on Tuesday Sept 13
+<li>What to do before next class on Tuesday Sept 12
 <ul>
 <li>R/RStudio novices: finish the activity (linked below)</li>
 <li>experienced useRs: maybe check out <a href="http://swirlstats.com">swirl</a> (more below)</li>
@@ -222,8 +220,11 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 
@@ -234,7 +235,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

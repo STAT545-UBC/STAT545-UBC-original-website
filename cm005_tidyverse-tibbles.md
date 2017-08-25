@@ -5,7 +5,7 @@ output:
     toc_depth: 4
 ---
 
-### cm005 2016-09-20 Tuesday overview
+### cm005 2017-09-19 Tuesday overview
 
   * You should submit [Homework 01](hw01_edit-README.html) sometime today!
     - Get help in class [office hours](https://github.com/STAT545-UBC/Discussion/issues/312) if you're struggling.
@@ -19,4 +19,3 @@ output:
     - [`dplyr` functions for a single dataset](block010_dplyr-end-single-table.html)
     - Indicative code from this week's live coding in class: [`cm005_hello-gapminder-tidyverse.R`](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm005_hello-gapminder-tidyverse.R)
   * Read the "Explore" chapters in [R for Data Science](http://r4ds.had.co.nz)
-   

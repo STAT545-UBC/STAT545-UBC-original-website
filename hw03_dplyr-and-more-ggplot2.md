@@ -10,7 +10,7 @@ output:
 
 Consult the [general homework guidelines](hw00_homework-guidelines.html).
 
-Due sometime Tuesday 2016-10-04.
+Due sometime Tuesday 2017-10-03.
 
 The goal is to manipulate and explore a dataset with the dplyr package, complemented by visualizations made with ggplot2.
 
@@ -26,7 +26,7 @@ Pick at least three of the tasks below and attack each with a table and figure.
 
   * dplyr should be your data manipulation tool
   * ggplot2 should be your visualization tool
-  
+
 Make observations about what your tables/figures show and about the process.
 
 If you want to do something comparable but different, i.e. swap one quantitative variable for another, be my guest! If you are feeling inspired and curious, then we're doing this right. Go for it.

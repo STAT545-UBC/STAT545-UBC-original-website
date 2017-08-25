@@ -5,11 +5,11 @@ output:
     toc_depth: 4
 ---
 
-### cm002 2016-09-08 Thursday overview
+### cm002 2017-09-07 Thursday overview
 
   * Introduction to R and RStudio. Indicative of our live coding together:
     - [R basics, workspace and working directory, RStudio projects](block002_hello-r-workspace-wd-project.html)
-  * What to do before next class on Tuesday Sept 13
+  * What to do before next class on Tuesday Sept 12
     - R/RStudio novices: finish the activity (linked below)
     - experienced useRs: maybe check out [swirl](http://swirlstats.com) (more below)
     - any other R learning exercises you wish ...
@@ -18,7 +18,7 @@ output:
     - We elicit your name, GitHub username, Twitter handle (if you have) ... will email you link to a web form (done w/ Shiny and R, naturally!)
     - Tuesday: more R, test drive Git(Hub), compiling an R script or R markdown document to HTML
     - First homework will be due ... probably before class Tuesday September 20. See the [2015 version here]() (some changes still coming).
-    
+
 #### Slides and links
 
 Slides available on slideshare
@@ -37,7 +37,7 @@ Notes and and some links from the slides
     - [data](http://cdec.water.ca.gov/cgi-progs/reports/PRECIPOUT.2011) he was working with from California's Department of Water Resources Data Exchange Center
   * [The International Obfuscated C Code Contest](http://www.ioccc.org)
   * [swirl](http://swirlstats.com): "a software package for the R programming language that turns the R console into an interactive learning environment"
-  
+
 #### For R novices
 
 Work through: [R basics, workspace and working directory, RStudio projects](block002_hello-r-workspace-wd-project.html) if we don't finish in class.
