@@ -5,10 +5,10 @@ output:
     toc_depth: 4
 ---
 
-### cm001 2016-09-05 Tuesday overview
+### cm001 2017-09-05 Tuesday overview
 
   * Introduction to the course
-  * Students to do for Thurday 2016-09-08 (more below)
+  * Students to do for Thursday 2017-09-07 (more below)
     - install software
     - sign up for accounts
   * Don't panic if there are glitches. That's normal. Come to [office hours](https://github.com/STAT545-UBC/Discussion/issues/495) and start using our [Discussion repo](https://github.com/STAT545-UBC/Discussion/issues) to [ask for help](http://stat545-ubc.github.io/help-STAT545.html).
