@@ -7,7 +7,7 @@ output:
 
 ### cm001 2017-09-05 Tuesday overview
 
-  * Introduction to the course
+  * Introduction to the course. [slides](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm001-2017_slides.pdf)
   * Students to do for Thursday 2017-09-07 (more below)
     - install software
     - sign up for accounts
@@ -15,6 +15,8 @@ output:
   * What's coming? We'll help you begin to use all your new toys on Thursday!
 
 #### Slides and links
+
+2017 [slides here!](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm001-2017_slides.pdf)
 
 2015 Slides available on [speakerdeck](https://speakerdeck.com/jennybc/ubc-stat545-2015-cm001-intro-to-course)
 
