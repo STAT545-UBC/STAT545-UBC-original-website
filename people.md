@@ -11,7 +11,8 @@ output:
 Vincenzo Coia, instructor (mostly for first half/545)
 
 - <vincen.coia@stat.ubc.ca>
--
+- [\@VincenzoCoia](https://twitter.com/vincenzocoia)
+- [LinkedIn](https://www.linkedin.com/in/vincenzocoia/)
 
 Giulio Valentino Dalla Riva (mostly for second half/547)
 
@@ -39,9 +40,6 @@ Ogan Mancarci, Bioinformatics PhD
   * <sjackman@gmail.com>
   * [\@sjackman](http://twitter.com/sjackman)
   * [GitHub](https://github.com/sjackman)
-
-
-YOUR NAME COULD GO HERE! [STAT 545 could still use more TAs.](people-help-wanted.html)
 
 ### 2015 staff
 
