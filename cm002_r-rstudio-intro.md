@@ -13,9 +13,11 @@ Since last time:
 
 Today:
 
-- Housekeeping: changes to website:
-    - office hours
-    - cm's changed to three parts: `Since last time`, `Today`, and `To do before next class`.
+- Housekeeping: 
+    - changes to website:
+        - office hours
+        - cm's changed to three parts: `Since last time`, `Today`, and `To do before next class`.
+    - Please fill out [this](https://goo.gl/forms/dBcmAvIuEsXzxU7D2) survey.
 - Introduction to R and RStudio. Live coding about [R basics, workspace and working directory, RStudio projects](block002_hello-r-workspace-wd-project.html).
 
 To do before next class:
