@@ -13,26 +13,19 @@ Since last time:
 
 Today:
 
-- Housekeeping: 
-    - changes to website:
-        - office hours
-        - cm's changed to three parts: `Since last time`, `Today`, and `To do before next class`.
-    - Please fill out [this](https://goo.gl/forms/dBcmAvIuEsXzxU7D2) survey.
+- Housekeeping: changes to website:
+    - office hours
+    - `cm` pages adopting different layout
 - Introduction to R and RStudio. Live coding about [R basics, workspace and working directory, RStudio projects](block002_hello-r-workspace-wd-project.html).
 
 To do before next class:
 
-- R/RStudio novices: finish the activity (linked below)
-- experienced useRs: maybe check out [swirl](http://swirlstats.com) (more below)
-- any other R learning exercises you wish ...
-- everyone: try to get your Git and GitHub setup done: Follow the "Installation" section of Happy Git book <http://happygitwithr.com/installation-pain.html>.
+- Please fill out [this](https://goo.gl/forms/dBcmAvIuEsXzxU7D2) survey.
+- R/RStudio novices: finish [today's](block002_hello-r-workspace-wd-project.html) activity
+- Finish getting your [git](http://happygitwithr.com/install-git.html) and [GitHub](http://happygitwithr.com/github-acct.html) setup done.
+- Optional: check out [swirl](http://swirlstats.com) -- it offers mini walk-through courses in R.
 
-* What's next?
-    - We elicit your name, GitHub username ... will email you link to a web form (done w/ Shiny and R, naturally!)
-    - Tuesday: more R, test drive Git(Hub), compiling an R script or R markdown document to HTML
-    - First homework will be due ... probably before class Tuesday September 20. See the [2015 version here]() (some changes still coming).
-
-Resources to take a look at:
+Resources for effective programming and data analytic work:
 
 - Google's [R style guide](https://google.github.io/styleguide/Rguide.xml).
 - Jenny Bryan's [deep thoughts about data analytic work](https://www.slideshare.net/jenniferbryan5811/cm002-deep-thoughts), and related links:
@@ -44,11 +37,3 @@ Resources to take a look at:
     - [data](http://cdec.water.ca.gov/cgi-progs/reports/PRECIPOUT.2011) he was working with from California's Department of Water Resources Data Exchange Center
   * [The International Obfuscated C Code Contest](http://www.ioccc.org)
   * [swirl](http://swirlstats.com): "a software package for the R programming language that turns the R console into an interactive learning environment"
-
-#### For R novices
-
-Work through: [R basics, workspace and working directory, RStudio projects](block002_hello-r-workspace-wd-project.html) if we don't finish in class.
-
-#### For those familiar with R
-
-Check out [swirl](http://swirlstats.com). Work through one or more interactive courses with the goal of writing a short review (include in homework?). Feeling more ambitious? Check out [`swirlify`](http://swirlstats.com/swirlify/) and [create a new lesson](http://swirlstats.com/instructors.html). I'd be happy to help think up topics.
