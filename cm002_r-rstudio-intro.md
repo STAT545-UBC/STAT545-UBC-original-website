@@ -29,11 +29,11 @@ Resources for effective programming and data analytic work:
 
 - Google's [R style guide](https://google.github.io/styleguide/Rguide.xml).
 - Jenny Bryan's [deep thoughts about data analytic work](https://www.slideshare.net/jenniferbryan5811/cm002-deep-thoughts), and related links:
-  * Jack Handey's Deep Thoughts were a Saturday Night Live thing, many moons ago
-  * [Emacs Speaks Statistics (ESS)](http://ess.r-project.org) manual. ESS + Emacs is still a great way to work with R, especially if you want one editor/IDE to cover other (non-R) languages. I used ESS before eventually switching to RStudio. Still waiting for the [Emacs key-bindings](https://support.rstudio.com/hc/communities/public/questions/200757977-Emacs-key-bindings-again-) :(
-  * Vince Buffalo [tweet](https://twitter.com/vsbuffalo/status/358699162679787521) re: "write code for humans, write data for computers". Apparently he also uses the phrase in his new book [Bioinformatics Data Skills](http://shop.oreilly.com/product/0636920030157.do).
-  * [Tweet](https://twitter.com/jiffyclub/status/508761376488030208) by `@jiffyclub` illustrating agony of working with data formatted for human eyeballs
-    - his [iPython notebook](http://nbviewer.ipython.org/github/abostroem/2014-09-10-LBL/blob/master/pandas/load_precip_data.ipynb)
-    - [data](http://cdec.water.ca.gov/cgi-progs/reports/PRECIPOUT.2011) he was working with from California's Department of Water Resources Data Exchange Center
-  * [The International Obfuscated C Code Contest](http://www.ioccc.org)
-  * [swirl](http://swirlstats.com): "a software package for the R programming language that turns the R console into an interactive learning environment"
+    * Jack Handey's Deep Thoughts were a Saturday Night Live thing, many moons ago
+    * [Emacs Speaks Statistics (ESS)](http://ess.r-project.org) manual. ESS + Emacs is still a great way to work with R, especially if you want one editor/IDE to cover other (non-R) languages. I used ESS before eventually switching to RStudio. Still waiting for the [Emacs key-bindings](https://support.rstudio.com/hc/communities/public/questions/200757977-Emacs-key-bindings-again-) :(
+    * Vince Buffalo [tweet](https://twitter.com/vsbuffalo/status/358699162679787521) re: "write code for humans, write data for computers". Apparently he also uses the phrase in his new book [Bioinformatics Data Skills](http://shop.oreilly.com/product/0636920030157.do).
+    * [Tweet](https://twitter.com/jiffyclub/status/508761376488030208) by `@jiffyclub` illustrating agony of working with data formatted for human eyeballs
+        - his [iPython notebook](http://nbviewer.ipython.org/github/abostroem/2014-09-10-LBL/blob/master/pandas/load_precip_data.ipynb)
+        - [data](http://cdec.water.ca.gov/cgi-progs/reports/PRECIPOUT.2011) he was working with from California's Department of Water Resources Data Exchange Center
+    * [The International Obfuscated C Code Contest](http://www.ioccc.org)
+    * [swirl](http://swirlstats.com): "a software package for the R programming language that turns the R console into an interactive learning environment"
