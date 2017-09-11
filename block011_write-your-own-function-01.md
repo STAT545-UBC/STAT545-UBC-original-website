@@ -64,7 +64,7 @@ Internalize this "answer" because our informal testing relies on you noticing de
 
 This image [widely attributed to the Spotify development team](http://blog.fastmonkeys.com/?utm_content=bufferc2d6e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer) conveys an important point.
 
-![alt text](img/spotify-howtobuildmvp.gif)
+![](img/spotify-howtobuildmvp.gif)
 
 Build that skateboard before you build the car or some fancy car part. A limited-but-functioning thing is very useful. It also keeps the spirits high.
 
@@ -96,7 +96,7 @@ Pick some new artificial inputs where you know (at least approximately) what you
 max_minus_min(1:10)
 ## [1] 9
 max_minus_min(runif(1000))
-## [1] 0.9970299
+## [1] 0.998614
 ```
 
 I know that 10 minus 1 is 9. I know that random uniform [0, 1] variates will be between 0 and 1. Therefore max - min should be less than 1. If I take LOTS of them, max - min should be pretty close to 1.
@@ -195,13 +195,16 @@ mmm2(gapminder)
 ## You have provided an object of class: tbl_df
 ```
 
-In addition to offering an apology, note the error raised also contains helpful info on *which* function threw the error. Nice touch.
+In addition to a gratuitous apology, the error raised also contains two more pieces of helpful info:
 
-You can extend this approach to provide the user with more information about what is wrong and provide suggested solutions.
+  * *Which* function threw the error.
+  * Hints on how to fix things: expected class of input vs actual class.
+
+If it is easy to do so, I highly recommend this template: "you gave me THIS, but I need THAT".
 
 #### Sidebar: non-programming uses for assertions
 
-Another good use of these packages is to leave checks behind in data analytical scripts. Consider our repetitive use of Gapminder. Every time we load it, we inspect it, hoping to see the usual stuff. If we were loading from file (vs. a stable data package), we might want to formalize our expectations about the number of rows and columns, the names and flavors of the variables, etc. This would alert us if the data suddenly changed, which can be a useful wake-up call in scripts that you re-run *ad nauseum* on auto-pilot or non-interactively.
+Another good use of this pattern is to leave checks behind in data analytical scripts. Consider our repetitive use of Gapminder in this course. Every time we load it, we inspect it, hoping to see the usual stuff. If we were loading from file (vs. a stable data package), we might want to formalize our expectations about the number of rows and columns, the names and flavors of the variables, etc. This would alert us if the data suddenly changed, which can be a useful wake-up call in scripts that you re-run *ad nauseum* on auto-pilot or non-interactively.
 
 ### Wrap-up and what's next?
 

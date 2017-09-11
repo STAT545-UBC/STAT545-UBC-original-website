@@ -210,8 +210,8 @@ diff(range(gapminder$lifeExp))
 <h4>Skateboard &gt;&gt; perfectly formed rear-view mirror</h4>
 <p>This image <a href="http://blog.fastmonkeys.com/?utm_content=bufferc2d6e&amp;utm_medium=social&amp;utm_source=twitter.com&amp;utm_campaign=buffer">widely attributed to the Spotify development team</a> conveys an important point.</p>
 <div class="figure">
-<img src="img/spotify-howtobuildmvp.gif" alt="alt text" />
-<p class="caption">alt text</p>
+<img src="img/spotify-howtobuildmvp.gif" />
+
 </div>
 <p>Build that skateboard before you build the car or some fancy car part. A limited-but-functioning thing is very useful. It also keeps the spirits high.</p>
 <p>This is related to the valuable <a href="http://c2.com/cgi/wiki?TelescopeRule">Telescope Rule</a>:</p>
@@ -236,7 +236,7 @@ max_minus_min(gapminder$lifeExp)
 <pre class="r"><code>max_minus_min(1:10)
 ## [1] 9
 max_minus_min(runif(1000))
-## [1] 0.9970299</code></pre>
+## [1] 0.998614</code></pre>
 <p>I know that 10 minus 1 is 9. I know that random uniform [0, 1] variates will be between 0 and 1. Therefore max - min should be less than 1. If I take LOTS of them, max - min should be pretty close to 1.</p>
 <p>It is intentional that I tested on integer input as well as floating point. Likewise, I like to use valid-but-random data for this sort of check.</p>
 </div>
@@ -308,12 +308,16 @@ mmm(c(TRUE, TRUE, FALSE, TRUE, TRUE))
 mmm2(gapminder)
 ## Error in mmm2(gapminder): I am so sorry, but this function only works for numeric input!
 ## You have provided an object of class: tbl_df</code></pre>
-<p>In addition to offering an apology, note the error raised also contains helpful info on <em>which</em> function threw the error. Nice touch.</p>
-<p>You can extend this approach to provide the user with more information about what is wrong and provide suggested solutions.</p>
+<p>In addition to a gratuitous apology, the error raised also contains two more pieces of helpful info:</p>
+<ul>
+<li><em>Which</em> function threw the error.</li>
+<li>Hints on how to fix things: expected class of input vs actual class.</li>
+</ul>
+<p>If it is easy to do so, I highly recommend this template: “you gave me THIS, but I need THAT”.</p>
 </div>
 <div id="sidebar-non-programming-uses-for-assertions" class="section level4">
 <h4>Sidebar: non-programming uses for assertions</h4>
-<p>Another good use of these packages is to leave checks behind in data analytical scripts. Consider our repetitive use of Gapminder. Every time we load it, we inspect it, hoping to see the usual stuff. If we were loading from file (vs. a stable data package), we might want to formalize our expectations about the number of rows and columns, the names and flavors of the variables, etc. This would alert us if the data suddenly changed, which can be a useful wake-up call in scripts that you re-run <em>ad nauseum</em> on auto-pilot or non-interactively.</p>
+<p>Another good use of this pattern is to leave checks behind in data analytical scripts. Consider our repetitive use of Gapminder in this course. Every time we load it, we inspect it, hoping to see the usual stuff. If we were loading from file (vs. a stable data package), we might want to formalize our expectations about the number of rows and columns, the names and flavors of the variables, etc. This would alert us if the data suddenly changed, which can be a useful wake-up call in scripts that you re-run <em>ad nauseum</em> on auto-pilot or non-interactively.</p>
 </div>
 </div>
 <div id="wrap-up-and-whats-next" class="section level3">
