@@ -6,7 +6,7 @@
 
 My goal here is to reveal the __process__ a long-time useR employs for writing functions. I also want to illustrate why the process is the way it is. Merely looking at the finished product, e.g. source code for R packages, can be extremely deceiving. Reality is generally much uglier ... but more interesting!
 
-Why are we covering this now, smack in the middle of data aggregation? Powerful machines like `dplyr`, `purrr`, `plyr`, and the built-in `apply` family of functions, are ready and waiting to apply your purpose-built functions to various bits of your data. If you can express your analytical wishes in a function, these tools will give you great power.
+Why are we covering this now, smack in the middle of data aggregation? Powerful machines like `dplyr`, `purrr`, and the built-in `apply` family of functions, are ready and waiting to apply your purpose-built functions to various bits of your data. If you can express your analytical wishes in a function, these tools will give you great power.
 
 ### Load the Gapminder data
 
@@ -96,7 +96,7 @@ Pick some new artificial inputs where you know (at least approximately) what you
 max_minus_min(1:10)
 ## [1] 9
 max_minus_min(runif(1000))
-## [1] 0.9993907
+## [1] 0.9970299
 ```
 
 I know that 10 minus 1 is 9. I know that random uniform [0, 1] variates will be between 0 and 1. Therefore max - min should be less than 1. If I take LOTS of them, max - min should be pretty close to 1.
@@ -212,7 +212,7 @@ Here's the function we've written so far:
 mmm2
 ## function(x) {
 ##   if(!is.numeric(x)) {
-##     stop('I am so sorry, but this function only works for numeric input!\n',
+##     stop('I am so sorry, but this function only works for numeric input!\\n',
 ##          'You have provided an object of class: ', class(x)[1])
 ##   }
 ##   max(x) - min(x)

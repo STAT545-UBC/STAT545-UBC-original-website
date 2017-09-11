@@ -14,7 +14,7 @@ knitr::opts_chunk$set(error = TRUE, collapse = TRUE)
 
 My goal here is to reveal the __process__ a long-time useR employs for writing functions. I also want to illustrate why the process is the way it is. Merely looking at the finished product, e.g. source code for R packages, can be extremely deceiving. Reality is generally much uglier ... but more interesting!
 
-Why are we covering this now, smack in the middle of data aggregation? Powerful machines like `dplyr`, `purrr`, `plyr`, and the built-in `apply` family of functions, are ready and waiting to apply your purpose-built functions to various bits of your data. If you can express your analytical wishes in a function, these tools will give you great power.
+Why are we covering this now, smack in the middle of data aggregation? Powerful machines like `dplyr`, `purrr`, and the built-in `apply` family of functions, are ready and waiting to apply your purpose-built functions to various bits of your data. If you can express your analytical wishes in a function, these tools will give you great power.
 
 ### Load the Gapminder data
 
