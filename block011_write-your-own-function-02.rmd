@@ -69,7 +69,6 @@ Now write a code snippet that takes the difference between two quantiles.
 the_probs <- c(0.25, 0.75)
 the_quantiles <- quantile(gapminder$lifeExp, probs = the_probs)
 max(the_quantiles) - min(the_quantiles)
-IQR(gapminder$lifeExp) # hey, we've reinvented IQR
 ```
 
 ### Turn the working interactive code into a function, again
@@ -83,11 +82,12 @@ qdiff1 <- function(x, probs) {
   max(the_quantiles) - min(the_quantiles)
 }
 qdiff1(gapminder$lifeExp, probs = c(0.25, 0.75))
+IQR(gapminder$lifeExp) # hey, we've reinvented IQR
 qdiff1(gapminder$lifeExp, probs = c(0, 1))
 mmm(gapminder$lifeExp)
 ```
 
-Again we do some informal tests against familiar results.
+Again we do some informal tests against familiar results and external implementations.
 
 ### Argument names: freedom and conventions
 

@@ -79,8 +79,6 @@ the_probs <- c(0.25, 0.75)
 the_quantiles <- quantile(gapminder$lifeExp, probs = the_probs)
 max(the_quantiles) - min(the_quantiles)
 ## [1] 22.6475
-IQR(gapminder$lifeExp) # hey, we've reinvented IQR
-## [1] 22.6475
 ```
 
 ### Turn the working interactive code into a function, again
@@ -96,13 +94,15 @@ qdiff1 <- function(x, probs) {
 }
 qdiff1(gapminder$lifeExp, probs = c(0.25, 0.75))
 ## [1] 22.6475
+IQR(gapminder$lifeExp) # hey, we've reinvented IQR
+## [1] 22.6475
 qdiff1(gapminder$lifeExp, probs = c(0, 1))
 ## [1] 59.004
 mmm(gapminder$lifeExp)
 ## [1] 59.004
 ```
 
-Again we do some informal tests against familiar results.
+Again we do some informal tests against familiar results and external implementations.
 
 ### Argument names: freedom and conventions
 
@@ -146,6 +146,7 @@ qdiff1
 ##   the_quantiles <- quantile(x = x, probs = probs)
 ##   max(the_quantiles) - min(the_quantiles)
 ## }
+## <bytecode: 0x7fb5197a42b0>
 ```
 
 We took this detour so you could see there is no *structural* relationship between my arguments (`x` and `probs`) and those of `quantile()` (also `x` and `probs`). The similarity or equivalence of the names __accomplishes nothing__ as far as R is concerned; it is solely for the benefit of humans reading, writing, and using the code. Which is very important!
@@ -170,7 +171,7 @@ What happens if we call our function but neglect to specify the probabilities?
 
 ```r
 qdiff1(gapminder$lifeExp)
-## Error in quantile.default(x = x, probs = probs): argument "probs" is missing, with no default
+## Error in quantile(x = x, probs = probs): argument "probs" is missing, with no default
 ```
 
 Oops! At the moment, this causes a fatal error. It can be nice to provide some reasonable default values for certain arguments. In our case, it would be crazy to specify a default value for the primary input `x`, but very kind to specify a default for `probs`.
@@ -222,6 +223,7 @@ qdiff4
 ##   the_quantiles <- quantile(x, probs)
 ##   return(max(the_quantiles) - min(the_quantiles))
 ## }
+## <bytecode: 0x7fb517973918>
 ```
 
 What we've accomplished:
