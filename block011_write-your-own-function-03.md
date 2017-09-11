@@ -174,7 +174,7 @@ test_that('NA handling works', {
 ## 8: stop("missing values and NaN's not allowed if 'na.rm' is FALSE")
 ```
 
-Similar to the advice to use assertions in data analytical scripts, I recommend you use unit tests to monitor the behavior of functions you (or others) will use often. If your tests cover the function's important behavior, then you can edit the internals freely. You'll rest easy in the knowledge that, if you broke anything important, the tests will fail and alert you to the problem.
+Similar to the advice to use assertions in data analytical scripts, I recommend you use unit tests to monitor the behavior of functions you (or others) will use often. If your tests cover the function's important behavior, then you can edit the internals freely. You'll rest easy in the knowledge that, if you broke anything important, the tests will fail and alert you to the problem. A function that is important enough for unit tests probably also belongs in a package, where there are obvious mechanisms for running the tests as part of overall package checks.
 
 <!--
 
@@ -187,6 +187,10 @@ defaulting to NULL then checking is.null() and take it from there
 -->
 
 ### Resources
+
+Hadley Wickham's book [Advanced R](http://adv-r.had.co.nz)
+
+  * Section on [function arguments](http://adv-r.had.co.nz/Functions.html#function-arguments)
 
 Unit testing with `testthat`:
 

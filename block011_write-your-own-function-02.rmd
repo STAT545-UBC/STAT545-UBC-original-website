@@ -190,3 +190,11 @@ What we've accomplished:
   * we've specified default values for the probabilities that set the quantiles
   
 Where to next? In [Part 3](block011_write-your-own-function-03.html), we tackle `NA`s, the special `...` argument, and formal unit testing.
+
+### Resources
+
+Hadley Wickham's book [Advanced R](http://adv-r.had.co.nz)
+
+  * Section on [function arguments](http://adv-r.had.co.nz/Functions.html#function-arguments)
+  * Section on [return values](http://adv-r.had.co.nz/functions.html#return-values)
+  

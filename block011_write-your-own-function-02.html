@@ -159,6 +159,7 @@ $(document).ready(function () {
 <li><a href="#default-values-freedom-to-not-specify-the-arguments">Default values: freedom to NOT specify the arguments</a></li>
 <li><a href="#check-the-validity-of-arguments-again">Check the validity of arguments, again</a></li>
 <li><a href="#wrap-up-and-whats-next">Wrap-up and what’s next?</a></li>
+<li><a href="#resources">Resources</a></li>
 </ul>
 </div>
 
@@ -265,7 +266,7 @@ qdiff3(my_x = gapminder$lifeExp, my_probs = 0:1)
 ##   the_quantiles &lt;- quantile(x = x, probs = probs)
 ##   max(the_quantiles) - min(the_quantiles)
 ## }
-## &lt;bytecode: 0x7fb5197a42b0&gt;</code></pre>
+## &lt;bytecode: 0x7f8716e7e268&gt;</code></pre>
 <p>We took this detour so you could see there is no <em>structural</em> relationship between my arguments (<code>x</code> and <code>probs</code>) and those of <code>quantile()</code> (also <code>x</code> and <code>probs</code>). The similarity or equivalence of the names <strong>accomplishes nothing</strong> as far as R is concerned; it is solely for the benefit of humans reading, writing, and using the code. Which is very important!</p>
 </div>
 <div id="what-a-function-returns" class="section level3">
@@ -312,13 +313,21 @@ qdiff4(gapminder$lifeExp, c(0.1, 0.9))
 ##   the_quantiles &lt;- quantile(x, probs)
 ##   return(max(the_quantiles) - min(the_quantiles))
 ## }
-## &lt;bytecode: 0x7fb517973918&gt;</code></pre>
+## &lt;bytecode: 0x7f8716c81eb0&gt;</code></pre>
 <p>What we’ve accomplished:</p>
 <ul>
 <li>we’ve generalized our first function to take a difference between arbitrary quantiles</li>
 <li>we’ve specified default values for the probabilities that set the quantiles</li>
 </ul>
 <p>Where to next? In <a href="block011_write-your-own-function-03.html">Part 3</a>, we tackle <code>NA</code>s, the special <code>...</code> argument, and formal unit testing.</p>
+</div>
+<div id="resources" class="section level3">
+<h3>Resources</h3>
+<p>Hadley Wickham’s book <a href="http://adv-r.had.co.nz">Advanced R</a></p>
+<ul>
+<li>Section on <a href="http://adv-r.had.co.nz/Functions.html#function-arguments">function arguments</a></li>
+<li>Section on <a href="http://adv-r.had.co.nz/functions.html#return-values">return values</a></li>
+</ul>
 </div>
 
 <div class="footer">

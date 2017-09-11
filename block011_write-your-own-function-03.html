@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -19,6 +19,9 @@
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -31,10 +34,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -112,7 +111,6 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -277,7 +275,7 @@ test_that(&#39;NA handling works&#39;, {
 ## 6: quantile(x = x, probs = probs) at &lt;text&gt;:2
 ## 7: quantile.default(x = x, probs = probs)
 ## 8: stop(&quot;missing values and NaN&#39;s not allowed if &#39;na.rm&#39; is FALSE&quot;)</code></pre>
-<p>Similar to the advice to use assertions in data analytical scripts, I recommend you use unit tests to monitor the behavior of functions you (or others) will use often. If your tests cover the function’s important behavior, then you can edit the internals freely. You’ll rest easy in the knowledge that, if you broke anything important, the tests will fail and alert you to the problem.</p>
+<p>Similar to the advice to use assertions in data analytical scripts, I recommend you use unit tests to monitor the behavior of functions you (or others) will use often. If your tests cover the function’s important behavior, then you can edit the internals freely. You’ll rest easy in the knowledge that, if you broke anything important, the tests will fail and alert you to the problem. A function that is important enough for unit tests probably also belongs in a package, where there are obvious mechanisms for running the tests as part of overall package checks.</p>
 <!--
 
 ### other content
@@ -290,6 +288,10 @@ defaulting to NULL then checking is.null() and take it from there
 </div>
 <div id="resources" class="section level3">
 <h3>Resources</h3>
+<p>Hadley Wickham’s book <a href="http://adv-r.had.co.nz">Advanced R</a></p>
+<ul>
+<li>Section on <a href="http://adv-r.had.co.nz/Functions.html#function-arguments">function arguments</a></li>
+</ul>
 <p>Unit testing with <code>testthat</code>:</p>
 <ul>
 <li>On <a href="https://cran.r-project.org/web/packages/testthat/index.html">CRAN</a>, development on <a href="https://github.com/hadley/testthat">GitHub</a></li>
@@ -312,8 +314,11 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 
@@ -324,7 +329,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

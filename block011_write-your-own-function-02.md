@@ -146,7 +146,7 @@ qdiff1
 ##   the_quantiles <- quantile(x = x, probs = probs)
 ##   max(the_quantiles) - min(the_quantiles)
 ## }
-## <bytecode: 0x7fb5197a42b0>
+## <bytecode: 0x7f8716e7e268>
 ```
 
 We took this detour so you could see there is no *structural* relationship between my arguments (`x` and `probs`) and those of `quantile()` (also `x` and `probs`). The similarity or equivalence of the names __accomplishes nothing__ as far as R is concerned; it is solely for the benefit of humans reading, writing, and using the code. Which is very important!
@@ -223,7 +223,7 @@ qdiff4
 ##   the_quantiles <- quantile(x, probs)
 ##   return(max(the_quantiles) - min(the_quantiles))
 ## }
-## <bytecode: 0x7fb517973918>
+## <bytecode: 0x7f8716c81eb0>
 ```
 
 What we've accomplished:
@@ -232,3 +232,11 @@ What we've accomplished:
   * we've specified default values for the probabilities that set the quantiles
   
 Where to next? In [Part 3](block011_write-your-own-function-03.html), we tackle `NA`s, the special `...` argument, and formal unit testing.
+
+### Resources
+
+Hadley Wickham's book [Advanced R](http://adv-r.had.co.nz)
+
+  * Section on [function arguments](http://adv-r.had.co.nz/Functions.html#function-arguments)
+  * Section on [return values](http://adv-r.had.co.nz/functions.html#return-values)
+  
