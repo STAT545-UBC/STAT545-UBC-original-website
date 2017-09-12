@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -19,6 +19,9 @@
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -31,10 +34,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -112,7 +111,6 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -165,7 +163,7 @@ $(document).ready(function () {
 <div id="what-and-why" class="section level3">
 <h3>What and why?</h3>
 <p>My goal here is to reveal the <strong>process</strong> a long-time useR employs for writing functions. I also want to illustrate why the process is the way it is. Merely looking at the finished product, e.g. source code for R packages, can be extremely deceiving. Reality is generally much uglier … but more interesting!</p>
-<p>Why are we covering this now, smack in the middle of data aggregation? Powerful machines like <code>dplyr</code>, <code>purrr</code>, <code>plyr</code>, and the built-in <code>apply</code> family of functions, are ready and waiting to apply your purpose-built functions to various bits of your data. If you can express your analytical wishes in a function, these tools will give you great power.</p>
+<p>Why are we covering this now, smack in the middle of data aggregation? Powerful machines like <code>dplyr</code>, <code>purrr</code>, and the built-in <code>apply</code> family of functions, are ready and waiting to apply your purpose-built functions to various bits of your data. If you can express your analytical wishes in a function, these tools will give you great power.</p>
 </div>
 <div id="load-the-gapminder-data" class="section level3">
 <h3>Load the Gapminder data</h3>
@@ -212,8 +210,8 @@ diff(range(gapminder$lifeExp))
 <h4>Skateboard &gt;&gt; perfectly formed rear-view mirror</h4>
 <p>This image <a href="http://blog.fastmonkeys.com/?utm_content=bufferc2d6e&amp;utm_medium=social&amp;utm_source=twitter.com&amp;utm_campaign=buffer">widely attributed to the Spotify development team</a> conveys an important point.</p>
 <div class="figure">
-<img src="img/spotify-howtobuildmvp.gif" alt="alt text" />
-<p class="caption">alt text</p>
+<img src="img/spotify-howtobuildmvp.gif" />
+
 </div>
 <p>Build that skateboard before you build the car or some fancy car part. A limited-but-functioning thing is very useful. It also keeps the spirits high.</p>
 <p>This is related to the valuable <a href="http://c2.com/cgi/wiki?TelescopeRule">Telescope Rule</a>:</p>
@@ -238,7 +236,7 @@ max_minus_min(gapminder$lifeExp)
 <pre class="r"><code>max_minus_min(1:10)
 ## [1] 9
 max_minus_min(runif(1000))
-## [1] 0.9993907</code></pre>
+## [1] 0.998614</code></pre>
 <p>I know that 10 minus 1 is 9. I know that random uniform [0, 1] variates will be between 0 and 1. Therefore max - min should be less than 1. If I take LOTS of them, max - min should be pretty close to 1.</p>
 <p>It is intentional that I tested on integer input as well as floating point. Likewise, I like to use valid-but-random data for this sort of check.</p>
 </div>
@@ -310,12 +308,16 @@ mmm(c(TRUE, TRUE, FALSE, TRUE, TRUE))
 mmm2(gapminder)
 ## Error in mmm2(gapminder): I am so sorry, but this function only works for numeric input!
 ## You have provided an object of class: tbl_df</code></pre>
-<p>In addition to offering an apology, note the error raised also contains helpful info on <em>which</em> function threw the error. Nice touch.</p>
-<p>You can extend this approach to provide the user with more information about what is wrong and provide suggested solutions.</p>
+<p>In addition to a gratuitous apology, the error raised also contains two more pieces of helpful info:</p>
+<ul>
+<li><em>Which</em> function threw the error.</li>
+<li>Hints on how to fix things: expected class of input vs actual class.</li>
+</ul>
+<p>If it is easy to do so, I highly recommend this template: “you gave me THIS, but I need THAT”.</p>
 </div>
 <div id="sidebar-non-programming-uses-for-assertions" class="section level4">
 <h4>Sidebar: non-programming uses for assertions</h4>
-<p>Another good use of these packages is to leave checks behind in data analytical scripts. Consider our repetitive use of Gapminder. Every time we load it, we inspect it, hoping to see the usual stuff. If we were loading from file (vs. a stable data package), we might want to formalize our expectations about the number of rows and columns, the names and flavors of the variables, etc. This would alert us if the data suddenly changed, which can be a useful wake-up call in scripts that you re-run <em>ad nauseum</em> on auto-pilot or non-interactively.</p>
+<p>Another good use of this pattern is to leave checks behind in data analytical scripts. Consider our repetitive use of Gapminder in this course. Every time we load it, we inspect it, hoping to see the usual stuff. If we were loading from file (vs. a stable data package), we might want to formalize our expectations about the number of rows and columns, the names and flavors of the variables, etc. This would alert us if the data suddenly changed, which can be a useful wake-up call in scripts that you re-run <em>ad nauseum</em> on auto-pilot or non-interactively.</p>
 </div>
 </div>
 <div id="wrap-up-and-whats-next" class="section level3">
@@ -324,7 +326,7 @@ mmm2(gapminder)
 <pre class="r"><code>mmm2
 ## function(x) {
 ##   if(!is.numeric(x)) {
-##     stop(&#39;I am so sorry, but this function only works for numeric input!\n&#39;,
+##     stop(&#39;I am so sorry, but this function only works for numeric input!\\n&#39;,
 ##          &#39;You have provided an object of class: &#39;, class(x)[1])
 ##   }
 ##   max(x) - min(x)
@@ -363,8 +365,11 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 
@@ -375,7 +380,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
