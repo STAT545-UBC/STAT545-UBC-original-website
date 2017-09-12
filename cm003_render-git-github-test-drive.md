@@ -25,3 +25,6 @@
 - Jenny's [slides](https://speakerdeck.com/jennybc/happy-git-and-github-for-the-user) about concepts gone over in class today are informative.
 - "Connect Git, GitHub, RStudio" and "Early GitHub Usage" from  <http://happygitwithr.com>
     - Goal: [New project, GitHub first](http://happygitwithr.com/new-github-first.html)
+- New to the command line/terminal?
+    - Mac users: [this](http://www.macworld.co.uk/feature/mac-software/how-use-terminal-on-mac-3608274/) is a nice blog post that goes over concepts, and [here](https://gist.github.com/poopsplat/7195274) is a cheat sheet for handy commands. 
+    - Windows users: [this](https://www.bleepingcomputer.com/tutorials/windows-command-prompt-introduction/) is a nice blog post that goes over concepts, and [here](http://simplyadvanced.net/blog/cheat-sheet-for-windows-command-prompt/) is a cheat sheet for handy commands.
