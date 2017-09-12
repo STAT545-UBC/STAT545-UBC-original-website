@@ -152,6 +152,7 @@ $(document).ready(function () {
 <h4>Since last time…</h4>
 <ul>
 <li>You should have completed <a href="https://goo.gl/forms/dBcmAvIuEsXzxU7D2">this</a> survey.</li>
+<li>You should have a github account, and git installed.</li>
 </ul>
 </div>
 <div id="today" class="section level4">
@@ -159,18 +160,15 @@ $(document).ready(function () {
 <ul>
 <li>Housekeeping:
 <ul>
-<li>Invitations to slack have been given out.
+<li>Invitations to slack have been given out to those who completed the survey.
 <ul>
 <li>If you didn’t receive one, you can still fill out the survey above!</li>
-<li>If you did fill out the survey but did not receive an invite, please email me.</li>
+<li>If you did fill out the survey but did not receive an invite, please email me requesting to be added.</li>
 </ul></li>
 <li>I added links to python resources to <a href="cm002_r-studio-intro.html">cm002</a>, in case you want to learn about python.</li>
 </ul></li>
-<li>First homework due Tuesday, September 12 at midnight.</li>
-<li>Work on “Connect Git, GitHub, RStudio” and “Early GitHub Usage” from <a href="http://happygitwithr.com" class="uri">http://happygitwithr.com</a>
-<ul>
-<li>Goal: <a href="http://happygitwithr.com/new-github-first.html">New project, GitHub first</a></li>
-</ul></li>
+<li>First homework due Tuesday, September 12 at midnight. I’ll try to get it out today.</li>
+<li>Lecture notes and exercises <a href="cm003-notes_and_exercises.html">here</a>.</li>
 </ul>
 </div>
 <div id="to-do-before-next-class" class="section level4">
@@ -179,98 +177,16 @@ $(document).ready(function () {
 <li>If you haven’t, be sure to complete the <a href="https://goo.gl/forms/dBcmAvIuEsXzxU7D2">survey</a> from last time!</li>
 </ul>
 </div>
-<div id="resources" class="section level4">
-<h4>Resources</h4>
+<div id="additional-resources" class="section level4">
+<h4>Additional Resources</h4>
 <ul>
 <li>Jenny’s <a href="https://speakerdeck.com/jennybc/happy-git-and-github-for-the-user">slides</a> about concepts gone over in class today are informative.</li>
-</ul>
-</div>
-</div>
-<div id="working-on-github" class="section level2">
-<h2>Working on GitHub</h2>
+<li>“Connect Git, GitHub, RStudio” and “Early GitHub Usage” from <a href="http://happygitwithr.com" class="uri">http://happygitwithr.com</a>
 <ul>
-<li>Navigating gh. <a href="https://speakerdeck.com/jennybc/happy-git-and-github-for-the-user?slide=84">slide</a></li>
-<li>What is a commit? Commit message? <code>diff</code>?</li>
-<li>What files gh can understand. <a href="http://happygitwithr.com/repo-browsability.html">browsability</a>
-<ul>
-<li>Markdown! Markdown! Markdown!</li>
-<li>csv’s too.</li>
-</ul></li>
-<li>making a folder on gh</li>
-<li>giving someone else permission to write your repo (Exercise! Invite your neighbour)</li>
-<li>forking your other neighbour’s repo and doing a pull request. (Exercise)</li>
-<li>issues, and tagging</li>
-<li>Some plain markdown</li>
-<li>Viewing the commit history</li>
-<li>Exercise! Find something in an old version of a file in the github.io website. Include it in your readme.
-<ul>
-<li>Blame. History.</li>
-</ul></li>
-<li>Viewing different types of files on GitHub</li>
-</ul>
-</div>
-<div id="working-locally" class="section level2">
-<h2>Working Locally</h2>
-<ul>
-<li>Clone! Or, you could start new. See JB’s Happy book for different orderings.
-<ul>
-<li><code>git init</code> if you’re starting from an existing project!! Otherwise, you’ll try to version everything!</li>
-</ul></li>
-<li>Set up git with RStudio. Cache credentials. Link to gh.
-<ul>
-<li>git is a program with no interface. RStudio/others provide an interface, on your computer.</li>
-<li><code>install.packages(&quot;knitr&quot;)</code></li>
-</ul></li>
-<li>New R script; compile notebook.</li>
-<li>Stage, commit, pull, push.</li>
-<li>Advanced stuff:
-<ul>
-<li>FYI: Alternatives to git: bare repo on your own server.</li>
-<li>Branch. Revert. Merge. Merge conflicts.</li>
-<li>Do via source tree, or bash.</li>
+<li>Goal: <a href="http://happygitwithr.com/new-github-first.html">New project, GitHub first</a></li>
 </ul></li>
 </ul>
 </div>
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>A start, if we get to it!</p>
-<ul>
-<li>Differences between markdown and R markdown.
-<ul>
-<li>latex (what is? Super useful for theses.)</li>
-<li>code chunks!</li>
-</ul></li>
-<li>How to render: <code>rmarkdown::render</code> or click “knit”.</li>
-<li>What gets created? Rmd -&gt; md -&gt; html/pdf. <a href="https://speakerdeck.com/jennybc/happy-git-and-github-for-the-user?slide=56">this slide</a>
-<ul>
-<li><code>output_format: github_document</code>. Others are available…</li>
-</ul></li>
-<li>YAML header.</li>
-</ul>
-</div>
-<div id="lessons" class="section level2">
-<h2>Lessons</h2>
-<ul>
-<li>Working with git:
-<ul>
-<li>local repository: a self-contained project on your computer</li>
-<li>remote repository: that project on some “cloud”, like GitHub, BitBucket, your own server, …</li>
-<li>git client: program on your computer that helps you use git (commit, push, pull, …)</li>
-</ul></li>
-<li>Adopt git in your workflow! This means:
-<ul>
-<li>Dedicate a self-contained directory to your project.</li>
-<li>Set up an R project for the directory.</li>
-<li>Set up git for that directory.</li>
-<li><strong>Save</strong> perpetually, <strong>commit</strong> often, <strong>pull/push</strong> (to github) periodically!</li>
-</ul></li>
-<li>git can be painful.
-<ul>
-<li>Problems? Often best to just burn it down and start fresh…</li>
-<li>Documentation difficult to read. Check out [this parody]((<a href="https://git-man-page-generator.lokaltog.net/" class="uri">https://git-man-page-generator.lokaltog.net/</a>) of github documentation.</li>
-<li>Use a git client to make it easier to work with git. RStudio, Source Tree, GitHub desktop, …</li>
-</ul></li>
-</ul>
 </div>
 
 <div class="footer">
