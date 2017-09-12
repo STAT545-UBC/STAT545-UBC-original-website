@@ -8,19 +8,22 @@ output:
 
 ### Overview
 
-Consult the [general homework guidelines](hw00_homework-guidelines.html), although much does not to apply to this simple assignment.
-
 We assume you've been keeping up with our live class activities, which have included
 
   * verifying your R/RStudio/Git/GitHub setup
-  * joining the STAT 545 Organization and claiming your private repo
   * successfully rendering R Markdown
 
 Due by midnight Tuesday 2017-09-19, but I **highly recommend** you aim to submit before class. This assignment should go smoothly, but if the computer gods do not smile upon you, we should be able to straighten things out in class or office hours.
 
+### Create a New Repo
+
+Create a new repo on GitHub. Your homework submission will go here. Feel free to make it either public or private. Name the repository `STAT545-hw01-lastname-firstname`. be sure to initiate the repo with a README.
+
+Note: You can sign up for a student account to get free private repos. If you want a private repo, but can't get one on github, there are alternatives -- just ask Vincenzo.
+
 ### Edit `README.md`
 
-We created this repository for you but it is empty. When you first visit, you should see a screen like [this](img/screenshot-new-repo-with-readme.png). You need to edit your `README.md` file to welcome your visitors (you, STAT545 instructor/TAs, STAT545 peers).
+When you first visit your new repo, you should see a screen like [this](img/screenshot-new-repo-with-readme.png). You need to edit your `README.md` file to welcome your visitors (you, STAT545 instructor/TAs, STAT545 peers).
 
 If you are already familiar with GitHub, edit the `README.md` any way you wish.
 
@@ -31,8 +34,6 @@ If you are new to Git and GitHub, click on the `README` link in the area that lo
   - Save your changes.
   - Commit your changes to your repo.
   - Push the commit to GitHub.
-
-Go [take possession of your STAT 545 private repository](git08_claim-stat545-repo.html) and have at it.
 
 __At the very least__, change `README.md` to something like "This is the repository of Jenny Bryan," just to prove you have been there. Practice making a link, for example, to the [main STAT545 webpage](http://stat545.com).
 
@@ -45,7 +46,7 @@ Here's a [sample readme file](https://github.com/STAT545-UBC/STAT545-UBC.github.
 
 This is optional. If you are really struggling, skip it for now. But try!
 
-Polish and extend the R Markdown document started in class on Thursday September 15. Render it to the `github_document` output format. Commit both the `.Rmd` and `.md` files and push them to GitHub.
+Polish and extend the R Markdown document started in class on Thursday September 14. Render it to the `github_document` output format. Commit both the `.Rmd` and `.md` files and push them to GitHub.
 
 Give this a decent name, such as `hw01_gapminder.Rmd` (which will produce a companion file, `hw01_gapminder.md`).
 
@@ -64,7 +65,24 @@ You're encouraged to reflect on what was hard/easy, problems you solved, helpful
 
 ### Submit the assignment
 
-Follow instructions on [How to submit homework](hw00_homework-guidelines.html#how-to-submit-homework)
+You **must** do the following to submit the assignment:
+
+1. Add the teaching team as collaborators. Their github alias' are:
+
+> vincenzocoia
+> gvdr
+> ksedivyhaley
+> joeybernhardt
+> mynamedaike
+> pgonzaleze
+> derekcho
+
+
+2. Write an issue entitled `hw01 ready for grading`, and tag the above teaching team. Here's a convenient string to copy and paste to tag the team:
+
+> @vincenzocoia @gvdr @ksedivyhaley @joeybernhardt @mynamedaike @pgonzaleze @derekcho
+
+3. You're done!
 
 ### Rubric
 

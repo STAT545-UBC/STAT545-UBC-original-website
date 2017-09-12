@@ -52,7 +52,7 @@ oct-19 thurs   <a href="cm014_munzner-guest-lecture.html">cm014</a>: Visualizati
 
 Links to homework will be posted here as they are made available:
 
-  * Homework 01: Edit `README.md`, use R Markdown to explore Gapminder
+  * [Homework 01](hw01_edit-README.html): Edit `README.md`, use R Markdown to explore Gapminder
   * Homework 02: Explore Gapminder as a tibble and starting using dplyr and ggplot2
   * Homework 03: Manipulate, summarize, visualize Gapminder with dplyr and ggplot2
   * Homework 04: Tidy data and joins

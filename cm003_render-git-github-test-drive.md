@@ -13,7 +13,7 @@
         - If you didn't receive one, you can still fill out the survey above!
         - If you did fill out the survey but did not receive an invite, please email me requesting to be added.
     - I added links to python resources to [cm002](cm002_r-studio-intro.html), in case you want to learn about python.
-- First homework due Tuesday, September 12 at midnight. I'll try to get it out today.
+- First homework is posted. Due Tuesday, September 12 at midnight.
 - Lecture notes and exercises [here](cm003-notes_and_exercises.html).
 
 #### To do before next class

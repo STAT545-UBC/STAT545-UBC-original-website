@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -19,20 +19,21 @@
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
   ga('create', 'UA-68219208-1', 'auto');
   ga('send', 'pageview');
+
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -110,7 +111,6 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -149,6 +149,7 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#overview">Overview</a></li>
+<li><a href="#create-a-new-repo">Create a New Repo</a></li>
 <li><a href="#edit-readme.md">Edit <code>README.md</code></a></li>
 <li><a href="#add-r-markdown-and-markdown-for-gapminder-exploration">Add R Markdown and Markdown for Gapminder exploration</a></li>
 <li><a href="#report-your-process">Report your process</a></li>
@@ -159,18 +160,21 @@ $(document).ready(function () {
 
 <div id="overview" class="section level3">
 <h3>Overview</h3>
-<p>Consult the <a href="hw00_homework-guidelines.html">general homework guidelines</a>, although much does not to apply to this simple assignment.</p>
 <p>We assume you’ve been keeping up with our live class activities, which have included</p>
 <ul>
 <li>verifying your R/RStudio/Git/GitHub setup</li>
-<li>joining the STAT 545 Organization and claiming your private repo</li>
 <li>successfully rendering R Markdown</li>
 </ul>
-<p>Due by midnight Tuesday 2016-09-20, but I <strong>highly recommend</strong> you aim to submit before class. This assignment should go smoothly, but if the computer gods do not smile upon you, we should be able to straighten things out in class or office hours.</p>
+<p>Due by midnight Tuesday 2017-09-19, but I <strong>highly recommend</strong> you aim to submit before class. This assignment should go smoothly, but if the computer gods do not smile upon you, we should be able to straighten things out in class or office hours.</p>
+</div>
+<div id="create-a-new-repo" class="section level3">
+<h3>Create a New Repo</h3>
+<p>Create a new repo on GitHub. Your homework submission will go here. Feel free to make it either public or private. Name the repository <code>STAT545-hw01-lastname-firstname</code>. be sure to initiate the repo with a README.</p>
+<p>Note: You can sign up for a student account to get free private repos. If you want a private repo, but can’t get one on github, there are alternatives – just ask Vincenzo.</p>
 </div>
 <div id="edit-readme.md" class="section level3">
 <h3>Edit <code>README.md</code></h3>
-<p>We created this repository for you but it is empty. When you first visit, you should see a screen like <a href="img/screenshot-new-repo-with-readme.png">this</a>. You need to edit your <code>README.md</code> file to welcome your visitors (you, STAT545 instructor/TAs, STAT545 peers).</p>
+<p>When you first visit your new repo, you should see a screen like <a href="img/screenshot-new-repo-with-readme.png">this</a>. You need to edit your <code>README.md</code> file to welcome your visitors (you, STAT545 instructor/TAs, STAT545 peers).</p>
 <p>If you are already familiar with GitHub, edit the <code>README.md</code> any way you wish.</p>
 <p>If you are new to Git and GitHub, click on the <code>README</code> link in the area that looks like a file browser. Click on the pencil and make an edit. Then head down to “Commit changes”. Enter a short <em>commit message</em>. Then click “Commit changes”. This is how you can edit files in GitHub repository through the browser. If you are still mystified by Git(Hub), you can use this browser-based method to edit <code>README.md</code> until you get more comfortable with using Git locally and pushing to GitHub. <strong>However, if at all possible</strong>, we want you to pilot a more powerful workflow:</p>
 <ul>
@@ -180,7 +184,6 @@ $(document).ready(function () {
 <li>Commit your changes to your repo.</li>
 <li>Push the commit to GitHub.</li>
 </ul>
-<p>Go <a href="git08_claim-stat545-repo.html">take possession of your STAT 545 private repository</a> and have at it.</p>
 <p><strong>At the very least</strong>, change <code>README.md</code> to something like “This is the repository of Jenny Bryan,” just to prove you have been there. Practice making a link, for example, to the <a href="http://stat545.com">main STAT545 webpage</a>.</p>
 <p>Much better is to introduce yourself to the class; this page is private to STAT 545 but will be visible to all students and staff. Feel free to read up on Markdown and practice with some of the syntax. Put in a photo or a GIF!</p>
 <p>Here’s a <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/hw01_sample_readme.md">sample readme file</a> that you can use as reference and/or inspiration, and here is the <a href="https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/hw01_sample_readme.md">raw source</a>. The <em>Help</em> menu in RStudio will bring up a Markdown Quick Reference at any time.</p>
@@ -188,7 +191,7 @@ $(document).ready(function () {
 <div id="add-r-markdown-and-markdown-for-gapminder-exploration" class="section level3">
 <h3>Add R Markdown and Markdown for Gapminder exploration</h3>
 <p>This is optional. If you are really struggling, skip it for now. But try!</p>
-<p>Polish and extend the R Markdown document started in class on Thursday September 15. Render it to the <code>github_document</code> output format. Commit both the <code>.Rmd</code> and <code>.md</code> files and push them to GitHub.</p>
+<p>Polish and extend the R Markdown document started in class on Thursday September 14. Render it to the <code>github_document</code> output format. Commit both the <code>.Rmd</code> and <code>.md</code> files and push them to GitHub.</p>
 <p>Give this a decent name, such as <code>hw01_gapminder.Rmd</code> (which will produce a companion file, <code>hw01_gapminder.md</code>).</p>
 </div>
 <div id="report-your-process" class="section level3">
@@ -204,13 +207,28 @@ $(document).ready(function () {
 </div>
 <div id="submit-the-assignment" class="section level3">
 <h3>Submit the assignment</h3>
-<p>Follow instructions on <a href="hw00_homework-guidelines.html#how-to-submit-homework">How to submit homework</a></p>
+<p>You <strong>must</strong> do the following to submit the assignment:</p>
+<ol style="list-style-type: decimal">
+<li>Add the teaching team as collaborators. Their github alias’ are:</li>
+</ol>
+<blockquote>
+<p>vincenzocoia gvdr ksedivyhaley joeybernhardt mynamedaike pgonzaleze derekcho</p>
+</blockquote>
+<ol start="2" style="list-style-type: decimal">
+<li>Write an issue entitled <code>hw01 ready for grading</code>, and tag the above teaching team. Here’s a convenient string to copy and paste to tag the team:</li>
+</ol>
+<blockquote>
+<p><span class="citation">@vincenzocoia</span> <span class="citation">@gvdr</span> <span class="citation">@ksedivyhaley</span> <span class="citation">@joeybernhardt</span> <span class="citation">@mynamedaike</span> <span class="citation">@pgonzaleze</span> <span class="citation">@derekcho</span></p>
+</blockquote>
+<ol start="3" style="list-style-type: decimal">
+<li>You’re done!</li>
+</ol>
 </div>
 <div id="rubric" class="section level3">
 <h3>Rubric</h3>
-<p>Check minus: <code>README.md</code> says equivalent of “This is the repository of Jenny Bryan”. All work done via browser at github.com … but that’s just a guess, because student doesn’t actually say how it was done. No attempt to submit an R Markdown document exploring the Gapminder data. The homework submission issue is not named correctly, doesn’t include the SHA or tag Jenny or a link to the work to be reviewed.</p>
+<p>Check minus: <code>README.md</code> says equivalent of “This is the repository of Jenny Bryan”. All work done via browser at github.com … but that’s just a guess, because student doesn’t actually say how it was done. No attempt to submit an R Markdown document exploring the Gapminder data. The homework submission issue is not named correctly, doesn’t include the SHA or a link to the work to be reviewed.</p>
 <p>Check: something in between. Student may have failed to render to the <code>github_document</code> output and commit/push the resulting <code>.md</code> file. The homework submission issue might not be perfect, but there was a good effort.</p>
-<p>Check plus: <code>README.md</code> provides a proper introduction of student to the class. It also demonstrates experimentation with 4 or more aspects of the Markdown syntax. Examples: section headers, links, bold, italic, bullet points, image embed, etc. The student describes how they got the changes into <code>README.md</code>. Student has submitted a well-named R Markdown document with exploration of the Gapminder dataset and the rendered markdown file. Student offers a few reflections on their GitHub workflow and their experience with Markdown. The homework submission issue follows the naming convention, includes the SHA, Jenny is tagged, and there’s a link to the rendered <code>.md</code> for the Gapminder exploration.</p>
+<p>Check plus: <code>README.md</code> provides a proper introduction of student to the class. It also demonstrates experimentation with 4 or more aspects of the Markdown syntax. Examples: section headers, links, bold, italic, bullet points, image embed, etc. The student describes how they got the changes into <code>README.md</code>. Student has submitted a well-named R Markdown document with exploration of the Gapminder dataset and the rendered markdown file. Student offers a few reflections on their GitHub workflow and their experience with Markdown. The homework submission issue follows the naming convention, includes the SHA, and there’s a link to the rendered <code>.md</code> for the Gapminder exploration.</p>
 </div>
 
 <div class="footer">
@@ -222,10 +240,16 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 </div>
 
 <script>
+
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
+
+
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
@@ -233,7 +257,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
