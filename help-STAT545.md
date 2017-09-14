@@ -42,6 +42,16 @@ If all goes well, your helper will respond. I almost always do this directly via
   
 Once the problem is resolved, the issue can be closed. Note that closed issues remain accessible, in case anyone needs to consult them in the future.
   
+  
+#### Slack
+
+New to 2017, STAT 545 is implementing a [Slack](https://slack.com/) team! Slack is an instant messaging software to facilitate discussions within teams.
+
+Within the first two weeks, you should expect to receive an invitation to the [stat545-2017](stat545-2017.slack.com) Slack team. Use slack to talk to your classmates and members of the teaching team about anything related to the course. 
+
+This is not public! Only those involved with the course can see your messages -- and only still when those messages are in a team-wide channel. If you think your question would be useful for the world to see, make an issue in the "Discussion" GitHub repository (see below).
+
+  
 #### Our `STAT545-UBC/Discussion` repository
 
 We have created a special repository within the STAT545 GitHub Organization for Discussion. It is __public__ so note the world can read it, which is overwhelmingly a good thing.
@@ -56,7 +66,10 @@ There is [an issue](https://github.com/STAT545-UBC/Discussion/issues/86) where y
 
 Note how the issue names appear in the [issue list](https://github.com/STAT545-UBC/Discussion/issues) and remember: make it informative! FYI you can edit an issue's title.
 
+
 #### Twitter
+
+NOTE: Fall 2017 iteration of STAT 545 won't be using twitter actively. 
 
 Twitter's [New User FAQ](https://support.twitter.com/articles/13920-new-user-faqs) gives a good orientation.
 
