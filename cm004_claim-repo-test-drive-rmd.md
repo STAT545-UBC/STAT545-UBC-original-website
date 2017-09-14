@@ -26,3 +26,9 @@ output:
 
 - First homework will be due midnight Tuesday September 19, but preferably before class. Go to office hours if struggling!
     - [Homework 01](hw01_edit-README.html): Edit `README.md`, use R Markdown to explore Gapminder
+
+
+#### Resources
+
+- Make pretty HTML files with RStudio, using different YAML options. Useful resource [here](http://rmarkdown.rstudio.com/html_document_format.html).
+- RMarkdown [chunk options](https://yihui.name/knitr/options/).
