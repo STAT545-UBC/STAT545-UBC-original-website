@@ -28,3 +28,10 @@
 - New to the command line/terminal?
     - Mac users: [this](http://www.macworld.co.uk/feature/mac-software/how-use-terminal-on-mac-3608274/) is a nice blog post that goes over concepts, and [here](https://gist.github.com/poopsplat/7195274) is a cheat sheet for handy commands. 
     - Windows users: [this](https://www.bleepingcomputer.com/tutorials/windows-command-prompt-introduction/) is a nice blog post that goes over concepts, and [here](http://simplyadvanced.net/blog/cheat-sheet-for-windows-command-prompt/) is a cheat sheet for handy commands.
+- Some resources on structuring your project files.
+    - Here's how project files are encouraged to be structured in the UBC Master of Data Science program:
+        - all code files (`.R`, `.py`, `.Rmd`, `.ipynb`) live in the `src` directory, except for the driver scripts (Shell script and Makefile which call your analysis scripts).
+        - all rendered documents and visualizations you create live in the `results` directory
+        - any data present goes in the `data` directory
+        - manuscripts live in the `doc` directory.
+    - Make your repo [browsable](http://happygitwithr.com/repo-browsability.html).
