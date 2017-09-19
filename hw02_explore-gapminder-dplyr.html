@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -19,6 +19,9 @@
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -31,10 +34,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -112,7 +111,6 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -151,6 +149,7 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#overview">Overview</a><ul>
+<li><a href="#make-a-homework-repo">Make a homework repo</a></li>
 <li><a href="#bring-rectangular-data-in">Bring rectangular data in</a></li>
 <li><a href="#smell-test-the-data">Smell test the data</a></li>
 <li><a href="#explore-individual-variables">Explore individual variables</a></li>
@@ -166,13 +165,30 @@ $(document).ready(function () {
 
 <div id="overview" class="section level3">
 <h3>Overview</h3>
-<p>Consult the <a href="hw00_homework-guidelines.html">general homework guidelines</a>.</p>
-<p>Due sometime Tuesday 2016-09-27. Before class is better but get help in class or office hours of you need it.</p>
+<p>Consult the <a href="hw00_homework-guidelines.html">general homework guidelines</a>. Though, you still won’t be using a repo in the stat545 github org. This may or may not happen this year! See <a href="#make-a-homework-repo">Make a homework repo</a> below for guidelines on making a repo.</p>
+<p>Due anytime Tuesday 2017-09-26. Before class is better, but get help in class or office hours of you need it.</p>
 <p>The goal is to explore a new-to-you dataset. In particular, to begin to establish a workflow for data frames or “tibbles”. You will use dplyr and ggplot2 to do some description and visualization.</p>
-<p>Remember the <a href="http://en.wikipedia.org/wiki/Sampler_(needlework)">sampler concept</a>. Your homework should serve as your own personal cheatsheet in the future for things to do with a new dataset. Give yourself the cheatsheet you deserve!</p>
+<p>Your homework should serve as your own personal cheatsheet in the future for things to do with a new dataset. Give yourself the cheatsheet you deserve!</p>
+<div id="make-a-homework-repo" class="section level4">
+<h4>Make a homework repo</h4>
+<p>We might not be getting you a repo in the stat545 github org. Time will tell! For now, we will make a new GitHub repository that will hold the remainder of your homework submissions (until specified otherwise).</p>
+<ol style="list-style-type: decimal">
+<li>Make a new GitHub repo called <code>STAT545-hw-lastname-firstname</code>. Note:
+<ul>
+<li>Feel free to just use your Homework 01 repo, and rename it.</li>
+<li>If you want your homework to be private, here are your options:
+<ul>
+<li>Request a GitHub <a href="https://education.github.com/pack">student developer pack</a>. It’s free and will allow you to make free GitHub repos.</li>
+<li>Use <a href="https://bitbucket.org/">Bitbucket</a>. It’s free, gives you free private repos, and works similarly to github. Let me (<code>@vcoia</code>) know via Slack if you’d like to try this.</li>
+<li>Slack me if neither of these are good. I’ve got another option.</li>
+</ul></li>
+</ul></li>
+<li>Put your Homework 02 files in a folder that’s obviously named (say, <code>hw02</code>), and link to it in the main README. Be sure to put a README file in the Homework 02 folder as well, describing what’s what in the directory and how someone might navigate the homework submission.</li>
+</ol>
+</div>
 <div id="bring-rectangular-data-in" class="section level4">
 <h4>Bring rectangular data in</h4>
-<p>Work with the <code>gapminder</code> data we explored in class. <em>If you really want to, you can explore a different dataset but get permission from Jenny. Self-assess the suitability of your dataset by reading <a href="https://github.com/STAT545-UBC/Discussion/issues/115">this issue</a>.</em></p>
+<p>Work with the <code>gapminder</code> data we explored in class. <em>If you really want to, you can explore a different dataset but get permission from Vincenzo. Message me on Slack – my handle is <code>@vcoia</code>. Self-assess the suitability of your dataset by reading <a href="https://github.com/STAT545-UBC/Discussion/issues/115">this issue</a>.</em></p>
 <p>The Gapminder data is distributed as an R package from <a href="https://cran.r-project.org/web/packages/gapminder/index.html">CRAN</a>.</p>
 <p>Install it if you have not done so already and remember to load it.</p>
 <pre class="r"><code>install.packages(&quot;gapminder&quot;)
@@ -190,15 +206,16 @@ library(tidyverse)</code></pre>
 <li>How many variables/columns?</li>
 <li>How many rows/observations?</li>
 <li>Can you get these facts about “extent” or “size” in more than one way? Can you imagine different functions being useful in different contexts?</li>
-<li>What flavor is each variable?</li>
+<li>What data type is each variable?</li>
 </ul>
+<p>Be sure to justify your answers by calling the appropriate R functions.</p>
 </div>
 <div id="explore-individual-variables" class="section level4">
 <h4>Explore individual variables</h4>
 <p>Pick <strong>at least</strong> one categorical variable and at least one quantitative variable to explore.</p>
 <ul>
-<li>Characterize what’s possible, i.e. all possible values or max vs. min … whatever’s appropriate.</li>
-<li>What’s typical? What’s the spread? What’s the distribution? Etc., tailored to the variable at hand.</li>
+<li>What are possible values (or range, whichever is appropriate) of each variable?</li>
+<li>What values are typical? What’s the spread? What’s the distribution? Etc., tailored to the variable at hand.</li>
 <li>Feel free to use summary stats, tables, figures. We’re NOT expecting high production value (yet).</li>
 </ul>
 </div>
@@ -221,7 +238,7 @@ library(tidyverse)</code></pre>
 <div id="but-i-want-to-do-more" class="section level4">
 <h4>But I want to do more!</h4>
 <p><em>For people who want to take things further.</em></p>
-<p>Evaluate this code and describe the result. Presumably the analyst’s intent was to get the data for Rwanda and Afghanistan. Did she succeed? Why or why not? If not, what is the correct way to do this?</p>
+<p>Evaluate this code and describe the result. Presumably the analyst’s intent was to get the data for Rwanda and Afghanistan. Did they succeed? Why or why not? If not, what is the correct way to do this?</p>
 <pre><code>filter(gapminder, country == c(&quot;Rwanda&quot;, &quot;Afghanistan&quot;))</code></pre>
 <p>Read <a href="http://simplystatistics.org/2014/06/13/what-i-do-when-i-get-a-new-data-set-as-told-through-tweets/">What I do when I get a new data set as told through tweets</a> from <a href="http://simplystatistics.org">SimplyStatistics</a> to get some ideas!</p>
 <p>Present numerical tables in a more attractive form, such as using <code>knitr::kable()</code>.</p>
@@ -239,7 +256,22 @@ library(tidyverse)</code></pre>
 </div>
 <div id="submit-the-assignment" class="section level3">
 <h3>Submit the assignment</h3>
-<p>Follow instructions on <a href="hw00_homework-guidelines.html#how-to-submit-homework">How to submit homework</a></p>
+<p>As in Homework 01:</p>
+<ol style="list-style-type: decimal">
+<li>Add the teaching team as collaborators, if you haven’t done that already. Their github alias’ are:</li>
+</ol>
+<blockquote>
+<p>vincenzocoia gvdr ksedivyhaley joeybernhardt mynamedaike pgonzaleze derekcho</p>
+</blockquote>
+<ol start="2" style="list-style-type: decimal">
+<li>Write a new issue entitled <code>hw02 ready for grading</code>, and tag the above teaching team. Here’s a convenient string to copy and paste to tag the team:</li>
+</ol>
+<blockquote>
+<p><span class="citation">@vincenzocoia</span> <span class="citation">@gvdr</span> <span class="citation">@ksedivyhaley</span> <span class="citation">@joeybernhardt</span> <span class="citation">@mynamedaike</span> <span class="citation">@pgonzaleze</span> <span class="citation">@derekcho</span></p>
+</blockquote>
+<ol start="3" style="list-style-type: decimal">
+<li>You’re done!</li>
+</ol>
 </div>
 <div id="rubric" class="section level3">
 <h3>Rubric</h3>
@@ -260,8 +292,11 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 

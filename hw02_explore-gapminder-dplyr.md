@@ -8,17 +8,31 @@ output:
 
 ### Overview
 
-Consult the [general homework guidelines](hw00_homework-guidelines.html).
+Consult the [general homework guidelines](hw00_homework-guidelines.html). Though, you still won't be using a repo in the stat545 github org. This may or may not happen this year! See [Make a homework repo](#make-a-homework-repo) below for guidelines on making a repo.
 
-Due sometime Tuesday 2017-09-26. Before class is better but get help in class or office hours of you need it.
+Due anytime Tuesday 2017-09-26. Before class is better, but get help in class or office hours of you need it.
 
 The goal is to explore a new-to-you dataset. In particular, to begin to establish a workflow for data frames or "tibbles". You will use dplyr and ggplot2 to do some description and visualization.
 
-Remember the [sampler concept](http://en.wikipedia.org/wiki/Sampler_(needlework)). Your homework should serve as your own personal cheatsheet in the future for things to do with a new dataset. Give yourself the cheatsheet you deserve!
+Your homework should serve as your own personal cheatsheet in the future for things to do with a new dataset. Give yourself the cheatsheet you deserve!
+
+#### Make a homework repo
+
+We might not be getting you a repo in the stat545 github org. Time will tell! For now, we will make a new GitHub repository that will hold the remainder of your homework submissions (until specified otherwise). 
+
+1. Make a new GitHub repo called `STAT545-hw-lastname-firstname`. Note:
+    - Feel free to just use your Homework 01 repo, and rename it.
+    - If you want your homework to be private, here are your options:
+        - Request a GitHub [student developer pack](https://education.github.com/pack). It's free and will allow you to make free GitHub repos.
+        - Use [Bitbucket](https://bitbucket.org/). It's free, gives you free private repos, and works similarly to github. Let me (`@vcoia`) know via Slack if you'd like to try this.
+        - Slack me if neither of these are good. I've got another option.
+
+2. Put your Homework 02 files in a folder that's obviously named (say, `hw02`), and link to it in the main README. Be sure to put a README file in the Homework 02 folder as well, describing what's what in the directory and how someone might navigate the homework submission.
+
 
 #### Bring rectangular data in
 
-Work with the `gapminder` data we explored in class. *If you really want to, you can explore a different dataset but get permission from Jenny. Self-assess the suitability of your dataset by reading [this issue](https://github.com/STAT545-UBC/Discussion/issues/115).*
+Work with the `gapminder` data we explored in class. *If you really want to, you can explore a different dataset but get permission from Vincenzo. Message me on Slack -- my handle is `@vcoia`. Self-assess the suitability of your dataset by reading [this issue](https://github.com/STAT545-UBC/Discussion/issues/115).*
 
 The Gapminder data is distributed as an R package from [CRAN](https://cran.r-project.org/web/packages/gapminder/index.html).
 
@@ -45,14 +59,16 @@ Explore the `gapminder` object:
   * How many variables/columns?
   * How many rows/observations?
   * Can you get these facts about "extent" or "size" in more than one way? Can you imagine different functions being useful in different contexts?
-  * What flavor is each variable?
+  * What data type is each variable?
+
+Be sure to justify your answers by calling the appropriate R functions. 
 
 #### Explore individual variables
 
 Pick __at least__ one categorical variable and at least one quantitative variable to explore.
 
-  * Characterize what's possible, i.e. all possible values or max vs. min ... whatever's appropriate.
-  * What's typical? What's the spread? What's the distribution? Etc., tailored to the variable at hand.
+  * What are possible values (or range, whichever is appropriate) of each variable?
+  * What values are typical? What's the spread? What's the distribution? Etc., tailored to the variable at hand.
   * Feel free to use summary stats, tables, figures. We're NOT expecting high production value (yet).
 
 #### Explore various plot types
@@ -77,7 +93,7 @@ Practice piping together `filter()` and `select()`. Possibly even piping into `g
 
 *For people who want to take things further.*
 
-Evaluate this code and describe the result. Presumably the analyst's intent was to get the data for Rwanda and Afghanistan. Did she succeed? Why or why not? If not, what is the correct way to do this?
+Evaluate this code and describe the result. Presumably the analyst's intent was to get the data for Rwanda and Afghanistan. Did they succeed? Why or why not? If not, what is the correct way to do this?
 
 ```
 filter(gapminder, country == c("Rwanda", "Afghanistan"))
@@ -100,7 +116,24 @@ Reflect on what was hard/easy, problems you solved, helpful tutorials you read, 
 
 ### Submit the assignment
 
-Follow instructions on [How to submit homework](hw00_homework-guidelines.html#how-to-submit-homework)
+As in Homework 01:
+
+1. Add the teaching team as collaborators, if you haven't done that already. Their github alias' are:
+
+> vincenzocoia
+> gvdr
+> ksedivyhaley
+> joeybernhardt
+> mynamedaike
+> pgonzaleze
+> derekcho
+
+
+2. Write a new issue entitled `hw02 ready for grading`, and tag the above teaching team. Here's a convenient string to copy and paste to tag the team:
+
+> @vincenzocoia @gvdr @ksedivyhaley @joeybernhardt @mynamedaike @pgonzaleze @derekcho
+
+3. You're done!
 
 ### Rubric
 
