@@ -1,0 +1,323 @@
+---
+title: "cm005 Notes and Exercises"
+date: "September 19, 2017"
+output: 
+    html_document:
+        toc: true
+---
+
+```{r}
+library(tidyverse)
+library(gapminder)
+```
+
+## 1. A quick look at data types in R
+
+### 1.1 Overview
+
+Data types are summarized nicely in [JB's small slideshow](https://speakerdeck.com/jennybc/simple-view-of-r-objects).
+
+### 1.2 Investigation using R
+
+We've seen that R understands numbers -- a _data type_. What other type of objects does R recognize? Let's identify them, and test them with the `typeof` function. There are
+
+- `Double`s (as we've seen -- they're numbers)
+
+```{r}
+typeof(5.6)
+```
+
+- `Integer`s: (special type of number -- need an `L` at the end)
+
+```{r}
+typeof(4L)
+typeof(4)
+```
+
+- `logical`s are true/false (known as `boolean`s in other languages). We highly recommend using TRUE/FALSE instead of T/F (you can assign T/F as variables, as we'll see later). 
+
+```{r}
+typeof(TRUE)
+typeof(T)
+typeof(FALSE)
+typeof(F)
+```
+
+- `character`s:
+
+```{r}
+typeof("Hi, my name is Vincenzo.")
+```
+
+__Exercise__: Find the data type of `"5"`. Explain the output. 
+
+```{r}
+## Perhaps put your code here!
+```
+
+
+__Exercise__: Use the `as.numeric` function to convert `"5"` to an object of type `"double"`. 
+
+
+__Exercise__: Describe this output:
+
+```{r}
+typeof(typeof(15.2))
+```
+
+
+
+## 2. Data Frames in R
+
+
+### 2.1 "Care and Feeding of Data": Exercises
+
+Last class, we went through the [Care and Feeding of Data in R](http://stat545.com/block006_care-feeding-data.html) tutorial. Let's do some exercises, this time with the `iris` dataset (comes pre-loaded in the `datasets` package). Use any method you'd like to answer the following questions. 
+
+1. How many variables (columns) are in the `iris` dataset, and what are their names?
+
+2. How many rows are in the data set?
+
+3. What are the smallest values of each numeric variable?
+
+4. Extract the `Petal.Width` column to get a vector of observations (we'll see vectors in more detail in a later class), and
+    (a) Make a histogram
+    (b) Make a table of frequencies
+
+### 2.2 `dplyr` fundamentals
+
+Next, we'll learn about `dplyr`, a handy R package for manipulating data frames, through six main functions. According to the [R for data science](http://r4ds.had.co.nz/transform.html) book, the main five (in different order) are:
+
+> - Pick observations by their values (`filter()`).
+> - Pick variables by their names (`select()`).
+    
+- (We'll sneak "piping" into here)
+
+> - Reorder the rows (`arrange()`).
+> - Create new variables with functions of existing variables (`mutate()`).
+> - Collapse many values down to a single summary (`summarise()`).
+
+Then there's `group_by()`, which can be used in conjunction with all of these.
+
+We'll get through as much as we can in this class, and will continue in cm006, possibly with some more exercises and more features of `dplyr`.
+
+Resources underpinning this section can be found in two parts: [part 1](http://stat545.com/block009_dplyr-intro.html) and [part 2](http://stat545.com/block010_dplyr-end-single-table.html).
+
+#### `filter`
+
+`filter` subsets data frames according to some logical expression. 
+
+Basic example:
+
+```{r}
+filter(gapminder, country=="Canada")
+```
+
+Logical expressions are governed by __relational operators__, that output either `TRUE` or `FALSE` based on the validity of the statement you give it. Here's a summary of the operators:
+
+| Operation | Outputs `TRUE` or `FALSE` based on the validity of the statement... |
+| ------ | ----- |
+| `a == b` | `a` is equal to `b` |
+| `a != b` | `a` is not equal to `b`. |
+| `a > b` | `a` is greater than `b`. |
+| `a < b` | `a` is less than `b`. |
+| `a >= b` | `a` is greater than or equal to `b`. |
+| `a <= b` | `a` is less than or equal to `b`. |
+| `a %in% b` | `a` is an element in `b`. | 
+
+Let's see some examples:
+
+
+```{r}
+5 == 3
+c(1, 2, 3) < 3   # vectorized!
+4 %in% c(1, 2, 3, 4, 5)
+my_equality <- 5 == 3
+print(my_equality)
+```
+
+
+There are __logical__ operators too, and they follow Boolean Algebra. They're listed below -- the first three are fundamental, but the others are useful too.
+
+| Operation | Outputs `TRUE` or `FALSE` based on the validity of the statement... |
+| ------ | ----- |
+| `a & b`, `a && b` | Both `a` __and__ `b` are `TRUE` |
+| `a | b`, `a || b` | Either `a` __or__ `b` is `TRUE`. |
+| `!a` | `a` is __not__ `TRUE` (in other words, take the complement or "flip" `a`) |
+| `xor(a, b)` | Either `a` or `b` is `TRUE`, but not both. |
+| `all(a,b,c,...)` | `a`, `b`, `c`, ... are __all__ `TRUE`. |
+| `any(a,b,c,...)` | __Any__ one of `a`, `b`, `c`, ... is `TRUE`. |
+
+We can `filter` by more than one condition:
+
+```{r}
+#filter(gapminder, country=="Canada" & year < 1980) # same as...
+filter(gapminder, country=="Canada", year < 1970)
+filter(gapminder, country=="Canada" | year == 1952)
+```
+
+From the Part 1 notes... never do the following!
+
+> ```
+> excerpt <- gapminder[241:252, ]
+> ```
+> 
+> Why is this a terrible idea?
+> 
+> - It is not self-documenting. What is so special about rows 241 through 252?
+> - It is fragile. This line of code will produce different results if someone changes the row order of `gapminder`, e.g. sorts the data earlier in the script.
+
+__Exercises__: Let's try some exercises using the `gapminder` data set. 
+
+1. Find all entries of Canada and Algeria. 
+
+2. Find all entries of Canada and Algeria, occuring in the '60s. 
+
+3. Find all entries of Canada, and entries of Algeria occuring in the '60s. 
+
+4. Find all entries _not_ including European countries.
+
+
+#### `select`
+
+`select` subsets data by columns/variable names.
+
+```{r}
+select(gapminder, continent, country)
+```
+
+- Always returns a tibble. 
+- Drop variables with `-`. 
+- Note that re-ordering happens here. 
+
+#### piping
+
+What if we wanted to do more than one operation? For example:
+
+- take all entries of Canada and Algeria occuring in the '60s, and
+- select the `country`, `year`, and `gdpPercap` columns.
+
+We could do...
+
+```{r}
+select(filter(gapminder, 
+              country %in% c("Canada", "Algeria"), 
+              year <= 1969, year >= 1960),
+       country, year, gdpPercap)
+```
+
+But the chain of functions can get quite long and hard to read.
+
+The __pipe__ operator `%>%` feeds the output of a function into another function. Syntax:
+
+```
+gapminder %>% 
+    f1() %>% 
+    f2() %>% 
+    f3(options=something)
+```
+
+This says:
+
+1. Start with the `gapminder` data, then
+2. apply `f1` to it, then
+3. apply `f2`, then
+4. apply `f3` with the `options=something` argument. 
+
+The same operation above becomes:
+
+```{r}
+gapminder %>% 
+    filter(country %in% c("Canada", "Algeria"), 
+           year <= 1969, year >= 1960) %>% 
+    select(country, year, gdpPercap)
+```
+
+You can read this as:
+
+1. start with the `gapminder` data, then
+2. take all entries of Canada and Algeria occuring in the '60s (`filter`), then
+3. select the `country`, `year`, and `gdpPercap` columns. 
+
+__Exercise__: Take all countries in Europe that have a GPD per capita greater than 10000, and select all variables except `gdpPercap`. (Hint: use `-`).
+
+#### `arrange`
+
+`arrange` sorts a data frame by shuffling the order of the rows appropriately. Use `desc` to sort by descending order.
+
+Order `gapminder` by population, then life expectancy:
+
+```{r}
+arrange(gapminder, pop, lifeExp)
+```
+
+
+__Exercises__:
+
+1. Order the data frame by year, then descending by life expectancy.
+
+2. In addition to the above exercise, rearrange the variables so that `year` comes first, followed by life expectancy. (Hint: check the documentation for the `select` function for a related handy function).
+
+#### `mutate`
+
+`mutate` creates a new variable by calculating from other variables. Let's get GDP by multiplying GPD per capita with population:
+
+```{r}
+mutate(gapminder, gdp = gdpPercap * pop)
+```
+
+You can define multiple new variables -- even back-dependent on new ones! Let's also create a column for GDP in billions, rounded to one decimal:
+
+```{r}
+mutate(gapminder, 
+       gdp     = gdpPercap * pop, 
+       gdpBill = round(gdp/1000000000, 1))
+```
+
+`transmute` works the same way, but drops all other variables. 
+
+__Exercise__: Make a new column called `cc` that pastes the country name followed by the continent, separated by a comma. (Hint: use the `paste` function with the `sep=", "` argument).
+
+#### `summarize` and `group_by`
+
+`summarize` reduces a tibble according to summary statistics.
+
+```{r}
+summarize(gapminder, mean_pop=mean(pop), sd_pop=sd(pop))
+```
+
+Not very useful by itself! But, with the `group_by` function, the `summarize` function is very useful:
+
+```{r}
+gapminder %>% 
+    group_by(country) %>% 
+    summarize(mean_pop=mean(pop), sd_pop=sd(pop))
+```
+
+The `group_by` function splits the tibble into parts -- in the above case, by country. Notice the "Groups" indicator in the following output:
+
+```{r}
+group_by(gapminder, continent, country, year < 1970)
+```
+
+Let's get a summary of this grouping:
+
+```{r}
+(out1 <- gapminder %>% 
+    group_by(continent, country, year < 1970) %>% 
+    summarize(mean_pop=mean(pop), sd_pop=sd(pop)))
+```
+
+Note that the output is still a tibble, but one "layer" of grouping has been peeled back: the `year < 1970` variable. `summarize` again and you'll see that the tibble was no longer grouped by `year < 1970`. 
+
+```{r}
+out1 %>% 
+    summarize(mean_pop=mean(mean_pop))
+```
+
+
+__Exercise__: Find the minimum GDP per capita experienced by each country
+
+__Exercise__: How many years of record does each country have?
+
+__Exercise__: Within Asia, what are the min and max life expectancies experienced in each year?
