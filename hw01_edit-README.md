@@ -91,3 +91,7 @@ Check minus: `README.md` says equivalent of "This is the repository of Jenny Bry
 Check: something in between. Student may have failed to render to the `github_document` output and commit/push the resulting `.md` file. The homework submission issue might not be perfect, but there was a good effort.
 
 Check plus: `README.md` provides a proper introduction of student to the class. It also demonstrates experimentation with 4 or more aspects of the Markdown syntax. Examples: section headers, links, bold, italic, bullet points, image embed, etc. The student describes how they got the changes into `README.md`. Student has submitted a well-named R Markdown document with exploration of the Gapminder dataset and the rendered markdown file. Student offers a few reflections on their GitHub workflow and their experience with Markdown. The homework submission issue follows the naming convention, includes the SHA, and there's a link to the rendered `.md` for the Gapminder exploration.
+
+## Peer Review
+
+Information about peer review for Homework 01 will go here. You'll be messaged via Slack when this section has been updated and action is required. 
