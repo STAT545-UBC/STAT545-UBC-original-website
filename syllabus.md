@@ -50,13 +50,15 @@ oct-12 thurs   Giulio      <a href="cm012_file-io-factors.html">cm012</a>: Be th
 oct-17 tues    Vincenzo    <a href="cm013_ggplot2-continued.html">cm013</a>: Revisit ggplot, practicalities of daily figure-making                 
 oct-19 thurs   VC/TM       <a href="cm014_munzner-guest-lecture.html">cm014</a>: Visualization Analysis and Design: Tamara Munzer guest lecture    
 
-Links to homework will be posted here as they are made available:
+Links to homework will be posted here as they are made available. Submissions are due at midnight.
 
-  * [Homework 01](hw01_edit-README.html): Edit `README.md`, use R Markdown to explore Gapminder
-  * [Homework 02](hw02_explore-gapminder-dplyr.html): Explore Gapminder as a tibble and starting using dplyr and ggplot2
-  * Homework 03: Manipulate, summarize, visualize Gapminder with dplyr and ggplot2
-  * Homework 04: Tidy data and joins
-  * Homework 05: Prove you are in control of factors and figures. Clean up your repo.
+| Link |  Homework Due Date  |  Peer Review Due Date |
+| :--: | :---------------: | :-----------------: |
+| [Homework 01](hw01_edit-README.html) | September 19, 2017 | September 25, 2017 |
+| [Homework 02](hw02_explore-gapminder-dplyr.html) | September 26, 2017 | October 2, 2017 |
+| Homework 03 |  October 3, 2017 | October 9, 2017 |
+| Homework 04 | October 10, 2017 | October 16, 2017 |
+| Homework 05 | October 20, 2017 | October 23, 2017 |
 
 #### STAT 547M
 
