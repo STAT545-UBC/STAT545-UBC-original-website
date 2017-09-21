@@ -118,11 +118,24 @@ __Exercise__: Find the data type of `"5"`. Explain the output.
 
 
 ```r
-## Perhaps put your code here!
+typeof("5")
+```
+
+```
+## [1] "character"
 ```
 
 
 __Exercise__: Use the `as.numeric` function to convert `"5"` to an object of type `"double"`. 
+
+
+```r
+as.numeric("5")
+```
+
+```
+## [1] 5
+```
 
 
 __Exercise__: Describe this output:
@@ -147,13 +160,99 @@ Last class, we went through the [Care and Feeding of Data in R](http://stat545.c
 
 1. How many variables (columns) are in the `iris` dataset, and what are their names?
 
+
+```r
+ncol(iris)
+```
+
+```
+## [1] 5
+```
+
+```r
+head(iris)
+```
+
+```
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa
+```
+
+
 2. How many rows are in the data set?
 
+
+```r
+nrow(iris)
+```
+
+```
+## [1] 150
+```
+
+```r
+dim(iris)
+```
+
+```
+## [1] 150   5
+```
+
+
 3. What are the smallest values of each numeric variable?
+
+
+```r
+summary(iris)
+```
+
+```
+##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+##  Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+##  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+##        Species  
+##  setosa    :50  
+##  versicolor:50  
+##  virginica :50  
+##                 
+##                 
+## 
+```
+
 
 4. Extract the `Petal.Width` column to get a vector of observations (we'll see vectors in more detail in a later class), and
     (a) Make a histogram
     (b) Make a table of frequencies
+
+
+```r
+x <- iris$Petal.Width
+hist(x)
+```
+
+![](cm005-notes_and_exercises_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+
+```r
+table(x)
+```
+
+```
+## x
+## 0.1 0.2 0.3 0.4 0.5 0.6   1 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9   2 2.1 
+##   5  29   7   7   1   1   7   3   5  13   8  12   4   2  12   5   6   6 
+## 2.2 2.3 2.4 2.5 
+##   3   8   3   3
+```
+
 
 ### 2.2 `dplyr` fundamentals
 
@@ -318,11 +417,126 @@ __Exercises__: Let's try some exercises using the `gapminder` data set.
 
 1. Find all entries of Canada and Algeria. 
 
+
+```r
+filter(gapminder, 
+       country == "Canada" |
+           country == "Algeria")
+```
+
+```
+## # A tibble: 24 × 6
+##    country continent  year lifeExp      pop gdpPercap
+##     <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
+## 1  Algeria    Africa  1952  43.077  9279525  2449.008
+## 2  Algeria    Africa  1957  45.685 10270856  3013.976
+## 3  Algeria    Africa  1962  48.303 11000948  2550.817
+## 4  Algeria    Africa  1967  51.407 12760499  3246.992
+## 5  Algeria    Africa  1972  54.518 14760787  4182.664
+## 6  Algeria    Africa  1977  58.014 17152804  4910.417
+## 7  Algeria    Africa  1982  61.368 20033753  5745.160
+## 8  Algeria    Africa  1987  65.799 23254956  5681.359
+## 9  Algeria    Africa  1992  67.744 26298373  5023.217
+## 10 Algeria    Africa  1997  69.152 29072015  4797.295
+## # ... with 14 more rows
+```
+
+```r
+filter(gapminder,
+       country %in% c("Canada", "Algeria"))
+```
+
+```
+## # A tibble: 24 × 6
+##    country continent  year lifeExp      pop gdpPercap
+##     <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
+## 1  Algeria    Africa  1952  43.077  9279525  2449.008
+## 2  Algeria    Africa  1957  45.685 10270856  3013.976
+## 3  Algeria    Africa  1962  48.303 11000948  2550.817
+## 4  Algeria    Africa  1967  51.407 12760499  3246.992
+## 5  Algeria    Africa  1972  54.518 14760787  4182.664
+## 6  Algeria    Africa  1977  58.014 17152804  4910.417
+## 7  Algeria    Africa  1982  61.368 20033753  5745.160
+## 8  Algeria    Africa  1987  65.799 23254956  5681.359
+## 9  Algeria    Africa  1992  67.744 26298373  5023.217
+## 10 Algeria    Africa  1997  69.152 29072015  4797.295
+## # ... with 14 more rows
+```
+
+
 2. Find all entries of Canada and Algeria, occuring in the '60s. 
+
+
+```r
+filter(gapminder,
+       country %in% c("Canada", "Algeria"), year < 1970, year >= 1960)
+```
+
+```
+## # A tibble: 4 × 6
+##   country continent  year lifeExp      pop gdpPercap
+##    <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
+## 1 Algeria    Africa  1962  48.303 11000948  2550.817
+## 2 Algeria    Africa  1967  51.407 12760499  3246.992
+## 3  Canada  Americas  1962  71.300 18985849 13462.486
+## 4  Canada  Americas  1967  72.130 20819767 16076.588
+```
+
 
 3. Find all entries of Canada, and entries of Algeria occuring in the '60s. 
 
+```r
+filter(gapminder,
+       (country == "Canada") |
+           (country == "Algeria" & 
+            year %in% 1960:1969))
+```
+
+```
+## # A tibble: 14 × 6
+##    country continent  year lifeExp      pop gdpPercap
+##     <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
+## 1  Algeria    Africa  1962  48.303 11000948  2550.817
+## 2  Algeria    Africa  1967  51.407 12760499  3246.992
+## 3   Canada  Americas  1952  68.750 14785584 11367.161
+## 4   Canada  Americas  1957  69.960 17010154 12489.950
+## 5   Canada  Americas  1962  71.300 18985849 13462.486
+## 6   Canada  Americas  1967  72.130 20819767 16076.588
+## 7   Canada  Americas  1972  72.880 22284500 18970.571
+## 8   Canada  Americas  1977  74.210 23796400 22090.883
+## 9   Canada  Americas  1982  75.760 25201900 22898.792
+## 10  Canada  Americas  1987  76.860 26549700 26626.515
+## 11  Canada  Americas  1992  77.950 28523502 26342.884
+## 12  Canada  Americas  1997  78.610 30305843 28954.926
+## 13  Canada  Americas  2002  79.770 31902268 33328.965
+## 14  Canada  Americas  2007  80.653 33390141 36319.235
+```
+
+
 4. Find all entries _not_ including European countries.
+
+
+```r
+filter(gapminder, 
+       continent != "Europe")
+```
+
+```
+## # A tibble: 1,344 × 6
+##        country continent  year lifeExp      pop gdpPercap
+##         <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
+## 1  Afghanistan      Asia  1952  28.801  8425333  779.4453
+## 2  Afghanistan      Asia  1957  30.332  9240934  820.8530
+## 3  Afghanistan      Asia  1962  31.997 10267083  853.1007
+## 4  Afghanistan      Asia  1967  34.020 11537966  836.1971
+## 5  Afghanistan      Asia  1972  36.088 13079460  739.9811
+## 6  Afghanistan      Asia  1977  38.438 14880372  786.1134
+## 7  Afghanistan      Asia  1982  39.854 12881816  978.0114
+## 8  Afghanistan      Asia  1987  40.822 13867957  852.3959
+## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414
+## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
+## # ... with 1,334 more rows
+```
 
 
 #### `select`
@@ -428,6 +642,32 @@ You can read this as:
 
 __Exercise__: Take all countries in Europe that have a GPD per capita greater than 10000, and select all variables except `gdpPercap`. (Hint: use `-`).
 
+
+```r
+gapminder %>% 
+    filter(continent == "Europe",
+           gdpPercap > 10000) %>% 
+    select(-gdpPercap)
+```
+
+```
+## # A tibble: 214 × 5
+##    country continent  year lifeExp     pop
+##     <fctr>    <fctr> <int>   <dbl>   <int>
+## 1  Austria    Europe  1962  69.540 7129864
+## 2  Austria    Europe  1967  70.140 7376998
+## 3  Austria    Europe  1972  70.630 7544201
+## 4  Austria    Europe  1977  72.170 7568430
+## 5  Austria    Europe  1982  73.180 7574613
+## 6  Austria    Europe  1987  74.940 7578903
+## 7  Austria    Europe  1992  76.040 7914969
+## 8  Austria    Europe  1997  77.510 8069876
+## 9  Austria    Europe  2002  78.980 8148312
+## 10 Austria    Europe  2007  79.829 8199783
+## # ... with 204 more rows
+```
+
+
 #### `arrange`
 
 `arrange` sorts a data frame by shuffling the order of the rows appropriately. Use `desc` to sort by descending order.
@@ -461,7 +701,55 @@ __Exercises__:
 
 1. Order the data frame by year, then descending by life expectancy.
 
+
+```r
+arrange(gapminder, year, desc(lifeExp))
+```
+
+```
+## # A tibble: 1,704 × 6
+##           country continent  year lifeExp      pop gdpPercap
+##            <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
+## 1          Norway    Europe  1952   72.67  3327728 10095.422
+## 2         Iceland    Europe  1952   72.49   147962  7267.688
+## 3     Netherlands    Europe  1952   72.13 10381988  8941.572
+## 4          Sweden    Europe  1952   71.86  7124673  8527.845
+## 5         Denmark    Europe  1952   70.78  4334000  9692.385
+## 6     Switzerland    Europe  1952   69.62  4815000 14734.233
+## 7     New Zealand   Oceania  1952   69.39  1994794 10556.576
+## 8  United Kingdom    Europe  1952   69.18 50430000  9979.508
+## 9       Australia   Oceania  1952   69.12  8691212 10039.596
+## 10         Canada  Americas  1952   68.75 14785584 11367.161
+## # ... with 1,694 more rows
+```
+
+
 2. In addition to the above exercise, rearrange the variables so that `year` comes first, followed by life expectancy. (Hint: check the documentation for the `select` function for a related handy function).
+
+
+```r
+gapminder %>% 
+    arrange(year, desc(lifeExp)) %>% 
+    select(year, lifeExp, everything())
+```
+
+```
+## # A tibble: 1,704 × 6
+##     year lifeExp        country continent      pop gdpPercap
+##    <int>   <dbl>         <fctr>    <fctr>    <int>     <dbl>
+## 1   1952   72.67         Norway    Europe  3327728 10095.422
+## 2   1952   72.49        Iceland    Europe   147962  7267.688
+## 3   1952   72.13    Netherlands    Europe 10381988  8941.572
+## 4   1952   71.86         Sweden    Europe  7124673  8527.845
+## 5   1952   70.78        Denmark    Europe  4334000  9692.385
+## 6   1952   69.62    Switzerland    Europe  4815000 14734.233
+## 7   1952   69.39    New Zealand   Oceania  1994794 10556.576
+## 8   1952   69.18 United Kingdom    Europe 50430000  9979.508
+## 9   1952   69.12      Australia   Oceania  8691212 10039.596
+## 10  1952   68.75         Canada  Americas 14785584 11367.161
+## # ... with 1,694 more rows
+```
+
 
 #### `mutate`
 
@@ -518,6 +806,29 @@ mutate(gapminder,
 `transmute` works the same way, but drops all other variables. 
 
 __Exercise__: Make a new column called `cc` that pastes the country name followed by the continent, separated by a comma. (Hint: use the `paste` function with the `sep=", "` argument).
+
+
+```r
+mutate(gapminder, cc = paste(country, continent, sep=", "))
+```
+
+```
+## # A tibble: 1,704 × 7
+##        country continent  year lifeExp      pop gdpPercap
+##         <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
+## 1  Afghanistan      Asia  1952  28.801  8425333  779.4453
+## 2  Afghanistan      Asia  1957  30.332  9240934  820.8530
+## 3  Afghanistan      Asia  1962  31.997 10267083  853.1007
+## 4  Afghanistan      Asia  1967  34.020 11537966  836.1971
+## 5  Afghanistan      Asia  1972  36.088 13079460  739.9811
+## 6  Afghanistan      Asia  1977  38.438 14880372  786.1134
+## 7  Afghanistan      Asia  1982  39.854 12881816  978.0114
+## 8  Afghanistan      Asia  1987  40.822 13867957  852.3959
+## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414
+## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
+## # ... with 1,694 more rows, and 1 more variables: cc <chr>
+```
+
 
 #### `summarize` and `group_by`
 
@@ -645,6 +956,84 @@ out1 %>%
 
 __Exercise__: Find the minimum GDP per capita experienced by each country
 
+
+```r
+gapminder %>%
+    group_by(country) %>% 
+    summarize(mingdp=min(gdpPercap))
+```
+
+```
+## # A tibble: 142 × 2
+##        country     mingdp
+##         <fctr>      <dbl>
+## 1  Afghanistan   635.3414
+## 2      Albania  1601.0561
+## 3      Algeria  2449.0082
+## 4       Angola  2277.1409
+## 5    Argentina  5911.3151
+## 6    Australia 10039.5956
+## 7      Austria  6137.0765
+## 8      Bahrain  9867.0848
+## 9   Bangladesh   630.2336
+## 10     Belgium  8343.1051
+## # ... with 132 more rows
+```
+
+
 __Exercise__: How many years of record does each country have?
 
+
+```r
+gapminder %>%
+    group_by(country) %>% 
+    summarize(n_distinct(year))
+```
+
+```
+## # A tibble: 142 × 2
+##        country `n_distinct(year)`
+##         <fctr>              <int>
+## 1  Afghanistan                 12
+## 2      Albania                 12
+## 3      Algeria                 12
+## 4       Angola                 12
+## 5    Argentina                 12
+## 6    Australia                 12
+## 7      Austria                 12
+## 8      Bahrain                 12
+## 9   Bangladesh                 12
+## 10     Belgium                 12
+## # ... with 132 more rows
+```
+
+
 __Exercise__: Within Asia, what are the min and max life expectancies experienced in each year?
+
+
+```r
+gapminder %>% 
+    filter(continent=="Asia") %>% 
+    group_by(year) %>% 
+    summarize(minexp=min(lifeExp),
+              maxexp=max(lifeExp))
+```
+
+```
+## # A tibble: 12 × 3
+##     year minexp maxexp
+##    <int>  <dbl>  <dbl>
+## 1   1952 28.801 65.390
+## 2   1957 30.332 67.840
+## 3   1962 31.997 69.390
+## 4   1967 34.020 71.430
+## 5   1972 36.088 73.420
+## 6   1977 31.220 75.380
+## 7   1982 39.854 77.110
+## 8   1987 40.822 78.670
+## 9   1992 41.674 79.360
+## 10  1997 41.763 80.690
+## 11  2002 42.129 82.000
+## 12  2007 43.828 82.603
+```
+

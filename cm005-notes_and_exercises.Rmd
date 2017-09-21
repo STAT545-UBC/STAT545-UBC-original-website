@@ -52,11 +52,15 @@ typeof("Hi, my name is Vincenzo.")
 __Exercise__: Find the data type of `"5"`. Explain the output. 
 
 ```{r}
-## Perhaps put your code here!
+typeof("5")
 ```
 
 
 __Exercise__: Use the `as.numeric` function to convert `"5"` to an object of type `"double"`. 
+
+```{r}
+as.numeric("5")
+```
 
 
 __Exercise__: Describe this output:
@@ -76,13 +80,37 @@ Last class, we went through the [Care and Feeding of Data in R](http://stat545.c
 
 1. How many variables (columns) are in the `iris` dataset, and what are their names?
 
+```{r}
+ncol(iris)
+head(iris)
+```
+
+
 2. How many rows are in the data set?
 
+```{r}
+nrow(iris)
+dim(iris)
+```
+
+
 3. What are the smallest values of each numeric variable?
+
+```{r}
+summary(iris)
+```
+
 
 4. Extract the `Petal.Width` column to get a vector of observations (we'll see vectors in more detail in a later class), and
     (a) Make a histogram
     (b) Make a table of frequencies
+
+```{r}
+x <- iris$Petal.Width
+hist(x)
+table(x)
+```
+
 
 ### 2.2 `dplyr` fundamentals
 
@@ -171,11 +199,38 @@ __Exercises__: Let's try some exercises using the `gapminder` data set.
 
 1. Find all entries of Canada and Algeria. 
 
+```{r}
+filter(gapminder, 
+       country == "Canada" |
+           country == "Algeria")
+filter(gapminder,
+       country %in% c("Canada", "Algeria"))
+```
+
+
 2. Find all entries of Canada and Algeria, occuring in the '60s. 
 
+```{r}
+filter(gapminder,
+       country %in% c("Canada", "Algeria"), year < 1970, year >= 1960)
+```
+
+
 3. Find all entries of Canada, and entries of Algeria occuring in the '60s. 
+```{r}
+filter(gapminder,
+       (country == "Canada") |
+           (country == "Algeria" & 
+            year %in% 1960:1969))
+```
+
 
 4. Find all entries _not_ including European countries.
+
+```{r}
+filter(gapminder, 
+       continent != "Europe")
+```
 
 
 #### `select`
@@ -241,6 +296,14 @@ You can read this as:
 
 __Exercise__: Take all countries in Europe that have a GPD per capita greater than 10000, and select all variables except `gdpPercap`. (Hint: use `-`).
 
+```{r}
+gapminder %>% 
+    filter(continent == "Europe",
+           gdpPercap > 10000) %>% 
+    select(-gdpPercap)
+```
+
+
 #### `arrange`
 
 `arrange` sorts a data frame by shuffling the order of the rows appropriately. Use `desc` to sort by descending order.
@@ -256,7 +319,19 @@ __Exercises__:
 
 1. Order the data frame by year, then descending by life expectancy.
 
+```{r}
+arrange(gapminder, year, desc(lifeExp))
+```
+
+
 2. In addition to the above exercise, rearrange the variables so that `year` comes first, followed by life expectancy. (Hint: check the documentation for the `select` function for a related handy function).
+
+```{r}
+gapminder %>% 
+    arrange(year, desc(lifeExp)) %>% 
+    select(year, lifeExp, everything())
+```
+
 
 #### `mutate`
 
@@ -277,6 +352,11 @@ mutate(gapminder,
 `transmute` works the same way, but drops all other variables. 
 
 __Exercise__: Make a new column called `cc` that pastes the country name followed by the continent, separated by a comma. (Hint: use the `paste` function with the `sep=", "` argument).
+
+```{r}
+mutate(gapminder, cc = paste(country, continent, sep=", "))
+```
+
 
 #### `summarize` and `group_by`
 
@@ -318,6 +398,29 @@ out1 %>%
 
 __Exercise__: Find the minimum GDP per capita experienced by each country
 
+```{r}
+gapminder %>%
+    group_by(country) %>% 
+    summarize(mingdp=min(gdpPercap))
+```
+
+
 __Exercise__: How many years of record does each country have?
 
+```{r}
+gapminder %>%
+    group_by(country) %>% 
+    summarize(n_distinct(year))
+```
+
+
 __Exercise__: Within Asia, what are the min and max life expectancies experienced in each year?
+
+```{r}
+gapminder %>% 
+    filter(continent=="Asia") %>% 
+    group_by(year) %>% 
+    summarize(minexp=min(lifeExp),
+              maxexp=max(lifeExp))
+```
+
