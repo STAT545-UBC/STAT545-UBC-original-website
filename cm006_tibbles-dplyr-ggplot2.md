@@ -15,7 +15,7 @@ output:
 #### Today
 
 - Continue working on `dplyr` [activities](http://stat545.com/cm005-notes_and_exercises.html) from last time. Raw Rmd file can be found [here](https://raw.githubusercontent.com/STAT545-UBC/STAT545-UBC.github.io/master/cm005-notes_and_exercises.Rmd).
-- A first look at `ggplot2`.
+- A first look at `ggplot2`. We'll follow along with the [Notes and Exercises](https://stat545.com/cm006-notes_and_exercises.html). I suggest downloading and filling in your responses from the [raw Rmd version](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm006-notes_and_exercises.Rmd) 
 
 #### Resources
 
