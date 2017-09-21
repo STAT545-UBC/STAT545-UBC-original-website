@@ -108,7 +108,22 @@ __Exercises__:
 
 1. Make a scatterplot of `gdpPercap` vs `lifeExp`. Store it in a variable called `p2`.
 
+```{r}
+p2 <- ggplot(gapminder, 
+             aes(x=gdpPercap,
+                 y=lifeExp))
+p2 + geom_point()
+```
+
+
 2. To `p2`, make the size of the points indicate the `year`, choose a level of alpha transparency that you're happy with, and make the points your favourite colour.
+
+```{r}
+p2 + geom_point(aes(size=year,
+                    colour="blueuuu"),
+                alpha=0.1)
+```
+
 
 3. To `p2`, colour the points by `continent`. but this time with year being represented by the size of the points.
 
