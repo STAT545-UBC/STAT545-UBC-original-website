@@ -1,5 +1,5 @@
 # cm007 Notes and Exercises: ggplot2, Round 2
-2017-09-21  
+2017-09-26  
 
 
 ```r

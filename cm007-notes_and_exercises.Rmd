@@ -1,6 +1,6 @@
 ---
 title: "cm007 Notes and Exercises: ggplot2, Round 2"
-date: '2017-09-21'
+date: '2017-09-26'
 output: 
     html_document:
         toc: true
