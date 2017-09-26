@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -19,6 +19,9 @@
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -31,10 +34,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -112,7 +111,6 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -160,15 +158,16 @@ $(document).ready(function () {
 <li><a href="#report-your-process">Report your process</a></li>
 <li><a href="#submit-the-assignment">Submit the assignment</a></li>
 <li><a href="#rubric">Rubric</a></li>
+<li><a href="#peer-review">Peer Review</a></li>
 </ul>
 </div>
 
 <div id="overview" class="section level3">
 <h3>Overview</h3>
-<p>Consult the <a href="hw00_homework-guidelines.html">general homework guidelines</a>.</p>
-<p>Due sometime Tuesday 2016-10-04.</p>
-<p>The goal is to manipulate and explore a dataset with the dplyr package, complemented by visualizations made with ggplot2.</p>
-<p>Remember the <a href="http://en.wikipedia.org/wiki/Sampler_(needlework)">sampler concept</a>. Your homework should serve as your own personal cheatsheet in the future for ways to manipulate a dataset and produce companion figures. Give yourself the cheatsheet you deserve!</p>
+<p>Consult the <a href="hw00_homework-guidelines.html">general homework guidelines</a>. You’ll be submitting this homework to the repo you submitted Homework 02 too.</p>
+<p>Due Tuesday 2017-10-03 at midnight.</p>
+<p>The goal is to manipulate and explore a dataset with the <code>dplyr</code> package, complemented by visualizations made with <code>ggplot2</code>.</p>
+<p>Your homework should serve as your own personal cheatsheet in the future for ways to manipulate a dataset and produce companion figures. Give yourself the cheatsheet you deserve! Check out the <a href="http://en.wikipedia.org/wiki/Sampler_(needlework)">sampler concept</a> for inspiration.</p>
 <div id="gapminder-data" class="section level4">
 <h4>Gapminder data</h4>
 <p>Work with the <a href="http://tiny.cc/gapminder">Gapminder excerpt</a>. <em>If you really want to, you can explore a different dataset but get permission from Jenny. Self-assess the suitability of your dataset by reading <a href="https://github.com/STAT545-UBC/Discussion/issues/115">this issue</a>.</em></p>
@@ -201,7 +200,7 @@ knitr::kable(my_df)
 <p>Look at the spread of GDP per capita within the continents.</p>
 <p>Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population. Just try something other than the plain vanilla mean.</p>
 <p>How is life expectancy changing over time on different continents?</p>
-<p>Report the absolute and/or relative abundance of countries with low life expectancy over time by continent: Compute some measure of worldwide life expectancy – you decide – a mean or median or some other quantile or perhaps your current age. The determine how many countries on each continent have a life expectancy less than this benchmark, for each year.</p>
+<p>Report the absolute and/or relative abundance of countries with low life expectancy over time by continent: Compute some measure of worldwide life expectancy – you decide – a mean or median or some other quantile or perhaps your current age. Then determine how many countries on each continent have a life expectancy less than this benchmark, for each year.</p>
 <p>Find countries with interesting stories. Open-ended and, therefore, hard. Promising but unsuccessful attempts are encouraged. This will generate interesting questions to follow up on in class.</p>
 <p>Make up your own! Between the dplyr coverage in class and the list above, I think you get the idea.</p>
 </div>
@@ -222,7 +221,9 @@ knitr::kable(my_df)
 </div>
 <div id="submit-the-assignment" class="section level3">
 <h3>Submit the assignment</h3>
-<p>Follow instructions on <a href="hw00_homework-guidelines.html#how-to-submit-homework">How to submit homework</a></p>
+<p>Remember the github repo you submitted all your Homework 02 work to? The one called <code>stat545-hw-lastname-firstname</code>? That’s where you’ll be submitting Homework 03, too.</p>
+<p>As before, make a new issue and call it <code>&quot;Homework 03 is ready for grading&quot;</code>.</p>
+<p>This time, you <strong>do not need to</strong> tag any of the teaching team, nor add us as collaborators! By this point, we already have access to your repo and know where it is.</p>
 </div>
 <div id="rubric" class="section level3">
 <h3>Rubric</h3>
@@ -230,6 +231,10 @@ knitr::kable(my_df)
 <p>Check minus: Didn’t tackle at least 3 tasks. Or didn’t make companion graphs. Didn’t interpret anything but left it all to the “reader”. Or more than one technical problem that is relatively easy to fix. It’s hard to find the report in this crazy repo.</p>
 <p>Check: Hits all the elements. No obvious mistakes. Pleasant to read. No heroic detective work required. Solid.</p>
 <p>Check plus: Exceeded the requirements in number of tasks. Or developed novel tasks that were indeed interesting and “worked”. Impressive use of dplyr and/or ggplot2. Impeccable organization of repo and report. You learned something new from reviewing their work and you’re eager to incorporate it into your work.</p>
+</div>
+<div id="peer-review" class="section level1">
+<h1>Peer Review</h1>
+<p>This section will be filled out approximately when the assignment is due. We’ll let you know when.</p>
 </div>
 
 <div class="footer">
@@ -243,8 +248,11 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 

@@ -8,13 +8,13 @@ output:
 
 ### Overview
 
-Consult the [general homework guidelines](hw00_homework-guidelines.html).
+Consult the [general homework guidelines](hw00_homework-guidelines.html). You'll be submitting this homework to the repo you submitted Homework 02 too.
 
-Due sometime Tuesday 2017-10-03.
+Due Tuesday 2017-10-03 at midnight.
 
-The goal is to manipulate and explore a dataset with the dplyr package, complemented by visualizations made with ggplot2.
+The goal is to manipulate and explore a dataset with the `dplyr` package, complemented by visualizations made with `ggplot2`.
 
-Remember the [sampler concept](http://en.wikipedia.org/wiki/Sampler_(needlework)). Your homework should serve as your own personal cheatsheet in the future for ways to manipulate a dataset and produce companion figures. Give yourself the cheatsheet you deserve!
+Your homework should serve as your own personal cheatsheet in the future for ways to manipulate a dataset and produce companion figures. Give yourself the cheatsheet you deserve! Check out the [sampler concept](http://en.wikipedia.org/wiki/Sampler_(needlework)) for inspiration.
 
 #### Gapminder data
 
@@ -52,7 +52,7 @@ Compute a trimmed mean of life expectancy for different years. Or a weighted mea
 
 How is life expectancy changing over time on different continents?
 
-Report the absolute and/or relative abundance of countries with low life expectancy over time by continent: Compute some measure of worldwide life expectancy – you decide – a mean or median or some other quantile or perhaps your current age. The determine how many countries on each continent have a life expectancy less than this benchmark, for each year.
+Report the absolute and/or relative abundance of countries with low life expectancy over time by continent: Compute some measure of worldwide life expectancy – you decide – a mean or median or some other quantile or perhaps your current age. Then determine how many countries on each continent have a life expectancy less than this benchmark, for each year.
 
 Find countries with interesting stories. Open-ended and, therefore, hard. Promising but unsuccessful attempts are encouraged. This will generate interesting questions to follow up on in class.
 
@@ -78,7 +78,11 @@ You're encouraged to reflect on what was hard/easy, problems you solved, helpful
 
 ### Submit the assignment
 
-Follow instructions on [How to submit homework](hw00_homework-guidelines.html#how-to-submit-homework)
+Remember the github repo you submitted all your Homework 02 work to? The one called `stat545-hw-lastname-firstname`? That's where you'll be submitting Homework 03, too.
+
+As before, make a new issue and call it `"Homework 03 is ready for grading"`.
+
+This time, you __do not need to__ tag any of the teaching team, nor add us as collaborators! By this point, we already have access to your repo and know where it is. 
 
 ### Rubric
 
@@ -89,3 +93,7 @@ Check minus: Didn't tackle at least 3 tasks. Or didn't make companion graphs. Di
 Check: Hits all the elements. No obvious mistakes. Pleasant to read. No heroic detective work required. Solid.
 
 Check plus: Exceeded the requirements in number of tasks. Or developed novel tasks that were indeed interesting and "worked". Impressive use of dplyr and/or ggplot2. Impeccable organization of repo and report. You learned something new from reviewing their work and you're eager to incorporate it into your work.
+
+# Peer Review
+
+This section will be filled out approximately when the assignment is due. We'll let you know when.
