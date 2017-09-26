@@ -191,18 +191,32 @@ vc1 + geom_smooth(se=FALSE)</code></pre>
 <pre class="r"><code>vc1 + geom_smooth(method=&quot;lm&quot;)</code></pre>
 <p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-2-2.png" /><!-- --></p>
 <p><strong>Exercise 1</strong>: Make a plot of <code>year</code> (x) vs <code>lifeExp</code> (y), with points coloured by continent. Then, to that same plot, fit a straight regression line to each continent, without the error bars. If you can, try piping the data frame into the <code>ggplot</code> function.</p>
+<pre class="r"><code>ggplot(gapminder, aes(year, lifeExp,
+                      colour=continent)) +
+    geom_point() +
+    geom_smooth(method=&quot;lm&quot;, se=FALSE)</code></pre>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-3-1.png" /><!-- --></p>
 <p><strong>Exercise 2</strong>: Repeat Exercise 1, but switch the <em>regression line</em> and <em>geom_point</em> layers. How is this plot different from that of Exercise 1?</p>
+<pre class="r"><code>ggplot(gapminder, aes(year, lifeExp,
+                      colour=continent)) +
+    geom_smooth(method=&quot;lm&quot;, se=FALSE) +
+    geom_point()</code></pre>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-4-1.png" /><!-- --></p>
 <p><strong>Exercise 3</strong>: Omit the <code>geom_point</code> layer from either of the above two plots (it doesn’t matter which). Does the line still show up, even though the data aren’t shown? Why or why not?</p>
+<pre class="r"><code>ggplot(gapminder, aes(year, lifeExp,
+                      colour=continent)) +
+    geom_smooth(method=&quot;lm&quot;, se=FALSE)</code></pre>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-5-1.png" /><!-- --></p>
 </div>
 <div id="facetting" class="section level3">
 <h3>Facetting</h3>
 <p>We saw that we can <strong>group</strong> by using scales. For example, we can distinguish continents by using different shape or colour:</p>
 <pre class="r"><code>ggplot(gapminder, aes(gdpPercap, lifeExp)) +
     geom_point(aes(colour=continent))</code></pre>
-<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-3-1.png" /><!-- --></p>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-6-1.png" /><!-- --></p>
 <pre class="r"><code>ggplot(gapminder, aes(gdpPercap, lifeExp)) +
     geom_point(aes(shape=continent))</code></pre>
-<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-3-2.png" /><!-- --></p>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-6-2.png" /><!-- --></p>
 <p>But these plots can get overloaded. In comes <strong>facetting</strong> to save the day! Let’s add this to our list of concepts:</p>
 <ul>
 <li>:white_check_mark: <strong>geometric objects</strong>, or <code>geom_</code>s.</li>
@@ -219,9 +233,25 @@ vc1 + geom_smooth(se=FALSE)</code></pre>
 <pre class="r"><code>ggplot(gapminder, aes(gdpPercap, lifeExp)) +
     facet_wrap(~ continent) +
     geom_point()</code></pre>
-<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-4-1.png" /><!-- --></p>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-7-1.png" /><!-- --></p>
 <p>As for other arguments of <code>facet_wrap</code> that I find to be most useful, check the documentation for <code>scales</code> and <code>ncol</code> – and if you’re brave, <code>labeller</code>.</p>
 <p><strong>Exercise 4</strong>: Make a plot of <code>year</code> (x) vs <code>lifeExp</code> (y), facetted by continent. Then, fit a smoother through the data for each continent, without the error bars. Choose a span that you feel is appropriate.</p>
+<pre class="r"><code>ggplot(gapminder, aes(year, lifeExp)) +
+    facet_wrap(~ continent) +
+    geom_point() +
+    geom_smooth(se=FALSE, span=1, method=&quot;loess&quot;)</code></pre>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-8-1.png" /><!-- --></p>
+<p>A small span results in a more jagged curve; a larger one results in a smoother curve. Here’s a better example of using the <code>span</code> argument – first too small, then too big, then “just right”. The idea is to “play” with this parameter to get it just right. NOTE: <code>span</code> only works with <code>method=&quot;loess&quot;</code>!</p>
+<pre class="r"><code>vc3 &lt;- ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+    facet_wrap(~ continent) +
+    geom_point() +
+    scale_x_log10()
+vc3 + geom_smooth(method=&quot;loess&quot;, span=0.2) # Span too small</code></pre>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-9-1.png" /><!-- --></p>
+<pre class="r"><code>vc3 + geom_smooth(method=&quot;loess&quot;, span=10) # Span too big</code></pre>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-9-2.png" /><!-- --></p>
+<pre class="r"><code>vc3 + geom_smooth(method=&quot;loess&quot;, span=0.9) # Span just right</code></pre>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-9-3.png" /><!-- --></p>
 <p><code>facet_grid</code> puts the panels in a grid. Each row corresponds to one grouping, and each column corresponds to another grouping. Mandatory argument specification: <code>facet_grid(GROUPING_VARIABLE_1 ~ GROUPING_VARIABLE_2)</code>.</p>
 <p>Example: Let’s also facet by “small” (&lt;=7,000,000 population) and “large” (&gt;7,000,000 population) countries. We’ll need to add a “size” variable; we’ll do that with <code>dplyr</code>, and pipe the result into the <code>ggplot</code> function:</p>
 <pre class="r"><code>vc2 &lt;- gapminder %&gt;% 
@@ -229,13 +259,13 @@ vc1 + geom_smooth(se=FALSE)</code></pre>
     ggplot(aes(gdpPercap, lifeExp)) +
     facet_grid(size ~ continent) 
 vc2 + geom_point()</code></pre>
-<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-5-1.png" /><!-- --></p>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-10-1.png" /><!-- --></p>
 <p>Everything we’ve learned prior to this works in conjunction with facetting:</p>
 <ul>
 <li>Colours:</li>
 </ul>
 <pre class="r"><code>vc2 + geom_point(aes(colour=year))</code></pre>
-<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-6-1.png" /><!-- --></p>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-11-1.png" /><!-- --></p>
 <ul>
 <li>Regression curves and log scales:</li>
 </ul>
@@ -245,7 +275,7 @@ vc2 + geom_point()</code></pre>
     geom_smooth() +
     scale_x_log10()</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
-<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-7-1.png" /><!-- --></p>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-12-1.png" /><!-- --></p>
 </div>
 <div id="connect-the-dots-with-geom_line" class="section level3">
 <h3>Connect the dots with <code>geom_line</code></h3>
@@ -259,11 +289,11 @@ vc2 + geom_point()</code></pre>
 <pre class="r"><code>## Without the `group` specification:
 ggplot(gapminder, aes(year, lifeExp)) +
     geom_line()</code></pre>
-<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-8-1.png" /><!-- --></p>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-13-1.png" /><!-- --></p>
 <pre class="r"><code>## With the group specification:
 ggplot(gapminder, aes(year, lifeExp, group=country)) +
     geom_line(alpha=0.2)</code></pre>
-<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-8-2.png" /><!-- --></p>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-13-2.png" /><!-- --></p>
 <p>PS: such “spaghetti plots” <em>are</em> actually useful – they give us a sense of the <em>distribution</em> of trends.</p>
 <p><code>geom_path</code> is typically used when a “time” variable is not shown on an axis. For example, let’s look at a scatterplot of <code>pop</code> vs. <code>gdpPercap</code> of Afghanistan, and let’s “connect the dots” in the order of time.</p>
 <pre class="r"><code>gapminder %&gt;%
@@ -272,10 +302,18 @@ ggplot(gapminder, aes(year, lifeExp, group=country)) +
     ggplot(aes(pop, gdpPercap)) +
     geom_point() +
     geom_path()</code></pre>
-<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-9-1.png" /><!-- --></p>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-14-1.png" /><!-- --></p>
 <p>We can see the <em>path</em> that the population and GDP per capita took for Afghanistan.</p>
 <p><strong>Exercise 5</strong>: Plot the population over time (year) using lines, so that each country has its own line. Colour by <code>gdpPercap</code>. Add alpha transparency to your liking.</p>
+<pre class="r"><code>ggplot(gapminder, aes(year, pop, group=country, colour=gdpPercap)) +
+    geom_line(alpha=0.2) </code></pre>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-15-1.png" /><!-- --></p>
 <p><strong>Exercise 6</strong>: Add points to the plot in Exercise 5.</p>
+<pre class="r"><code>ggplot(gapminder, aes(year, pop, group=country)) +
+    geom_line(aes(colour=gdpPercap), alpha=0.2) +
+    geom_point() +
+    scale_y_log10()</code></pre>
+<p><img src="cm007-notes_and_exercises_files/figure-html/unnamed-chunk-16-1.png" /><!-- --></p>
 </div>
 </div>
 

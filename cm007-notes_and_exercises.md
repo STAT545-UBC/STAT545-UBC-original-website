@@ -48,9 +48,41 @@ vc1 + geom_smooth(method="lm")
 
 __Exercise 1__: Make a plot of `year` (x) vs `lifeExp` (y), with points coloured by continent. Then, to that same plot, fit a straight regression line to each continent, without the error bars. If you can, try piping the data frame into the `ggplot` function.
 
+
+```r
+ggplot(gapminder, aes(year, lifeExp,
+                      colour=continent)) +
+    geom_point() +
+    geom_smooth(method="lm", se=FALSE)
+```
+
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+
+
 __Exercise 2__: Repeat Exercise 1, but switch the _regression line_ and _geom\_point_ layers. How is this plot different from that of Exercise 1?
 
+
+```r
+ggplot(gapminder, aes(year, lifeExp,
+                      colour=continent)) +
+    geom_smooth(method="lm", se=FALSE) +
+    geom_point()
+```
+
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
+
 __Exercise 3__: Omit the `geom_point` layer from either of the above two plots (it doesn't matter which). Does the line still show up, even though the data aren't shown? Why or why not?
+
+
+```r
+ggplot(gapminder, aes(year, lifeExp,
+                      colour=continent)) +
+    geom_smooth(method="lm", se=FALSE)
+```
+
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+
 
 ### Facetting
 
@@ -62,14 +94,14 @@ ggplot(gapminder, aes(gdpPercap, lifeExp)) +
     geom_point(aes(colour=continent))
 ```
 
-![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
 ```r
 ggplot(gapminder, aes(gdpPercap, lifeExp)) +
     geom_point(aes(shape=continent))
 ```
 
-![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-3-2.png)<!-- -->
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
 
 But these plots can get overloaded. In comes __facetting__ to save the day! Let's add this to our list of concepts:
 
@@ -92,11 +124,48 @@ ggplot(gapminder, aes(gdpPercap, lifeExp)) +
     geom_point()
 ```
 
-![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
 As for other arguments of `facet_wrap` that I find to be most useful, check the documentation for `scales` and `ncol` -- and if you're brave, `labeller`. 
 
 __Exercise 4__: Make a plot of `year` (x) vs `lifeExp` (y), facetted by continent. Then, fit a smoother through the data for each continent, without the error bars. Choose a span that you feel is appropriate.
+
+
+```r
+ggplot(gapminder, aes(year, lifeExp)) +
+    facet_wrap(~ continent) +
+    geom_point() +
+    geom_smooth(se=FALSE, span=1, method="loess")
+```
+
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+
+A small span results in a more jagged curve; a larger one results in a smoother curve. Here's a better example of using the `span` argument -- first too small, then too big, then "just right". The idea is to "play" with this parameter to get it just right. NOTE: `span` only works with `method="loess"`!
+
+
+```r
+vc3 <- ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+    facet_wrap(~ continent) +
+    geom_point() +
+    scale_x_log10()
+vc3 + geom_smooth(method="loess", span=0.2) # Span too small
+```
+
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+
+```r
+vc3 + geom_smooth(method="loess", span=10) # Span too big
+```
+
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-9-2.png)<!-- -->
+
+```r
+vc3 + geom_smooth(method="loess", span=0.9) # Span just right
+```
+
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-9-3.png)<!-- -->
+
+
 
 `facet_grid` puts the panels in a grid. Each row corresponds to one grouping, and each column corresponds to another grouping. Mandatory argument specification: `facet_grid(GROUPING_VARIABLE_1 ~ GROUPING_VARIABLE_2)`.
 
@@ -111,7 +180,7 @@ vc2 <- gapminder %>%
 vc2 + geom_point()
 ```
 
-![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
 Everything we've learned prior to this works in conjunction with facetting:
 
@@ -122,7 +191,7 @@ Everything we've learned prior to this works in conjunction with facetting:
 vc2 + geom_point(aes(colour=year))
 ```
 
-![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
 - Regression curves and log scales:
 
@@ -139,7 +208,7 @@ vc2 +
 ## `geom_smooth()` using method = 'loess'
 ```
 
-![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
 
 ### Connect the dots with `geom_line` 
@@ -160,7 +229,7 @@ ggplot(gapminder, aes(year, lifeExp)) +
     geom_line()
 ```
 
-![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
 ```r
 ## With the group specification:
@@ -168,7 +237,7 @@ ggplot(gapminder, aes(year, lifeExp, group=country)) +
     geom_line(alpha=0.2)
 ```
 
-![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-8-2.png)<!-- -->
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-13-2.png)<!-- -->
 
 PS: such "spaghetti plots" _are_ actually useful -- they give us a sense of the _distribution_ of trends. 
 
@@ -184,10 +253,30 @@ gapminder %>%
     geom_path()
 ```
 
-![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 
 We can see the _path_ that the population and GDP per capita took for Afghanistan. 
 
 __Exercise 5__: Plot the population over time (year) using lines, so that each country has its own line. Colour by `gdpPercap`. Add alpha transparency to your liking. 
 
+
+```r
+ggplot(gapminder, aes(year, pop, group=country, colour=gdpPercap)) +
+    geom_line(alpha=0.2) 
+```
+
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+
 __Exercise 6__: Add points to the plot in Exercise 5.
+
+
+```r
+ggplot(gapminder, aes(year, pop, group=country)) +
+    geom_line(aes(colour=gdpPercap), alpha=0.2) +
+    geom_point() +
+    scale_y_log10()
+```
+
+![](cm007-notes_and_exercises_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+
+

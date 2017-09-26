@@ -40,9 +40,32 @@ vc1 + geom_smooth(method="lm")
 
 __Exercise 1__: Make a plot of `year` (x) vs `lifeExp` (y), with points coloured by continent. Then, to that same plot, fit a straight regression line to each continent, without the error bars. If you can, try piping the data frame into the `ggplot` function.
 
+```{r}
+ggplot(gapminder, aes(year, lifeExp,
+                      colour=continent)) +
+    geom_point() +
+    geom_smooth(method="lm", se=FALSE)
+```
+
+
 __Exercise 2__: Repeat Exercise 1, but switch the _regression line_ and _geom\_point_ layers. How is this plot different from that of Exercise 1?
 
+```{r}
+ggplot(gapminder, aes(year, lifeExp,
+                      colour=continent)) +
+    geom_smooth(method="lm", se=FALSE) +
+    geom_point()
+```
+
+
 __Exercise 3__: Omit the `geom_point` layer from either of the above two plots (it doesn't matter which). Does the line still show up, even though the data aren't shown? Why or why not?
+
+```{r}
+ggplot(gapminder, aes(year, lifeExp,
+                      colour=continent)) +
+    geom_smooth(method="lm", se=FALSE)
+```
+
 
 ### Facetting
 
@@ -78,6 +101,27 @@ ggplot(gapminder, aes(gdpPercap, lifeExp)) +
 As for other arguments of `facet_wrap` that I find to be most useful, check the documentation for `scales` and `ncol` -- and if you're brave, `labeller`. 
 
 __Exercise 4__: Make a plot of `year` (x) vs `lifeExp` (y), facetted by continent. Then, fit a smoother through the data for each continent, without the error bars. Choose a span that you feel is appropriate.
+
+```{r}
+ggplot(gapminder, aes(year, lifeExp)) +
+    facet_wrap(~ continent) +
+    geom_point() +
+    geom_smooth(se=FALSE, span=1, method="loess")
+```
+
+A small span results in a more jagged curve; a larger one results in a smoother curve. Here's a better example of using the `span` argument -- first too small, then too big, then "just right". The idea is to "play" with this parameter to get it just right. NOTE: `span` only works with `method="loess"`!
+
+```{r}
+vc3 <- ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+    facet_wrap(~ continent) +
+    geom_point() +
+    scale_x_log10()
+vc3 + geom_smooth(method="loess", span=0.2) # Span too small
+vc3 + geom_smooth(method="loess", span=10) # Span too big
+vc3 + geom_smooth(method="loess", span=0.9) # Span just right
+```
+
+
 
 `facet_grid` puts the panels in a grid. Each row corresponds to one grouping, and each column corresponds to another grouping. Mandatory argument specification: `facet_grid(GROUPING_VARIABLE_1 ~ GROUPING_VARIABLE_2)`.
 
@@ -147,4 +191,18 @@ We can see the _path_ that the population and GDP per capita took for Afghanista
 
 __Exercise 5__: Plot the population over time (year) using lines, so that each country has its own line. Colour by `gdpPercap`. Add alpha transparency to your liking. 
 
+```{r}
+ggplot(gapminder, aes(year, pop, group=country, colour=gdpPercap)) +
+    geom_line(alpha=0.2) 
+```
+
 __Exercise 6__: Add points to the plot in Exercise 5.
+
+```{r}
+ggplot(gapminder, aes(year, pop, group=country)) +
+    geom_line(aes(colour=gdpPercap), alpha=0.2) +
+    geom_point() +
+    scale_y_log10()
+```
+
+

@@ -130,6 +130,19 @@ p2 + geom_point(aes(size=year, colour="blue"),
 
 3. To `p2`, colour the points by `continent`, ~~but this time~~ with year being represented by the size of the points, like we did in the previous exercise.
 
+```{r}
+p2 + geom_point(aes(colour=continent, size=year))
+```
+
+
 4. To `p2`, add another layer called `scale_x_log10()` _in addition to the original `geom_point()` layer_. Make a second plot by redoing the plot in (1), but replacing `gdpPercap` with `log10(gdpPercap)`. What do you notice?
+
+```{r}
+p2 + geom_point() + scale_x_log10()
+ggplot(gapminder, 
+             aes(x=log(gdpPercap),
+                 y=lifeExp)) + geom_point()
+```
+
 
 ----Stuff that used to be here has been moved to [cm007's notes and exercises](cm007-notes_and_exercises.html)----
