@@ -38,7 +38,7 @@ First, there are two ways you can make a plot wth `ggplot2`.
 
 Let's go through the basic syntax using the `gapminder` dataset.
 
-#### 1. Basic scatterplot
+#### Basic scatterplot
 
 Let's try to make a basic scatterplot of `year` vs. `lifeExp`. 
 
@@ -111,30 +111,41 @@ Notes:
 
 __Exercises__:
 
-1. Make a scatterplot of `gdpPercap` vs `lifeExp`. Store it in a variable called `p2`.
+1. Make a scatterplot of `gdpPercap` vs `lifeExp`. Store ~it~ the output of the `ggplot` function in a variable called `p2`.
+
+
+```r
+p2 <- ggplot(gapminder, 
+             aes(x=gdpPercap,
+                 y=lifeExp))
+p2 + geom_point()
+```
+
+![](cm006-notes_and_exercises_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+
 
 2. To `p2`, make the size of the points indicate the `year`, choose a level of alpha transparency that you're happy with, and make the points your favourite colour.
 
-3. To `p2`, colour the points by `continent`. but this time with year being represented by the size of the points.
 
-4. To `p2`, add another layer called `scale_x_log10()`. Make a second plot by redoing the plot in (1), but replacing `gdpPercap` with `log10(gdpPercap)`. What do you notice?
+```r
+p2 + geom_point(aes(size=year),
+                colour="blue", 
+                alpha=0.1)
+```
 
-## Continuation of `ggplot2`
+![](cm006-notes_and_exercises_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
-Now that we've got the basics down pat, let's expand our flexibility by going through [Jenny's scatterplot tutorial](https://github.com/jennybc/ggplot2-tutorial/blob/master/gapminder-ggplot2-scatterplot.md).
+```r
+## This *doesn't* work: (why not?)
+p2 + geom_point(aes(size=year, colour="blue"), 
+                alpha=0.1)
+```
 
-### Regression curve
+![](cm006-notes_and_exercises_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
 
-__Exercise 5__: Make a plot of `year` (x) vs `lifeExp` (y), with points coloured by continent. Then, fit a regression line to each continent, without the error bars. If you can, try piping the data frame into the `ggplot` function.
 
-### Facetting
+3. To `p2`, colour the points by `continent`, ~~but this time~~ with year being represented by the size of the points, like we did in the previous exercise.
 
-__Exercise 6__: Make a plot of `year` (x) vs `lifeExp` (y), facetted by continent. Then, fit a smoother through the data for each continent, without the error bars. Choose a span that you feel is appropriate.
+4. To `p2`, add another layer called `scale_x_log10()` _in addition to the original `geom_point()` layer_. Make a second plot by redoing the plot in (1), but replacing `gdpPercap` with `log10(gdpPercap)`. What do you notice?
 
-### `geom_line`
-
-The key here is to remember to indicate the variable to group by with `group=variable`.
-
-__Exercise 7__: Plot the population over time (year) using lines, so that each country has its own line. Add alpha transparency to your liking. 
-
-__Exercise 8__: Add points to the plot in Exercise 7.
+----Stuff that used to be here has been moved to [cm007's notes and exercises](cm007-notes_and_exercises.html)----
