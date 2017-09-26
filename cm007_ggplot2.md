@@ -16,10 +16,14 @@ output:
 
 #### Today
 
-- Today we complete our introduction to `ggplot2`.
-    - We'll get through as much as we can from Jenny's [`ggplot2` tutorial](https://github.com/jennybc/ggplot2-tutorial).
-    - Whatever we don't cover, remains as a resource you can draw on in future.
+- Review:
+    - difference between `ggplot` and `ggplot2`. 
+    - syntax we've seen so far: `data` and `mapping` arguments. 
+- Finish exercises in [cm006 Notes and Exercises](https://stat545.com/cm006-notes_and_exercises.html). [raw Rmd version](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm006-notes_and_exercises.Rmd).
+    - Warning: I updated the Rmd and md files, so be careful not to override your own notes!
+- Complete our introduction to `ggplot2` with [cm007 Notes and Exercises](https://stat545.com/cm007-notes_and_exercises.html). [raw Rmd version here](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm007-notes_and_exercises.Rmd).
 
 #### Resources
 
+- Check out Jenny's [`ggplot2` tutorial](https://github.com/jennybc/ggplot2-tutorial).
 - The [Data visualisation](http://r4ds.had.co.nz/data-visualisation.html) chapter in [R for Data Science](http://r4ds.had.co.nz) is an excellent brief introduction to ggplot2.
