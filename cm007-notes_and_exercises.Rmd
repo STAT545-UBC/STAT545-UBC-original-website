@@ -129,7 +129,7 @@ Example: Let's also facet by "small" (<=7,000,000 population) and "large" (>7,00
 
 ```{r, fig.width=8}
 vc2 <- gapminder %>% 
-    mutate(size=c("small", "large")[(pop>7000000) + 1]) %>% 
+    mutate(size=ifelse(pop > 7000000, "large", "small")) %>% 
     ggplot(aes(gdpPercap, lifeExp)) +
     facet_grid(size ~ continent) 
 vc2 + geom_point()

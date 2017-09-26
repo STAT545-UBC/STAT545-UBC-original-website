@@ -255,7 +255,7 @@ vc3 + geom_smooth(method=&quot;loess&quot;, span=0.2) # Span too small</code></p
 <p><code>facet_grid</code> puts the panels in a grid. Each row corresponds to one grouping, and each column corresponds to another grouping. Mandatory argument specification: <code>facet_grid(GROUPING_VARIABLE_1 ~ GROUPING_VARIABLE_2)</code>.</p>
 <p>Example: Let’s also facet by “small” (&lt;=7,000,000 population) and “large” (&gt;7,000,000 population) countries. We’ll need to add a “size” variable; we’ll do that with <code>dplyr</code>, and pipe the result into the <code>ggplot</code> function:</p>
 <pre class="r"><code>vc2 &lt;- gapminder %&gt;% 
-    mutate(size=c(&quot;small&quot;, &quot;large&quot;)[(pop&gt;7000000) + 1]) %&gt;% 
+    mutate(size=ifelse(pop &gt; 7000000, &quot;large&quot;, &quot;small&quot;)) %&gt;% 
     ggplot(aes(gdpPercap, lifeExp)) +
     facet_grid(size ~ continent) 
 vc2 + geom_point()</code></pre>
