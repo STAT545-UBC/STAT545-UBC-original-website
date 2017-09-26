@@ -7,10 +7,16 @@ output:
 
 ### cm013 2017-10-17 Tuesday overview
 
-  * Peer review for [Homework 04](hw04_tidy-data-joins.html) due today.
-  * [Homework 05](hw05_factor-figure-boss-repo-hygiene.html) due Friday October 20 2017. This is the last HW of STAT 545.
-  * Peer review for Homework 05 due Monday October 23 2017. That concludes STAT 545.
-  * We will spend today on ggplot2, looping back now that you have a fair amount of experience. Most likely topics:
+#### Housekeeping
+
+- Your peer reviews for Homework 04 should have been submitted by last night.
+- Homework 05 due Friday October 20, 2017
+    - This is the last homework of STAT 545.
+- Peer review for Homework 05 due Monday October 23 2017. Also an unusual time. That concludes STAT 545.
+
+#### Today 
+
+- We will spend today on `ggplot2`, looping back now that you have a fair amount of experience. Most likely topics:
     - [Using colors in R](block018_colors.html)
     - [Taking control of qualitative colors in `ggplot2`](block019_enforce-color-scheme.html)
     - [Secrets of a happy graphing life](block016_secrets-happy-graphing.html)
