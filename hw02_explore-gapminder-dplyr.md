@@ -146,7 +146,7 @@ The peer review is ready and is due __October 2, 2017__! Here's what you'll need
 
 0. Find your github username in the table below. If it's not there, let Vincenzo know! Slack me `@vcoia`.
 1. Add the _people who will be giving you a review_ as collaborators to the repo containing your homework submission.
-2. Give a review of this homework for the two people you've been assigned to. There should be an issue in their repo titled something like `hw01 ready for grading` -- put your review in there as a comment.
+2. Give a review of this homework for the two people you've been assigned to. There should be an issue in their repo titled something like `hw0x ready for grading` -- put your review in there as a comment.
     - If there is no such issue, make one! (in _their_ repo)
     - Please don't mix up your reviewers and reviewees! 
 
