@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<meta name="date" content="2017-09-28" />
+
+<title>cm008: Notes and Exercises</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">cm008: Notes and Exercises</h1>
+<h4 class="date"><em>2017-09-28</em></h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#statistical-modelling-in-r">1. Statistical Modelling in R</a><ul>
+<li><a href="#linear-regression">1.1 Linear Regression</a></li>
+<li><a href="#generalized-linear-models-like-logistic-regression">1.2 Generalized Linear Models (like Logistic Regression)</a></li>
+<li><a href="#others">1.3 Others…</a></li>
+</ul></li>
+<li><a href="#more-dplyr">2. More <code>dplyr</code></a></li>
+<li><a href="#more-ggplot">3. More <code>ggplot</code></a><ul>
+<li><a href="#theme-layers">3.1 <code>theme</code> layers</a></li>
+<li><a href="#modifying-scales">3.2 Modifying scales</a></li>
+</ul></li>
+<li><a href="#exercises.">4. Exercises.</a></li>
+</ul>
+</div>
+
+<pre class="r"><code>suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(gapminder))</code></pre>
+<p>We’re ahead of schedule! As a result, I’ll talk about a variety of things first, then we’ll do some exercises.</p>
+<div id="statistical-modelling-in-r" class="section level2">
+<h2>1. Statistical Modelling in R</h2>
+<p>We’ll look at typical data analyses using R.</p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>You aren’t expected to apply this is in your assignments! It’s new to the course because we’re ahead of schedule.</li>
+<li>It’s OK if you’ve never heard of these statistical analyses. The point is that many model fitting procedures in R are similar.</li>
+</ul>
+<p>Many statistical analyses in R follow a similar syntax.</p>
+<div id="linear-regression" class="section level3">
+<h3>1.1 Linear Regression</h3>
+<div id="model-fitting" class="section level4">
+<h4>Model Fitting</h4>
+<p>You can run a linear regression in R with the <code>lm</code> function. Syntax:</p>
+<pre><code>lm(y ~ x1 + x2 + ... + xp, data=your_data_frame)</code></pre>
+<p>The first argument is a “formula” object in R. It’s typically used in modelling to separate Y and X values. (In fact, you’ve seen this already in <code>ggplot</code>’s <code>facet_wrap</code> and <code>facet_grid</code>)</p>
+<p>Let’s fit the regression curve that we see in this plot, using <code>lm</code>:</p>
+<pre class="r"><code>ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+    geom_point() +
+    geom_smooth(method=&quot;lm&quot;) +
+    scale_x_log10()</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-2-1.png" /><!-- --></p>
+<p>Here’s the code:</p>
+<pre class="r"><code>fit1 &lt;- lm(lifeExp ~ log(gdpPercap), data=gapminder)</code></pre>
+<p>What does this <code>fit1</code> object look like?</p>
+<pre class="r"><code>fit1</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = lifeExp ~ log(gdpPercap), data = gapminder)
+## 
+## Coefficients:
+##    (Intercept)  log(gdpPercap)  
+##         -9.101           8.405</code></pre>
+<p>That’s odd… what kind of R object is that??</p>
+<pre class="r"><code>typeof(fit1)</code></pre>
+<pre><code>## [1] &quot;list&quot;</code></pre>
+<p>It’s a list, but R isn’t presenting it that way. It just looks like a bunch of text, but it’s not. Let’s use the <code>lapply</code> function to uncover its true nature – a list.</p>
+<ul>
+<li>NOTE:
+<ul>
+<li><code>lapply</code> loops over each component of a vector or list (<em>first argument</em>), applies a function to it (that you specify in the <em>second argument</em>), and outputs the function output in a list.</li>
+<li>Let’s do this for an <code>lm</code> fit to <code>head(gapminder)</code>, so that the output doesn’t take up a lot of space.</li>
+</ul></li>
+</ul>
+<pre class="r"><code>fit1_small &lt;- lm(lifeExp ~ log(gdpPercap), data=head(gapminder))
+lapply(fit1_small, identity) </code></pre>
+<pre><code>## $coefficients
+##    (Intercept) log(gdpPercap) 
+##      187.61570      -23.08098 
+## 
+## $residuals
+##          1          2          3          4          5          6 
+## -5.1280595 -2.4023520  0.1520397  1.7131151  0.9597015  4.7055553 
+## 
+## $effects
+##    (Intercept) log(gdpPercap)                                              
+##     -81.517386       2.710390       2.070161       3.508404       2.004734 
+##                
+##       6.121766 
+## 
+## $rank
+## [1] 2
+## 
+## $fitted.values
+##        1        2        3        4        5        6 
+## 33.92906 32.73435 31.84496 32.30688 35.12830 33.73244 
+## 
+## $assign
+## [1] 0 1
+## 
+## $qr
+## $qr
+##   (Intercept) log(gdpPercap)
+## 1  -2.4494897    -16.3790824
+## 2   0.4082483     -0.1174296
+## 3   0.4082483      0.5987063
+## 4   0.4082483      0.4282789
+## 5   0.4082483     -0.6126834
+## 6   0.4082483     -0.0976823
+## attr(,&quot;assign&quot;)
+## [1] 0 1
+## 
+## $qraux
+## [1] 1.408248 1.270565
+## 
+## $pivot
+## [1] 1 2
+## 
+## $tol
+## [1] 1e-07
+## 
+## $rank
+## [1] 2
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;qr&quot;
+## 
+## $df.residual
+## [1] 4
+## 
+## $xlevels
+## named list()
+## 
+## $call
+## lm(formula = lifeExp ~ log(gdpPercap), data = head(gapminder))
+## 
+## $terms
+## lifeExp ~ log(gdpPercap)
+## attr(,&quot;variables&quot;)
+## list(lifeExp, log(gdpPercap))
+## attr(,&quot;factors&quot;)
+##                log(gdpPercap)
+## lifeExp                     0
+## log(gdpPercap)              1
+## attr(,&quot;term.labels&quot;)
+## [1] &quot;log(gdpPercap)&quot;
+## attr(,&quot;order&quot;)
+## [1] 1
+## attr(,&quot;intercept&quot;)
+## [1] 1
+## attr(,&quot;response&quot;)
+## [1] 1
+## attr(,&quot;.Environment&quot;)
+## &lt;environment: R_GlobalEnv&gt;
+## attr(,&quot;predvars&quot;)
+## list(lifeExp, log(gdpPercap))
+## attr(,&quot;dataClasses&quot;)
+##        lifeExp log(gdpPercap) 
+##      &quot;numeric&quot;      &quot;numeric&quot; 
+## 
+## $model
+##   lifeExp log(gdpPercap)
+## 1  28.801       6.658583
+## 2  30.332       6.710344
+## 3  31.997       6.748878
+## 4  34.020       6.728864
+## 5  36.088       6.606625
+## 6  38.438       6.667101</code></pre>
+<p>Why isn’t R printing out the list, then? Because it’s a special type of list – it’s of class <code>&quot;lm&quot;</code>, something that the makers of the <code>lm</code> function decided. Whenever R encounters this object, it also has a special way of printing it to screen.</p>
+<p>This is the idea of the “object oriented” part of R – something covered more in STAT 547 in the “R packages” section.</p>
+</div>
+<div id="making-predictions-from-the-model" class="section level4">
+<h4>Making predictions from the model</h4>
+<p>The <code>predict</code> function works on <code>&quot;lm&quot;</code> objects to make predictions. If you don’t specify new data, it will make predictions using the existing X values. Let’s look at the first six:</p>
+<pre class="r"><code>predict(fit1) %&gt;% head</code></pre>
+<pre><code>##        1        2        3        4        5        6 
+## 46.86506 47.30012 47.62400 47.45579 46.42835 46.93666</code></pre>
+<p>How about plotted against the original X values? (Which was log gdpPercap)</p>
+<pre class="r"><code>qplot(log(gapminder$gdpPercap), predict(fit1))</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-8-1.png" /><!-- --></p>
+<p>For fun… let’s put this overtop of the scatterplot:</p>
+<pre class="r"><code>ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+    geom_point(alpha=0.1) +
+    geom_point(y=predict(fit1), colour=&quot;red&quot;) +
+    scale_x_log10()</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-9-1.png" /><!-- --></p>
+<p>You can predict with new data, too, as long as the data frame you enter has the same column names as your X values.</p>
+<pre class="r"><code>(my_newdata &lt;- data.frame(gdpPercap=c(100, 547, 289)))</code></pre>
+<pre><code>##   gdpPercap
+## 1       100
+## 2       547
+## 3       289</code></pre>
+<pre class="r"><code>predict(fit1, newdata=my_newdata)</code></pre>
+<pre><code>##        1        2        3 
+## 29.60596 43.88854 38.52591</code></pre>
+<pre class="r"><code>predict(fit1, newdata=filter(gapminder, country==&quot;Canada&quot;))</code></pre>
+<pre><code>##        1        2        3        4        5        6        7        8 
+## 69.38986 70.18158 70.81182 72.30336 73.69461 74.97451 75.27641 76.54409 
+##        9       10       11       12 
+## 76.45408 77.24871 78.43120 79.15337</code></pre>
+</div>
+<div id="extracting-model-characteristics" class="section level4">
+<h4>Extracting model characteristics</h4>
+<p>We can extract a bunch of things from the <code>lm</code> output.</p>
+<ul>
+<li>Regression coefficients? They’re stored in the <code>$coefficients</code> part of the list. Or, use the <code>coeff</code> function.</li>
+</ul>
+<pre class="r"><code>fit1$coefficients</code></pre>
+<pre><code>##    (Intercept) log(gdpPercap) 
+##      -9.100889       8.405085</code></pre>
+<pre class="r"><code>coef(fit1)</code></pre>
+<pre><code>##    (Intercept) log(gdpPercap) 
+##      -9.100889       8.405085</code></pre>
+<ul>
+<li>Residuals? They’re stored in the <code>$residuals</code> part of the list. Or, use the <code>resid</code> function. (Let’s only display the first six… but plot all of them!)</li>
+</ul>
+<pre class="r"><code>fit1$residuals %&gt;% head</code></pre>
+<pre><code>##          1          2          3          4          5          6 
+## -18.064063 -16.968123 -15.627000 -13.435788 -10.340352  -8.498661</code></pre>
+<pre class="r"><code>resid(fit1) %&gt;% head</code></pre>
+<pre><code>##          1          2          3          4          5          6 
+## -18.064063 -16.968123 -15.627000 -13.435788 -10.340352  -8.498661</code></pre>
+<pre class="r"><code>qplot(log(gapminder$gdpPercap), resid(fit1)) +
+    geom_hline(yintercept=0,
+               linetype=&quot;dashed&quot;)</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-12-1.png" /><!-- --></p>
+<p><code>lm</code> is kind of annoying in that not everything you might want is there. You can access more things using the <code>summary</code> function. What’s printed to screen after <code>summary</code>, though, <em>is</em> quite nice!</p>
+<pre class="r"><code>(summ_fit1 &lt;- summary(fit1))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = lifeExp ~ log(gdpPercap), data = gapminder)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -32.778  -4.204   1.212   4.658  19.285 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     -9.1009     1.2277  -7.413 1.93e-13 ***
+## log(gdpPercap)   8.4051     0.1488  56.500  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 7.62 on 1702 degrees of freedom
+## Multiple R-squared:  0.6522, Adjusted R-squared:  0.652 
+## F-statistic:  3192 on 1 and 1702 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>You can see all sorts of things, like p-values, <span class="math inline">\(R^2\)</span> (and adjusted <span class="math inline">\(R^2\)</span> values), and standard errors.</p>
+<p>As before, this looks nice and all… but what the heck is this new object? Again, it’s a list. Let’s see its components (again, with the smaller fit, so that we don’t take over all the space on the screen).</p>
+<pre class="r"><code>summ_fit1_small &lt;- summary(fit1_small)
+typeof(summ_fit1_small)</code></pre>
+<pre><code>## [1] &quot;list&quot;</code></pre>
+<pre class="r"><code>lapply(summ_fit1_small, identity)  # Pry it open!!</code></pre>
+<pre><code>## $call
+## lm(formula = lifeExp ~ log(gdpPercap), data = head(gapminder))
+## 
+## $terms
+## lifeExp ~ log(gdpPercap)
+## attr(,&quot;variables&quot;)
+## list(lifeExp, log(gdpPercap))
+## attr(,&quot;factors&quot;)
+##                log(gdpPercap)
+## lifeExp                     0
+## log(gdpPercap)              1
+## attr(,&quot;term.labels&quot;)
+## [1] &quot;log(gdpPercap)&quot;
+## attr(,&quot;order&quot;)
+## [1] 1
+## attr(,&quot;intercept&quot;)
+## [1] 1
+## attr(,&quot;response&quot;)
+## [1] 1
+## attr(,&quot;.Environment&quot;)
+## &lt;environment: R_GlobalEnv&gt;
+## attr(,&quot;predvars&quot;)
+## list(lifeExp, log(gdpPercap))
+## attr(,&quot;dataClasses&quot;)
+##        lifeExp log(gdpPercap) 
+##      &quot;numeric&quot;      &quot;numeric&quot; 
+## 
+## $residuals
+##          1          2          3          4          5          6 
+## -5.1280595 -2.4023520  0.1520397  1.7131151  0.9597015  4.7055553 
+## 
+## $coefficients
+##                 Estimate Std. Error    t value  Pr(&gt;|t|)
+## (Intercept)    187.61570  217.00328  0.8645754 0.4360391
+## log(gdpPercap) -23.08098   32.45198 -0.7112350 0.5162158
+## 
+## $aliased
+##    (Intercept) log(gdpPercap) 
+##          FALSE          FALSE 
+## 
+## $sigma
+## [1] 3.810822
+## 
+## $df
+## [1] 2 4 2
+## 
+## $r.squared
+## [1] 0.1122662
+## 
+## $adj.r.squared
+## [1] -0.1096672
+## 
+## $fstatistic
+##     value     numdf     dendf 
+## 0.5058553 1.0000000 4.0000000 
+## 
+## $cov.unscaled
+##                (Intercept) log(gdpPercap)
+## (Intercept)      3242.6148     -484.90771
+## log(gdpPercap)   -484.9077       72.51789</code></pre>
+<p>There we have it. Now, what would you like to extract?:</p>
+<ul>
+<li>R-squared? R-squared adjusted? Okay:</li>
+</ul>
+<pre class="r"><code>summ_fit1$r.squared</code></pre>
+<pre><code>## [1] 0.6522466</code></pre>
+<pre class="r"><code>summ_fit1$adj.r.squared</code></pre>
+<pre><code>## [1] 0.6520423</code></pre>
+<ul>
+<li>Estimated standard devaition of the random error term? Okay:</li>
+</ul>
+<pre class="r"><code>summ_fit1$sigma</code></pre>
+<pre><code>## [1] 7.619535</code></pre>
+<p>Where can we find the documentation for the components of <em>this</em> list, though, if it’s not in the documentation for <code>lm</code>? Look at the documentation of <code>summary.lm</code>.</p>
+<p>But wait! Why not just look at the documentation for <code>summary</code>? It’s because <code>summary</code> is a generic function, and depends on the <em>class</em> of object it’s being applied to. If it’s of class <code>&quot;lm&quot;</code>, then <code>summary.lm</code> is what’s actually secretly run. Running <code>summary</code> on an object of class <code>&quot;glm&quot;</code>? R will secretly run <code>summary.glm</code> instead.</p>
+<p>PS: The <code>broom</code> package makes a lot of this easier and less cryptic. We won’t go over it here. Check out <a href="https://cran.r-project.org/web/packages/broom/vignettes/broom.html">its vignette</a>.</p>
+</div>
+</div>
+<div id="generalized-linear-models-like-logistic-regression" class="section level3">
+<h3>1.2 Generalized Linear Models (like Logistic Regression)</h3>
+<p>We won’t go over this in as much detail, because it’s quite similar to <code>lm</code>. But if you want to run a Generalized Linear Model (GLM) – such as logistic/binomial regression, or Poission regression – just use the <code>glm</code> function.</p>
+<p>Probably the biggest noteworthy difference is the <code>family</code> argument, specifying what type of regression you want to do. Syntax:</p>
+<pre><code>## Poisson regression:
+glm(y ~ x1 + x2 + ... + xp, family=poisson, data=your_data_frame)
+## Logistic (aka Binomial) regression:
+glm(y ~ x1 + x2 + ... + xp, family=binomial, data=your_data_frame)</code></pre>
+<p>Its output looks similar to <code>lm</code>. It’s also a list disguised as text. It also shows more when you use the <code>summary</code> function. It also works with the <code>predict</code> function. It also becomes tidier when used in conjunction with the <code>broom</code> package.</p>
+</div>
+<div id="others" class="section level3">
+<h3>1.3 Others…</h3>
+<p>Here are some other packages/functions you might find useful to fit models:</p>
+<ul>
+<li>(Generalized) Mixed Effects Models
+<ul>
+<li>Two R packages are available: <code>lme4</code> and <code>nlme</code>.
+<ul>
+<li>Check out <a href="http://stats.stackexchange.com/questions/5344/how-to-choose-nlme-or-lme4-r-library-for-mixed-effects-models">this</a> discussion on Cross Validated for a comparison of the two packages.</li>
+</ul></li>
+<li>I’ve found the function <code>glmer</code> in the <code>lme4</code> package to be fruitful.</li>
+</ul></li>
+<li>Kernel smoothing (i.e. fitting a “smoother”): check out the <code>loess</code> function.</li>
+<li>Generalized Additive Models: The <code>gam</code> function in <em>either</em> the <code>gam</code> package or <code>mgcv</code> package.</li>
+<li>Robust linear regression: The <code>rlm</code> function in the <code>MASS</code> package is your friend.</li>
+<li>Regularized regression (GLM) (lasso, elastic net, or ridge regression): Use the <code>glmnet</code> function in the <code>glmnet</code> package.
+<ul>
+<li>PS: I <em>highly</em> recommend this if you have more predictors/covariates/features than you know what to do with… this will weed out the unnecessary ones, <em>and</em> produce a model with good prediction accuracy at the same time.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="more-dplyr" class="section level2">
+<h2>2. More <code>dplyr</code></h2>
+<p>There’s one more important thing with <code>dplyr</code> that you ought to know: applying <code>mutate</code> to a grouped tibble.</p>
+<p>Remember applying <code>summarize</code> to a grouped tibble?</p>
+<pre class="r"><code>gapminder %&gt;%
+    group_by(continent) %&gt;% 
+    summarize(mean_gdpPercap = mean(gdpPercap),
+              n_countries    = length(gdpPercap))</code></pre>
+<pre><code>## # A tibble: 5 × 3
+##   continent mean_gdpPercap n_countries
+##      &lt;fctr&gt;          &lt;dbl&gt;       &lt;int&gt;
+## 1    Africa       2193.755         624
+## 2  Americas       7136.110         300
+## 3      Asia       7902.150         396
+## 4    Europe      14469.476         360
+## 5   Oceania      18621.609          24</code></pre>
+<p>Well, we can also apply <code>mutate</code> to each group, too. For example, let’s calculate the growth in population since the first year on record <em>for each country</em>:</p>
+<pre class="r"><code>gapminder %&gt;% 
+    group_by(country) %&gt;% 
+    mutate(pop_growth = pop - pop[1])</code></pre>
+<pre><code>## Source: local data frame [1,704 x 7]
+## Groups: country [142]
+## 
+##        country continent  year lifeExp      pop gdpPercap pop_growth
+##         &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;      &lt;int&gt;
+## 1  Afghanistan      Asia  1952  28.801  8425333  779.4453          0
+## 2  Afghanistan      Asia  1957  30.332  9240934  820.8530     815601
+## 3  Afghanistan      Asia  1962  31.997 10267083  853.1007    1841750
+## 4  Afghanistan      Asia  1967  34.020 11537966  836.1971    3112633
+## 5  Afghanistan      Asia  1972  36.088 13079460  739.9811    4654127
+## 6  Afghanistan      Asia  1977  38.438 14880372  786.1134    6455039
+## 7  Afghanistan      Asia  1982  39.854 12881816  978.0114    4456483
+## 8  Afghanistan      Asia  1987  40.822 13867957  852.3959    5442624
+## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414    7892588
+## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414   13802082
+## # ... with 1,694 more rows</code></pre>
+<p>Notice that <code>dplyr</code> has retained the original grouping – it hasn’t pealed back one level of grouping. That’s because there’s still more than one row for each group!</p>
+<p>How about growth compared to <code>1972</code>?</p>
+<pre class="r"><code>gapminder %&gt;% 
+    group_by(country) %&gt;% 
+    mutate(pop_growth = pop - pop[year==1972])</code></pre>
+<pre><code>## Source: local data frame [1,704 x 7]
+## Groups: country [142]
+## 
+##        country continent  year lifeExp      pop gdpPercap pop_growth
+##         &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;      &lt;int&gt;
+## 1  Afghanistan      Asia  1952  28.801  8425333  779.4453   -4654127
+## 2  Afghanistan      Asia  1957  30.332  9240934  820.8530   -3838526
+## 3  Afghanistan      Asia  1962  31.997 10267083  853.1007   -2812377
+## 4  Afghanistan      Asia  1967  34.020 11537966  836.1971   -1541494
+## 5  Afghanistan      Asia  1972  36.088 13079460  739.9811          0
+## 6  Afghanistan      Asia  1977  38.438 14880372  786.1134    1800912
+## 7  Afghanistan      Asia  1982  39.854 12881816  978.0114    -197644
+## 8  Afghanistan      Asia  1987  40.822 13867957  852.3959     788497
+## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414    3238461
+## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414    9147955
+## # ... with 1,694 more rows</code></pre>
+<p>In general, this type of “grouped mutation” is useful for <em>window functions</em>. What’s that? Well, let’s see other types of functions in R:</p>
+<ul>
+<li><strong>Vectorized Functions</strong>: These take a vector, and operate on each component independently to return a vector of the same length. In other words, they work element-wise.
+<ul>
+<li>Examples are <code>cos</code>, <code>sin</code>, <code>log</code>, <code>exp</code>, <code>round</code>.</li>
+<li>We don’t need to <code>group_by</code> in order to <code>mutate</code> with these.</li>
+</ul></li>
+<li><strong>Aggregate Functions</strong>: These take a vector, and return a vector of length 1 – as if “aggregating” the values in the vector into a single value.
+<ul>
+<li>Examples are <code>mean</code>, <code>sd</code>, <code>length</code>, <code>typeof</code>.</li>
+<li>We use these in dplyr’s <code>summarise</code> function.</li>
+</ul></li>
+<li><strong>Window Functions</strong>: these take a vector, and return a vector of the same length <em>that depends on other values in the vector</em>.
+<ul>
+<li>Examples are <code>lag</code>, <code>rank</code>, <code>cumsum</code>.</li>
+<li>See the <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/window-functions.html">window-functions</a> vignette for the <code>dplyr</code> package.</li>
+</ul></li>
+</ul>
+</div>
+<div id="more-ggplot" class="section level2">
+<h2>3. More <code>ggplot</code></h2>
+<p>(Have you seen the <a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf">ggplot2 cheatsheet</a>? It contains <strong>a lot</strong> of useful information on two pages!)</p>
+<div id="theme-layers" class="section level3">
+<h3>3.1 <code>theme</code> layers</h3>
+<p>You can change the look of a plot by adding a <code>theme</code> layer to your ggplot layers. This function does <strong>not</strong> actually change the “nature” of the plot itself – only the look! i.e., the so-called “non-data” type displays.</p>
+<p>Examples: - font - justification of titles - rotation of labels - background colour - line thickness - etc…</p>
+<p>There are <a href="http://ggplot2.tidyverse.org/reference/ggtheme.html">“complete themes”</a> that come with <code>ggplot2</code>, my favourite being <code>theme_bw</code> (I’ve grown tired of the default gray background, so <code>theme_bw</code> is refreshing).</p>
+<p>Let’s see an example:</p>
+<pre class="r"><code>p1 &lt;- ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+    facet_wrap(~ continent) +
+    geom_point(colour=&quot;#386CB0&quot;, alpha=0.2) +
+    scale_x_log10()
+p1 + theme_bw()</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-20-1.png" /><!-- --></p>
+<p>The general <code>theme</code> function gives you vast functionality… just check its documentation to see what things you can change. The arguments of <code>theme</code> follow a naming convention: <code>general.to.specific</code></p>
+<p>For example, - <code>axis.title</code> will allow you to change the font of the axis titles. - <code>axis.title.x</code> does the same, but focusses on the <code>x</code> axis.</p>
+<p><strong>Note</strong>: You <em>can’t</em> change the actual words this way! That’s changing the nature of the plot, and not the <em>look</em> of the plot.</p>
+<p>Once we’ve chosen an argument name, we need to specify its value. This is almost always the output of one of the following functions:</p>
+<ul>
+<li><code>element_blank</code> (basically means replace with “nothing”)</li>
+<li><code>element_rect</code>: allows us to specify features of a <em>rectangle</em>.</li>
+<li><code>element_line</code>: allows us to specify features of a <em>line</em>.</li>
+<li><code>element_text</code>: allows us to specify font.</li>
+</ul>
+<p>Check out their documentation to see exactly how each feature is modified.</p>
+<ul>
+<li><strong>Example</strong>: To <code>p1</code> above, do all of the following….
+<ul>
+<li>change the background strip colour to orange,</li>
+<li>change the axis titles’ font sizes to 14, and</li>
+<li>change the panel titles’ font sizes to 14 and bolded.</li>
+</ul></li>
+</ul>
+<pre class="r"><code>p1 +
+    theme(strip.background = element_rect(fill=&quot;orange&quot;),
+          axis.title = element_text(size=14),
+          strip.text = element_text(size=14, face=&quot;bold&quot;))</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-21-1.png" /><!-- --></p>
+<p><strong>Another example</strong>: do the same, but in conjunction with the <code>theme_bw</code> (notice the order)</p>
+<pre class="r"><code>## Correct:
+p1 +
+    theme_bw() +
+    theme(strip.background = element_rect(fill=&quot;orange&quot;),
+          axis.title = element_text(size=14),
+          strip.text = element_text(size=14, face=&quot;bold&quot;))</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-22-1.png" /><!-- --></p>
+<pre class="r"><code>## Incorrect:
+p1 +
+    theme(strip.background = element_rect(fill=&quot;orange&quot;),
+          axis.title = element_text(size=14),
+          strip.text = element_text(size=14, face=&quot;bold&quot;)) +
+    theme_bw()  # Overrides the previous `theme` call!</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-22-2.png" /><!-- --></p>
+</div>
+<div id="modifying-scales" class="section level3">
+<h3>3.2 Modifying scales</h3>
+<p>Recall that we use some <em>scale</em> to represent the <em>range of values that a variable takes</em> in our data. <code>ggplot</code> chooses defaults for this scale, but we can change those.</p>
+<p>Check out <a href="https://github.com/hadley/ggplot2-book/blob/master/scales.rmd">this tutorial by Hadley Wickham</a> for scales.</p>
+<p>We can modify scales using a suite of functions that have the following naming convention: <code>scale_a_b</code>, where:</p>
+<ul>
+<li><code>a</code> is the scale you want to change. Is it <code>colour</code>? <code>size</code>? <code>x</code> position?</li>
+<li><code>b</code> typically speaks to the nature of the variable. <code>continuous</code> is your variable is continuous; <code>discrete</code> if discrete. But, could be other things in certain cases, like <code>log10</code>, or <code>date</code> if your variable consists of dates. <code>manual</code> is an option too.</li>
+</ul>
+<p><strong>Examples</strong>: <code>scale_x_continuous</code>, <code>scale_colour_discrete</code>, <code>scale_y_sqrt</code>.</p>
+<p>As usual in ggplot, these functions are added as a layer.</p>
+<div id="useful-arguments" class="section level4">
+<h4>Useful arguments</h4>
+<p>There are many useful arguments here. Some are more self-explanatory than others.</p>
+<ul>
+<li><code>name</code>. The first argument. Indicate the name of the scale/legend here.
+<ul>
+<li>You can also use the <code>labs</code> function for X and Y axes, and even plot title.</li>
+</ul></li>
+</ul>
+<pre class="r"><code>p1 + scale_y_continuous(&quot;Life Expectancy&quot;)</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-23-1.png" /><!-- --></p>
+<pre class="r"><code>p1 + labs(x=&quot;GDP per capita&quot;, 
+          y=&quot;Life Expectancy&quot;,
+          title=&quot;My Plot&quot;)</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-23-2.png" /><!-- --></p>
+<pre class="r"><code>ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+    geom_point(aes(colour=continent),
+               alpha=0.2) +
+    scale_colour_discrete(&quot;Continents of\n the World&quot;)</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-23-3.png" /><!-- --></p>
+<ul>
+<li><code>breaks</code> (Typically of a continuous scale). Here, you get to specify <em>where</em> along the scale you’d like to display a value.
+<ul>
+<li>Numbers are on the scale of the data (such as population), not the geometric scale (such as a hex colour code, or number of pixels over in a plot).</li>
+</ul></li>
+</ul>
+<pre class="r"><code>## Log lines:
+p1 + scale_x_log10(breaks=c((1:10)*1000,
+                            (1:10)*10000))</code></pre>
+<pre><code>## Scale for &#39;x&#39; is already present. Adding another scale for &#39;x&#39;, which
+## will replace the existing scale.</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-24-1.png" /><!-- --></p>
+<pre class="r"><code>p2 &lt;- ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+    geom_point(aes(colour=pop/10^9),
+               alpha=0.2)
+## Default breaks
+p2 + scale_colour_continuous(&quot;Population\nin billions&quot;)</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-24-2.png" /><!-- --></p>
+<pre class="r"><code>## New breaks
+p2 + scale_colour_continuous(&quot;Population\nin billions&quot;,
+                             breaks=seq(0,2,by=0.2))</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-24-3.png" /><!-- --></p>
+<ul>
+<li><code>labels</code>. Text to replace the data value labels. Most useful for discrete data.</li>
+</ul>
+<pre class="r"><code>## Not a good idea:
+p2 + scale_colour_continuous(&quot;My odd\npopulation\nscale&quot;,
+                             breaks=c(0.2, 0.7, 1.2),
+                             labels=c(&quot;small&quot;, &quot;bigger&quot;, &quot;big&quot;))</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-25-1.png" /><!-- --></p>
+<pre class="r"><code>## Discrete scale:
+ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+    geom_point(aes(colour=continent),
+               alpha=0.2) +
+    scale_colour_discrete(labels=c(&quot;Af&quot;, &quot;Am&quot;, &quot;As&quot;, &quot;Eu&quot;, &quot;Oc&quot;))</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-25-2.png" /><!-- --></p>
+<ul>
+<li><code>limits</code>. Lower and upper bounds of the data that you’d like displayed. Leave one as <code>NA</code> if you want to use the default.</li>
+</ul>
+<pre class="r"><code>p1 + scale_y_continuous(limits=c(60,NA))</code></pre>
+<pre><code>## Warning: Removed 827 rows containing missing values (geom_point).</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-26-1.png" /><!-- --></p>
+<ul>
+<li><code>position</code>. Position of the scale. Also controllable using <code>theme</code> for the legend.</li>
+</ul>
+<pre class="r"><code>p1 + scale_y_continuous(position=&quot;right&quot;)</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-27-1.png" /><!-- --></p>
+<pre class="r"><code>p2 + theme(legend.position = &quot;bottom&quot;)</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-27-2.png" /><!-- --></p>
+</div>
+</div>
+</div>
+<div id="exercises." class="section level2">
+<h2>4. Exercises.</h2>
+<p>Practice these concepts in the following exercises.</p>
+<p><strong>Exercise 1</strong>: Suppose we want to calculate some quantity for each country in the <code>gapminder</code> data set. For each of the following quantities, indicate whether the function is <em>vectorized</em>, <em>aggregate</em>, or <em>window</em>, and use <code>dplyr</code> functions to calculate the specified variable.</p>
+<ul>
+<li>The change in population from 1962 to 1972.</li>
+<li>The population, in billions.</li>
+<li>The lagged gdpPercap
+<ul>
+<li>i.e., the value that appears for 1962 would be the gdpPercap in 1957 (the previous entry).</li>
+<li>Hint: use the <code>lag</code> function, then filter out the <code>NA</code>’s created with the <code>is.na</code> function.</li>
+</ul></li>
+</ul>
+<p><strong>Exercise 2</strong>: For the <code>gapminder</code> dataset, make a spaghetti plot showing the population trend (in millions) over time for each country, facetted by continent. Make as many of the following modifications as you can:</p>
+<ul>
+<li>Colour each line by the log maximum gdpPercap experienced by the country.</li>
+<li>Rotate the x-axis labels to be vertical.</li>
+<li>Remove the x-axis title.</li>
+<li>Give the legend an appropriate title.</li>
+<li>Put the y-axis on a log-scale.</li>
+<li>Rename the y-axis title.</li>
+<li>Add more numbers along the y-axis.</li>
+<li>Give the plot a title, and center the title.</li>
+<li>Only label the x axis with years 1950, 1975, and 2000.</li>
+<li>Move the colour scale to the bottom.</li>
+<li>Rename the colour legend</li>
+</ul>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
