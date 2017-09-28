@@ -15,8 +15,7 @@ output:
 
 #### Today
 
-- Possibly more of `dplyr` functions for working with a single table.
-    - [dplyr functions for a single dataset](block010_dplyr-end-single-table.html)
-- New topics: Tidy data and ~~joins~~.
+- Exercise period to complete exercises in "Section 4" of the [notes and exercises from last time](http://stat545.com/cm008-notes_and_exercises.html), + look at solutions in class. [raw Rmd version](http://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm008-notes_and_exercises.Rmd).
+- New topics: (Tidy data? Joins? Both?)
     - Possibly look at [Tidy data using Lord of the Rings](https://github.com/jennybc/lotr-tidy)
     - [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
