@@ -57,7 +57,7 @@ Links to homework will be posted here as they are made available. Submissions ar
 | [Homework 01](hw01_edit-README.html) | September 19, 2017 | September 25, 2017 |
 | [Homework 02](hw02_explore-gapminder-dplyr.html) | September 26, 2017 | October 2, 2017 |
 | [Homework 03](hw03_dplyr-and-more-ggplot2.html) |  October 3, 2017 | October 9, 2017 |
-| Homework 04 | October 10, 2017 | October 16, 2017 |
+| [Homework 04](hw04_tidy-data-joins.html) | October 10, 2017 | October 16, 2017 |
 | Homework 05 | October 20, 2017 | October 23, 2017 |
 
 #### STAT 547M
