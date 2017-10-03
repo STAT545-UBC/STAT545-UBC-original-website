@@ -11,7 +11,8 @@ output:
 
 - Your peer reviews for Homework 02 should have been submitted by last night.
 - [Homework 03](hw03_dplyr-and-more-ggplot2.html) is due by midnight. Peer review will open shortly after. 
-- (hw04 expected to be open)
+- Homework 04 is open.
+- Want to be a TA for the Masters of Data Science program in Term 2? Apply [here](https://goo.gl/forms/HwkgCi5gUTdRKWjz1).
 
 #### Today
 
