@@ -719,13 +719,93 @@ ggplot(gapminder, aes(gdpPercap, lifeExp)) +
 <p><strong>Exercise 1</strong>: Suppose we want to calculate some quantity for each country in the <code>gapminder</code> data set. For each of the following quantities, indicate whether the function is <em>vectorized</em>, <em>aggregate</em>, or <em>window</em>, and use <code>dplyr</code> functions to calculate the specified variable.</p>
 <ul>
 <li>The change in population from 1962 to 1972.</li>
+</ul>
+<pre class="r"><code>## It&#39;s an Aggregate function.
+gapminder %&gt;% 
+    filter(year %in% c(1962, 1972)) %&gt;% 
+    arrange(year) %&gt;% 
+    group_by(country) %&gt;% 
+    summarize(pop_chg=diff(pop))</code></pre>
+<pre><code>## # A tibble: 142 × 2
+##        country  pop_chg
+##         &lt;fctr&gt;    &lt;int&gt;
+## 1  Afghanistan  2812377
+## 2      Albania   535417
+## 3      Algeria  3759839
+## 4       Angola  1068843
+## 5    Argentina  3496016
+## 6    Australia  2382032
+## 7      Austria   414337
+## 8      Bahrain    58937
+## 9   Bangladesh 13920006
+## 10     Belgium   490700
+## # ... with 132 more rows</code></pre>
+<pre class="r"><code>gapminder %&gt;% 
+    group_by(country) %&gt;% 
+    summarise(pop_chg=pop[year==1972]-pop[year==1962])</code></pre>
+<pre><code>## # A tibble: 142 × 2
+##        country  pop_chg
+##         &lt;fctr&gt;    &lt;int&gt;
+## 1  Afghanistan  2812377
+## 2      Albania   535417
+## 3      Algeria  3759839
+## 4       Angola  1068843
+## 5    Argentina  3496016
+## 6    Australia  2382032
+## 7      Austria   414337
+## 8      Bahrain    58937
+## 9   Bangladesh 13920006
+## 10     Belgium   490700
+## # ... with 132 more rows</code></pre>
+<ul>
 <li>The population, in billions.</li>
+</ul>
+<pre class="r"><code>## It&#39;s a vectorized function.
+gapminder %&gt;%
+    mutate(pop_in_bill = pop/10^9)</code></pre>
+<pre><code>## # A tibble: 1,704 × 7
+##        country continent  year lifeExp      pop gdpPercap pop_in_bill
+##         &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+## 1  Afghanistan      Asia  1952  28.801  8425333  779.4453 0.008425333
+## 2  Afghanistan      Asia  1957  30.332  9240934  820.8530 0.009240934
+## 3  Afghanistan      Asia  1962  31.997 10267083  853.1007 0.010267083
+## 4  Afghanistan      Asia  1967  34.020 11537966  836.1971 0.011537966
+## 5  Afghanistan      Asia  1972  36.088 13079460  739.9811 0.013079460
+## 6  Afghanistan      Asia  1977  38.438 14880372  786.1134 0.014880372
+## 7  Afghanistan      Asia  1982  39.854 12881816  978.0114 0.012881816
+## 8  Afghanistan      Asia  1987  40.822 13867957  852.3959 0.013867957
+## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414 0.016317921
+## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414 0.022227415
+## # ... with 1,694 more rows</code></pre>
+<ul>
 <li>The lagged gdpPercap
 <ul>
 <li>i.e., the value that appears for 1962 would be the gdpPercap in 1957 (the previous entry).</li>
 <li>Hint: use the <code>lag</code> function, then filter out the <code>NA</code>’s created with the <code>is.na</code> function.</li>
 </ul></li>
 </ul>
+<pre class="r"><code>## It&#39;s a window function.
+gapminder %&gt;% 
+    group_by(country) %&gt;% 
+    arrange(year) %&gt;% 
+    mutate(lag_gdpPercap=lag(gdpPercap)) %&gt;% 
+    filter(!is.na(lag_gdpPercap))</code></pre>
+<pre><code>## Source: local data frame [1,562 x 7]
+## Groups: country [142]
+## 
+##        country continent  year lifeExp      pop  gdpPercap lag_gdpPercap
+##         &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;      &lt;dbl&gt;         &lt;dbl&gt;
+## 1  Afghanistan      Asia  1957  30.332  9240934   820.8530      779.4453
+## 2      Albania    Europe  1957  59.280  1476505  1942.2842     1601.0561
+## 3      Algeria    Africa  1957  45.685 10270856  3013.9760     2449.0082
+## 4       Angola    Africa  1957  31.999  4561361  3827.9405     3520.6103
+## 5    Argentina  Americas  1957  64.399 19610538  6856.8562     5911.3151
+## 6    Australia   Oceania  1957  70.330  9712569 10949.6496    10039.5956
+## 7      Austria    Europe  1957  67.480  6965860  8842.5980     6137.0765
+## 8      Bahrain      Asia  1957  53.832   138655 11635.7995     9867.0848
+## 9   Bangladesh      Asia  1957  39.348 51365468   661.6375      684.2442
+## 10     Belgium    Europe  1957  69.240  8989111  9714.9606     8343.1051
+## # ... with 1,552 more rows</code></pre>
 <p><strong>Exercise 2</strong>: For the <code>gapminder</code> dataset, make a spaghetti plot showing the population trend (in millions) over time for each country, facetted by continent. Make as many of the following modifications as you can:</p>
 <ul>
 <li>Colour each line by the log maximum gdpPercap experienced by the country.</li>
@@ -740,6 +820,25 @@ ggplot(gapminder, aes(gdpPercap, lifeExp)) +
 <li>Move the colour scale to the bottom.</li>
 <li>Rename the colour legend</li>
 </ul>
+<pre class="r"><code>gapminder %&gt;% 
+    group_by(country) %&gt;% 
+    mutate(max_gdpPercap=max(gdpPercap)) %&gt;% 
+    ggplot(aes(year, pop/10^6)) + 
+    facet_wrap(~ continent) +
+    geom_line(aes(group=country,
+                  colour=log(max_gdpPercap)),
+              alpha=0.25) +
+    theme_bw() + # I added this because I like this theme.
+    labs(title=&quot;Population Trends&quot;) +
+    scale_y_log10(&quot;Population (millions)&quot;,
+                  breaks=c(0.1, 1, 10, 100, 1000),
+                  labels=c(0.1, 1, 10, 100, 1000)) +
+    scale_x_continuous(&quot;&quot;, breaks=c(1950, 1975, 2000)) +
+    scale_colour_continuous(&quot;log Maximum\nGDP per cap.&quot;) +
+    theme(axis.text.x = element_text(angle=90),
+          plot.title = element_text(hjust=0.5),
+          legend.position = &quot;bottom&quot;)</code></pre>
+<p><img src="cm008-notes_and_exercises_files/figure-html/unnamed-chunk-31-1.png" /><!-- --></p>
 </div>
 
 <div class="footer">
@@ -768,7 +867,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

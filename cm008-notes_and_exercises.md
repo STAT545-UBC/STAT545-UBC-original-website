@@ -814,10 +814,117 @@ Practice these concepts in the following exercises.
 __Exercise 1__: Suppose we want to calculate some quantity for each country in the `gapminder` data set. For each of the following quantities, indicate whether the function is _vectorized_, _aggregate_, or _window_, and use `dplyr` functions to calculate the specified variable.
 
 - The change in population from 1962 to 1972.
+
+
+```r
+## It's an Aggregate function.
+gapminder %>% 
+    filter(year %in% c(1962, 1972)) %>% 
+    arrange(year) %>% 
+    group_by(country) %>% 
+    summarize(pop_chg=diff(pop))
+```
+
+```
+## # A tibble: 142 × 2
+##        country  pop_chg
+##         <fctr>    <int>
+## 1  Afghanistan  2812377
+## 2      Albania   535417
+## 3      Algeria  3759839
+## 4       Angola  1068843
+## 5    Argentina  3496016
+## 6    Australia  2382032
+## 7      Austria   414337
+## 8      Bahrain    58937
+## 9   Bangladesh 13920006
+## 10     Belgium   490700
+## # ... with 132 more rows
+```
+
+```r
+gapminder %>% 
+    group_by(country) %>% 
+    summarise(pop_chg=pop[year==1972]-pop[year==1962])
+```
+
+```
+## # A tibble: 142 × 2
+##        country  pop_chg
+##         <fctr>    <int>
+## 1  Afghanistan  2812377
+## 2      Albania   535417
+## 3      Algeria  3759839
+## 4       Angola  1068843
+## 5    Argentina  3496016
+## 6    Australia  2382032
+## 7      Austria   414337
+## 8      Bahrain    58937
+## 9   Bangladesh 13920006
+## 10     Belgium   490700
+## # ... with 132 more rows
+```
+
+
 - The population, in billions.
+
+
+```r
+## It's a vectorized function.
+gapminder %>%
+    mutate(pop_in_bill = pop/10^9)
+```
+
+```
+## # A tibble: 1,704 × 7
+##        country continent  year lifeExp      pop gdpPercap pop_in_bill
+##         <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>       <dbl>
+## 1  Afghanistan      Asia  1952  28.801  8425333  779.4453 0.008425333
+## 2  Afghanistan      Asia  1957  30.332  9240934  820.8530 0.009240934
+## 3  Afghanistan      Asia  1962  31.997 10267083  853.1007 0.010267083
+## 4  Afghanistan      Asia  1967  34.020 11537966  836.1971 0.011537966
+## 5  Afghanistan      Asia  1972  36.088 13079460  739.9811 0.013079460
+## 6  Afghanistan      Asia  1977  38.438 14880372  786.1134 0.014880372
+## 7  Afghanistan      Asia  1982  39.854 12881816  978.0114 0.012881816
+## 8  Afghanistan      Asia  1987  40.822 13867957  852.3959 0.013867957
+## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414 0.016317921
+## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414 0.022227415
+## # ... with 1,694 more rows
+```
+
+
 - The lagged gdpPercap
     - i.e., the value that appears for 1962 would be the gdpPercap in 1957 (the previous entry).
     - Hint: use the `lag` function, then filter out the `NA`'s created with the `is.na` function.
+
+
+```r
+## It's a window function.
+gapminder %>% 
+    group_by(country) %>% 
+    arrange(year) %>% 
+    mutate(lag_gdpPercap=lag(gdpPercap)) %>% 
+    filter(!is.na(lag_gdpPercap))
+```
+
+```
+## Source: local data frame [1,562 x 7]
+## Groups: country [142]
+## 
+##        country continent  year lifeExp      pop  gdpPercap lag_gdpPercap
+##         <fctr>    <fctr> <int>   <dbl>    <int>      <dbl>         <dbl>
+## 1  Afghanistan      Asia  1957  30.332  9240934   820.8530      779.4453
+## 2      Albania    Europe  1957  59.280  1476505  1942.2842     1601.0561
+## 3      Algeria    Africa  1957  45.685 10270856  3013.9760     2449.0082
+## 4       Angola    Africa  1957  31.999  4561361  3827.9405     3520.6103
+## 5    Argentina  Americas  1957  64.399 19610538  6856.8562     5911.3151
+## 6    Australia   Oceania  1957  70.330  9712569 10949.6496    10039.5956
+## 7      Austria    Europe  1957  67.480  6965860  8842.5980     6137.0765
+## 8      Bahrain      Asia  1957  53.832   138655 11635.7995     9867.0848
+## 9   Bangladesh      Asia  1957  39.348 51365468   661.6375      684.2442
+## 10     Belgium    Europe  1957  69.240  8989111  9714.9606     8343.1051
+## # ... with 1,552 more rows
+```
 
 
 
@@ -834,3 +941,27 @@ __Exercise 2__: For the `gapminder` dataset, make a spaghetti plot showing the p
 - Only label the x axis with years 1950, 1975, and 2000.
 - Move the colour scale to the bottom.
 - Rename the colour legend
+
+
+```r
+gapminder %>% 
+    group_by(country) %>% 
+    mutate(max_gdpPercap=max(gdpPercap)) %>% 
+    ggplot(aes(year, pop/10^6)) + 
+    facet_wrap(~ continent) +
+    geom_line(aes(group=country,
+                  colour=log(max_gdpPercap)),
+              alpha=0.25) +
+    theme_bw() + # I added this because I like this theme.
+    labs(title="Population Trends") +
+    scale_y_log10("Population (millions)",
+                  breaks=c(0.1, 1, 10, 100, 1000),
+                  labels=c(0.1, 1, 10, 100, 1000)) +
+    scale_x_continuous("", breaks=c(1950, 1975, 2000)) +
+    scale_colour_continuous("log Maximum\nGDP per cap.") +
+    theme(axis.text.x = element_text(angle=90),
+          plot.title = element_text(hjust=0.5),
+          legend.position = "bottom")
+```
+
+![](cm008-notes_and_exercises_files/figure-html/unnamed-chunk-31-1.png)<!-- -->

@@ -404,10 +404,41 @@ Practice these concepts in the following exercises.
 __Exercise 1__: Suppose we want to calculate some quantity for each country in the `gapminder` data set. For each of the following quantities, indicate whether the function is _vectorized_, _aggregate_, or _window_, and use `dplyr` functions to calculate the specified variable.
 
 - The change in population from 1962 to 1972.
+
+```{r}
+## It's an Aggregate function.
+gapminder %>% 
+    filter(year %in% c(1962, 1972)) %>% 
+    arrange(year) %>% 
+    group_by(country) %>% 
+    summarize(pop_chg=diff(pop))
+gapminder %>% 
+    group_by(country) %>% 
+    summarise(pop_chg=pop[year==1972]-pop[year==1962])
+```
+
+
 - The population, in billions.
+
+```{r}
+## It's a vectorized function.
+gapminder %>%
+    mutate(pop_in_bill = pop/10^9)
+```
+
+
 - The lagged gdpPercap
     - i.e., the value that appears for 1962 would be the gdpPercap in 1957 (the previous entry).
     - Hint: use the `lag` function, then filter out the `NA`'s created with the `is.na` function.
+
+```{r}
+## It's a window function.
+gapminder %>% 
+    group_by(country) %>% 
+    arrange(year) %>% 
+    mutate(lag_gdpPercap=lag(gdpPercap)) %>% 
+    filter(!is.na(lag_gdpPercap))
+```
 
 
 
@@ -424,3 +455,24 @@ __Exercise 2__: For the `gapminder` dataset, make a spaghetti plot showing the p
 - Only label the x axis with years 1950, 1975, and 2000.
 - Move the colour scale to the bottom.
 - Rename the colour legend
+
+```{r}
+gapminder %>% 
+    group_by(country) %>% 
+    mutate(max_gdpPercap=max(gdpPercap)) %>% 
+    ggplot(aes(year, pop/10^6)) + 
+    facet_wrap(~ continent) +
+    geom_line(aes(group=country,
+                  colour=log(max_gdpPercap)),
+              alpha=0.25) +
+    theme_bw() + # I added this because I like this theme.
+    labs(title="Population Trends") +
+    scale_y_log10("Population (millions)",
+                  breaks=c(0.1, 1, 10, 100, 1000),
+                  labels=c(0.1, 1, 10, 100, 1000)) +
+    scale_x_continuous("", breaks=c(1950, 1975, 2000)) +
+    scale_colour_continuous("log Maximum\nGDP per cap.") +
+    theme(axis.text.x = element_text(angle=90),
+          plot.title = element_text(hjust=0.5),
+          legend.position = "bottom")
+```
