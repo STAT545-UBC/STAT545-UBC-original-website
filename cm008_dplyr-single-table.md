@@ -15,7 +15,7 @@ output:
 
 #### Today
 
-We're ahead of schedule. Let's talk about some useful things that I've skipped over, in today's [cm006 Notes and Exercises](https://stat545.com/cm008-notes_and_exercises.html). [raw Rmd version](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm008-notes_and_exercises.Rmd).
+We're ahead of schedule. Let's talk about some useful things that I've skipped over, in today's [cm008 Notes and Exercises](https://stat545.com/cm008-notes_and_exercises.html). [raw Rmd version](https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm008-notes_and_exercises.Rmd).
 
 #### Resources
 
