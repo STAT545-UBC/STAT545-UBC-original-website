@@ -17,6 +17,13 @@ output:
 #### Today
 
 - Exercise period to complete exercises in "Section 4" of the [notes and exercises from last time](http://stat545.com/cm008-notes_and_exercises.html), + look at solutions in class. [raw Rmd version](http://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm008-notes_and_exercises.Rmd).
-- New topics: (Tidy data? Joins? Both?)
-    - Possibly look at [Tidy data using Lord of the Rings](https://github.com/jennybc/lotr-tidy)
-    - [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
+- New topic: joining two data frames.
+    - We'll go through the `dplyr` [vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html) on "two-table verbs".
+    - Then, [exercises](http://stat545.com/cm009-notes_and_exercises.html). [raw Rmd version](http://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm009-notes_and_exercises.Rmd).
+
+#### Resources
+
+Some useful resources for data frame joins.
+
+- Jenny's [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions.
+- The [Relational Data](http://r4ds.had.co.nz/relational-data.html) chapter in "R for Data Science" goes through these concepts in detail. 
