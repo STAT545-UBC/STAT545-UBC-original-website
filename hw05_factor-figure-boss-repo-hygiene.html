@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -19,6 +19,9 @@
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -31,10 +34,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -112,7 +111,6 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -151,9 +149,13 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#overview">Overview</a><ul>
-<li><a href="#gapminder-data-or-whatever">Gapminder data … or whatever</a></li>
+<li><a href="#gapminder-singer-or-something-else">Gapminder, Singer, … or something else</a></li>
 </ul></li>
-<li><a href="#factor-management">Factor management</a></li>
+<li><a href="#factor-management">Factor management</a><ul>
+<li><a href="#singer-version">Singer version:</a></li>
+<li><a href="#gapminder-version">Gapminder version:</a></li>
+<li><a href="#common-part">Common part:</a></li>
+</ul></li>
 <li><a href="#file-io">File I/O</a></li>
 <li><a href="#visualization-design">Visualization design</a></li>
 <li><a href="#writing-figures-to-file">Writing figures to file</a></li>
@@ -168,25 +170,44 @@ $(document).ready(function () {
 <div id="overview" class="section level3">
 <h3>Overview</h3>
 <p>Consult the <a href="hw00_homework-guidelines.html">general homework guidelines</a>.</p>
-<p>Due anytime Friday 2016-10-21.</p>
+<p>Due anytime Friday 2017-10-20.</p>
 <p>Goals:</p>
 <ul>
 <li>Reorder a factor in a principled way based on the data and demonstrate the effect in arranged data and in figures.</li>
-<li>Write some data to file and bring it back into R.</li>
-<li>Remake at least one previously made figure (or make a completely new figure), using new knowledge, such as ability to control the color scheme, empowerment about factor levels, better figure making mechanics, or visualization design principles.</li>
-<li>Write a figure to file explicitly and include it your R Markdown report via <code>![Alt text](/path/to/img.png)</code>.</li>
-<li>Clean up and organize your entire repository, to celebrate the completion of STAT 545 and/or to prepare for the glorious future of STAT 547.</li>
+<li>Improve a figure (or make one from scratch), using new knowledge, e.g., control the color scheme, use factor levels, smoother mechanics.</li>
+<li>Implement visualization design principles.</li>
+<li>Write some data to file and load it back into R. E.g., save a plot to file and include it in a R Markdown report via <code>![Alt text](/path/to/img.png)</code>.</li>
+<li>Organise your github, to celebrate the completion of STAT 545 and/or to prepare for the glorious future of STAT 547.</li>
 </ul>
 <p>Remember the <a href="http://en.wikipedia.org/wiki/Sampler_(needlework)">sampler concept</a>. Your homework should serve as your own personal cheatsheet in the future for canonical tasks. Make things nice – your future self will thank you!</p>
-<div id="gapminder-data-or-whatever" class="section level4">
-<h4>Gapminder data … or whatever</h4>
-<p>You can work with the gapminder data or take this chance to play with something else. In which case, you’ll have to create comparable tasks for yourself.</p>
+<div id="gapminder-singer-or-something-else" class="section level4">
+<h4>Gapminder, Singer, … or something else</h4>
+<p>You can work with the gapminder data or take this chance to play with something else, such as Joey’s Singer. In which case, you’ll have to create comparable tasks for yourself.</p>
 </div>
 </div>
 <div id="factor-management" class="section level3">
 <h3>Factor management</h3>
+<p>Step goals:</p>
+<ul>
+<li>Define factor variables;</li>
+<li>Drop factor / levels;</li>
+<li>Reorder levels based on knowledge from data.</li>
+</ul>
+<p>I give here the trace for both the Singer and the Gapminder dataframes.</p>
+<div id="singer-version" class="section level4">
+<h4>Singer version:</h4>
+<p><strong>Factorise.</strong> Transform some of the variable in the <code>singer_locations</code> dataframe into factors: pay attention at what levels you introduce and their order. Try and consider the difference between the base R <code>as.factor</code> and the <code>forcats</code>-provided functions.</p>
+<p><strong>Drop 0.</strong> Filter the <code>singer_locations</code> data to remove observations associated with the uncorrectly inputed <code>year</code> 0. Additionally, remove unused factor levels. Provide concrete information on the data before and after removing these rows and levels; address the number of rows and the levels of the affected factors.</p>
+<p><strong>Reorder the levels of <code>year</code>, <code>artist_name</code> or <code>title</code>.</strong> Use the forcats package to change the order of the factor levels, based on a principled summary of one of the quantitative variables. Consider experimenting with a summary statistic beyond the most basic choice of the median.</p>
+</div>
+<div id="gapminder-version" class="section level4">
+<h4>Gapminder version:</h4>
 <p><strong>Drop Oceania.</strong> Filter the Gapminder data to remove observations associated with the <code>continent</code> of Oceania. Additionally, remove unused factor levels. Provide concrete information on the data before and after removing these rows and Oceania; address the number of rows and the levels of the affected factors.</p>
-<p><strong>Reorder the levels of <code>country</code> or <code>continent</code>.</strong> Use the forcats package to change the order of the factor levels, based on a principled summary of one of the quantitative variables. Consider experimenting with a summary statistic beyond the most basic choice of the median. While you’re here, practice writing to file and reading back in (see next section).</p>
+<p><strong>Reorder the levels of <code>country</code> or <code>continent</code>.</strong> Use the forcats package to change the order of the factor levels, based on a principled summary of one of the quantitative variables. Consider experimenting with a summary statistic beyond the most basic choice of the median.</p>
+</div>
+<div id="common-part" class="section level4">
+<h4>Common part:</h4>
+<p>While you’re here, practice writing to file and reading back in (see next section).</p>
 <p>Characterize the (derived) data before and after your factor re-leveling.</p>
 <ul>
 <li>Explore the effects of <code>arrange()</code>. Does merely arranging the data have any effect on, say, a figure?</li>
@@ -194,17 +215,18 @@ $(document).ready(function () {
 </ul>
 <p>These explorations should involve the data, the factor levels, and some figures.</p>
 </div>
+</div>
 <div id="file-io" class="section level3">
 <h3>File I/O</h3>
-<p>Experiment with one or more of <code>write_csv()/read_csv()</code> (and/or TSV friends), <code>saveRDS()/readRDS()</code>, <code>dput()/dget()</code>. Create something new, probably by filtering or grouped-summarization of Gapminder. I highly recommend you fiddle with the factor levels, i.e. make them non-alphabetical (see previous section). Explore whether this survives the round trip of writing to file then reading back in.</p>
+<p>Experiment with one or more of <code>write_csv()/read_csv()</code> (and/or TSV friends), <code>saveRDS()/readRDS()</code>, <code>dput()/dget()</code>. Create something new, probably by filtering or grouped-summarization of Singer or Gapminder. I highly recommend you fiddle with the factor levels, i.e. make them non-alphabetical (see previous section). Explore whether this survives the round trip of writing to file then reading back in.</p>
 </div>
 <div id="visualization-design" class="section level3">
 <h3>Visualization design</h3>
-<p>Remake at least one figure, in light of something you learned in the recent class meetings about visualization design and color. Maybe juxtapose before and after and reflect on the differences. Use the country or continent color scheme that ships with Gapminder. Consult the guest lecture from Tamara Munzner and <a href="graph00_index.html">everything here</a>.</p>
+<p>Remake at least one figure or create a new one, in light of something you learned in the recent class meetings about visualization design and color. Maybe juxtapose your first attempt and what you obtained after some time spent working on it. Reflect on the differences. If using Gapminder, you can use the country or continent color scheme that ships with Gapminder. Consult the guest lecture from Tamara Munzner and <a href="graph00_index.html">everything here</a>.</p>
 </div>
 <div id="writing-figures-to-file" class="section level3">
 <h3>Writing figures to file</h3>
-<p>Use <code>ggsave()</code> to explicitly write a figure to file. Then use <code>![Alt text](/path/to/img.png)</code> to embed it in your report. Things to play around with:</p>
+<p>Use <code>ggsave()</code> to explicitly save a plot to file. Then use <code>![Alt text](/path/to/img.png)</code> to load and embed it in your report. You can play around with various options, such as:</p>
 <ul>
 <li>Arguments of <code>ggsave()</code>, such as width, height, resolution or text scaling.</li>
 <li>Various graphics devices, e.g. a vector vs. raster format.</li>
@@ -228,9 +250,20 @@ $(document).ready(function () {
 <div id="but-i-want-to-do-more" class="section level3">
 <h3>But I want to do more!</h3>
 <p>Make a deeper exploration of the forcats packages, i.e. try more of the factor level reordering functions.</p>
-<p>Revalue a factor</p>
+<p>Revalue a factor, e.g.:</p>
 <ul>
-<li>Pick a handful of countries, each of which you can associate with a stereotypical food (or any other non-controversial thing … sport? hobby? type of music, art or dance? animal? landscape feature?). Create an excerpt of the Gapminder data, filtered to just these countries. Create a new factor – you pick the name! – by mapping the existing country factor levels to the new levels.
+<li><strong><em>Singer version</em></strong>: Pick a handful of locations (they are named <code>city</code>, try using <code>distinct()</code>) that you can pinpoint to a geographical place (city, region, country, continent,…). Create an excerpt of the Singer data, filtered to just those rows. Create a (couple of) new factor(s) – you pick the name(s)! – by mapping the existing <code>city</code> factor levels to the new (city, region, country…) levels.
+<ul>
+<li>Examples: “London, England” –&gt; “London”, “England”, “UK”, “Europe”;<br />
+</li>
+<li>“Los Angeles, CA” –&gt; “Los Angeles”, “California”, “USA”, “Americas”;</li>
+<li>…</li>
+<li>“310, Louisiana” –&gt; “New Orleans”, “Louisiana”, “USA”, “Americas”.</li>
+</ul></li>
+</ul>
+<p>When you get tired, if you still have time on your hand, try to make this process of geolocalization more streamlined: you may want to try and use the <code>separate</code> function from tidyr.</p>
+<ul>
+<li><strong><em>Gapminder version</em></strong>: Pick a handful of countries, each of which you can associate with a stereotypical food (or any other non-controversial thing … sport? hobby? type of music, art or dance? animal? landscape feature?). Create an excerpt of the Gapminder data, filtered to just these countries. Create a new factor – you pick the name! – by mapping the existing country factor levels to the new levels.
 <ul>
 <li>Examples: Italy –&gt; wine, Germany –&gt; beer, Japan –&gt; sake. (Austria, Germany) –&gt; German, (Mexico, Spain) –&gt; Spanish, (Portugal, Brazil) –&gt; Portuguese. Let your creativity flourish.</li>
 </ul></li>
@@ -242,7 +275,7 @@ $(document).ready(function () {
 </div>
 <div id="submit-the-assignment" class="section level3">
 <h3>Submit the assignment</h3>
-<p>Follow instructions on <a href="hw00_homework-guidelines.html#how-to-submit-homework">How to submit homework</a></p>
+<p>It’s always the same: add the teaching stuff as collabs, open the issue, you are done.</p>
 </div>
 <div id="rubric" class="section level3">
 <h3>Rubric</h3>
@@ -262,8 +295,11 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 
@@ -274,7 +310,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

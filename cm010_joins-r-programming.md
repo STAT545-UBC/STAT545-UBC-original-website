@@ -15,13 +15,14 @@ output:
 
 - Old topic: joining two data frames with the `dplyr` package.
    - Some exercises on it.
+   - Lecture notes are here [raw Rmd version](http://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/cm010-notes_and_exercises.Rmd)
 - New topic: reshaping data with `tidyr`.
-    
+
 #### Resources
 
 Some useful resources for data frame joins:
 - Jenny's [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions.
 - Possibly look at Jenny's [Tidy data using Lord of the Rings](https://github.com/jennybc/lotr-tidy)
-- "two-table verbs"'s [vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html) on 
+- "two-table verbs"'s [vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html) on
 For data reshaping:
 -  The `tidyr`'s [vignette](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html)

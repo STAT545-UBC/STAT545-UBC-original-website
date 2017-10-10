@@ -87,3 +87,20 @@ Activity #3
   * This is really an optional add-on to either of the previous activities.
   * Explore the base function `merge()`, which also does joins. Compare and contrast with dplyr joins.
   * Explore the base function `match()`, which is related to joins and merges, but is really more of a "table lookup". Compare and contrast with a true join/merge.
+  
+## Peer Review
+
+
+The peer review is ready and is due __October 13, 2017__! Here's what you'll need to do:
+
+0. Find your github username in the table below. If it's not there, let Giulio know! Slack me `@giulio`.
+1. Add the _people who will be giving you a review_ as collaborators to the repo containing your homework submission.
+2. Give a review of this homework for the two people you've been assigned to. There should be an issue in their repo titled something like `hw0x ready for grading` -- put your review in there as a comment.
+    - If there is no such issue, make one! (in _their_ repo)
+    - Please don't mix up your reviewers and reviewees!
+
+Check out the [guidelines for giving a peer review](http://stat545.com/peer-review02_peer-evaluation-guidelines.html).
+
+```{r, results='as.is', echo=FALSE}
+knitr::kable(read.csv("hw04-peer_review.csv"))
+```

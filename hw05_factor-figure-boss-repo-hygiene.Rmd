@@ -1,4 +1,10 @@
-# Homework 05: Factor and figure management; Repo hygiene
+---
+title: "Homework 05: Factor and figure management; Repo hygiene"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+---
 
 ### Overview
 
