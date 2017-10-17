@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Vincenzo Coia" />
+
+<meta name="date" content="2017-10-17" />
+
+<title>cm013 Notes and Exercises</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">cm013 Notes and Exercises</h1>
+<h4 class="author"><em>Vincenzo Coia</em></h4>
+<h4 class="date"><em>October 17, 2017</em></h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#best-practices">1 Best Practices</a><ul>
+<li><a href="#dont-over-assign-variables">1.1 Don’t over-assign variables</a></li>
+<li><a href="#keep-stuff-in-data-frames">1.2 Keep stuff in data frames</a></li>
+<li><a href="#making-data-framestibbles">1.3 Making data frames/Tibbles</a></li>
+</ul></li>
+<li><a href="#saving-figures-to-file">2 Saving Figures to File</a><ul>
+<li><a href="#types-of-image-files">2.0 Types of Image Files</a></li>
+<li><a href="#method-1-graphics-devices">2.1 Method 1: Graphics Devices</a></li>
+<li><a href="#method-2-using-ggsave">2.2 Method 2: Using <code>ggsave</code></a></li>
+<li><a href="#problems">2.3 Problems</a></li>
+</ul></li>
+<li><a href="#colours">3 Colours</a><ul>
+<li><a href="#using-different-colour-schemes">3.1 Using different Colour Schemes</a></li>
+<li><a href="#identifying-colours-in-r">3.2 Identifying Colours in R</a></li>
+<li><a href="#palettes">3.3 Palettes</a></li>
+</ul></li>
+<li><a href="#exercise-set-1">4 Exercise Set 1</a></li>
+<li><a href="#adding-layers-as-a-list">5 Adding layers as a list</a></li>
+<li><a href="#scatterplot-symbols">6 Scatterplot Symbols</a><ul>
+<li><a href="#exercise-set-2">Exercise Set 2</a></li>
+</ul></li>
+</ul>
+</div>
+
+<p>Today we’ll talk about a collection of plotting-related things. These notes consist of my own musings, along with ideas from Jenny’s notes here:</p>
+<ul>
+<li><a href="block018_colors.html">Using colors in R</a></li>
+<li><a href="block019_enforce-color-scheme.html">Taking control of qualitative colors in <code>ggplot2</code></a></li>
+<li><a href="block016_secrets-happy-graphing.html">Secrets of a happy graphing life</a></li>
+<li><a href="block017_write-figure-to-file.html">Writing figures to file</a></li>
+</ul>
+<pre class="r"><code>suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(gapminder))</code></pre>
+<div id="best-practices" class="section level1">
+<h1>1 Best Practices</h1>
+<div id="dont-over-assign-variables" class="section level3">
+<h3>1.1 Don’t over-assign variables</h3>
+<p>You’ve seen me make a plot like this before:</p>
+<pre><code>ggplot(gapminder, aes(year, lifeExp)) +
+    geom_point()</code></pre>
+<p><em>and</em> this:</p>
+<pre><code>p &lt;- ggplot(gapminder, aes(year, lifeExp)) +
+    geom_point()
+p</code></pre>
+<p>Both produce the same output, but why bother with the <code>p</code>? General rule of thumb: <em>don’t assign plots to variables unless you’d be repeating repeating yourself otherwise</em>.</p>
+<p>Some examples follow.</p>
+<div id="multiple-plots" class="section level4">
+<h4>Multiple plots</h4>
+<p>To make the following two plots, this code is repetitive:</p>
+<pre class="r"><code>ggplot(gapminder, aes(year, lifeExp)) + 
+    geom_jitter(alpha=0.5)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(gapminder, aes(year, lifeExp)) + 
+    geom_line(aes(group=country), alpha=0.2)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-2-2.png" style="display: block; margin: auto;" /></p>
+<p>The first line is repetitive. Let’s assign the first line to a variable, to avoid repeating ourselves:</p>
+<pre class="r"><code>p &lt;- ggplot(gapminder, aes(year, lifeExp))
+p + geom_jitter(alpha=0.5)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p + geom_line(aes(group=country), alpha=0.2)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-3-2.png" style="display: block; margin: auto;" /></p>
+</div>
+<div id="one-time-data-wrangling" class="section level4">
+<h4>One-time data wrangling</h4>
+<p>Let’s say you want to run an analysis on Chile’s <code>gapminder</code> data.</p>
+<p>You might be tempted to make a plot:</p>
+<pre class="r"><code>gapminder %&gt;% 
+    filter(country == &quot;Chile&quot;) %&gt;% 
+    arrange(year) %&gt;% 
+    ggplot(aes(gdpPercap, lifeExp)) +
+    geom_path()</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /></p>
+<p>But then you have to re-wrangle the data for your downstream analyses!</p>
+<p>Try this:</p>
+<pre class="r"><code>gapminder_chile &lt;- gapminder %&gt;% 
+    filter(country == &quot;Chile&quot;) %&gt;% 
+    arrange(year)
+ggplot(gapminder_chile, aes(gdpPercap, lifeExp)) +
+    geom_path()</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /></p>
+<p>Now you can run further analyses on <code>gapminder_chile</code>.</p>
+</div>
+<div id="you-want-to-save-a-figure-to-file" class="section level4">
+<h4>You want to save a figure to file</h4>
+<p>We’ll see this in the next topic, but saving to file:</p>
+<ul>
+<li>Requires you to save the plot as a variable (<code>ggsave</code> or <code>save</code>), or</li>
+<li>Requires you to print the plot “behind a wall” (with plotting devices)
+<ul>
+<li>…in which case it’s just good practice to <em>also</em> print the plot interactively for your own eyes first.</li>
+</ul></li>
+</ul>
+</div>
+<div id="avoid-variable-chains-you-probably-dont-need-them" class="section level4">
+<h4>Avoid “variable chains”… you probably don’t need them</h4>
+<p>Feel the need to do this?</p>
+<pre class="r"><code>p &lt;- ggplot(gapminder, aes(year, lifeExp))
+p &lt;- p + geom_line(aes(group=country), alpha=0.2, colour=&quot;red&quot;)
+p &lt;- p + geom_point(alpha=0.5)
+p</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /></p>
+<p>This relies on you <em>always</em> executing these lines from top to bottom – and I can assure you, when programming interactively, this does not always happen.</p>
+<p>Better is this…</p>
+<pre class="r"><code>p1 &lt;- ggplot(gapminder, aes(year, lifeExp))
+p2 &lt;- p1 + geom_line(aes(group=country), alpha=0.2, colour=&quot;red&quot;)
+p3 &lt;- p2 + geom_point(alpha=0.5)
+p3</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /></p>
+<p>But even better would be to get rid of the chain of <code>p</code>’s altogether. They’re just confusing and make the code hard to read.</p>
+<p>Easy-to-read version:</p>
+<pre class="r"><code>ggplot(gapminder, aes(year, lifeExp)) +
+    geom_line(aes(group=country), alpha=0.2, colour=&quot;red&quot;) +
+    geom_point(alpha=0.5)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="keep-stuff-in-data-frames" class="section level3">
+<h3>1.2 Keep stuff in data frames</h3>
+<p>Do you find yourself doing the following?</p>
+<pre class="r"><code>life_exp &lt;- gapminder$lifeExp
+year &lt;- gapminder$year</code></pre>
+<p>Problems:</p>
+<ul>
+<li>Breaks the “don’t repeat yourself” principle.
+<ul>
+<li>How? Two instances of the data are created (one as a variable, another in the data frame).</li>
+</ul></li>
+<li>Pertinent for data frames: <code>life_exp</code> and <code>year</code> are <em>no longer linked</em> as they are in the data frame, and can get shuffled.
+<ul>
+<li>Maybe one gets <code>sort</code>ed, or another loses some entries with <code>na.omit</code>.</li>
+</ul></li>
+</ul>
+<p>It’s better practice to work directly from the data frame. Most “high-use” R functions require the specification of a data frame:</p>
+<pre class="r"><code>lm(lifeExp ~ year, data=gapminder)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = lifeExp ~ year, data = gapminder)
+## 
+## Coefficients:
+## (Intercept)         year  
+##   -585.6522       0.3259</code></pre>
+<p>…is better than</p>
+<pre class="r"><code>lm(life_exp ~ year)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = life_exp ~ year)
+## 
+## Coefficients:
+## (Intercept)         year  
+##   -585.6522       0.3259</code></pre>
+<p>But not all functions allow the input of a data frame – let’s try finding the correlation of two variables:</p>
+<pre><code># This produces an error:
+cor(lifeExp, gdpPercap, data=gapminder)</code></pre>
+<p>Instead, use the <code>with</code> function. Syntax: <code>with(dataframe, function_of_df_variables)</code>.</p>
+<pre class="r"><code>with(gapminder, cor(lifeExp, gdpPercap))</code></pre>
+<pre><code>## [1] 0.5837062</code></pre>
+</div>
+<div id="making-data-framestibbles" class="section level3">
+<h3>1.3 Making data frames/Tibbles</h3>
+<p>Consider putting variables into a data frame instead of having them as loose variables.</p>
+<ul>
+<li>Old-school way: <code>data.frame</code></li>
+</ul>
+<pre class="r"><code>data.frame(x = 1:5, 
+           y = (1:5)^2, 
+           text = c(&quot;alpha&quot;, &quot;beta&quot;, &quot;gamma&quot;, &quot;delta&quot;, &quot;epsilon&quot;))</code></pre>
+<pre><code>##   x  y    text
+## 1 1  1   alpha
+## 2 2  4    beta
+## 3 3  9   gamma
+## 4 4 16   delta
+## 5 5 25 epsilon</code></pre>
+<ul>
+<li>Easier way: <code>tibble::tibble()</code>, or <code>tribble()</code> for smaller data frames “by hand”. Jenny’s example:</li>
+</ul>
+<pre class="r"><code>tibble(x = 1:5,
+       y = x ^ 2,
+       text = c(&quot;alpha&quot;, &quot;beta&quot;, &quot;gamma&quot;, &quot;delta&quot;, &quot;epsilon&quot;))</code></pre>
+<pre><code>## # A tibble: 5 × 3
+##       x     y    text
+##   &lt;int&gt; &lt;dbl&gt;   &lt;chr&gt;
+## 1     1     1   alpha
+## 2     2     4    beta
+## 3     3     9   gamma
+## 4     4    16   delta
+## 5     5    25 epsilon</code></pre>
+<pre class="r"><code>## if you&#39;re truly &quot;hand coding&quot;, tribble() is an alternative
+tribble(
+  ~ x, ~ y,    ~ text,
+    1,   1,   &quot;alpha&quot;,
+    2,   4,    &quot;beta&quot;,
+    3,   9,   &quot;gamma&quot;,
+    4,  16,   &quot;delta&quot;,
+    5,  25, &quot;epsilon&quot;
+)</code></pre>
+<pre><code>## # A tibble: 5 × 3
+##       x     y    text
+##   &lt;dbl&gt; &lt;dbl&gt;   &lt;chr&gt;
+## 1     1     1   alpha
+## 2     2     4    beta
+## 3     3     9   gamma
+## 4     4    16   delta
+## 5     5    25 epsilon</code></pre>
+<ul>
+<li><code>expand.grid</code> is also a useful function. Makes a row for every combination:</li>
+</ul>
+<pre class="r"><code>expand.grid(type=c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;),
+            level=1:4)</code></pre>
+<pre><code>##    type level
+## 1     A     1
+## 2     B     1
+## 3     C     1
+## 4     A     2
+## 5     B     2
+## 6     C     2
+## 7     A     3
+## 8     B     3
+## 9     C     3
+## 10    A     4
+## 11    B     4
+## 12    C     4</code></pre>
+</div>
+</div>
+<div id="saving-figures-to-file" class="section level1">
+<h1>2 Saving Figures to File</h1>
+<p>There are a few ways you can do this, but first let’s look at two main <em>types</em> of image files.</p>
+<div id="types-of-image-files" class="section level3">
+<h3>2.0 Types of Image Files</h3>
+<p>Images are stored on your computer as either <em>vector</em> or <em>raster</em>.</p>
+<ul>
+<li><strong>Raster</strong>: an <code>n</code> by <code>m</code> grid of pixels, each with its own colour.
+<ul>
+<li>Digital cameras do this. <code>jpeg</code>, <code>png</code>, <code>gif</code>, <code>bmp</code>.</li>
+<li>Look horrible when expanded.</li>
+</ul></li>
+<li><strong>Vector</strong>: represented as shapes and lines.
+<ul>
+<li><code>pdf</code>, <a href="http://blog.revolutionanalytics.com/2011/07/r-svg-graphics.html"><code>svg</code></a>.</li>
+<li>Can scale naturally when expanded. <code>svg</code> is actually just <a href="https://www.w3schools.com/graphics/svg_intro.asp">plain text</a>.</li>
+</ul></li>
+</ul>
+<p>There’s no gold standard for which file format is best. Perhaps use both. I use <code>png</code> and <code>pdf</code> (<a href="http://stat545.com/block017_write-figure-to-file.html#graphics-devices">so does Jenny</a>).</p>
+<p>Want more advice? Check out <a href="http://blog.revolutionanalytics.com/2009/01/10-tips-for-making-your-r-graphics-look-their-best.html">10 tips for making your R graphics look their best</a>.</p>
+</div>
+<div id="method-1-graphics-devices" class="section level3">
+<h3>2.1 Method 1: Graphics Devices</h3>
+<p>Here’s how to save an image using this method.</p>
+<ol style="list-style-type: decimal">
+<li>Open a specific graphics device with a function like <code>pdf()</code>, <code>png()</code>, <code>jpeg()</code>, etc. Put the desired filename/path in here.</li>
+<li>Print the plot.</li>
+<li>Close the graphics device with <code>dev.off()</code>.</li>
+</ol>
+<p>Here’s an example that will write a plot to a pdf called <code>my_plot.pdf</code>:</p>
+<pre><code>(p &lt;- ggplot(gapminder, aes(year, lifeExp)) +
+     geom_point())
+pdf(&quot;my_plot.pdf&quot;, width=12, height=6)
+p
+dev.off()</code></pre>
+<p>Check out the <a href="https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/Devices">devices documentation</a> to learn all about this. Works for other plot types too.</p>
+</div>
+<div id="method-2-using-ggsave" class="section level3">
+<h3>2.2 Method 2: Using <code>ggsave</code></h3>
+<p>You can save <code>ggplot2</code> plots using the <code>ggsave</code> function. Here’s an example.</p>
+<pre><code>p &lt;- ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+    geom_point(alpha=0.2) +
+    scale_x_log10()
+# p    # Uncomment when working interactively
+ggsave(&quot;my_plot.pdf&quot;, p)
+ggsave(&quot;my_plot.png&quot;, p)</code></pre>
+<p><code>ggsave</code> guesses which arguments are best (and the file extension!), but sometimes you’ll need to specify them yourself.</p>
+</div>
+<div id="problems" class="section level3">
+<h3>2.3 Problems</h3>
+<p>Sometimes you’ll end up seeing an empty plot. More details can be found <a href="http://stat545.com/block017_write-figure-to-file.html#despair-over-non-existent-or-empty-figures">here</a>, but one example is when using a <code>for</code> loop:</p>
+<pre class="r"><code>for (i in 1){
+    qplot(1,1)
+}</code></pre>
+<p>Nothing appears. This is because you need to wrap the plot with <code>print</code>:</p>
+<pre class="r"><code>for (i in 1){
+    qplot(1,1) %&gt;% 
+        print
+}</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /></p>
+<p>PS: when working interactively, <code>print</code> is usually run for you “behind the scenes”.</p>
+</div>
+</div>
+<div id="colours" class="section level1">
+<h1>3 Colours</h1>
+<div id="using-different-colour-schemes" class="section level3">
+<h3>3.1 Using different Colour Schemes</h3>
+<p>Don’t like the default colour scheme that comes with <code>ggplot2</code>? Let’s say we want to change the colours in the following plots:</p>
+<p>(Psst: for <code>p1</code>, can you see the difference between <code>colour</code> and <code>fill</code>?)</p>
+<pre class="r"><code>(p1 &lt;- gapminder %&gt;% 
+        filter(year &gt; 1990) %&gt;%
+        ggplot(aes(x=year)) +
+        geom_bar(aes(weight=gdpPercap, fill=continent),
+                 position=&quot;dodge&quot;,
+                 colour=&quot;black&quot;) +
+        scale_y_continuous(&quot;GDP Per Capita&quot;))</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>(p2 &lt;- ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+        geom_point(aes(colour=year)) +
+        scale_x_log10())</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-18-2.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>(p3 &lt;- gapminder %&gt;% 
+        filter(continent==&quot;Europe&quot;) %&gt;% 
+        group_by(country) %&gt;% 
+        arrange(year) %&gt;% 
+        mutate(chpop=(pop-lag(pop))/lag(pop)) %&gt;%
+        filter(!is.na(chpop)) %&gt;% 
+        ggplot(aes(gdpPercap, lifeExp)) +
+        geom_point(aes(colour=chpop)) +
+        scale_x_log10())</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-18-3.png" style="display: block; margin: auto;" /></p>
+<p>Each of these plots represent different types of scales. Here are the scales, and the corresponding <code>ggplot2</code> scales to modify the colours:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Qualitative</strong> (<code>p1</code>). Coloured by categorical data.
+<ul>
+<li>Use <code>scale_colour_manual</code> or <code>scale_fill_manual</code>, with the <code>values</code> argument</li>
+</ul></li>
+<li><strong>Sequential</strong> (<code>p2</code>). Coloured from low to high.
+<ul>
+<li>Use <code>scale_colour_gradient</code> or <code>scale_fill_gradient</code>, with the <code>low</code> and <code>high</code> arguments.</li>
+</ul></li>
+<li><strong>Diverging</strong> (<code>p3</code>). Coloured from negative to zero to positive.
+<ul>
+<li>Use <code>scale_colour_gradient2</code> or <code>scale_fill_gradient2</code>, with the <code>low</code>, <code>mid</code>, and <code>high</code> arguments.</li>
+</ul></li>
+</ol>
+<p>Note: there’s also <code>scale_colour_gradientn</code> and <code>scale_fill_gradientn</code> for “<code>n</code>-colour gradients”, fading between <code>n</code> colours. Use the <code>colours</code> argument.</p>
+<p>Let’s try the qualitative plot:</p>
+<pre class="r"><code>my_cols &lt;- c(&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;, &quot;wheat3&quot;, &quot;orange&quot;)
+p1 + scale_fill_manual(values=my_cols)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># You can even name the colour vector according the levels:
+names(my_cols) &lt;- c(&quot;Europe&quot;, &quot;Americas&quot;, &quot;Africa&quot;, &quot;Asia&quot;, &quot;Oceania&quot;)
+p1 + scale_fill_manual(values=my_cols)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-19-2.png" style="display: block; margin: auto;" /></p>
+<p>The sequential plot:</p>
+<pre class="r"><code>p2 + scale_colour_gradient(low=&quot;black&quot;, high=&quot;red&quot;)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /></p>
+<p>The diverging plot:</p>
+<pre class="r"><code>p3 + scale_colour_gradient2(low=&quot;blue&quot;, mid=&quot;white&quot;, high=&quot;red&quot;)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /></p>
+</div>
+<div id="identifying-colours-in-r" class="section level3">
+<h3>3.2 Identifying Colours in R</h3>
+<p>How would anyone know that R understands <code>wheat3</code>? R has lots of colours pre-defined – see them all by running <code>colors()</code>:</p>
+<pre class="r"><code>colors() %&gt;% head</code></pre>
+<pre><code>## [1] &quot;white&quot;         &quot;aliceblue&quot;     &quot;antiquewhite&quot;  &quot;antiquewhite1&quot;
+## [5] &quot;antiquewhite2&quot; &quot;antiquewhite3&quot;</code></pre>
+<p>Or, check out Jenny’s cheatsheet with <a href="http://stat545.com/img/r.col.white.bkgd.pdf">white background</a> or <a href="http://stat545.com/img/r.col.black.bkgd.pdf">black background</a>.</p>
+<p>You could also specify the hexadecimal colour.</p>
+<pre class="r"><code>p1 + scale_fill_manual(values=c(&quot;#9b5123&quot;, &quot;#5dd8a6&quot;, &quot;#11ad52&quot;, &quot;#dde91d&quot;, &quot;#0113d7&quot;))</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /></p>
+</div>
+<div id="palettes" class="section level3">
+<h3>3.3 Palettes</h3>
+<p>Unless you’re an expert in colours, it’s best to leave choosing colours to an expert to balance all sorts of colour dimensions based on the intended purpose.</p>
+<p>The <code>RColorBrewer</code> is a nice R package, based on designs by Cynthia Brewer, a colour expert. Here are the palettes available:</p>
+<pre class="r"><code>library(RColorBrewer)
+display.brewer.all()</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /></p>
+<p>Notice that they’re separated into the three types of scales.</p>
+<p>Of note: the qualitative scales consist of colours of equal “importance” – not one “dominates” the other in prominence. My favourite is <code>Dark2</code>.</p>
+<p>Let’s display and print the hexadecimal codes of the <code>Dark2</code> palette – the first 5. Note that we need to specify the number of colours from the palette!</p>
+<pre class="r"><code>display.brewer.pal(n=5, &quot;Dark2&quot;)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>brewer.pal(n=5, &quot;Dark2&quot;)</code></pre>
+<pre><code>## [1] &quot;#1B9E77&quot; &quot;#D95F02&quot; &quot;#7570B3&quot; &quot;#E7298A&quot; &quot;#66A61E&quot;</code></pre>
+<p>Go ahead and put this into the qualitative plot:</p>
+<pre class="r"><code>p1 + scale_fill_manual(values=brewer.pal(n=5, &quot;Dark2&quot;))</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /></p>
+<p>We can also use the functions that are built-in to <code>ggplot2</code>:</p>
+<ul>
+<li><code>scale_colour_brewer</code> or <code>scale_fill_brewer</code>, with the <code>palette</code> argument, for <em>discrete data only</em>.</li>
+<li><code>scale_colour_distiller</code> interpolates the colours in a given palette.</li>
+</ul>
+<pre class="r"><code>p1 + scale_colour_brewer(palette=&quot;Dark2&quot;)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p2 + scale_colour_distiller(palette=&quot;Greens&quot;, direction=1)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-27-2.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p3 + scale_colour_distiller(palette=&quot;Spectral&quot;)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-27-3.png" style="display: block; margin: auto;" /></p>
+<p>Other useful R packages:</p>
+<ul>
+<li><code>dichromat</code> package. Converts a colour palette into various colour-blind views.</li>
+<li><a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html"><code>viridis</code></a> package. Provides colour-blind friendly scales.</li>
+</ul>
+<pre class="r"><code>library(viridis)</code></pre>
+<pre><code>## Loading required package: viridisLite</code></pre>
+<pre class="r"><code>p2 + scale_colour_viridis(option=&quot;inferno&quot;)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p3 + scale_colour_viridis()</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-28-2.png" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="exercise-set-1" class="section level1">
+<h1>4 Exercise Set 1</h1>
+<ol style="list-style-type: decimal">
+<li><p>Make histograms of Life Expectancies, facetted by <code>continent</code>. Paint the histogram by continent, using a colour palette of your choice from <code>RColorBrewer</code>.</p></li>
+<li><p>Make a trend plot/spaghetti plot of life Expectancies over time for each country. Highlight Rwanda in red (ensure the legend shows this, too).</p></li>
+</ol>
+<p>BONUS: make all countries besides Rwanda have alpha transparency of 0.2, and Rwanda be non-transparent.</p>
+</div>
+<div id="adding-layers-as-a-list" class="section level1">
+<h1>5 Adding layers as a list</h1>
+<p>You might have noticed in the above solutions that we can save individual layers as R variables:</p>
+<pre class="r"><code>(my_layer &lt;- geom_point(alpha=0.2))</code></pre>
+<pre><code>## geom_point: na.rm = FALSE
+## stat_identity: na.rm = FALSE
+## position_identity</code></pre>
+<pre class="r"><code>ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+    my_layer</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /></p>
+<p>You can also save multiple layers in a <em>single R variable</em> – a list.</p>
+<pre class="r"><code>my_layer2 &lt;- geom_line(aes(group=country),
+                       alpha=0.2)
+multiple_layers &lt;- list(my_layer, my_layer2)
+ggplot(gapminder, aes(year, lifeExp)) +
+    multiple_layers</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /></p>
+<p>This becomes really useful when you want to plot multiple layers iteratively. Let’s plot <code>f(x)=sin(k*x)</code> where <code>k</code> ranges from 1 to 4:</p>
+<pre class="r"><code>fun_layers &lt;- lapply(1:4, function(k) 
+    list(stat_function(fun=function(x) sin(k*x),
+                       colour=brewer.pal(8, &quot;Dark2&quot;)[k])))
+ggplot(data.frame(x=c(0, 2*pi)), aes(x)) +
+    fun_layers +
+    scale_colour_manual(labels=1:4)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /></p>
+<p>Making a legend in this case requires some hard-coding. See <a href="https://stackoverflow.com/questions/19219411/stat-function-and-legends-create-plot-with-two-separate-colour-legends-mapped-t">this Stack Overflow page</a> for advice.</p>
+</div>
+<div id="scatterplot-symbols" class="section level1">
+<h1>6 Scatterplot Symbols</h1>
+<p>You can change the “points” that get plotted in a scatterplot. Anything (?) on your keyboard works with the <code>shape</code> argument:</p>
+<pre class="r"><code>p &lt;- gapminder %&gt;% 
+    filter(country == &quot;Canada&quot;) %&gt;% 
+    ggplot(aes(lifeExp, gdpPercap))
+p + geom_point(shape=&quot;%&quot;, size=5)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p + geom_point(shape=&#39;&quot;&#39;, size=5)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-32-2.png" style="display: block; margin: auto;" /></p>
+<p>Or, you can specify a <a href="http://www.endmemo.com/program/R/pchsymbols.php">“<code>p</code>lotting <code>ch</code>aracter” (pch)</a> by its symbol number. Let’s try <code>21</code>.</p>
+<pre class="r"><code>p + geom_point(shape=21, size=5)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Also works:
+p + geom_point(pch=21, size=5)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-33-2.png" style="display: block; margin: auto;" /></p>
+<p>21-pch is great when used in conjunction with a <code>size</code> aesthetic:</p>
+<pre class="r"><code>gapminder %&gt;% 
+    filter(continent==&quot;Asia&quot;) %&gt;% 
+    ggplot(aes(gdpPercap, lifeExp, size=pop)) +
+    geom_point(shape=21) +
+    scale_x_log10()</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" /></p>
+<div id="exercise-set-2" class="section level2">
+<h2>Exercise Set 2</h2>
+<ol style="list-style-type: decimal">
+<li><p>For the <code>gapminder</code> data in 2007, for all continents except Oceania, make a scatterplot of <code>gdpPercap</code> vs <code>lifeExp</code> facetted by <code>continent</code>, so that the size is proportional to the <code>pop</code>, the circumference of each circular “point” is black, and the interior is coloured by the country colours in the vector <code>country_colors</code> (NOTE: this vector comes with the <code>gapminder</code> package). Hide the legend.</p></li>
+<li><p>Save the above plot to file, as a <code>pdf</code> and <code>png</code>.</p></li>
+</ol>
+</div>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
