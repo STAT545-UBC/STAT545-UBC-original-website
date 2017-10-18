@@ -530,7 +530,7 @@ display.brewer.all()</code></pre>
 <li><code>scale_colour_brewer</code> or <code>scale_fill_brewer</code>, with the <code>palette</code> argument, for <em>discrete data only</em>.</li>
 <li><code>scale_colour_distiller</code> interpolates the colours in a given palette.</li>
 </ul>
-<pre class="r"><code>p1 + scale_colour_brewer(palette=&quot;Dark2&quot;)</code></pre>
+<pre class="r"><code>p1 + scale_fill_brewer(palette=&quot;Dark2&quot;)</code></pre>
 <p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>p2 + scale_colour_distiller(palette=&quot;Greens&quot;, direction=1)</code></pre>
 <p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-27-2.png" style="display: block; margin: auto;" /></p>
@@ -552,10 +552,35 @@ display.brewer.all()</code></pre>
 <div id="exercise-set-1" class="section level1">
 <h1>4 Exercise Set 1</h1>
 <ol style="list-style-type: decimal">
-<li><p>Make histograms of Life Expectancies, facetted by <code>continent</code>. Paint the histogram by continent, using a colour palette of your choice from <code>RColorBrewer</code>.</p></li>
-<li><p>Make a trend plot/spaghetti plot of life Expectancies over time for each country. Highlight Rwanda in red (ensure the legend shows this, too).</p></li>
+<li>Make histograms of Life Expectancies, facetted by <code>continent</code>. Paint the histogram by continent, using a colour palette of your choice from <code>RColorBrewer</code>.</li>
 </ol>
+<pre class="r"><code>ggplot(gapminder, aes(lifeExp)) +
+    facet_wrap(~ continent) +
+    geom_histogram(aes(y=..density.., 
+                       fill=continent)) +
+    scale_fill_brewer(palette=&quot;Dark2&quot;)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Make a trend plot/spaghetti plot of life Expectancies over time for each country. Highlight Rwanda in red (ensure the legend shows this, too).</li>
+</ol>
+<pre class="r"><code>colour_layer &lt;- scale_colour_manual(&quot;&quot;, 
+                        labels=c(&quot;Other Countries&quot;, &quot;Rwanda&quot;),
+                        values=c(&quot;black&quot;, &quot;red&quot;))
+ggplot(gapminder, aes(year, lifeExp)) +
+    geom_line(aes(group=country,
+                  colour=country==&quot;Rwanda&quot;), alpha=0.2) +
+    colour_layer</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /></p>
 <p>BONUS: make all countries besides Rwanda have alpha transparency of 0.2, and Rwanda be non-transparent.</p>
+<pre class="r"><code>ggplot(gapminder, aes(year, lifeExp)) +
+    geom_line(aes(group=country,
+                  colour=country==&quot;Rwanda&quot;,
+                  alpha=country==&quot;Rwanda&quot;)) +
+    colour_layer +
+    scale_alpha_discrete(range=c(0.2, 1),
+                         guide=FALSE)</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /></p>
 </div>
 <div id="adding-layers-as-a-list" class="section level1">
 <h1>5 Adding layers as a list</h1>
@@ -566,14 +591,14 @@ display.brewer.all()</code></pre>
 ## position_identity</code></pre>
 <pre class="r"><code>ggplot(gapminder, aes(gdpPercap, lifeExp)) +
     my_layer</code></pre>
-<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /></p>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /></p>
 <p>You can also save multiple layers in a <em>single R variable</em> – a list.</p>
 <pre class="r"><code>my_layer2 &lt;- geom_line(aes(group=country),
                        alpha=0.2)
 multiple_layers &lt;- list(my_layer, my_layer2)
 ggplot(gapminder, aes(year, lifeExp)) +
     multiple_layers</code></pre>
-<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /></p>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /></p>
 <p>This becomes really useful when you want to plot multiple layers iteratively. Let’s plot <code>f(x)=sin(k*x)</code> where <code>k</code> ranges from 1 to 4:</p>
 <pre class="r"><code>fun_layers &lt;- lapply(1:4, function(k) 
     list(stat_function(fun=function(x) sin(k*x),
@@ -581,7 +606,7 @@ ggplot(gapminder, aes(year, lifeExp)) +
 ggplot(data.frame(x=c(0, 2*pi)), aes(x)) +
     fun_layers +
     scale_colour_manual(labels=1:4)</code></pre>
-<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /></p>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" /></p>
 <p>Making a legend in this case requires some hard-coding. See <a href="https://stackoverflow.com/questions/19219411/stat-function-and-legends-create-plot-with-two-separate-colour-legends-mapped-t">this Stack Overflow page</a> for advice.</p>
 </div>
 <div id="scatterplot-symbols" class="section level1">
@@ -591,28 +616,43 @@ ggplot(data.frame(x=c(0, 2*pi)), aes(x)) +
     filter(country == &quot;Canada&quot;) %&gt;% 
     ggplot(aes(lifeExp, gdpPercap))
 p + geom_point(shape=&quot;%&quot;, size=5)</code></pre>
-<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /></p>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>p + geom_point(shape=&#39;&quot;&#39;, size=5)</code></pre>
-<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-32-2.png" style="display: block; margin: auto;" /></p>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-35-2.png" style="display: block; margin: auto;" /></p>
 <p>Or, you can specify a <a href="http://www.endmemo.com/program/R/pchsymbols.php">“<code>p</code>lotting <code>ch</code>aracter” (pch)</a> by its symbol number. Let’s try <code>21</code>.</p>
 <pre class="r"><code>p + geom_point(shape=21, size=5)</code></pre>
-<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /></p>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-36-1.png" style="display: block; margin: auto;" /></p>
 <pre class="r"><code># Also works:
 p + geom_point(pch=21, size=5)</code></pre>
-<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-33-2.png" style="display: block; margin: auto;" /></p>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-36-2.png" style="display: block; margin: auto;" /></p>
 <p>21-pch is great when used in conjunction with a <code>size</code> aesthetic:</p>
 <pre class="r"><code>gapminder %&gt;% 
     filter(continent==&quot;Asia&quot;) %&gt;% 
     ggplot(aes(gdpPercap, lifeExp, size=pop)) +
     geom_point(shape=21) +
     scale_x_log10()</code></pre>
-<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" /></p>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-37-1.png" style="display: block; margin: auto;" /></p>
 <div id="exercise-set-2" class="section level2">
 <h2>Exercise Set 2</h2>
 <ol style="list-style-type: decimal">
-<li><p>For the <code>gapminder</code> data in 2007, for all continents except Oceania, make a scatterplot of <code>gdpPercap</code> vs <code>lifeExp</code> facetted by <code>continent</code>, so that the size is proportional to the <code>pop</code>, the circumference of each circular “point” is black, and the interior is coloured by the country colours in the vector <code>country_colors</code> (NOTE: this vector comes with the <code>gapminder</code> package). Hide the legend.</p></li>
-<li><p>Save the above plot to file, as a <code>pdf</code> and <code>png</code>.</p></li>
+<li>For the <code>gapminder</code> data in 2007, for all continents except Oceania, make a scatterplot of <code>gdpPercap</code> vs <code>lifeExp</code> facetted by <code>continent</code>, so that the size is proportional to the <code>pop</code>, the circumference of each circular “point” is black, and the interior is coloured by the country colours in the vector <code>country_colors</code> (NOTE: this vector comes with the <code>gapminder</code> package). Hide the legend.</li>
 </ol>
+<pre class="r"><code>(e2_1 &lt;- gapminder %&gt;%
+    filter(year == 2007, continent != &quot;Oceania&quot;) %&gt;% 
+    ggplot(aes(gdpPercap, lifeExp)) +
+    facet_wrap(~ continent) +
+    geom_point(aes(size=pop,
+                   fill=country),
+               shape=21) +
+    scale_x_log10() +
+    scale_fill_manual(values=country_colors,
+                      guide=FALSE))</code></pre>
+<p><img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Save the above plot to file, as a <code>pdf</code> and <code>png</code>.</li>
+</ol>
+<pre class="r"><code># ggsave(&quot;tmp/e2_1.png&quot;, e2_1)
+# ggsave(&quot;tmp/e2_1.pdf&quot;, e2_1)</code></pre>
 </div>
 </div>
 
@@ -642,7 +682,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

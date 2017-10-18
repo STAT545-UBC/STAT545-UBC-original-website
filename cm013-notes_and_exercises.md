@@ -564,7 +564,7 @@ We can also use the functions that are built-in to `ggplot2`:
 
 
 ```r
-p1 + scale_colour_brewer(palette="Dark2")
+p1 + scale_fill_brewer(palette="Dark2")
 ```
 
 <img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" />
@@ -612,9 +612,50 @@ p3 + scale_colour_viridis()
 
 1. Make histograms of Life Expectancies, facetted by `continent`. Paint the histogram by continent, using a colour palette of your choice from `RColorBrewer`.
 
+
+```r
+ggplot(gapminder, aes(lifeExp)) +
+    facet_wrap(~ continent) +
+    geom_histogram(aes(y=..density.., 
+                       fill=continent)) +
+    scale_fill_brewer(palette="Dark2")
+```
+
+```
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" />
+
 2. Make a trend plot/spaghetti plot of life Expectancies over time for each country. Highlight Rwanda in red (ensure the legend shows this, too).
 
+
+```r
+colour_layer <- scale_colour_manual("", 
+                        labels=c("Other Countries", "Rwanda"),
+                        values=c("black", "red"))
+ggplot(gapminder, aes(year, lifeExp)) +
+    geom_line(aes(group=country,
+                  colour=country=="Rwanda"), alpha=0.2) +
+    colour_layer
+```
+
+<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" />
+
 BONUS: make all countries besides Rwanda have alpha transparency of 0.2, and Rwanda be non-transparent.
+
+
+```r
+ggplot(gapminder, aes(year, lifeExp)) +
+    geom_line(aes(group=country,
+                  colour=country=="Rwanda",
+                  alpha=country=="Rwanda")) +
+    colour_layer +
+    scale_alpha_discrete(range=c(0.2, 1),
+                         guide=FALSE)
+```
+
+<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" />
 
 
 # 5 Adding layers as a list
@@ -637,7 +678,7 @@ ggplot(gapminder, aes(gdpPercap, lifeExp)) +
     my_layer
 ```
 
-<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" />
+<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" />
 
 You can also save multiple layers in a _single R variable_ -- a list.
 
@@ -650,7 +691,7 @@ ggplot(gapminder, aes(year, lifeExp)) +
     multiple_layers
 ```
 
-<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" />
+<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" />
 
 This becomes really useful when you want to plot multiple layers iteratively. Let's plot `f(x)=sin(k*x)` where `k` ranges from 1 to 4:
 
@@ -664,7 +705,7 @@ ggplot(data.frame(x=c(0, 2*pi)), aes(x)) +
     scale_colour_manual(labels=1:4)
 ```
 
-<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" />
+<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" />
 
 Making a legend in this case requires some hard-coding. See [this Stack Overflow page](https://stackoverflow.com/questions/19219411/stat-function-and-legends-create-plot-with-two-separate-colour-legends-mapped-t) for advice. 
 
@@ -680,13 +721,13 @@ p <- gapminder %>%
 p + geom_point(shape="%", size=5)
 ```
 
-<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" />
+<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" />
 
 ```r
 p + geom_point(shape='"', size=5)
 ```
 
-<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-32-2.png" style="display: block; margin: auto;" />
+<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-35-2.png" style="display: block; margin: auto;" />
 
 Or, you can specify a ["`p`lotting `ch`aracter" (pch)](http://www.endmemo.com/program/R/pchsymbols.php) by its symbol number. Let's try `21`.
 
@@ -695,14 +736,14 @@ Or, you can specify a ["`p`lotting `ch`aracter" (pch)](http://www.endmemo.com/pr
 p + geom_point(shape=21, size=5)
 ```
 
-<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" />
+<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-36-1.png" style="display: block; margin: auto;" />
 
 ```r
 # Also works:
 p + geom_point(pch=21, size=5)
 ```
 
-<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-33-2.png" style="display: block; margin: auto;" />
+<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-36-2.png" style="display: block; margin: auto;" />
 
 21-pch is great when used in conjunction with a `size` aesthetic:
 
@@ -715,13 +756,33 @@ gapminder %>%
     scale_x_log10()
 ```
 
-<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" />
+<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-37-1.png" style="display: block; margin: auto;" />
 
 ## Exercise Set 2
 
 1. For the `gapminder` data in 2007, for all continents except Oceania, make a scatterplot of `gdpPercap` vs `lifeExp` facetted by `continent`, so that the size is proportional to the `pop`, the circumference of each circular "point" is black, and the interior is coloured by the country colours in the vector `country_colors` (NOTE: this vector comes with the `gapminder` package). Hide the legend. 
 
 
+```r
+(e2_1 <- gapminder %>%
+    filter(year == 2007, continent != "Oceania") %>% 
+    ggplot(aes(gdpPercap, lifeExp)) +
+    facet_wrap(~ continent) +
+    geom_point(aes(size=pop,
+                   fill=country),
+               shape=21) +
+    scale_x_log10() +
+    scale_fill_manual(values=country_colors,
+                      guide=FALSE))
+```
+
+<img src="cm013-notes_and_exercises_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" />
+
 
 2. Save the above plot to file, as a `pdf` and `png`.
 
+
+```r
+# ggsave("tmp/e2_1.png", e2_1)
+# ggsave("tmp/e2_1.pdf", e2_1)
+```

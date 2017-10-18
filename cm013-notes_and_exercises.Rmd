@@ -401,7 +401,7 @@ We can also use the functions that are built-in to `ggplot2`:
 - `scale_colour_distiller` interpolates the colours in a given palette. 
 
 ```{r}
-p1 + scale_colour_brewer(palette="Dark2")
+p1 + scale_fill_brewer(palette="Dark2")
 p2 + scale_colour_distiller(palette="Greens", direction=1)
 p3 + scale_colour_distiller(palette="Spectral")
 ```
@@ -422,9 +422,37 @@ p3 + scale_colour_viridis()
 
 1. Make histograms of Life Expectancies, facetted by `continent`. Paint the histogram by continent, using a colour palette of your choice from `RColorBrewer`.
 
+```{r}
+ggplot(gapminder, aes(lifeExp)) +
+    facet_wrap(~ continent) +
+    geom_histogram(aes(y=..density.., 
+                       fill=continent)) +
+    scale_fill_brewer(palette="Dark2")
+```
+
 2. Make a trend plot/spaghetti plot of life Expectancies over time for each country. Highlight Rwanda in red (ensure the legend shows this, too).
 
+```{r}
+colour_layer <- scale_colour_manual("", 
+                        labels=c("Other Countries", "Rwanda"),
+                        values=c("black", "red"))
+ggplot(gapminder, aes(year, lifeExp)) +
+    geom_line(aes(group=country,
+                  colour=country=="Rwanda"), alpha=0.2) +
+    colour_layer
+```
+
 BONUS: make all countries besides Rwanda have alpha transparency of 0.2, and Rwanda be non-transparent.
+
+```{r}
+ggplot(gapminder, aes(year, lifeExp)) +
+    geom_line(aes(group=country,
+                  colour=country=="Rwanda",
+                  alpha=country=="Rwanda")) +
+    colour_layer +
+    scale_alpha_discrete(range=c(0.2, 1),
+                         guide=FALSE)
+```
 
 
 # 5 Adding layers as a list
@@ -494,7 +522,23 @@ gapminder %>%
 
 1. For the `gapminder` data in 2007, for all continents except Oceania, make a scatterplot of `gdpPercap` vs `lifeExp` facetted by `continent`, so that the size is proportional to the `pop`, the circumference of each circular "point" is black, and the interior is coloured by the country colours in the vector `country_colors` (NOTE: this vector comes with the `gapminder` package). Hide the legend. 
 
+```{r}
+(e2_1 <- gapminder %>%
+    filter(year == 2007, continent != "Oceania") %>% 
+    ggplot(aes(gdpPercap, lifeExp)) +
+    facet_wrap(~ continent) +
+    geom_point(aes(size=pop,
+                   fill=country),
+               shape=21) +
+    scale_x_log10() +
+    scale_fill_manual(values=country_colors,
+                      guide=FALSE))
+```
 
 
 2. Save the above plot to file, as a `pdf` and `png`.
 
+```{r}
+# ggsave("tmp/e2_1.png", e2_1)
+# ggsave("tmp/e2_1.pdf", e2_1)
+```
