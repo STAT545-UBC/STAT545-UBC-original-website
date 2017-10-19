@@ -7,6 +7,7 @@ output:
 
 ### cm014 2017-10-19 Thursday overview
 
-  * [Homework 05](hw05_factor-figure-boss-repo-hygiene.html) due Friday October 20 2017. This is the last HW of STAT 545.
-  * Peer review for Homework 05 due Monday October 23 2017. That concludes STAT 545.
-  * Guest lecture by [Tamara Munzner](https://www.cs.ubc.ca/~tmm/):
+* [Homework 05](hw05_factor-figure-boss-repo-hygiene.html) due Friday October 20 2017. This is the last HW of STAT 545.
+* Peer review for Homework 05 due Monday October 23 2017. That concludes STAT 545.
+* Guest lecture by [Tamara Munzner](https://www.cs.ubc.ca/~tmm)
+     * [slides](https://www.cs.ubc.ca/~tmm/talks/minicourse14/vad17stat545.pdf)
