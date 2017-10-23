@@ -121,3 +121,20 @@ Check minus: One or more elements are missing or sketchy. Missed opportunities t
 Check: Hits all the elements. No obvious mistakes. Pleasant to read. No heroic detective work required. Well done! *This should be the most typical mark!*
 
 Check plus: Exceeded the requirements in number of dimensions. Developed novel tasks that were indeed interesting and "worked". Impressive use of R -- maybe involving functions, packages or workflows that weren't given in class materials. Impeccable organization of repo and report. You learned something new from reviewing their work and you're eager to incorporate it into your work.
+
+## Peer Review
+
+
+The peer review is ready and is due __October 25, 2017__ (before midnight)! Here's what you'll need to do:
+
+0. Find your github username in the table below. If it's not there, let Giulio know! Slack me `@giulio`.
+1. Add the _people who will be giving you a review_ as collaborators to the repo containing your homework submission.
+2. Give a review of this homework for the two people you've been assigned to. There should be an issue in their repo titled something like `hw0x ready for grading` -- put your review in there as a comment.
+    - If there is no such issue, make one! (in _their_ repo)
+    - Please don't mix up your reviewers and reviewees!
+
+Check out the [guidelines for giving a peer review](http://stat545.com/peer-review02_peer-evaluation-guidelines.html).
+
+```{r, results='as.is', echo=FALSE}
+knitr::kable(read.csv("hw05-peer_review.csv"))
+```
