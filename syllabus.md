@@ -59,7 +59,7 @@ Links to homework will be posted here as they are made available. Submissions ar
 | [Homework 02](hw02_explore-gapminder-dplyr.html) | September 26, 2017 | October 2, 2017 |
 | [Homework 03](hw03_dplyr-and-more-ggplot2.html) |  October 3, 2017 | October 9, 2017 |
 | [Homework 04](hw04_tidy-data-joins.html) | October 10, 2017 | October 16, 2017 |
-| Homework 05 | October 20, 2017 | October 23, 2017 |
+| [Homework 05](hw05_factor-figure-boss-repo-hygiene.html) | October 20, 2017 | October 25, 2017 |
 
 #### STAT 547M
 
@@ -67,10 +67,10 @@ Links to homework will be posted here as they are made available. Submissions ar
 date           instructor  notes                                                                                             
 -------------  ----------  --------------------------------------------------------------------------------------------------
 oct-24 tues    Giulio      <a href="cm101_character-data-regex.html">cm101</a>: Regular expressions and character data       
-oct-26 thurs   Giulio      <a href="cm102_writing-functions.html">cm102</a>: Writing your own R functions                    
-oct-31 tues    Giulio      <a href="cm103_list-inspection-mapping.html">cm103</a>: purrr, list-columns, nested data frames 1
+oct-26 thurs   Derek      <a href="cm102_writing-functions.html">cm102</a>: Writing your own R functions                    
+oct-31 tues    Joey      <a href="cm103_list-inspection-mapping.html">cm103</a>: purrr, list-columns, nested data frames 1
 nov-02 thurs   Giulio      <a href="cm104_lists-and-data-frames.html">cm104</a>: purrr, list-columns, nested data frames 2   
-nov-07 tues    Giulio      <a href="cm105_automation-and-make.html">cm105</a>: Automate tasks and pipelines   
+nov-07 tues    Shaun      <a href="cm105_automation-and-make.html">cm105</a>: Automate tasks and pipelines   
 nov-09 thurs   Giulio      <a href="cm106_automation-and-make.html">cm106</a>: ditto                                         
 nov-14 tues    Giulio      <a href="cm107_shiny-apps.html">cm107</a>: Build your first Shiny app                
 nov-16 thurs   Giulio      <a href="cm108_shiny-apps.html">cm108</a>: ditto                                                  
