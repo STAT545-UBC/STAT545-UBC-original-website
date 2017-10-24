@@ -1,0 +1,135 @@
+---
+title: "cmd101-lecture-ntoes"
+author: "gvdr"
+date: "October 24, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R for text
+
+Today, after a bit of class management, we are going to cover some fundamentals for interacting with strings. Let's provide ourselves with a variety of character strings.
+
+```{r}
+my_string <- "This is a nice little string! Isn't it?"
+my_string2 <- 'This little string contains "apices". What is the word for them?'
+my_string3 <- "Also this string contains a ' character."
+```
+
+Notice the role of the different apices: if we open (and thus close) the string with " we can contain ' as simple text; if we open (and thus close) the string with \' we can contain " as simple text.
+
+Other things that look like an apices are actually not, and they are a tad different:
+
+```{r}
+my_string4 <- `my_string`
+my_string5 <- 'my_string'
+
+my_string4
+my_string5
+```
+
+Finally, we can have vectors of strings.
+
+```{r}
+library(singer)
+places <- unique(singer_locations$city)
+```
+
+
+### The tools of the trade
+
+There are a bunch of libraries which makes life much easier. Two are `stringr` and `glue`, that live in the tidyverse world, another one is `stringi`. `stringi` is the core of `stringr`, and it's **very** powerful and fast. I don't mingle much with text, so I don't use it often: `stringr` does everything I need.
+
+```{r}
+library(tidyverse)
+library(stringr)
+library(glue)
+```
+
+#### Gluing is caring
+
+The function `glue()` allows to compose strings in a programmatic and elegant way. I find it more convenient than `paste()` or `paste0()`, but requires to learn a tad of syntax.
+
+`glue()` knows the environment in which you call it. That means that can use variables that were previously defined.
+
+```{r}
+My_name <- "Giulio"
+My_age <- 32
+My_twitter <- "ipnosimmia"
+glue('My name is {My_name},',
+  ' my age next year is {My_age + 1},',
+  ' my twitter handle is @{My_twitter}.')
+```
+
+It als preserves indentation and new lines (but you have to start from the beginning):
+
+```{r}
+glue('
+My name is {My_name},
+           my age last year was {My_age - 2},
+   my twitter handle is @{My_twitter}.
+')
+```
+
+
+If we don't want to create permament variables for those string, we can pass them *after* the string as on-the-fly parameters
+_
+```{r}
+glue('Today is {_____} and the sun shines.',
+     today_date = Sys.Date())
+```
+
+That's not so nice, is it? We surely could use a `format()`ting. Acciderboli, it would be nice if we could reuse that phrase without having to repast it every time. Well, we can!
+
+```{r}
+phrase <- 'Today is {today_date} and the sun shines.'
+glue(_____,
+     today_date = format(Sys.Date(), "%A, %B %d, %Y"))
+```
+
+`glue` also works with data frames, via the `glue_data()` function.
+
+```{r}
+singer_locations %>%
+ filter(!is.na(city)) %>%
+ glue_data("{_____} is from the city of {_____}.") %>%
+  head()
+```
+
+
+#### Stringr for the string practitioner
+
+The package `stringr` provides a wide variety of string manipulation functions.
+
+```{r}
+getNamespaceExports("stringr")
+```
+
+
+There's a bunch of them starting with `str_`, and they constitute the core of `stringr` functionalities. Let's take a look a `str_view()`:
+
+```{r}
+getNamespaceExports("stringr") %>%
+  str_view("_____")
+```
+
+What happened here? Try to change the string you passed as an input and see what happens.
+
+A similar function is `str_subset()`.
+
+```{r}
+getNamespaceExports("stringr") %>%
+  str_subset("_____")
+```
+
+##### Challenge
+
+Let's use `str_subset()` to identify all the bands' places containing the string `new`.
+
+```{r}
+places %>%
+  str_subset("____")
+```
