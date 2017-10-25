@@ -1,6 +1,6 @@
 ## Topic list
 
-This material gets updated during Sept - Nov each year. Right now we're in awkward teenage phase -- it's a mix of 2015 and 2016 content. 
+This material gets updated during Sept - Nov each year on a rolling basis.
 
   * Get your R act together
     - [Install R and Rstudio](block000_r-rstudio-install.html) (or update! get current!)
