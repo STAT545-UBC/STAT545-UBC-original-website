@@ -21,13 +21,14 @@ I start with this because we cannot possibly do this topic justice in a short am
 #### Manipulating character vectors
 
   * [stringr package](https://cran.r-project.org/web/packages/stringr/index.html)
-    - A non-core package in the tidyverse. It is installed via `install.packages("tidyverse")`, but not loaded via `library(tidyverse)`. Load it as needed via `library(stringr)`.
+    - A non-core package in the tidyverse. It is installed via `install.packages("tidyverse")`, but not loaded via `library(tidyverse)`. Load it as needed via `library(stringr)`. *2017-10 note: this is changing and stringr will be a core package at the next CRAN update.*
     - Main functions start with `str_`. Auto-complete is your friend.
     - Replacements for base functions re: string manipulation and regular expressions (see below).
     - Main advantagse over base functions: greater consistency about inputs and outputs. Outputs are more ready for your next analytical task. 
   * [tidyr package](https://cran.r-project.org/web/packages/tidyr/index.html)
     - Especially useful for functions that split 1 character vector into many and *vice versa*: `separate()`, `unite()`, `extract()`.
   * Base functions: `nchar()`, `strsplit()`, `substr()`, `paste()`, `paste0()`.
+  * The [glue package](http://glue.tidyverse.org) is fantastic for string interpolation. If `stringr::str_interp()` doesn't get your job done, check out glue.
 
 #### Regular expressions
 
@@ -66,15 +67,17 @@ A God-awful and powerful language for expressing patterns to match in text or fo
 
 ```r
 library(tidyverse)
-#> Loading tidyverse: ggplot2
-#> Loading tidyverse: tibble
-#> Loading tidyverse: tidyr
-#> Loading tidyverse: readr
-#> Loading tidyverse: purrr
-#> Loading tidyverse: dplyr
-#> Conflicts with tidy packages ----------------------------------------------
-#> filter(): dplyr, stats
-#> lag():    dplyr, stats
+#> + ggplot2 2.2.1             Date: 2017-10-24
+#> + tibble  1.3.4                R: 3.4.1
+#> + tidyr   0.7.1               OS: macOS Sierra 10.12.6
+#> + readr   1.1.1              GUI: X11
+#> + purrr   0.2.3.9000      Locale: en_CA.UTF-8
+#> + dplyr   0.7.3               TZ: America/Vancouver
+#> + stringr 1.2.0           
+#> + forcats 0.2.0
+#> ── Conflicts ────────────────────────────────────────────────────
+#> * filter(),  from dplyr, masks stats::filter()
+#> * lag(),     from dplyr, masks stats::lag()
 library(stringr)
 ```
 
@@ -103,7 +106,7 @@ Which fruits actually use the word "fruit"?
 
 
 ```r
-str_detect(fruit, "fruit")
+str_detect(fruit, pattern = "fruit")
 #>  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 #> [12]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 #> [23] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
@@ -118,7 +121,7 @@ What's the easiest way to get the actual fruits that match? Use `str_subset()` t
 
 
 ```r
-(my_fruit <- str_subset(fruit, "fruit"))
+(my_fruit <- str_subset(fruit, pattern = "fruit"))
 #> [1] "breadfruit"   "dragonfruit"  "grapefruit"   "jackfruit"   
 #> [5] "kiwi fruit"   "passionfruit" "star fruit"   "ugli fruit"
 ```
@@ -129,7 +132,7 @@ Use `stringr::str_split()` to split strings on a delimiter. Some of our fruits a
 
 
 ```r
-str_split(my_fruit, " ")
+str_split(my_fruit, pattern = " ")
 #> [[1]]
 #> [1] "breadfruit"
 #> 
@@ -161,7 +164,7 @@ If you are willing to commit to the number of pieces, you can use `str_split_fix
 
 
 ```r
-str_split_fixed(my_fruit, " ", n = 2)
+str_split_fixed(my_fruit, pattern = " ", n = 2)
 #>      [,1]           [,2]   
 #> [1,] "breadfruit"   ""     
 #> [2,] "dragonfruit"  ""     
@@ -181,7 +184,7 @@ my_fruit_df <- tibble(my_fruit)
 my_fruit_df %>% 
   separate(my_fruit, into = c("pre", "post"), sep = " ")
 #> Warning: Too few values at 5 locations: 1, 2, 3, 4, 6
-#> # A tibble: 8 × 2
+#> # A tibble: 8 x 2
 #>            pre  post
 #> *        <chr> <chr>
 #> 1   breadfruit  <NA>
@@ -222,7 +225,7 @@ The `start` and `end` arguments are vectorised. Example: a sliding 3-character w
 tibble(fruit) %>% 
   head() %>% 
   mutate(snip = str_sub(fruit, 1:6, 3:8))
-#> # A tibble: 6 × 2
+#> # A tibble: 6 x 2
 #>         fruit  snip
 #>         <chr> <chr>
 #> 1       apple   app
@@ -237,7 +240,8 @@ Finally, `str_sub()` also works for assignment, i.e. on the left hand side of `<
 
 
 ```r
-x <- head(fruit, 3)
+(x <- head(fruit, 3))
+#> [1] "apple"   "apricot" "avocado"
 str_sub(x, 1, 3) <- "AAA"
 x
 #> [1] "AAAle"   "AAAicot" "AAAcado"
@@ -277,10 +281,13 @@ If the to-be-combined vectors are variables in a data frame, you can use `tidyr:
 
 
 ```r
-fruit_df <- tibble(fruit1 = fruit[1:4], fruit2 = fruit[5:8])
+fruit_df <- tibble(
+  fruit1 = fruit[1:4],
+  fruit2 = fruit[5:8]
+)
 fruit_df %>% 
   unite("flavor_combo", fruit1, fruit2, sep = " & ")
-#> # A tibble: 4 × 1
+#> # A tibble: 4 x 1
 #>            flavor_combo
 #> *                 <chr>
 #> 1   apple & bell pepper
@@ -295,7 +302,7 @@ You can replace a pattern with `str_replace()`. Here we use an explicit string-t
 
 
 ```r
-str_replace(my_fruit, "fruit", "THINGY")
+str_replace(my_fruit, pattern = "fruit", replacement = "THINGY")
 #> [1] "breadTHINGY"   "dragonTHINGY"  "grapeTHINGY"   "jackTHINGY"   
 #> [5] "kiwi THINGY"   "passionTHINGY" "star THINGY"   "ugli THINGY"
 ```
@@ -304,7 +311,7 @@ A special case that comes up alot is replacing `NA`, for which there is `str_rep
 
 
 ```r
-melons <- str_subset(fruit, "melon")
+melons <- str_subset(fruit, pattern = "melon")
 melons[2] <- NA
 melons
 #> [1] "canary melon" NA             "watermelon"
@@ -318,7 +325,7 @@ If the `NA`-afflicted variable lives in a data frame, you can use `tidyr::replac
 ```r
 tibble(melons) %>% 
   replace_na(replace = list(melons = "UNKNOWN MELON"))
-#> # A tibble: 3 × 1
+#> # A tibble: 3 x 1
 #>          melons
 #>           <chr>
 #> 1  canary melon
@@ -350,7 +357,7 @@ The first metacharacter is the period `.`, which stands for any single character
 
 
 ```r
-str_subset(countries, "i.a")
+str_subset(countries, pattern = "i.a")
 #>  [1] "Argentina"                "Bosnia and Herzegovina"  
 #>  [3] "Burkina Faso"             "Central African Republic"
 #>  [5] "China"                    "Costa Rica"              
@@ -369,14 +376,14 @@ Note how the regex `i.a$` matches many fewer countries than `i.a` alone. Likewis
 
 
 ```r
-str_subset(countries, "i.a$")
+str_subset(countries, pattern = "i.a$")
 #> [1] "Argentina"              "Bosnia and Herzegovina"
 #> [3] "China"                  "Costa Rica"            
 #> [5] "Hong Kong, China"       "Jamaica"               
 #> [7] "South Africa"
-str_subset(my_fruit, "d")
+str_subset(my_fruit, pattern = "d")
 #> [1] "breadfruit"  "dragonfruit"
-str_subset(my_fruit, "^d")
+str_subset(my_fruit, pattern = "^d")
 #> [1] "dragonfruit"
 ```
 
@@ -384,11 +391,11 @@ The metacharacter `\b` indicates a **word boundary** and `\B` indicates NOT a wo
 
 
 ```r
-str_subset(fruit, "melon")
+str_subset(fruit, pattern = "melon")
 #> [1] "canary melon" "rock melon"   "watermelon"
-str_subset(fruit, "\\bmelon")
+str_subset(fruit, pattern = "\\bmelon")
 #> [1] "canary melon" "rock melon"
-str_subset(fruit, "\\Bmelon")
+str_subset(fruit, pattern = "\\Bmelon")
 #> [1] "watermelon"
 ```
 
@@ -401,12 +408,12 @@ Here we match `ia` at the end of the country name, preceded by one of the charac
 
 ```r
 ## make a class "by hand"
-str_subset(countries, "[nls]ia$")
+str_subset(countries, pattern = "[nls]ia$")
 #>  [1] "Albania"    "Australia"  "Indonesia"  "Malaysia"   "Mauritania"
 #>  [6] "Mongolia"   "Romania"    "Slovenia"   "Somalia"    "Tanzania"  
 #> [11] "Tunisia"
 ## use ^ to negate the class
-str_subset(countries, "[^nls]ia$")
+str_subset(countries, pattern = "[^nls]ia$")
 #>  [1] "Algeria"      "Austria"      "Bolivia"      "Bulgaria"    
 #>  [5] "Cambodia"     "Colombia"     "Croatia"      "Ethiopia"    
 #>  [9] "Gambia"       "India"        "Liberia"      "Namibia"     
@@ -419,9 +426,9 @@ Here we revisit splitting `my_fruit` with two more general ways to match whitesp
 
 ```r
 ## remember this?
-# str_split_fixed(fruit, " ", 2)
+# str_split_fixed(fruit, pattern = " ", n = 2)
 ## alternatives
-str_split_fixed(my_fruit, "\\s", 2)
+str_split_fixed(my_fruit, pattern = "\\s", n = 2)
 #>      [,1]           [,2]   
 #> [1,] "breadfruit"   ""     
 #> [2,] "dragonfruit"  ""     
@@ -431,7 +438,7 @@ str_split_fixed(my_fruit, "\\s", 2)
 #> [6,] "passionfruit" ""     
 #> [7,] "star"         "fruit"
 #> [8,] "ugli"         "fruit"
-str_split_fixed(my_fruit, "[[:space:]]", 2)
+str_split_fixed(my_fruit, pattern = "[[:space:]]", n = 2)
 #>      [,1]           [,2]   
 #> [1,] "breadfruit"   ""     
 #> [2,] "dragonfruit"  ""     
@@ -470,7 +477,7 @@ Explore these by inspecting matches for `l` followed by `e`, allowing for variou
 
 
 ```r
-(matches <- str_subset(fruit, "l.*e"))
+(matches <- str_subset(fruit, pattern = "l.*e"))
 #>  [1] "apple"             "bell pepper"       "bilberry"         
 #>  [4] "blackberry"        "blood orange"      "blueberry"        
 #>  [7] "cantaloupe"        "chili pepper"      "clementine"       
@@ -484,8 +491,8 @@ Change the quantifier from `*` to `+` to require at least one intervening charac
 
 
 ```r
-list(match = intersect(matches, str_subset(fruit, "l.+e")),
-     no_match = setdiff(matches, str_subset(fruit, "l.+e")))
+list(match = intersect(matches, str_subset(fruit, pattern = "l.+e")),
+     no_match = setdiff(matches, str_subset(fruit, pattern = "l.+e")))
 #> $match
 #>  [1] "bell pepper"       "bilberry"          "blackberry"       
 #>  [4] "blood orange"      "blueberry"         "cantaloupe"       
@@ -502,8 +509,8 @@ Change the quantifier from `*` to `?` to require at most one intervening charact
 
 
 ```r
-list(match = intersect(matches, str_subset(fruit, "l.?e")),
-     no_match = setdiff(matches, str_subset(fruit, "l.?e")))
+list(match = intersect(matches, str_subset(fruit, pattern = "l.?e")),
+     no_match = setdiff(matches, str_subset(fruit, pattern = "l.?e")))
 #> $match
 #>  [1] "apple"             "bilberry"          "blueberry"        
 #>  [4] "clementine"        "elderberry"        "huckleberry"      
@@ -520,8 +527,8 @@ Finally, we remove the quantifier and allow for no intervening characters. The s
 
 
 ```r
-list(match = intersect(matches, str_subset(fruit, "le")),
-     no_match = setdiff(matches, str_subset(fruit, "le")))
+list(match = intersect(matches, str_subset(fruit, pattern = "le")),
+     no_match = setdiff(matches, str_subset(fruit, pattern = "le")))
 #> $match
 #> [1] "apple"             "clementine"        "huckleberry"      
 #> [4] "lemon"             "pineapple"         "purple mangosteen"
@@ -566,17 +573,17 @@ Here is routine, non-regex use of backslash `\` escapes in plain vanilla R strin
 
 Examples of using escapes in regexes to match characters that would otherwise have a special interpretation.
 
-We know several Gapminder country names contain a period. How do we isolate them? Although it's tempting, this command `str_subset(countries, ".")` won't work!
+We know several Gapminder country names contain a period. How do we isolate them? Although it's tempting, this command `str_subset(countries, pattern = ".")` won't work!
 
 
 ```r
 ## cheating using a POSIX class ;)
-str_subset(countries, "[[:punct:]]")
+str_subset(countries, pattern = "[[:punct:]]")
 #> [1] "Congo, Dem. Rep." "Congo, Rep."      "Cote d'Ivoire"   
 #> [4] "Guinea-Bissau"    "Hong Kong, China" "Korea, Dem. Rep."
 #> [7] "Korea, Rep."      "Yemen, Rep."
 ## using two backslashes to escape the period
-str_subset(countries, "\\.")
+str_subset(countries, pattern = "\\.")
 #> [1] "Congo, Dem. Rep." "Congo, Rep."      "Korea, Dem. Rep."
 #> [4] "Korea, Rep."      "Yemen, Rep."
 ```
@@ -587,7 +594,7 @@ A last example that matches an actual square bracket.
 ```r
 (x <- c("whatever", "X is distributed U[0,1]"))
 #> [1] "whatever"                "X is distributed U[0,1]"
-str_subset(x, "\\[")
+str_subset(x, pattern = "\\[")
 #> [1] "X is distributed U[0,1]"
 ```
 
