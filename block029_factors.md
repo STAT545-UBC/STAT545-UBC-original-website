@@ -2,8 +2,6 @@
 
 
 
-*Under development*
-
 ### Factors: where they fit in
 
 We've spent alot of time working with big, beautiful data frames, like the Gapminder data. But we also need to manage the individual variables housed within.
@@ -23,8 +21,6 @@ Good articles about how the factor fiasco came to be:
 
 ### The forcats package
 
-This is a reboot of the [STAT 545 factor material from 2015 and before](block014_factors.html), in light of the very recent birth of the [forcats](https://blog.rstudio.org/2016/08/31/forcats-0-1-0/) package. 
-
 forcats is a non-core package in the tidyverse. It is installed via `install.packages("tidyverse")`, but not loaded via `library(tidyverse)`. Load it yourself as needed via `library(forcats)`. Main functions start with `fct_`. There really is no coherent family of base functions that forcats replaces -- that's why it's such a welcome addition.
 
 Currently this lesson will be mostly code vs prose. See the previous lesson for more discussion during the transition.
@@ -34,48 +30,28 @@ Currently this lesson will be mostly code vs prose. See the previous lesson for 
 
 ```r
 library(tidyverse)
-#> Loading tidyverse: ggplot2
-#> Loading tidyverse: tibble
-#> Loading tidyverse: tidyr
-#> Loading tidyverse: readr
-#> Loading tidyverse: purrr
-#> Loading tidyverse: dplyr
-#> Conflicts with tidy packages ----------------------------------------------
-#> filter(): dplyr, stats
-#> lag():    dplyr, stats
+#> + ggplot2 2.2.1             Date: 2017-10-29
+#> + tibble  1.3.4                R: 3.4.1
+#> + tidyr   0.7.1               OS: macOS Sierra 10.12.6
+#> + readr   1.1.1              GUI: X11
+#> + purrr   0.2.3.9000      Locale: en_CA.UTF-8
+#> + dplyr   0.7.4               TZ: America/Vancouver
+#> + stringr 1.2.0.9000      
+#> + forcats 0.2.0
+#> Warning: package 'dplyr' was built under R version 3.4.2
+#> ── Conflicts ────────────────────────────────────────────────────
+#> * filter(),  from dplyr, masks stats::filter()
+#> * lag(),     from dplyr, masks stats::lag()
 library(forcats)
 library(gapminder)
 ```
 
 ### Factor inspection
 
-Get to know your factor before you start touching it! It's polite.
+Get to know your factor before you start touching it! It's polite. Let's use `gapminder$continent` as our example.
 
 
 ```r
-gapminder
-#> # A tibble: 1,704 × 6
-#>        country continent  year lifeExp      pop gdpPercap
-#>         <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
-#> 1  Afghanistan      Asia  1952  28.801  8425333  779.4453
-#> 2  Afghanistan      Asia  1957  30.332  9240934  820.8530
-#> 3  Afghanistan      Asia  1962  31.997 10267083  853.1007
-#> 4  Afghanistan      Asia  1967  34.020 11537966  836.1971
-#> 5  Afghanistan      Asia  1972  36.088 13079460  739.9811
-#> 6  Afghanistan      Asia  1977  38.438 14880372  786.1134
-#> 7  Afghanistan      Asia  1982  39.854 12881816  978.0114
-#> 8  Afghanistan      Asia  1987  40.822 13867957  852.3959
-#> 9  Afghanistan      Asia  1992  41.674 16317921  649.3414
-#> 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
-#> # ... with 1,694 more rows
-str(gapminder)
-#> Classes 'tbl_df', 'tbl' and 'data.frame':	1704 obs. of  6 variables:
-#>  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
-#>  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
-#>  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
-#>  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
-#>  $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
-#>  $ gdpPercap: num  779 821 853 836 740 ...
 str(gapminder$continent)
 #>  Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
 levels(gapminder$continent)
@@ -84,18 +60,15 @@ nlevels(gapminder$continent)
 #> [1] 5
 class(gapminder$continent)
 #> [1] "factor"
-summary(gapminder$continent)
-#>   Africa Americas     Asia   Europe  Oceania 
-#>      624      300      396      360       24
 ```
 
-Get a result similar to `dplyr::count()`, but on a free-range factor, with `forcats::fct_count()`.
+To get a frequency table as a tibble, from a tibble, use `dplyr::count()`. To get similar from a free-range factor, use `forcats::fct_count()`.
 
 
 ```r
 gapminder %>% 
   count(continent)
-#> # A tibble: 5 × 2
+#> # A tibble: 5 x 2
 #>   continent     n
 #>      <fctr> <int>
 #> 1    Africa   624
@@ -104,7 +77,7 @@ gapminder %>%
 #> 4    Europe   360
 #> 5   Oceania    24
 fct_count(gapminder$continent)
-#> # A tibble: 5 × 2
+#> # A tibble: 5 x 2
 #>          f     n
 #>     <fctr> <int>
 #> 1   Africa   624
@@ -116,12 +89,14 @@ fct_count(gapminder$continent)
 
 ### Dropping unused levels
 
-Just because you drop all the rows corresponding to a specific factor level, the levels of the factor itself do not change. This will come back to haunt you when you make a figure and all levels are included in the automatic legend. Sometimes it's all legend, no figure!
+Just because you drop all the rows corresponding to a specific factor level, the levels of the factor itself do not change. Sometimes all these unused levels can come back to haunt you later, e.g., in figure legends.
 
 Watch what happens to the levels of `country` (= nothing) when we filter Gapminder to a handful of countries.
 
 
 ```r
+nlevels(gapminder$country)
+#> [1] 142
 h_countries <- c("Egypt", "Haiti", "Romania", "Thailand", "Venezuela")
 h_gap <- gapminder %>%
   filter(country %in% h_countries)
@@ -147,6 +122,14 @@ h_gap$country %>%
 #> [1] "Egypt"     "Haiti"     "Romania"   "Thailand"  "Venezuela"
 ```
 
+Exercise: Filter the gapminder data down to rows where population is less than a quarter of a million, i.e. 250,000. Get rid of the unused factor levels for `country` and `continent` in different ways, such as:
+
+  * `droplevels()`
+  * `fct_drop()` inside `mutate()`
+  * `fct_dopr()` with `mutate_at()` or `mutate_if()`
+
+
+
 ### Change order of the levels, principled
 
 By default, factor levels are ordered alphabetically. Which might as well be random, when you think about it! It is preferable to order the levels according to some principle:
@@ -154,7 +137,7 @@ By default, factor levels are ordered alphabetically. Which might as well be ran
   * Frequency. Make the most common level the first and so on.
   * Another variable. Order factor levels according to a summary statistic for another variable. Example: order Gapminder countries by life expectancy.
 
-First, we order continent by frequency, forwards and backwards. Motivated by the downstream need to make tables and figures, esp. frequency barplots.
+First, let's order continent by frequency, forwards and backwards. This is often a great idea for tables and figures, esp. frequency barplots.
 
 
 ```r
@@ -166,16 +149,20 @@ gapminder$continent %>%
 ## order by frequency
 gapminder$continent %>% 
   fct_infreq() %>%
-  levels() %>% head()
+  levels()
 #> [1] "Africa"   "Asia"     "Europe"   "Americas" "Oceania"
 
 ## backwards!
 gapminder$continent %>% 
   fct_infreq() %>%
   fct_rev() %>% 
-  levels() %>% head()
+  levels()
 #> [1] "Oceania"  "Americas" "Europe"   "Asia"     "Africa"
 ```
+
+These two barcharts of frequency by continent differ only in the order of the continents. Which do you prefer?
+
+<img src="block029_factors_files/figure-html/unnamed-chunk-8-1.png" width="49%" /><img src="block029_factors_files/figure-html/unnamed-chunk-8-2.png" width="49%" />
 
 Now we order `country` by another variable, forwards and backwards. This other variable is usually quantitative and you will order the factor accoding to a grouped summary. The factor is the grouping variable and the default summarizing function is `median()` but you can specify something else.
 
@@ -203,6 +190,8 @@ fct_reorder(gapminder$country, gapminder$lifeExp, .desc = TRUE) %>%
 Example of why we reorder factor levels: often makes plots much better! When a factor is mapped to x or y, it should almost always be reordered by the quantitative variable you are mapping to the other one.
 
 
+
+Compare the interpretability of these two plots of life expectancy in Asian countries in 2007. The *only difference* is the order of the `country` factor. Which one do you find easier to learn from?
 
 
 ```r
@@ -234,7 +223,7 @@ ggplot(h_gap, aes(x = year, y = lifeExp,
 
 ### Change order of the levels, "because I said so"
 
-Sometimes you just want to hoist one or more levels to the front. Why? Because I said so. This resembles what we do when we move variables to the front with `dplyr::select(var1, var, everything())`.
+Sometimes you just want to hoist one or more levels to the front. Why? Because I said so. This resembles what we do when we move variables to the front with `dplyr::select(special_var, everything())`.
 
 
 ```r
@@ -244,9 +233,11 @@ h_gap$country %>% fct_relevel("Romania", "Haiti") %>% levels()
 #> [1] "Romania"   "Haiti"     "Egypt"     "Thailand"  "Venezuela"
 ```
 
+This might be useful if you are preparing a report for, say, the Romanian government. The reason for always putting Romania first has nothing to do with the *data*, it is important for external reasons and you need a way to express this.
+
 ### Recode the levels
 
-Sometimes you have better ideas about what certain levels should be. Recode them.
+Sometimes you have better ideas about what certain levels should be. This is called recoding.
 
 
 ```r
@@ -260,3 +251,88 @@ i_gap$country %>%
 #> [1] "Oz"     "Sweden" "USA"
 ```
 
+Exercise: Isolate the data for `"Australia"`, `"Korea, Dem. Rep."`, and `"Korea, Rep."` in the 2000x. Revalue the country factor levels to `"Oz"`, `"North Korea"`, and `"South Korea"`.
+
+### Grow a factor
+
+Let's create two data frames, each with data from two countries, dropping unused factor levels.
+
+
+```r
+df1 <- gapminder %>%
+  filter(country %in% c("United States", "Mexico"), year > 2000) %>%
+  droplevels()
+df2 <- gapminder %>%
+  filter(country %in% c("France", "Germany"), year > 2000) %>%
+  droplevels()
+```
+
+The `country` factors in `df1` and `df2` have different levels.
+
+
+```r
+levels(df1$country)
+#> [1] "Mexico"        "United States"
+levels(df2$country)
+#> [1] "France"  "Germany"
+```
+
+Can you just catenate them?
+
+
+```r
+c(df1$country, df2$country)
+#> [1] 1 1 2 2 1 1 2 2
+```
+
+Umm, no. That is wrong on many levels! Use `fct_c()` to do this.
+
+
+```r
+fct_c(df1$country, df2$country)
+#> [1] Mexico        Mexico        United States United States France       
+#> [6] France        Germany       Germany      
+#> Levels: Mexico United States France Germany
+```
+
+Exercise: Explore how different forms of row binding work behave here, in terms of the `country` variable in the result.
+
+
+```r
+bind_rows(df1, df2)
+#> Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character
+#> Warning in bind_rows_(x, .id): binding character and factor vector,
+#> coercing into character vector
+
+#> Warning in bind_rows_(x, .id): binding character and factor vector,
+#> coercing into character vector
+#> Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character
+#> Warning in bind_rows_(x, .id): binding character and factor vector,
+#> coercing into character vector
+
+#> Warning in bind_rows_(x, .id): binding character and factor vector,
+#> coercing into character vector
+#> # A tibble: 8 x 6
+#>         country continent  year lifeExp       pop gdpPercap
+#>           <chr>     <chr> <int>   <dbl>     <int>     <dbl>
+#> 1        Mexico  Americas  2002  74.902 102479927  10742.44
+#> 2        Mexico  Americas  2007  76.195 108700891  11977.57
+#> 3 United States  Americas  2002  77.310 287675526  39097.10
+#> 4 United States  Americas  2007  78.242 301139947  42951.65
+#> 5        France    Europe  2002  79.590  59925035  28926.03
+#> 6        France    Europe  2007  80.657  61083916  30470.02
+#> 7       Germany    Europe  2002  78.670  82350671  30035.80
+#> 8       Germany    Europe  2007  79.406  82400996  32170.37
+rbind(df1, df2)
+#> # A tibble: 8 x 6
+#>         country continent  year lifeExp       pop gdpPercap
+#>          <fctr>    <fctr> <int>   <dbl>     <int>     <dbl>
+#> 1        Mexico  Americas  2002  74.902 102479927  10742.44
+#> 2        Mexico  Americas  2007  76.195 108700891  11977.57
+#> 3 United States  Americas  2002  77.310 287675526  39097.10
+#> 4 United States  Americas  2007  78.242 301139947  42951.65
+#> 5        France    Europe  2002  79.590  59925035  28926.03
+#> 6        France    Europe  2007  80.657  61083916  30470.02
+#> 7       Germany    Europe  2002  78.670  82350671  30035.80
+#> 8       Germany    Europe  2007  79.406  82400996  32170.37
+```

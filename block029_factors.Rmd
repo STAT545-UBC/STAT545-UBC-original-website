@@ -10,8 +10,6 @@ output:
 knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
 ```
 
-*Under development*
-
 ### Factors: where they fit in
 
 We've spent alot of time working with big, beautiful data frames, like the Gapminder data. But we also need to manage the individual variables housed within.
@@ -31,8 +29,6 @@ Good articles about how the factor fiasco came to be:
 
 ### The forcats package
 
-This is a reboot of the [STAT 545 factor material from 2015 and before](block014_factors.html), in light of the very recent birth of the [forcats](https://blog.rstudio.org/2016/08/31/forcats-0-1-0/) package. 
-
 forcats is a non-core package in the tidyverse. It is installed via `install.packages("tidyverse")`, but not loaded via `library(tidyverse)`. Load it yourself as needed via `library(forcats)`. Main functions start with `fct_`. There really is no coherent family of base functions that forcats replaces -- that's why it's such a welcome addition.
 
 Currently this lesson will be mostly code vs prose. See the previous lesson for more discussion during the transition.
@@ -47,19 +43,16 @@ library(gapminder)
 
 ### Factor inspection
 
-Get to know your factor before you start touching it! It's polite.
+Get to know your factor before you start touching it! It's polite. Let's use `gapminder$continent` as our example.
 
 ```{r}
-gapminder
-str(gapminder)
 str(gapminder$continent)
 levels(gapminder$continent)
 nlevels(gapminder$continent)
 class(gapminder$continent)
-summary(gapminder$continent)
 ```
 
-Get a result similar to `dplyr::count()`, but on a free-range factor, with `forcats::fct_count()`.
+To get a frequency table as a tibble, from a tibble, use `dplyr::count()`. To get similar from a free-range factor, use `forcats::fct_count()`.
 
 ```{r}
 gapminder %>% 
@@ -69,11 +62,12 @@ fct_count(gapminder$continent)
 
 ### Dropping unused levels
 
-Just because you drop all the rows corresponding to a specific factor level, the levels of the factor itself do not change. This will come back to haunt you when you make a figure and all levels are included in the automatic legend. Sometimes it's all legend, no figure!
+Just because you drop all the rows corresponding to a specific factor level, the levels of the factor itself do not change. Sometimes all these unused levels can come back to haunt you later, e.g., in figure legends.
 
 Watch what happens to the levels of `country` (= nothing) when we filter Gapminder to a handful of countries.
 
 ```{r}
+nlevels(gapminder$country)
 h_countries <- c("Egypt", "Haiti", "Romania", "Thailand", "Venezuela")
 h_gap <- gapminder %>%
   filter(country %in% h_countries)
@@ -95,6 +89,28 @@ h_gap$country %>%
   levels()
 ```
 
+Exercise: Filter the gapminder data down to rows where population is less than a quarter of a million, i.e. 250,000. Get rid of the unused factor levels for `country` and `continent` in different ways, such as:
+
+  * `droplevels()`
+  * `fct_drop()` inside `mutate()`
+  * `fct_dopr()` with `mutate_at()` or `mutate_if()`
+
+```{r, eval = FALSE, include = FALSE}
+low_pop <- gapminder %>% 
+  filter(pop < 250000)
+
+low_pop %>%
+  droplevels() %>% 
+  group_by(country, continent) %>% 
+  summarize(max_pop = max(pop))
+
+low_pop %>%
+  mutate(country = fct_drop(country),
+         continent = fct_drop(continent)) %>% 
+  group_by(country, continent) %>% 
+  summarize(max_pop = max(pop))
+```
+
 ### Change order of the levels, principled
 
 By default, factor levels are ordered alphabetically. Which might as well be random, when you think about it! It is preferable to order the levels according to some principle:
@@ -102,7 +118,7 @@ By default, factor levels are ordered alphabetically. Which might as well be ran
   * Frequency. Make the most common level the first and so on.
   * Another variable. Order factor levels according to a summary statistic for another variable. Example: order Gapminder countries by life expectancy.
 
-First, we order continent by frequency, forwards and backwards. Motivated by the downstream need to make tables and figures, esp. frequency barplots.
+First, let's order continent by frequency, forwards and backwards. This is often a great idea for tables and figures, esp. frequency barplots.
 
 ```{r}
 ## default order is alphabetical
@@ -112,13 +128,30 @@ gapminder$continent %>%
 ## order by frequency
 gapminder$continent %>% 
   fct_infreq() %>%
-  levels() %>% head()
+  levels()
 
 ## backwards!
 gapminder$continent %>% 
   fct_infreq() %>%
   fct_rev() %>% 
-  levels() %>% head()
+  levels()
+```
+
+These two barcharts of frequency by continent differ only in the order of the continents. Which do you prefer?
+
+```{r, fig.show = 'hold', out.width = '49%', echo = FALSE}
+p <- ggplot(gapminder, aes(x = continent)) +
+  geom_bar() +
+  coord_flip()
+p
+
+gap_tmp <- gapminder %>% 
+  mutate(continent = continent %>% fct_infreq() %>% fct_rev())
+
+p <- ggplot(gap_tmp, aes(x = continent)) +
+  geom_bar() +
+  coord_flip()
+p
 ```
 
 Now we order `country` by another variable, forwards and backwards. This other variable is usually quantitative and you will order the factor accoding to a grouped summary. The factor is the grouping variable and the default summarizing function is `median()` but you can specify something else.
@@ -145,6 +178,8 @@ boxplot(Sepal.Width ~ fct_reorder(Species, Sepal.Width), data = iris)
 boxplot(Sepal.Width ~ fct_reorder(Species, Sepal.Width, .desc = TRUE), data = iris)
 ```
 
+Compare the interpretability of these two plots of life expectancy in Asian countries in 2007. The *only difference* is the order of the `country` factor. Which one do you find easier to learn from?
+
 ```{r alpha-order-silly, fig.show = 'hold', out.width = '49%'}
 gap_asia_2007 <- gapminder %>% filter(year == 2007, continent == "Asia")
 ggplot(gap_asia_2007, aes(x = lifeExp, y = country)) + geom_point()
@@ -169,16 +204,18 @@ ggplot(h_gap, aes(x = year, y = lifeExp,
 
 ### Change order of the levels, "because I said so"
 
-Sometimes you just want to hoist one or more levels to the front. Why? Because I said so. This resembles what we do when we move variables to the front with `dplyr::select(var1, var, everything())`.
+Sometimes you just want to hoist one or more levels to the front. Why? Because I said so. This resembles what we do when we move variables to the front with `dplyr::select(special_var, everything())`.
 
 ```{r}
 h_gap$country %>% levels()
 h_gap$country %>% fct_relevel("Romania", "Haiti") %>% levels()
 ```
 
+This might be useful if you are preparing a report for, say, the Romanian government. The reason for always putting Romania first has nothing to do with the *data*, it is important for external reasons and you need a way to express this.
+
 ### Recode the levels
 
-Sometimes you have better ideas about what certain levels should be. Recode them.
+Sometimes you have better ideas about what certain levels should be. This is called recoding.
 
 ```{r}
 i_gap <- gapminder %>% 
@@ -189,3 +226,43 @@ i_gap$country %>%
   fct_recode("USA" = "United States", "Oz" = "Australia") %>% levels()
 ```
 
+Exercise: Isolate the data for `"Australia"`, `"Korea, Dem. Rep."`, and `"Korea, Rep."` in the 2000x. Revalue the country factor levels to `"Oz"`, `"North Korea"`, and `"South Korea"`.
+
+### Grow a factor
+
+Let's create two data frames, each with data from two countries, dropping unused factor levels.
+
+```{r}
+df1 <- gapminder %>%
+  filter(country %in% c("United States", "Mexico"), year > 2000) %>%
+  droplevels()
+df2 <- gapminder %>%
+  filter(country %in% c("France", "Germany"), year > 2000) %>%
+  droplevels()
+```
+
+The `country` factors in `df1` and `df2` have different levels.
+
+```{r}
+levels(df1$country)
+levels(df2$country)
+```
+
+Can you just catenate them?
+
+```{r}
+c(df1$country, df2$country)
+```
+
+Umm, no. That is wrong on many levels! Use `fct_c()` to do this.
+
+```{r}
+fct_c(df1$country, df2$country)
+```
+
+Exercise: Explore how different forms of row binding work behave here, in terms of the `country` variable in the result.
+
+```{r}
+bind_rows(df1, df2)
+rbind(df1, df2)
+```
