@@ -18,7 +18,7 @@ This material gets updated during Sept - Nov each year on a rolling basis.
     - [Table look up](bit008_lookup.html)
     - [Split-Apply-Combine](block024_group-nest-split-map.html) with the tidyverse (nesting, list-columns, map inside mutate) *under development*.
   * Data analysis 2: vectors and files
-    - [Be the boss of your factors](block029_factors.html) *under redevelopment, in light of forcats*
+    - [Be the boss of your factors, using forcats](block029_factors.html)
     - [Character vectors](block028_character-data.html): basic manipulation and regular expressions.
     - [Character encoding](block032_character-encoding.html)
     - [Writing and reading files](block026_file-out-in.html)

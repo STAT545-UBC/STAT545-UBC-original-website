@@ -81,7 +81,7 @@ str(gapminder)
 
 Default to `readr::read_delim()` and friends. Use the arguments!
 
-The Gapminder data is too clean and simple to show off the great features of readr, so I encourage you to check out the vignette on [column types](https://cran.r-project.org/web/packages/readr/vignettes/column-types.html). There are many variable types that you will be able to parse correctly upon import, thereby eliminating a great deal of post-timport fussing.
+The Gapminder data is too clean and simple to show off the great features of readr, so I encourage you to check out the vignette on [column types](https://cran.r-project.org/web/packages/readr/vignettes/column-types.html). There are many variable types that you will be able to parse correctly upon import, thereby eliminating a great deal of post-import fussing.
 
 ### Compute something worthy of export
 
@@ -134,7 +134,7 @@ I have toyed with the idea of writing import helper functions for a specific pro
 
 ### Reordering the levels of the country factor
 
-The topic of [factor level reordering is covered elsewhere](block08_bossYourFactors.html), so let's Just. Do. It. I reorder the country factor levels according to the life expectancy summary we've already computed.
+The topic of [factor level reordering is covered elsewhere](block029_factors.html), so let's Just. Do. It. I reorder the country factor levels according to the life expectancy summary we've already computed.
 
 ```{r}
 head(levels(gap_life_exp$country)) # alphabetical order
@@ -175,10 +175,10 @@ Concrete demonstration of how non-alphabetical factor level order is lost with `
 
 ```{r}
 (country_levels <- tibble(original = head(levels(gap_life_exp$country))))
-write.table(gfits, "gfits.tsv", sep = "\t")
+write_csv(gap_life_exp, "gap_life_exp.csv")
 saveRDS(gap_life_exp, "gap_life_exp.rds")
 rm(gap_life_exp)
-head(gap_life_exp) # will cause error! proving gfits is really gone 
+head(gap_life_exp) # will cause error! proving gap_life_exp is really gone 
 gap_via_csv <- read_csv("gap_life_exp.csv") %>% 
   mutate(country = factor(country))
 gap_via_rds <- readRDS("gap_life_exp.rds")
@@ -195,12 +195,12 @@ Note how the original, post-reordering country factor levels are restored using 
 One last method of saving and restoring data deserves a mention: `dput()` and `dget()`. `dput()` offers this odd combination of features: it creates a plain text representation of an R object which still manages to be quite opaque. If you use the `file =` argument, `dput()` can write this representation to file but you won't be tempted to actually read that thing. `dput()` creates an R-specific-but-not-binary representation. Let's try it out.
 
 ```{r}
-## first restore gfits with our desired country factor level order
+## first restore gap_life_exp with our desired country factor level order
 gap_life_exp <- readRDS("gap_life_exp.rds")
 dput(gap_life_exp, "gap_life_exp-dput.txt")
 ```
 
-Now let's look at the first few lines of the file `gfits-dput.txt`.
+Now let's look at the first few lines of the file `gap_life_exp-dput.txt`.
 
 ```{r echo = FALSE, comment = NA}
 "gap_life_exp-dput.txt" %>% 

@@ -37,15 +37,18 @@ The main function we will be using is readr, which provides drop-in substitutes 
 
 ```r
 library(tidyverse)
-## Loading tidyverse: ggplot2
-## Loading tidyverse: tibble
-## Loading tidyverse: tidyr
-## Loading tidyverse: readr
-## Loading tidyverse: purrr
-## Loading tidyverse: dplyr
-## Conflicts with tidy packages ----------------------------------------------
-## filter(): dplyr, stats
-## lag():    dplyr, stats
+## + ggplot2 2.2.1             Date: 2017-10-29
+## + tibble  1.3.4                R: 3.4.1
+## + tidyr   0.7.1               OS: macOS Sierra 10.12.6
+## + readr   1.1.1              GUI: X11
+## + purrr   0.2.3.9000      Locale: en_CA.UTF-8
+## + dplyr   0.7.4               TZ: America/Vancouver
+## + stringr 1.2.0.9000      
+## + forcats 0.2.0
+## Warning: package 'dplyr' was built under R version 3.4.2
+## ── Conflicts ────────────────────────────────────────────────────
+## * filter(),  from dplyr, masks stats::filter()
+## * lag(),     from dplyr, masks stats::lag()
 library(forcats)
 ```
 
@@ -110,7 +113,7 @@ str(gapminder)
 
 Default to `readr::read_delim()` and friends. Use the arguments!
 
-The Gapminder data is too clean and simple to show off the great features of readr, so I encourage you to check out the vignette on [column types](https://cran.r-project.org/web/packages/readr/vignettes/column-types.html). There are many variable types that you will be able to parse correctly upon import, thereby eliminating a great deal of post-timport fussing.
+The Gapminder data is too clean and simple to show off the great features of readr, so I encourage you to check out the vignette on [column types](https://cran.r-project.org/web/packages/readr/vignettes/column-types.html). There are many variable types that you will be able to parse correctly upon import, thereby eliminating a great deal of post-import fussing.
 
 ### Compute something worthy of export
 
@@ -123,18 +126,18 @@ gap_life_exp <- gapminder %>%
   summarise(life_exp = max(lifeExp)) %>% 
   ungroup()
 gap_life_exp
-## # A tibble: 142 × 3
+## # A tibble: 142 x 3
 ##        country continent life_exp
 ##         <fctr>    <fctr>    <dbl>
-## 1  Afghanistan      Asia   43.828
-## 2      Albania    Europe   76.423
-## 3      Algeria    Africa   72.301
-## 4       Angola    Africa   42.731
-## 5    Argentina  Americas   75.320
-## 6    Australia   Oceania   81.235
-## 7      Austria    Europe   79.829
-## 8      Bahrain      Asia   75.635
-## 9   Bangladesh      Asia   64.062
+##  1 Afghanistan      Asia   43.828
+##  2     Albania    Europe   76.423
+##  3     Algeria    Africa   72.301
+##  4      Angola    Africa   42.731
+##  5   Argentina  Americas   75.320
+##  6   Australia   Oceania   81.235
+##  7     Austria    Europe   79.829
+##  8     Bahrain      Asia   75.635
+##  9  Bangladesh      Asia   64.062
 ## 10     Belgium    Europe   79.441
 ## # ... with 132 more rows
 ```
@@ -183,7 +186,7 @@ I have toyed with the idea of writing import helper functions for a specific pro
 
 ### Reordering the levels of the country factor
 
-The topic of [factor level reordering is covered elsewhere](block08_bossYourFactors.html), so let's Just. Do. It. I reorder the country factor levels according to the life expectancy summary we've already computed.
+The topic of [factor level reordering is covered elsewhere](block029_factors.html), so let's Just. Do. It. I reorder the country factor levels according to the life expectancy summary we've already computed.
 
 
 ```r
@@ -196,7 +199,7 @@ head(levels(gap_life_exp$country)) # in increasing order of maximum life expecta
 ## [1] "Sierra Leone" "Angola"       "Afghanistan"  "Liberia"     
 ## [5] "Rwanda"       "Mozambique"
 head(gap_life_exp)
-## # A tibble: 6 × 3
+## # A tibble: 6 x 3
 ##       country continent life_exp
 ##        <fctr>    <fctr>    <dbl>
 ## 1 Afghanistan      Asia   43.828
@@ -229,18 +232,18 @@ gap_life_exp
 ## Error in eval(expr, envir, enclos): object 'gap_life_exp' not found
 gap_life_exp <- readRDS("gap_life_exp.rds")
 gap_life_exp
-## # A tibble: 142 × 3
+## # A tibble: 142 x 3
 ##        country continent life_exp
 ##         <fctr>    <fctr>    <dbl>
-## 1  Afghanistan      Asia   43.828
-## 2      Albania    Europe   76.423
-## 3      Algeria    Africa   72.301
-## 4       Angola    Africa   42.731
-## 5    Argentina  Americas   75.320
-## 6    Australia   Oceania   81.235
-## 7      Austria    Europe   79.829
-## 8      Bahrain      Asia   75.635
-## 9   Bangladesh      Asia   64.062
+##  1 Afghanistan      Asia   43.828
+##  2     Albania    Europe   76.423
+##  3     Algeria    Africa   72.301
+##  4      Angola    Africa   42.731
+##  5   Argentina  Americas   75.320
+##  6   Australia   Oceania   81.235
+##  7     Austria    Europe   79.829
+##  8     Bahrain      Asia   75.635
+##  9  Bangladesh      Asia   64.062
 ## 10     Belgium    Europe   79.441
 ## # ... with 132 more rows
 ```
@@ -256,7 +259,7 @@ Concrete demonstration of how non-alphabetical factor level order is lost with `
 
 ```r
 (country_levels <- tibble(original = head(levels(gap_life_exp$country))))
-## # A tibble: 6 × 1
+## # A tibble: 6 x 1
 ##       original
 ##          <chr>
 ## 1 Sierra Leone
@@ -265,11 +268,10 @@ Concrete demonstration of how non-alphabetical factor level order is lost with `
 ## 4      Liberia
 ## 5       Rwanda
 ## 6   Mozambique
-write.table(gfits, "gfits.tsv", sep = "\t")
-## Error in is.data.frame(x): object 'gfits' not found
+write_csv(gap_life_exp, "gap_life_exp.csv")
 saveRDS(gap_life_exp, "gap_life_exp.rds")
 rm(gap_life_exp)
-head(gap_life_exp) # will cause error! proving gfits is really gone 
+head(gap_life_exp) # will cause error! proving gap_life_exp is really gone 
 ## Error in head(gap_life_exp): object 'gap_life_exp' not found
 gap_via_csv <- read_csv("gap_life_exp.csv") %>% 
   mutate(country = factor(country))
@@ -284,7 +286,7 @@ country_levels <- country_levels %>%
   mutate(via_csv = head(levels(gap_via_csv$country)),
          via_rds = head(levels(gap_via_rds$country)))
 country_levels
-## # A tibble: 6 × 3
+## # A tibble: 6 x 3
 ##       original     via_csv      via_rds
 ##          <chr>       <chr>        <chr>
 ## 1 Sierra Leone Afghanistan Sierra Leone
@@ -303,12 +305,12 @@ One last method of saving and restoring data deserves a mention: `dput()` and `d
 
 
 ```r
-## first restore gfits with our desired country factor level order
+## first restore gap_life_exp with our desired country factor level order
 gap_life_exp <- readRDS("gap_life_exp.rds")
 dput(gap_life_exp, "gap_life_exp-dput.txt")
 ```
 
-Now let's look at the first few lines of the file `gfits-dput.txt`.
+Now let's look at the first few lines of the file `gap_life_exp-dput.txt`.
 
 
 ```
@@ -328,7 +330,7 @@ gap_life_exp_dget <- dget("gap_life_exp-dput.txt")
 country_levels <- country_levels %>% 
   mutate(via_dput = head(levels(gap_life_exp_dget$country)))
 country_levels
-## # A tibble: 6 × 4
+## # A tibble: 6 x 4
 ##       original     via_csv      via_rds     via_dput
 ##          <chr>       <chr>        <chr>        <chr>
 ## 1 Sierra Leone Afghanistan Sierra Leone Sierra Leone
