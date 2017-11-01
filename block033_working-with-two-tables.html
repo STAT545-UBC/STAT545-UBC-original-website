@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>When one tibble is not enough</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">When one tibble is not enough</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#typology-of-data-combination-tasks">Typology of data combination tasks</a></li>
+<li><a href="#bind">Bind</a><ul>
+<li><a href="#row-binding">Row binding</a></li>
+<li><a href="#column-binding">Column binding</a></li>
+</ul></li>
+<li><a href="#join">Join</a></li>
+<li><a href="#lookup">Lookup</a></li>
+</ul>
+</div>
+
+<p>We’ve covered many topics on how to manipulate and reshape a single data frame:</p>
+<ul>
+<li><a href="block006_care-feeding-data.html">Basic care and feeding of data in R</a>: data frames (and tibbles) are awesome.</li>
+<li><a href="block009_dplyr-intro.html">Introduction to dplyr</a>: filter, select, the pipe.</li>
+<li><a href="block010_dplyr-end-single-table.html">dplyr functions for a single dataset</a>: single table verbs.</li>
+<li><a href="https://github.com/jennybc/lotr-tidy#readme">Tidy data using Lord of the Rings</a>: tidy data, tidyr. <em>This actually kicks off with a row bind operation, discussed below.</em></li>
+</ul>
+<p>But what if your data arrives in many pieces? There are many good (and bad) reasons why this might happen. How do you get it into one big beautiful tibble? These tasks break down into 3 main classes:</p>
+<ul>
+<li>Bind</li>
+<li>Join</li>
+<li>Lookup</li>
+</ul>
+<div id="typology-of-data-combination-tasks" class="section level3">
+<h3>Typology of data combination tasks</h3>
+<p><strong>Bind</strong> This is basically smashing <del>rocks</del> tibbles together. You can smash things together row-wise (“row binding”) or column-wise (“column binding”). Why do I characterize this as rock-smashing? They’re often fairly crude operations, with lots of responsibility falling on the analyst for making sure that the whole enterprise even makes sense.</p>
+<p>When row binding, you need to consider the variables in the two tibbles. Do the same variables exist in each? Are they of the same type? Different approaches for row binding have different combinations of flexibility vs rigidity around these matters.</p>
+<p>When column binding, the onus is entirely on the analyst to make sure that the rows are aligned. I would avoid column binding whenever possible. If you can introduce new variables through any other, safer means, do so! By safer, I mean: use a mechanism where the row alignment is correct <strong>by definition</strong>. A proper join is the gold standard. In addition to joins, functions like <code>dplyr::mutate()</code> and <code>tidyr::separate()</code> can be very useful for forcing yourself to work inside the constraint of a tibble.</p>
+<p><strong>Join</strong> Here you designate a variable (or a combination of variables) as a <strong>key</strong>. A row in one data frame gets matched with a row in another data frame because they have the same key. You can then bring information from variables in a secondary data frame into a primary data frame based on this key-based lookup. That description is incredibly oversimplified, but that’s the basic idea.</p>
+<p>A variety of row- and column-wise operations fit into this framework, which implies there are many different flavors of join. The concepts and vocabulary around joins come from the database world. The relevant functions in dplyr follow this convention and all mention <code>join</code>. The most relevant base R function is <code>merge()</code>.</p>
+<p><strong>Lookup</strong> Lookups are really just a special case of join. But it’s a special case worth making for two reasons:</p>
+<ul>
+<li>If you’ve ever used <code>LOOKUP()</code> and friends in Excel, you already have a mental model for this. Let’s exploit that!</li>
+<li>Joins are defined in terms of two tables or data frames. But sometimes this task has a “vector” vibe. You might be creating a vector or variable. Or maybe the secondary data source is a named vector. In any case, there’s at least one vector in the mix. I call that a lookup.</li>
+</ul>
+<p>Let’s explore each type of operation with a few examples.</p>
+</div>
+<div id="bind" class="section level3">
+<h3>Bind</h3>
+<div id="row-binding" class="section level4">
+<h4>Row binding</h4>
+<p>We used word count data from the Lord of the Rings trilogy to explore the concept of tidy data. That kicked off with a quiet, successful row bind. Let’s revisit that.</p>
+<p>Here’s what a perfect row bind of three (untidy!) data frames looks like.</p>
+<pre class="r"><code>library(tidyverse)
+#&gt; Warning: package &#39;dplyr&#39; was built under R version 3.4.2
+
+fship &lt;- tribble(
+                         ~Film,    ~Race, ~Female, ~Male,
+  &quot;The Fellowship Of The Ring&quot;,    &quot;Elf&quot;,    1229,   971,
+  &quot;The Fellowship Of The Ring&quot;, &quot;Hobbit&quot;,      14,  3644,
+  &quot;The Fellowship Of The Ring&quot;,    &quot;Man&quot;,       0,  1995
+)
+rking &lt;- tribble(
+                         ~Film,    ~Race, ~Female, ~Male,
+      &quot;The Return Of The King&quot;,    &quot;Elf&quot;,     183,   510,
+      &quot;The Return Of The King&quot;, &quot;Hobbit&quot;,       2,  2673,
+      &quot;The Return Of The King&quot;,    &quot;Man&quot;,     268,  2459
+)
+ttow &lt;- tribble(
+                         ~Film,    ~Race, ~Female, ~Male,
+              &quot;The Two Towers&quot;,   &quot; Elf&quot;,     331,   513,
+              &quot;The Two Towers&quot;, &quot;Hobbit&quot;,       0,  2463,
+              &quot;The Two Towers&quot;,    &quot;Man&quot;,     401,  3589
+)
+(lotr_untidy &lt;- bind_rows(fship, ttow, rking))
+#&gt; # A tibble: 9 x 4
+#&gt;                         Film   Race Female  Male
+#&gt;                        &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1 The Fellowship Of The Ring    Elf   1229   971
+#&gt; 2 The Fellowship Of The Ring Hobbit     14  3644
+#&gt; 3 The Fellowship Of The Ring    Man      0  1995
+#&gt; 4             The Two Towers    Elf    331   513
+#&gt; 5             The Two Towers Hobbit      0  2463
+#&gt; 6             The Two Towers    Man    401  3589
+#&gt; 7     The Return Of The King    Elf    183   510
+#&gt; 8     The Return Of The King Hobbit      2  2673
+#&gt; 9     The Return Of The King    Man    268  2459</code></pre>
+<p><code>dplyr::bind_rows()</code> works like a charm with these very row-bindable data frames! So does base <code>rbind()</code> (try it!).</p>
+<p>But what if one of the data frames is somehow missing a variable? Let’s mangle one and find out.</p>
+<pre class="r"><code>ttow_no_Female &lt;- ttow %&gt;% mutate(Female = NULL)
+bind_rows(fship, ttow_no_Female, rking)
+#&gt; # A tibble: 9 x 4
+#&gt;                         Film   Race Female  Male
+#&gt;                        &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1 The Fellowship Of The Ring    Elf   1229   971
+#&gt; 2 The Fellowship Of The Ring Hobbit     14  3644
+#&gt; 3 The Fellowship Of The Ring    Man      0  1995
+#&gt; 4             The Two Towers    Elf     NA   513
+#&gt; 5             The Two Towers Hobbit     NA  2463
+#&gt; 6             The Two Towers    Man     NA  3589
+#&gt; 7     The Return Of The King    Elf    183   510
+#&gt; 8     The Return Of The King Hobbit      2  2673
+#&gt; 9     The Return Of The King    Man    268  2459
+rbind(fship, ttow_no_Female, rking)
+#&gt; Error in rbind(deparse.level, ...): numbers of columns of arguments do not match</code></pre>
+<p>We see that <code>dplyr::bind_rows()</code> does the row bind and puts <code>NA</code> in for the missing values caused by the lack of <code>Female</code> data from The Two Towers. Base <code>rbind()</code> refuses to row bind in this situation.</p>
+<p>I invite you to experiment with other realistic, challenging scenarios, e.g.:</p>
+<ul>
+<li>Change the order of variables. Does row binding match variables by name or position?</li>
+<li>Row bind data frames where the variable <code>x</code> is of one type in one data frame and another type in the other. Try combinations that you think should work and some that should not. What actually happens?</li>
+<li>Row bind data frames in which the factor <code>x</code> has different levels in one data frame and different levels in the other. What happens?</li>
+</ul>
+<p>In conclusion, row binding usually works when it should (especially with <code>dplyr::bind_rows()</code>) and usually doesn’t when it shouldn’t. The biggest risk is being aggravated.</p>
+</div>
+<div id="column-binding" class="section level4">
+<h4>Column binding</h4>
+<p>Column binding is much more dangerous because it often “works” when it should not. It’s <strong>your job</strong> to the rows are aligned and it’s all too easy to screw this up.</p>
+<p>The data in <code>gapminder</code> was originally excavated from 3 messy Excel spreadsheets: one each for life expectancy, population, and GDP per capital. Let’s relive some of the data wrangling joy and show a column bind gone wrong.</p>
+<p>I create 3 separate data frames, do some evil row sorting, then column bind. There are no errors. The result <code>gapminder_garbage</code> sort of looks OK. Univariate summary statistics and exploratory plots will look OK. But I’ve created complete nonsense!</p>
+<pre class="r"><code>library(gapminder)
+
+life_exp &lt;- gapminder %&gt;%
+  select(country, year, lifeExp)
+
+pop &lt;- gapminder %&gt;%
+  arrange(year) %&gt;% 
+  select(pop)
+  
+gdp_percap &lt;- gapminder %&gt;% 
+  arrange(pop) %&gt;% 
+  select(gdpPercap)
+
+(gapminder_garbage &lt;- bind_cols(life_exp, pop, gdp_percap))
+#&gt; # A tibble: 1,704 x 5
+#&gt;        country  year lifeExp      pop gdpPercap
+#&gt;         &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+#&gt;  1 Afghanistan  1952  28.801  8425333  879.5836
+#&gt;  2 Afghanistan  1957  30.332  1282697  860.7369
+#&gt;  3 Afghanistan  1962  31.997  9279525 2669.5295
+#&gt;  4 Afghanistan  1967  34.020  4232095 1071.5511
+#&gt;  5 Afghanistan  1972  36.088 17876956 1384.8406
+#&gt;  6 Afghanistan  1977  38.438  8691212 2864.9691
+#&gt;  7 Afghanistan  1982  39.854  6927772 1532.9853
+#&gt;  8 Afghanistan  1987  40.822   120447 1737.5617
+#&gt;  9 Afghanistan  1992  41.674 46886859 3020.9893
+#&gt; 10 Afghanistan  1997  41.763  8730405 1890.2181
+#&gt; # ... with 1,694 more rows
+
+summary(gapminder$lifeExp)
+#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#&gt;   23.60   48.20   60.71   59.47   70.85   82.60
+summary(gapminder_garbage$lifeExp)
+#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#&gt;   23.60   48.20   60.71   59.47   70.85   82.60
+range(gapminder$gdpPercap)
+#&gt; [1]    241.1659 113523.1329
+range(gapminder_garbage$gdpPercap)
+#&gt; [1]    241.1659 113523.1329</code></pre>
+<p>One last cautionary tale about column binding. This one requires the use of <code>cbind()</code> and it’s why the tidyverse is generally unwilling to recycle when combining things of different length.</p>
+<p>I create a tibble with most of the <code>gapminder</code> columns. I create another with the remainder, but filtered down to just one country. I am able to <code>cbind()</code> these objects! Why? Because the 12 rows for Canada divide evenly into the 1704 rows o <code>gapminder</code>. Note that <code>dplyr::bind_cols()</code> refuses to column bind here.</p>
+<pre class="r"><code>gapminder_mostly &lt;- gapminder %&gt;% select(-pop, -gdpPercap)
+gapminder_leftovers_filtered &lt;- gapminder %&gt;% 
+  filter(country == &quot;Canada&quot;) %&gt;% 
+  select(pop, gdpPercap)
+
+gapminder_nonsense &lt;- cbind(gapminder_mostly, gapminder_leftovers_filtered)
+head(gapminder_nonsense, 14)
+#&gt;        country continent year lifeExp      pop gdpPercap
+#&gt; 1  Afghanistan      Asia 1952  28.801 14785584  11367.16
+#&gt; 2  Afghanistan      Asia 1957  30.332 17010154  12489.95
+#&gt; 3  Afghanistan      Asia 1962  31.997 18985849  13462.49
+#&gt; 4  Afghanistan      Asia 1967  34.020 20819767  16076.59
+#&gt; 5  Afghanistan      Asia 1972  36.088 22284500  18970.57
+#&gt; 6  Afghanistan      Asia 1977  38.438 23796400  22090.88
+#&gt; 7  Afghanistan      Asia 1982  39.854 25201900  22898.79
+#&gt; 8  Afghanistan      Asia 1987  40.822 26549700  26626.52
+#&gt; 9  Afghanistan      Asia 1992  41.674 28523502  26342.88
+#&gt; 10 Afghanistan      Asia 1997  41.763 30305843  28954.93
+#&gt; 11 Afghanistan      Asia 2002  42.129 31902268  33328.97
+#&gt; 12 Afghanistan      Asia 2007  43.828 33390141  36319.24
+#&gt; 13     Albania    Europe 1952  55.230 14785584  11367.16
+#&gt; 14     Albania    Europe 1957  59.280 17010154  12489.95</code></pre>
+<p>This data frame isn’t obviously wrong, but it is wrong. See how the Canada’s population and GDP per capita repeat for each country?</p>
+<p>Bottom line: Row bind when you need to, but inspect the results re: coercion. Column bind only if you must and be extremely paranoid.</p>
+</div>
+</div>
+<div id="join" class="section level3">
+<h3>Join</h3>
+<p>Visit the <a href="bit001_dplyr-sheet.html">dplyr join sheet</a> to see concrete examples of all the joins implemented in dplyr, based on comic characters and publishers.</p>
+<p>The most recent release of gapminder includes a new data frame, <code>country_codes</code>, with country names and ISO codes. Therefore you can also use it to practice joins.</p>
+<pre class="r"><code>gapminder %&gt;% 
+  select(country, continent) %&gt;% 
+  group_by(country) %&gt;% 
+  slice(1) %&gt;% 
+  left_join(country_codes)
+#&gt; Joining, by = &quot;country&quot;
+#&gt; Warning: Column `country` joining factor and character vector, coercing
+#&gt; into character vector
+#&gt; # A tibble: 142 x 4
+#&gt; # Groups:   country [?]
+#&gt;        country continent iso_alpha iso_num
+#&gt;          &lt;chr&gt;    &lt;fctr&gt;     &lt;chr&gt;   &lt;int&gt;
+#&gt;  1 Afghanistan      Asia       AFG       4
+#&gt;  2     Albania    Europe       ALB       8
+#&gt;  3     Algeria    Africa       DZA      12
+#&gt;  4      Angola    Africa       AGO      24
+#&gt;  5   Argentina  Americas       ARG      32
+#&gt;  6   Australia   Oceania       AUS      36
+#&gt;  7     Austria    Europe       AUT      40
+#&gt;  8     Bahrain      Asia       BHR      48
+#&gt;  9  Bangladesh      Asia       BGD      50
+#&gt; 10     Belgium    Europe       BEL      56
+#&gt; # ... with 132 more rows</code></pre>
+</div>
+<div id="lookup" class="section level3">
+<h3>Lookup</h3>
+<p>See this resource for examples: <a href="bit008_lookup.html">Table look up</a>.</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

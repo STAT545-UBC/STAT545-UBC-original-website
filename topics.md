@@ -9,19 +9,22 @@ This material gets updated during Sept - Nov each year on a rolling basis.
   * [Git, GitHub, and RStudio](http://happygitwithr.com)
     - Content now here: <http://happygitwithr.com>. Install Git, install a Git client or GUI, establish pull/push connection from computer to GitHub in the shell, establish GitHub connection via RStudio, credential caching, troubleshooting.
     - [Take possession of your STAT 545 repo](git08_claim-stat545-repo.html)
-  * Data analysis 1: data frames, the tidyverse, and tibbles
+  * Data analysis 1: One data frame (or "tibble"), the Tidyverse
     - [Basic care and feeding of data in R](block006_care-feeding-data.html): data frames (and tibbles) are awesome.
     - [Introduction to dplyr](block009_dplyr-intro.html): filter, select, the pipe.
-    - [dplyr functions for a single dataset](block010_dplyr-end-single-table.html): single table verbs.
+    - [dplyr functions for a single dataset](block010_dplyr-end-single-table.html): All the single table verbs.
     - [Tidy data using Lord of the Rings](https://github.com/jennybc/lotr-tidy#readme): tidy data, tidyr.
-    - Join (a.k.a. merge) two tables: [dplyr join cheatsheet](bit001_dplyr-cheatsheet.html) with comic characters and publishers
-    - [Table look up](bit008_lookup.html)
-    - [Split-Apply-Combine](block024_group-nest-split-map.html) with the tidyverse (nesting, list-columns, map inside mutate) *under development*.
-  * Data analysis 2: vectors and files
+    - [Writing and reading files](block026_file-out-in.html).
+  * Data analysis 2: Doing remedial work on certain vector types
     - [Be the boss of your factors, using forcats](block029_factors.html)
     - [Character vectors](block028_character-data.html): basic manipulation and regular expressions.
     - [Character encoding](block032_character-encoding.html)
-    - [Writing and reading files](block026_file-out-in.html)
+    - *placeholder for date-times; TLDR; consider the lubridate package*
+  * Data analysis 3: Bring info from a secondary source into your main tibble
+    - [When one tibble is not enough](block033_working-with-two-tables.html): Overview of binds, joins, lookups.
+    - Join (a.k.a. merge) two tables: [dplyr join sheet](bit001_dplyr-sheet.html) with comic characters and publishers
+    - [Table look up](bit008_lookup.html)
+    - [Split-Apply-Combine](block024_group-nest-split-map.html) with the tidyverse (nesting, list-columns, map inside mutate) *under development*.
   * R as a programming language
     - [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
     - Writing your own R functions [Part 1](block011_write-your-own-function-01.html): get something that works, check arguments
@@ -71,7 +74,7 @@ This material gets updated during Sept - Nov each year on a rolling basis.
   * [Using `dplyr` + `purrr` + `tidyr`](https://github.com/jennybc/analyze-github-stuff-with-r) to analyze data about GitHub repos via the [`gh` package](https://github.com/gaborcsardi/gh)
   * [Using `dplyr` + `purrr` + `tidyr` + `xml2`](https://github.com/jennybc/manipulate-xml-with-purrr-dplyr-tidyr) to tame the annoying XML from Google Sheets
   * [Make browsing your GitHub repos more rewarding](bit006_github-browsability-wins.html)
-  * [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions
+  * [sheet](bit001_dplyr-sheet.html) for `dplyr` join functions
   * [Workflow for sending email with R and `gmailr`](https://github.com/jennybc/send-email-with-r)
   * [Store an API key as an environment variable](bit003_api-key-env-var.html)
   * [Lesson I contributed](bit002_tidying-lotr-data.html) to [Data Carpentry](http://software-carpentry.org/blog/2014/05/our-first-data-carpentry-workshop.html) on tidying data

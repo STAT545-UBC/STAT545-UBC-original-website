@@ -1,0 +1,161 @@
+---
+title: "When one tibble is not enough"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+---
+
+```{r setup, include = FALSE, cache = FALSE}
+knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
+```
+
+We've covered many topics on how to manipulate and reshape a single data frame:
+
+  * [Basic care and feeding of data in R](block006_care-feeding-data.html): data frames (and tibbles) are awesome.
+  * [Introduction to dplyr](block009_dplyr-intro.html): filter, select, the pipe.
+  * [dplyr functions for a single dataset](block010_dplyr-end-single-table.html): single table verbs.
+  * [Tidy data using Lord of the Rings](https://github.com/jennybc/lotr-tidy#readme): tidy data, tidyr. *This actually kicks off with a row bind operation, discussed below.*
+
+But what if your data arrives in many pieces? There are many good (and bad) reasons why this might happen. How do you get it into one big beautiful tibble? These tasks break down into 3 main classes:
+
+  * Bind
+  * Join
+  * Lookup
+
+### Typology of data combination tasks
+
+**Bind** This is basically smashing ~~rocks~~ tibbles together. You can smash things together row-wise ("row binding") or column-wise ("column binding"). Why do I characterize this as rock-smashing? They're often fairly crude operations, with lots of responsibility falling on the analyst for making sure that the whole enterprise even makes sense.
+
+When row binding, you need to consider the variables in the two tibbles. Do the same variables exist in each? Are they of the same type? Different approaches for row binding have different combinations of flexibility vs rigidity around these matters.
+
+When column binding, the onus is entirely on the analyst to make sure that the rows are aligned. I would avoid column binding whenever possible. If you can introduce new variables through any other, safer means, do so! By safer, I mean: use a mechanism where the row alignment is correct **by definition**. A proper join is the gold standard. In addition to joins, functions like `dplyr::mutate()` and `tidyr::separate()` can be very useful for forcing yourself to work inside the constraint of a tibble.
+
+**Join** Here you designate a variable (or a combination of variables) as a **key**. A row in one data frame gets matched with a row in another data frame because they have the same key. You can then bring information from variables in a secondary data frame into a primary data frame based on this key-based lookup. That description is incredibly oversimplified, but that's the basic idea.
+
+A variety of row- and column-wise operations fit into this framework, which implies there are many different flavors of join. The concepts and vocabulary around joins come from the database world. The relevant functions in dplyr follow this convention and all mention `join`. The most relevant base R function is `merge()`.
+
+**Lookup** Lookups are really just a special case of join. But it's a special case worth making for two reasons:
+
+  * If you've ever used `LOOKUP()` and friends in Excel, you already have a mental model for this. Let's exploit that!
+  * Joins are defined in terms of two tables or data frames. But sometimes this task has a "vector" vibe. You might be creating a vector or variable. Or maybe the secondary data source is a named vector. In any case, there's at least one vector in the mix. I call that a lookup.
+
+Let's explore each type of operation with a few examples.
+
+### Bind
+
+#### Row binding
+
+We used word count data from the Lord of the Rings trilogy to explore the concept of tidy data. That kicked off with a quiet, successful row bind. Let's revisit that.
+
+Here's what a perfect row bind of three (untidy!) data frames looks like.
+
+```{r, message = FALSE}
+library(tidyverse)
+
+fship <- tribble(
+                         ~Film,    ~Race, ~Female, ~Male,
+  "The Fellowship Of The Ring",    "Elf",    1229,   971,
+  "The Fellowship Of The Ring", "Hobbit",      14,  3644,
+  "The Fellowship Of The Ring",    "Man",       0,  1995
+)
+rking <- tribble(
+                         ~Film,    ~Race, ~Female, ~Male,
+      "The Return Of The King",    "Elf",     183,   510,
+      "The Return Of The King", "Hobbit",       2,  2673,
+      "The Return Of The King",    "Man",     268,  2459
+)
+ttow <- tribble(
+                         ~Film,    ~Race, ~Female, ~Male,
+              "The Two Towers",   " Elf",     331,   513,
+              "The Two Towers", "Hobbit",       0,  2463,
+              "The Two Towers",    "Man",     401,  3589
+)
+(lotr_untidy <- bind_rows(fship, ttow, rking))
+```
+
+`dplyr::bind_rows()` works like a charm with these very row-bindable data frames! So does base `rbind()` (try it!).
+
+But what if one of the data frames is somehow missing a variable? Let's mangle one and find out.
+
+```{r error = TRUE}
+ttow_no_Female <- ttow %>% mutate(Female = NULL)
+bind_rows(fship, ttow_no_Female, rking)
+rbind(fship, ttow_no_Female, rking)
+```
+
+We see that `dplyr::bind_rows()` does the row bind and puts `NA` in for the missing values caused by the lack of `Female` data from The Two Towers. Base `rbind()` refuses to row bind in this situation.
+
+I invite you to experiment with other realistic, challenging scenarios, e.g.:
+
+  * Change the order of variables. Does row binding match variables by name or position?
+  * Row bind data frames where the variable `x` is of one type in one data frame and another type in the other. Try combinations that you think should work and some that should not. What actually happens?
+  * Row bind data frames in which the factor `x` has different levels in one data frame and different levels in the other. What happens?
+  
+In conclusion, row binding usually works when it should (especially with `dplyr::bind_rows()`) and usually doesn't when it shouldn't. The biggest risk is being aggravated.
+
+#### Column binding
+
+Column binding is much more dangerous because it often "works" when it should not. It's **your job** to the rows are aligned and it's all too easy to screw this up.
+
+The data in `gapminder` was originally excavated from 3 messy Excel spreadsheets: one each for life expectancy, population, and GDP per capital. Let's relive some of the data wrangling joy and show a column bind gone wrong.
+
+I create 3 separate data frames, do some evil row sorting, then column bind. There are no errors. The result `gapminder_garbage` sort of looks OK. Univariate summary statistics and exploratory plots will look OK. But I've created complete nonsense!
+
+```{r}
+library(gapminder)
+
+life_exp <- gapminder %>%
+  select(country, year, lifeExp)
+
+pop <- gapminder %>%
+  arrange(year) %>% 
+  select(pop)
+  
+gdp_percap <- gapminder %>% 
+  arrange(pop) %>% 
+  select(gdpPercap)
+
+(gapminder_garbage <- bind_cols(life_exp, pop, gdp_percap))
+
+summary(gapminder$lifeExp)
+summary(gapminder_garbage$lifeExp)
+range(gapminder$gdpPercap)
+range(gapminder_garbage$gdpPercap)
+```
+
+One last cautionary tale about column binding. This one requires the use of `cbind()` and it's why the tidyverse is generally unwilling to recycle when combining things of different length.
+
+I create a tibble with most of the `gapminder` columns. I create another with the remainder, but filtered down to just one country. I am able to `cbind()` these objects! Why? Because the 12 rows for Canada divide evenly into the 1704 rows o `gapminder`. Note that `dplyr::bind_cols()` refuses to column bind here.
+
+```{r}
+gapminder_mostly <- gapminder %>% select(-pop, -gdpPercap)
+gapminder_leftovers_filtered <- gapminder %>% 
+  filter(country == "Canada") %>% 
+  select(pop, gdpPercap)
+
+gapminder_nonsense <- cbind(gapminder_mostly, gapminder_leftovers_filtered)
+head(gapminder_nonsense, 14)
+```
+
+This data frame isn't obviously wrong, but it is wrong. See how the Canada's population and GDP per capita repeat for each country?
+
+Bottom line: Row bind when you need to, but inspect the results re: coercion. Column bind only if you must and be extremely paranoid.
+
+### Join
+
+Visit the [dplyr join sheet](bit001_dplyr-sheet.html) to see concrete examples of all the joins implemented in dplyr, based on comic characters and publishers.
+
+The most recent release of gapminder includes a new data frame, `country_codes`, with country names and ISO codes. Therefore you can also use it to practice joins.
+
+```{r}
+gapminder %>% 
+  select(country, continent) %>% 
+  group_by(country) %>% 
+  slice(1) %>% 
+  left_join(country_codes)
+```
+
+### Lookup
+
+See this resource for examples: [Table look up](bit008_lookup.html).
