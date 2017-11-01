@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -19,6 +19,9 @@
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -31,10 +34,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -112,7 +111,6 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -154,15 +152,18 @@ $(document).ready(function () {
 <h3>Load gapminder and the tidyverse</h3>
 <pre class="r"><code>library(gapminder)
 library(tidyverse)
-## Loading tidyverse: ggplot2
-## Loading tidyverse: tibble
-## Loading tidyverse: tidyr
-## Loading tidyverse: readr
-## Loading tidyverse: purrr
-## Loading tidyverse: dplyr
-## Conflicts with tidy packages ----------------------------------------------
-## filter(): dplyr, stats
-## lag():    dplyr, stats</code></pre>
+## + ggplot2 2.2.1             Date: 2017-11-01
+## + tibble  1.3.4                R: 3.4.1
+## + tidyr   0.7.1               OS: macOS Sierra 10.12.6
+## + readr   1.1.1              GUI: X11
+## + purrr   0.2.3.9000      Locale: en_CA.UTF-8
+## + dplyr   0.7.4               TZ: America/Vancouver
+## + stringr 1.2.0.9000      
+## + forcats 0.2.0
+## Warning: package &#39;dplyr&#39; was built under R version 3.4.2
+## ── Conflicts ────────────────────────────────────────────────────
+## * filter(),  from dplyr, masks stats::filter()
+## * lag(),     from dplyr, masks stats::lag()</code></pre>
 </div>
 <div id="create-mini-gapminder" class="section level3">
 <h3>Create mini Gapminder</h3>
@@ -173,7 +174,7 @@ library(tidyverse)
   select(-pop, -gdpPercap) %&gt;% 
   droplevels()
 mini_gap
-## # A tibble: 8 × 4
+## # A tibble: 8 x 4
 ##         country continent  year lifeExp
 ##          &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;
 ## 1       Belgium    Europe  2002  78.320
@@ -195,7 +196,7 @@ mini_gap
   &quot;United States&quot;, &quot;Twinkie&quot;
 )
 food
-## # A tibble: 3 × 2
+## # A tibble: 3 x 2
 ##         country    food
 ##           &lt;chr&gt;   &lt;chr&gt;
 ## 1       Belgium  waffle
@@ -214,7 +215,7 @@ food
 <pre class="r"><code>(indices &lt;- match(x = mini_gap$country, table = food$country))
 ## [1]  1  1  2  2 NA NA  3  3
 add_column(food[indices, ], x = mini_gap$country)
-## # A tibble: 8 × 3
+## # A tibble: 8 x 3
 ##         country    food             x
 ##           &lt;chr&gt;   &lt;chr&gt;        &lt;fctr&gt;
 ## 1       Belgium  waffle       Belgium
@@ -228,7 +229,7 @@ add_column(food[indices, ], x = mini_gap$country)
 <p>Once all looks good, do the actual table lookup and, possibly, add the new info to your main table.</p>
 <pre class="r"><code>mini_gap %&gt;% 
   mutate(food = food$food[indices])
-## # A tibble: 8 × 5
+## # A tibble: 8 x 5
 ##         country continent  year lifeExp    food
 ##          &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;chr&gt;
 ## 1       Belgium    Europe  2002  78.320  waffle
@@ -243,9 +244,9 @@ add_column(food[indices, ], x = mini_gap$country)
 <pre class="r"><code>mini_gap %&gt;% 
   left_join(food)
 ## Joining, by = &quot;country&quot;
-## Warning in left_join_impl(x, y, by$x, by$y, suffix$x, suffix$y): joining
-## character vector and factor, coercing into character vector
-## # A tibble: 8 × 5
+## Warning: Column `country` joining factor and character vector, coercing
+## into character vector
+## # A tibble: 8 x 5
 ##         country continent  year lifeExp    food
 ##           &lt;chr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;chr&gt;
 ## 1       Belgium    Europe  2002  78.320  waffle
@@ -268,7 +269,7 @@ add_column(food[indices, ], x = mini_gap$country)
 <p>Another way to get the national foods for mini-Gapminder is to simply index <code>food_vec</code> with <code>mini_gap$country</code>.</p>
 <pre class="r"><code>mini_gap %&gt;% 
   mutate(food = food_vec[country])
-## # A tibble: 8 × 5
+## # A tibble: 8 x 5
 ##         country continent  year lifeExp    food
 ##          &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;chr&gt;
 ## 1       Belgium    Europe  2002  78.320  waffle
@@ -288,7 +289,7 @@ add_column(food[indices, ], x = mini_gap$country)
 <p>To get our desired result, we need to explicitly coerce <code>mini_gap$country</code> to character.</p>
 <pre class="r"><code>mini_gap %&gt;% 
   mutate(food = food_vec[as.character(country)])
-## # A tibble: 8 × 5
+## # A tibble: 8 x 5
 ##         country continent  year lifeExp    food
 ##          &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;chr&gt;
 ## 1       Belgium    Europe  2002  78.320  waffle
@@ -313,8 +314,11 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 
@@ -325,7 +329,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

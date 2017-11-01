@@ -10,15 +10,18 @@ I try to use [dplyr joins](bit001_dplyr-cheatsheet.html) for most tasks that com
 ```r
 library(gapminder)
 library(tidyverse)
-## Loading tidyverse: ggplot2
-## Loading tidyverse: tibble
-## Loading tidyverse: tidyr
-## Loading tidyverse: readr
-## Loading tidyverse: purrr
-## Loading tidyverse: dplyr
-## Conflicts with tidy packages ----------------------------------------------
-## filter(): dplyr, stats
-## lag():    dplyr, stats
+## + ggplot2 2.2.1             Date: 2017-11-01
+## + tibble  1.3.4                R: 3.4.1
+## + tidyr   0.7.1               OS: macOS Sierra 10.12.6
+## + readr   1.1.1              GUI: X11
+## + purrr   0.2.3.9000      Locale: en_CA.UTF-8
+## + dplyr   0.7.4               TZ: America/Vancouver
+## + stringr 1.2.0.9000      
+## + forcats 0.2.0
+## Warning: package 'dplyr' was built under R version 3.4.2
+## ── Conflicts ────────────────────────────────────────────────────
+## * filter(),  from dplyr, masks stats::filter()
+## * lag(),     from dplyr, masks stats::lag()
 ```
 
 ### Create mini Gapminder
@@ -33,7 +36,7 @@ mini_gap <- gapminder %>%
   select(-pop, -gdpPercap) %>% 
   droplevels()
 mini_gap
-## # A tibble: 8 × 4
+## # A tibble: 8 x 4
 ##         country continent  year lifeExp
 ##          <fctr>    <fctr> <int>   <dbl>
 ## 1       Belgium    Europe  2002  78.320
@@ -59,7 +62,7 @@ food <- tribble(
   "United States", "Twinkie"
 )
 food
-## # A tibble: 3 × 2
+## # A tibble: 3 x 2
 ##         country    food
 ##           <chr>   <chr>
 ## 1       Belgium  waffle
@@ -90,7 +93,7 @@ I get `x` and `table` backwards some non-negligible percentage of the time. So I
 (indices <- match(x = mini_gap$country, table = food$country))
 ## [1]  1  1  2  2 NA NA  3  3
 add_column(food[indices, ], x = mini_gap$country)
-## # A tibble: 8 × 3
+## # A tibble: 8 x 3
 ##         country    food             x
 ##           <chr>   <chr>        <fctr>
 ## 1       Belgium  waffle       Belgium
@@ -109,7 +112,7 @@ Once all looks good, do the actual table lookup and, possibly, add the new info 
 ```r
 mini_gap %>% 
   mutate(food = food$food[indices])
-## # A tibble: 8 × 5
+## # A tibble: 8 x 5
 ##         country continent  year lifeExp    food
 ##          <fctr>    <fctr> <int>   <dbl>   <chr>
 ## 1       Belgium    Europe  2002  78.320  waffle
@@ -129,9 +132,9 @@ Of course, if this was really our exact task, we could have used a join!
 mini_gap %>% 
   left_join(food)
 ## Joining, by = "country"
-## Warning in left_join_impl(x, y, by$x, by$y, suffix$x, suffix$y): joining
-## character vector and factor, coercing into character vector
-## # A tibble: 8 × 5
+## Warning: Column `country` joining factor and character vector, coercing
+## into character vector
+## # A tibble: 8 x 5
 ##         country continent  year lifeExp    food
 ##           <chr>    <fctr> <int>   <dbl>   <chr>
 ## 1       Belgium    Europe  2002  78.320  waffle
@@ -165,7 +168,7 @@ Another way to get the national foods for mini-Gapminder is to simply index `foo
 ```r
 mini_gap %>% 
   mutate(food = food_vec[country])
-## # A tibble: 8 × 5
+## # A tibble: 8 x 5
 ##         country continent  year lifeExp    food
 ##          <fctr>    <fctr> <int>   <dbl>   <chr>
 ## 1       Belgium    Europe  2002  78.320  waffle
@@ -196,7 +199,7 @@ To get our desired result, we need to explicitly coerce `mini_gap$country` to ch
 ```r
 mini_gap %>% 
   mutate(food = food_vec[as.character(country)])
-## # A tibble: 8 × 5
+## # A tibble: 8 x 5
 ##         country continent  year lifeExp    food
 ##          <fctr>    <fctr> <int>   <dbl>   <chr>
 ## 1       Belgium    Europe  2002  78.320  waffle
