@@ -13,15 +13,21 @@ knitr::opts_chunk$set(error = TRUE, collapse = TRUE, comment = "#>")
 
 #### Why the cheatsheet
 
-Examples for those of us who don't speak SQL so good. There are lots of [Venn diagrams re: SQL joins on the interwebs](//encrypted.google.com/search?q=sql+join&tbm=isch), but I wanted R examples.
+Examples for those of us who don't speak SQL so good. There are lots of [Venn diagrams re: SQL joins on the internet](//encrypted.google.com/search?q=sql+join&tbm=isch), but I wanted R examples. Those diagrams also utterly fail to show what's really going on vis-a-vis rows AND columns.
 
-[Full documentation](http://www.rdocumentation.org/packages/dplyr) for the dplyr package, which is developed by Hadley Wickham and Romain Francois on [GitHub](https://github.com/hadley/dplyr). The [vignette on Two-table verbs](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html) covers the joins shown here.
+Other great places to read about joins:
 
-Working with two small data.frames, `superheroes` and `publishers`.
+  * The dplyr vignette on [Two-table verbs](http://dplyr.tidyverse.org/articles/two-table.html)
+  * The [Relational data chapter](http://r4ds.had.co.nz/relational-data.html) in [R for Data Science](http://r4ds.had.co.nz). Excellent diagrams.
+  
+*I know the formatting of the join results is hideous and I am filled with self-loathing. I welcome any low-tech pull request or easy-to-implement suggestion to improve it.*
+  
+#### The data
 
-```{r}
-suppressPackageStartupMessages(library(dplyr))
-library(readr)
+Working with two small data frames, `superheroes` and `publishers`.
+
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse) ## dplyr provides the join functions
 
 superheroes <- "
     name, alignment, gender,         publisher
@@ -33,7 +39,7 @@ Mystique,       bad, female,            Marvel
 Catwoman,       bad, female,                DC
  Hellboy,      good,   male, Dark Horse Comics
 "
-superheroes <- read_csv(superheroes, trim_ws = TRUE, skip = 1)
+superheroes <- read_csv(superheroes, skip = 1)
 
 publishers <- "
   publisher, yr_founded
@@ -41,7 +47,7 @@ publishers <- "
      Marvel,       1939
       Image,       1992
 "
-publishers <- read_csv(publishers, trim_ws = TRUE, skip = 1)
+publishers <- read_csv(publishers, skip = 1)
 ```
 
 Sorry, cheat sheet does not illustrate "multiple match" situations terribly well.
@@ -331,10 +337,3 @@ fjsp_kable <- knitr::kable(fjsp)
 </td>
 </tr>
 </table>
-
-#### sessionInfo()
-
-```{r}
-devtools::session_info()
-```
-

@@ -5,16 +5,22 @@ Jenny Bryan
 
 #### Why the cheatsheet
 
-Examples for those of us who don't speak SQL so good. There are lots of [Venn diagrams re: SQL joins on the interwebs](//encrypted.google.com/search?q=sql+join&tbm=isch), but I wanted R examples.
+Examples for those of us who don't speak SQL so good. There are lots of [Venn diagrams re: SQL joins on the internet](//encrypted.google.com/search?q=sql+join&tbm=isch), but I wanted R examples. Those diagrams also utterly fail to show what's really going on vis-a-vis rows AND columns.
 
-[Full documentation](http://www.rdocumentation.org/packages/dplyr) for the dplyr package, which is developed by Hadley Wickham and Romain Francois on [GitHub](https://github.com/hadley/dplyr). The [vignette on Two-table verbs](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html) covers the joins shown here.
+Other great places to read about joins:
 
-Working with two small data.frames, `superheroes` and `publishers`.
+  * The dplyr vignette on [Two-table verbs](http://dplyr.tidyverse.org/articles/two-table.html)
+  * The [Relational data chapter](http://r4ds.had.co.nz/relational-data.html) in [R for Data Science](http://r4ds.had.co.nz). Excellent diagrams.
+  
+*I know the formatting of the join results is hideous and I am filled with self-loathing. I welcome any low-tech pull request or easy-to-implement suggestion to improve it.*
+  
+#### The data
+
+Working with two small data frames, `superheroes` and `publishers`.
 
 
 ```r
-suppressPackageStartupMessages(library(dplyr))
-library(readr)
+library(tidyverse) ## dplyr provides the join functions
 
 superheroes <- "
     name, alignment, gender,         publisher
@@ -26,7 +32,7 @@ Mystique,       bad, female,            Marvel
 Catwoman,       bad, female,                DC
  Hellboy,      good,   male, Dark Horse Comics
 "
-superheroes <- read_csv(superheroes, trim_ws = TRUE, skip = 1)
+superheroes <- read_csv(superheroes, skip = 1)
 
 publishers <- "
   publisher, yr_founded
@@ -34,7 +40,7 @@ publishers <- "
      Marvel,       1939
       Image,       1992
 "
-publishers <- read_csv(publishers, trim_ws = TRUE, skip = 1)
+publishers <- read_csv(publishers, skip = 1)
 ```
 
 Sorry, cheat sheet does not illustrate "multiple match" situations terribly well.
@@ -49,7 +55,7 @@ Sub-plot: watch the row and variable order of the join results for a healthy rem
 ```r
 (ijsp <- inner_join(superheroes, publishers))
 #> Joining, by = "publisher"
-#> # A tibble: 6 × 5
+#> # A tibble: 6 x 5
 #>       name alignment gender publisher yr_founded
 #>      <chr>     <chr>  <chr>     <chr>      <int>
 #> 1  Magneto       bad   male    Marvel       1939
@@ -121,15 +127,15 @@ Catwoman   bad         female   DC                 1934
 ```r
 (sjsp <- semi_join(superheroes, publishers))
 #> Joining, by = "publisher"
-#> # A tibble: 6 × 4
+#> # A tibble: 6 x 4
 #>       name alignment gender publisher
 #>      <chr>     <chr>  <chr>     <chr>
-#> 1   Batman      good   male        DC
-#> 2    Joker       bad   male        DC
-#> 3 Catwoman       bad female        DC
-#> 4  Magneto       bad   male    Marvel
-#> 5    Storm      good female    Marvel
-#> 6 Mystique       bad female    Marvel
+#> 1  Magneto       bad   male    Marvel
+#> 2    Storm      good female    Marvel
+#> 3 Mystique       bad female    Marvel
+#> 4   Batman      good   male        DC
+#> 5    Joker       bad   male        DC
+#> 6 Catwoman       bad female        DC
 ```
 
 We get a similar result as with `inner_join()` but the join result contains only the variables originally found in `x = superheroes`. But note the row order has changed.
@@ -172,12 +178,12 @@ Image              1992
 
 name       alignment   gender   publisher 
 ---------  ----------  -------  ----------
-Batman     good        male     DC        
-Joker      bad         male     DC        
-Catwoman   bad         female   DC        
 Magneto    bad         male     Marvel    
 Storm      good        female   Marvel    
 Mystique   bad         female   Marvel    
+Batman     good        male     DC        
+Joker      bad         male     DC        
+Catwoman   bad         female   DC        
 
 
 </td>
@@ -192,7 +198,7 @@ Mystique   bad         female   Marvel
 ```r
 (ljsp <- left_join(superheroes, publishers))
 #> Joining, by = "publisher"
-#> # A tibble: 7 × 5
+#> # A tibble: 7 x 5
 #>       name alignment gender         publisher yr_founded
 #>      <chr>     <chr>  <chr>             <chr>      <int>
 #> 1  Magneto       bad   male            Marvel       1939
@@ -265,7 +271,7 @@ Hellboy    good        male     Dark Horse Comics            NA
 ```r
 (ajsp <- anti_join(superheroes, publishers))
 #> Joining, by = "publisher"
-#> # A tibble: 1 × 4
+#> # A tibble: 1 x 4
 #>      name alignment gender         publisher
 #>     <chr>     <chr>  <chr>             <chr>
 #> 1 Hellboy      good   male Dark Horse Comics
@@ -326,7 +332,7 @@ Hellboy   good        male     Dark Horse Comics
 ```r
 (ijps <- inner_join(publishers, superheroes))
 #> Joining, by = "publisher"
-#> # A tibble: 6 × 5
+#> # A tibble: 6 x 5
 #>   publisher yr_founded     name alignment gender
 #>       <chr>      <int>    <chr>     <chr>  <chr>
 #> 1        DC       1934   Batman      good   male
@@ -397,11 +403,11 @@ Marvel             1939  Mystique   bad         female
 ```r
 (sjps <- semi_join(x = publishers, y = superheroes))
 #> Joining, by = "publisher"
-#> # A tibble: 2 × 2
+#> # A tibble: 2 x 2
 #>   publisher yr_founded
 #>       <chr>      <int>
-#> 1    Marvel       1939
-#> 2        DC       1934
+#> 1        DC       1934
+#> 2    Marvel       1939
 ```
 
 Now the effects of switching the `x` and `y` roles is more clear. The result resembles `x = publishers`, but the publisher Image is lost, because there are no observations where `publisher == "Image"` in `y = superheroes`.
@@ -445,8 +451,8 @@ semi-join(x = publishers, y = superheroes)
 
 publisher    yr_founded
 ----------  -----------
-Marvel             1939
 DC                 1934
+Marvel             1939
 
 
 </td>
@@ -461,7 +467,7 @@ DC                 1934
 ```r
 (ljps <- left_join(publishers, superheroes))
 #> Joining, by = "publisher"
-#> # A tibble: 7 × 5
+#> # A tibble: 7 x 5
 #>   publisher yr_founded     name alignment gender
 #>       <chr>      <int>    <chr>     <chr>  <chr>
 #> 1        DC       1934   Batman      good   male
@@ -534,7 +540,7 @@ Image              1992  NA         NA          NA
 ```r
 (ajps <- anti_join(publishers, superheroes))
 #> Joining, by = "publisher"
-#> # A tibble: 1 × 2
+#> # A tibble: 1 x 2
 #>   publisher yr_founded
 #>       <chr>      <int>
 #> 1     Image       1992
@@ -596,7 +602,7 @@ Image              1992
 ```r
 (fjsp <- full_join(superheroes, publishers))
 #> Joining, by = "publisher"
-#> # A tibble: 8 × 5
+#> # A tibble: 8 x 5
 #>       name alignment gender         publisher yr_founded
 #>      <chr>     <chr>  <chr>             <chr>      <int>
 #> 1  Magneto       bad   male            Marvel       1939
@@ -662,43 +668,3 @@ NA         NA          NA       Image                      1992
 </td>
 </tr>
 </table>
-
-#### sessionInfo()
-
-
-```r
-devtools::session_info()
-#> Session info -------------------------------------------------------------
-#>  setting  value                       
-#>  version  R version 3.3.1 (2016-06-21)
-#>  system   x86_64, darwin13.4.0        
-#>  ui       X11                         
-#>  language (EN)                        
-#>  collate  en_CA.UTF-8                 
-#>  tz       America/Vancouver           
-#>  date     2016-10-06
-#> Packages -----------------------------------------------------------------
-#>  package    * version     date       source                            
-#>  assertthat   0.1         2013-12-06 CRAN (R 3.2.0)                    
-#>  DBI          0.4-1       2016-05-08 cran (@0.4-1)                     
-#>  devtools     1.12.0.9000 2016-09-26 Github (hadley/devtools@26c507b)  
-#>  digest       0.6.10      2016-08-02 cran (@0.6.10)                    
-#>  dplyr      * 0.5.0       2016-06-24 CRAN (R 3.3.0)                    
-#>  evaluate     0.9         2016-04-29 CRAN (R 3.3.0)                    
-#>  formatR      1.4         2016-05-09 CRAN (R 3.3.0)                    
-#>  highr        0.6         2016-05-09 CRAN (R 3.3.0)                    
-#>  htmltools    0.3.5       2016-03-21 CRAN (R 3.2.4)                    
-#>  knitr        1.14.2      2016-09-07 Github (yihui/knitr@f02600d)      
-#>  magrittr     1.5         2014-11-22 CRAN (R 3.2.0)                    
-#>  memoise      1.0.0       2016-01-29 CRAN (R 3.2.3)                    
-#>  R6           2.1.3       2016-08-19 cran (@2.1.3)                     
-#>  Rcpp         0.12.7      2016-09-05 cran (@0.12.7)                    
-#>  readr      * 1.0.0.9000  2016-09-07 Github (hadley/readr@37d6eda)     
-#>  rmarkdown    1.0.9014    2016-09-20 Github (rstudio/rmarkdown@81c2092)
-#>  stringi      1.1.1       2016-05-27 cran (@1.1.1)                     
-#>  stringr      1.1.0       2016-08-19 CRAN (R 3.3.0)                    
-#>  tibble       1.2         2016-08-26 cran (@1.2)                       
-#>  withr        1.0.2       2016-06-20 cran (@1.0.2)                     
-#>  yaml         2.1.13      2014-06-12 CRAN (R 3.2.0)
-```
-

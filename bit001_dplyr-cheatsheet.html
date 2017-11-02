@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -20,6 +20,9 @@
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -32,10 +35,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -113,7 +112,6 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -153,6 +151,7 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#why-the-cheatsheet">Why the cheatsheet</a></li>
+<li><a href="#the-data">The data</a></li>
 <li><a href="#inner_joinsuperheroes-publishers">inner_join(superheroes, publishers)</a></li>
 <li><a href="#semi_joinsuperheroes-publishers">semi_join(superheroes, publishers)</a></li>
 <li><a href="#left_joinsuperheroes-publishers">left_join(superheroes, publishers)</a></li>
@@ -162,17 +161,23 @@ $(document).ready(function () {
 <li><a href="#left_joinpublishers-superheroes">left_join(publishers, superheroes)</a></li>
 <li><a href="#anti_joinpublishers-superheroes">anti_join(publishers, superheroes)</a></li>
 <li><a href="#full_joinsuperheroes-publishers">full_join(superheroes, publishers)</a></li>
-<li><a href="#sessioninfo">sessionInfo()</a></li>
 </ul>
 </div>
 
 <div id="why-the-cheatsheet" class="section level4">
 <h4>Why the cheatsheet</h4>
-<p>Examples for those of us who don’t speak SQL so good. There are lots of <a href="//encrypted.google.com/search?q=sql+join&amp;tbm=isch">Venn diagrams re: SQL joins on the interwebs</a>, but I wanted R examples.</p>
-<p><a href="http://www.rdocumentation.org/packages/dplyr">Full documentation</a> for the dplyr package, which is developed by Hadley Wickham and Romain Francois on <a href="https://github.com/hadley/dplyr">GitHub</a>. The <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html">vignette on Two-table verbs</a> covers the joins shown here.</p>
-<p>Working with two small data.frames, <code>superheroes</code> and <code>publishers</code>.</p>
-<pre class="r"><code>suppressPackageStartupMessages(library(dplyr))
-library(readr)
+<p>Examples for those of us who don’t speak SQL so good. There are lots of <a href="//encrypted.google.com/search?q=sql+join&amp;tbm=isch">Venn diagrams re: SQL joins on the internet</a>, but I wanted R examples. Those diagrams also utterly fail to show what’s really going on vis-a-vis rows AND columns.</p>
+<p>Other great places to read about joins:</p>
+<ul>
+<li>The dplyr vignette on <a href="http://dplyr.tidyverse.org/articles/two-table.html">Two-table verbs</a></li>
+<li>The <a href="http://r4ds.had.co.nz/relational-data.html">Relational data chapter</a> in <a href="http://r4ds.had.co.nz">R for Data Science</a>. Excellent diagrams.</li>
+</ul>
+<p><em>I know the formatting of the join results is hideous and I am filled with self-loathing. I welcome any low-tech pull request or easy-to-implement suggestion to improve it.</em></p>
+</div>
+<div id="the-data" class="section level4">
+<h4>The data</h4>
+<p>Working with two small data frames, <code>superheroes</code> and <code>publishers</code>.</p>
+<pre class="r"><code>library(tidyverse) ## dplyr provides the join functions
 
 superheroes &lt;- &quot;
     name, alignment, gender,         publisher
@@ -184,7 +189,7 @@ Mystique,       bad, female,            Marvel
 Catwoman,       bad, female,                DC
  Hellboy,      good,   male, Dark Horse Comics
 &quot;
-superheroes &lt;- read_csv(superheroes, trim_ws = TRUE, skip = 1)
+superheroes &lt;- read_csv(superheroes, skip = 1)
 
 publishers &lt;- &quot;
   publisher, yr_founded
@@ -192,7 +197,7 @@ publishers &lt;- &quot;
      Marvel,       1939
       Image,       1992
 &quot;
-publishers &lt;- read_csv(publishers, trim_ws = TRUE, skip = 1)</code></pre>
+publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 <p>Sorry, cheat sheet does not illustrate “multiple match” situations terribly well.</p>
 <p>Sub-plot: watch the row and variable order of the join results for a healthy reminder of why it’s dangerous to rely on any of that in an analysis.</p>
 </div>
@@ -203,7 +208,7 @@ publishers &lt;- read_csv(publishers, trim_ws = TRUE, skip = 1)</code></pre>
 </blockquote>
 <pre class="r"><code>(ijsp &lt;- inner_join(superheroes, publishers))
 #&gt; Joining, by = &quot;publisher&quot;
-#&gt; # A tibble: 6 × 5
+#&gt; # A tibble: 6 x 5
 #&gt;       name alignment gender publisher yr_founded
 #&gt;      &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;      &lt;int&gt;
 #&gt; 1  Magneto       bad   male    Marvel       1939
@@ -365,15 +370,15 @@ publishers &lt;- read_csv(publishers, trim_ws = TRUE, skip = 1)</code></pre>
 </blockquote>
 <pre class="r"><code>(sjsp &lt;- semi_join(superheroes, publishers))
 #&gt; Joining, by = &quot;publisher&quot;
-#&gt; # A tibble: 6 × 4
+#&gt; # A tibble: 6 x 4
 #&gt;       name alignment gender publisher
 #&gt;      &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;
-#&gt; 1   Batman      good   male        DC
-#&gt; 2    Joker       bad   male        DC
-#&gt; 3 Catwoman       bad female        DC
-#&gt; 4  Magneto       bad   male    Marvel
-#&gt; 5    Storm      good female    Marvel
-#&gt; 6 Mystique       bad female    Marvel</code></pre>
+#&gt; 1  Magneto       bad   male    Marvel
+#&gt; 2    Storm      good female    Marvel
+#&gt; 3 Mystique       bad female    Marvel
+#&gt; 4   Batman      good   male        DC
+#&gt; 5    Joker       bad   male        DC
+#&gt; 6 Catwoman       bad female        DC</code></pre>
 <p>We get a similar result as with <code>inner_join()</code> but the join result contains only the variables originally found in <code>x = superheroes</code>. But note the row order has changed.</p>
 <table border="1">
 <tr>
@@ -472,40 +477,40 @@ publishers &lt;- read_csv(publishers, trim_ws = TRUE, skip = 1)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Batman</td>
-<td align="left">good</td>
-<td align="left">male</td>
-<td align="left">DC</td>
-</tr>
-<tr class="even">
-<td align="left">Joker</td>
-<td align="left">bad</td>
-<td align="left">male</td>
-<td align="left">DC</td>
-</tr>
-<tr class="odd">
-<td align="left">Catwoman</td>
-<td align="left">bad</td>
-<td align="left">female</td>
-<td align="left">DC</td>
-</tr>
-<tr class="even">
 <td align="left">Magneto</td>
 <td align="left">bad</td>
 <td align="left">male</td>
 <td align="left">Marvel</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Storm</td>
 <td align="left">good</td>
 <td align="left">female</td>
 <td align="left">Marvel</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Mystique</td>
 <td align="left">bad</td>
 <td align="left">female</td>
 <td align="left">Marvel</td>
+</tr>
+<tr class="even">
+<td align="left">Batman</td>
+<td align="left">good</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="odd">
+<td align="left">Joker</td>
+<td align="left">bad</td>
+<td align="left">male</td>
+<td align="left">DC</td>
+</tr>
+<tr class="even">
+<td align="left">Catwoman</td>
+<td align="left">bad</td>
+<td align="left">female</td>
+<td align="left">DC</td>
 </tr>
 </tbody>
 </table>
@@ -520,7 +525,7 @@ publishers &lt;- read_csv(publishers, trim_ws = TRUE, skip = 1)</code></pre>
 </blockquote>
 <pre class="r"><code>(ljsp &lt;- left_join(superheroes, publishers))
 #&gt; Joining, by = &quot;publisher&quot;
-#&gt; # A tibble: 7 × 5
+#&gt; # A tibble: 7 x 5
 #&gt;       name alignment gender         publisher yr_founded
 #&gt;      &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;             &lt;chr&gt;      &lt;int&gt;
 #&gt; 1  Magneto       bad   male            Marvel       1939
@@ -690,7 +695,7 @@ publishers &lt;- read_csv(publishers, trim_ws = TRUE, skip = 1)</code></pre>
 </blockquote>
 <pre class="r"><code>(ajsp &lt;- anti_join(superheroes, publishers))
 #&gt; Joining, by = &quot;publisher&quot;
-#&gt; # A tibble: 1 × 4
+#&gt; # A tibble: 1 x 4
 #&gt;      name alignment gender         publisher
 #&gt;     &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;             &lt;chr&gt;
 #&gt; 1 Hellboy      good   male Dark Horse Comics</code></pre>
@@ -810,7 +815,7 @@ publishers &lt;- read_csv(publishers, trim_ws = TRUE, skip = 1)</code></pre>
 </blockquote>
 <pre class="r"><code>(ijps &lt;- inner_join(publishers, superheroes))
 #&gt; Joining, by = &quot;publisher&quot;
-#&gt; # A tibble: 6 × 5
+#&gt; # A tibble: 6 x 5
 #&gt;   publisher yr_founded     name alignment gender
 #&gt;       &lt;chr&gt;      &lt;int&gt;    &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;
 #&gt; 1        DC       1934   Batman      good   male
@@ -972,11 +977,11 @@ publishers &lt;- read_csv(publishers, trim_ws = TRUE, skip = 1)</code></pre>
 </blockquote>
 <pre class="r"><code>(sjps &lt;- semi_join(x = publishers, y = superheroes))
 #&gt; Joining, by = &quot;publisher&quot;
-#&gt; # A tibble: 2 × 2
+#&gt; # A tibble: 2 x 2
 #&gt;   publisher yr_founded
 #&gt;       &lt;chr&gt;      &lt;int&gt;
-#&gt; 1    Marvel       1939
-#&gt; 2        DC       1934</code></pre>
+#&gt; 1        DC       1934
+#&gt; 2    Marvel       1939</code></pre>
 <p>Now the effects of switching the <code>x</code> and <code>y</code> roles is more clear. The result resembles <code>x = publishers</code>, but the publisher Image is lost, because there are no observations where <code>publisher == &quot;Image&quot;</code> in <code>y = superheroes</code>.</p>
 <table border="1">
 <tr>
@@ -1073,12 +1078,12 @@ publishers &lt;- read_csv(publishers, trim_ws = TRUE, skip = 1)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Marvel</td>
-<td align="right">1939</td>
-</tr>
-<tr class="even">
 <td align="left">DC</td>
 <td align="right">1934</td>
+</tr>
+<tr class="even">
+<td align="left">Marvel</td>
+<td align="right">1939</td>
 </tr>
 </tbody>
 </table>
@@ -1093,7 +1098,7 @@ publishers &lt;- read_csv(publishers, trim_ws = TRUE, skip = 1)</code></pre>
 </blockquote>
 <pre class="r"><code>(ljps &lt;- left_join(publishers, superheroes))
 #&gt; Joining, by = &quot;publisher&quot;
-#&gt; # A tibble: 7 × 5
+#&gt; # A tibble: 7 x 5
 #&gt;   publisher yr_founded     name alignment gender
 #&gt;       &lt;chr&gt;      &lt;int&gt;    &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;
 #&gt; 1        DC       1934   Batman      good   male
@@ -1263,7 +1268,7 @@ publishers &lt;- read_csv(publishers, trim_ws = TRUE, skip = 1)</code></pre>
 </blockquote>
 <pre class="r"><code>(ajps &lt;- anti_join(publishers, superheroes))
 #&gt; Joining, by = &quot;publisher&quot;
-#&gt; # A tibble: 1 × 2
+#&gt; # A tibble: 1 x 2
 #&gt;   publisher yr_founded
 #&gt;       &lt;chr&gt;      &lt;int&gt;
 #&gt; 1     Image       1992</code></pre>
@@ -1380,7 +1385,7 @@ publishers &lt;- read_csv(publishers, trim_ws = TRUE, skip = 1)</code></pre>
 </blockquote>
 <pre class="r"><code>(fjsp &lt;- full_join(superheroes, publishers))
 #&gt; Joining, by = &quot;publisher&quot;
-#&gt; # A tibble: 8 × 5
+#&gt; # A tibble: 8 x 5
 #&gt;       name alignment gender         publisher yr_founded
 #&gt;      &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;             &lt;chr&gt;      &lt;int&gt;
 #&gt; 1  Magneto       bad   male            Marvel       1939
@@ -1551,42 +1556,6 @@ publishers &lt;- read_csv(publishers, trim_ws = TRUE, skip = 1)</code></pre>
 </tr>
 </table>
 </div>
-<div id="sessioninfo" class="section level4">
-<h4>sessionInfo()</h4>
-<pre class="r"><code>devtools::session_info()
-#&gt; Session info -------------------------------------------------------------
-#&gt;  setting  value                       
-#&gt;  version  R version 3.3.1 (2016-06-21)
-#&gt;  system   x86_64, darwin13.4.0        
-#&gt;  ui       X11                         
-#&gt;  language (EN)                        
-#&gt;  collate  en_CA.UTF-8                 
-#&gt;  tz       America/Vancouver           
-#&gt;  date     2016-10-06
-#&gt; Packages -----------------------------------------------------------------
-#&gt;  package    * version     date       source                            
-#&gt;  assertthat   0.1         2013-12-06 CRAN (R 3.2.0)                    
-#&gt;  DBI          0.4-1       2016-05-08 cran (@0.4-1)                     
-#&gt;  devtools     1.12.0.9000 2016-09-26 Github (hadley/devtools@26c507b)  
-#&gt;  digest       0.6.10      2016-08-02 cran (@0.6.10)                    
-#&gt;  dplyr      * 0.5.0       2016-06-24 CRAN (R 3.3.0)                    
-#&gt;  evaluate     0.9         2016-04-29 CRAN (R 3.3.0)                    
-#&gt;  formatR      1.4         2016-05-09 CRAN (R 3.3.0)                    
-#&gt;  highr        0.6         2016-05-09 CRAN (R 3.3.0)                    
-#&gt;  htmltools    0.3.5       2016-03-21 CRAN (R 3.2.4)                    
-#&gt;  knitr        1.14.2      2016-09-07 Github (yihui/knitr@f02600d)      
-#&gt;  magrittr     1.5         2014-11-22 CRAN (R 3.2.0)                    
-#&gt;  memoise      1.0.0       2016-01-29 CRAN (R 3.2.3)                    
-#&gt;  R6           2.1.3       2016-08-19 cran (@2.1.3)                     
-#&gt;  Rcpp         0.12.7      2016-09-05 cran (@0.12.7)                    
-#&gt;  readr      * 1.0.0.9000  2016-09-07 Github (hadley/readr@37d6eda)     
-#&gt;  rmarkdown    1.0.9014    2016-09-20 Github (rstudio/rmarkdown@81c2092)
-#&gt;  stringi      1.1.1       2016-05-27 cran (@1.1.1)                     
-#&gt;  stringr      1.1.0       2016-08-19 CRAN (R 3.3.0)                    
-#&gt;  tibble       1.2         2016-08-26 cran (@1.2)                       
-#&gt;  withr        1.0.2       2016-06-20 cran (@1.0.2)                     
-#&gt;  yaml         2.1.13      2014-06-12 CRAN (R 3.2.0)</code></pre>
-</div>
 
 <div class="footer">
 This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
@@ -1599,8 +1568,11 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 
@@ -1611,7 +1583,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
