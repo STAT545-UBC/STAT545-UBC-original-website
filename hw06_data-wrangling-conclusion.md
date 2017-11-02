@@ -10,7 +10,7 @@ output:
 
 Consult the [general homework guidelines](hw00_homework-guidelines.html).
 
-Due anytime Monday 2017-11-14.
+Due anytime Wednesday 2017-11-08.
 
 Pick (at least) two of the six (numbered) topics below and do one of the exercise prompts listed, or something comparable using your dataset of choice.
 
