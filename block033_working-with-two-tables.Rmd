@@ -50,7 +50,7 @@ We used word count data from the Lord of the Rings trilogy to explore the concep
 
 Here's what a perfect row bind of three (untidy!) data frames looks like.
 
-```{r, message = FALSE}
+```{r, message = FALSE, warning = FALSE}
 library(tidyverse)
 
 fship <- tribble(
@@ -126,7 +126,7 @@ range(gapminder_garbage$gdpPercap)
 
 One last cautionary tale about column binding. This one requires the use of `cbind()` and it's why the tidyverse is generally unwilling to recycle when combining things of different length.
 
-I create a tibble with most of the `gapminder` columns. I create another with the remainder, but filtered down to just one country. I am able to `cbind()` these objects! Why? Because the 12 rows for Canada divide evenly into the 1704 rows o `gapminder`. Note that `dplyr::bind_cols()` refuses to column bind here.
+I create a tibble with most of the `gapminder` columns. I create another with the remainder, but filtered down to just one country. I am able to `cbind()` these objects! Why? Because the 12 rows for Canada divide evenly into the 1704 rows of `gapminder`. Note that `dplyr::bind_cols()` refuses to column bind here.
 
 ```{r}
 gapminder_mostly <- gapminder %>% select(-pop, -gdpPercap)
@@ -144,7 +144,7 @@ Bottom line: Row bind when you need to, but inspect the results re: coercion. Co
 
 ### Join
 
-Visit the [dplyr join sheet](bit001_dplyr-sheet.html) to see concrete examples of all the joins implemented in dplyr, based on comic characters and publishers.
+Visit the [dplyr join cheatsheet](bit001_dplyr-cheatsheet.html) to see concrete examples of all the joins implemented in dplyr, based on comic characters and publishers.
 
 The most recent release of gapminder includes a new data frame, `country_codes`, with country names and ISO codes. Therefore you can also use it to practice joins.
 

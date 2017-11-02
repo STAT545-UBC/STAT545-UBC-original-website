@@ -22,9 +22,11 @@ This material gets updated during Sept - Nov each year on a rolling basis.
     - *placeholder for date-times; TLDR; consider the lubridate package*
   * Data analysis 3: Bring info from a secondary source into your main tibble
     - [When one tibble is not enough](block033_working-with-two-tables.html): Overview of binds, joins, lookups.
-    - Join (a.k.a. merge) two tables: [dplyr join sheet](bit001_dplyr-sheet.html) with comic characters and publishers
+    - Join (a.k.a. merge) two tables: [dplyr join cheatsheet](bit001_dplyr-cheatsheet.html) with comic characters and publishers
     - [Table look up](bit008_lookup.html)
+    <!--
     - [Split-Apply-Combine](block024_group-nest-split-map.html) with the tidyverse (nesting, list-columns, map inside mutate) *under development*.
+    -->
   * R as a programming language
     - [R objects (beyond data.frames) and indexing](block004_basic-r-objects.html)
     - Writing your own R functions [Part 1](block011_write-your-own-function-01.html): get something that works, check arguments

@@ -192,7 +192,6 @@ $(document).ready(function () {
 <p>We used word count data from the Lord of the Rings trilogy to explore the concept of tidy data. That kicked off with a quiet, successful row bind. Let’s revisit that.</p>
 <p>Here’s what a perfect row bind of three (untidy!) data frames looks like.</p>
 <pre class="r"><code>library(tidyverse)
-#&gt; Warning: package &#39;dplyr&#39; was built under R version 3.4.2
 
 fship &lt;- tribble(
                          ~Film,    ~Race, ~Female, ~Male,
@@ -297,7 +296,7 @@ range(gapminder$gdpPercap)
 range(gapminder_garbage$gdpPercap)
 #&gt; [1]    241.1659 113523.1329</code></pre>
 <p>One last cautionary tale about column binding. This one requires the use of <code>cbind()</code> and it’s why the tidyverse is generally unwilling to recycle when combining things of different length.</p>
-<p>I create a tibble with most of the <code>gapminder</code> columns. I create another with the remainder, but filtered down to just one country. I am able to <code>cbind()</code> these objects! Why? Because the 12 rows for Canada divide evenly into the 1704 rows o <code>gapminder</code>. Note that <code>dplyr::bind_cols()</code> refuses to column bind here.</p>
+<p>I create a tibble with most of the <code>gapminder</code> columns. I create another with the remainder, but filtered down to just one country. I am able to <code>cbind()</code> these objects! Why? Because the 12 rows for Canada divide evenly into the 1704 rows of <code>gapminder</code>. Note that <code>dplyr::bind_cols()</code> refuses to column bind here.</p>
 <pre class="r"><code>gapminder_mostly &lt;- gapminder %&gt;% select(-pop, -gdpPercap)
 gapminder_leftovers_filtered &lt;- gapminder %&gt;% 
   filter(country == &quot;Canada&quot;) %&gt;% 
@@ -326,7 +325,7 @@ head(gapminder_nonsense, 14)
 </div>
 <div id="join" class="section level3">
 <h3>Join</h3>
-<p>Visit the <a href="bit001_dplyr-sheet.html">dplyr join sheet</a> to see concrete examples of all the joins implemented in dplyr, based on comic characters and publishers.</p>
+<p>Visit the <a href="bit001_dplyr-cheatsheet.html">dplyr join cheatsheet</a> to see concrete examples of all the joins implemented in dplyr, based on comic characters and publishers.</p>
 <p>The most recent release of gapminder includes a new data frame, <code>country_codes</code>, with country names and ISO codes. Therefore you can also use it to practice joins.</p>
 <pre class="r"><code>gapminder %&gt;% 
   select(country, continent) %&gt;% 
