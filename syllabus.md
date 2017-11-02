@@ -67,10 +67,10 @@ Links to homework will be posted here as they are made available. Submissions ar
 date           instructor  notes                                                                                             
 -------------  ----------  --------------------------------------------------------------------------------------------------
 oct-24 tues    Giulio      <a href="cm101_character-data-regex.html">cm101</a>: Regular expressions and character data       
-oct-26 thurs   Derek      <a href="cm102_writing-functions.html">cm102</a>: Writing your own R functions                    
-oct-31 tues    Joey      <a href="cm103_list-inspection-mapping.html">cm103</a>: purrr, list-columns, nested data frames 1
+oct-26 thurs   Derek       <a href="cm102_writing-functions.html">cm102</a>: Writing your own R functions                    
+oct-31 tues    Joey        <a href="cm103_list-inspection-mapping.html">cm103</a>: purrr, list-columns, nested data frames 1
 nov-02 thurs   Giulio      <a href="cm104_lists-and-data-frames.html">cm104</a>: purrr, list-columns, nested data frames 2   
-nov-07 tues    Shaun      <a href="cm105_automation-and-make.html">cm105</a>: Automate tasks and pipelines   
+nov-07 tues    Shaun       <a href="cm105_automation-and-make.html">cm105</a>: Automate tasks and pipelines   
 nov-09 thurs   Giulio      <a href="cm106_automation-and-make.html">cm106</a>: ditto                                         
 nov-14 tues    Giulio      <a href="cm107_shiny-apps.html">cm107</a>: Build your first Shiny app                
 nov-16 thurs   Giulio      <a href="cm108_shiny-apps.html">cm108</a>: ditto                                                  
@@ -80,6 +80,18 @@ nov-28 tues    Giulio      <a href="cm111_webdata.html">cm111</a>: Get data from
 nov-30 thurs   Giulio      <a href="cm112_webdata.html">cm112</a>: ditto                                                     
 
 Links to homework will be posted here as they are made available:
+
+| Link |  Homework Due Date  |  Peer Review Due Date |
+| :--: | :---------------: | :-----------------: |
+| [Homework 06](hw06_data-wrangling-conclusion.html) | November 8, 2017 | November 11, 2017 |
+| Homework 07 | November 14, 2017 | November 17, 2017 |
+| Homework 08 | November 21, 2017 | November 24, 2017 |
+| Homework 09 | November 28, 2017 | December 1, 2017 |
+| Homework 10 | December 4, 2017 | December 7, 2017 |
+
+
+
+##### Homework topics:
 
   * Homework 06: Choose your adventure! Topics include regular expressions, data ingest/exploration, working with lists, working with nested data frames.
   * Homework 07: Automate a data analysis pipeline.

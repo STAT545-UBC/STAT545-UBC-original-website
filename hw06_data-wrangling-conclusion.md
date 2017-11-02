@@ -1,5 +1,5 @@
 ---
-title: "Homework 06: Data wrangling conclusion"
+title: "Homework 06: Data wrangling wrap up"
 output:
   html_document:
     toc: true
@@ -10,23 +10,22 @@ output:
 
 Consult the [general homework guidelines](hw00_homework-guidelines.html).
 
-Due anytime Monday 2017-11-13.
+Due anytime Monday 2017-11-14.
 
-Pick (at least) two of the topics below and do one of the exercise prompts
-listed, or something comparable.
+Pick (at least) two of the six (numbered) topics below and do one of the exercise prompts listed, or something comparable using your dataset of choice.
 
-### Character data
+### 1. Character data
 
 Read and work the exercises in the [Strings
 chapter](http://r4ds.had.co.nz/strings.html) or R for Data Science.
 
-### Writing functions
+### 2. Writing functions
 
 Pick one:
 
   * Write one (or more) functions that do something useful to pieces of the
-Gapminder data. It is logical to think about computing on the mini-data frames
-corresponding to the data for each specific country. This would pair well with
+Gapminder or Singer data. It is logical to think about computing on the mini-data frames
+corresponding to the data for each specific country, location, year, band, album, ... This would pair well with
 the prompt below about working with a nested data frame, as you could apply your
 function there.
     - Make it something you can't easily do with built-in functions.
@@ -37,14 +36,32 @@ You could generalize that to do quadratic regression (include a squared term) or
 use robust regression, using `MASS::rlm()` or `robustbase::lmrob()`.
   * If you plan to complete the homework where we build an R package, write a couple of experimental functions exploring some functionality that is useful to you in real life and that might form the basis of your personal package.
 
-### Work with the candy data
+### 3. Work with the candy data
 
-In 2015, we explored a dataset based on a Halloween candy survey (but it
-included many other odd and interesting questions). Work on something from [this
-homework from 2015](hw07_2015_data-wrangling-candy.html). It is good practice on basic
+In 2015, we explored a dataset based on a Halloween candy survey (but it included many other odd and interesting questions). Work on something from [this homework from 2015](hw07_2015_data-wrangling-candy.html). It is good practice on basic
 data ingest, exploration, character data cleanup, and wrangling.
 
-### Work with a list
+### 4. Work with the `singer` data
+
+The `singer_location` dataframe in the `singer` package contains geographical information stored in two different formats: 1. as a (dirty!) variable named `city`; 2. as a latitude / longitude pair (stored in `latitude`, `longitude` respectively). The function `revgeocode` from the `ggmap` library allows you to retrieve some information for a pair (vector) of longitude, latitude (warning: notice the order in which you need to pass lat and long). Read its manual page.
+
+1. Use `purrr` to map latitude and longitude into human readable information on the band's origin places. Notice that `revgeocode(... , output = "more")` outputs a dataframe, while `revgeocode(... , output = "address")` returns a string: you have the option of dealing with nested dataframes.  
+You will need to pay attention to two things:  
+    *  Not all of the track have a latitude and longitude: what can we do with the missing information? (_filtering_, ...)
+    *  Not all of the time we make a research through `revgeocode()` we get a result. What can we do to avoid those errors to bite us? (look at _possibly()_ in `purrr`...)
+
+
+2. Try to check wether the place in `city` corresponds to the information you retrieved.
+
+3. If you still have time, you can go visual: give a look to the library [`leaflet`](https://rstudio.github.io/leaflet) and plot some information about the bands. A snippet of code is provided below.  
+```r
+singer_locations %>%  
+  leaflet()  %>%   
+  addTiles() %>%  
+  addCircles(popup = ~artist_name)
+```
+
+### 5. Work with a list
 
 Work through and write up a lesson from the [purrr
 tutorial](https://jennybc.github.io/purrr-tutorial/index.html):
@@ -54,7 +71,7 @@ Tweets](https://jennybc.github.io/purrr-tutorial/ls08_trump-tweets.html)
   * [Simplifying data from a list of GitHub
 users](https://jennybc.github.io/purrr-tutorial/ls02_map-extraction-advanced.html)
 
-### Work with a nested data frame
+### 6. Work with a nested data frame
 
 Create a nested data frame and map a function over the list column holding the
 nested data. Use list extraction or other functions to pull interesting
@@ -89,9 +106,7 @@ approaches. If it is large, consider that country "interesting".
 
 ### Report your process
 
-You're encouraged to reflect on what was hard/easy, problems you solved, helpful
-tutorials you read, etc. Give credit to your sources, whether it's a blog post,
-a fellow student, an online tutorial, etc.
+You're encouraged to reflect on what was hard/easy, problems you solved, helpful tutorials you read, etc. Give credit to your sources, whether it's a blog post, a fellow student, an online tutorial, etc.
 
 ### Submit the assignment
 

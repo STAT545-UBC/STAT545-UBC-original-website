@@ -4,14 +4,14 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
 
 
 
-<title>Homework 06: Data wrangling conclusion</title>
+<title>Homework 06: Data wrangling wrap up</title>
 
 <script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -142,18 +142,19 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Homework 06: Data wrangling conclusion</h1>
+<h1 class="title toc-ignore">Homework 06: Data wrangling wrap up</h1>
 
 </div>
 
 <div id="TOC">
 <ul>
 <li><a href="#overview">Overview</a></li>
-<li><a href="#character-data">Character data</a></li>
-<li><a href="#writing-functions">Writing functions</a></li>
-<li><a href="#work-with-the-candy-data">Work with the candy data</a></li>
-<li><a href="#work-with-a-list">Work with a list</a></li>
-<li><a href="#work-with-a-nested-data-frame">Work with a nested data frame</a></li>
+<li><a href="#character-data">1. Character data</a></li>
+<li><a href="#writing-functions">2. Writing functions</a></li>
+<li><a href="#work-with-the-candy-data">3. Work with the candy data</a></li>
+<li><a href="#work-with-the-singer-data">4. Work with the <code>singer</code> data</a></li>
+<li><a href="#work-with-a-list">5. Work with a list</a></li>
+<li><a href="#work-with-a-nested-data-frame">6. Work with a nested data frame</a></li>
 <li><a href="#report-your-process">Report your process</a></li>
 <li><a href="#submit-the-assignment">Submit the assignment</a></li>
 <li><a href="#rubric">Rubric</a></li>
@@ -163,18 +164,18 @@ $(document).ready(function () {
 <div id="overview" class="section level3">
 <h3>Overview</h3>
 <p>Consult the <a href="hw00_homework-guidelines.html">general homework guidelines</a>.</p>
-<p>Due anytime Monday 2016-11-14.</p>
-<p>Pick (at least) two of the topics below and do one of the exercise prompts listed, or something comparable.</p>
+<p>Due anytime Monday 2017-11-14.</p>
+<p>Pick (at least) two of the six (numbered) topics below and do one of the exercise prompts listed, or something comparable using your dataset of choice.</p>
 </div>
 <div id="character-data" class="section level3">
-<h3>Character data</h3>
+<h3>1. Character data</h3>
 <p>Read and work the exercises in the <a href="http://r4ds.had.co.nz/strings.html">Strings chapter</a> or R for Data Science.</p>
 </div>
 <div id="writing-functions" class="section level3">
-<h3>Writing functions</h3>
+<h3>2. Writing functions</h3>
 <p>Pick one:</p>
 <ul>
-<li>Write one (or more) functions that do something useful to pieces of the Gapminder data. It is logical to think about computing on the mini-data frames corresponding to the data for each specific country. This would pair well with the prompt below about working with a nested data frame, as you could apply your function there.
+<li>Write one (or more) functions that do something useful to pieces of the Gapminder or Singer data. It is logical to think about computing on the mini-data frames corresponding to the data for each specific country, location, year, band, album, … This would pair well with the prompt below about working with a nested data frame, as you could apply your function there.
 <ul>
 <li>Make it something you can’t easily do with built-in functions. Make it something that’s not trivial to do with the simple <code>dplyr</code> verbs. The linear regression function <a href="block012_function-regress-lifeexp-on-year.html">presented here</a> is a good starting point. You could generalize that to do quadratic regression (include a squared term) or use robust regression, using <code>MASS::rlm()</code> or <code>robustbase::lmrob()</code>.</li>
 </ul></li>
@@ -182,11 +183,29 @@ $(document).ready(function () {
 </ul>
 </div>
 <div id="work-with-the-candy-data" class="section level3">
-<h3>Work with the candy data</h3>
+<h3>3. Work with the candy data</h3>
 <p>In 2015, we explored a dataset based on a Halloween candy survey (but it included many other odd and interesting questions). Work on something from <a href="hw07_2015_data-wrangling-candy.html">this homework from 2015</a>. It is good practice on basic data ingest, exploration, character data cleanup, and wrangling.</p>
 </div>
+<div id="work-with-the-singer-data" class="section level3">
+<h3>4. Work with the <code>singer</code> data</h3>
+<p>The <code>singer_location</code> dataframe in the <code>singer</code> package contains geographical information stored in two different formats: 1. as a (dirty!) variable named <code>city</code>; 2. as a latitude / longitude pair (stored in <code>latitude</code>, <code>longitude</code> respectively). The function <code>revgeocode</code> from the <code>ggmap</code> library allows you to retrieve some information for a pair (vector) of longitude, latitude (warning: notice the order in which you need to pass lat and long). Read its manual page.</p>
+<ol style="list-style-type: decimal">
+<li>Use <code>purrr</code> to map latitude and longitude into human readable information on the band’s origin places. Notice that <code>revgeocode(... , output = &quot;more&quot;)</code> outputs a dataframe, while <code>revgeocode(... , output = &quot;address&quot;)</code> returns a string: you have the option of dealing with nested dataframes.<br />
+You will need to pay attention to two things:
+<ul>
+<li>Not all of the track have a latitude and longitude: what can we do with the missing information? (<em>filtering</em>, …)</li>
+<li>Not all of the time we make a research through <code>revgeocode()</code> we get a result. What can we do to avoid those errors to bite us? (look at <em>possibly()</em> in <code>purrr</code>…)</li>
+</ul></li>
+<li><p>Try to check wether the place in <code>city</code> corresponds to the information you retrieved.</p></li>
+<li><p>If you still have time, you can go visual: give a look to the library <a href="https://rstudio.github.io/leaflet"><code>leaflet</code></a> and plot some information about the bands. A snippet of code is provided below.</p>
+<pre class="r"><code>singer_locations %&gt;%  
+  leaflet()  %&gt;%   
+  addTiles() %&gt;%  
+  addCircles(popup = ~artist_name)</code></pre></li>
+</ol>
+</div>
 <div id="work-with-a-list" class="section level3">
-<h3>Work with a list</h3>
+<h3>5. Work with a list</h3>
 <p>Work through and write up a lesson from the <a href="https://jennybc.github.io/purrr-tutorial/index.html">purrr tutorial</a>:</p>
 <ul>
 <li><a href="https://jennybc.github.io/purrr-tutorial/ls08_trump-tweets.html">Trump Android Tweets</a></li>
@@ -194,7 +213,7 @@ $(document).ready(function () {
 </ul>
 </div>
 <div id="work-with-a-nested-data-frame" class="section level3">
-<h3>Work with a nested data frame</h3>
+<h3>6. Work with a nested data frame</h3>
 <p>Create a nested data frame and map a function over the list column holding the nested data. Use list extraction or other functions to pull interesting information out of these results and work your way back to a simple data frame you can visualize and explore.</p>
 <p>Here’s a fully developed prompt for Gapminder:</p>
 <ul>
@@ -253,7 +272,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
