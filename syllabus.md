@@ -83,8 +83,8 @@ Links to homework will be posted here as they are made available:
 
 | Link |  Homework Due Date  |  Peer Review Due Date |
 | :--: | :---------------: | :-----------------: |
-| [Homework 06](hw06_data-wrangling-conclusion.html) | November 8, 2017 | November 11, 2017 |
-| Homework 07 | November 14, 2017 | November 17, 2017 |
+| [Homework 06](hw06_data-wrangling-conclusion.html) | November 10, 2017 | November 13, 2017 |
+| [Homework 07](hw07_automation.html) | November 14, 2017 | November 17, 2017 |
 | Homework 08 | November 21, 2017 | November 24, 2017 |
 | Homework 09 | November 28, 2017 | December 1, 2017 |
 | Homework 10 | December 4, 2017 | December 7, 2017 |
