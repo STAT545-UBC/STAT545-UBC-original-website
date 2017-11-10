@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -19,6 +19,9 @@
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -31,10 +34,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -108,10 +107,10 @@ button.code-folding-btn:focus {
 </style>
 
 
+
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -151,24 +150,19 @@ $(document).ready(function () {
 <ul>
 <li><a href="#big-picture">Big picture</a></li>
 <li><a href="#templates-you-can-follow">Templates you can follow</a></li>
-<li><a href="#please-just-tell-me-what-to-do">Please just tell me what to do</a><ul>
-<li><a href="#download-the-data">Download the data</a></li>
-<li><a href="#perform-exploratory-analyses">Perform exploratory analyses</a></li>
-<li><a href="#perform-statistical-analyses">Perform statistical analyses</a></li>
-<li><a href="#generate-figures">Generate figures</a></li>
-<li><a href="#automate-the-pipeline">Automate the pipeline</a></li>
-</ul></li>
+<li><a href="#more-detailed-instructions-optional">More detailed instructions (optional)</a></li>
 <li><a href="#i-want-to-aim-higher">I want to aim higher!</a></li>
-<li><a href="#links">Links</a></li>
+<li><a href="#useful-links">Useful links</a></li>
 <li><a href="#authors">Authors</a></li>
 </ul>
 </div>
 
-<p>Due Friday 2016-November-18.</p>
-<div id="big-picture" class="section level1">
-<h1>Big picture</h1>
+<p>Due Friday 2017-November-14.</p>
+<div id="big-picture" class="section level2">
+<h2>Big picture</h2>
+<p>(We started this in class during the lecture.)</p>
 <ul>
-<li>Write three or more R scripts to carry out a small data analysis.</li>
+<li>Write (or extract from a previous analysis) three or more R scripts to carry out a small data analysis.</li>
 <li>The output of the first script must be the input of the second, and so on.</li>
 <li>Something like this:
 <ul>
@@ -179,21 +173,22 @@ $(document).ready(function () {
 <li>A fifth script to rule them all, i.e. to run the others in sequence.</li>
 </ul></li>
 </ul>
+<p>You can use Make, Remake or (if you feel the urge for something more) a combinantion of Make and Remake.</p>
 </div>
-<div id="templates-you-can-follow" class="section level1">
-<h1>Templates you can follow</h1>
+<div id="templates-you-can-follow" class="section level2">
+<h2>Templates you can follow</h2>
 <ul>
-<li>Bare bones example using only R: <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/01_automation-example_just-r">01_justR</a></li>
-<li>Example upgraded to include using Make to run the pipeline: <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/02_automation-example_r-and-make">02_rAndMake</a></li>
-<li>Example compiling an R script and an R Markdown file to HTML via the makefile: <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/03_automation-example_render-without-rstudio">03_knitWithoutRStudio</a></li>
+<li>A bare bones example which uses only R: <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/01_automation-example_just-r">01_justR</a></li>
+<li>An example that also uses Make to run the pipeline: <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/02_automation-example_r-and-make">02_rAndMake</a></li>
+<li>An example that runs and R script and a renders an Rmarkdown file to HTML using Make: <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/03_automation-example_render-without-rstudio">03_knitWithoutRStudio</a></li>
 </ul>
 </div>
-<div id="please-just-tell-me-what-to-do" class="section level1">
-<h1>Please just tell me what to do</h1>
-<p>If you don’t feel like dreaming up your own thing, here’s a Gapminder blueprint that is a minimal but respectable way to complete the assignment. You are welcome to remix R code already written by someone, student or JB, in this class, but credit/link appropriately, e.g. in comments.</p>
-<p>JB has provided a template, using a different dataset, <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/01_automation-example_just-r">01_justR</a>, that should help make this concrete.</p>
-<div id="download-the-data" class="section level2">
-<h2>Download the data</h2>
+<div id="more-detailed-instructions-optional" class="section level2">
+<h2>More detailed instructions (optional)</h2>
+<p>If you don’t feel like dreaming up your own thing, here’s a Gapminder blueprint that is a minimal but respectable way to complete the assignment. You are welcome to remix R code already written by someone in this class, but do credit/link appropriately, e.g. in comments.</p>
+<p>Jennifer Bryan has provided a template, using a different dataset, <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area/01_automation-example_just-r">01_justR</a>, that should help make this concrete.</p>
+<div id="download-the-data" class="section level3">
+<h3>Download the data</h3>
 <p>Download the raw data for our example, <a href="https://github.com/jennybc/gapminder/blob/master/inst/gapminder.tsv">gapminder.tsv</a>.</p>
 <ul>
 <li><p>Option 1: via an R script using <a href="http://stat.ethz.ch/R-manual/R-patched/library/utils/html/download.file.html">download.file</a></p>
@@ -203,8 +198,8 @@ $(document).ready(function () {
 wget https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.tsv</code></pre></li>
 </ul>
 </div>
-<div id="perform-exploratory-analyses" class="section level2">
-<h2>Perform exploratory analyses</h2>
+<div id="perform-exploratory-analyses" class="section level3">
+<h3>Perform exploratory analyses</h3>
 <ul>
 <li>Bring the data in as data frame.</li>
 <li>Save a couple descriptive plots to file with highly informative names.</li>
@@ -213,8 +208,8 @@ wget https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.t
 <li>Write the Gapminder data to file(s), for immediate and future reuse.</li>
 </ul>
 </div>
-<div id="perform-statistical-analyses" class="section level2">
-<h2>Perform statistical analyses</h2>
+<div id="perform-statistical-analyses" class="section level3">
+<h3>Perform statistical analyses</h3>
 <ul>
 <li>Import the data created in the first script.</li>
 <li>Make sure your new continent order is still in force. You decide the details.</li>
@@ -222,12 +217,12 @@ wget https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.t
 <li>Find the 3 or 4 “worst” and “best” countries for each continent. You decide the details.</li>
 </ul>
 </div>
-<div id="generate-figures" class="section level2">
-<h2>Generate figures</h2>
+<div id="generate-figures" class="section level3">
+<h3>Generate figures</h3>
 <p>Create a figure for each continent, and write one file per continent, with an informative name. The figure should give scatterplots of life expectancy vs. year, faceting on country, fitted line overlaid.</p>
 </div>
-<div id="automate-the-pipeline" class="section level2">
-<h2>Automate the pipeline</h2>
+<div id="automate-the-pipeline" class="section level3">
+<h3>Automate the pipeline</h3>
 <p>Write a master R script that simply <code>source()</code>s the three scripts, one after the other. Tip: you may want a second “clean up / reset” script that deletes all the output your scripts leave behind, so you can easily test and refine your strategy, i.e. without repeatedly deleting stuff “by hand”. You can run the master script or the cleaning script from a <a href="git09_shell.html">shell</a> with <code>Rscript</code>.</p>
 <p>Render your RMarkdown report generating Markdown and HTML using <code>rmarkdown::render</code>.</p>
 <ul>
@@ -245,10 +240,10 @@ wget https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.t
 <p>Consider including an image showing a graphical view (the dependency diagram) of your pipeline using <a href="https://github.com/lindenb/makefile2graph">makefile2graph</a>. On Mac or Linux you can install <code>makefile2graph</code> using <a href="http://brew.sh">Homebrew</a> or <a href="http://linuxbrew.sh">Linuxbrew</a> with the command <code>brew install makefile2graph</code>.</p>
 </div>
 </div>
-<div id="i-want-to-aim-higher" class="section level1">
-<h1>I want to aim higher!</h1>
+<div id="i-want-to-aim-higher" class="section level2">
+<h2>I want to aim higher!</h2>
 <p>Follow the basic Gapminder blueprint above, but find a different data aggregation task, different panelling/faceting emphasis, focus on different variables, etc.</p>
-<p>Use non-Gapminder data – like maybe the candy survey?</p>
+<p>Use non-Gapminder data – like the singer data or your own?</p>
 <p>This means you’ll need to spend more time on data cleaning and sanity checking. You will probably have an entire script (or more!) devoted to data prep. Examples:</p>
 <ul>
 <li>Are there wonky factors? Consider bringing in as character, addressing their deficiencies, then converting to factor.</li>
@@ -261,8 +256,8 @@ wget https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.t
 <p>Import pre-existing data in an R Markdown document, then format nicely as a table.</p>
 <p>Use Pandoc and/or LaTeX to explore new territory in document compilation. You could use Pandoc as an alternative to <code>rmarkdown</code> (or <code>knitr</code>) for Markdown to HTML conversion; you’d still use <code>rmarkdown</code> for conversion of R Markdown to Markdown. You would use LaTeX to get PDF output from Markdown.</p>
 </div>
-<div id="links" class="section level1">
-<h1>Links</h1>
+<div id="useful-links" class="section level2">
+<h2>Useful links</h2>
 <ul>
 <li><a href="https://github.com/sjackman/makefile-example/">An example of a data analysis pipeline using Make</a> by <a href="http://sjackman.ca">Shaun Jackman</a></li>
 <li><a href="http://sjackman.ca/makefile-slides/">Automating Data Analysis Pipelines</a> slides by <a href="http://sjackman.ca">Shaun Jackman</a></li>
@@ -273,9 +268,9 @@ wget https://raw.githubusercontent.com/jennybc/gapminder/master/inst/gapminder.t
 <li>Zachary M. Jones on <a href="http://zmjones.com/make.html">GNU Make for Reproducible Data Analysis</a></li>
 </ul>
 </div>
-<div id="authors" class="section level1">
-<h1>Authors</h1>
-<p>Written by <a href="http://sjackman.ca/">Shaun Jackman</a> and <a href="http://www.stat.ubc.ca/~jenny/">Jenny Bryan</a>.</p>
+<div id="authors" class="section level2">
+<h2>Authors</h2>
+<p>Written mostly by <a href="http://sjackman.ca/">Shaun Jackman</a> and <a href="http://www.stat.ubc.ca/~jenny/">Jenny Bryan</a> with a little edit from <a href="https://www.gvdallariva.net">Giulio Dalla Riva</a>.</p>
 </div>
 
 <div class="footer">
@@ -289,9 +284,13 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
+
 
 </script>
 
@@ -300,7 +299,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
