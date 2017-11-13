@@ -4,12 +4,12 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="Dean Attali" />
+<meta name="author" content="Dean Attali (with minor edits by gvdr)" />
 
 
 <title>Building Shiny apps - Homework</title>
@@ -20,6 +20,9 @@
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -32,10 +35,6 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -113,7 +112,6 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -146,7 +144,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Building Shiny apps - Homework</h1>
-<h4 class="author"><em>Dean Attali</em></h4>
+<h4 class="author"><em>Dean Attali (with minor edits by gvdr)</em></h4>
 
 </div>
 
@@ -154,7 +152,11 @@ $(document).ready(function () {
 <ul>
 <li><a href="#deadline">Deadline</a></li>
 <li><a href="#what-weve-done">What we’ve done</a></li>
-<li><a href="#what-you-need-to-do">What you need to do</a></li>
+<li><a href="#what-you-need-to-do">What you need to do</a><ul>
+<li><a href="#building-details">Building details</a><ul>
+<li><a href="#possible-features-for-the-bc-liquor-store-app.">Possible features for the BC Liquor Store app.</a></li>
+</ul></li>
+</ul></li>
 <li><a href="#resources">Resources</a></li>
 <li><a href="#rubric">Rubric</a></li>
 </ul>
@@ -162,27 +164,32 @@ $(document).ready(function () {
 
 <div id="deadline" class="section level2">
 <h2>Deadline</h2>
-<p>The homework is due Monday, November 28 2016.</p>
+<p>The homework is due Tuesday, November 21 2017.</p>
 </div>
 <div id="what-weve-done" class="section level2">
 <h2>What we’ve done</h2>
-<p>We created a Shiny app that lets you search for products from the BC Liquor Store based on price, alcohol type, and country. We used <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/shiny_supp/2016/bcl-data.csv">this dataset</a> and <a href="./shiny01_activity.html#final-shiny-app-code">this code</a> for our app.</p>
+<p>This week we create a Shiny app that lets you search for products from the BC Liquor Store based on price, alcohol type, and country. We used <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/shiny_supp/2016/bcl-data.csv">this dataset</a> and <a href="./shiny01_activity.html#final-shiny-app-code">this code</a> for our app.</p>
 </div>
 <div id="what-you-need-to-do" class="section level2">
 <h2>What you need to do</h2>
-<p>The app we developed is functional, but there are plenty of improvements that can be made. You can compare the app we developed to <a href="http://daattali.com/shiny/bcl/">my version of this app</a> to get an idea of what a more functional app could include. For the homework, you need to either develop a new Shiny app that uses a different dataset, or add 3 or more features to the BC Liquor Store app.</p>
-<p>Regardless of whether you create a new app or just add new features to our BC Liquor Store app, you <strong>must</strong> do the following 4 things:</p>
+<p><strong>Build a new Shiny app</strong></p>
+<p>The app we developed is functional, but there are plenty of improvements that can be made. You can compare the app we developed to <a href="http://daattali.com/shiny/bcl/">Dean’s version of this app</a> to get an idea of what a more functional app could include. For the homework, you need to either develop a new Shiny app, using your preferred dataset (or one you want to know more about). If you are short on ideas, you can instead add 3 or more features to the BC Liquor Store app we developed together.</p>
+<div id="building-details" class="section level3">
+<h3>Building details</h3>
+<p>Regardless of whether you create a new app or just add new features to our BC Liquor Store app, you <strong>must</strong> do the following 5 things:</p>
 <ol style="list-style-type: decimal">
 <li><p>Your app should be split into a <code>ui.R</code> file and a <code>server.R</code> file. Note that so far in class we only had our apps inside an <code>app.R</code> file. You can read <a href="http://shiny.rstudio.com/articles/app-formats.html">this official Shiny help page</a> if you need more help with this part.</p></li>
 <li>Your app should be deployed online on <a href="http://www.shinyapps.io">shinyapps.io</a>. Make sure your app actually works online (sometimes your app will work in RStudio but will have errors on shinyapps.io - make sure you deploy early and often to make debugging easier).
 <ul>
-<li>Alternatively, if you want to aim higher, you can contact us once your app is finished and work with us to deploy your app on the UBC Stats Shiny Server.</li>
 <li>If you want to really challenge yourself, you can try getting your own Shiny Server and host your app yourself. Read <a href="http://deanattali.com/2015/05/09/setup-rstudio-shiny-server-digital-ocean/">this tutorial</a> for help on setting that up.</li>
 </ul></li>
 <li><p>Add a <code>README.md</code> file to your Shiny app folder in your course repository. In the <code>README.md</code> you should describe your app and add a link to the URL where the app is hosted.</p></li>
 <li><p>Include the code for your Shiny app in your repository, as the marker will need to review your code.</p></li>
+<li><p>Whatever dataset you will use, acknowledge its source clearly and extensively. Remember that we value open, reproducible science: this means that the user of your app should have direct access to the data, or know where to go to access it.</p></li>
 </ol>
-<p>If you decide to create a new app, then you are free to do whatever you want - get creative! If you want to use the BC Liquor Store app, you need to add at least 3 new features to it. There are countless possibilities, but here are just a few ideas. You can choose any 3 or more ideas from this list or do anything else.</p>
+<div id="possible-features-for-the-bc-liquor-store-app." class="section level4">
+<h4>Possible features for the BC Liquor Store app.</h4>
+<p>If you decide to create a new app, then you are free to do whatever you want - get creative! If you want to use the BC Liquor Store app, you need to add at least 3 new features to it. There are countless possibilities, but here are just a few ideas. Notice: you may want to read this and get inspired even if you’ll develop your own shiny app. You can choose any 3 or more ideas from this list or do anything else.</p>
 <ul>
 <li>Add an option to sort the results table by price.
 <ul>
@@ -242,6 +249,8 @@ $(document).ready(function () {
 </ul></li>
 </ul>
 </div>
+</div>
+</div>
 <div id="resources" class="section level2">
 <h2>Resources</h2>
 <p>Don’t forget to check out some of the <a href="./shiny01_activity.html#resources">awesome resources</a> for Shiny, they can really help you out.</p>
@@ -267,8 +276,11 @@ This work is licensed under the  <a href="http://creativecommons.org/licenses/by
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 
@@ -279,7 +291,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

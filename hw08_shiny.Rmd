@@ -1,5 +1,11 @@
-# Building Shiny apps - Homework
-Dean Attali (with minor edits by gvdr)  
+---
+title: "Building Shiny apps - Homework"
+author: "Dean Attali (with minor edits by gvdr)"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 4
+---
 
 ## Deadline
 
