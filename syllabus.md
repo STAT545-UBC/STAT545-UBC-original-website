@@ -17,8 +17,9 @@ Office hours:
 
 * Every Tuesday and Thursday, 11:00-12:00 in ESB 3174 (right after class!)
 * Bonus office hour! Wednesday, September 6, 12:00-13:00 in ESB 3174.
-* Vincenzo will be available at ESB 3152 every Wednesday from 11:00-12:00, ending on December 13, 2017.
-    * October 4 office hour is now 12:00-13:00!
+* Vincenzo will be available at ESB 3152 every Wednesday from 11:00-12:00, ending on December 13, 2017, with the following exceptions:
+    * October 4 office hour is now 12:00-13:00
+    * November 22 office hour is now 12:00-13:00
 * The duration and/or days will likely be decreased as term goes on. We will leave [this issue open on GitHub](https://github.com/STAT545-UBC/Discussion/issues/495) for discussion and late-breaking updates, like office hours are cancelled or have ended early due to no interest.
 
 
