@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>cm109 and cm110 Notes and Exercises</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">cm109 and cm110 Notes and Exercises</h1>
+<h3 class="subtitle"><em>Write your own R package – Lecture Version</em></h3>
+<h4 class="date"><em>November 21 and 23, 2017</em></h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#wave-1-the-bare-minimum-plus-bare-minimum-best-practices">Wave 1: The bare minimum, plus bare minimum best practices</a><ul>
+<li><a href="#bare-minimum">1.1 Bare minimum</a></li>
+<li><a href="#documentation">1.2 Documentation</a></li>
+<li><a href="#checking">1.3 Checking</a></li>
+<li><a href="#function-dependencies">1.4 Function Dependencies</a></li>
+</ul></li>
+<li><a href="#exercise">Exercise</a></li>
+<li><a href="#wave-2-more-documentation-and-testing">Wave 2: More documentation, and testing</a><ul>
+<li><a href="#description-file">DESCRIPTION file</a></li>
+<li><a href="#testing-with-testthat">Testing with <code>testthat</code></a></li>
+</ul></li>
+<li><a href="#exercise-1">Exercise</a></li>
+</ul>
+</div>
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>This is a tutorial to get you started with package development in R, meant to accompany two lectures of STAT 547. It’s similar (and somewhat based off of) <a href="http://stat545.com/packages06_foofactors-package.html">Jenny’s tutorial</a>. Jenny’s is more comprehensive, so is useful as a learning resource. This tutorial focusses more exclusively on the RStudio workflow to building packages.</p>
+<p>Why make a package in R? Here are just a few big reasons:</p>
+<ul>
+<li>Built-in checks that your functions are working and are sensible.</li>
+<li>Easy way to store and load your data.</li>
+<li>Allows for documentation of functions that you’ve written.</li>
+</ul>
+<p>Think <em>aid for a type of analysis</em>, not an analysis itself.</p>
+<p>I’ll try to break this up into “waves” of instruction, with work periods in between. Work on your Homework 9 if you’re ahead!</p>
+</div>
+<div id="wave-1-the-bare-minimum-plus-bare-minimum-best-practices" class="section level2">
+<h2>Wave 1: The bare minimum, plus bare minimum best practices</h2>
+<div id="bare-minimum" class="section level3">
+<h3>1.1 Bare minimum</h3>
+<p>Follow along as we make an R package called <code>powers</code> that contains a function <code>square</code> that squares its input. Let’s initiate it:</p>
+<ul>
+<li>RStudio —&gt; New project —&gt; R Package
+<ul>
+<li>Initiate git (optional, but recommended).</li>
+</ul></li>
+<li>Check out the files that have been created</li>
+</ul>
+<p>Now, delete the <code>man</code> folder and R scripts (if present), and start a new R script in the <code>R</code> directory, called <code>square.R</code>. Write a function called <code>square</code> that squares its input.</p>
+<p>Build the package:</p>
+<ul>
+<li><code>Build and Reload</code>, or in newer versions of RStudio, <code>Install and Restart</code>.
+<ul>
+<li>This compiles the package, and loads it.</li>
+<li>Try leaving the project, do <code>library(powers)</code>, and use the function! Pretty cool, eh?</li>
+</ul></li>
+</ul>
+</div>
+<div id="documentation" class="section level3">
+<h3>1.2 Documentation</h3>
+<p>Comment above functions with <code>#’</code>, and use tags starting with <code>@</code>. Here’s documentation for the <code>square</code> function – copy and paste it above the <code>square</code> function.</p>
+<pre class="r"><code>#&#39; Square a vector
+#&#39;
+#&#39; That&#39;s it -- this function just squares a vector.
+#&#39;
+#&#39; @param x The vector to be squared.
+#&#39;
+#&#39; @return A vector that is the square of \code{x}.
+#&#39;
+#&#39; @details
+#&#39; This function isn&#39;t complicated.
+#&#39;
+#&#39; And it almost certainly doesn&#39;t need two paragraphs in the &quot;Details&quot;
+#&#39; section!
+#&#39;
+#&#39; Here are some reasons why putting a list in this section is excessive:
+#&#39; \itemize{
+#&#39;      \item This \code{square} function is quite simple.
+#&#39;      \item There&#39;s nothing else to say about \code{square}.
+#&#39; }
+#&#39;
+#&#39; @examples
+#&#39; square(1:10)
+#&#39; square(-5)
+#&#39; @export</code></pre>
+<p>Note: now that we’re using <code>roxygen2</code> to document our package, we need to specify which functions we wish to make viewable by the user by indicating the <code>@export</code> tag, as above.</p>
+<p>Type <code>roxygen2::roxygenize()</code> in the console, or more simply, <code>document()</code> from the <code>devtools</code> package. Then <code>Build and Reload</code>/<code>Install and Restart</code> the package.</p>
+<p>Notable things that have happened:</p>
+<ul>
+<li>Your function is now documented. Check it out with <code>?square</code>!
+<ul>
+<li>This happens due to the creation of an <code>Rd</code> file in the <code>man</code> folder.</li>
+</ul></li>
+<li>Your NAMESPACE is populated. Contains all things you want the user to see.</li>
+</ul>
+</div>
+<div id="checking" class="section level3">
+<h3>1.3 Checking</h3>
+<p>It’s a good idea to <code>check</code> your package early and often to see that everything is working.</p>
+<p>Click <code>Check</code> under the <code>Build</code> menu. It checks lots of things for you! We’ll see more examples of this.</p>
+</div>
+<div id="function-dependencies" class="section level3">
+<h3>1.4 Function Dependencies</h3>
+<p>Make another, more general function to compute any power:</p>
+<pre class="r"><code>pow &lt;- function(x, a=2) x^a</code></pre>
+<p>It can go in the same R script as <code>square</code>, or a different one – your choice.</p>
+<p>We’ll make <code>square</code> depend on <code>pow</code>.</p>
+<p>Aftering <code>Build and Reload</code>/<code>Install and Restart</code>ing, you’ll notice that you can’t use <code>pow</code> because it’s not <code>export</code>ed. But, <code>square</code> still works! We call <code>pow</code> an <em>internal</em> function.</p>
+<p><strong>Note</strong>: you should still document your internal function! But mention that the function is internal. Users will be able to access the documentation like normal, but still won’t be able to (easily) use the function.</p>
+<p>If you want to be able to use internal functions as a developer, but don’t want users to have (easy) access to the functions, then run <code>load_all</code> instead of <code>Build and Reload</code>/<code>Install and Restart</code>.</p>
+</div>
+</div>
+<div id="exercise" class="section level2">
+<h2>Exercise</h2>
+<p>Using at least two <code>.R</code> scripts:</p>
+<ul>
+<li>Make and document <code>pow</code>. Try out other <code>roxygen2</code> tags.</li>
+<li>Make and document another function, say <code>cube</code>, that raises a vector to the power of 3.</li>
+</ul>
+<p>Make sure at least <code>square</code> and <code>cube</code> are exported to the NAMESPACE. Optionally, <code>pow</code>. Make sure you <code>Check</code> the package often!</p>
+<p>Finished early? Do more – work on Assignment 9, and/or try out more documentation features that comes with <code>roxygen2</code>.</p>
+</div>
+<div id="wave-2-more-documentation-and-testing" class="section level2">
+<h2>Wave 2: More documentation, and testing</h2>
+<div id="description-file" class="section level3">
+<h3>DESCRIPTION file</h3>
+<p>Every R package has this. It contains the package’s metadata. Let’s edit it:</p>
+<ul>
+<li>Add a title and brief description.
+<ul>
+<li>R is picky about these! Check out <a href="http://r-pkgs.had.co.nz/description.html#pkg-description">the rules</a>.</li>
+</ul></li>
+<li>Add your name.
+<ul>
+<li>Use the <a href="http://r-pkgs.had.co.nz/description.html#author"><code>Authors@R</code> field</a> instead of the default <code>Author</code> and <code>Maintainer</code> fields.</li>
+</ul></li>
+<li>Pick a <a href="http://r-pkgs.had.co.nz/description.html#license">license</a>.</li>
+</ul>
+</div>
+<div id="testing-with-testthat" class="section level3">
+<h3>Testing with <code>testthat</code></h3>
+<p>We’ve already seen package <code>Check</code>s – this checks that the pieces of your R package are in place, and that even your examples don’t throw errors. We should not only check that our functions are <em>working</em>, but that they give us results that we’d <em>expect</em>.</p>
+<p>The <code>testthat</code> package is useful for this. Initialize it in your R package by running <code>devtools::use_testthat()</code>.</p>
+<p>As a template, save the following script in a file called <code>test_square</code>.</p>
+<pre><code>context(&quot;Squaring non-numerics&quot;)
+
+test_that(&quot;At least numeric values work.&quot;, {
+    num_vec &lt;- c(0, -4.6, 3.4)
+    expect_identical(square(numeric(0)), numeric(0))
+    expect_identical(square(num_vec), num_vec^2)
+})
+
+test_that(&quot;Logicals automatically convert to numeric.&quot;, {
+    logic_vec &lt;- c(TRUE, TRUE, FALSE)
+    expect_identical(square(logic_vec), logic_vec^2)
+})</code></pre>
+<p>Then, you can execute those tests by running <code>devtools::test()</code>, or clicking <code>Build</code> -&gt; <code>Test package</code>.</p>
+<p>These sanity checks are very important as your R package becomes more complex!</p>
+</div>
+</div>
+<div id="exercise-1" class="section level2">
+<h2>Exercise</h2>
+<ul>
+<li>Edit your DESCRIPTION file. Make sure things run smoothly when you <code>Check</code> the R package.</li>
+<li>Move the <code>numeric(0)</code> test to a new file, under a new context.</li>
+<li>Extend the tests to include your <code>cube</code> function.</li>
+</ul>
+<p>Done early? Work on your Homework 9 R package.</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

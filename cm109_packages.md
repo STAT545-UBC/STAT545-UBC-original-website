@@ -11,18 +11,13 @@ output:
 
 - About me; my office hours (different this week).
 - [Homework 8 Build a Shiny app](hw08_shiny.html) is due by tonight.
-- [Homework 9 Build an R package] is posted.
+- [Homework 9 Build an R package](hw09_package.html) is posted.
 
-#### Today
+#### Today (and next time)
 
-Today and tomorrow will work as follows:
+We'll go through the [tutorial](cm109-110-notes_and_exercises.html), which is a "lecture template" of the more comprehensive [tutorial by Jenny Bryan](packages06_foofactors-package.html).
 
-- I'll provide periodic instruction where I introduce something new, and allow for class discussion. 
-- In between, you'll be devloping an R package.
-
-In case you're ahead of the class and have time, you should work on Homework 09, which involves making or upgrading an R package.
-
-Tutorial: do some of http://stat545.com/packages06_foofactors-package.html
+During exercise periods, in case you're ahead of the class and have time, you should work on [Homework 9](hw09_package.html).
 
 #### Resources
 
