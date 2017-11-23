@@ -54,6 +54,12 @@ Ideas for more `foofactor` functions to write:
   - write a version of `factor()` that sets levels to the order in which they appear in the data, i.e. set the levels "as is"
   - functions to write and read data frames to plain text delimited files while retaining factor levels; maybe by writing/reading a companion file?
 
+Ideas for more `powers` functions to write:
+
+  - Maybe put another family of transforms via the Box-Cox transform.
+  - Maybe something related to logarithms (and/or Box-Cox inverses).
+  - Add special features to your functions, like maybe an `na.omit` option that removes `NA`s. Or perhaps it handles strings in a different way that doesn't throw an error (also gives you a chance to import a package like `stringr`).
+
 A general idea for advanced R packages is to develop an S3 Object Oriented (OO) R package (see [this reference](http://adv-r.had.co.nz/OO-essentials.html)). Be warned, though, that this may be a time sink, so is only for the super-eager (you can still get check-plus if you don't do this).
 
 ### Due date
