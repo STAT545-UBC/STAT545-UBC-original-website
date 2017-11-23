@@ -20,8 +20,8 @@
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
-<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="libs/highlightjs-1.1/highlight.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,10 +40,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -147,22 +149,23 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#cm110-2017-11-23-thursday-overview">cm110 2017-11-23 Thursday overview</a></li>
+<li><a href="#cm110-2017-11-23-thursday-overview">cm110 2017-11-23 Thursday overview</a><ul>
+<li><a href="#today">Today</a></li>
+</ul></li>
 </ul>
 </div>
 
 <div id="cm110-2017-11-23-thursday-overview" class="section level3">
 <h3>cm110 2017-11-23 Thursday overview</h3>
+<div id="today" class="section level4">
+<h4>Today</h4>
+<p>Continuation of last time. We’ll be working from the same files as last time. Links:</p>
 <ul>
-<li><a href="hw08_shiny.html">Homework 8 Build a Shiny app</a> is posted and due anytime Friday 2017-11-24. Recall you just need to do at least two of the last four homeworks.</li>
-<li>This weeks is about building R packages!
-<ul>
-<li><a href="packages00_index.html">Landing page for all package-building material</a></li>
-<li><a href="packages01_system-prep.html">System prep</a></li>
-<li><a href="packages04_foofactors-package-01.html">Write your own R package, Part One</a></li>
-<li><a href="packages05_foofactors-package-02.html">Write your own R package, Part Two</a></li>
-</ul></li>
+<li><a href="cm109-110-notes_and_exercises.html">Lecture tutorial</a> – updated to include more.</li>
+<li><a href="packages06_foofactors-package.html">Comprehensive tutorial</a> by Jenny Bryan.</li>
 </ul>
+<p>As last time, if you are ahead of the class, add more stuff to your R package for <a href="hw09_package.html">Homework 9</a>, and we’ll be around to help you with any questions you have.</p>
+</div>
 </div>
 
 <div class="footer">
