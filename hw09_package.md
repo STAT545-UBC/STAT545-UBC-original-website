@@ -18,7 +18,7 @@ In class we developed a package and showed how to
   * edit the `DESCRIPTION` file of package metadata
   * specify a LICENSE
   * document and export the functions via `roxygen2` comments
-  * document the package itself via `use_package()`
+  * document the package itself via `use_package_doc()`
   * create documentation and manage the `NAMESPACE` file via `document()`
   * use `testthat` to implement unit testing
   * use a function from another package via `use_package()` and syntax like `otherpkg::foofunction()`
