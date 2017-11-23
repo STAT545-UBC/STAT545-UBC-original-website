@@ -99,3 +99,24 @@ Check: Shiny app runs. The `README` file describes either a new app or 3+ additi
 Check plus: Amazing Shiny app. Lots of new features or a very cool new app idea. App looks great visually. App is deployed on a Shiny Server instead of on shinyapps.io.
 
 Recall the [general homework rubric](http://stat545-ubc.github.io/peer-review01_marking-rubric.html).
+
+## Peer Review
+
+
+The peer review is ready and is due __November 24, 2017__ (before midnight)! Here's what you'll need to do:
+
+0. Find your github username in the table below. If it's not there, let Giulio know! Slack me `@giulio`.
+1. Add the _people who will be giving you a review_ as collaborators to the repo containing your homework submission.
+2. Give a review of this homework for the two people you've been assigned to. There should be an issue in their repo titled something like `hw0x ready for grading` -- put your review in there as a comment.
+    - If there is no such issue, make one! (in _their_ repo)
+    - Please don't mix up your reviewers and reviewees!
+
+** If you were assigned to a MISSING repo, please contact me @gvdr **
+
+** If you did not yet communicate me your github handle, please do **
+
+Check out the [guidelines for giving a peer review](http://stat545.com/peer-review02_peer-evaluation-guidelines.html).
+
+```{r, results='as.is', echo=FALSE}
+knitr::kable(read.csv("hw08-peer_review.csv"))
+```
