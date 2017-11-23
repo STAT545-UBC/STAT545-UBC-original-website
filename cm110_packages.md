@@ -15,3 +15,5 @@ Continuation of last time. We'll be working from the same files as last time. Li
 - [Comprehensive tutorial](packages06_foofactors-package.html) by Jenny Bryan. 
 
 As last time, if you are ahead of the class, add more stuff to your R package for [Homework 9](hw09_package.html), and we'll be around to help you with any questions you have. 
+
+The final `powers` package can be found on [my github page](https://github.com/vincenzocoia/powers).
