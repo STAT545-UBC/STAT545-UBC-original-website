@@ -12,12 +12,12 @@ output:
 There are three ways to get data from the internet into R:
 
   * Make API queries "by hand" using httr.
-  * Use an R package that wraps an API, such as the many from [rOpenSci](https://ropensci.org).
-  * Scrape the web.
+  * Use an R package that wraps an API, such as the many from [rOpenSci](https://ropensci.org). 
+  * Scrape the web. **<- this is the one we saw in class so far**
 
-Pick one of the exercises below. At least one prompt is given for each of the above approaches.
+Pick (at least) one of the exercises below. At least one prompt is given for each of the above approaches.
 
-**Due date: Friday 09 December 2016.**
+**Due date: Monday 04 December 2017.**
 
 ## General requirements
 
@@ -41,11 +41,11 @@ Reporting
 
 ## Make API queries "by hand" using httr.
 
-Create a dataset with multiple records by requesting data from an API using the httr package.
+Create a dataset with multiple records by requesting data from an API using the `httr` package.
 
 Inspiration for APIs to call
 
-  * From in-class activities:
+  * From in-class activities (we'll see this in the next lecture):
     - Star Wars API: <https://swapi.co>
     - API of Ice and Fire: <https://anapioficeandfire.com>
     - OpenWeatherMap: <https://openweathermap.org/api>

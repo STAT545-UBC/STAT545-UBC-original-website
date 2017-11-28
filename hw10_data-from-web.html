@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -61,9 +61,9 @@ h6 {
 }
 </style>
 
-<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
-<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/main.css" />
+<link rel="stylesheet" href="libs/local/nav.css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
 
 </head>
 
@@ -144,18 +144,18 @@ $(document).ready(function () {
 </ul>
 </div>
 
-<div id="big-picture" class="section level2">
+<section id="big-picture" class="level2">
 <h2>Big picture</h2>
 <p>There are three ways to get data from the internet into R:</p>
 <ul>
 <li>Make API queries “by hand” using httr.</li>
 <li>Use an R package that wraps an API, such as the many from <a href="https://ropensci.org">rOpenSci</a>.</li>
-<li>Scrape the web.</li>
+<li>Scrape the web. <strong>&lt;- this is the one we saw in class so far</strong></li>
 </ul>
-<p>Pick one of the exercises below. At least one prompt is given for each of the above approaches.</p>
-<p><strong>Due date: Friday 09 December 2016.</strong></p>
-</div>
-<div id="general-requirements" class="section level2">
+<p>Pick (at least) one of the exercises below. At least one prompt is given for each of the above approaches.</p>
+<p><strong>Due date: Monday 04 December 2017.</strong></p>
+</section>
+<section id="general-requirements" class="level2">
 <h2>General requirements</h2>
 <p>Reproducibility</p>
 <ul>
@@ -175,13 +175,13 @@ $(document).ready(function () {
 <li>Do, or at least, report your work in an R Markdown document.</li>
 <li>What was most difficult? What are you most excited about in your future of getting data from the web? What questions did this raise in your mind?</li>
 </ul>
-</div>
-<div id="make-api-queries-by-hand-using-httr." class="section level2">
+</section>
+<section id="make-api-queries-by-hand-using-httr." class="level2">
 <h2>Make API queries “by hand” using httr.</h2>
-<p>Create a dataset with multiple records by requesting data from an API using the httr package.</p>
+<p>Create a dataset with multiple records by requesting data from an API using the <code>httr</code> package.</p>
 <p>Inspiration for APIs to call</p>
 <ul>
-<li>From in-class activities:
+<li>From in-class activities (we’ll see this in the next lecture):
 <ul>
 <li>Star Wars API: <a href="https://swapi.co" class="uri">https://swapi.co</a></li>
 <li>API of Ice and Fire: <a href="https://anapioficeandfire.com" class="uri">https://anapioficeandfire.com</a></li>
@@ -194,25 +194,25 @@ $(document).ready(function () {
 </ul></li>
 </ul>
 <p><code>GET()</code> data from the API and convert it into a clean and tidy data frame. Store that as a file ready for (hypothetical!) downstream analysis. Do just enough basic exploration of the resulting data, possibly including some plots, that you and a reader are convinced you’ve successfully downloaded and cleaned it.</p>
-<p>Take as many of these opportunities as you can justify to make your task more interesting and realistic, to use techniques from elsewhere in the course (esp. nested list processing with purrr), and to gain experience with more sophisticated usage of httr.</p>
+<p>Take as many of these opportunities as you can justify to make your task more interesting and realistic, to use techniques from elsewhere in the course (esp. nested list processing with purrr), and to gain experience with more sophisticated usage of httr.</p>
 <ul>
 <li>Get multiple items via the API (i.e. an endpoint that returns multiple items at once) vs. use an iterative framework in R.</li>
 <li>Traverse pages.</li>
 <li>Send an authorization token. <em>The <a href="https://developer.github.com/v3/">GitHub API</a> is definitely good one to practice with here.</em></li>
 <li>Use httr’s facilities to modify the URL and your request, e.g., query parameters, path modification, custom headers.</li>
 </ul>
-</div>
-<div id="scrape-data" class="section level2">
+</section>
+<section id="scrape-data" class="level2">
 <h2>Scrape data</h2>
 <p>Work through the <a href="https://github.com/ropensci/user2016-tutorial/blob/master/03-scraping-data-without-an-api.pdf">final set of slides</a> from the <a href="https://github.com/ropensci/user2016-tutorial#readme">rOpenSci UseR! 2016 workshop</a>. This will give you basic orientation, skills, and pointers on the rvest package.</p>
 <p>Scrape a multi-record dataset off the web! Convert it into a clean and tidy data frame. Store that as a file ready for (hypothetical!) downstream analysis. Do just enough basic exploration of the resulting data, possibly including some plots, that you and a reader are convinced you’ve successfully downloaded and cleaned it.</p>
 <p>I think it’s dubious to scrape data that is available through a proper API, so if you do that anyway … perhaps you should get the data both ways and reflect on the comparison. Also, make sure you not violating a site’s terms of service or your own ethical standards with your webscraping. Just because you can, it doesn’t mean you should!</p>
-</div>
-<div id="use-an-r-package-that-wraps-an-api" class="section level2">
+</section>
+<section id="use-an-r-package-that-wraps-an-api" class="level2">
 <h2>Use an R package that wraps an API</h2>
 <p>Many APIs have purpose-built R packages that make it even easier to get data from them.</p>
 <p>If you choose one of these options, then you need to go further and combine two datasets, at least one of which is from the web.</p>
-<div id="specific-ideas" class="section level3">
+<section id="specific-ideas" class="level3">
 <h3>Specific ideas</h3>
 <p>These were developed in 2015 by TA Andrew MacDonald</p>
 <p><strong>Prompt 1</strong>: Combine <a href="https://github.com/jennybc/gapminder"><code>gapminder</code></a> and data from <a href="http://www.geonames.org/"><code>geonames</code></a>. Install the <code>geonames</code> package (on <a href="https://cran.r-project.org/web/packages/geonames/index.html">CRAN</a>, on <a href="https://github.com/ropensci/geonames">GitHub</a>). Make a user account and use <code>geonames</code> to access data about the world’s countries. Use data from <code>geonames</code> and <code>gapminder</code> to investigate either of these questions:</p>
@@ -237,13 +237,13 @@ ggplot(subset(gapminder, continent != &quot;Oceania&quot;),
 <li><code>rebird</code> and <code>geonames</code> – Do countries with more bird species also have more languages?</li>
 </ul>
 <p><strong>Prompt x</strong>: Look through the rOpenSci <a href="http://ropensci.org/packages/">packages list</a> and/or the <a href="https://cran.r-project.org/web/views/WebTechnologies.html">CRAN Task View on Web Technologies and Services</a>, find other wrapped APIs that interest you, and remix those instead.</p>
-</div>
-</div>
-<div id="rubric" class="section level2">
+</section>
+</section>
+<section id="rubric" class="level2">
 <h2>Rubric</h2>
 <p>Recall the <a href="http://stat545-ubc.github.io/peer-review01_marking-rubric.html">general homework rubric</a>.</p>
 <p>Peers and/or TAs will run the code and try to get the same output. You’ll be evaluated on the clarity and robustness of your workflow.</p>
-</div>
+</section>
 
 <div class="footer">
 This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
@@ -271,7 +271,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
