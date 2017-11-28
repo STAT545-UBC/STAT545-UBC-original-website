@@ -1,0 +1,274 @@
+---
+title: "Scraping and Sentiment with R"
+author: "gvdr"
+output: html_document
+---
+
+![](https://i.ytimg.com/vi/8_5TCqHVEW8/maxresdefault.jpg)
+
+
+
+We are starting in this lecture, and end in the next one.
+
+The goal is to build a little collection of songs from our own preferred artist. Let's say, it's _Straight Line Stitch_ (they are great!). A little kicker for the [morning](https://www.youtube.com/watch?v=4_5VAKdHMek).
+
+
+The **highly suggested** browser (or, at least, the one that I'll be using) is [Firefox](https://www.mozilla.org/en-US/firefox/developer/), the developer edition.
+
+## Packages
+
+> Don't be afraid of the dark you're still held up by the stars
+
+
+We are going to use a bunch of the usual packages:
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(magrittr)
+library(purrr)
+library(glue)
+library(stringr)
+```
+
+
+and introduce a new one:
+
+```{r message=FALSE, warning=FALSE}
+library(rvest)
+library(xml2)
+```
+
+which is meant explicitly to scrape stuff from a webpage. We are going to use a couple more in the bonus section, if we get there.
+
+## The lyrics
+
+We are going to extract the lyrics from here: https://www.musixmatch.com/ . Chose it because it's rather consistent, and it's from Bologna, Italy (yeah!).
+
+The webiste offers the first 15 lyrics up front. That will do for the moment (and fixing that is not that easy). Let's take a look [here](https://www.musixmatch.com/artist/Straight-Line-Stitch#).
+
+## Titles
+
+First thing first, we would like to get a list of those title. Let's see how.
+
+```{r}
+url_titles <- "https://www.musixmatch.com/artist/Straight-Line-Stitch#"
+
+page_title <- read_html(url_titles)
+```
+
+
+Now, what is this `page_title` object?
+
+let's see:
+
+```{r}
+page_title
+```
+
+OK. It's a document. Thanks. And it's an XML document. That's sort of html. We'll handle it with `xml2` and `rvest`. Let's see a bit more of that page.
+
+```{r}
+page_title %>% html_structure()
+```
+
+Wait, whaaaaaat?
+
+![](https://media.giphy.com/media/ZkEXisGbMawMg/giphy.gif)
+
+To the browser! Look at that "class" tags: they are _css selectors_, and we will use them as handles to navigate into the extremely complex list that we get from a web page.
+
+Sometimes, we can be lucky. For example, the css selector for the titles are in the class ".title". Let's see.
+
+```{r}
+page_title %>%
+  html_nodes(".title")
+```
+
+That's still quite a mess: we have too much stuff, such as some links (called "href") and more text than we need. Let's clean it up with `html_text()`
+
+
+```{r}
+page_title %>%
+  html_nodes(".title") %>%
+  html_text()
+```
+
+Wundebar! Now we have 15 song titles. But we want the lyrics! Let's do better.
+
+```{r}
+SLS_df <- data_frame(Band = "Straight Line Stitch",
+                     Title = page_title %>%
+                       html_nodes(".title") %>%
+                       html_text())
+```
+
+
+Now we are going to use a bit of string magic
+
+```{r}
+
+SLS_lyrics <- SLS_df %>% mutate(Link = glue('https://www.musixmatch.com/lyrics/{Band}/{Title}') %>%
+                           str_replace_all(" ","-"))
+```
+
+It seems it works.
+
+
+There is a better trick to do this job. If we look again at what we get when we select the `.title` you may see that the _actual_ link is there, coded as `href`. Can we extract that? Yes we can!
+
+```{r}
+page_title %>%
+  html_nodes(".title") %>%
+  html_attrs() %>%
+  glimpse()
+```
+
+In particular, we want the element called `href`. Hey, we can get that with `map`!
+
+```{r}
+page_title %>%
+  html_nodes(".title") %>%
+  html_attrs() %>%
+  map_chr("href")
+```
+
+Or, even better, by letting `rves` do the job for us:
+
+```{r}
+page_title %>%
+  html_nodes(".title") %>%
+  html_attr("href")
+```
+
+
+```{r}
+SLS_df %<>%
+  mutate(Link = page_title %>%
+  html_nodes(".title") %>%
+  html_attr("href"))
+```
+
+
+Cool, we don't gain much in terms of line of code, but it will be usefull later!
+
+## And `purrr`!
+
+Cool, now we want to put grab all lyrics. Let's start with one at a time. What is the url we want?
+
+```{r}
+url_song <- glue("https://www.musixmatch.com{SLS_df$Link[1]}")
+
+url_song
+```
+
+And let's grab the lyrics for that song. The content is marked by a css selector called "p.mxm-lyrics__content". That stands for "p", an object of class paragraph, plus "mxm-lyrics__content", the specific class for the lyrics.
+
+```{r}
+url_song %>%
+  read_html() %>%
+  html_nodes(".mxm-lyrics__content") %>%
+  html_text()
+```
+
+Ach, notice that it comes in different blocks: one for each section of text, broken by the advertisment. Well, we can just `collapse()` them together with `glue`. As we are doing this, let's turn that flow into a function:
+
+```{r}
+get_lyrics <- function(link){
+  glue("https://www.musixmatch.com{link}") %>%
+   read_html() %>%
+   html_nodes(".mxm-lyrics__content") %>%
+   html_text() %>%
+   collapse(sep = "\n") %>%
+    return()
+}
+```
+
+Let's test it!
+
+```{r}
+SLS_df$Link[3] %>%
+  get_lyrics()
+```
+
+Now we can use purrr to map that function over our dataframe!
+
+```{r}
+SLS_df %<>%
+  mutate(Lyrics = map_chr(Link, get_lyrics))
+```
+
+Ok, here we were quite lucky, as all the links were right. In general we may want to play safe, and use a `possibly` wrapper so not to have to stop everything in case something bad happens.
+
+## The flow
+
+**Explore, try, test, automatize, test.**
+
+Scraping data from the web will require a lot of trial and error. In general, I like this flow: I explore the pages that I want to scrape, trying to identify patterns that I can exploit. Then I try, on a smaller subset, and I test if it worked. Then I automatize it, using `purrr` or something similar. And finally some more testing.
+
+## Another Artist
+
+Let's do this for Angel Haze. Notice that here we **have** to use the attributes from the web page, as the name of the authors of the lyrics is not always the same (the `glue` approach would fail).
+
+```{r}
+AH_url <- "https://www.musixmatch.com/artist/Angel-Haze"
+
+AH_lyrics <- data_frame(Band = "Angel Haze",
+                        
+                         Title = AH_url %>%
+                          read_html() %>%
+                           html_nodes(css = ".title") %>%
+                           html_text(),
+                        
+                         Link = AH_url %>%
+                          read_html() %>%
+                           html_nodes(css = ".title") %>%
+                          html_attr("href")
+                        )
+```
+
+**WE ARRIVED PRETTY MUCH HERE IN CLASS**
+
+### Bonus: sentiment analysis
+
+The idea is to attribute to each word a score, expressing wether it's more negative and positive, and then to sum up. To do this, we are going to use Julia Silge's _Tidytext_ library and a _vocabulary_ of words for which we have the scores (there are different options, we are using "afinn").
+
+```{r}
+library(tidytext)
+afinn <- get_sentiments("afinn")
+```
+
+Now, a bit of massaging: we breaks the lyrics into their words, remove the words that are considered not interesting (they are called "stop words"), stitch the dataframe to the scoress from afinn, and do the math for each song.
+
+```{r}
+SLS_df %>%
+  unnest_tokens(word, Lyrics) %>% #split words
+  anti_join(stop_words, by = "word") %>% #remove dull words
+  inner_join(afinn, by = "word") %>% #stitch scores
+  group_by(Title) %>% #and for each song
+  summarise(Length = n(), #do the math
+    Score = sum(score)/Length) %>%
+  arrange(-Score)
+```
+
+So, what was the most positive song?
+
+```{r}
+SLS_df %>%
+  filter(Title == "Promise Me") %$%
+  Lyrics %>%
+  glue()
+```
+
+
+## What about the rest?
+
+We want to do it also for other artists. Best things is to turn some of those scripts into functions. Let's try with a _A Tribe Called Red_ and _Angel Haze_ (I picked them 'cause they are great, and also because they will show some limitations of the code I'm interested to tackle).
+
+When we are about to do something over over, it's better to write functions. So, let's do it!
+
+### Challenge 
+
+Another singer you should, should, should listen to is _Militia Vox_. Try to replicate our work with her lyrics. What's the problem? 
+
+
+note: this is loosely inspired by Max Humber's [post](https://www.r-bloggers.com/fantasy-hockey-with-rvest-and-purrr/) and David Laing's post [here](https://laingdk.github.io/kendrick-lamar-data-science/).
