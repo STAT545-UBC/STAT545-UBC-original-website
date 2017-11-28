@@ -21,8 +21,8 @@
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
-<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="libs/highlightjs-1.1/highlight.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -41,10 +41,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlightingOnLoad(); }, 0);
+  }
 }
 </script>
 
@@ -172,7 +174,6 @@ $(document).ready(function () {
 <li>The dplyr vignette on <a href="http://dplyr.tidyverse.org/articles/two-table.html">Two-table verbs</a></li>
 <li>The <a href="http://r4ds.had.co.nz/relational-data.html">Relational data chapter</a> in <a href="http://r4ds.had.co.nz">R for Data Science</a>. Excellent diagrams.</li>
 </ul>
-<p><em>I know the formatting of the join results is hideous and I am filled with self-loathing. I welcome any low-tech pull request or easy-to-implement suggestion to improve it.</em></p>
 </div>
 <div id="the-data" class="section level4">
 <h4>The data</h4>
@@ -218,7 +219,7 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 #&gt; 5    Joker       bad   male        DC       1934
 #&gt; 6 Catwoman       bad female        DC       1934</code></pre>
 <p>We lose Hellboy in the join because, although he appears in <code>x = superheroes</code>, his publisher Dark Horse Comics does not appear in <code>y = publishers</code>. The join result has all variables from <code>x = superheroes</code> plus <code>yr_founded</code>, from <code>y</code>.</p>
-<table border="1">
+<table style="font-size:14px" class="table table-bordered">
 <tr>
 <td valign="top">
 <p>superheroes</p>
@@ -380,7 +381,7 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 #&gt; 5    Joker       bad   male        DC
 #&gt; 6 Catwoman       bad female        DC</code></pre>
 <p>We get a similar result as with <code>inner_join()</code> but the join result contains only the variables originally found in <code>x = superheroes</code>. But note the row order has changed.</p>
-<table border="1">
+<table style="font-size:14px" class="table table-bordered">
 <tr>
 <td valign="top">
 <p>superheroes</p>
@@ -536,7 +537,7 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 #&gt; 6 Catwoman       bad female                DC       1934
 #&gt; 7  Hellboy      good   male Dark Horse Comics         NA</code></pre>
 <p>We basically get <code>x = superheroes</code> back, but with the addition of variable <code>yr_founded</code>, which is unique to <code>y = publishers</code>. Hellboy, whose publisher does not appear in <code>y = publishers</code>, has an <code>NA</code> for <code>yr_founded</code>.</p>
-<table border="1">
+<table style="font-size:14px" class="table table-bordered">
 <tr>
 <td valign="top">
 <p>superheroes</p>
@@ -700,7 +701,7 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 #&gt;     &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;             &lt;chr&gt;
 #&gt; 1 Hellboy      good   male Dark Horse Comics</code></pre>
 <p>We keep <strong>only</strong> Hellboy now (and do not get <code>yr_founded</code>).</p>
-<table border="1">
+<table style="font-size:14px" class="table table-bordered">
 <tr>
 <td valign="top">
 <p>superheroes</p>
@@ -825,7 +826,7 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 #&gt; 5    Marvel       1939    Storm      good female
 #&gt; 6    Marvel       1939 Mystique       bad female</code></pre>
 <p>In a way, this does illustrate multiple matches, if you think about it from the <code>x = publishers</code> direction. Every publisher that has a match in <code>y = superheroes</code> appears multiple times in the result, once for each match. In fact, we’re getting the same result as with <code>inner_join(superheroes, publishers)</code>, up to variable order (which you should also never rely on in an analysis).</p>
-<table border="1">
+<table style="font-size:14px" class="table table-bordered">
 <tr>
 <td valign="top">
 <p>publishers</p>
@@ -983,7 +984,7 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 #&gt; 1        DC       1934
 #&gt; 2    Marvel       1939</code></pre>
 <p>Now the effects of switching the <code>x</code> and <code>y</code> roles is more clear. The result resembles <code>x = publishers</code>, but the publisher Image is lost, because there are no observations where <code>publisher == &quot;Image&quot;</code> in <code>y = superheroes</code>.</p>
-<table border="1">
+<table style="font-size:14px" class="table table-bordered">
 <tr>
 <td valign="top">
 <p>publishers</p>
@@ -1109,7 +1110,7 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 #&gt; 6    Marvel       1939 Mystique       bad female
 #&gt; 7     Image       1992     &lt;NA&gt;      &lt;NA&gt;   &lt;NA&gt;</code></pre>
 <p>We get a similar result as with <code>inner_join()</code> but the publisher Image survives in the join, even though no superheroes from Image appear in <code>y = superheroes</code>. As a result, Image has <code>NA</code>s for <code>name</code>, <code>alignment</code>, and <code>gender</code>.</p>
-<table border="1">
+<table style="font-size:14px" class="table table-bordered">
 <tr>
 <td valign="top">
 <p>publishers</p>
@@ -1273,8 +1274,7 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 #&gt;       &lt;chr&gt;      &lt;int&gt;
 #&gt; 1     Image       1992</code></pre>
 <p>We keep <strong>only</strong> publisher Image now (and the variables found in <code>x = publishers</code>).</p>
-<table border = 1>
-<tr>
+<table style="font-size:14px" class="table table-bordered">
 <tr>
 <td valign="top">
 <p>publishers</p>
@@ -1397,7 +1397,7 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 #&gt; 7  Hellboy      good   male Dark Horse Comics         NA
 #&gt; 8     &lt;NA&gt;      &lt;NA&gt;   &lt;NA&gt;             Image       1992</code></pre>
 <p>We get all rows of <code>x = superheroes</code> plus a new row from <code>y = publishers</code>, containing the publisher Image. We get all variables from <code>x = superheroes</code> AND all variables from <code>y = publishers</code>. Any row that derives solely from one table or the other carries <code>NA</code>s in the variables found only in the other table.</p>
-<table border="1">
+<table style="font-size:14px" class="table table-bordered">
 <tr>
 <td valign="top">
 <p>superheroes</p>
