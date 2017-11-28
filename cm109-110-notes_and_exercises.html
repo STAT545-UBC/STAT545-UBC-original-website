@@ -161,10 +161,22 @@ $(document).ready(function () {
 </ul></li>
 <li><a href="#exercise">Exercise</a></li>
 <li><a href="#wave-2-more-documentation-and-testing">Wave 2: More documentation, and testing</a><ul>
-<li><a href="#description-file">DESCRIPTION file</a></li>
-<li><a href="#testing-with-testthat">Testing with <code>testthat</code></a></li>
+<li><a href="#description-file">2.1 DESCRIPTION file</a></li>
+<li><a href="#testing-with-testthat">2.2 Testing with <code>testthat</code></a></li>
 </ul></li>
 <li><a href="#exercise-1">Exercise</a></li>
+<li><a href="#wave-3-higher-level-user-documentation">Wave 3: Higher-level User Documentation</a><ul>
+<li><a href="#package-documentation">3.1 Package Documentation</a></li>
+<li><a href="#vignettes">3.2 Vignettes</a></li>
+<li><a href="#readme">3.3 README</a></li>
+</ul></li>
+<li><a href="#exercises">Exercises</a></li>
+<li><a href="#wave-4">Wave 4</a><ul>
+<li><a href="#dependencies">4.1 Dependencies</a></li>
+<li><a href="#adding-data-to-your-r-package">4.2 Adding data to your R package</a></li>
+<li><a href="#launching-your-package-to-github">4.3 Launching your Package to GitHub</a></li>
+</ul></li>
+<li><a href="#exercise-2">Exercise</a></li>
 </ul>
 </div>
 
@@ -269,7 +281,7 @@ $(document).ready(function () {
 <div id="wave-2-more-documentation-and-testing" class="section level2">
 <h2>Wave 2: More documentation, and testing</h2>
 <div id="description-file" class="section level3">
-<h3>DESCRIPTION file</h3>
+<h3>2.1 DESCRIPTION file</h3>
 <p>Every R package has this. It contains the package’s metadata. Let’s edit it:</p>
 <ul>
 <li>Add a title and brief description.
@@ -284,7 +296,7 @@ $(document).ready(function () {
 </ul>
 </div>
 <div id="testing-with-testthat" class="section level3">
-<h3>Testing with <code>testthat</code></h3>
+<h3>2.2 Testing with <code>testthat</code></h3>
 <p>We’ve already seen package <code>Check</code>s – this checks that the pieces of your R package are in place, and that even your examples don’t throw errors. We should not only check that our functions are <em>working</em>, but that they give us results that we’d <em>expect</em>.</p>
 <p>The <code>testthat</code> package is useful for this. Initialize it in your R package by running <code>devtools::use_testthat()</code>.</p>
 <p>As a template, save the following script in a file called <code>test_square</code>.</p>
@@ -312,6 +324,128 @@ test_that(&quot;Logicals automatically convert to numeric.&quot;, {
 <li>Extend the tests to include your <code>cube</code> function.</li>
 </ul>
 <p>Done early? Work on your Homework 9 R package.</p>
+</div>
+<div id="wave-3-higher-level-user-documentation" class="section level2">
+<h2>Wave 3: Higher-level User Documentation</h2>
+<div id="package-documentation" class="section level3">
+<h3>3.1 Package Documentation</h3>
+<p>Just like we do for functions, we can make a manual (<code>.Rd</code>) page for our entire R package, too. For example, check out the documentation for <code>ggplot2</code>:</p>
+<pre><code>?ggplot2         # Can execute only if `ggplot2` is loaded.
+package?ggplot2  # Always works.</code></pre>
+<p>To do so, just execute <code>devtools::use_package_doc()</code>. You’ll see a new R script come up with <code>roxygen2</code>-style documentation to <code>NULL</code>. Document as you’d do functions, and run <code>roxygen2::roxygenise()</code> or <code>devtools::document()</code> to generate the <code>.Rd</code> file.</p>
+<p>Here’s sample documentation:</p>
+<pre><code>#&#39; Convenient Computation of Powers
+#&#39;
+#&#39; Are you tired of using the power operator, \code{^} or \code{**} in R?
+#&#39; Use this package to call functions that apply common powers
+#&#39; to your vectors.
+#&#39;
+#&#39; @name powers
+#&#39; @author Vincenzo Coia
+#&#39; @note This package isn&#39;t actually meant to be serious. It&#39;s just for
+#&#39; teaching purposes.
+#&#39; @docType package</code></pre>
+</div>
+<div id="vignettes" class="section level3">
+<h3>3.2 Vignettes</h3>
+<p>It’s a good idea to write a vignette (or several) for your R package to show how the package is useful as a whole. Documentation for individual functions don’t suffice for this purpose!</p>
+<p>To write a vignette called <code>&quot;my_vignette&quot;</code>, just run</p>
+<pre><code>devtools::use_vignette(&quot;my_vignette&quot;)</code></pre>
+<p>Some things happen automatically, but it’s up to you to modify the <code>.Rmd</code> document to provide adequate instruction. Change the template to suit your package. The only real “catch” to doing this is <em>making sure the title is replaced in both instances</em>.</p>
+<p>Then just <code>Knit</code>, and then run <code>devtools::build_vignettes()</code> to build the vignettes.</p>
+<p><strong>Note</strong>: You’ll have to remove <code>inst/doc</code> from your <code>.gitignore</code> file that gets created, if you want to push it to github.</p>
+</div>
+<div id="readme" class="section level3">
+<h3>3.3 README</h3>
+<p>Just as most projects should have a <code>README</code> file in the main directory, so should an R package.</p>
+<p><strong>Purposes</strong>:</p>
+<ul>
+<li>Inform someone stumbling across your project what they’ve stumbled across.
+<ul>
+<li>At a high level (like “This is an R package”), but also</li>
+<li>somewhat at a lower level too, like your description file. This becomes a little redundant.</li>
+</ul></li>
+<li>I like to use the README to inform <em>developers</em> the main workflow and spirit behind <em>developing</em> the package.
+<ul>
+<li>There are some things that you’d want other potential developers to know about the package as a whole, yet are irrelevant to users!</li>
+</ul></li>
+</ul>
+<p><strong>How to do it</strong>:</p>
+<p>You could just make and edit a <code>README.md</code> file like normal. But you’ll probably want to briefly demonstrate some code, so you’ll need an <code>.Rmd</code>. Let <code>devtools</code> set that up for you:</p>
+<pre><code>devtools::use_readme_rmd()</code></pre>
+<p><code>knit</code> and you’re done!</p>
+</div>
+</div>
+<div id="exercises" class="section level2">
+<h2>Exercises</h2>
+<p>Create the above three types of documentation, without looking at <a href="https://github.com/vincenzocoia/powers">my version</a>. Then compare.</p>
+<p>Ideally, you’ll have more to document because you’ve been working on expanding this (or another) R package for Homework 9 already.</p>
+</div>
+<div id="wave-4" class="section level2">
+<h2>Wave 4</h2>
+<div id="dependencies" class="section level3">
+<h3>4.1 Dependencies</h3>
+<p>We can use functions from other R packages within our homemade R package, too. We need to do two things:</p>
+<ul>
+<li>Use the syntax <code>package_name::function_name()</code> whenever you want to use <code>function_name</code> from <code>package_name</code>.</li>
+<li>Indicate that your R package depends on <code>package_name</code> in the DESCRIPTION file by executing the command <code>devtools::use_package(&quot;package_name&quot;)</code>.</li>
+</ul>
+<p>There are other methods, but this is the easiest.</p>
+<p><strong>Example</strong>: Add <code>ggplot2</code> dependency to plot the resulting computations. Do so by adding a plot to <code>pow</code> – change <code>pow</code>’s guts to the following:</p>
+<pre><code>res &lt;- x^a
+p &lt;- ggplot2::qplot(x, res)
+print(p)
+return(res)</code></pre>
+<p><strong>Note</strong>: Here’s an example of the benefits of not having your functions do too much – I only needed to change <code>pow</code> alone to get the changes to work for <code>square</code> and <code>cube</code>.</p>
+</div>
+<div id="adding-data-to-your-r-package" class="section level3">
+<h3>4.2 Adding data to your R package</h3>
+<p>You can store <em>and document</em> datasets within R packages. Here’s one useful way.</p>
+<p><strong>Note</strong>: This currently doesn’t seem to be present in the companion tutorial from Jenny. Check out <a href="http://r-pkgs.had.co.nz/data.html">the R Packages “data chapter”</a> for a resource.</p>
+<p>In the console:</p>
+<ol style="list-style-type: decimal">
+<li>Store your data as R objects. Say you have two: <code>foo</code> and <code>bar</code>.</li>
+<li>Execute <code>devtools::use_data(foo, bar)</code>.</li>
+</ol>
+<p><code>foo</code> and <code>bar</code> will be saved as <code>.Rdata</code> files in the new <code>/data</code> directory. These are available upon loading the package.</p>
+<p>To document the data, for each object (i.e., for each of <code>foo</code> and <code>bar</code>), put <code>roxygen2</code>-style documentation above <em>the character</em> <code>&quot;foo&quot;</code> and <code>&quot;bar&quot;</code> in an R script in the <code>/R</code> folder.</p>
+<p><strong>Example</strong>:</p>
+<p>Add <code>tenvec</code> to the package:</p>
+<pre><code>tenvec &lt;- 1:10
+devtools::use_data(tenvec)</code></pre>
+<p>Then make a new R script in the <code>/R</code> folder containing:</p>
+<pre><code>#&#39; Integer vector from 1 to 10
+#&#39;
+#&#39; Self-explanatory!
+#&#39;
+#&#39; @format This (and the next) is a new tag that applies for data documentation.
+#&#39; @source Note that you shouldn&#39;t use the `@export` tag when documenting data!
+&quot;tenvec&quot;</code></pre>
+</div>
+<div id="launching-your-package-to-github" class="section level3">
+<h3>4.3 Launching your Package to GitHub</h3>
+<p>If I want to put an R package on GitHub, I typically just:</p>
+<ol style="list-style-type: decimal">
+<li>Click “New” in GitHub to make a new repo. Don’t initialize with README.</li>
+<li>Follow the instructions github provides, which involves two lines to execute in the terminal.
+<ul>
+<li>Those two lines can be found <a href="http://happygitwithr.com/existing-github-last.html#connect-to-github">here</a> in Jenny’s Happy git book.</li>
+</ul></li>
+</ol>
+<p>There is also the <a href="http://stat545.com/packages06_foofactors-package.html#use_github()"><code>devtools::use_github()</code> way</a> – although, to me, it seems overly complicated (perhaps there’s an advantage I don’t know about). It’s just a matter of following the instructions, which are not worth demonstrating here.</p>
+</div>
+</div>
+<div id="exercise-2" class="section level2">
+<h2>Exercise</h2>
+<p>Some things you might find value in trying:</p>
+<ul>
+<li>Make, store, and document more data – perhaps <code>negtenvec</code>, the negative of <code>tenvec</code>.</li>
+<li>Give the user an option as to whether they want to display the plot or not (hint: do so via function arguments).</li>
+<li>Try launching your package on github.
+<ul>
+<li>Please do make it public. R packages are meant to be viewed by the world! If it makes you feel more comfortable, put a disclaimer at the top of the README if you don’t want people to take it seriously.</li>
+</ul></li>
+</ul>
 </div>
 
 <div class="footer">
