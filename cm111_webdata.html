@@ -11,7 +11,7 @@
 
 
 
-<title></title>
+<title>cm111_webdata.utf8</title>
 
 <script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,8 +20,8 @@
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
-<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="libs/highlightjs-1.1/highlight.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,10 +40,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -76,9 +78,9 @@ h6 {
 }
 </style>
 
-<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
-<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/main.css" />
+<link rel="stylesheet" href="libs/local/nav.css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
 
 </head>
 
@@ -151,22 +153,19 @@ $(document).ready(function () {
 </ul>
 </div>
 
-<div id="cm111-2017-11-28-tuesday-overview" class="section level3">
+<section id="cm111-2017-11-28-tuesday-overview" class="level3">
 <h3>cm111 2017-11-28 Tuesday overview</h3>
 <ul>
 <li><a href="hw08_shiny.html">Homework 8 Build a Shiny app</a> should be submitted, if you are doing it, because today I will inspect the issues to determine who did it and deal with peer review.</li>
-<li><a href="hw09_package.html">Homework 9 Build your own R package</a> is due next Monday, December 4, if you do it.</li>
-<li><a href="hw10_data-from-web.html">Homework 10 Get data from the web</a> is due <strong>the following Friday, December 8</strong>, if you do it, because we need to finalize marks.
+<li><a href="hw09_package.html">Homework 9 Build your own R package</a> is due today.</li>
+<li><a href="hw10_data-from-web.html">Homework 10 Get data from the web</a> is due <strong>on Monday, December 4</strong>, if you do it, because we need to finalize marks.
 <ul>
 <li>For the homework, I’ll offer lots of prompts, including what you see in last year’s version, so you can choose to work with a wrapped or unwrapped API or webscraping.</li>
 </ul></li>
-<li>This week is about accessing data from the web from R. In class, we’ll be mostly following materials prepared by Karthik Ram and Scott Chamberlain (rOpenSci) and Garrett Grolemund (Rstudio):
-<ul>
-<li><a href="https://github.com/ropensci/user2016-tutorial" class="uri">https://github.com/ropensci/user2016-tutorial</a></li>
-<li><a href="https://github.com/rstudio/webinars/tree/master/31-Web-APIs" class="uri">https://github.com/rstudio/webinars/tree/master/31-Web-APIs</a></li>
-</ul></li>
+<li>This week is about accessing data from the web from R. In class, we’ll follow the material <span class="citation" data-cites="gvdr">@gvdr</span> prepared for you. You can follow it <a href="./ScrapingWorkthrough.md">here</a></li>
 </ul>
-</div>
+<p>Additional resources are the material prepared by Karthik Ram and Scott Chamberlain (rOpenSci) and Garrett Grolemund (Rstudio): - <a href="https://github.com/ropensci/user2016-tutorial" class="uri">https://github.com/ropensci/user2016-tutorial</a> - <a href="https://github.com/rstudio/webinars/tree/master/31-Web-APIs" class="uri">https://github.com/rstudio/webinars/tree/master/31-Web-APIs</a></p>
+</section>
 
 <div class="footer">
 This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
