@@ -20,8 +20,6 @@ Other great places to read about joins:
   * The dplyr vignette on [Two-table verbs](http://dplyr.tidyverse.org/articles/two-table.html)
   * The [Relational data chapter](http://r4ds.had.co.nz/relational-data.html) in [R for Data Science](http://r4ds.had.co.nz). Excellent diagrams.
   
-*I know the formatting of the join results is hideous and I am filled with self-loathing. I welcome any low-tech pull request or easy-to-implement suggestion to improve it.*
-  
 #### The data
 
 Working with two small data frames, `superheroes` and `publishers`.
