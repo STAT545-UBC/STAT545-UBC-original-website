@@ -1,5 +1,11 @@
-# Cheatsheet for dplyr join functions
-Jenny Bryan  
+---
+title: "Cheatsheet for dplyr join functions"
+author: "Jenny Bryan"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+---
 
 
 
@@ -11,8 +17,6 @@ Other great places to read about joins:
 
   * The dplyr vignette on [Two-table verbs](http://dplyr.tidyverse.org/articles/two-table.html)
   * The [Relational data chapter](http://r4ds.had.co.nz/relational-data.html) in [R for Data Science](http://r4ds.had.co.nz). Excellent diagrams.
-  
-*I know the formatting of the join results is hideous and I am filled with self-loathing. I welcome any low-tech pull request or easy-to-implement suggestion to improve it.*
   
 #### The data
 
@@ -71,7 +75,7 @@ We lose Hellboy in the join because, although he appears in `x = superheroes`, h
 
 
 
-<table border = 1>
+<table style="font-size:14px" class="table table-bordered">
 <tr>
 <td valign="top">
   superheroes
@@ -142,7 +146,7 @@ We get a similar result as with `inner_join()` but the join result contains only
 
 
 
-<table border = 1>
+<table style="font-size:14px" class="table table-bordered">
   <tr>
   <td valign="top">
   superheroes
@@ -214,7 +218,7 @@ We basically get `x = superheroes` back, but with the addition of variable `yr_f
 
 
 
-<table border = 1>
+<table style="font-size:14px" class="table table-bordered">
   <tr>
   <td valign="top">
   superheroes
@@ -281,7 +285,7 @@ We keep __only__ Hellboy now (and do not get `yr_founded`).
 
 
 
-<table border = 1>
+<table style="font-size:14px" class="table table-bordered">
   <tr>
   <td valign="top">
   superheroes
@@ -347,7 +351,7 @@ In a way, this does illustrate multiple matches, if you think about it from the 
 
 
 
-<table border = 1>
+<table style="font-size:14px" class="table table-bordered">
 <tr>
 <td valign="top">
   publishers
@@ -415,7 +419,7 @@ Now the effects of switching the `x` and `y` roles is more clear. The result res
 
 
 
-<table border = 1>
+<table style="font-size:14px" class="table table-bordered">
 <tr>
 <td valign="top">
 publishers
@@ -483,7 +487,7 @@ We get a similar result as with `inner_join()` but the publisher Image survives 
 
 
 
-<table border = 1>
+<table style="font-size:14px" class="table table-bordered">
 <tr>
 <td valign="top">
 publishers
@@ -550,8 +554,7 @@ We keep __only__ publisher Image now (and the variables found in `x = publishers
 
 
 
-<table border = 1>
-  <tr>
+<table style="font-size:14px" class="table table-bordered">
 <tr>
 <td valign="top">
 publishers
@@ -619,7 +622,7 @@ We get all rows of `x = superheroes` plus a new row from `y = publishers`, conta
 
 
 
-<table border = 1>
+<table style="font-size:14px" class="table table-bordered">
 <tr>
 <td valign="top">
   superheroes
