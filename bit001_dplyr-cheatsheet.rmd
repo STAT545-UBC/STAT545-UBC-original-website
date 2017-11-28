@@ -71,7 +71,7 @@ ijsp_kable <- knitr::kable(ijsp)
 ```
 
 
-<table border = 1>
+<table class="table table-bordered">
 <tr>
 <td valign="top">
   superheroes
@@ -102,7 +102,7 @@ We get a similar result as with `inner_join()` but the join result contains only
 sjsp_kable <- knitr::kable(sjsp)
 ```
 
-<table border = 1>
+<table class="table table-bordered">
   <tr>
   <td valign="top">
   superheroes
@@ -133,7 +133,7 @@ We basically get `x = superheroes` back, but with the addition of variable `yr_f
 ljsp_kable <- knitr::kable(ljsp)
 ```
 
-<table border = 1>
+<table class="table table-bordered">
   <tr>
   <td valign="top">
   superheroes
@@ -164,7 +164,7 @@ We keep __only__ Hellboy now (and do not get `yr_founded`).
 ajsp_kable <- knitr::kable(ajsp)
 ```
 
-<table border = 1>
+<table class="table table-bordered">
   <tr>
   <td valign="top">
   superheroes
@@ -195,7 +195,7 @@ In a way, this does illustrate multiple matches, if you think about it from the 
 ijps_kable <- knitr::kable(ijps)
 ```
 
-<table border = 1>
+<table class="table table-bordered">
 <tr>
 <td valign="top">
   publishers
@@ -227,7 +227,7 @@ sjps_kable <- knitr::kable(sjps)
 ```
 
 
-<table border = 1>
+<table class="table table-bordered">
 <tr>
 <td valign="top">
 publishers
@@ -258,7 +258,7 @@ We get a similar result as with `inner_join()` but the publisher Image survives 
 ljps_kable <- knitr::kable(ljps)
 ```
 
-<table border = 1>
+<table class="table table-bordered">
 <tr>
 <td valign="top">
 publishers
@@ -289,7 +289,7 @@ We keep __only__ publisher Image now (and the variables found in `x = publishers
 ajps_kable <- knitr::kable(ajps)
 ```
 
-<table border = 1>
+<table class="table table-bordered">
   <tr>
 <tr>
 <td valign="top">
@@ -321,7 +321,7 @@ We get all rows of `x = superheroes` plus a new row from `y = publishers`, conta
 fjsp_kable <- knitr::kable(fjsp)
 ```
 
-<table border = 1>
+<table class="table table-bordered">
 <tr>
 <td valign="top">
   superheroes
