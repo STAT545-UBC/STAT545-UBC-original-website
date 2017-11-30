@@ -17,7 +17,7 @@ There are three ways to get data from the internet into R:
 
 Pick (at least) one of the exercises below. At least one prompt is given for each of the above approaches.
 
-**Due date: Monday 04 December 2017.**
+**Due date: Thursday 07 December 2017.**
 
 ## General requirements
 

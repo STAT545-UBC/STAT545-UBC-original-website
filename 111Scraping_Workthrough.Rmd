@@ -1,7 +1,8 @@
 ---
-title: "Scraping and Sentiment with R"
-author: "gvdr"
-output: html_document
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
 ---
 
 ![](https://i.ytimg.com/vi/8_5TCqHVEW8/maxresdefault.jpg)
@@ -174,12 +175,19 @@ Ach, notice that it comes in different blocks: one for each section of text, bro
 
 ```{r}
 get_lyrics <- function(link){
-  glue("https://www.musixmatch.com{link}") %>%
+  
+  lyrics_chunks <- glue("https://www.musixmatch.com{link}#") %>%
    read_html() %>%
-   html_nodes(".mxm-lyrics__content") %>%
+   html_nodes(".mxm-lyrics__content")
+  
+  # we do a sanity check to see that there's something inside the lyrics!
+  stopifnot(length(lyrics_chunks) > 0)
+  
+  lyrics <- lyrics_chunks %>%
    html_text() %>%
-   collapse(sep = "\n") %>%
-    return()
+   collapse(sep = "\n")
+  
+  return(lyrics)
 }
 ```
 
@@ -187,7 +195,8 @@ Let's test it!
 
 ```{r}
 SLS_df$Link[3] %>%
-  get_lyrics()
+  get_lyrics() %>%
+  glue() # we paste into glue to get the nice formatting
 ```
 
 Now we can use purrr to map that function over our dataframe!
@@ -222,15 +231,14 @@ AH_lyrics <- data_frame(Band = "Angel Haze",
                          Link = AH_url %>%
                           read_html() %>%
                            html_nodes(css = ".title") %>%
-                          html_attr("href")
-                        )
+                          html_attr("href"),
+                        
+                        Lyrics = map_chr(Link,get_lyrics))
 ```
-
-**WE ARRIVED PRETTY MUCH HERE IN CLASS**
 
 ### Bonus: sentiment analysis
 
-The idea is to attribute to each word a score, expressing wether it's more negative and positive, and then to sum up. To do this, we are going to use Julia Silge's _Tidytext_ library and a _vocabulary_ of words for which we have the scores (there are different options, we are using "afinn").
+The idea is to attribute to each word a score, expressing wether it's more negative and positive, and then to sum up. To do this, we are going to use Julia Silge's and David Robinson's great [_Tidytext_](https://github.com/juliasilge/tidytext) library and a _vocabulary_ of words for which we have the scores (there are different options, we are using "afinn").
 
 ```{r}
 library(tidytext)
@@ -259,16 +267,145 @@ SLS_df %>%
   glue()
 ```
 
+And we can easily do the same with Angela Haze:
+
+```{r}
+AH_lyrics %>%
+  unnest_tokens(word, Lyrics) %>% #split words
+  anti_join(stop_words, by = "word") %>% #remove dull words
+  inner_join(afinn, by = "word") %>% #stitch scores
+  group_by(Title) %>% #and for each song
+  summarise(Length = n(), #do the math
+    Score = sum(score)/Length) %>%
+  arrange(-Score)
+```
+
+
+More resources about Sentiment Analysis (with Tidytext) are available [here](http://varianceexplained.org/r/yelp-sentiment/) and [here](http://www.jakubglinka.com/2017-03-01-text_mining_part1/).
 
 ## What about the rest?
 
-We want to do it also for other artists. Best things is to turn some of those scripts into functions. Let's try with a _A Tribe Called Red_ and _Angel Haze_ (I picked them 'cause they are great, and also because they will show some limitations of the code I'm interested to tackle).
+We want to do it also for other artists. Best things is to turn some of those scripts into functions. Let's try with _Billie Holiday_ and _A Tribe Called Red_ (I picked them 'cause they are great, and also because they will show some limitations of the code I'm interested to tackle).
 
 When we are about to do something over over, it's better to write functions. So, let's do it!
 
+```{r}
+get_words <- function(band_name){
+
+  # remove white space from band name
+  collapsed_name <- str_replace_all(band_name, " ", "-") 
+  
+  # define url to get the title and links
+  url <- glue("https://www.musixmatch.com/artist/{collapsed_name}")
+  
+  # read title page and extract the title chunks 
+  title_page <- url %>%
+    read_html() %>%
+    html_nodes(css = ".title")
+  
+  # and build the dataframe
+  lyrics <- data_frame(Band = band_name,
+                       # extract text title
+                       Title = title_page %>%
+                           html_text(),
+                       # extract title link
+                       Link =  title_page %>%
+                          html_attr("href"),
+                       # map to get lyrics
+                       Lyrics = map_chr(Link,get_lyrics))
+  
+  return(lyrics)
+}
+```
+
+And the sentiment analysis:
+
+```{r}
+get_soul <- function(Lyrics_df) {
+  Lyrics_df %>%
+    unnest_tokens(word, Lyrics) %>% #split words
+    #anti_join(stop_words, by = "word") %>% #remove dull words
+    inner_join(afinn, by = "word") %>% #stitch scores
+    group_by(Title) %>% #and for each song
+    summarise(Length = n(), #do the math
+      Score = sum(score)/Length) %>%
+    arrange(-Score) %>%
+    return()
+}
+```
+
+
+Let's see if it works:
+
+```{r}
+Billie_words <- "Billie Holiday" %>% get_words()
+Billie_sentiment <- Billie_words %>% get_soul()
+```
+
+Most positive song:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HxG6K59FUGQ" frameborder="0" allowfullscreen></iframe>
+
+and most negative
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EIgVCU19pjg" frameborder="0" allowfullscreen></iframe>
+
+It works for me! Let's finally with _A Tribe Called Red_.
+
+```{r, eval=FALSE}
+ATCR_words <- "A Tribe Called Red" %>% get_words()
+```
+
+Uuuh, we get an error now! What the problem? Where, let's try to see. Some of the songs do not have lyrics, yet! So, when we try to scrape this [page](https://www.musixmatch.com/lyrics/A-Tribe-Called-Red-ft-Black-Bear/Stadium-Pow-Wow) we get an error, as the text is not there.
+
+This is a rather common situation when scraping, as often what we are looking for is not there. Thus, we need a more safe approach. We can either write ad hoc `if ...else ...` statements, to control for the presence/absence of things, or (and it is better to do it anyhow) wrap our function into `purrr::possibly()` construct. We can do it by modifying just slightly our workflow. Notice that now we use `get_lyrics_safe()` inside the mapping instead of `get_lyrics()`.
+
+```{r}
+get_lyrics_safe <- purrr::possibly(get_lyrics,NA_character_)
+
+get_words <- function(band_name){
+
+  # remove white space from band name
+  collapsed_name <- str_replace_all(band_name, " ", "-") 
+  
+  # define url to get the title and links
+  url <- glue("https://www.musixmatch.com/artist/{collapsed_name}")
+  
+  # read title page and extract the title chunks 
+  title_page <- url %>%
+    read_html() %>%
+    html_nodes(css = ".title")
+  
+  # and build the dataframe
+  lyrics <- data_frame(Band = band_name,
+                       # extract text title
+                       Title = title_page %>%
+                           html_text(),
+                       # extract title link
+                       Link =  title_page %>%
+                          html_attr("href"),
+                       # map to get lyrics
+                       Lyrics = map_chr(Link,get_lyrics_safe))
+  
+  return(lyrics)
+}
+```
+
+Let's try again:
+
+```{r}
+ATCR_words <- "A Tribe Called Red" %>% get_words()
+```
+
+Much better.
+
+```{r}
+ATCR_sentiment <- ATCR_words %>% get_soul()
+```
+
+
 ### Challenge 
 
-Another singer you should, should, should listen to is _Militia Vox_. Try to replicate our work with her lyrics. What's the problem? 
+Another singer you should, should, should listen to is _Militia Vox_. Try to replicate our work with her lyrics. What's the problem? (If you think you get the answer, please discuss with me :-) )
 
 
-note: this is loosely inspired by Max Humber's [post](https://www.r-bloggers.com/fantasy-hockey-with-rvest-and-purrr/) and David Laing's post [here](https://laingdk.github.io/kendrick-lamar-data-science/).
+**note**: this workthrough is loosely inspired by Max Humber's [post](https://www.r-bloggers.com/fantasy-hockey-with-rvest-and-purrr/) and David Laing's post [here](https://laingdk.github.io/kendrick-lamar-data-science/). Great things are from them, errors are mine.
