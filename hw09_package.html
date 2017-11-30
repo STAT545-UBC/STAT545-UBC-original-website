@@ -78,9 +78,9 @@ h6 {
 }
 </style>
 
-<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
-<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/main.css" />
+<link rel="stylesheet" href="libs/local/nav.css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
 
 </head>
 
@@ -158,7 +158,7 @@ $(document).ready(function () {
 </ul>
 </div>
 
-<div id="what-we-have-already-done" class="section level3">
+<section id="what-we-have-already-done" class="level3">
 <h3>What we have already done</h3>
 <p>In class we developed a package and showed how to</p>
 <ul>
@@ -180,8 +180,8 @@ $(document).ready(function () {
 </ul>
 <p>Consult the repository for an example repository that you can start with, where all of the above has been done. You are especially encouraged to walk through the commit history and scrutinize the diffs, noticing which files change at each point. You can fork it or use the Download ZIP button to get this as your starting point. Jenny Bryan has written instructions for both, regarding the <code>foofactors</code> package, located <a href="hw09_package_onramp-peer-review.html">here</a>.</p>
 <p>Remember the <a href="packages00_index.html">landing page for all the package material</a> also contains lots of <a href="packages00_index.html#resources">links</a> with extra technical information and general inspiration.</p>
-</div>
-<div id="your-mission" class="section level3">
+</section>
+<section id="your-mission" class="level3">
 <h3>Your mission</h3>
 <p>In this homework you will either continue developing the <a href="https://github.com/vincenzocoia/powers"><code>powers</code></a> package developed in class or Jenny’s <a href="https://github.com/jennybc/foofactors"><code>foofactors</code></a> package; or create your own package. If you do the latter, you must hit all the same points but you’ll be starting from scratch.</p>
 <p>Aim for the following elements:</p>
@@ -213,23 +213,256 @@ $(document).ready(function () {
 <li>Add special features to your functions, like maybe an <code>na.omit</code> option that removes <code>NA</code>s. Or perhaps it handles strings in a different way that doesn’t throw an error (also gives you a chance to import a package like <code>stringr</code>).</li>
 </ul>
 <p>A general idea for advanced R packages is to develop an S3 Object Oriented (OO) R package (see <a href="http://adv-r.had.co.nz/OO-essentials.html">this reference</a>). Be warned, though, that this may be a time sink, so is only for the super-eager (you can still get check-plus if you don’t do this).</p>
-</div>
-<div id="due-date" class="section level3">
+</section>
+<section id="due-date" class="level3">
 <h3>Due date</h3>
 <p>Submit an issue with a link to your package sometime by the end of November 28, 2017.</p>
-</div>
-<div id="rubric" class="section level2">
+</section>
+<section id="rubric" class="level2">
 <h2>Rubric</h2>
 <p>Instructions on how to install a peer’s package from GitHub are given by Jenny Bryan for the <code>foofactors</code> package <a href="hw09_package_onramp-peer-review.html">here</a>, but extend to other packages. Use the <code>README.md</code> and the vignette to figure out what the package does and how to use it.</p>
 <p>Check minus: Package does not install. Or installation seemed go OK but one or more of the functions don’t work. Or you do something that seems totally natural (probably copied from <code>README.md</code> or vignette) and get odd behavior.</p>
 <p>Check: Hits most/all the elements. No obvious technical difficulties. Package pleasant to use. <code>README.md</code> and vignette are pleasant to read and provide accessible examples of usage. No heroic detective work required. Good work!</p>
 <p>Check plus: Exceeded the requirements in number of dimensions. Took <code>foofactors</code> or <code>powers</code> farther than was required. Wrote a new package from scratch. Experience of installation and usage was dreamy because of excellent documentation and high functionality. You learned something new from reviewing their work and you’re eager to incorporate it into your work. Wow!</p>
 <p>Recall the <a href="http://stat545-ubc.github.io/peer-review01_marking-rubric.html">general homework rubric</a>.</p>
-</div>
-<div id="peer-review" class="section level2">
+</section>
+<section id="peer-review" class="level2">
 <h2>Peer Review</h2>
-<p>…will be posted here when it’s ready!</p>
-</div>
+<p>The peer review is ready and is due <strong>December 06, 2017</strong> (before midnight)! Here’s what you’ll need to do:</p>
+<ol start="0" type="1">
+<li>Find your github username in the table below. If it’s not there, let Giulio know! Slack me <code>@giulio</code>.</li>
+<li>Add the <em>people who will be giving you a review</em> as collaborators to the repo containing your homework submission.</li>
+<li>Give a review of this homework for the two people you’ve been assigned to. There should be an issue in their repo titled something like <code>hw0x ready for grading</code> – put your review in there as a comment.
+<ul>
+<li>If there is no such issue, make one! (in <em>their</em> repo)</li>
+<li>Please don’t mix up your reviewers and reviewees!</li>
+</ul></li>
+</ol>
+<p>** If you were assigned to a MISSING repo, please contact me <span class="citation" data-cites="gvdr">@gvdr</span> **</p>
+<p>Check out the <a href="http://stat545.com/peer-review02_peer-evaluation-guidelines.html">guidelines for giving a peer review</a>.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Your_github</th>
+<th style="text-align: left;">Instructions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">abishekarun</td>
+<td style="text-align: left;">Please add <a href="https://github.com/mylinhthibodeau">mylinhthibodeau</a> and <a href="https://github.com/ZimingY">ZimingY</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/marbazua">marbazua</a> and <a href="https://github.com/vmichalowski">vmichalowski</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Alexander-Morin</td>
+<td style="text-align: left;">Please add <a href="https://github.com/AnhKhoaVo">AnhKhoaVo</a> and <a href="https://github.com/rishadhabib">rishadhabib</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/Tangjiahui26">Tangjiahui26</a> and <a href="https://github.com/CassKon">CassKon</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AnhKhoaVo</td>
+<td style="text-align: left;">Please add <a href="https://github.com/zxkathy">zxkathy</a> and <a href="https://github.com/margotgunning">margotgunning</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/rishadhabib">rishadhabib</a> and <a href="https://github.com/Alexander-Morin">Alexander-Morin</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">arsbar24</td>
+<td style="text-align: left;">Please add <a href="https://github.com/swynes">swynes</a> and <a href="https://github.com/santiagodr">santiagodr</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/yuanjisun">yuanjisun</a> and <a href="https://github.com/Mathnstein">Mathnstein</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">arthursunbao</td>
+<td style="text-align: left;">Please add <a href="https://github.com/yanchaoluo">yanchaoluo</a> and <a href="https://github.com/hannahdxz">hannahdxz</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/jmurthy12">jmurthy12</a> and <a href="https://github.com/swynes">swynes</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bcahn7</td>
+<td style="text-align: left;">Please add <a href="https://github.com/yidie">yidie</a> and <a href="https://github.com/xinmiaow">xinmiaow</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/HScheiber">HScheiber</a> and <a href="https://github.com/rainerlempert">rainerlempert</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CassKon</td>
+<td style="text-align: left;">Please add <a href="https://github.com/Alexander-Morin">Alexander-Morin</a> and <a href="https://github.com/Tangjiahui26">Tangjiahui26</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/ilgan">ilgan</a> and <a href="https://github.com/mylinhthibodeau">mylinhthibodeau</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cheungamanda</td>
+<td style="text-align: left;">Please add <a href="https://github.com/wswade2">wswade2</a> and <a href="https://github.com/menglinzhou">menglinzhou</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/yidie">yidie</a> and <a href="https://github.com/xinmiaow">xinmiaow</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dorawyy</td>
+<td style="text-align: left;">Please add <a href="https://github.com/emilymistick">emilymistick</a> and <a href="https://github.com/vanflad">vanflad</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/wenzhengzzz">wenzhengzzz</a> and <a href="https://github.com/Kozp">Kozp</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">emilymistick</td>
+<td style="text-align: left;">Please add <a href="https://github.com/emwest">emwest</a> and <a href="https://github.com/heathersummers">heathersummers</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/vanflad">vanflad</a> and <a href="https://github.com/dorawyy">dorawyy</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">emwest</td>
+<td style="text-align: left;">Please add <a href="https://github.com/suminwei2772">suminwei2772</a> and <a href="https://github.com/SonjaS1">SonjaS1</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/heathersummers">heathersummers</a> and <a href="https://github.com/emilymistick">emilymistick</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">farihakhan</td>
+<td style="text-align: left;">Please add <a href="https://github.com/vibudh2209">vibudh2209</a> and <a href="https://github.com/juansbr7">juansbr7</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/hsmohammed">hsmohammed</a> and <a href="https://github.com/yeonukkim">yeonukkim</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">gbraich</td>
+<td style="text-align: left;">Please add <a href="https://github.com/HScheiber">HScheiber</a> and <a href="https://github.com/rainerlempert">rainerlempert</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/vibudh2209">vibudh2209</a> and <a href="https://github.com/juansbr7">juansbr7</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">hannahdxz</td>
+<td style="text-align: left;">Please add <a href="https://github.com/peterwhitman">peterwhitman</a> and <a href="https://github.com/yanchaoluo">yanchaoluo</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/arthursunbao">arthursunbao</a> and <a href="https://github.com/jmurthy12">jmurthy12</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">heathersummers</td>
+<td style="text-align: left;">Please add <a href="https://github.com/SonjaS1">SonjaS1</a> and <a href="https://github.com/emwest">emwest</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/emilymistick">emilymistick</a> and <a href="https://github.com/vanflad">vanflad</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HScheiber</td>
+<td style="text-align: left;">Please add <a href="https://github.com/xinmiaow">xinmiaow</a> and <a href="https://github.com/bcahn7">bcahn7</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/rainerlempert">rainerlempert</a> and <a href="https://github.com/gbraich">gbraich</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hsmohammed</td>
+<td style="text-align: left;">Please add <a href="https://github.com/juansbr7">juansbr7</a> and <a href="https://github.com/farihakhan">farihakhan</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/yeonukkim">yeonukkim</a> and <a href="https://github.com/Shirlett">Shirlett</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ilgan</td>
+<td style="text-align: left;">Please add <a href="https://github.com/Tangjiahui26">Tangjiahui26</a> and <a href="https://github.com/CassKon">CassKon</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/mylinhthibodeau">mylinhthibodeau</a> and <a href="https://github.com/ZimingY">ZimingY</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">jmurthy12</td>
+<td style="text-align: left;">Please add <a href="https://github.com/hannahdxz">hannahdxz</a> and <a href="https://github.com/arthursunbao">arthursunbao</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/swynes">swynes</a> and <a href="https://github.com/santiagodr">santiagodr</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">juansbr7</td>
+<td style="text-align: left;">Please add <a href="https://github.com/gbraich">gbraich</a> and <a href="https://github.com/vibudh2209">vibudh2209</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/farihakhan">farihakhan</a> and <a href="https://github.com/hsmohammed">hsmohammed</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">KateJohnson</td>
+<td style="text-align: left;">Please add <a href="https://github.com/yuanjisun">yuanjisun</a> and <a href="https://github.com/Mathnstein">Mathnstein</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/qiaoyuet">qiaoyuet</a> and <a href="https://github.com/sepkamal">sepkamal</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kozp</td>
+<td style="text-align: left;">Please add <a href="https://github.com/dorawyy">dorawyy</a> and <a href="https://github.com/wenzhengzzz">wenzhengzzz</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/mattsada">mattsada</a> and <a href="https://github.com/peterwhitman">peterwhitman</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">marbazua</td>
+<td style="text-align: left;">Please add <a href="https://github.com/ZimingY">ZimingY</a> and <a href="https://github.com/abishekarun">abishekarun</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/vmichalowski">vmichalowski</a> and <a href="https://github.com/xinyaofan">xinyaofan</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">margotgunning</td>
+<td style="text-align: left;">Please add <a href="https://github.com/sepkamal">sepkamal</a> and <a href="https://github.com/zxkathy">zxkathy</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/AnhKhoaVo">AnhKhoaVo</a> and <a href="https://github.com/rishadhabib">rishadhabib</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mathnstein</td>
+<td style="text-align: left;">Please add <a href="https://github.com/arsbar24">arsbar24</a> and <a href="https://github.com/yuanjisun">yuanjisun</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/KateJohnson">KateJohnson</a> and <a href="https://github.com/qiaoyuet">qiaoyuet</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mattsada</td>
+<td style="text-align: left;">Please add <a href="https://github.com/wenzhengzzz">wenzhengzzz</a> and <a href="https://github.com/Kozp">Kozp</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/peterwhitman">peterwhitman</a> and <a href="https://github.com/yanchaoluo">yanchaoluo</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">menglinzhou</td>
+<td style="text-align: left;">Please add <a href="https://github.com/xinyaofan">xinyaofan</a> and <a href="https://github.com/wswade2">wswade2</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/cheungamanda">cheungamanda</a> and <a href="https://github.com/yidie">yidie</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mlawre01</td>
+<td style="text-align: left;">Please add <a href="https://github.com/yeonukkim">yeonukkim</a> and <a href="https://github.com/Shirlett">Shirlett</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/suminwei2772">suminwei2772</a> and <a href="https://github.com/SonjaS1">SonjaS1</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mylinhthibodeau</td>
+<td style="text-align: left;">Please add <a href="https://github.com/CassKon">CassKon</a> and <a href="https://github.com/ilgan">ilgan</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/ZimingY">ZimingY</a> and <a href="https://github.com/abishekarun">abishekarun</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">peterwhitman</td>
+<td style="text-align: left;">Please add <a href="https://github.com/Kozp">Kozp</a> and <a href="https://github.com/mattsada">mattsada</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/yanchaoluo">yanchaoluo</a> and <a href="https://github.com/hannahdxz">hannahdxz</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">qiaoyuet</td>
+<td style="text-align: left;">Please add <a href="https://github.com/Mathnstein">Mathnstein</a> and <a href="https://github.com/KateJohnson">KateJohnson</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/sepkamal">sepkamal</a> and <a href="https://github.com/zxkathy">zxkathy</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rainerlempert</td>
+<td style="text-align: left;">Please add <a href="https://github.com/bcahn7">bcahn7</a> and <a href="https://github.com/HScheiber">HScheiber</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/gbraich">gbraich</a> and <a href="https://github.com/vibudh2209">vibudh2209</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rishadhabib</td>
+<td style="text-align: left;">Please add <a href="https://github.com/margotgunning">margotgunning</a> and <a href="https://github.com/AnhKhoaVo">AnhKhoaVo</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/Alexander-Morin">Alexander-Morin</a> and <a href="https://github.com/Tangjiahui26">Tangjiahui26</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">santiagodr</td>
+<td style="text-align: left;">Please add <a href="https://github.com/jmurthy12">jmurthy12</a> and <a href="https://github.com/swynes">swynes</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/arsbar24">arsbar24</a> and <a href="https://github.com/yuanjisun">yuanjisun</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sepkamal</td>
+<td style="text-align: left;">Please add <a href="https://github.com/KateJohnson">KateJohnson</a> and <a href="https://github.com/qiaoyuet">qiaoyuet</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/zxkathy">zxkathy</a> and <a href="https://github.com/margotgunning">margotgunning</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Shirlett</td>
+<td style="text-align: left;">Please add <a href="https://github.com/hsmohammed">hsmohammed</a> and <a href="https://github.com/yeonukkim">yeonukkim</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/mlawre01">mlawre01</a> and <a href="https://github.com/suminwei2772">suminwei2772</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SonjaS1</td>
+<td style="text-align: left;">Please add <a href="https://github.com/mlawre01">mlawre01</a> and <a href="https://github.com/suminwei2772">suminwei2772</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/emwest">emwest</a> and <a href="https://github.com/heathersummers">heathersummers</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">suminwei2772</td>
+<td style="text-align: left;">Please add <a href="https://github.com/Shirlett">Shirlett</a> and <a href="https://github.com/mlawre01">mlawre01</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/SonjaS1">SonjaS1</a> and <a href="https://github.com/emwest">emwest</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">swynes</td>
+<td style="text-align: left;">Please add <a href="https://github.com/arthursunbao">arthursunbao</a> and <a href="https://github.com/jmurthy12">jmurthy12</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/santiagodr">santiagodr</a> and <a href="https://github.com/arsbar24">arsbar24</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tangjiahui26</td>
+<td style="text-align: left;">Please add <a href="https://github.com/rishadhabib">rishadhabib</a> and <a href="https://github.com/Alexander-Morin">Alexander-Morin</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/CassKon">CassKon</a> and <a href="https://github.com/ilgan">ilgan</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vanflad</td>
+<td style="text-align: left;">Please add <a href="https://github.com/heathersummers">heathersummers</a> and <a href="https://github.com/emilymistick">emilymistick</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/dorawyy">dorawyy</a> and <a href="https://github.com/wenzhengzzz">wenzhengzzz</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">vibudh2209</td>
+<td style="text-align: left;">Please add <a href="https://github.com/rainerlempert">rainerlempert</a> and <a href="https://github.com/gbraich">gbraich</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/juansbr7">juansbr7</a> and <a href="https://github.com/farihakhan">farihakhan</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">vmichalowski</td>
+<td style="text-align: left;">Please add <a href="https://github.com/abishekarun">abishekarun</a> and <a href="https://github.com/marbazua">marbazua</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/xinyaofan">xinyaofan</a> and <a href="https://github.com/wswade2">wswade2</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">wenzhengzzz</td>
+<td style="text-align: left;">Please add <a href="https://github.com/vanflad">vanflad</a> and <a href="https://github.com/dorawyy">dorawyy</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/Kozp">Kozp</a> and <a href="https://github.com/mattsada">mattsada</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">wswade2</td>
+<td style="text-align: left;">Please add <a href="https://github.com/vmichalowski">vmichalowski</a> and <a href="https://github.com/xinyaofan">xinyaofan</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/menglinzhou">menglinzhou</a> and <a href="https://github.com/cheungamanda">cheungamanda</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">xinmiaow</td>
+<td style="text-align: left;">Please add <a href="https://github.com/cheungamanda">cheungamanda</a> and <a href="https://github.com/yidie">yidie</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/bcahn7">bcahn7</a> and <a href="https://github.com/HScheiber">HScheiber</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">xinyaofan</td>
+<td style="text-align: left;">Please add <a href="https://github.com/marbazua">marbazua</a> and <a href="https://github.com/vmichalowski">vmichalowski</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/wswade2">wswade2</a> and <a href="https://github.com/menglinzhou">menglinzhou</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yanchaoluo</td>
+<td style="text-align: left;">Please add <a href="https://github.com/mattsada">mattsada</a> and <a href="https://github.com/peterwhitman">peterwhitman</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/hannahdxz">hannahdxz</a> and <a href="https://github.com/arthursunbao">arthursunbao</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yeonukkim</td>
+<td style="text-align: left;">Please add <a href="https://github.com/farihakhan">farihakhan</a> and <a href="https://github.com/hsmohammed">hsmohammed</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/Shirlett">Shirlett</a> and <a href="https://github.com/mlawre01">mlawre01</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yidie</td>
+<td style="text-align: left;">Please add <a href="https://github.com/menglinzhou">menglinzhou</a> and <a href="https://github.com/cheungamanda">cheungamanda</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/xinmiaow">xinmiaow</a> and <a href="https://github.com/bcahn7">bcahn7</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">yuanjisun</td>
+<td style="text-align: left;">Please add <a href="https://github.com/santiagodr">santiagodr</a> and <a href="https://github.com/arsbar24">arsbar24</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/Mathnstein">Mathnstein</a> and <a href="https://github.com/KateJohnson">KateJohnson</a></strong>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ZimingY</td>
+<td style="text-align: left;">Please add <a href="https://github.com/ilgan">ilgan</a> and <a href="https://github.com/mylinhthibodeau">mylinhthibodeau</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/abishekarun">abishekarun</a> and <a href="https://github.com/marbazua">marbazua</a></strong>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">zxkathy</td>
+<td style="text-align: left;">Please add <a href="https://github.com/qiaoyuet">qiaoyuet</a> and <a href="https://github.com/sepkamal">sepkamal</a> as collaborators to your repo containing hw09. Please <strong>review the hw09 submission of <a href="https://github.com/margotgunning">margotgunning</a> and <a href="https://github.com/AnhKhoaVo">AnhKhoaVo</a></strong>.</td>
+</tr>
+</tbody>
+</table>
+</section>
 
 <div class="footer">
 This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
