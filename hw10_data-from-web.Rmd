@@ -13,7 +13,7 @@ There are three ways to get data from the internet into R:
 
   * Make API queries "by hand" using httr.
   * Use an R package that wraps an API, such as the many from [rOpenSci](https://ropensci.org). 
-  * Scrape the web. **<- this is the one we saw in class so far**
+  * Scrape the web.
 
 Pick (at least) one of the exercises below. At least one prompt is given for each of the above approaches.
 
@@ -111,3 +111,22 @@ Replace population with *population density*. To do this, look up the country co
 Recall the [general homework rubric](http://stat545-ubc.github.io/peer-review01_marking-rubric.html).
 
 Peers and/or TAs will run the code and try to get the same output. You'll be evaluated on the clarity and robustness of your workflow.
+
+## Peer Review
+
+
+The peer review is ready and is due __December 13, 2017__ (before midnight)! Here's what you'll need to do:
+
+0. Find your github username in the table below. If it's not there, let Giulio know! Slack me `@giulio`.
+1. Add the _people who will be giving you a review_ as collaborators to the repo containing your homework submission.
+2. Give a review of this homework for the two people you've been assigned to. There should be an issue in their repo titled something like `hw0x ready for grading` -- put your review in there as a comment.
+    - If there is no such issue, make one! (in _their_ repo)
+    - Please don't mix up your reviewers and reviewees!
+
+** If you were assigned to a MISSING repo, please contact me @gvdr **
+
+Check out the [guidelines for giving a peer review](http://stat545.com/peer-review02_peer-evaluation-guidelines.html).
+
+```{r, results='as.is', echo=FALSE}
+knitr::kable(read.csv("hw10-peer_review.csv"))
+```
