@@ -78,9 +78,9 @@ h6 {
 }
 </style>
 
-<link rel="stylesheet" href="libs\local\main.css" type="text/css" />
-<link rel="stylesheet" href="libs\local\nav.css" type="text/css" />
-<link rel="stylesheet" href="\\netdna.bootstrapcdn.com\font-awesome\4.0.3\css\font-awesome.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
 
 </head>
 
@@ -187,18 +187,16 @@ $(document).ready(function () {
 <div id="load-dplyr-and-gapminder" class="section level3">
 <h3>Load dplyr and gapminder</h3>
 <p>I choose to load the tidyverse, which will load dplyr, among other packages we use incidentally below. Also load gapminder.</p>
-<pre class="r"><code>library(gapminder)</code></pre>
-<pre><code>## Warning: package &#39;gapminder&#39; was built under R version 3.4.3</code></pre>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## Loading tidyverse: ggplot2
-## Loading tidyverse: tibble
-## Loading tidyverse: tidyr
-## Loading tidyverse: readr
-## Loading tidyverse: purrr
-## Loading tidyverse: dplyr</code></pre>
-<pre><code>## Conflicts with tidy packages ----------------------------------------------</code></pre>
-<pre><code>## filter(): dplyr, stats
-## lag():    dplyr, stats</code></pre>
+<pre class="r"><code>library(gapminder)
+library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
+## ✔ tibble  1.3.4     ✔ dplyr   0.7.4
+## ✔ tidyr   0.7.2     ✔ stringr 1.2.0
+## ✔ readr   1.1.1     ✔ forcats 0.2.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 </div>
 <div id="create-a-copy-of-gapminder" class="section level3">
 <h3>Create a copy of gapminder</h3>
