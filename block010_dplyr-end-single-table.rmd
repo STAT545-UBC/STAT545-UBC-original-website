@@ -238,13 +238,13 @@ my_gap %>%
   summarize(avg_lifeExp = mean(lifeExp))
 ```
 
-`summarize_each()` applies the same summary function(s) to multiple variables. Let's compute average and median life expectancy and GDP per capita by continent by year ... but only for 1952 and 2007.
+`summarize_at()` applies the same summary function(s) to multiple variables. Let's compute average and median life expectancy and GDP per capita by continent by year ... but only for 1952 and 2007.
 
 ```{r}
 my_gap %>%
   filter(year %in% c(1952, 2007)) %>%
   group_by(continent, year) %>%
-  summarise_each(funs(mean, median), lifeExp, gdpPercap)
+  summarize_at(vars(lifeExp, gdpPercap), funs(mean, median))
 ```
 
 Let's focus just on Asia. What are the minimum and maximum life expectancies seen by year?
