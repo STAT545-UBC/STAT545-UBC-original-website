@@ -1,4 +1,10 @@
-# dplyr functions for a single dataset
+---
+title: "dplyr functions for a single dataset"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+---
 
 
 
@@ -26,21 +32,20 @@ library(tidyverse)
 ```
 
 ```
-## Loading tidyverse: ggplot2
-## Loading tidyverse: tibble
-## Loading tidyverse: tidyr
-## Loading tidyverse: readr
-## Loading tidyverse: purrr
-## Loading tidyverse: dplyr
+## ── Attaching packages ─────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 ```
 
 ```
-## Conflicts with tidy packages ----------------------------------------------
+## ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
+## ✔ tibble  1.3.4     ✔ dplyr   0.7.4
+## ✔ tidyr   0.7.2     ✔ stringr 1.2.0
+## ✔ readr   1.1.1     ✔ forcats 0.2.0
 ```
 
 ```
-## filter(): dplyr, stats
-## lag():    dplyr, stats
+## ── Conflicts ────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
 ```
 
 ### Create a copy of gapminder
@@ -53,18 +58,18 @@ We're going to make changes to the `gapminder` tibble. To eliminate any fear tha
 ```
 
 ```
-## # A tibble: 1,704 × 6
+## # A tibble: 1,704 x 6
 ##        country continent  year lifeExp      pop gdpPercap
 ##         <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
-## 1  Afghanistan      Asia  1952  28.801  8425333  779.4453
-## 2  Afghanistan      Asia  1957  30.332  9240934  820.8530
-## 3  Afghanistan      Asia  1962  31.997 10267083  853.1007
-## 4  Afghanistan      Asia  1967  34.020 11537966  836.1971
-## 5  Afghanistan      Asia  1972  36.088 13079460  739.9811
-## 6  Afghanistan      Asia  1977  38.438 14880372  786.1134
-## 7  Afghanistan      Asia  1982  39.854 12881816  978.0114
-## 8  Afghanistan      Asia  1987  40.822 13867957  852.3959
-## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414
+##  1 Afghanistan      Asia  1952  28.801  8425333  779.4453
+##  2 Afghanistan      Asia  1957  30.332  9240934  820.8530
+##  3 Afghanistan      Asia  1962  31.997 10267083  853.1007
+##  4 Afghanistan      Asia  1967  34.020 11537966  836.1971
+##  5 Afghanistan      Asia  1972  36.088 13079460  739.9811
+##  6 Afghanistan      Asia  1977  38.438 14880372  786.1134
+##  7 Afghanistan      Asia  1982  39.854 12881816  978.0114
+##  8 Afghanistan      Asia  1987  40.822 13867957  852.3959
+##  9 Afghanistan      Asia  1992  41.674 16317921  649.3414
 ## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
 ## # ... with 1,694 more rows
 ```
@@ -98,18 +103,18 @@ my_gap %>%
 ```
 
 ```
-## # A tibble: 1,704 × 7
+## # A tibble: 1,704 x 7
 ##        country continent  year lifeExp      pop gdpPercap         gdp
 ##         <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>       <dbl>
-## 1  Afghanistan      Asia  1952  28.801  8425333  779.4453  6567086330
-## 2  Afghanistan      Asia  1957  30.332  9240934  820.8530  7585448670
-## 3  Afghanistan      Asia  1962  31.997 10267083  853.1007  8758855797
-## 4  Afghanistan      Asia  1967  34.020 11537966  836.1971  9648014150
-## 5  Afghanistan      Asia  1972  36.088 13079460  739.9811  9678553274
-## 6  Afghanistan      Asia  1977  38.438 14880372  786.1134 11697659231
-## 7  Afghanistan      Asia  1982  39.854 12881816  978.0114 12598563401
-## 8  Afghanistan      Asia  1987  40.822 13867957  852.3959 11820990309
-## 9  Afghanistan      Asia  1992  41.674 16317921  649.3414 10595901589
+##  1 Afghanistan      Asia  1952  28.801  8425333  779.4453  6567086330
+##  2 Afghanistan      Asia  1957  30.332  9240934  820.8530  7585448670
+##  3 Afghanistan      Asia  1962  31.997 10267083  853.1007  8758855797
+##  4 Afghanistan      Asia  1967  34.020 11537966  836.1971  9648014150
+##  5 Afghanistan      Asia  1972  36.088 13079460  739.9811  9678553274
+##  6 Afghanistan      Asia  1977  38.438 14880372  786.1134 11697659231
+##  7 Afghanistan      Asia  1982  39.854 12881816  978.0114 12598563401
+##  8 Afghanistan      Asia  1987  40.822 13867957  852.3959 11820990309
+##  9 Afghanistan      Asia  1992  41.674 16317921  649.3414 10595901589
 ## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414 14121995875
 ## # ... with 1,694 more rows
 ```
@@ -155,18 +160,18 @@ my_gap %>%
 ```
 
 ```
-## # A tibble: 12 × 3
+## # A tibble: 12 x 3
 ##    country  year gdpPercapRel
 ##     <fctr> <int>        <dbl>
-## 1   Canada  1952            1
-## 2   Canada  1957            1
-## 3   Canada  1962            1
-## 4   Canada  1967            1
-## 5   Canada  1972            1
-## 6   Canada  1977            1
-## 7   Canada  1982            1
-## 8   Canada  1987            1
-## 9   Canada  1992            1
+##  1  Canada  1952            1
+##  2  Canada  1957            1
+##  3  Canada  1962            1
+##  4  Canada  1967            1
+##  5  Canada  1972            1
+##  6  Canada  1977            1
+##  7  Canada  1982            1
+##  8  Canada  1987            1
+##  9  Canada  1992            1
 ## 10  Canada  1997            1
 ## 11  Canada  2002            1
 ## 12  Canada  2007            1
@@ -181,7 +186,7 @@ summary(my_gap$gdpPercapRel)
 
 ```
 ##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-## 0.007236 0.061650 0.171500 0.326700 0.446600 9.535000
+## 0.007236 0.061648 0.171521 0.326659 0.446564 9.534690
 ```
 
 The relative GDP per capita numbers are, in general, well below 1. We see that most of the countries covered by this dataset have substantially lower GDP per capita, relative to Canada, across the entire time period.
@@ -199,18 +204,18 @@ my_gap %>%
 ```
 
 ```
-## # A tibble: 1,704 × 7
+## # A tibble: 1,704 x 7
 ##        country continent  year lifeExp      pop  gdpPercap gdpPercapRel
 ##         <fctr>    <fctr> <int>   <dbl>    <int>      <dbl>        <dbl>
-## 1  Afghanistan      Asia  1952  28.801  8425333   779.4453   0.06856992
-## 2      Albania    Europe  1952  55.230  1282697  1601.0561   0.14084925
-## 3      Algeria    Africa  1952  43.077  9279525  2449.0082   0.21544589
-## 4       Angola    Africa  1952  30.015  4232095  3520.6103   0.30971764
-## 5    Argentina  Americas  1952  62.485 17876956  5911.3151   0.52003442
-## 6    Australia   Oceania  1952  69.120  8691212 10039.5956   0.88321046
-## 7      Austria    Europe  1952  66.800  6927772  6137.0765   0.53989527
-## 8      Bahrain      Asia  1952  50.939   120447  9867.0848   0.86803421
-## 9   Bangladesh      Asia  1952  37.484 46886859   684.2442   0.06019482
+##  1 Afghanistan      Asia  1952  28.801  8425333   779.4453   0.06856992
+##  2     Albania    Europe  1952  55.230  1282697  1601.0561   0.14084925
+##  3     Algeria    Africa  1952  43.077  9279525  2449.0082   0.21544589
+##  4      Angola    Africa  1952  30.015  4232095  3520.6103   0.30971764
+##  5   Argentina  Americas  1952  62.485 17876956  5911.3151   0.52003442
+##  6   Australia   Oceania  1952  69.120  8691212 10039.5956   0.88321046
+##  7     Austria    Europe  1952  66.800  6927772  6137.0765   0.53989527
+##  8     Bahrain      Asia  1952  50.939   120447  9867.0848   0.86803421
+##  9  Bangladesh      Asia  1952  37.484 46886859   684.2442   0.06019482
 ## 10     Belgium    Europe  1952  68.000  8730405  8343.1051   0.73396559
 ## # ... with 1,694 more rows
 ```
@@ -225,18 +230,18 @@ my_gap %>%
 ```
 
 ```
-## # A tibble: 142 × 7
+## # A tibble: 142 x 7
 ##                     country continent  year lifeExp      pop gdpPercap
 ##                      <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
-## 1                 Swaziland    Africa  2007  39.613  1133066 4513.4806
-## 2                Mozambique    Africa  2007  42.082 19951656  823.6856
-## 3                    Zambia    Africa  2007  42.384 11746035 1271.2116
-## 4              Sierra Leone    Africa  2007  42.568  6144562  862.5408
-## 5                   Lesotho    Africa  2007  42.592  2012649 1569.3314
-## 6                    Angola    Africa  2007  42.731 12420476 4797.2313
-## 7                  Zimbabwe    Africa  2007  43.487 12311143  469.7093
-## 8               Afghanistan      Asia  2007  43.828 31889923  974.5803
-## 9  Central African Republic    Africa  2007  44.741  4369038  706.0165
+##  1                Swaziland    Africa  2007  39.613  1133066 4513.4806
+##  2               Mozambique    Africa  2007  42.082 19951656  823.6856
+##  3                   Zambia    Africa  2007  42.384 11746035 1271.2116
+##  4             Sierra Leone    Africa  2007  42.568  6144562  862.5408
+##  5                  Lesotho    Africa  2007  42.592  2012649 1569.3314
+##  6                   Angola    Africa  2007  42.731 12420476 4797.2313
+##  7                 Zimbabwe    Africa  2007  43.487 12311143  469.7093
+##  8              Afghanistan      Asia  2007  43.828 31889923  974.5803
+##  9 Central African Republic    Africa  2007  44.741  4369038  706.0165
 ## 10                  Liberia    Africa  2007  45.678  3193942  414.5073
 ## # ... with 132 more rows, and 1 more variables: gdpPercapRel <dbl>
 ```
@@ -251,18 +256,18 @@ my_gap %>%
 ```
 
 ```
-## # A tibble: 142 × 7
+## # A tibble: 142 x 7
 ##             country continent  year lifeExp       pop gdpPercap
 ##              <fctr>    <fctr> <int>   <dbl>     <int>     <dbl>
-## 1             Japan      Asia  2007  82.603 127467972  31656.07
-## 2  Hong Kong, China      Asia  2007  82.208   6980412  39724.98
-## 3           Iceland    Europe  2007  81.757    301931  36180.79
-## 4       Switzerland    Europe  2007  81.701   7554661  37506.42
-## 5         Australia   Oceania  2007  81.235  20434176  34435.37
-## 6             Spain    Europe  2007  80.941  40448191  28821.06
-## 7            Sweden    Europe  2007  80.884   9031088  33859.75
-## 8            Israel      Asia  2007  80.745   6426679  25523.28
-## 9            France    Europe  2007  80.657  61083916  30470.02
+##  1            Japan      Asia  2007  82.603 127467972  31656.07
+##  2 Hong Kong, China      Asia  2007  82.208   6980412  39724.98
+##  3          Iceland    Europe  2007  81.757    301931  36180.79
+##  4      Switzerland    Europe  2007  81.701   7554661  37506.42
+##  5        Australia   Oceania  2007  81.235  20434176  34435.37
+##  6            Spain    Europe  2007  80.941  40448191  28821.06
+##  7           Sweden    Europe  2007  80.884   9031088  33859.75
+##  8           Israel      Asia  2007  80.745   6426679  25523.28
+##  9           France    Europe  2007  80.657  61083916  30470.02
 ## 10           Canada  Americas  2007  80.653  33390141  36319.24
 ## # ... with 132 more rows, and 1 more variables: gdpPercapRel <dbl>
 ```
@@ -282,18 +287,18 @@ my_gap %>%
 ```
 
 ```
-## # A tibble: 1,704 × 7
+## # A tibble: 1,704 x 7
 ##        country continent  year life_exp      pop gdp_percap gdp_percap_rel
 ##         <fctr>    <fctr> <int>    <dbl>    <int>      <dbl>          <dbl>
-## 1  Afghanistan      Asia  1952   28.801  8425333   779.4453     0.06856992
-## 2  Afghanistan      Asia  1957   30.332  9240934   820.8530     0.06572108
-## 3  Afghanistan      Asia  1962   31.997 10267083   853.1007     0.06336874
-## 4  Afghanistan      Asia  1967   34.020 11537966   836.1971     0.05201335
-## 5  Afghanistan      Asia  1972   36.088 13079460   739.9811     0.03900679
-## 6  Afghanistan      Asia  1977   38.438 14880372   786.1134     0.03558542
-## 7  Afghanistan      Asia  1982   39.854 12881816   978.0114     0.04271018
-## 8  Afghanistan      Asia  1987   40.822 13867957   852.3959     0.03201305
-## 9  Afghanistan      Asia  1992   41.674 16317921   649.3414     0.02464959
+##  1 Afghanistan      Asia  1952   28.801  8425333   779.4453     0.06856992
+##  2 Afghanistan      Asia  1957   30.332  9240934   820.8530     0.06572108
+##  3 Afghanistan      Asia  1962   31.997 10267083   853.1007     0.06336874
+##  4 Afghanistan      Asia  1967   34.020 11537966   836.1971     0.05201335
+##  5 Afghanistan      Asia  1972   36.088 13079460   739.9811     0.03900679
+##  6 Afghanistan      Asia  1977   38.438 14880372   786.1134     0.03558542
+##  7 Afghanistan      Asia  1982   39.854 12881816   978.0114     0.04271018
+##  8 Afghanistan      Asia  1987   40.822 13867957   852.3959     0.03201305
+##  9 Afghanistan      Asia  1992   41.674 16317921   649.3414     0.02464959
 ## 10 Afghanistan      Asia  1997   41.763 22227415   635.3414     0.02194243
 ## # ... with 1,694 more rows
 ```
@@ -316,7 +321,7 @@ my_gap %>%
 ```
 
 ```
-## # A tibble: 3 × 3
+## # A tibble: 3 x 3
 ##   gdpPercap    yr lifeExp
 ##       <dbl> <int>   <dbl>
 ## 1  463.1151  1997  45.326
@@ -352,7 +357,7 @@ my_gap %>%
 ```
 
 ```
-## # A tibble: 5 × 2
+## # A tibble: 5 x 2
 ##   continent     n
 ##      <fctr> <int>
 ## 1    Africa   624
@@ -397,7 +402,7 @@ my_gap %>%
 ```
 
 ```
-## # A tibble: 5 × 2
+## # A tibble: 5 x 2
 ##   continent     n
 ##      <fctr> <int>
 ## 1    Africa   624
@@ -416,7 +421,7 @@ my_gap %>%
 ```
 
 ```
-## # A tibble: 5 × 2
+## # A tibble: 5 x 2
 ##   continent     n
 ##      <fctr> <int>
 ## 1    Africa   624
@@ -437,7 +442,7 @@ my_gap %>%
 ```
 
 ```
-## # A tibble: 5 × 3
+## # A tibble: 5 x 3
 ##   continent     n n_countries
 ##      <fctr> <int>       <int>
 ## 1    Africa   624          52
@@ -461,7 +466,7 @@ my_gap %>%
 ```
 
 ```
-## # A tibble: 5 × 2
+## # A tibble: 5 x 2
 ##   continent avg_lifeExp
 ##      <fctr>       <dbl>
 ## 1    Africa    48.86533
@@ -471,31 +476,30 @@ my_gap %>%
 ## 5   Oceania    74.32621
 ```
 
-`summarize_each()` applies the same summary function(s) to multiple variables. Let's compute average and median life expectancy and GDP per capita by continent by year ... but only for 1952 and 2007.
+`summarize_at()` applies the same summary function(s) to multiple variables. Let's compute average and median life expectancy and GDP per capita by continent by year ... but only for 1952 and 2007.
 
 
 ```r
 my_gap %>%
   filter(year %in% c(1952, 2007)) %>%
   group_by(continent, year) %>%
-  summarise_each(funs(mean, median), lifeExp, gdpPercap)
+  summarize_at(vars(lifeExp, gdpPercap), funs(mean, median))
 ```
 
 ```
-## Source: local data frame [10 x 6]
-## Groups: continent [?]
-## 
+## # A tibble: 10 x 6
+## # Groups:   continent [?]
 ##    continent  year lifeExp_mean gdpPercap_mean lifeExp_median
 ##       <fctr> <int>        <dbl>          <dbl>          <dbl>
-## 1     Africa  1952     39.13550       1252.572        38.8330
-## 2     Africa  2007     54.80604       3089.033        52.9265
-## 3   Americas  1952     53.27984       4079.063        54.7450
-## 4   Americas  2007     73.60812      11003.032        72.8990
-## 5       Asia  1952     46.31439       5195.484        44.8690
-## 6       Asia  2007     70.72848      12473.027        72.3960
-## 7     Europe  1952     64.40850       5661.057        65.9000
-## 8     Europe  2007     77.64860      25054.482        78.6085
-## 9    Oceania  1952     69.25500      10298.086        69.2550
+##  1    Africa  1952     39.13550       1252.572        38.8330
+##  2    Africa  2007     54.80604       3089.033        52.9265
+##  3  Americas  1952     53.27984       4079.063        54.7450
+##  4  Americas  2007     73.60812      11003.032        72.8990
+##  5      Asia  1952     46.31439       5195.484        44.8690
+##  6      Asia  2007     70.72848      12473.027        72.3960
+##  7    Europe  1952     64.40850       5661.057        65.9000
+##  8    Europe  2007     77.64860      25054.482        78.6085
+##  9   Oceania  1952     69.25500      10298.086        69.2550
 ## 10   Oceania  2007     80.71950      29810.188        80.7195
 ## # ... with 1 more variables: gdpPercap_median <dbl>
 ```
@@ -511,18 +515,18 @@ my_gap %>%
 ```
 
 ```
-## # A tibble: 12 × 3
+## # A tibble: 12 x 3
 ##     year min_lifeExp max_lifeExp
 ##    <int>       <dbl>       <dbl>
-## 1   1952      28.801      65.390
-## 2   1957      30.332      67.840
-## 3   1962      31.997      69.390
-## 4   1967      34.020      71.430
-## 5   1972      36.088      73.420
-## 6   1977      31.220      75.380
-## 7   1982      39.854      77.110
-## 8   1987      40.822      78.670
-## 9   1992      41.674      79.360
+##  1  1952      28.801      65.390
+##  2  1957      30.332      67.840
+##  3  1962      31.997      69.390
+##  4  1967      34.020      71.430
+##  5  1972      36.088      73.420
+##  6  1977      31.220      75.380
+##  7  1982      39.854      77.110
+##  8  1987      40.822      78.670
+##  9  1992      41.674      79.360
 ## 10  1997      41.763      80.690
 ## 11  2002      42.129      82.000
 ## 12  2007      43.828      82.603
@@ -548,20 +552,19 @@ my_gap %>%
 ```
 
 ```
-## Source: local data frame [426 x 4]
-## Groups: country [142]
-## 
+## # A tibble: 426 x 4
+## # Groups:   country [142]
 ##        country  year lifeExp lifeExp_gain
 ##         <fctr> <int>   <dbl>        <dbl>
-## 1  Afghanistan  1952  28.801        0.000
-## 2  Afghanistan  1957  30.332        1.531
-## 3  Afghanistan  1962  31.997        3.196
-## 4      Albania  1952  55.230        0.000
-## 5      Albania  1957  59.280        4.050
-## 6      Albania  1962  64.820        9.590
-## 7      Algeria  1952  43.077        0.000
-## 8      Algeria  1957  45.685        2.608
-## 9      Algeria  1962  48.303        5.226
+##  1 Afghanistan  1952  28.801        0.000
+##  2 Afghanistan  1957  30.332        1.531
+##  3 Afghanistan  1962  31.997        3.196
+##  4     Albania  1952  55.230        0.000
+##  5     Albania  1957  59.280        4.050
+##  6     Albania  1962  64.820        9.590
+##  7     Algeria  1952  43.077        0.000
+##  8     Algeria  1957  45.685        2.608
+##  9     Algeria  1962  48.303        5.226
 ## 10      Angola  1952  30.015        0.000
 ## # ... with 416 more rows
 ```
@@ -586,20 +589,19 @@ my_gap %>%
 ```
 
 ```
-## Source: local data frame [24 x 3]
-## Groups: year [12]
-## 
+## # A tibble: 24 x 3
+## # Groups:   year [12]
 ##     year     country lifeExp
 ##    <int>      <fctr>   <dbl>
-## 1   1952 Afghanistan  28.801
-## 2   1952      Israel  65.390
-## 3   1957 Afghanistan  30.332
-## 4   1957      Israel  67.840
-## 5   1962 Afghanistan  31.997
-## 6   1962      Israel  69.390
-## 7   1967 Afghanistan  34.020
-## 8   1967       Japan  71.430
-## 9   1972 Afghanistan  36.088
+##  1  1952 Afghanistan  28.801
+##  2  1952      Israel  65.390
+##  3  1957 Afghanistan  30.332
+##  4  1957      Israel  67.840
+##  5  1962 Afghanistan  31.997
+##  6  1962      Israel  69.390
+##  7  1967 Afghanistan  34.020
+##  8  1967       Japan  71.430
+##  9  1972 Afghanistan  36.088
 ## 10  1972       Japan  73.420
 ## 11  1977    Cambodia  31.220
 ## 12  1977       Japan  75.380
@@ -631,20 +633,19 @@ asia
 ```
 
 ```
-## Source: local data frame [396 x 3]
-## Groups: year [12]
-## 
+## # A tibble: 396 x 3
+## # Groups:   year [12]
 ##     year     country lifeExp
 ##    <int>      <fctr>   <dbl>
-## 1   1952 Afghanistan  28.801
-## 2   1957 Afghanistan  30.332
-## 3   1962 Afghanistan  31.997
-## 4   1967 Afghanistan  34.020
-## 5   1972 Afghanistan  36.088
-## 6   1977 Afghanistan  38.438
-## 7   1982 Afghanistan  39.854
-## 8   1987 Afghanistan  40.822
-## 9   1992 Afghanistan  41.674
+##  1  1952 Afghanistan  28.801
+##  2  1957 Afghanistan  30.332
+##  3  1962 Afghanistan  31.997
+##  4  1967 Afghanistan  34.020
+##  5  1972 Afghanistan  36.088
+##  6  1977 Afghanistan  38.438
+##  7  1982 Afghanistan  39.854
+##  8  1987 Afghanistan  40.822
+##  9  1992 Afghanistan  41.674
 ## 10  1997 Afghanistan  41.763
 ## # ... with 386 more rows
 ```
@@ -662,9 +663,8 @@ asia %>%
 ```
 
 ```
-## Source: local data frame [9 x 5]
-## Groups: year [3]
-## 
+## # A tibble: 9 x 5
+## # Groups:   year [3]
 ##    year     country lifeExp le_rank le_desc_rank
 ##   <int>      <fctr>   <dbl>   <int>        <int>
 ## 1  1997 Afghanistan  41.763       1           33
@@ -703,20 +703,19 @@ my_gap %>%
 ```
 
 ```
-## Source: local data frame [12 x 3]
-## Groups: year [12]
-## 
+## # A tibble: 12 x 3
+## # Groups:   year [12]
 ##     year     country lifeExp
 ##    <int>      <fctr>   <dbl>
-## 1   1952 Afghanistan  28.801
-## 2   1957 Afghanistan  30.332
-## 3   1962 Afghanistan  31.997
-## 4   1967 Afghanistan  34.020
-## 5   1972 Afghanistan  36.088
-## 6   1977    Cambodia  31.220
-## 7   1982 Afghanistan  39.854
-## 8   1987 Afghanistan  40.822
-## 9   1992 Afghanistan  41.674
+##  1  1952 Afghanistan  28.801
+##  2  1957 Afghanistan  30.332
+##  3  1962 Afghanistan  31.997
+##  4  1967 Afghanistan  34.020
+##  5  1972 Afghanistan  36.088
+##  6  1977    Cambodia  31.220
+##  7  1982 Afghanistan  39.854
+##  8  1987 Afghanistan  40.822
+##  9  1992 Afghanistan  41.674
 ## 10  1997 Afghanistan  41.763
 ## 11  2002 Afghanistan  42.129
 ## 12  2007 Afghanistan  43.828
@@ -744,9 +743,8 @@ my_gap %>%
 ```
 
 ```
-## Source: local data frame [5 x 3]
-## Groups: continent [5]
-## 
+## # A tibble: 5 x 3
+## # Groups:   continent [5]
 ##   continent     country worst_le_delta
 ##      <fctr>      <fctr>          <dbl>
 ## 1    Africa      Rwanda        -20.421
