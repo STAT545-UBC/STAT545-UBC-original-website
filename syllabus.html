@@ -11,7 +11,7 @@
 
 
 
-<title>syllabus.utf8</title>
+<title></title>
 
 <script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,8 +20,8 @@
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
-<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,12 +40,10 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
 }
 </script>
 
@@ -78,9 +76,9 @@ h6 {
 }
 </style>
 
-<link rel="stylesheet" href="libs/local/main.css" />
-<link rel="stylesheet" href="libs/local/nav.css" />
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
 
 </head>
 
@@ -148,7 +146,7 @@ $(document).ready(function () {
 </div>
 
 
-<section id="syllabus" class="level1">
+<div id="syllabus" class="section level1">
 <h1>Syllabus</h1>
 <p>Overview:</p>
 <ul>
@@ -163,106 +161,77 @@ $(document).ready(function () {
 <li>Automate tasks and pipelines</li>
 </ul></li>
 </ul>
-<p>Office hours:</p>
-<ul>
-<li>Every Tuesday and Thursday, 11:00-12:00 in ESB 3174 (right after class!)</li>
-<li>Bonus office hour! Wednesday, September 6, 12:00-13:00 in ESB 3174.</li>
-<li>Vincenzo will be available at ESB 3152 every Wednesday from 11:00-12:00, ending on December <del>13</del> 6, 2017, with the following exceptions:
-<ul>
-<li>October 4 office hour is now 12:00-13:00</li>
-<li>November 22 office hour is now 12:00-13:00</li>
-<li>December 6 office hour is now 14:00-15:00</li>
-<li>December 13: I don’t see a need for an office hour on this day. I’d be happy to meet by appointment, though. Send me a message on Slack (<span class="citation" data-cites="vcoia">@vcoia</span>).</li>
-</ul></li>
-<li>The duration and/or days will likely be decreased as term goes on. We will leave <a href="https://github.com/STAT545-UBC/Discussion/issues/495">this issue open on GitHub</a> for discussion and late-breaking updates, like office hours are cancelled or have ended early due to no interest.</li>
-</ul>
-<p>Disclaimer: info given in good faith, but subject to change!</p>
 <!-- unholy hack to make following two tables less wide and the same wide -->
 <style type="text/css">
 table {
    max-width: 50%;
 }
 </style>
-<section id="stat-545a" class="level4">
+<div id="stat-545a" class="section level4">
 <h4>STAT 545A</h4>
 <table>
 <thead>
 <tr class="header">
-<th style="text-align: left;">date</th>
-<th>instructor</th>
-<th style="text-align: left;">notes</th>
+<th align="left">date</th>
+<th align="left">notes</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">sep-05 tues</td>
-<td>Vincenzo</td>
-<td style="text-align: left;"><a href="cm001_course-intro-sw-install-account-signup.html">cm001</a>: Intro to course; S/W install; acct sign-ups</td>
+<td align="left">sep-05 tues</td>
+<td align="left"><a href="cm001_course-intro-sw-install-account-signup.html">cm001</a>: Intro to course; S/W install; acct sign-ups</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">sep-07 thurs</td>
-<td>Vincenzo</td>
-<td style="text-align: left;"><a href="cm002_r-rstudio-intro.html">cm002</a>: Deep Thoughts about data analytic work; intro to R and RStudio</td>
+<td align="left">sep-07 thurs</td>
+<td align="left"><a href="cm002_r-rstudio-intro.html">cm002</a>: Deep Thoughts about data analytic work; intro to R and RStudio</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">sep-12 tues</td>
-<td>Vincenzo</td>
-<td style="text-align: left;"><a href="cm003_render-git-github-test-drive.html">cm003</a>: Git(Hub) test drive, run/render an R script</td>
+<td align="left">sep-12 tues</td>
+<td align="left"><a href="cm003_render-git-github-test-drive.html">cm003</a>: Git(Hub) test drive, run/render an R script</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">sep-14 thurs</td>
-<td>Vincenzo</td>
-<td style="text-align: left;"><a href="cm004_claim-repo-test-drive-rmd.html">cm004</a>: R Markdown test drive</td>
+<td align="left">sep-14 thurs</td>
+<td align="left"><a href="cm004_claim-repo-test-drive-rmd.html">cm004</a>: R Markdown test drive</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">sep-19 tues</td>
-<td>Vincenzo</td>
-<td style="text-align: left;"><a href="cm005_tidyverse-tibbles.html">cm005</a>: Care and feeding of data frames or “tibbles”</td>
+<td align="left">sep-19 tues</td>
+<td align="left"><a href="cm005_tidyverse-tibbles.html">cm005</a>: Care and feeding of data frames or “tibbles”</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">sep-21 thurs</td>
-<td>Vincenzo</td>
-<td style="text-align: left;"><a href="cm006_tibbles-dplyr-ggplot2.html">cm006</a>: First look at dplyr, %&gt;%, and ggplot2</td>
+<td align="left">sep-21 thurs</td>
+<td align="left"><a href="cm006_tibbles-dplyr-ggplot2.html">cm006</a>: First look at dplyr, %&gt;%, and ggplot2</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">sep-26 tues</td>
-<td>Vincenzo</td>
-<td style="text-align: left;"><a href="cm007_ggplot2.html">cm007</a>: ggplot2</td>
+<td align="left">sep-26 tues</td>
+<td align="left"><a href="cm007_ggplot2.html">cm007</a>: ggplot2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">sep-28 thurs</td>
-<td>Vincenzo</td>
-<td style="text-align: left;"><a href="cm008_dplyr-single-table.html">cm008</a>: <del>dplyr: mutate, group, summarize</del> Modelling in R; More dplyr, ggplot2.</td>
+<td align="left">sep-28 thurs</td>
+<td align="left"><a href="cm008_dplyr-single-table.html">cm008</a>: <del>dplyr: mutate, group, summarize</del> Modelling in R; More dplyr, ggplot2.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">oct-03 tues</td>
-<td>Vincenzo</td>
-<td style="text-align: left;"><a href="cm009_tidy-data.html">cm009</a>: Tidy data, <del>reshaping</del></td>
+<td align="left">oct-03 tues</td>
+<td align="left"><a href="cm009_tidy-data.html">cm009</a>: Tidy data, <del>reshaping</del></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">oct-05 thurs</td>
-<td>Giulio</td>
-<td style="text-align: left;"><a href="cm010_joins-r-programming.html">cm010</a>: dplyr joins, reshaping part 1, <del>minimum “need to know” re: R as a programming language</del></td>
+<td align="left">oct-05 thurs</td>
+<td align="left"><a href="cm010_joins-r-programming.html">cm010</a>: dplyr joins, reshaping part 1, <del>minimum “need to know” re: R as a programming language</del></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">oct-10 tues</td>
-<td>Giulio</td>
-<td style="text-align: left;"><a href="cm011_r-programming-file-io.html">cm011</a>: R as a programming language, getting data out of R (and back in)</td>
+<td align="left">oct-10 tues</td>
+<td align="left"><a href="cm011_r-programming-file-io.html">cm011</a>: R as a programming language, getting data out of R (and back in)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">oct-12 thurs</td>
-<td>Giulio</td>
-<td style="text-align: left;"><a href="cm012_file-io-factors.html">cm012</a>: Be the boss of your factors, getting data out of R (and back in)</td>
+<td align="left">oct-12 thurs</td>
+<td align="left"><a href="cm012_file-io-factors.html">cm012</a>: Be the boss of your factors, getting data out of R (and back in)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">oct-17 tues</td>
-<td>Vincenzo</td>
-<td style="text-align: left;"><a href="cm013_ggplot2-continued.html">cm013</a>: Revisit ggplot, practicalities of daily figure-making</td>
+<td align="left">oct-17 tues</td>
+<td align="left"><a href="cm013_ggplot2-continued.html">cm013</a>: Revisit ggplot, practicalities of daily figure-making</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">oct-19 thurs</td>
-<td>VC/TM</td>
-<td style="text-align: left;"><a href="cm014_munzner-guest-lecture.html">cm014</a>: Visualization Analysis and Design: Tamara Munzer guest lecture</td>
+<td align="left">oct-19 thurs</td>
+<td align="left"><a href="cm014_munzner-guest-lecture.html">cm014</a>: Visualization Analysis and Design: Tamara Munzer guest lecture</td>
 </tr>
 </tbody>
 </table>
@@ -270,110 +239,123 @@ table {
 <table>
 <thead>
 <tr class="header">
-<th style="text-align: center;">Link</th>
-<th style="text-align: center;">Homework Due Date</th>
-<th style="text-align: center;">Peer Review Due Date</th>
+<th align="center">Link</th>
+<th align="center">Homework Due Date</th>
+<th align="center">Peer Review Due Date</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><a href="hw01_edit-README.html">Homework 01</a></td>
-<td style="text-align: center;">September 19, 2017</td>
-<td style="text-align: center;">September 25, 2017</td>
+<td align="center"><a href="hw01_edit-README.html">Homework 01</a></td>
+<td align="center">September 19, 2017</td>
+<td align="center">September 25, 2017</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><a href="hw02_explore-gapminder-dplyr.html">Homework 02</a></td>
-<td style="text-align: center;">September 26, 2017</td>
-<td style="text-align: center;">October 2, 2017</td>
+<td align="center"><a href="hw02_explore-gapminder-dplyr.html">Homework 02</a></td>
+<td align="center">September 26, 2017</td>
+<td align="center">October 2, 2017</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><a href="hw03_dplyr-and-more-ggplot2.html">Homework 03</a></td>
-<td style="text-align: center;">October 3, 2017</td>
-<td style="text-align: center;">October 9, 2017</td>
+<td align="center"><a href="hw03_dplyr-and-more-ggplot2.html">Homework 03</a></td>
+<td align="center">October 3, 2017</td>
+<td align="center">October 9, 2017</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><a href="hw04_tidy-data-joins.html">Homework 04</a></td>
-<td style="text-align: center;">October 10, 2017</td>
-<td style="text-align: center;">October 16, 2017</td>
+<td align="center"><a href="hw04_tidy-data-joins.html">Homework 04</a></td>
+<td align="center">October 10, 2017</td>
+<td align="center">October 16, 2017</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><a href="hw05_factor-figure-boss-repo-hygiene.html">Homework 05</a></td>
-<td style="text-align: center;">October 20, 2017</td>
-<td style="text-align: center;">October 25, 2017</td>
+<td align="center"><a href="hw05_factor-figure-boss-repo-hygiene.html">Homework 05</a></td>
+<td align="center">October 20, 2017</td>
+<td align="center">October 25, 2017</td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="stat-547m" class="level4">
+<p><strong>Office hours</strong></p>
+<p>Want to talk about the course outside of lecture? Let’s talk during these dedicated times.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Instructor</th>
+<th>Date</th>
+<th>Time</th>
+<th>Place</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Vincenzo</td>
+<td>Tuesdays, Sept 4 - Sept 25</td>
+<td>14:00-15:00</td>
+<td>ESB 3174</td>
+</tr>
+<tr class="even">
+<td>Vincenzo</td>
+<td>Tuesdays, Oct 2 - Oct 16</td>
+<td>11:00-12:00</td>
+<td>ESB 1043</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="stat-547m" class="section level4">
 <h4>STAT 547M</h4>
 <table>
 <thead>
 <tr class="header">
-<th style="text-align: left;">date</th>
-<th>instructor</th>
-<th style="text-align: left;">notes</th>
+<th align="left">date</th>
+<th align="left">notes</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">oct-24 tues</td>
-<td>Giulio</td>
-<td style="text-align: left;"><a href="cm101_character-data-regex.html">cm101</a>: Regular expressions and character data</td>
+<td align="left">oct-24 tues</td>
+<td align="left"><a href="cm101_character-data-regex.html">cm101</a>: Regular expressions and character data</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">oct-26 thurs</td>
-<td>Derek</td>
-<td style="text-align: left;"><a href="cm102_writing-functions.html">cm102</a>: Writing your own R functions</td>
+<td align="left">oct-26 thurs</td>
+<td align="left"><a href="cm102_writing-functions.html">cm102</a>: Writing your own R functions</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">oct-31 tues</td>
-<td>Joey</td>
-<td style="text-align: left;"><a href="cm103_list-inspection-mapping.html">cm103</a>: purrr, list-columns, nested data frames 1</td>
+<td align="left">oct-31 tues</td>
+<td align="left"><a href="cm103_list-inspection-mapping.html">cm103</a>: purrr, list-columns, nested data frames 1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">nov-02 thurs</td>
-<td>Giulio</td>
-<td style="text-align: left;"><a href="cm104_lists-and-data-frames.html">cm104</a>: purrr, list-columns, nested data frames 2</td>
+<td align="left">nov-02 thurs</td>
+<td align="left"><a href="cm104_lists-and-data-frames.html">cm104</a>: purrr, list-columns, nested data frames 2</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">nov-07 tues</td>
-<td>Shaun</td>
-<td style="text-align: left;"><a href="cm105_automation-and-make.html">cm105</a>: Automate tasks and pipelines</td>
+<td align="left">nov-07 tues</td>
+<td align="left"><a href="cm105_automation-and-make.html">cm105</a>: Automate tasks and pipelines</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">nov-09 thurs</td>
-<td>Giulio</td>
-<td style="text-align: left;"><a href="cm106_automation-and-make.html">cm106</a>: ditto</td>
+<td align="left">nov-09 thurs</td>
+<td align="left"><a href="cm106_automation-and-make.html">cm106</a>: ditto</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">nov-14 tues</td>
-<td>Giulio</td>
-<td style="text-align: left;"><a href="cm107_shiny-apps.html">cm107</a>: Build your first Shiny app</td>
+<td align="left">nov-14 tues</td>
+<td align="left"><a href="cm107_shiny-apps.html">cm107</a>: Build your first Shiny app</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">nov-16 thurs</td>
-<td>Giulio</td>
-<td style="text-align: left;"><a href="cm108_shiny-apps.html">cm108</a>: ditto</td>
+<td align="left">nov-16 thurs</td>
+<td align="left"><a href="cm108_shiny-apps.html">cm108</a>: ditto</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">nov-21 tues</td>
-<td>Vincenzo</td>
-<td style="text-align: left;"><a href="cm109_packages.html">cm109</a>: Build your first R package</td>
+<td align="left">nov-21 tues</td>
+<td align="left"><a href="cm109_packages.html">cm109</a>: Build your first R package</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">nov-23 thurs</td>
-<td>Vincenzo</td>
-<td style="text-align: left;"><a href="cm110_packages.html">cm110</a>: ditto</td>
+<td align="left">nov-23 thurs</td>
+<td align="left"><a href="cm110_packages.html">cm110</a>: ditto</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">nov-28 tues</td>
-<td>Giulio</td>
-<td style="text-align: left;"><a href="cm111_webdata.html">cm111</a>: Get data from the web (scraping and APIs)</td>
+<td align="left">nov-28 tues</td>
+<td align="left"><a href="cm111_webdata.html">cm111</a>: Get data from the web (scraping and APIs)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">nov-30 thurs</td>
-<td>Giulio</td>
-<td style="text-align: left;"><a href="cm112_webdata.html">cm112</a>: ditto</td>
+<td align="left">nov-30 thurs</td>
+<td align="left"><a href="cm112_webdata.html">cm112</a>: ditto</td>
 </tr>
 </tbody>
 </table>
@@ -381,40 +363,60 @@ table {
 <table>
 <thead>
 <tr class="header">
-<th style="text-align: center;">Link</th>
-<th style="text-align: center;">Homework Due Date</th>
-<th style="text-align: center;">Peer Review Due Date</th>
+<th align="center">Link</th>
+<th align="center">Homework Due Date</th>
+<th align="center">Peer Review Due Date</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><a href="hw06_data-wrangling-conclusion.html">Homework 06</a></td>
-<td style="text-align: center;">November 10, 2017</td>
-<td style="text-align: center;">November 13, 2017</td>
+<td align="center"><a href="hw06_data-wrangling-conclusion.html">Homework 06</a></td>
+<td align="center">November 10, 2017</td>
+<td align="center">November 13, 2017</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><a href="hw07_automation.html">Homework 07</a></td>
-<td style="text-align: center;">November 14, 2017</td>
-<td style="text-align: center;">November 17, 2017</td>
+<td align="center"><a href="hw07_automation.html">Homework 07</a></td>
+<td align="center">November 14, 2017</td>
+<td align="center">November 17, 2017</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><a href="hw08_shiny.html">Homework 08</a></td>
-<td style="text-align: center;">November 21, 2017</td>
-<td style="text-align: center;">November 24, 2017</td>
+<td align="center"><a href="hw08_shiny.html">Homework 08</a></td>
+<td align="center">November 21, 2017</td>
+<td align="center">November 24, 2017</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><a href="hw09_package.html">Homework 09</a></td>
-<td style="text-align: center;">November 28, 2017</td>
-<td style="text-align: center;">December 6, 2017</td>
+<td align="center"><a href="hw09_package.html">Homework 09</a></td>
+<td align="center">November 28, 2017</td>
+<td align="center">December 6, 2017</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><a href="hw10_data-from-web.html">Homework 10</a></td>
-<td style="text-align: center;">December 7, 2017</td>
-<td style="text-align: center;">December 13, 2017</td>
+<td align="center"><a href="hw10_data-from-web.html">Homework 10</a></td>
+<td align="center">December 7, 2017</td>
+<td align="center">December 13, 2017</td>
 </tr>
 </tbody>
 </table>
-<section id="homework-topics" class="level5">
+<p><strong>Office hours</strong></p>
+<p>Want to talk about the course outside of lecture? Let’s talk during these dedicated times.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Instructor</th>
+<th>Date</th>
+<th>Time</th>
+<th>Place</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Vincenzo</td>
+<td>Tuesdays, Oct 23 - Nov 27</td>
+<td>11:00-12:00</td>
+<td>ESB 1043</td>
+</tr>
+</tbody>
+</table>
+<div id="homework-topics" class="section level5">
 <h5>Homework topics:</h5>
 <ul>
 <li>Homework 06: Choose your adventure! Topics include regular expressions, data ingest/exploration, working with lists, working with nested data frames.</li>
@@ -423,9 +425,9 @@ table {
 <li>Homework 09: Write an R package.</li>
 <li>Homework 10: Get data from the web</li>
 </ul>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
 <div class="footer">
 This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
