@@ -56,7 +56,7 @@ Want to talk about the course outside of lecture? Let's talk during these dedica
 
 | Instructor | Date | Time | Place |
 |------------|------|------|-------|
-| Vincenzo | Tuesdays, Sept 4 - Sept 25 | 14:00-15:00 | ESB 3174 |
+| Vincenzo | Tuesdays, Sept 4 - Sept 25 | 14:00-15:00 | ESB 1043 |
 | Vincenzo | Tuesdays, Oct 2 - Oct 16 | 11:00-12:00 | ESB 1043 |
 
 #### STAT 547M
