@@ -20,8 +20,8 @@
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
-<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="libs/highlightjs-1.1/highlight.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,10 +40,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -148,6 +150,15 @@ $(document).ready(function () {
 
 
 <div id="staff" class="section level3">
+<h3>2018 staff</h3>
+<p>Vincenzo Coia, instructor</p>
+<ul>
+<li><a href="mailto:vincen.coia@stat.ubc.ca">vincen.coia@stat.ubc.ca</a></li>
+<li><a href="https://twitter.com/vincenzocoia">@VincenzoCoia</a></li>
+<li><a href="https://www.linkedin.com/in/vincenzocoia/">LinkedIn</a></li>
+</ul>
+</div>
+<div id="staff-1" class="section level3">
 <h3>2017 staff</h3>
 <p>Vincenzo Coia, instructor (mostly for first half/545)</p>
 <ul>
@@ -160,9 +171,8 @@ $(document).ready(function () {
 <li><a href="mailto:giulio.riva@stat.ubc.ca">giulio.riva@stat.ubc.ca</a></li>
 <li><a href="https://twitter.com/ipnosimmia">@ipnosimmia</a></li>
 </ul>
-<p>TA’s to be announced soon!</p>
 </div>
-<div id="staff-1" class="section level3">
+<div id="staff-2" class="section level3">
 <h3>2016 staff</h3>
 <p>Jennifer (Jenny) Bryan, lead instructor</p>
 <ul>
@@ -182,7 +192,7 @@ Ogan Mancarci, Bioinformatics PhD</p>
 <li><a href="https://github.com/sjackman">GitHub</a></li>
 </ul>
 </div>
-<div id="staff-2" class="section level3">
+<div id="staff-3" class="section level3">
 <h3>2015 staff</h3>
 <p>Jenny Bryan</p>
 <p><a href="http://deanattali.com">Dean Attali</a>, co-lead TA for STAT 545A and STAT 547M</p>
@@ -207,7 +217,7 @@ Ogan Mancarci, Bioinformatics PhD</p>
 <li>Magda Price, Reproductive and Developmental Sciences Program PhD</li>
 </ul>
 </div>
-<div id="staff-3" class="section level3">
+<div id="staff-4" class="section level3">
 <h3>2014 staff</h3>
 <p><a href="http://www.juliagustavsen.com">Julia Gustavsen</a></p>
 <ul>
@@ -264,7 +274,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
