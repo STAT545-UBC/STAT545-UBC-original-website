@@ -25,30 +25,30 @@ table {
 
 date           notes                                                                                                                   
 -------------  ------------------------------------------------------------------------------------------------------------------------
-sep-05 tues    <a href="cm001_course-intro-sw-install-account-signup.html">cm001</a>: Intro to course; S/W install; acct sign-ups      
-sep-07 thurs   <a href="cm002_r-rstudio-intro.html">cm002</a>: Deep Thoughts about data analytic work; intro to R and RStudio          
-sep-12 tues    <a href="cm003_render-git-github-test-drive.html">cm003</a>: Git(Hub) test drive, run/render an R script                
-sep-14 thurs   <a href="cm004_claim-repo-test-drive-rmd.html">cm004</a>: R Markdown test drive                                         
-sep-19 tues    <a href="cm005_tidyverse-tibbles.html">cm005</a>: Care and feeding of data frames or "tibbles"                          
-sep-21 thurs   <a href="cm006_tibbles-dplyr-ggplot2.html">cm006</a>: First look at dplyr, %>%, and ggplot2                             
-sep-26 tues    <a href="cm007_ggplot2.html">cm007</a>: ggplot2                                                                         
-sep-28 thurs   <a href="cm008_dplyr-single-table.html">cm008</a>: ~~dplyr: mutate, group, summarize~~ Modelling in R; More dplyr, ggplot2.                          
-oct-03 tues    <a href="cm009_tidy-data.html">cm009</a>: Tidy data, ~~reshaping~~                                                         
-oct-05 thurs   <a href="cm010_joins-r-programming.html">cm010</a>: dplyr joins, reshaping part 1, ~~minimum "need to know" re: R as a programming language~~
-oct-10 tues    <a href="cm011_r-programming-file-io.html">cm011</a>: R as a programming language, getting data out of R (and back in)  
-oct-12 thurs   <a href="cm012_file-io-factors.html">cm012</a>: Be the boss of your factors, getting data out of R (and back in)        
-oct-17 tues    <a href="cm013_ggplot2-continued.html">cm013</a>: Revisit ggplot, practicalities of daily figure-making                 
-oct-19 thurs   <a href="cm014_munzner-guest-lecture.html">cm014</a>: Visualization Analysis and Design: Tamara Munzer guest lecture    
+sep-04 tues    <a href="cm001_course-intro-sw-install-account-signup.html">cm001</a>: Intro to course; S/W install; acct sign-ups      
+sep-06 thurs   <a href="cm002_r-rstudio-intro.html">cm002</a>: Deep Thoughts about data analytic work; intro to R and RStudio          
+sep-11 tues    <a href="cm003_render-git-github-test-drive.html">cm003</a>: Git(Hub) test drive, run/render an R script                
+sep-13 thurs   <a href="cm004_claim-repo-test-drive-rmd.html">cm004</a>: R Markdown test drive                                         
+sep-18 tues    <a href="cm005_tidyverse-tibbles.html">cm005</a>: Care and feeding of data frames or "tibbles"                          
+sep-20 thurs   <a href="cm006_tibbles-dplyr-ggplot2.html">cm006</a>: First look at dplyr, %>%, and ggplot2                             
+sep-25 tues    <a href="cm007_ggplot2.html">cm007</a>: ggplot2                                                                         
+sep-27 thurs   <a href="cm008_dplyr-single-table.html">cm008</a>: ~~dplyr: mutate, group, summarize~~ Modelling in R; More dplyr, ggplot2.                          
+oct-02 tues    <a href="cm009_tidy-data.html">cm009</a>: Tidy data, ~~reshaping~~                                                         
+oct-04 thurs   <a href="cm010_joins-r-programming.html">cm010</a>: dplyr joins, reshaping part 1, ~~minimum "need to know" re: R as a programming language~~
+oct-09 tues    <a href="cm011_r-programming-file-io.html">cm011</a>: R as a programming language, getting data out of R (and back in)  
+oct-11 thurs   <a href="cm012_file-io-factors.html">cm012</a>: Be the boss of your factors, getting data out of R (and back in)        
+oct-16 tues    <a href="cm013_ggplot2-continued.html">cm013</a>: Revisit ggplot, practicalities of daily figure-making                 
+oct-18 thurs   <a href="cm014_munzner-guest-lecture.html">cm014</a>: Visualization Analysis and Design: Tamara Munzer guest lecture    
 
 Links to homework will be posted here as they are made available. Submissions are due at midnight.
 
 | Link |  Homework Due Date  |  Peer Review Due Date |
 | :--: | :---------------: | :-----------------: |
-| [Homework 01](hw01_edit-README.html) | September 19, 2017 | September 25, 2017 |
-| [Homework 02](hw02_explore-gapminder-dplyr.html) | September 26, 2017 | October 2, 2017 |
-| [Homework 03](hw03_dplyr-and-more-ggplot2.html) |  October 3, 2017 | October 9, 2017 |
-| [Homework 04](hw04_tidy-data-joins.html) | October 10, 2017 | October 16, 2017 |
-| [Homework 05](hw05_factor-figure-boss-repo-hygiene.html) | October 20, 2017 | October 25, 2017 |
+| Homework 01 | September 18, 2018 | September 24, 2018 |
+| Homework 02 | September 25, 2018 | October 01, 2018 |
+| Homework 03 |  October 02,   2018 | October 08, 2018 |
+| Homework 04 | October 09,   2018 | October 15, 2018 |
+| Homework 05 | October 19,   2018 | October 24, 2018 |
 
 __Office hours__
 
@@ -64,28 +64,28 @@ Want to talk about the course outside of lecture? Let's talk during these dedica
 
 date           notes                                                                                             
 -------------  --------------------------------------------------------------------------------------------------
-oct-24 tues    <a href="cm101_character-data-regex.html">cm101</a>: Regular expressions and character data       
-oct-26 thurs   <a href="cm102_writing-functions.html">cm102</a>: Writing your own R functions                    
-oct-31 tues    <a href="cm103_list-inspection-mapping.html">cm103</a>: purrr, list-columns, nested data frames 1
-nov-02 thurs   <a href="cm104_lists-and-data-frames.html">cm104</a>: purrr, list-columns, nested data frames 2   
-nov-07 tues    <a href="cm105_automation-and-make.html">cm105</a>: Automate tasks and pipelines   
-nov-09 thurs   <a href="cm106_automation-and-make.html">cm106</a>: ditto                                         
-nov-14 tues    <a href="cm107_shiny-apps.html">cm107</a>: Build your first Shiny app                
-nov-16 thurs   <a href="cm108_shiny-apps.html">cm108</a>: ditto                                                  
-nov-21 tues    <a href="cm109_packages.html">cm109</a>: Build your first R package                               
-nov-23 thurs   <a href="cm110_packages.html">cm110</a>: ditto                                                    
-nov-28 tues    <a href="cm111_webdata.html">cm111</a>: Get data from the web (scraping and APIs)                 
-nov-30 thurs   <a href="cm112_webdata.html">cm112</a>: ditto                                                     
+oct-23 tues    <a href="cm101_character-data-regex.html">cm101</a>: Regular expressions and character data       
+oct-25 thurs   <a href="cm102_writing-functions.html">cm102</a>: Writing your own R functions                    
+oct-30 tues    <a href="cm103_list-inspection-mapping.html">cm103</a>: purrr, list-columns, nested data frames 1
+nov-01 thurs   <a href="cm104_lists-and-data-frames.html">cm104</a>: purrr, list-columns, nested data frames 2   
+nov-06 tues    <a href="cm105_automation-and-make.html">cm105</a>: Automate tasks and pipelines   
+nov-08 thurs   <a href="cm106_automation-and-make.html">cm106</a>: ditto                                         
+nov-13 tues    <a href="cm107_shiny-apps.html">cm107</a>: Build your first Shiny app                
+nov-15 thurs   <a href="cm108_shiny-apps.html">cm108</a>: ditto                                                  
+nov-20 tues    <a href="cm109_packages.html">cm109</a>: Build your first R package                               
+nov-22 thurs   <a href="cm110_packages.html">cm110</a>: ditto                                                    
+nov-27 tues    <a href="cm111_webdata.html">cm111</a>: Get data from the web (scraping and APIs)                 
+nov-29 thurs   <a href="cm112_webdata.html">cm112</a>: ditto                                                     
 
 Links to homework will be posted here as they are made available:
 
 | Link |  Homework Due Date  |  Peer Review Due Date |
 | :--: | :---------------: | :-----------------: |
-| [Homework 06](hw06_data-wrangling-conclusion.html) | November 10, 2017 | November 13, 2017 |
-| [Homework 07](hw07_automation.html) | November 14, 2017 | November 17, 2017 |
-| [Homework 08](hw08_shiny.html) | November 21, 2017 | November 24, 2017 |
-| [Homework 09](hw09_package.html) | November 28, 2017 | December 6, 2017 |
-| [Homework 10](hw10_data-from-web.html) | December 7, 2017 | December 13, 2017 |
+| Homework 06 | November 09, 2018 | November 12, 2018 |
+| Homework 07 | November 13, 2018 | November 16, 2018 |
+| Homework 08 | November 20, 2018 | November 23, 2018 |
+| Homework 09 | November 27, 2018 | December 05, 2018 |
+| Homework 10 | December 06, 2018 | December 12, 2018 |
 
 __Office hours__
 
