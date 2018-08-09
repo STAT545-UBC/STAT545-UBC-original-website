@@ -1,0 +1,25 @@
+---
+title: "STAT 545 Class Meeting 01"
+output:
+    html_notebook:
+        toc: true
+        theme: cerulean
+        number_sections: true
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Today's Learning Objectives
+
+By the end of class, we anticipate students will:
+
+- Be oriented with the course structure and resources.
+- Be exposed to the main themes of the course, and understand their value.
+- Have created a GitHub account, and have installed RStudio.
+- Understand what a plain text file is, their value, and alternatives (that are less desireable for data analytic work).
+- Know how to make plain text files with RStudio.
+
+# Orientation to STAT 545
+
+- Course history
+    - Jenny Bryan, the Twitter account, why information appears scattered.

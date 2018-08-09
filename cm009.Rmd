@@ -1,0 +1,92 @@
+---
+title: "STAT 545 Class Meeting 09"
+output:
+    html_notebook:
+        toc: true
+        theme: cerulean
+        number_sections: true
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Learning Objectives
+
+
+```{r}
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(gapminder))
+```
+
+
+After going through the `dplyr` [vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html) on "two-table verbs", we'll work on the following exercises.
+
+
+Consider the following areas of countries, in hectares:
+
+```{r}
+(areas <- data.frame(country=c("Canada", "United States", "India", "Vatican City"),
+                     area=c(998.5*10^6, 983.4*10^6, 328.7*10^6, 44)) %>% 
+     as.tbl)
+```
+
+
+1. To the `gapminder` dataset, add an `area` variable using the `areas` tibble. Be sure to preserve all the rows of the original `gapminder` dataset.
+
+```{r}
+left_join(gapminder, areas)
+```
+
+
+2. To the `gapminder` dataset, add an `area` variable using the `areas` tibble, but only keeping obervations for which areas are available. 
+
+```{r}
+inner_join(gapminder, areas)
+```
+
+3. Use a `_join` function to output the rows in `areas` corresponding to countries that _are not_ found in the `gapminder` dataset. 
+
+```{r}
+anti_join(areas, gapminder)
+```
+
+
+4. Use a `_join` function to output the rows in `areas` corresponding to countries that _are_ found in the `gapminder` dataset. 
+
+```{r}
+semi_join(areas, gapminder, by="country")
+```
+
+5. Construct a tibble that joins `gapminder` and `areas`, so that all rows found in each original tibble are also found in the final tibble. 
+
+```{r}
+full_join(areas, gapminder)
+full_join(gapminder, areas)
+```
+
+Here are the rows containing the Vatican City:
+
+```{r}
+full_join(areas, gapminder) %>% 
+    filter(country=="Vatican City")
+```
+
+
+6. Subset the `gapminder` dataset to have countries that are only found in the `areas` data frame. 
+
+```{r}
+semi_join(gapminder, areas)
+```
+
+7. Subset the `gapminder` dataset to have countries that are _not_ found in the `areas` data frame. 
+
+```{r}
+anti_join(gapminder, areas)
+```
+
+Let's check.... Canada should not be in there:
+
+```{r}
+anti_join(gapminder, areas) %>% 
+    filter(country=="Canada")
+```
+

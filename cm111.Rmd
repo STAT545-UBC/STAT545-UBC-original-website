@@ -1,0 +1,13 @@
+---
+title: "Class Meeting"
+output:
+    html_notebook:
+        toc: true
+        theme: cerulean
+        number_sections: true
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Learning Objectives
+

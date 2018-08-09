@@ -1,0 +1,13 @@
+---
+title: "STAT 547M Class Meeting 01"
+output:
+    html_notebook:
+        toc: true
+        theme: cerulean
+        number_sections: true
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Learning Objectives
+

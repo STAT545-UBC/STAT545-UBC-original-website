@@ -1,0 +1,144 @@
+---
+title: "STAT 545 Class Meeting 10"
+output:
+    html_notebook:
+        toc: true
+        theme: cerulean
+        number_sections: true
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Learning Objectives
+
+
+```{r setup, include=FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+knitr::opts_chunk$set(fig.width=4, fig.height=3)
+```
+
+We are going to use a set of datasets that Joey put together for us. You can install them from github.
+
+```{r}
+# if you have not installed devtools, time to do it (uncomment following line)
+# install.packages("devtools")
+# uncomment and run the following line to get the `singer` package
+devtools::install_github("JoeyBernhardt/singer")
+```
+
+## Join together
+
+For the first part of the lecture, we are going to work a tad on some more joining operation.
+
+The package `singer` comes with two smallish dataframe about songs and artists. Let's take a look at them
+
+```{r}
+library(singer)
+data("songs")
+songs
+```
+
+```{r}
+data("locations")
+locations
+```
+
+### Challenge 1
+
+What flow would you use to get a dataframe with all the rows from `songs` where there is matching information the in `locations` dataframe?
+
+```{r}
+
+```
+
+### Challenge 2
+
+What flow would you use to get a dataframe with all the rows from `songs` where there is matching information the in `locations` dataframe, getting back a dataframe with `title`, `artist_name` and `year`?
+
+```{r}
+
+```
+
+### Challenge 2
+
+What command(s) would you use to get a dataframe with all the rows from `songs` where there is matching information the in `locations` dataframe, getting back a dataframe with `title`, `artist_name` and `year`?
+
+```{r}
+
+```
+
+### Challenge 3
+
+What flow would you use to get the number of releases (albums) present in this two small datasets per year?
+
+```{r}
+
+```
+
+
+## Reshaping
+
+Let's consider the bigger datagrame `artist_locations`
+
+```{r}
+data("singer_locations")
+singer_locations
+```
+
+
+Let's suppose that we would like to do some plotting, showing the mean of `artist_hotttnesss`, `artist_familiarity` and `duration` for `year`. Let's select the appropriate part of the dataframe.
+
+```{r}
+hfd_y <- singer_locations %>%
+  select(year, artist_hotttnesss, artist_familiarity, duration)
+```
+
+
+You may have heard that ggplot prefers long dataframes, what does that mean? Let's see with an example. The dataframe we have is **wide**: that means that the observation presents the values of interest on different columns.
+
+```{r}
+hfd_y
+```
+
+To have in on a long format, we can use `tidyr`'s function `gather()`. Let's see:
+
+```{r}
+hfd_y_long <- hfd_y %>%
+  gather(key = "measure", value = "Value", artist_hotttnesss:duration)
+```
+
+### micro challenge
+
+Observe the number of rows and the first entries: what do you think it happened?
+
+
+---
+
+We can go back to the wide format using `tidyr`'s function `spread()`. Yet, be braced for a problem:
+
+```{r}
+hfd_y_long %>%
+  spread(measure, Value)
+```
+
+What did go wrong here? As we had more than one song per year, when we made it long we lost some information: we don't know how to reassemble the wide table. Let's try again, but with additional wizardry: remember that if you want to gather and then spread, you need to have in the dataframe some column(s) uniquely identifying each row. In this case `song_id` does the magic.
+
+
+```{r}
+hfd_y_unique <- singer_locations %>%
+  select(song_id, year, artist_hotttnesss, artist_familiarity, duration)
+```
+
+Gather:
+
+```{r}
+hfd_y_unique_long <- hfd_y_unique %>%
+  gather(key = "measure", value = "Value", artist_hotttnesss:duration)
+```
+
+and then spread
+
+```{r}
+hfd_y_unique_long %>%
+  spread(measure, Value)
+```
