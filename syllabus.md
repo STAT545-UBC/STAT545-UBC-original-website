@@ -22,6 +22,8 @@ table {
 
 #### STAT 545A
 
+Warning: adjustments are still being made!
+
 
 date           notes                                                                                                                   
 -------------  ------------------------------------------------------------------------------------------------------------------------
@@ -32,13 +34,13 @@ sep-13 thurs   <a href="cm004_claim-repo-test-drive-rmd.html">cm004</a>: R Markd
 sep-18 tues    <a href="cm005_tidyverse-tibbles.html">cm005</a>: Care and feeding of data frames or "tibbles"                          
 sep-20 thurs   <a href="cm006_tibbles-dplyr-ggplot2.html">cm006</a>: First look at dplyr, %>%, and ggplot2                             
 sep-25 tues    <a href="cm007_ggplot2.html">cm007</a>: ggplot2                                                                         
-sep-27 thurs   <a href="cm008_dplyr-single-table.html">cm008</a>: ~~dplyr: mutate, group, summarize~~ Modelling in R; More dplyr, ggplot2.                          
-oct-02 tues    <a href="cm009_tidy-data.html">cm009</a>: Tidy data, ~~reshaping~~                                                         
-oct-04 thurs   <a href="cm010_joins-r-programming.html">cm010</a>: dplyr joins, reshaping part 1, ~~minimum "need to know" re: R as a programming language~~
+sep-27 thurs   <a href="cm008_dplyr-single-table.html">cm008</a>: dplyr: mutate, group, summarize. The model-fitting paradigm in R.                          
+oct-02 tues    <a href="cm009_tidy-data.html">cm009</a>: Tidy data, reshaping                                                         
+oct-04 thurs   <a href="cm010_joins-r-programming.html">cm010</a>: dplyr joins, reshaping part 1. Minimum "need to know" re: R as a programming language.
 oct-09 tues    <a href="cm011_r-programming-file-io.html">cm011</a>: R as a programming language, getting data out of R (and back in)  
 oct-11 thurs   <a href="cm012_file-io-factors.html">cm012</a>: Be the boss of your factors, getting data out of R (and back in)        
 oct-16 tues    <a href="cm013_ggplot2-continued.html">cm013</a>: Revisit ggplot, practicalities of daily figure-making                 
-oct-18 thurs   <a href="cm014_munzner-guest-lecture.html">cm014</a>: Visualization Analysis and Design: Tamara Munzer guest lecture    
+oct-18 thurs   <a href="cm014_munzner-guest-lecture.html">cm014</a>: The model-fitting paradigm in R    
 
 Links to homework will be posted here as they are made available. Submissions are due at midnight.
 
