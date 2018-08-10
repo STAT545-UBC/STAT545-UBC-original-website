@@ -8,12 +8,9 @@ output:
 
 ### 2018 staff
 
-Vincenzo Coia, instructor
-
-- <vincen.coia@stat.ubc.ca>
-- [\@VincenzoCoia](https://twitter.com/vincenzocoia)
-- [LinkedIn](https://www.linkedin.com/in/vincenzocoia/)
-
+| Member | Position | Email | GitHub | Twitter | LinkedIn |
+| ------ | -------- | ----- | ------ | ------- | -------- |
+| Vincenzo Coia | Instructor | <vincen.coia@stat.ubc.ca> | vincenzocoia | [\@VincenzoCoia](https://twitter.com/vincenzocoia) | [LinkedIn](https://www.linkedin.com/in/vincenzocoia/)
 
 ### 2017 staff
 
