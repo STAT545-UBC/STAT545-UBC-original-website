@@ -17,6 +17,13 @@ library(tidyverse)
 library(gapminder)
 ```
 
+The resources underpinning today's class are:
+
+1. [Care and Feeding of Data in R](http://stat545.com/block006_care-feeding-data.html)
+2. `dplyr` resources: [part 1](http://stat545.com/block009_dplyr-intro.html) and [part 2](http://stat545.com/block010_dplyr-end-single-table.html).
+3. [R for Data Science, Ch5](http://r4ds.had.co.nz/transform.html) for `dplyr`. 
+
+
 ## 1. A quick look at data types in R
 
 ### 1.1 Overview

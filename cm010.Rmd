@@ -17,6 +17,16 @@ suppressPackageStartupMessages(library(tidyverse))
 knitr::opts_chunk$set(fig.width=4, fig.height=3)
 ```
 
+#### Resources
+
+Some useful resources for data frame joins:
+- Jenny's [Cheatsheet](bit001_dplyr-cheatsheet.html) for `dplyr` join functions.
+- Possibly look at Jenny's [Tidy data using Lord of the Rings](https://github.com/jennybc/lotr-tidy)
+- "two-table verbs"'s [vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html) on
+For data reshaping:
+-  The `tidyr`'s [vignette](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html)
+
+
 We are going to use a set of datasets that Joey put together for us. You can install them from github.
 
 ```{r}

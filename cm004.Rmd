@@ -11,3 +11,9 @@ editor_options:
 
 # Learning Objectives
 
+
+- R Markdown!!
+    - We will [test drive R markdown](http://stat545.com/block007_first-use-rmarkdown.html) together in class.
+- Care and feeding of data frames!
+    - In our first R Markdown document, we will explore the Gapminder data.
+    - [Basic care and feeding of data in R](block006_care-feeding-data.html)

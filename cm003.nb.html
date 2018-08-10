@@ -176,17 +176,183 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a></li>
+<li><a href="#learning-objectives"><span class="toc-section-number">1</span> Learning Objectives</a><ul>
+<li><a href="#working-on-github"><span class="toc-section-number">1.1</span> Working on GitHub</a></li>
+<li><a href="#working-locally"><span class="toc-section-number">1.2</span> Working Locally</a></li>
+<li><a href="#git-and-github-take-home-lessons"><span class="toc-section-number">1.3</span> Git and GitHub take-home Lessons</a></li>
+<li><a href="#markdown-and-r-markdown"><span class="toc-section-number">1.4</span> Markdown and R Markdown</a></li>
+</ul></li>
 </ul>
 </div>
 
 <!-- rnb-text-begin -->
 <div id="learning-objectives" class="section level1">
 <h1><span class="header-section-number">1</span> Learning Objectives</h1>
+<p>Today, time permitting, we’ll aim to:</p>
+<ul>
+<li>have a github repo set up</li>
+<li>have that repo cloned locally</li>
+<li>if there’s time: RMarkdown</li>
+</ul>
+<p>By the end of today’s class, students are anticipated to:</p>
+<ul>
+<li>Demonstrate usage of RStudio’s git client</li>
+</ul>
+<div id="working-on-github" class="section level2">
+<h2><span class="header-section-number">1.1</span> Working on GitHub</h2>
+<ul>
+<li>Let’s start with a survey of github. Let’s use the <a href="https://github.com/UBC-MDS/public">MDS public repo</a> as an example. Notice…
+<ul>
+<li><strong>Directory</strong>: You can see a directory of files, along with a <em>README</em> (in other folders, too).
+<ul>
+<li>Can’t make folders on gh… need to make locally.</li>
+</ul></li>
+<li><strong>File Rendering</strong>: GitHub renders certain file types nicely.
+<ul>
+<li>Markdown! csv/tsv! pdf!</li>
+<li>Not html :(</li>
+<li>Basically get a free website. <a href="http://happygitwithr.com/repo-browsability.html">Make it browsable!</a>.</li>
+</ul></li>
+<li><strong>Editing</strong>: Use the “pen” icon. Then “commit”. Not so good for big changes (can’t save) – we’ll see how to make changes locally later.</li>
+<li><strong>Commits</strong>: List that shows the entire “history” of the project since you initiated git. See at the repo’s “home” directory.</li>
+<li><strong>diffs</strong>: Click on a commit to see what was changed!</li>
+<li>File <strong>History</strong> and <strong>Blame</strong>: History shows the commit history of the file; blame shows who did what.</li>
+<li><strong>Issues</strong>: A way for open dialogue to happen amongst your team.</li>
+</ul></li>
+<li>Exercise 1:
+<ul>
+<li>Create a new public github repo.</li>
+<li>Initiate with a README file.</li>
+<li>Edit the README file by adding some new text.</li>
+</ul></li>
+<li>Exercise 2: Navigate to the <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io">github repo that makes the stat545.com website</a>. Investigate the file <code>cm001_course-intro-sw-install-account-signup.md</code> in the main repo.
+<ul>
+<li>When was the last change made? By whom?</li>
+<li>What was added on line 10 in the most recent change?</li>
+<li>Who was the last person to change line 17?</li>
+<li>When was the first commit made? By whom? What did the file look like after that change?</li>
+</ul></li>
+<li>Exercise 3: Collaboration
+<ul>
+<li>Add your neighbour as a collaborator to your github repo. Go to Settings -&gt; Collaborators, and type in their github username.</li>
+<li>Modify <em>your neighbour’s</em> README by adding some text, like “<my name> was here.”</li>
+<li>Add an issue titled something like “README should be reviewed” and tag the repo owner by preceding their username with <code>@</code>.</li>
+<li>Repo owners: check your email. You should have a notification. Close the issue (or comment+close).
+<ul>
+<li>NOTE: Click “Watch” to be notified of issues even if your aren’t tagged!</li>
+</ul></li>
+</ul></li>
+<li>Exercise 4: forking.
+<ul>
+<li><em>Fork</em> your <em>other</em> neighbour’s repo by navigating to their repo and clicking “fork”.
+<ul>
+<li>You’ll have your own copy of their repo on your account.</li>
+</ul></li>
+<li>Add a new file called <code>testing.md</code>, and add some text to it.</li>
+<li>Make a pull request by clicking <code>pull request</code>. Be sure to leave a comment.</li>
+<li>Owners of the repo: Accept the pull request.</li>
+</ul></li>
+<li>What happened in Exercise 4? A <em>separate copy</em> of the repo was modified, and <em>merged</em> to the main repo.</li>
+</ul>
+</div>
+<div id="working-locally" class="section level2">
+<h2><span class="header-section-number">1.2</span> Working Locally</h2>
+<p>GitHub can’t offer the suite of editing capabilities that you have on your local machine. So we set up a <em>local</em> version of the repo and communicate with the <em>remote</em> repo.</p>
+<ul>
+<li>Exercise 5: (Do together) Connect RStudio to git and GitHub
+<ul>
+<li>Did you <code>config</code> git? Enter the commands (with your credentials) specified at the top of <a href="http://happygitwithr.com/hello-git.html#hello-git">this</a> page.</li>
+<li>Psst… what is this “terminal” or “shell”? A “control center” for your computer (and remote servers!)</li>
+<li><em>Clone</em> your github repo to your local machine in RStudio. <a href="http://happygitwithr.com/rstudio-git-github.html#clone-the-new-github-repository-to-your-computer-via-rstudio">instructions</a>
+<ul>
+<li>Don’t have the “Version Control” option after clicking File -&gt; New Project? Follow <a href="http://happygitwithr.com/rstudio-see-git.html">these</a> instructions.</li>
+</ul></li>
+<li>Open your README file, and add a line. Could be <code>I added this line locally.</code>
+<ul>
+<li>YES RStudio can be used as a regular text editor!</li>
+</ul></li>
+<li>Go over to the <code>git</code> tab. Stage, commit, pull, and push your change.</li>
+<li>Navigate to your remote repo. Do you see the change? You should!</li>
+</ul></li>
+<li>Exercise 6: (Do yourself) Toy line
+<ul>
+<li>Make a new R script in your local repo.</li>
+<li>Go <a href="http://stat545.com/block002_hello-r-workspace-wd-project.html#rstudio-projects">here</a> and copy-and-paste the “toy line” script (chunks 3,4,5 in that section).</li>
+<li>Click “compile notebook” on it!</li>
+<li>Commit these changes, and push to your repo (after <code>pull</code>ing!)</li>
+<li>Do you see the change on your remote repo?</li>
+</ul></li>
+<li>Advanced stuff.
+<ul>
+<li>FYI: Alternatives to GitHub: bare repo on your own server.</li>
+<li>Merge conflicts. Branch. Revert.
+<ul>
+<li>Do via source tree, or bash.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="git-and-github-take-home-lessons" class="section level2">
+<h2><span class="header-section-number">1.3</span> Git and GitHub take-home Lessons</h2>
+<ul>
+<li>GitHub is not git! It holds your repo remotely.
+<ul>
+<li>There are alternatives to GitHub, like Bitbucket or a bare repo on your own server.</li>
+<li>Useful for collaboration! How many times do you want to send a file to your supervisor/advisor? email is clunky…</li>
+</ul></li>
+<li>Working with git:
+<ul>
+<li>local repository: a self-contained project on your computer</li>
+<li>remote repository: that project on some “cloud”, like GitHub, BitBucket, your own server, …</li>
+<li>git client: program on your computer that helps you use git (commit, push, pull, …)</li>
+</ul></li>
+<li>Adopt git in your workflow! This means:
+<ul>
+<li>Dedicate a self-contained directory to your project.</li>
+<li>Set up an R project for the directory.</li>
+<li>Set up git for that directory.</li>
+<li><strong>Save</strong> perpetually, <strong>commit</strong> often, <strong>pull/push</strong> (to github) periodically!</li>
+</ul></li>
+<li>git can be painful.
+<ul>
+<li>Problems? Often best to just burn it down and start fresh…</li>
+<li>Documentation difficult to read. Check out <a href="https://git-man-page-generator.lokaltog.net/">this parody</a> of github documentation.</li>
+<li>Use a git client to make it easier to work with git. RStudio, Source Tree, GitHub desktop, …</li>
+</ul></li>
+</ul>
+</div>
+<div id="markdown-and-r-markdown" class="section level2">
+<h2><span class="header-section-number">1.4</span> Markdown and R Markdown</h2>
+<p>Regular markdown:</p>
+<ul>
+<li><a href="https://daringfireball.net/projects/markdown/syntax">Markdown syntax</a>.
+<ul>
+<li>Some functionality in Slack.</li>
+<li>Can also include raw HTML.</li>
+</ul></li>
+<li>In RStudio, render this to HTML by clicking “preview”.
+<ul>
+<li>Files: <code>md</code> -&gt; <code>html</code>. Could do <code>pdf</code> or even Word, too.</li>
+</ul></li>
+</ul>
+<p>RMarkdown:</p>
+<ul>
+<li>Differences between markdown and R markdown.
+<ul>
+<li>Includes LaTeX (super useful for theses – check out LyX if you’re new).</li>
+<li>code chunks!</li>
+<li>YAML header. Can make some <a href="http://rmarkdown.rstudio.com/html_document_format.html">pretty html files</a> with YAML.</li>
+</ul></li>
+<li>How to render: <code>rmarkdown::render</code> or click “knit”.
+<ul>
+<li>Files: <code>Rmd</code> -&gt; <code>md</code> -&gt; <code>html</code> or <code>pdf</code> or word (and other permutations… <code>keep_md: yes</code> to keep the intermediate <code>md</code> file. Or <code>output: github_document</code>). <a href="https://speakerdeck.com/jennybc/happy-git-and-github-for-the-user?slide=56">Useful slide</a></li>
+</ul></li>
+</ul>
 <!-- rnb-text-end -->
 </div>
+</div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiU1RBVCA1NDUgQ2xhc3MgTWVldGluZyAwMyIKb3V0cHV0OgogICAgaHRtbF9ub3RlYm9vazoKICAgICAgICB0b2M6IHRydWUKICAgICAgICB0aGVtZTogY2VydWxlYW4KICAgICAgICBudW1iZXJfc2VjdGlvbnM6IHRydWUKZWRpdG9yX29wdGlvbnM6IAogIGNodW5rX291dHB1dF90eXBlOiBpbmxpbmUKLS0tCgojIExlYXJuaW5nIE9iamVjdGl2ZXMKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiU1RBVCA1NDUgQ2xhc3MgTWVldGluZyAwMyIKb3V0cHV0OgogICAgaHRtbF9ub3RlYm9vazoKICAgICAgICB0b2M6IHRydWUKICAgICAgICB0aGVtZTogY2VydWxlYW4KICAgICAgICBudW1iZXJfc2VjdGlvbnM6IHRydWUKZWRpdG9yX29wdGlvbnM6IAogIGNodW5rX291dHB1dF90eXBlOiBpbmxpbmUKLS0tCgojIExlYXJuaW5nIE9iamVjdGl2ZXMKClRvZGF5LCB0aW1lIHBlcm1pdHRpbmcsIHdlJ2xsIGFpbSB0bzoKCi0gaGF2ZSBhIGdpdGh1YiByZXBvIHNldCB1cCAKLSBoYXZlIHRoYXQgcmVwbyBjbG9uZWQgbG9jYWxseQotIGlmIHRoZXJlJ3MgdGltZTogUk1hcmtkb3duCgpCeSB0aGUgZW5kIG9mIHRvZGF5J3MgY2xhc3MsIHN0dWRlbnRzIGFyZSBhbnRpY2lwYXRlZCB0bzoKCi0gRGVtb25zdHJhdGUgdXNhZ2Ugb2YgUlN0dWRpbydzIGdpdCBjbGllbnQKCiMjIFdvcmtpbmcgb24gR2l0SHViCgotIExldCdzIHN0YXJ0IHdpdGggYSBzdXJ2ZXkgb2YgZ2l0aHViLiBMZXQncyB1c2UgdGhlIFtNRFMgcHVibGljIHJlcG9dKGh0dHBzOi8vZ2l0aHViLmNvbS9VQkMtTURTL3B1YmxpYykgYXMgYW4gZXhhbXBsZS4gTm90aWNlLi4uCiAgICAtIF9fRGlyZWN0b3J5X186IFlvdSBjYW4gc2VlIGEgZGlyZWN0b3J5IG9mIGZpbGVzLCBhbG9uZyB3aXRoIGEgX1JFQURNRV8gKGluIG90aGVyIGZvbGRlcnMsIHRvbykuCiAgICAgICAgLSBDYW4ndCBtYWtlIGZvbGRlcnMgb24gZ2guLi4gbmVlZCB0byBtYWtlIGxvY2FsbHkuIAogICAgLSBfX0ZpbGUgUmVuZGVyaW5nX186IEdpdEh1YiByZW5kZXJzIGNlcnRhaW4gZmlsZSB0eXBlcyBuaWNlbHkuCiAgICAgICAgLSBNYXJrZG93biEgY3N2L3RzdiEgcGRmIQogICAgICAgIC0gTm90IGh0bWwgOigKICAgICAgICAtIEJhc2ljYWxseSBnZXQgYSBmcmVlIHdlYnNpdGUuIFtNYWtlIGl0IGJyb3dzYWJsZSFdKGh0dHA6Ly9oYXBweWdpdHdpdGhyLmNvbS9yZXBvLWJyb3dzYWJpbGl0eS5odG1sKS4KICAgIC0gX19FZGl0aW5nX186IFVzZSB0aGUgInBlbiIgaWNvbi4gVGhlbiAiY29tbWl0Ii4gTm90IHNvIGdvb2QgZm9yIGJpZyBjaGFuZ2VzIChjYW4ndCBzYXZlKSAtLSB3ZSdsbCBzZWUgaG93IHRvIG1ha2UgY2hhbmdlcyBsb2NhbGx5IGxhdGVyLiAKICAgIC0gX19Db21taXRzX186IExpc3QgdGhhdCBzaG93cyB0aGUgZW50aXJlICJoaXN0b3J5IiBvZiB0aGUgcHJvamVjdCBzaW5jZSB5b3UgaW5pdGlhdGVkIGdpdC4gU2VlIGF0IHRoZSByZXBvJ3MgImhvbWUiIGRpcmVjdG9yeS4gCiAgICAtIF9fZGlmZnNfXzogQ2xpY2sgb24gYSBjb21taXQgdG8gc2VlIHdoYXQgd2FzIGNoYW5nZWQhCiAgICAtIEZpbGUgX19IaXN0b3J5X18gYW5kIF9fQmxhbWVfXzogSGlzdG9yeSBzaG93cyB0aGUgY29tbWl0IGhpc3Rvcnkgb2YgdGhlIGZpbGU7IGJsYW1lIHNob3dzIHdobyBkaWQgd2hhdC4gCiAgICAtIF9fSXNzdWVzX186IEEgd2F5IGZvciBvcGVuIGRpYWxvZ3VlIHRvIGhhcHBlbiBhbW9uZ3N0IHlvdXIgdGVhbS4KLSBFeGVyY2lzZSAxOgogICAgLSBDcmVhdGUgYSBuZXcgcHVibGljIGdpdGh1YiByZXBvLgogICAgLSBJbml0aWF0ZSB3aXRoIGEgUkVBRE1FIGZpbGUuIAogICAgLSBFZGl0IHRoZSBSRUFETUUgZmlsZSBieSBhZGRpbmcgc29tZSBuZXcgdGV4dC4KLSBFeGVyY2lzZSAyOiBOYXZpZ2F0ZSB0byB0aGUgW2dpdGh1YiByZXBvIHRoYXQgbWFrZXMgdGhlIHN0YXQ1NDUuY29tIHdlYnNpdGVdKGh0dHBzOi8vZ2l0aHViLmNvbS9TVEFUNTQ1LVVCQy9TVEFUNTQ1LVVCQy5naXRodWIuaW8pLiBJbnZlc3RpZ2F0ZSB0aGUgZmlsZSBgY20wMDFfY291cnNlLWludHJvLXN3LWluc3RhbGwtYWNjb3VudC1zaWdudXAubWRgIGluIHRoZSBtYWluIHJlcG8uCiAgICAtIFdoZW4gd2FzIHRoZSBsYXN0IGNoYW5nZSBtYWRlPyBCeSB3aG9tPwogICAgLSBXaGF0IHdhcyBhZGRlZCBvbiBsaW5lIDEwIGluIHRoZSBtb3N0IHJlY2VudCBjaGFuZ2U/CiAgICAtIFdobyB3YXMgdGhlIGxhc3QgcGVyc29uIHRvIGNoYW5nZSBsaW5lIDE3PwogICAgLSBXaGVuIHdhcyB0aGUgZmlyc3QgY29tbWl0IG1hZGU/IEJ5IHdob20/IFdoYXQgZGlkIHRoZSBmaWxlIGxvb2sgbGlrZSBhZnRlciB0aGF0IGNoYW5nZT8KLSBFeGVyY2lzZSAzOiBDb2xsYWJvcmF0aW9uCiAgICAtIEFkZCB5b3VyIG5laWdoYm91ciBhcyBhIGNvbGxhYm9yYXRvciB0byB5b3VyIGdpdGh1YiByZXBvLiBHbyB0byBTZXR0aW5ncyAtPiBDb2xsYWJvcmF0b3JzLCBhbmQgdHlwZSBpbiB0aGVpciBnaXRodWIgdXNlcm5hbWUuCiAgICAtIE1vZGlmeSBfeW91ciBuZWlnaGJvdXInc18gUkVBRE1FIGJ5IGFkZGluZyBzb21lIHRleHQsIGxpa2UgIjxteSBuYW1lPiB3YXMgaGVyZS4iCiAgICAtIEFkZCBhbiBpc3N1ZSB0aXRsZWQgc29tZXRoaW5nIGxpa2UgIlJFQURNRSBzaG91bGQgYmUgcmV2aWV3ZWQiIGFuZCB0YWcgdGhlIHJlcG8gb3duZXIgYnkgcHJlY2VkaW5nIHRoZWlyIHVzZXJuYW1lIHdpdGggYEBgLgogICAgLSBSZXBvIG93bmVyczogY2hlY2sgeW91ciBlbWFpbC4gWW91IHNob3VsZCBoYXZlIGEgbm90aWZpY2F0aW9uLiBDbG9zZSB0aGUgaXNzdWUgKG9yIGNvbW1lbnQrY2xvc2UpLgogICAgICAgIC0gTk9URTogQ2xpY2sgIldhdGNoIiB0byBiZSBub3RpZmllZCBvZiBpc3N1ZXMgZXZlbiBpZiB5b3VyIGFyZW4ndCB0YWdnZWQhCi0gRXhlcmNpc2UgNDogZm9ya2luZy4KICAgIC0gX0ZvcmtfIHlvdXIgX290aGVyXyBuZWlnaGJvdXIncyByZXBvIGJ5IG5hdmlnYXRpbmcgdG8gdGhlaXIgcmVwbyBhbmQgY2xpY2tpbmcgImZvcmsiLgogICAgICAgIC0gWW91J2xsIGhhdmUgeW91ciBvd24gY29weSBvZiB0aGVpciByZXBvIG9uIHlvdXIgYWNjb3VudC4KICAgIC0gQWRkIGEgbmV3IGZpbGUgY2FsbGVkIGB0ZXN0aW5nLm1kYCwgYW5kIGFkZCBzb21lIHRleHQgdG8gaXQuCiAgICAtIE1ha2UgYSBwdWxsIHJlcXVlc3QgYnkgY2xpY2tpbmcgYHB1bGwgcmVxdWVzdGAuIEJlIHN1cmUgdG8gbGVhdmUgYSBjb21tZW50LiAKICAgIC0gT3duZXJzIG9mIHRoZSByZXBvOiBBY2NlcHQgdGhlIHB1bGwgcmVxdWVzdC4KLSBXaGF0IGhhcHBlbmVkIGluIEV4ZXJjaXNlIDQ/IEEgX3NlcGFyYXRlIGNvcHlfIG9mIHRoZSByZXBvIHdhcyBtb2RpZmllZCwgYW5kIF9tZXJnZWRfIHRvIHRoZSBtYWluIHJlcG8uIAoKCiMjIFdvcmtpbmcgTG9jYWxseQoKR2l0SHViIGNhbid0IG9mZmVyIHRoZSBzdWl0ZSBvZiBlZGl0aW5nIGNhcGFiaWxpdGllcyB0aGF0IHlvdSBoYXZlIG9uIHlvdXIgbG9jYWwgbWFjaGluZS4gU28gd2Ugc2V0IHVwIGEgX2xvY2FsXyB2ZXJzaW9uIG9mIHRoZSByZXBvIGFuZCBjb21tdW5pY2F0ZSB3aXRoIHRoZSBfcmVtb3RlXyByZXBvLiAKCi0gRXhlcmNpc2UgNTogKERvIHRvZ2V0aGVyKSBDb25uZWN0IFJTdHVkaW8gdG8gZ2l0IGFuZCBHaXRIdWIKICAgIC0gRGlkIHlvdSBgY29uZmlnYCBnaXQ/IEVudGVyIHRoZSBjb21tYW5kcyAod2l0aCB5b3VyIGNyZWRlbnRpYWxzKSBzcGVjaWZpZWQgYXQgdGhlIHRvcCBvZiBbdGhpc10oaHR0cDovL2hhcHB5Z2l0d2l0aHIuY29tL2hlbGxvLWdpdC5odG1sI2hlbGxvLWdpdCkgcGFnZS4KICAgIC0gUHNzdC4uLiB3aGF0IGlzIHRoaXMgInRlcm1pbmFsIiBvciAic2hlbGwiPyBBICJjb250cm9sIGNlbnRlciIgZm9yIHlvdXIgY29tcHV0ZXIgKGFuZCByZW1vdGUgc2VydmVycyEpCiAgICAtIF9DbG9uZV8geW91ciBnaXRodWIgcmVwbyB0byB5b3VyIGxvY2FsIG1hY2hpbmUgaW4gUlN0dWRpby4gW2luc3RydWN0aW9uc10oaHR0cDovL2hhcHB5Z2l0d2l0aHIuY29tL3JzdHVkaW8tZ2l0LWdpdGh1Yi5odG1sI2Nsb25lLXRoZS1uZXctZ2l0aHViLXJlcG9zaXRvcnktdG8teW91ci1jb21wdXRlci12aWEtcnN0dWRpbykKICAgICAgICAtIERvbid0IGhhdmUgdGhlICJWZXJzaW9uIENvbnRyb2wiIG9wdGlvbiBhZnRlciBjbGlja2luZyBGaWxlIC0+IE5ldyBQcm9qZWN0PyBGb2xsb3cgW3RoZXNlXShodHRwOi8vaGFwcHlnaXR3aXRoci5jb20vcnN0dWRpby1zZWUtZ2l0Lmh0bWwpIGluc3RydWN0aW9ucy4KICAgIC0gT3BlbiB5b3VyIFJFQURNRSBmaWxlLCBhbmQgYWRkIGEgbGluZS4gQ291bGQgYmUgYEkgYWRkZWQgdGhpcyBsaW5lIGxvY2FsbHkuYAogICAgICAgIC0gWUVTIFJTdHVkaW8gY2FuIGJlIHVzZWQgYXMgYSByZWd1bGFyIHRleHQgZWRpdG9yIQogICAgLSBHbyBvdmVyIHRvIHRoZSBgZ2l0YCB0YWIuIFN0YWdlLCBjb21taXQsIHB1bGwsIGFuZCBwdXNoIHlvdXIgY2hhbmdlLgogICAgLSBOYXZpZ2F0ZSB0byB5b3VyIHJlbW90ZSByZXBvLiBEbyB5b3Ugc2VlIHRoZSBjaGFuZ2U/IFlvdSBzaG91bGQhCiAgICAKLSBFeGVyY2lzZSA2OiAoRG8geW91cnNlbGYpIFRveSBsaW5lCiAgICAtIE1ha2UgYSBuZXcgUiBzY3JpcHQgaW4geW91ciBsb2NhbCByZXBvLgogICAgLSBHbyBbaGVyZV0oaHR0cDovL3N0YXQ1NDUuY29tL2Jsb2NrMDAyX2hlbGxvLXItd29ya3NwYWNlLXdkLXByb2plY3QuaHRtbCNyc3R1ZGlvLXByb2plY3RzKSBhbmQgY29weS1hbmQtcGFzdGUgdGhlICJ0b3kgbGluZSIgc2NyaXB0IChjaHVua3MgMyw0LDUgaW4gdGhhdCBzZWN0aW9uKS4KICAgIC0gQ2xpY2sgImNvbXBpbGUgbm90ZWJvb2siIG9uIGl0IQogICAgLSBDb21taXQgdGhlc2UgY2hhbmdlcywgYW5kIHB1c2ggdG8geW91ciByZXBvIChhZnRlciBgcHVsbGBpbmchKQogICAgLSBEbyB5b3Ugc2VlIHRoZSBjaGFuZ2Ugb24geW91ciByZW1vdGUgcmVwbz8KLSBBZHZhbmNlZCBzdHVmZi4KICAgIC0gRllJOiBBbHRlcm5hdGl2ZXMgdG8gR2l0SHViOiBiYXJlIHJlcG8gb24geW91ciBvd24gc2VydmVyLgogICAgLSBNZXJnZSBjb25mbGljdHMuIEJyYW5jaC4gUmV2ZXJ0LgogICAgICAgIC0gRG8gdmlhIHNvdXJjZSB0cmVlLCBvciBiYXNoLiAKCiMjIEdpdCBhbmQgR2l0SHViIHRha2UtaG9tZSBMZXNzb25zCgotIEdpdEh1YiBpcyBub3QgZ2l0ISBJdCBob2xkcyB5b3VyIHJlcG8gcmVtb3RlbHkuCiAgICAtIFRoZXJlIGFyZSBhbHRlcm5hdGl2ZXMgdG8gR2l0SHViLCBsaWtlIEJpdGJ1Y2tldCBvciBhIGJhcmUgcmVwbyBvbiB5b3VyIG93biBzZXJ2ZXIuIAogICAgLSBVc2VmdWwgZm9yIGNvbGxhYm9yYXRpb24hIEhvdyBtYW55IHRpbWVzIGRvIHlvdSB3YW50IHRvIHNlbmQgYSBmaWxlIHRvIHlvdXIgc3VwZXJ2aXNvci9hZHZpc29yPyBlbWFpbCBpcyBjbHVua3kuLi4gCi0gV29ya2luZyB3aXRoIGdpdDoKICAgIC0gbG9jYWwgcmVwb3NpdG9yeTogYSBzZWxmLWNvbnRhaW5lZCBwcm9qZWN0IG9uIHlvdXIgY29tcHV0ZXIKICAgIC0gcmVtb3RlIHJlcG9zaXRvcnk6IHRoYXQgcHJvamVjdCBvbiBzb21lICJjbG91ZCIsIGxpa2UgR2l0SHViLCBCaXRCdWNrZXQsIHlvdXIgb3duIHNlcnZlciwgLi4uCiAgICAtIGdpdCBjbGllbnQ6IHByb2dyYW0gb24geW91ciBjb21wdXRlciB0aGF0IGhlbHBzIHlvdSB1c2UgZ2l0IChjb21taXQsIHB1c2gsIHB1bGwsIC4uLikKLSBBZG9wdCBnaXQgaW4geW91ciB3b3JrZmxvdyEgVGhpcyBtZWFuczoKICAgIC0gRGVkaWNhdGUgYSBzZWxmLWNvbnRhaW5lZCBkaXJlY3RvcnkgdG8geW91ciBwcm9qZWN0LgogICAgLSBTZXQgdXAgYW4gUiBwcm9qZWN0IGZvciB0aGUgZGlyZWN0b3J5LgogICAgLSBTZXQgdXAgZ2l0IGZvciB0aGF0IGRpcmVjdG9yeS4gCiAgICAtIF9fU2F2ZV9fIHBlcnBldHVhbGx5LCBfX2NvbW1pdF9fIG9mdGVuLCBfX3B1bGwvcHVzaF9fICh0byBnaXRodWIpIHBlcmlvZGljYWxseSEKLSBnaXQgY2FuIGJlIHBhaW5mdWwuCiAgICAtIFByb2JsZW1zPyBPZnRlbiBiZXN0IHRvIGp1c3QgYnVybiBpdCBkb3duIGFuZCBzdGFydCBmcmVzaC4uLgogICAgLSBEb2N1bWVudGF0aW9uIGRpZmZpY3VsdCB0byByZWFkLiBDaGVjayBvdXQgW3RoaXMgcGFyb2R5XShodHRwczovL2dpdC1tYW4tcGFnZS1nZW5lcmF0b3IubG9rYWx0b2cubmV0Lykgb2YgZ2l0aHViIGRvY3VtZW50YXRpb24uIAogICAgLSBVc2UgYSBnaXQgY2xpZW50IHRvIG1ha2UgaXQgZWFzaWVyIHRvIHdvcmsgd2l0aCBnaXQuIFJTdHVkaW8sIFNvdXJjZSBUcmVlLCBHaXRIdWIgZGVza3RvcCwgLi4uCgoKIyMgTWFya2Rvd24gYW5kIFIgTWFya2Rvd24KClJlZ3VsYXIgbWFya2Rvd246CgotIFtNYXJrZG93biBzeW50YXhdKGh0dHBzOi8vZGFyaW5nZmlyZWJhbGwubmV0L3Byb2plY3RzL21hcmtkb3duL3N5bnRheCkuCiAgICAtIFNvbWUgZnVuY3Rpb25hbGl0eSBpbiBTbGFjay4KICAgIC0gQ2FuIGFsc28gaW5jbHVkZSByYXcgSFRNTC4KLSBJbiBSU3R1ZGlvLCByZW5kZXIgdGhpcyB0byBIVE1MIGJ5IGNsaWNraW5nICJwcmV2aWV3Ii4KICAgIC0gRmlsZXM6IGBtZGAgLT4gYGh0bWxgLiBDb3VsZCBkbyBgcGRmYCBvciBldmVuIFdvcmQsIHRvby4KClJNYXJrZG93bjoKCi0gRGlmZmVyZW5jZXMgYmV0d2VlbiBtYXJrZG93biBhbmQgUiBtYXJrZG93bi4KICAgIC0gSW5jbHVkZXMgTGFUZVggKHN1cGVyIHVzZWZ1bCBmb3IgdGhlc2VzIC0tIGNoZWNrIG91dCBMeVggaWYgeW91J3JlIG5ldykuCiAgICAtIGNvZGUgY2h1bmtzIQogICAgLSBZQU1MIGhlYWRlci4gQ2FuIG1ha2Ugc29tZSBbcHJldHR5IGh0bWwgZmlsZXNdKGh0dHA6Ly9ybWFya2Rvd24ucnN0dWRpby5jb20vaHRtbF9kb2N1bWVudF9mb3JtYXQuaHRtbCkgd2l0aCBZQU1MLgotIEhvdyB0byByZW5kZXI6IGBybWFya2Rvd246OnJlbmRlcmAgb3IgY2xpY2sgImtuaXQiLiAKICAgIC0gRmlsZXM6IGBSbWRgIC0+IGBtZGAgLT4gYGh0bWxgIG9yIGBwZGZgIG9yIHdvcmQgKGFuZCBvdGhlciBwZXJtdXRhdGlvbnMuLi4gYGtlZXBfbWQ6IHllc2AgdG8ga2VlcCB0aGUgaW50ZXJtZWRpYXRlIGBtZGAgZmlsZS4gT3IgYG91dHB1dDogZ2l0aHViX2RvY3VtZW50YCkuIFtVc2VmdWwgc2xpZGVdKGh0dHBzOi8vc3BlYWtlcmRlY2suY29tL2plbm55YmMvaGFwcHktZ2l0LWFuZC1naXRodWItZm9yLXRoZS11c2VyP3NsaWRlPTU2KQ==</div>
 
 
 

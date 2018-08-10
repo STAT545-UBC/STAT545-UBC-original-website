@@ -19,6 +19,18 @@ suppressPackageStartupMessages(library(gapminder))
 knitr::opts_chunk$set(fig.width=4, fig.height=3)
 ```
 
+- See [cm005](http://stat545.com/cm005_tidyverse-tibbles.html) for `dplyr` resources
+- Jenny's [`ggplot2` tutorial](https://github.com/jennybc/ggplot2-tutorial) and corresponding [slides](https://speakerdeck.com/jennybc/ggplot2-tutorial)
+- `ggplot2` [official website](http://ggplot2.org/) -- has other resources too.
+- [The R Graphics Cookbook](http://shop.oreilly.com/product/0636920023135.do), an excellent book by Winston Chang. 
+    - The [graphs section](http://www.cookbook-r.com/Graphs/) of Winston Chang's website Cookbook for R. The book listed above contains much more material, but the website is good too.
+- A [`ggplot2` tutorial](http://stcorp.nl/R_course/tutorial_ggplot2.html) by Paul Hiemstra, one of [many excellent R courses](http://stcorp.nl/R_course/) he offers.
+- [A quick introduction to ggplot2](http://inundata.org/2013/04/10/a-quick-introduction-to-ggplot2/) by Karthik Ram. Slides and code from a 2 hour talk/hands on presentation for ggplot2 beginners.
+
+Why do I teach `ggplot2`? Shouldn't beginners see "base" graphics first? I think not. David Robinson explains it well in [Don't teach built-in plotting to beginners (teach ggplot2)](http://varianceexplained.org/r/teach_ggplot2_to_beginners/).
+
+Zev Ross has a lovely blog post: [Beautiful plotting in R: A ggplot2 cheatsheet](http://zevross.com/blog/2014/08/04/beautiful-plotting-in-r-a-ggplot2-cheatsheet-3/)
+
 
 ## Plotting in R
 

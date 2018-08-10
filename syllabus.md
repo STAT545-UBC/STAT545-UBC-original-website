@@ -105,3 +105,7 @@ Want to talk about the course outside of lecture? Let's talk during these dedica
   * Homework 08: Build a Shiny app.
   * Homework 09: Write an R package.
   * Homework 10: Get data from the web
+
+## Resources
+
+Here are some resources to learn more about each of the tools we're using.

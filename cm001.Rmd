@@ -1,5 +1,5 @@
 ---
-title: "STAT 545 Class Meeting 01"
+title: "STAT 545 Class Meeting 01: Intro to Data Analytic Work"
 output:
     html_notebook:
         toc: true
@@ -11,13 +11,17 @@ editor_options:
 
 # Today's Learning Objectives
 
-By the end of class, we anticipate students will:
+By the end of today's class, students are anticipated to:
 
-- Be oriented with the course structure and resources.
+- Be oriented with the course structure and resources
+- Understand how to get help within the course -- we'll cover "getting help out in the world" next time.
 - Be exposed to the main themes of the course, and understand their value.
+- Gain exposure to the command line, and some basic things one can do with it.
 - Have created a GitHub account, and have installed RStudio.
 - Understand what a plain text file is, their value, and alternatives (that are less desireable for data analytic work).
 - Know how to make plain text files with RStudio.
+- Markdown
+- Assignment 1
 
 # Orientation to STAT 545
 

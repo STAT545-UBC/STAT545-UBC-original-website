@@ -1,5 +1,5 @@
 ---
-title: "STAT 545 Class Meeting 02"
+title: "STAT 545 Class Meeting 02: Getting Familiar with R"
 output:
     html_notebook:
         toc: true
@@ -11,3 +11,8 @@ editor_options:
 
 # Learning Objectives
 
+By the end of today's class, students are anticipated to be able to:
+
+- Name the most important data structures in R
+- know about useful resources online to get help with R, and technical tools in general.
+- design effective questions through minimum workable examples (MWE's).
