@@ -54,11 +54,12 @@ Links to homework will be posted here as they are made available. Submissions ar
 
 __Office hours__
 
-Want to talk about the course outside of lecture? Let's talk during these dedicated times.
+Want to talk about the course outside of lecture? Let's talk during these dedicated times. You're always welcome to schedule alternative times, too.
 
 | Instructor | Date | Time | Place |
 |------------|------|------|-------|
-| Vincenzo | Tuesdays, Sept 4 - Oct 2 | 14:00-15:00 | ESB 1043 |
+| Vincenzo | Wednesday, Sept 5 | 10:00-11:00 | ESB 1043 |
+| Vincenzo | Tuesdays, Sept 11 - Oct 2 | 14:00-15:00 | ESB 1043 |
 | Vincenzo | Tuesdays, Oct 9 - Oct 16 | 11:00-12:00 | ESB 1043 |
 
 #### STAT 547M
