@@ -58,9 +58,7 @@ Want to talk about the course outside of lecture? Let's talk during these dedica
 
 | Instructor | Date | Time | Place |
 |------------|------|------|-------|
-| Vincenzo | Wednesday, Sept 5 | 10:00-11:00 | ESB 1043 |
-| Vincenzo | Tuesdays, Sept 11 - Oct 2 | 14:00-15:00 | ESB 1043 |
-| Vincenzo | Tuesdays, Oct 9 - Oct 16 | 11:00-12:00 | ESB 1043 |
+| Vincenzo | Wednesdays, Sept 5 - Oct 24 | 11:00-12:00 | ESB 1043 |
 
 #### STAT 547M
 
@@ -96,7 +94,7 @@ Want to talk about the course outside of lecture? Let's talk during these dedica
 
 | Instructor | Date | Time | Place |
 |------------|------|------|-------|
-| Vincenzo | Tuesdays, Oct 23 - Nov 27 | 11:00-12:00 | ESB 1043 |
+| Vincenzo | Wednesdays, Oct 24 - Nov 28 | 11:00-12:00 | ESB 1043 |
 
 
 ##### Homework topics:
