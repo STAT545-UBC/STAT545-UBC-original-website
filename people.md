@@ -14,7 +14,7 @@ output:
 | Chad Fibke | Teaching Assistant |  | `@ChadFibke` |  |  |
 | Hossameldin Mohammed | Teaching Assistant |  | `@hsmohammed` |  |  |
 | Rashedul Islam | Teaching Assistant |  | `@rashedul` |  |  |
-| Sherrie Wang | Teaching Assistant |  | `@` |  |  |
+| Sherrie Wang | Teaching Assistant |  | `@sherrie9` |  |  |
 
 
 ### 2017 staff
