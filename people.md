@@ -10,7 +10,7 @@ output:
 
 | Teaching Member | Position | Email | GitHub | Twitter | LinkedIn |
 | ------ | -------- | ----- | ------ | ------- | -------- |
-| Vincenzo Coia | Instructor | <vincen.coia@stat.ubc.ca> | `@vincenzocoia` | [\@VincenzoCoia](https://twitter.com/vincenzocoia) | [LinkedIn](https://www.linkedin.com/in/vincenzocoia/)
+| Vincenzo Coia | Instructor | <vincen.coia@stat.ubc.ca> | `@vincenzocoia` | [\@VincenzoCoia](https://twitter.com/vincenzocoia) | [vincenzocoia](https://www.linkedin.com/in/vincenzocoia/)
 | Chad Fibke | Teaching Assistant |  | `@ChadFibke` |  |  |
 | Hossameldin Mohammed | Teaching Assistant |  | `@hsmohammed` |  |  |
 | Rashedul Islam | Teaching Assistant |  | `@rashedul` |  |  |
