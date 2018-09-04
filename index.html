@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -19,6 +19,9 @@
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -31,20 +34,18 @@
 </script>
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="libs/highlight/default.css"
-      type="text/css" />
-<script src="libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -102,6 +103,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -112,7 +116,6 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -159,28 +162,10 @@ $(document).ready(function () {
 <li>using R</li>
 </ul>
 </div>
-<div id="selected-topics" class="section level3">
-<h3>Selected topics</h3>
-<ul>
-<li>Introduction to <a href="http://www.r-project.org">R</a> and the <a href="http://www.rstudio.com/products/rstudio/">RStudio IDE</a>: scripts, the workspace, RStudio Projects, daily workflow</li>
-<li>Generate reports from R scripts and <a href="http://rmarkdown.rstudio.com">R Markdown</a></li>
-<li>Coding style, file and project organization</li>
-<li>Data frames or “tibbles” are the core data structure for data analysis: care for them with the tidyverse</li>
-<li>Data visualization with <a href="http://ggplot2.org"><code>ggplot2</code></a></li>
-<li>How to write functions and work with R in a functional style</li>
-<li>Version control with Git; collaboration via <a href="https://github.com">GitHub</a></li>
-<li>Be the boss of non-numeric data, esp. character and factor</li>
-<li>Interactive pages, apps, and graphics with <a href="http://shiny.rstudio.com">Shiny</a></li>
-<li>Get data off the web and expose data, code, results on the web</li>
-<li>Distribute data and code via an R package</li>
-<li>Automate an analytical pipeline, e.g. via <code>Make</code></li>
-</ul>
-</div>
 <div id="more-info" class="section level3">
 <h3>More info?</h3>
 <p>Use the navigation bar above!</p>
 <p>Repo that creates this website: <a href="https://github.com/STAT545-UBC/STAT545-UBC.github.io" class="uri">https://github.com/STAT545-UBC/STAT545-UBC.github.io</a></p>
-<p><a href="https://twitter.com/STAT545">@STAT545</a> on Twitter</p>
 <p>The course organization on GitHub: <a href="https://github.com/STAT545-UBC" class="uri">https://github.com/STAT545-UBC</a></p>
 </div>
 </div>
@@ -193,8 +178,11 @@ $(document).ready(function () {
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 
@@ -205,7 +193,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
