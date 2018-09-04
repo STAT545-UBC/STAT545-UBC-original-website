@@ -20,8 +20,8 @@
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
-<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="libs/highlightjs-1.1/highlight.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,10 +40,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -101,6 +103,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -149,13 +154,11 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#when-is-the-course-offered">When is the course offered?</a></li>
-<li><a href="#course-facts-for-sept---dec-2017-run">Course facts for Sept - Dec 2017 run</a></li>
 <li><a href="#whats-up-with-the-two-half-courses">What’s up with the two half courses?</a></li>
 <li><a href="#am-i-allowed-to-register-in">Am I allowed to register in …?</a></li>
 <li><a href="#should-i-register-in">Should I register in …?</a></li>
 <li><a href="#do-i-need-a-computer">Do I need a computer?</a></li>
-<li><a href="#where-do-course-marks-come-from">Where do course marks come from?</a></li>
-<li><a href="#how-do-i-get-help">How do I get help?</a></li>
+<li><a href="#twitter">Twitter</a></li>
 </ul>
 </div>
 
@@ -163,62 +166,12 @@ $(document).ready(function () {
 <h3>When is the course offered?</h3>
 <p>September - December of each academic year.<br />
 Typical format: STAT 545A 1.5 credits in September through mid October, followed by STAT 547M 1.5 credits from mid October through early December.<br />
-Same time slot, same room.<br />
-This was/is/will be the deal in 2014/2015, 2015/2016, 2016/2017, and 2017/2018 at the least.</p>
-</div>
-<div id="course-facts-for-sept---dec-2017-run" class="section level3">
-<h3>Course facts for Sept - Dec 2017 run</h3>
-<table>
-<thead>
-<tr class="header">
-<th></th>
-<th>STAT 545A</th>
-<th>STAT547M</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>title</td>
-<td>Exploratory Data Analysis</td>
-<td>Basic Training for Data Science</td>
-</tr>
-<tr class="even">
-<td>SSC link</td>
-<td><a href="https://courses.students.ubc.ca/cs/main?pname=subjarea&amp;tname=subjareas&amp;req=5&amp;dept=STAT&amp;course=545A&amp;section=101">STAT 545A</a></td>
-<td><a href="https://courses.students.ubc.ca/cs/main?pname=subjarea&amp;tname=subjareas&amp;req=5&amp;dept=STAT&amp;course=547M&amp;section=101">STAT 547M</a></td>
-</tr>
-<tr class="odd">
-<td>credits</td>
-<td>1.5</td>
-<td>1.5</td>
-</tr>
-<tr class="even">
-<td>dates</td>
-<td>Sep 05, 2017 to Oct 19, 2017</td>
-<td>Oct 20, 2017 to Dec 01, 2017</td>
-</tr>
-<tr class="odd">
-<td>meets</td>
-<td>Tues Thurs 9:30 - 11am</td>
-<td>Tues Thurs 9:30 - 11am</td>
-</tr>
-<tr class="even">
-<td>where</td>
-<td><a href="https://ssc.adm.ubc.ca/classroomservices/function/viewlocation?userEvent=ShowLocation&amp;buildingID=ESB&amp;roomID=2012">ESB 2012</a></td>
-<td><a href="https://ssc.adm.ubc.ca/classroomservices/function/viewlocation?userEvent=ShowLocation&amp;buildingID=ESB&amp;roomID=2012">ESB 2012</a></td>
-</tr>
-<tr class="odd">
-<td>pre-req</td>
-<td>none (but see below)</td>
-<td>STAT 545A</td>
-</tr>
-</tbody>
-</table>
+Same time slot, same room.</p>
 </div>
 <div id="whats-up-with-the-two-half-courses" class="section level3">
 <h3>What’s up with the two half courses?</h3>
-<p>For several years, I taught STAT 545A as a 1.5 credit course. I – and many students – felt there was alot of great, relevant content that could go into an additional 1.5 credits.</p>
-<p>We piloted a full semester of data exploration, visualization, and all-around data wrangling in 2014/2015. And so far, it has stuck. It was structured as two half courses primarily so that several year’s worth of STAT 545A alums could register for STAT 547M and get the “missing half” of the course. And now it’s hard to break the cycle.</p>
+<p>For several years, Jenny taught STAT 545A as a 1.5 credit course. She – and many students – felt there was alot of great, relevant content that could go into an additional 1.5 credits.</p>
+<p>A full semester of data exploration, visualization, and all-around data wrangling was piloted in 2014/2015. And so far, it has stuck. It was structured as two half courses primarily so that several year’s worth of STAT 545A alums could register for STAT 547M and get the “missing half” of the course. And now it’s hard to break the cycle.</p>
 </div>
 <div id="am-i-allowed-to-register-in" class="section level3">
 <h3>Am I allowed to register in …?</h3>
@@ -269,26 +222,9 @@ This was/is/will be the deal in 2014/2015, 2015/2016, 2016/2017, and 2017/2018 a
 <h3>Do I need a computer?</h3>
 <p>YES. You absolutely must have access to a computer on which you can install software, download data, etc. In fact, <em>class meetings</em> will be a mix of lecture, discussion, and live coding. Students will get the most out of this if they can bring their own laptop to class every day. If this is not possible, we will try to help you work something out.</p>
 </div>
-<div id="where-do-course-marks-come-from" class="section level3">
-<h3>Where do course marks come from?</h3>
-<p>Course mark = 75% homework, 15% peer review, 10% engagement (i.e. attendance, participation in discussion in-class and/or online)</p>
-<p>Students submit homework once a week, generally 5 per half-semester. I have abandoned the notion of “final projects”. I’ve seen it encourage too much sudden, heroic effort, often to disappointing effect.</p>
-<ul>
-<li><a href="hw00_homework-guidelines.html">General guidelines</a> for homework submission</li>
-</ul>
-<p>Each homework will be evaluated by 2 peer reviewers. The performance of thoughtful peer review will count as 15% of the overall course mark.</p>
-<ul>
-<li><a href="peer-review01_marking-rubric.html">General homework rubric</a> to apply in peer review</li>
-<li><a href="peer-review02_peer-evaluation-guidelines.html">Evaluation of peer review</a></li>
-</ul>
-<p>No final exam.</p>
-</div>
-<div id="how-do-i-get-help" class="section level3">
-<h3>How do I get help?</h3>
-<ul>
-<li><a href="help-general.html">General, external strategies</a> for solving computing problems, especially with R</li>
-<li><a href="help-STAT545.html">Specific advice</a> within these courses</li>
-</ul>
+<div id="twitter" class="section level3">
+<h3>Twitter</h3>
+<p>The <a href="https://twitter.com/STAT545">STAT 545 Twitter account</a> is no longer used for this course.</p>
 </div>
 
 
@@ -314,7 +250,7 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
