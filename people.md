@@ -6,16 +6,7 @@ output:
       after_body: include/nothing.html
 ---
 
-### 2018 staff
-
-| Teaching Member | Position | Email | GitHub | Twitter | LinkedIn |
-| ------ | -------- | ----- | ------ | ------- | -------- |
-| Vincenzo Coia | Instructor | <vincen.coia@stat.ubc.ca> | `@vincenzocoia` | [\@VincenzoCoia](https://twitter.com/vincenzocoia) | [vincenzocoia](https://www.linkedin.com/in/vincenzocoia/)
-| Chad Fibke | Teaching Assistant |  | `@ChadFibke` |  |  |
-| Hossameldin Mohammed | Teaching Assistant |  | `@hsmohammed` |  |  |
-| Rashedul Islam | Teaching Assistant |  | `@rashedul` |  |  |
-| Sherrie Wang | Teaching Assistant |  | `@sherrie9` |  |  |
-
+**Only includes pre-2018 iterations**. See the <http://stat545.com/Classroom> site for the current list of people.
 
 ### 2017 staff
 

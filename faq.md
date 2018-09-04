@@ -8,6 +8,8 @@ output:
       after_body: include/nothing.html
 ---
 
+Interested in taking STAT 545A and/or STAT 547M, and have questions? Read on!
+
 ### When is the course offered?
 
 September - December of each academic year.  
