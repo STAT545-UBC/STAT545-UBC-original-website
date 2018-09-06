@@ -232,7 +232,7 @@ $(document).ready(function () {
 </div>
 <div id="load-the-gapminder-data" class="section level3">
 <h3>Load the Gapminder data</h3>
-<p>As usual, load the Gapminder excerpt.</p>
+<p>As usual, load the Gapminder data.</p>
 <pre class="r"><code>library(gapminder)
 str(gapminder)
 ## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    1704 obs. of  6 variables:
@@ -298,7 +298,7 @@ max_minus_min(gapminder$lifeExp)
 <pre class="r"><code>max_minus_min(1:10)
 ## [1] 9
 max_minus_min(runif(1000))
-## [1] 0.9967588</code></pre>
+## [1] 0.997364</code></pre>
 <p>I know that 10 minus 1 is 9. I know that random uniform [0, 1] variates will be between 0 and 1. Therefore max - min should be less than 1. If I take LOTS of them, max - min should be pretty close to 1.</p>
 <p>It is intentional that I tested on integer input as well as floating point. Likewise, I like to use valid-but-random data for this sort of check.</p>
 </div>

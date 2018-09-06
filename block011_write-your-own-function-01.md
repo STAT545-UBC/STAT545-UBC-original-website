@@ -16,7 +16,7 @@ Why are we covering this now, smack in the middle of data aggregation? Powerful 
 
 ### Load the Gapminder data
 
-As usual, load the Gapminder excerpt.
+As usual, load the Gapminder data.
 
 
 ```r
@@ -102,7 +102,7 @@ Pick some new artificial inputs where you know (at least approximately) what you
 max_minus_min(1:10)
 ## [1] 9
 max_minus_min(runif(1000))
-## [1] 0.9967588
+## [1] 0.997364
 ```
 
 I know that 10 minus 1 is 9. I know that random uniform [0, 1] variates will be between 0 and 1. Therefore max - min should be less than 1. If I take LOTS of them, max - min should be pretty close to 1.

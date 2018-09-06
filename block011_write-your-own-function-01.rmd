@@ -18,7 +18,7 @@ Why are we covering this now, smack in the middle of data aggregation? Powerful 
 
 ### Load the Gapminder data
 
-As usual, load the Gapminder excerpt.
+As usual, load the Gapminder data.
 
 ```{r}
 library(gapminder)
