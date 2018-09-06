@@ -18,7 +18,7 @@ In this part, we tackle `NA`s, the special argument `...` and formal testing.
 
 ### Load the Gapminder data
 
-As usual, load the Gapminder excerpt.
+As usual, load the Gapminder data.
 
 ```{r}
 library(gapminder)
@@ -29,7 +29,7 @@ library(gapminder)
 Let's keep our previous function around as a baseline.
 
 ```{r}
-qdiff4 <- function(x, probs = c(0, 1)) {
+qdiff3 <- function(x, probs = c(0, 1)) {
   stopifnot(is.numeric(x))
   the_quantiles <- quantile(x, probs)
   return(max(the_quantiles) - min(the_quantiles))
@@ -53,13 +53,13 @@ So `quantile()` simply will not operate in the presence of `NA`s unless `na.rm =
 If we wanted to hardwire `na.rm = TRUE`, we could. Focus on our call to `quantile()` inside our function definition.
 
 ```{r}
-qdiff5 <- function(x, probs = c(0, 1)) {
+qdiff4 <- function(x, probs = c(0, 1)) {
   stopifnot(is.numeric(x))
   the_quantiles <- quantile(x, probs, na.rm = TRUE)
   return(max(the_quantiles) - min(the_quantiles))
 }
-qdiff5(gapminder$lifeExp)
-qdiff5(z)
+qdiff4(gapminder$lifeExp)
+qdiff4(z)
 ```
 
 This works but it is dangerous to invert the default behavior of a well-known built-in function and to provide the user with no way to override this.
@@ -67,24 +67,24 @@ This works but it is dangerous to invert the default behavior of a well-known bu
 We could add an `na.rm =` argument to our own function. We might even enforce our preferred default -- but at least we're giving the user a way to control the behavior around `NA`s.
 
 ```{r}
-qdiff6 <- function(x, probs = c(0, 1), na.rm = TRUE) {
+qdiff5 <- function(x, probs = c(0, 1), na.rm = TRUE) {
   stopifnot(is.numeric(x))
   the_quantiles <- quantile(x, probs, na.rm = na.rm)
   return(max(the_quantiles) - min(the_quantiles))
 }
-qdiff6(gapminder$lifeExp)
-qdiff6(z)
-qdiff6(z, na.rm = FALSE)
+qdiff5(gapminder$lifeExp)
+qdiff5(z)
+qdiff5(z, na.rm = FALSE)
 ```
 
 ### The useful but mysterious `...` argument
 
 You probably could have lived a long and happy life without knowing there are at least 9 different algorithms for computing quantiles. [Go read about the `type` argument](http://www.rdocumentation.org/packages/stats/functions/quantile) of `quantile()`. TLDR: If a quantile is not unambiguously equal to an observed data point, you must somehow average two data points. You can weight this average different ways, depending on the rest of the data, and `type =` controls this.
 
-Let's say we want to give the user of our function the ability to specify how the quantiles are computed, but we want to accomplish with as little fuss as possible. In fact, we don't even want to clutter our function's interface with this! This calls for the very special `...` argument.
+Let's say we want to give the user of our function the ability to specify how the quantiles are computed, but we want to accomplish with as little fuss as possible. In fact, we don't even want to clutter our function's interface with this! This calls for the very special `...` argument. In English, this set of three dots is frequently called an "ellipsis".
 
 ```{r}
-qdiff7 <- function(x, probs = c(0, 1), na.rm = TRUE, ...) {
+qdiff6 <- function(x, probs = c(0, 1), na.rm = TRUE, ...) {
   the_quantiles <- quantile(x = x, probs = probs, na.rm = na.rm, ...)
   return(max(the_quantiles) - min(the_quantiles))
 }
@@ -103,8 +103,8 @@ all.equal(quantile(z, type = 1), quantile(z, type = 4))
 Now we can call our function, requesting that quantiles be computed in different ways.
 
 ```{r}
-qdiff7(z, probs = c(0.25, 0.75), type = 1)
-qdiff7(z, probs = c(0.25, 0.75), type = 4)
+qdiff6(z, probs = c(0.25, 0.75), type = 1)
+qdiff6(z, probs = c(0.25, 0.75), type = 4)
 ```
 
 While the difference may be subtle, __it's there__. Marvel at the fact that we have passed `type = 1` through to `quantile()` *even though it was not a formal argument of our own function*.
@@ -112,6 +112,8 @@ While the difference may be subtle, __it's there__. Marvel at the fact that we h
 The special argument `...` is very useful when you want the ability to pass arbitrary arguments down to another function, but without constantly expanding the formal arguments to your function. This leaves you with a less cluttered function definition and gives you future flexibility to specify these arguments only when you need to.
 
 You will also encounter the `...` argument in many built-in functions -- read up [on `c()`](http://www.rdocumentation.org/packages/base/functions/c) or [`list()`](http://www.rdocumentation.org/packages/base/functions/list) -- and now you have a better sense of what it means. It is not a breezy "and so on and so forth."
+
+There are also downsides to `...`, so use it with intention. In a package, you will have to work harder to create truly informative documentation for your user. Also, the quiet, absorbent properties of `...` mean it can sometimes silently swallow other named arguments, when the user has a typo in the name. Depending on whether or how this fails, it can be a little tricky to find out what went wrong.
 
 ### Use `testthat` for formal unit tests
 
@@ -123,13 +125,15 @@ We will construct a test with `test_that()` and, within it, we put one or more *
 
 ```{r}
 library(testthat)
+
 test_that('invalid args are detected', {
-  expect_error(qdiff7("eggplants are purple"))
-  expect_error(qdiff7(iris))
-  })
+  expect_error(qdiff6("eggplants are purple"))
+  expect_error(qdiff6(iris))
+})
+
 test_that('NA handling works', {
-  expect_error(qdiff7(c(1:5, NA), na.rm = FALSE))
-  expect_equal(qdiff7(c(1:5, NA)), 4)
+  expect_error(qdiff6(c(1:5, NA), na.rm = FALSE))
+  expect_equal(qdiff6(c(1:5, NA)), 4)
 })
 ```
 
@@ -140,6 +144,7 @@ qdiff_no_NA <- function(x, probs = c(0, 1)) {
   the_quantiles <- quantile(x = x, probs = probs)
   return(max(the_quantiles) - min(the_quantiles))
 }
+
 test_that('NA handling works', {
   expect_that(qdiff_no_NA(c(1:5, NA)), equals(4))
 })

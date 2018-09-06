@@ -20,8 +20,8 @@
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
-<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="libs/highlightjs-1.1/highlight.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,10 +40,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -101,6 +103,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -111,14 +116,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -165,13 +230,13 @@ $(document).ready(function () {
 </div>
 <div id="load-the-gapminder-data" class="section level3">
 <h3>Load the Gapminder data</h3>
-<p>As usual, load the Gapminder excerpt.</p>
+<p>As usual, load the Gapminder data.</p>
 <pre class="r"><code>library(gapminder)</code></pre>
 </div>
 <div id="restore-our-max-minus-min-function" class="section level3">
 <h3>Restore our max minus min function</h3>
 <p>Let’s keep our previous function around as a baseline.</p>
-<pre class="r"><code>qdiff4 &lt;- function(x, probs = c(0, 1)) {
+<pre class="r"><code>qdiff3 &lt;- function(x, probs = c(0, 1)) {
   stopifnot(is.numeric(x))
   the_quantiles &lt;- quantile(x, probs)
   return(max(the_quantiles) - min(the_quantiles))
@@ -192,34 +257,34 @@ quantile(z, na.rm = TRUE)
 ## 23.599 48.228 60.765 70.846 82.603</code></pre>
 <p>So <code>quantile()</code> simply will not operate in the presence of <code>NA</code>s unless <code>na.rm = TRUE</code>. How shall we modify our function?</p>
 <p>If we wanted to hardwire <code>na.rm = TRUE</code>, we could. Focus on our call to <code>quantile()</code> inside our function definition.</p>
-<pre class="r"><code>qdiff5 &lt;- function(x, probs = c(0, 1)) {
+<pre class="r"><code>qdiff4 &lt;- function(x, probs = c(0, 1)) {
   stopifnot(is.numeric(x))
   the_quantiles &lt;- quantile(x, probs, na.rm = TRUE)
+  return(max(the_quantiles) - min(the_quantiles))
+}
+qdiff4(gapminder$lifeExp)
+## [1] 59.004
+qdiff4(z)
+## [1] 59.004</code></pre>
+<p>This works but it is dangerous to invert the default behavior of a well-known built-in function and to provide the user with no way to override this.</p>
+<p>We could add an <code>na.rm =</code> argument to our own function. We might even enforce our preferred default – but at least we’re giving the user a way to control the behavior around <code>NA</code>s.</p>
+<pre class="r"><code>qdiff5 &lt;- function(x, probs = c(0, 1), na.rm = TRUE) {
+  stopifnot(is.numeric(x))
+  the_quantiles &lt;- quantile(x, probs, na.rm = na.rm)
   return(max(the_quantiles) - min(the_quantiles))
 }
 qdiff5(gapminder$lifeExp)
 ## [1] 59.004
 qdiff5(z)
-## [1] 59.004</code></pre>
-<p>This works but it is dangerous to invert the default behavior of a well-known built-in function and to provide the user with no way to override this.</p>
-<p>We could add an <code>na.rm =</code> argument to our own function. We might even enforce our preferred default – but at least we’re giving the user a way to control the behavior around <code>NA</code>s.</p>
-<pre class="r"><code>qdiff6 &lt;- function(x, probs = c(0, 1), na.rm = TRUE) {
-  stopifnot(is.numeric(x))
-  the_quantiles &lt;- quantile(x, probs, na.rm = na.rm)
-  return(max(the_quantiles) - min(the_quantiles))
-}
-qdiff6(gapminder$lifeExp)
 ## [1] 59.004
-qdiff6(z)
-## [1] 59.004
-qdiff6(z, na.rm = FALSE)
+qdiff5(z, na.rm = FALSE)
 ## Error in quantile.default(x, probs, na.rm = na.rm): missing values and NaN&#39;s not allowed if &#39;na.rm&#39; is FALSE</code></pre>
 </div>
 <div id="the-useful-but-mysterious-...-argument" class="section level3">
 <h3>The useful but mysterious <code>...</code> argument</h3>
 <p>You probably could have lived a long and happy life without knowing there are at least 9 different algorithms for computing quantiles. <a href="http://www.rdocumentation.org/packages/stats/functions/quantile">Go read about the <code>type</code> argument</a> of <code>quantile()</code>. TLDR: If a quantile is not unambiguously equal to an observed data point, you must somehow average two data points. You can weight this average different ways, depending on the rest of the data, and <code>type =</code> controls this.</p>
-<p>Let’s say we want to give the user of our function the ability to specify how the quantiles are computed, but we want to accomplish with as little fuss as possible. In fact, we don’t even want to clutter our function’s interface with this! This calls for the very special <code>...</code> argument.</p>
-<pre class="r"><code>qdiff7 &lt;- function(x, probs = c(0, 1), na.rm = TRUE, ...) {
+<p>Let’s say we want to give the user of our function the ability to specify how the quantiles are computed, but we want to accomplish with as little fuss as possible. In fact, we don’t even want to clutter our function’s interface with this! This calls for the very special <code>...</code> argument. In English, this set of three dots is frequently called an “ellipsis”.</p>
+<pre class="r"><code>qdiff6 &lt;- function(x, probs = c(0, 1), na.rm = TRUE, ...) {
   the_quantiles &lt;- quantile(x = x, probs = probs, na.rm = na.rm, ...)
   return(max(the_quantiles) - min(the_quantiles))
 }</code></pre>
@@ -235,13 +300,14 @@ quantile(z, type = 4)
 all.equal(quantile(z, type = 1), quantile(z, type = 4))
 ## [1] &quot;Mean relative difference: 0.1776594&quot;</code></pre>
 <p>Now we can call our function, requesting that quantiles be computed in different ways.</p>
-<pre class="r"><code>qdiff7(z, probs = c(0.25, 0.75), type = 1)
+<pre class="r"><code>qdiff6(z, probs = c(0.25, 0.75), type = 1)
 ## [1] 1.319163
-qdiff7(z, probs = c(0.25, 0.75), type = 4)
+qdiff6(z, probs = c(0.25, 0.75), type = 4)
 ## [1] 1.401829</code></pre>
 <p>While the difference may be subtle, <strong>it’s there</strong>. Marvel at the fact that we have passed <code>type = 1</code> through to <code>quantile()</code> <em>even though it was not a formal argument of our own function</em>.</p>
 <p>The special argument <code>...</code> is very useful when you want the ability to pass arbitrary arguments down to another function, but without constantly expanding the formal arguments to your function. This leaves you with a less cluttered function definition and gives you future flexibility to specify these arguments only when you need to.</p>
 <p>You will also encounter the <code>...</code> argument in many built-in functions – read up <a href="http://www.rdocumentation.org/packages/base/functions/c">on <code>c()</code></a> or <a href="http://www.rdocumentation.org/packages/base/functions/list"><code>list()</code></a> – and now you have a better sense of what it means. It is not a breezy “and so on and so forth.”</p>
+<p>There are also downsides to <code>...</code>, so use it with intention. In a package, you will have to work harder to create truly informative documentation for your user. Also, the quiet, absorbent properties of <code>...</code> mean it can sometimes silently swallow other named arguments, when the user has a typo in the name. Depending on whether or how this fails, it can be a little tricky to find out what went wrong.</p>
 </div>
 <div id="use-testthat-for-formal-unit-tests" class="section level3">
 <h3>Use <code>testthat</code> for formal unit tests</h3>
@@ -249,32 +315,36 @@ qdiff7(z, probs = c(0.25, 0.75), type = 4)
 <p>The <a href="https://github.com/hadley/testthat"><code>testthat</code> package</a> provides excellent facilities for this, with a distinct emphasis on automated unit testing of entire packages. However, we can take it out for a test drive even with our one measly function.</p>
 <p>We will construct a test with <code>test_that()</code> and, within it, we put one or more <em>expectations</em> that check actual against expected results. You simply harden your informal, interactive tests into formal unit tests. Here are some examples of tests and indicative expectations.</p>
 <pre class="r"><code>library(testthat)
+
 test_that(&#39;invalid args are detected&#39;, {
-  expect_error(qdiff7(&quot;eggplants are purple&quot;))
-  expect_error(qdiff7(iris))
-  })
+  expect_error(qdiff6(&quot;eggplants are purple&quot;))
+  expect_error(qdiff6(iris))
+})
+
 test_that(&#39;NA handling works&#39;, {
-  expect_error(qdiff7(c(1:5, NA), na.rm = FALSE))
-  expect_equal(qdiff7(c(1:5, NA)), 4)
+  expect_error(qdiff6(c(1:5, NA), na.rm = FALSE))
+  expect_equal(qdiff6(c(1:5, NA)), 4)
 })</code></pre>
 <p>No news is good news! Let’s see what test failure would look like. Let’s revert to a version of our function that does no <code>NA</code> handling, then test for proper <code>NA</code> handling. We can watch it fail.</p>
 <pre class="r"><code>qdiff_no_NA &lt;- function(x, probs = c(0, 1)) {
   the_quantiles &lt;- quantile(x = x, probs = probs)
   return(max(the_quantiles) - min(the_quantiles))
 }
+
 test_that(&#39;NA handling works&#39;, {
   expect_that(qdiff_no_NA(c(1:5, NA)), equals(4))
 })
 ## Error: Test failed: &#39;NA handling works&#39;
 ## * missing values and NaN&#39;s not allowed if &#39;na.rm&#39; is FALSE
-## 1: expect_that(qdiff_no_NA(c(1:5, NA)), equals(4)) at &lt;text&gt;:6
+## 1: expect_that(qdiff_no_NA(c(1:5, NA)), equals(4)) at &lt;text&gt;:7
 ## 2: condition(object)
 ## 3: expect_equal(x, expected, ..., expected.label = label)
-## 4: compare(object, expected, ...)
-## 5: qdiff_no_NA(c(1:5, NA))
-## 6: quantile(x = x, probs = probs) at &lt;text&gt;:2
-## 7: quantile.default(x = x, probs = probs)
-## 8: stop(&quot;missing values and NaN&#39;s not allowed if &#39;na.rm&#39; is FALSE&quot;)</code></pre>
+## 4: quasi_label(enquo(object), label)
+## 5: eval_bare(get_expr(quo), get_env(quo))
+## 6: qdiff_no_NA(c(1:5, NA))
+## 7: quantile(x = x, probs = probs) at &lt;text&gt;:2
+## 8: quantile.default(x = x, probs = probs)
+## 9: stop(&quot;missing values and NaN&#39;s not allowed if &#39;na.rm&#39; is FALSE&quot;)</code></pre>
 <p>Similar to the advice to use assertions in data analytical scripts, I recommend you use unit tests to monitor the behavior of functions you (or others) will use often. If your tests cover the function’s important behavior, then you can edit the internals freely. You’ll rest easy in the knowledge that, if you broke anything important, the tests will fail and alert you to the problem. A function that is important enough for unit tests probably also belongs in a package, where there are obvious mechanisms for running the tests as part of overall package checks.</p>
 <!--
 

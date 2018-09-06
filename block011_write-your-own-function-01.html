@@ -20,8 +20,8 @@
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
-<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="libs/highlightjs-1.1/highlight.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,10 +40,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -101,6 +103,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -111,14 +116,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -209,10 +274,7 @@ diff(range(gapminder$lifeExp))
 <div id="skateboard-perfectly-formed-rear-view-mirror" class="section level4">
 <h4>Skateboard &gt;&gt; perfectly formed rear-view mirror</h4>
 <p>This image <a href="http://blog.fastmonkeys.com/?utm_content=bufferc2d6e&amp;utm_medium=social&amp;utm_source=twitter.com&amp;utm_campaign=buffer">widely attributed to the Spotify development team</a> conveys an important point.</p>
-<div class="figure">
-<img src="img/spotify-howtobuildmvp.gif" />
-
-</div>
+<p><img src="img/spotify-howtobuildmvp.gif" /></p>
 <p>Build that skateboard before you build the car or some fancy car part. A limited-but-functioning thing is very useful. It also keeps the spirits high.</p>
 <p>This is related to the valuable <a href="http://c2.com/cgi/wiki?TelescopeRule">Telescope Rule</a>:</p>
 <blockquote>
@@ -236,7 +298,7 @@ max_minus_min(gapminder$lifeExp)
 <pre class="r"><code>max_minus_min(1:10)
 ## [1] 9
 max_minus_min(runif(1000))
-## [1] 0.998614</code></pre>
+## [1] 0.9967588</code></pre>
 <p>I know that 10 minus 1 is 9. I know that random uniform [0, 1] variates will be between 0 and 1. Therefore max - min should be less than 1. If I take LOTS of them, max - min should be pretty close to 1.</p>
 <p>It is intentional that I tested on integer input as well as floating point. Likewise, I like to use valid-but-random data for this sort of check.</p>
 </div>
@@ -284,15 +346,15 @@ max_minus_min(c(TRUE, TRUE, FALSE, TRUE, TRUE))
   max(x) - min(x)
 }
 mmm(gapminder)
-## Error: is.numeric(x) is not TRUE
+## Error in mmm(gapminder): is.numeric(x) is not TRUE
 mmm(gapminder$country)
-## Error: is.numeric(x) is not TRUE
+## Error in mmm(gapminder$country): is.numeric(x) is not TRUE
 mmm(&quot;eggplants are purple&quot;)
-## Error: is.numeric(x) is not TRUE
+## Error in mmm(&quot;eggplants are purple&quot;): is.numeric(x) is not TRUE
 mmm(gapminder[c(&#39;lifeExp&#39;, &#39;gdpPercap&#39;, &#39;pop&#39;)])
-## Error: is.numeric(x) is not TRUE
+## Error in mmm(gapminder[c(&quot;lifeExp&quot;, &quot;gdpPercap&quot;, &quot;pop&quot;)]): is.numeric(x) is not TRUE
 mmm(c(TRUE, TRUE, FALSE, TRUE, TRUE))
-## Error: is.numeric(x) is not TRUE</code></pre>
+## Error in mmm(c(TRUE, TRUE, FALSE, TRUE, TRUE)): is.numeric(x) is not TRUE</code></pre>
 <p>And we see that it catches all of the self-inflicted damage we would like to avoid.</p>
 </div>
 <div id="if-then-stop" class="section level4">
@@ -326,7 +388,7 @@ mmm2(gapminder)
 <pre class="r"><code>mmm2
 ## function(x) {
 ##   if(!is.numeric(x)) {
-##     stop(&#39;I am so sorry, but this function only works for numeric input!\\n&#39;,
+##     stop(&#39;I am so sorry, but this function only works for numeric input!\n&#39;,
 ##          &#39;You have provided an object of class: &#39;, class(x)[1])
 ##   }
 ##   max(x) - min(x)

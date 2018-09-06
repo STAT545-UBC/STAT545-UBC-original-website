@@ -18,7 +18,7 @@ In this part, we generalize this function, learn more technical details about R 
 
 ### Load the Gapminder data
 
-As usual, load the Gapminder excerpt.
+As usual, load the Gapminder data.
 
 ```{r}
 library(gapminder)
@@ -106,18 +106,7 @@ qdiff2(zeus = gapminder$lifeExp, hera = 0:1)
 
 While I can name my arguments after Greek gods, it's usually a bad idea. Take all opportunities to make things more self-explanatory via meaningful names.
 
-This is better:
-
-```{r}
-qdiff3 <- function(my_x, my_probs) {
- stopifnot(is.numeric(my_x))
-  the_quantiles <- quantile(x = my_x, probs = my_probs)
-  return(max(the_quantiles) - min(the_quantiles))
-}
-qdiff3(my_x = gapminder$lifeExp, my_probs = 0:1)
-```
-
-If you are going to pass the arguments of your function as arguments of a built-in function, consider copying the argument names. Again, the reason is to reduce your cognitive load. This is what I've been doing all along and now you know why:
+If you are going to pass the arguments of your function as arguments of a built-in function, consider copying the argument names. Unless you have a good reason to do your own thing (some argument names are bad!), be consistent with the existing function. Again, the reason is to reduce your cognitive load. This is what I've been doing all along and now you know why:
 
 ```{r}
 qdiff1
@@ -150,7 +139,7 @@ Oops! At the moment, this causes a fatal error. It can be nice to provide some r
 We started by focusing on the max and the min, so I think those make reasonable defaults. Here's how to specify that in a function definition.
 
 ```{r}
-qdiff4 <- function(x, probs = c(0, 1)) {
+qdiff3 <- function(x, probs = c(0, 1)) {
   stopifnot(is.numeric(x))
   the_quantiles <- quantile(x, probs)
   return(max(the_quantiles) - min(the_quantiles))
@@ -160,9 +149,9 @@ qdiff4 <- function(x, probs = c(0, 1)) {
 Again we check how the function works, in old examples and new, specifying the `probs` argument and not.
 
 ```{r}
-qdiff4(gapminder$lifeExp)
+qdiff3(gapminder$lifeExp)
 mmm(gapminder$lifeExp)
-qdiff4(gapminder$lifeExp, c(0.1, 0.9))
+qdiff3(gapminder$lifeExp, c(0.1, 0.9))
 ```
 
 ### Check the validity of arguments, again
@@ -181,7 +170,7 @@ EXERCISE FOR THE READER: upgrade our argument validity checks in light of the ne
 Here's the function we've written so far:
 
 ```{r}
-qdiff4
+qdiff3
 ```
 
 What we've accomplished:

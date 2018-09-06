@@ -1,4 +1,10 @@
-# Write your own R functions, part 2
+---
+title: "Write your own R functions, part 2"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+---
 
 
 
@@ -10,7 +16,7 @@ In this part, we generalize this function, learn more technical details about R 
 
 ### Load the Gapminder data
 
-As usual, load the Gapminder excerpt.
+As usual, load the Gapminder data.
 
 
 ```r
@@ -123,20 +129,7 @@ qdiff2(zeus = gapminder$lifeExp, hera = 0:1)
 
 While I can name my arguments after Greek gods, it's usually a bad idea. Take all opportunities to make things more self-explanatory via meaningful names.
 
-This is better:
-
-
-```r
-qdiff3 <- function(my_x, my_probs) {
- stopifnot(is.numeric(my_x))
-  the_quantiles <- quantile(x = my_x, probs = my_probs)
-  return(max(the_quantiles) - min(the_quantiles))
-}
-qdiff3(my_x = gapminder$lifeExp, my_probs = 0:1)
-## [1] 59.004
-```
-
-If you are going to pass the arguments of your function as arguments of a built-in function, consider copying the argument names. Again, the reason is to reduce your cognitive load. This is what I've been doing all along and now you know why:
+If you are going to pass the arguments of your function as arguments of a built-in function, consider copying the argument names. Unless you have a good reason to do your own thing (some argument names are bad!), be consistent with the existing function. Again, the reason is to reduce your cognitive load. This is what I've been doing all along and now you know why:
 
 
 ```r
@@ -146,7 +139,7 @@ qdiff1
 ##   the_quantiles <- quantile(x = x, probs = probs)
 ##   max(the_quantiles) - min(the_quantiles)
 ## }
-## <bytecode: 0x7f8716e7e268>
+## <bytecode: 0x7fdb289c3d38>
 ```
 
 We took this detour so you could see there is no *structural* relationship between my arguments (`x` and `probs`) and those of `quantile()` (also `x` and `probs`). The similarity or equivalence of the names __accomplishes nothing__ as far as R is concerned; it is solely for the benefit of humans reading, writing, and using the code. Which is very important!
@@ -180,7 +173,7 @@ We started by focusing on the max and the min, so I think those make reasonable 
 
 
 ```r
-qdiff4 <- function(x, probs = c(0, 1)) {
+qdiff3 <- function(x, probs = c(0, 1)) {
   stopifnot(is.numeric(x))
   the_quantiles <- quantile(x, probs)
   return(max(the_quantiles) - min(the_quantiles))
@@ -191,11 +184,11 @@ Again we check how the function works, in old examples and new, specifying the `
 
 
 ```r
-qdiff4(gapminder$lifeExp)
+qdiff3(gapminder$lifeExp)
 ## [1] 59.004
 mmm(gapminder$lifeExp)
 ## [1] 59.004
-qdiff4(gapminder$lifeExp, c(0.1, 0.9))
+qdiff3(gapminder$lifeExp, c(0.1, 0.9))
 ## [1] 33.5862
 ```
 
@@ -217,13 +210,13 @@ Here's the function we've written so far:
 
 
 ```r
-qdiff4
+qdiff3
 ## function(x, probs = c(0, 1)) {
 ##   stopifnot(is.numeric(x))
 ##   the_quantiles <- quantile(x, probs)
 ##   return(max(the_quantiles) - min(the_quantiles))
 ## }
-## <bytecode: 0x7f8716c81eb0>
+## <bytecode: 0x7fdb2d3c2268>
 ```
 
 What we've accomplished:

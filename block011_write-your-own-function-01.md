@@ -1,4 +1,10 @@
-# Write your own R functions, part 1
+---
+title: "Write your own R functions, part 1"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+---
 
 
 
@@ -96,7 +102,7 @@ Pick some new artificial inputs where you know (at least approximately) what you
 max_minus_min(1:10)
 ## [1] 9
 max_minus_min(runif(1000))
-## [1] 0.998614
+## [1] 0.9967588
 ```
 
 I know that 10 minus 1 is 9. I know that random uniform [0, 1] variates will be between 0 and 1. Therefore max - min should be less than 1. If I take LOTS of them, max - min should be pretty close to 1.
@@ -164,15 +170,15 @@ mmm <- function(x) {
   max(x) - min(x)
 }
 mmm(gapminder)
-## Error: is.numeric(x) is not TRUE
+## Error in mmm(gapminder): is.numeric(x) is not TRUE
 mmm(gapminder$country)
-## Error: is.numeric(x) is not TRUE
+## Error in mmm(gapminder$country): is.numeric(x) is not TRUE
 mmm("eggplants are purple")
-## Error: is.numeric(x) is not TRUE
+## Error in mmm("eggplants are purple"): is.numeric(x) is not TRUE
 mmm(gapminder[c('lifeExp', 'gdpPercap', 'pop')])
-## Error: is.numeric(x) is not TRUE
+## Error in mmm(gapminder[c("lifeExp", "gdpPercap", "pop")]): is.numeric(x) is not TRUE
 mmm(c(TRUE, TRUE, FALSE, TRUE, TRUE))
-## Error: is.numeric(x) is not TRUE
+## Error in mmm(c(TRUE, TRUE, FALSE, TRUE, TRUE)): is.numeric(x) is not TRUE
 ```
 
 And we see that it catches all of the self-inflicted damage we would like to avoid.
@@ -215,7 +221,7 @@ Here's the function we've written so far:
 mmm2
 ## function(x) {
 ##   if(!is.numeric(x)) {
-##     stop('I am so sorry, but this function only works for numeric input!\\n',
+##     stop('I am so sorry, but this function only works for numeric input!\n',
 ##          'You have provided an object of class: ', class(x)[1])
 ##   }
 ##   max(x) - min(x)

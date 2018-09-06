@@ -20,8 +20,8 @@
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
-<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="libs/highlightjs-1.1/highlight.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,10 +40,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -101,6 +103,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -111,14 +116,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -170,7 +235,7 @@ $(document).ready(function () {
 </div>
 <div id="load-the-gapminder-data" class="section level3">
 <h3>Load the Gapminder data</h3>
-<p>As usual, load the Gapminder excerpt.</p>
+<p>As usual, load the Gapminder data.</p>
 <pre class="r"><code>library(gapminder)</code></pre>
 </div>
 <div id="restore-our-max-minus-min-function" class="section level3">
@@ -251,22 +316,14 @@ mmm(gapminder$lifeExp)
 qdiff2(zeus = gapminder$lifeExp, hera = 0:1)
 ## [1] 59.004</code></pre>
 <p>While I can name my arguments after Greek gods, it’s usually a bad idea. Take all opportunities to make things more self-explanatory via meaningful names.</p>
-<p>This is better:</p>
-<pre class="r"><code>qdiff3 &lt;- function(my_x, my_probs) {
- stopifnot(is.numeric(my_x))
-  the_quantiles &lt;- quantile(x = my_x, probs = my_probs)
-  return(max(the_quantiles) - min(the_quantiles))
-}
-qdiff3(my_x = gapminder$lifeExp, my_probs = 0:1)
-## [1] 59.004</code></pre>
-<p>If you are going to pass the arguments of your function as arguments of a built-in function, consider copying the argument names. Again, the reason is to reduce your cognitive load. This is what I’ve been doing all along and now you know why:</p>
+<p>If you are going to pass the arguments of your function as arguments of a built-in function, consider copying the argument names. Unless you have a good reason to do your own thing (some argument names are bad!), be consistent with the existing function. Again, the reason is to reduce your cognitive load. This is what I’ve been doing all along and now you know why:</p>
 <pre class="r"><code>qdiff1
 ## function(x, probs) {
 ##   stopifnot(is.numeric(x))
 ##   the_quantiles &lt;- quantile(x = x, probs = probs)
 ##   max(the_quantiles) - min(the_quantiles)
 ## }
-## &lt;bytecode: 0x7f8716e7e268&gt;</code></pre>
+## &lt;bytecode: 0x7fdb289c3d38&gt;</code></pre>
 <p>We took this detour so you could see there is no <em>structural</em> relationship between my arguments (<code>x</code> and <code>probs</code>) and those of <code>quantile()</code> (also <code>x</code> and <code>probs</code>). The similarity or equivalence of the names <strong>accomplishes nothing</strong> as far as R is concerned; it is solely for the benefit of humans reading, writing, and using the code. Which is very important!</p>
 </div>
 <div id="what-a-function-returns" class="section level3">
@@ -283,17 +340,17 @@ qdiff3(my_x = gapminder$lifeExp, my_probs = 0:1)
 ## Error in quantile(x = x, probs = probs): argument &quot;probs&quot; is missing, with no default</code></pre>
 <p>Oops! At the moment, this causes a fatal error. It can be nice to provide some reasonable default values for certain arguments. In our case, it would be crazy to specify a default value for the primary input <code>x</code>, but very kind to specify a default for <code>probs</code>.</p>
 <p>We started by focusing on the max and the min, so I think those make reasonable defaults. Here’s how to specify that in a function definition.</p>
-<pre class="r"><code>qdiff4 &lt;- function(x, probs = c(0, 1)) {
+<pre class="r"><code>qdiff3 &lt;- function(x, probs = c(0, 1)) {
   stopifnot(is.numeric(x))
   the_quantiles &lt;- quantile(x, probs)
   return(max(the_quantiles) - min(the_quantiles))
 }</code></pre>
 <p>Again we check how the function works, in old examples and new, specifying the <code>probs</code> argument and not.</p>
-<pre class="r"><code>qdiff4(gapminder$lifeExp)
+<pre class="r"><code>qdiff3(gapminder$lifeExp)
 ## [1] 59.004
 mmm(gapminder$lifeExp)
 ## [1] 59.004
-qdiff4(gapminder$lifeExp, c(0.1, 0.9))
+qdiff3(gapminder$lifeExp, c(0.1, 0.9))
 ## [1] 33.5862</code></pre>
 </div>
 <div id="check-the-validity-of-arguments-again" class="section level3">
@@ -307,13 +364,13 @@ qdiff4(gapminder$lifeExp, c(0.1, 0.9))
 <div id="wrap-up-and-whats-next" class="section level3">
 <h3>Wrap-up and what’s next?</h3>
 <p>Here’s the function we’ve written so far:</p>
-<pre class="r"><code>qdiff4
+<pre class="r"><code>qdiff3
 ## function(x, probs = c(0, 1)) {
 ##   stopifnot(is.numeric(x))
 ##   the_quantiles &lt;- quantile(x, probs)
 ##   return(max(the_quantiles) - min(the_quantiles))
 ## }
-## &lt;bytecode: 0x7f8716c81eb0&gt;</code></pre>
+## &lt;bytecode: 0x7fdb2d3c2268&gt;</code></pre>
 <p>What we’ve accomplished:</p>
 <ul>
 <li>we’ve generalized our first function to take a difference between arbitrary quantiles</li>

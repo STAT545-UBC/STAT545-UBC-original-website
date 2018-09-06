@@ -1,4 +1,10 @@
-# Write your own R functions, part 3
+---
+title: "Write your own R functions, part 3"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+---
 
 
 
@@ -10,7 +16,7 @@ In this part, we tackle `NA`s, the special argument `...` and formal testing.
 
 ### Load the Gapminder data
 
-As usual, load the Gapminder excerpt.
+As usual, load the Gapminder data.
 
 
 ```r
@@ -23,7 +29,7 @@ Let's keep our previous function around as a baseline.
 
 
 ```r
-qdiff4 <- function(x, probs = c(0, 1)) {
+qdiff3 <- function(x, probs = c(0, 1)) {
   stopifnot(is.numeric(x))
   the_quantiles <- quantile(x, probs)
   return(max(the_quantiles) - min(the_quantiles))
@@ -54,14 +60,14 @@ If we wanted to hardwire `na.rm = TRUE`, we could. Focus on our call to `quantil
 
 
 ```r
-qdiff5 <- function(x, probs = c(0, 1)) {
+qdiff4 <- function(x, probs = c(0, 1)) {
   stopifnot(is.numeric(x))
   the_quantiles <- quantile(x, probs, na.rm = TRUE)
   return(max(the_quantiles) - min(the_quantiles))
 }
-qdiff5(gapminder$lifeExp)
+qdiff4(gapminder$lifeExp)
 ## [1] 59.004
-qdiff5(z)
+qdiff4(z)
 ## [1] 59.004
 ```
 
@@ -71,16 +77,16 @@ We could add an `na.rm =` argument to our own function. We might even enforce ou
 
 
 ```r
-qdiff6 <- function(x, probs = c(0, 1), na.rm = TRUE) {
+qdiff5 <- function(x, probs = c(0, 1), na.rm = TRUE) {
   stopifnot(is.numeric(x))
   the_quantiles <- quantile(x, probs, na.rm = na.rm)
   return(max(the_quantiles) - min(the_quantiles))
 }
-qdiff6(gapminder$lifeExp)
+qdiff5(gapminder$lifeExp)
 ## [1] 59.004
-qdiff6(z)
+qdiff5(z)
 ## [1] 59.004
-qdiff6(z, na.rm = FALSE)
+qdiff5(z, na.rm = FALSE)
 ## Error in quantile.default(x, probs, na.rm = na.rm): missing values and NaN's not allowed if 'na.rm' is FALSE
 ```
 
@@ -88,11 +94,11 @@ qdiff6(z, na.rm = FALSE)
 
 You probably could have lived a long and happy life without knowing there are at least 9 different algorithms for computing quantiles. [Go read about the `type` argument](http://www.rdocumentation.org/packages/stats/functions/quantile) of `quantile()`. TLDR: If a quantile is not unambiguously equal to an observed data point, you must somehow average two data points. You can weight this average different ways, depending on the rest of the data, and `type =` controls this.
 
-Let's say we want to give the user of our function the ability to specify how the quantiles are computed, but we want to accomplish with as little fuss as possible. In fact, we don't even want to clutter our function's interface with this! This calls for the very special `...` argument.
+Let's say we want to give the user of our function the ability to specify how the quantiles are computed, but we want to accomplish with as little fuss as possible. In fact, we don't even want to clutter our function's interface with this! This calls for the very special `...` argument. In English, this set of three dots is frequently called an "ellipsis".
 
 
 ```r
-qdiff7 <- function(x, probs = c(0, 1), na.rm = TRUE, ...) {
+qdiff6 <- function(x, probs = c(0, 1), na.rm = TRUE, ...) {
   the_quantiles <- quantile(x = x, probs = probs, na.rm = na.rm, ...)
   return(max(the_quantiles) - min(the_quantiles))
 }
@@ -118,9 +124,9 @@ Now we can call our function, requesting that quantiles be computed in different
 
 
 ```r
-qdiff7(z, probs = c(0.25, 0.75), type = 1)
+qdiff6(z, probs = c(0.25, 0.75), type = 1)
 ## [1] 1.319163
-qdiff7(z, probs = c(0.25, 0.75), type = 4)
+qdiff6(z, probs = c(0.25, 0.75), type = 4)
 ## [1] 1.401829
 ```
 
@@ -129,6 +135,8 @@ While the difference may be subtle, __it's there__. Marvel at the fact that we h
 The special argument `...` is very useful when you want the ability to pass arbitrary arguments down to another function, but without constantly expanding the formal arguments to your function. This leaves you with a less cluttered function definition and gives you future flexibility to specify these arguments only when you need to.
 
 You will also encounter the `...` argument in many built-in functions -- read up [on `c()`](http://www.rdocumentation.org/packages/base/functions/c) or [`list()`](http://www.rdocumentation.org/packages/base/functions/list) -- and now you have a better sense of what it means. It is not a breezy "and so on and so forth."
+
+There are also downsides to `...`, so use it with intention. In a package, you will have to work harder to create truly informative documentation for your user. Also, the quiet, absorbent properties of `...` mean it can sometimes silently swallow other named arguments, when the user has a typo in the name. Depending on whether or how this fails, it can be a little tricky to find out what went wrong.
 
 ### Use `testthat` for formal unit tests
 
@@ -141,13 +149,15 @@ We will construct a test with `test_that()` and, within it, we put one or more *
 
 ```r
 library(testthat)
+
 test_that('invalid args are detected', {
-  expect_error(qdiff7("eggplants are purple"))
-  expect_error(qdiff7(iris))
-  })
+  expect_error(qdiff6("eggplants are purple"))
+  expect_error(qdiff6(iris))
+})
+
 test_that('NA handling works', {
-  expect_error(qdiff7(c(1:5, NA), na.rm = FALSE))
-  expect_equal(qdiff7(c(1:5, NA)), 4)
+  expect_error(qdiff6(c(1:5, NA), na.rm = FALSE))
+  expect_equal(qdiff6(c(1:5, NA)), 4)
 })
 ```
 
@@ -159,19 +169,21 @@ qdiff_no_NA <- function(x, probs = c(0, 1)) {
   the_quantiles <- quantile(x = x, probs = probs)
   return(max(the_quantiles) - min(the_quantiles))
 }
+
 test_that('NA handling works', {
   expect_that(qdiff_no_NA(c(1:5, NA)), equals(4))
 })
 ## Error: Test failed: 'NA handling works'
 ## * missing values and NaN's not allowed if 'na.rm' is FALSE
-## 1: expect_that(qdiff_no_NA(c(1:5, NA)), equals(4)) at <text>:6
+## 1: expect_that(qdiff_no_NA(c(1:5, NA)), equals(4)) at <text>:7
 ## 2: condition(object)
 ## 3: expect_equal(x, expected, ..., expected.label = label)
-## 4: compare(object, expected, ...)
-## 5: qdiff_no_NA(c(1:5, NA))
-## 6: quantile(x = x, probs = probs) at <text>:2
-## 7: quantile.default(x = x, probs = probs)
-## 8: stop("missing values and NaN's not allowed if 'na.rm' is FALSE")
+## 4: quasi_label(enquo(object), label)
+## 5: eval_bare(get_expr(quo), get_env(quo))
+## 6: qdiff_no_NA(c(1:5, NA))
+## 7: quantile(x = x, probs = probs) at <text>:2
+## 8: quantile.default(x = x, probs = probs)
+## 9: stop("missing values and NaN's not allowed if 'na.rm' is FALSE")
 ```
 
 Similar to the advice to use assertions in data analytical scripts, I recommend you use unit tests to monitor the behavior of functions you (or others) will use often. If your tests cover the function's important behavior, then you can edit the internals freely. You'll rest easy in the knowledge that, if you broke anything important, the tests will fail and alert you to the problem. A function that is important enough for unit tests probably also belongs in a package, where there are obvious mechanisms for running the tests as part of overall package checks.
