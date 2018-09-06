@@ -28,7 +28,7 @@ We use the `devtools` package to facilitate package development. It's on [CRAN](
   * ensures your package source has the format of a valid R package
   * provides a fluid workflow for package development: tweak it, use it, ... lather, rinse, repeat
 
-The source of R an package is a highly structured set of files that reside in a dedicated directory on your computer. It can be beneficial to also make this directory an RStudio Project and a Git repository and, eventually, associate it with a GitHub remote. `devtools` ensures that your initial set up is correct and helps you keep it that way as your package evolves.
+The source of an R package is a highly structured set of files that reside in a dedicated directory on your computer. It can be beneficial to also make this directory an RStudio Project and a Git repository and, eventually, associate it with a GitHub remote. `devtools` ensures that your initial set up is correct and helps you keep it that way as your package evolves.
 
 As you develop the functions in your package, you need to take them out regularly for a test drive. How do you plan to get them into memory? Various workflows come to mind:
 

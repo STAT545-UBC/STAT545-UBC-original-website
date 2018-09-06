@@ -2,6 +2,7 @@
 
 This material gets updated during Sept - Nov each year on a rolling basis.
 
+  * Non-STAT545-specific advice for [getting help](http://stat545.com/help-general.html).
   * Get your R act together
     - [Install R and Rstudio](block000_r-rstudio-install.html) (or update! get current!)
     - [Basic R and RStudio, workspace, working directory, RStudio Project](block002_hello-r-workspace-wd-project.html)

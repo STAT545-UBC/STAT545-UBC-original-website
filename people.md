@@ -6,6 +6,8 @@ output:
       after_body: include/nothing.html
 ---
 
+**Only includes pre-2018 iterations**. See the <http://stat545.com/Classroom> site for the current list of people.
+
 ### 2017 staff
 
 Vincenzo Coia, instructor (mostly for first half/545)
@@ -18,8 +20,6 @@ Giulio Valentino Dalla Riva (mostly for second half/547)
 
 - <giulio.riva@stat.ubc.ca>
 - [\@ipnosimmia](https://twitter.com/ipnosimmia)
-
-TA's to be announced soon!
 
 ### 2016 staff
 
