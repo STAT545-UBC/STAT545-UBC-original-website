@@ -1,4 +1,10 @@
-# The unreasonable effectiveness of GitHub browsability
+---
+title: "The unreasonable effectiveness of GitHub browsability"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+---
 
 One of my favorite aspects of GitHub is the ability to inspect a repository's files in a browser. Certain practices make browsing more rewarding and can postpone the day when you must create a proper website for a project. Perhaps indefinitely.
 
@@ -85,16 +91,18 @@ If you have an HTML file in a GitHub repository, simply visiting the file shows 
 
   * <https://github.com/STAT545-UBC/STAT545-UBC.github.io/blob/master/bit003_api-key-env-var.html>
 
-No one wants to look at that. You can provide this URL to [rawgit.com](http://rawgit.com) to serve this HTML more properly and get a decent preview.
+No one wants to look at that. ~~You can provide this URL to [rawgit.com](http://rawgit.com) to serve this HTML more properly and get a decent preview.~~
 
-You can form two different types of URLs with [rawgit.com](http://rawgit.com):
+~~You can form two different types of URLs with [rawgit.com](http://rawgit.com):~~
 
-  * For sharing low-traffic, temporary examples or demos with small numbers of people, do this:
-    - <https://rawgit.com/STAT545-UBC/STAT545-UBC.github.io/master/bit003_api-key-env-var.html>
-    - Basically: replace `https://github.com/` with `https://rawgit.com/`
-  * For use on production websites with any amount of traffic, do this:
-    - <https://cdn.rawgit.com/STAT545-UBC/STAT545-UBC.github.io/master/bit003_api-key-env-var.html>
-    - Basically: replace `https://github.com/` with `https://cdn.rawgit.com/`
+  * ~~For sharing low-traffic, temporary examples or demos with small numbers of people, do this:~~
+    - ~~<https://rawgit.com/STAT545-UBC/STAT545-UBC.github.io/master/bit003_api-key-env-var.html>~~
+    - ~~Basically: replace `https://github.com/` with `https://rawgit.com/`~~
+  * ~~For use on production websites with any amount of traffic, do this:~~
+    - ~~<https://cdn.rawgit.com/STAT545-UBC/STAT545-UBC.github.io/master/bit003_api-key-env-var.html>~~
+    - ~~Basically: replace `https://github.com/` with `https://cdn.rawgit.com/`~~
+
+*2018-10-09 update: RawGit [announced](https://rawgit.com/) that it is in a sunset phase and will soon shut down. They recommended: [jsDelivr](https://www.jsdelivr.com/rawgit), [GitHub Pages](https://pages.github.com/), [CodeSandbox](https://codesandbox.io/), and [unpkg](https://unpkg.com/#/) as alternatives.*
     
 This sort of enhanced link might be one of the useful things to put in a `README.md` or other Markdown file in the repo.
 
