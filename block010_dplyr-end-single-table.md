@@ -32,18 +32,18 @@ library(tidyverse)
 ```
 
 ```
-## ── Attaching packages ─────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+## ── Attaching packages ────────────────────────────────────────── tidyverse 1.2.1 ──
 ```
 
 ```
-## ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
-## ✔ tibble  1.3.4     ✔ dplyr   0.7.4
-## ✔ tidyr   0.7.2     ✔ stringr 1.2.0
-## ✔ readr   1.1.1     ✔ forcats 0.2.0
+## ✔ ggplot2 3.0.0           ✔ purrr   0.2.5      
+## ✔ tibble  1.4.99.9004     ✔ dplyr   0.7.99.9000
+## ✔ tidyr   0.8.1           ✔ stringr 1.3.1      
+## ✔ readr   1.2.0           ✔ forcats 0.3.0
 ```
 
 ```
-## ── Conflicts ────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ───────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ```
@@ -59,19 +59,19 @@ We're going to make changes to the `gapminder` tibble. To eliminate any fear tha
 
 ```
 ## # A tibble: 1,704 x 6
-##        country continent  year lifeExp      pop gdpPercap
-##         <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
-##  1 Afghanistan      Asia  1952  28.801  8425333  779.4453
-##  2 Afghanistan      Asia  1957  30.332  9240934  820.8530
-##  3 Afghanistan      Asia  1962  31.997 10267083  853.1007
-##  4 Afghanistan      Asia  1967  34.020 11537966  836.1971
-##  5 Afghanistan      Asia  1972  36.088 13079460  739.9811
-##  6 Afghanistan      Asia  1977  38.438 14880372  786.1134
-##  7 Afghanistan      Asia  1982  39.854 12881816  978.0114
-##  8 Afghanistan      Asia  1987  40.822 13867957  852.3959
-##  9 Afghanistan      Asia  1992  41.674 16317921  649.3414
-## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
-## # ... with 1,694 more rows
+##    country     continent  year lifeExp      pop gdpPercap
+##    <fct>       <fct>     <int>   <dbl>    <int>     <dbl>
+##  1 Afghanistan Asia       1952    28.8  8425333      779.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.
+##  6 Afghanistan Asia       1977    38.4 14880372      786.
+##  7 Afghanistan Asia       1982    39.9 12881816      978.
+##  8 Afghanistan Asia       1987    40.8 13867957      852.
+##  9 Afghanistan Asia       1992    41.7 16317921      649.
+## 10 Afghanistan Asia       1997    41.8 22227415      635.
+## # … with 1,694 more rows
 ```
 
 **Pay close attention** to when we evaluate statements but let the output just print to screen:
@@ -104,19 +104,19 @@ my_gap %>%
 
 ```
 ## # A tibble: 1,704 x 7
-##        country continent  year lifeExp      pop gdpPercap         gdp
-##         <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>       <dbl>
-##  1 Afghanistan      Asia  1952  28.801  8425333  779.4453  6567086330
-##  2 Afghanistan      Asia  1957  30.332  9240934  820.8530  7585448670
-##  3 Afghanistan      Asia  1962  31.997 10267083  853.1007  8758855797
-##  4 Afghanistan      Asia  1967  34.020 11537966  836.1971  9648014150
-##  5 Afghanistan      Asia  1972  36.088 13079460  739.9811  9678553274
-##  6 Afghanistan      Asia  1977  38.438 14880372  786.1134 11697659231
-##  7 Afghanistan      Asia  1982  39.854 12881816  978.0114 12598563401
-##  8 Afghanistan      Asia  1987  40.822 13867957  852.3959 11820990309
-##  9 Afghanistan      Asia  1992  41.674 16317921  649.3414 10595901589
-## 10 Afghanistan      Asia  1997  41.763 22227415  635.3414 14121995875
-## # ... with 1,694 more rows
+##    country     continent  year lifeExp      pop gdpPercap          gdp
+##    <fct>       <fct>     <int>   <dbl>    <int>     <dbl>        <dbl>
+##  1 Afghanistan Asia       1952    28.8  8425333      779.  6567086330.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.  7585448670.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.  8758855797.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.  9648014150.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.  9678553274.
+##  6 Afghanistan Asia       1977    38.4 14880372      786. 11697659231.
+##  7 Afghanistan Asia       1982    39.9 12881816      978. 12598563401.
+##  8 Afghanistan Asia       1987    40.8 13867957      852. 11820990309.
+##  9 Afghanistan Asia       1992    41.7 16317921      649. 10595901589.
+## 10 Afghanistan Asia       1997    41.8 22227415      635. 14121995875.
+## # … with 1,694 more rows
 ```
 
 Hmmmm ... those GDP numbers are almost uselessly large and abstract. Consider the [advice of Randall Munroe of xkcd](http://fivethirtyeight.com/datalab/xkcd-randall-munroe-qanda-what-if/):
@@ -162,19 +162,19 @@ my_gap %>%
 ```
 ## # A tibble: 12 x 3
 ##    country  year gdpPercapRel
-##     <fctr> <int>        <dbl>
-##  1  Canada  1952            1
-##  2  Canada  1957            1
-##  3  Canada  1962            1
-##  4  Canada  1967            1
-##  5  Canada  1972            1
-##  6  Canada  1977            1
-##  7  Canada  1982            1
-##  8  Canada  1987            1
-##  9  Canada  1992            1
-## 10  Canada  1997            1
-## 11  Canada  2002            1
-## 12  Canada  2007            1
+##    <fct>   <int>        <dbl>
+##  1 Canada   1952            1
+##  2 Canada   1957            1
+##  3 Canada   1962            1
+##  4 Canada   1967            1
+##  5 Canada   1972            1
+##  6 Canada   1977            1
+##  7 Canada   1982            1
+##  8 Canada   1987            1
+##  9 Canada   1992            1
+## 10 Canada   1997            1
+## 11 Canada   2002            1
+## 12 Canada   2007            1
 ```
 
 I perceive Canada to be a "high GDP" country, so I predict that the distribution of `gdpPercapRel` is located below 1, possibly even well below. Check your intuition!
@@ -205,19 +205,19 @@ my_gap %>%
 
 ```
 ## # A tibble: 1,704 x 7
-##        country continent  year lifeExp      pop  gdpPercap gdpPercapRel
-##         <fctr>    <fctr> <int>   <dbl>    <int>      <dbl>        <dbl>
-##  1 Afghanistan      Asia  1952  28.801  8425333   779.4453   0.06856992
-##  2     Albania    Europe  1952  55.230  1282697  1601.0561   0.14084925
-##  3     Algeria    Africa  1952  43.077  9279525  2449.0082   0.21544589
-##  4      Angola    Africa  1952  30.015  4232095  3520.6103   0.30971764
-##  5   Argentina  Americas  1952  62.485 17876956  5911.3151   0.52003442
-##  6   Australia   Oceania  1952  69.120  8691212 10039.5956   0.88321046
-##  7     Austria    Europe  1952  66.800  6927772  6137.0765   0.53989527
-##  8     Bahrain      Asia  1952  50.939   120447  9867.0848   0.86803421
-##  9  Bangladesh      Asia  1952  37.484 46886859   684.2442   0.06019482
-## 10     Belgium    Europe  1952  68.000  8730405  8343.1051   0.73396559
-## # ... with 1,694 more rows
+##    country     continent  year lifeExp      pop gdpPercap gdpPercapRel
+##    <fct>       <fct>     <int>   <dbl>    <int>     <dbl>        <dbl>
+##  1 Afghanistan Asia       1952    28.8  8425333      779.       0.0686
+##  2 Albania     Europe     1952    55.2  1282697     1601.       0.141 
+##  3 Algeria     Africa     1952    43.1  9279525     2449.       0.215 
+##  4 Angola      Africa     1952    30.0  4232095     3521.       0.310 
+##  5 Argentina   Americas   1952    62.5 17876956     5911.       0.520 
+##  6 Australia   Oceania    1952    69.1  8691212    10040.       0.883 
+##  7 Austria     Europe     1952    66.8  6927772     6137.       0.540 
+##  8 Bahrain     Asia       1952    50.9   120447     9867.       0.868 
+##  9 Bangladesh  Asia       1952    37.5 46886859      684.       0.0602
+## 10 Belgium     Europe     1952    68    8730405     8343.       0.734 
+## # … with 1,694 more rows
 ```
 
 Or maybe you want just the data from 2007, sorted on life expectancy?
@@ -231,19 +231,19 @@ my_gap %>%
 
 ```
 ## # A tibble: 142 x 7
-##                     country continent  year lifeExp      pop gdpPercap
-##                      <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
-##  1                Swaziland    Africa  2007  39.613  1133066 4513.4806
-##  2               Mozambique    Africa  2007  42.082 19951656  823.6856
-##  3                   Zambia    Africa  2007  42.384 11746035 1271.2116
-##  4             Sierra Leone    Africa  2007  42.568  6144562  862.5408
-##  5                  Lesotho    Africa  2007  42.592  2012649 1569.3314
-##  6                   Angola    Africa  2007  42.731 12420476 4797.2313
-##  7                 Zimbabwe    Africa  2007  43.487 12311143  469.7093
-##  8              Afghanistan      Asia  2007  43.828 31889923  974.5803
-##  9 Central African Republic    Africa  2007  44.741  4369038  706.0165
-## 10                  Liberia    Africa  2007  45.678  3193942  414.5073
-## # ... with 132 more rows, and 1 more variables: gdpPercapRel <dbl>
+##    country          continent  year lifeExp     pop gdpPercap gdpPercapRel
+##    <fct>            <fct>     <int>   <dbl>   <int>     <dbl>        <dbl>
+##  1 Swaziland        Africa     2007    39.6  1.13e6     4513.       0.124 
+##  2 Mozambique       Africa     2007    42.1  2.00e7      824.       0.0227
+##  3 Zambia           Africa     2007    42.4  1.17e7     1271.       0.0350
+##  4 Sierra Leone     Africa     2007    42.6  6.14e6      863.       0.0237
+##  5 Lesotho          Africa     2007    42.6  2.01e6     1569.       0.0432
+##  6 Angola           Africa     2007    42.7  1.24e7     4797.       0.132 
+##  7 Zimbabwe         Africa     2007    43.5  1.23e7      470.       0.0129
+##  8 Afghanistan      Asia       2007    43.8  3.19e7      975.       0.0268
+##  9 Central African… Africa     2007    44.7  4.37e6      706.       0.0194
+## 10 Liberia          Africa     2007    45.7  3.19e6      415.       0.0114
+## # … with 132 more rows
 ```
 
 Oh, you'd like to sort on life expectancy in **desc**ending order? Then use `desc()`.
@@ -257,19 +257,19 @@ my_gap %>%
 
 ```
 ## # A tibble: 142 x 7
-##             country continent  year lifeExp       pop gdpPercap
-##              <fctr>    <fctr> <int>   <dbl>     <int>     <dbl>
-##  1            Japan      Asia  2007  82.603 127467972  31656.07
-##  2 Hong Kong, China      Asia  2007  82.208   6980412  39724.98
-##  3          Iceland    Europe  2007  81.757    301931  36180.79
-##  4      Switzerland    Europe  2007  81.701   7554661  37506.42
-##  5        Australia   Oceania  2007  81.235  20434176  34435.37
-##  6            Spain    Europe  2007  80.941  40448191  28821.06
-##  7           Sweden    Europe  2007  80.884   9031088  33859.75
-##  8           Israel      Asia  2007  80.745   6426679  25523.28
-##  9           France    Europe  2007  80.657  61083916  30470.02
-## 10           Canada  Americas  2007  80.653  33390141  36319.24
-## # ... with 132 more rows, and 1 more variables: gdpPercapRel <dbl>
+##    country         continent  year lifeExp      pop gdpPercap gdpPercapRel
+##    <fct>           <fct>     <int>   <dbl>    <int>     <dbl>        <dbl>
+##  1 Japan           Asia       2007    82.6   1.27e8    31656.        0.872
+##  2 Hong Kong, Chi… Asia       2007    82.2   6.98e6    39725.        1.09 
+##  3 Iceland         Europe     2007    81.8   3.02e5    36181.        0.996
+##  4 Switzerland     Europe     2007    81.7   7.55e6    37506.        1.03 
+##  5 Australia       Oceania    2007    81.2   2.04e7    34435.        0.948
+##  6 Spain           Europe     2007    80.9   4.04e7    28821.        0.794
+##  7 Sweden          Europe     2007    80.9   9.03e6    33860.        0.932
+##  8 Israel          Asia       2007    80.7   6.43e6    25523.        0.703
+##  9 France          Europe     2007    80.7   6.11e7    30470.        0.839
+## 10 Canada          Americas   2007    80.7   3.34e7    36319.        1    
+## # … with 132 more rows
 ```
 
 I advise that your analyses NEVER rely on rows or variables being in a specific order. But it's still true that human beings write the code and the interactive development process can be much nicer if you reorder the rows of your data as you go along. Also, once you are preparing tables for human eyeballs, it is imperative that you step up and take control of row order.
@@ -288,19 +288,19 @@ my_gap %>%
 
 ```
 ## # A tibble: 1,704 x 7
-##        country continent  year life_exp      pop gdp_percap gdp_percap_rel
-##         <fctr>    <fctr> <int>    <dbl>    <int>      <dbl>          <dbl>
-##  1 Afghanistan      Asia  1952   28.801  8425333   779.4453     0.06856992
-##  2 Afghanistan      Asia  1957   30.332  9240934   820.8530     0.06572108
-##  3 Afghanistan      Asia  1962   31.997 10267083   853.1007     0.06336874
-##  4 Afghanistan      Asia  1967   34.020 11537966   836.1971     0.05201335
-##  5 Afghanistan      Asia  1972   36.088 13079460   739.9811     0.03900679
-##  6 Afghanistan      Asia  1977   38.438 14880372   786.1134     0.03558542
-##  7 Afghanistan      Asia  1982   39.854 12881816   978.0114     0.04271018
-##  8 Afghanistan      Asia  1987   40.822 13867957   852.3959     0.03201305
-##  9 Afghanistan      Asia  1992   41.674 16317921   649.3414     0.02464959
-## 10 Afghanistan      Asia  1997   41.763 22227415   635.3414     0.02194243
-## # ... with 1,694 more rows
+##    country     continent  year life_exp      pop gdp_percap gdp_percap_rel
+##    <fct>       <fct>     <int>    <dbl>    <int>      <dbl>          <dbl>
+##  1 Afghanistan Asia       1952     28.8  8425333       779.         0.0686
+##  2 Afghanistan Asia       1957     30.3  9240934       821.         0.0657
+##  3 Afghanistan Asia       1962     32.0 10267083       853.         0.0634
+##  4 Afghanistan Asia       1967     34.0 11537966       836.         0.0520
+##  5 Afghanistan Asia       1972     36.1 13079460       740.         0.0390
+##  6 Afghanistan Asia       1977     38.4 14880372       786.         0.0356
+##  7 Afghanistan Asia       1982     39.9 12881816       978.         0.0427
+##  8 Afghanistan Asia       1987     40.8 13867957       852.         0.0320
+##  9 Afghanistan Asia       1992     41.7 16317921       649.         0.0246
+## 10 Afghanistan Asia       1997     41.8 22227415       635.         0.0219
+## # … with 1,694 more rows
 ```
 
 I did NOT assign the post-rename object back to `my_gap` because that would make the chunks in this tutorial harder to copy/paste and run out of order. In real life, I would probably assign this back to `my_gap`, in a data preparation script, and proceed with the new variable names.
@@ -324,9 +324,9 @@ my_gap %>%
 ## # A tibble: 3 x 3
 ##   gdpPercap    yr lifeExp
 ##       <dbl> <int>   <dbl>
-## 1  463.1151  1997  45.326
-## 2  446.4035  2002  47.360
-## 3  430.0707  2007  49.580
+## 1      463.  1997    45.3
+## 2      446.  2002    47.4
+## 3      430.  2007    49.6
 ```
 
 `everything()` is one of several helpers for variable selection. Read its help to see the rest.
@@ -359,12 +359,12 @@ my_gap %>%
 ```
 ## # A tibble: 5 x 2
 ##   continent     n
-##      <fctr> <int>
-## 1    Africa   624
-## 2  Americas   300
-## 3      Asia   396
-## 4    Europe   360
-## 5   Oceania    24
+##   <fct>     <int>
+## 1 Africa      624
+## 2 Americas    300
+## 3 Asia        396
+## 4 Europe      360
+## 5 Oceania      24
 ```
 
 Let us pause here to think about the tidyverse. You could get these same frequencies using `table()` from base R.
@@ -404,12 +404,12 @@ my_gap %>%
 ```
 ## # A tibble: 5 x 2
 ##   continent     n
-##      <fctr> <int>
-## 1    Africa   624
-## 2  Americas   300
-## 3      Asia   396
-## 4    Europe   360
-## 5   Oceania    24
+##   <fct>     <int>
+## 1 Africa      624
+## 2 Americas    300
+## 3 Asia        396
+## 4 Europe      360
+## 5 Oceania      24
 ```
 
 The `count()` function is an even more convenient function that does both grouping and counting.
@@ -423,12 +423,12 @@ my_gap %>%
 ```
 ## # A tibble: 5 x 2
 ##   continent     n
-##      <fctr> <int>
-## 1    Africa   624
-## 2  Americas   300
-## 3      Asia   396
-## 4    Europe   360
-## 5   Oceania    24
+##   <fct>     <int>
+## 1 Africa      624
+## 2 Americas    300
+## 3 Asia        396
+## 4 Europe      360
+## 5 Oceania      24
 ```
 
 What if we wanted to add the number of unique countries for each continent? You can compute multiple summaries inside `summarize()`. Use the `n_distinct()` function to count the number of distinct countries within each continent.
@@ -444,12 +444,12 @@ my_gap %>%
 ```
 ## # A tibble: 5 x 3
 ##   continent     n n_countries
-##      <fctr> <int>       <int>
-## 1    Africa   624          52
-## 2  Americas   300          25
-## 3      Asia   396          33
-## 4    Europe   360          30
-## 5   Oceania    24           2
+##   <fct>     <int>       <int>
+## 1 Africa      624          52
+## 2 Americas    300          25
+## 3 Asia        396          33
+## 4 Europe      360          30
+## 5 Oceania      24           2
 ```
 
 #### General summarization
@@ -468,12 +468,12 @@ my_gap %>%
 ```
 ## # A tibble: 5 x 2
 ##   continent avg_lifeExp
-##      <fctr>       <dbl>
-## 1    Africa    48.86533
-## 2  Americas    64.65874
-## 3      Asia    60.06490
-## 4    Europe    71.90369
-## 5   Oceania    74.32621
+##   <fct>           <dbl>
+## 1 Africa           48.9
+## 2 Americas         64.7
+## 3 Asia             60.1
+## 4 Europe           71.9
+## 5 Oceania          74.3
 ```
 
 `summarize_at()` applies the same summary function(s) to multiple variables. Let's compute average and median life expectancy and GDP per capita by continent by year ... but only for 1952 and 2007.
@@ -488,20 +488,20 @@ my_gap %>%
 
 ```
 ## # A tibble: 10 x 6
-## # Groups:   continent [?]
+## # Groups:   continent [5]
 ##    continent  year lifeExp_mean gdpPercap_mean lifeExp_median
-##       <fctr> <int>        <dbl>          <dbl>          <dbl>
-##  1    Africa  1952     39.13550       1252.572        38.8330
-##  2    Africa  2007     54.80604       3089.033        52.9265
-##  3  Americas  1952     53.27984       4079.063        54.7450
-##  4  Americas  2007     73.60812      11003.032        72.8990
-##  5      Asia  1952     46.31439       5195.484        44.8690
-##  6      Asia  2007     70.72848      12473.027        72.3960
-##  7    Europe  1952     64.40850       5661.057        65.9000
-##  8    Europe  2007     77.64860      25054.482        78.6085
-##  9   Oceania  1952     69.25500      10298.086        69.2550
-## 10   Oceania  2007     80.71950      29810.188        80.7195
-## # ... with 1 more variables: gdpPercap_median <dbl>
+##    <fct>     <int>        <dbl>          <dbl>          <dbl>
+##  1 Africa     1952         39.1          1253.           38.8
+##  2 Africa     2007         54.8          3089.           52.9
+##  3 Americas   1952         53.3          4079.           54.7
+##  4 Americas   2007         73.6         11003.           72.9
+##  5 Asia       1952         46.3          5195.           44.9
+##  6 Asia       2007         70.7         12473.           72.4
+##  7 Europe     1952         64.4          5661.           65.9
+##  8 Europe     2007         77.6         25054.           78.6
+##  9 Oceania    1952         69.3         10298.           69.3
+## 10 Oceania    2007         80.7         29810.           80.7
+## # … with 1 more variable: gdpPercap_median <dbl>
 ```
 
 Let's focus just on Asia. What are the minimum and maximum life expectancies seen by year?
@@ -518,18 +518,18 @@ my_gap %>%
 ## # A tibble: 12 x 3
 ##     year min_lifeExp max_lifeExp
 ##    <int>       <dbl>       <dbl>
-##  1  1952      28.801      65.390
-##  2  1957      30.332      67.840
-##  3  1962      31.997      69.390
-##  4  1967      34.020      71.430
-##  5  1972      36.088      73.420
-##  6  1977      31.220      75.380
-##  7  1982      39.854      77.110
-##  8  1987      40.822      78.670
-##  9  1992      41.674      79.360
-## 10  1997      41.763      80.690
-## 11  2002      42.129      82.000
-## 12  2007      43.828      82.603
+##  1  1952        28.8        65.4
+##  2  1957        30.3        67.8
+##  3  1962        32.0        69.4
+##  4  1967        34.0        71.4
+##  5  1972        36.1        73.4
+##  6  1977        31.2        75.4
+##  7  1982        39.9        77.1
+##  8  1987        40.8        78.7
+##  9  1992        41.7        79.4
+## 10  1997        41.8        80.7
+## 11  2002        42.1        82  
+## 12  2007        43.8        82.6
 ```
 
 Of course it would be much more interesting to see *which* country contributed these extreme observations. Is the minimum (maximum) always coming from the same country? We tackle that with window functions shortly.
@@ -554,19 +554,19 @@ my_gap %>%
 ```
 ## # A tibble: 426 x 4
 ## # Groups:   country [142]
-##        country  year lifeExp lifeExp_gain
-##         <fctr> <int>   <dbl>        <dbl>
-##  1 Afghanistan  1952  28.801        0.000
-##  2 Afghanistan  1957  30.332        1.531
-##  3 Afghanistan  1962  31.997        3.196
-##  4     Albania  1952  55.230        0.000
-##  5     Albania  1957  59.280        4.050
-##  6     Albania  1962  64.820        9.590
-##  7     Algeria  1952  43.077        0.000
-##  8     Algeria  1957  45.685        2.608
-##  9     Algeria  1962  48.303        5.226
-## 10      Angola  1952  30.015        0.000
-## # ... with 416 more rows
+##    country      year lifeExp lifeExp_gain
+##    <fct>       <int>   <dbl>        <dbl>
+##  1 Afghanistan  1952    28.8         0   
+##  2 Afghanistan  1957    30.3         1.53
+##  3 Afghanistan  1962    32.0         3.20
+##  4 Albania      1952    55.2         0   
+##  5 Albania      1957    59.3         4.05
+##  6 Albania      1962    64.8         9.59
+##  7 Algeria      1952    43.1         0   
+##  8 Algeria      1957    45.7         2.61
+##  9 Algeria      1962    48.3         5.23
+## 10 Angola       1952    30.0         0   
+## # … with 416 more rows
 ```
 
 Within country, we take the difference between life expectancy in year $i$ and life expectancy in 1952. Therefore we always see zeroes for 1952 and, for most countries, a sequence of positive and increasing numbers.
@@ -591,32 +591,32 @@ my_gap %>%
 ```
 ## # A tibble: 24 x 3
 ## # Groups:   year [12]
-##     year     country lifeExp
-##    <int>      <fctr>   <dbl>
-##  1  1952 Afghanistan  28.801
-##  2  1952      Israel  65.390
-##  3  1957 Afghanistan  30.332
-##  4  1957      Israel  67.840
-##  5  1962 Afghanistan  31.997
-##  6  1962      Israel  69.390
-##  7  1967 Afghanistan  34.020
-##  8  1967       Japan  71.430
-##  9  1972 Afghanistan  36.088
-## 10  1972       Japan  73.420
-## 11  1977    Cambodia  31.220
-## 12  1977       Japan  75.380
-## 13  1982 Afghanistan  39.854
-## 14  1982       Japan  77.110
-## 15  1987 Afghanistan  40.822
-## 16  1987       Japan  78.670
-## 17  1992 Afghanistan  41.674
-## 18  1992       Japan  79.360
-## 19  1997 Afghanistan  41.763
-## 20  1997       Japan  80.690
-## 21  2002 Afghanistan  42.129
-## 22  2002       Japan  82.000
-## 23  2007 Afghanistan  43.828
-## 24  2007       Japan  82.603
+##     year country     lifeExp
+##    <int> <fct>         <dbl>
+##  1  1952 Afghanistan    28.8
+##  2  1952 Israel         65.4
+##  3  1957 Afghanistan    30.3
+##  4  1957 Israel         67.8
+##  5  1962 Afghanistan    32.0
+##  6  1962 Israel         69.4
+##  7  1967 Afghanistan    34.0
+##  8  1967 Japan          71.4
+##  9  1972 Afghanistan    36.1
+## 10  1972 Japan          73.4
+## 11  1977 Cambodia       31.2
+## 12  1977 Japan          75.4
+## 13  1982 Afghanistan    39.9
+## 14  1982 Japan          77.1
+## 15  1987 Afghanistan    40.8
+## 16  1987 Japan          78.7
+## 17  1992 Afghanistan    41.7
+## 18  1992 Japan          79.4
+## 19  1997 Afghanistan    41.8
+## 20  1997 Japan          80.7
+## 21  2002 Afghanistan    42.1
+## 22  2002 Japan          82  
+## 23  2007 Afghanistan    43.8
+## 24  2007 Japan          82.6
 ```
 
 We see that (min = Afghanistan, max = Japan) is the most frequent result, but Cambodia and Israel pop up at least once each as the min or max, respectively. That table should make you impatient for our upcoming work on tidying and reshaping data! Wouldn't it be nice to have one row per year?
@@ -635,19 +635,19 @@ asia
 ```
 ## # A tibble: 396 x 3
 ## # Groups:   year [12]
-##     year     country lifeExp
-##    <int>      <fctr>   <dbl>
-##  1  1952 Afghanistan  28.801
-##  2  1957 Afghanistan  30.332
-##  3  1962 Afghanistan  31.997
-##  4  1967 Afghanistan  34.020
-##  5  1972 Afghanistan  36.088
-##  6  1977 Afghanistan  38.438
-##  7  1982 Afghanistan  39.854
-##  8  1987 Afghanistan  40.822
-##  9  1992 Afghanistan  41.674
-## 10  1997 Afghanistan  41.763
-## # ... with 386 more rows
+##     year country     lifeExp
+##    <int> <fct>         <dbl>
+##  1  1952 Afghanistan    28.8
+##  2  1957 Afghanistan    30.3
+##  3  1962 Afghanistan    32.0
+##  4  1967 Afghanistan    34.0
+##  5  1972 Afghanistan    36.1
+##  6  1977 Afghanistan    38.4
+##  7  1982 Afghanistan    39.9
+##  8  1987 Afghanistan    40.8
+##  9  1992 Afghanistan    41.7
+## 10  1997 Afghanistan    41.8
+## # … with 386 more rows
 ```
 
 Now we apply a window function -- `min_rank()`. Since `asia` is grouped by year, `min_rank()` operates within mini-datasets, each for a specific year. Applied to the variable `lifeExp`, `min_rank()` returns the rank of each country's observed life expectancy. FYI, the `min` part just specifies how ties are broken. Here is an explicit peek at these within-year life expectancy ranks, in both the (default) ascending and descending order.
@@ -664,18 +664,18 @@ asia %>%
 
 ```
 ## # A tibble: 9 x 5
-## # Groups:   year [3]
-##    year     country lifeExp le_rank le_desc_rank
-##   <int>      <fctr>   <dbl>   <int>        <int>
-## 1  1997 Afghanistan  41.763       1           33
-## 2  2002 Afghanistan  42.129       1           33
-## 3  2007 Afghanistan  43.828       1           33
-## 4  1997       Japan  80.690      33            1
-## 5  2002       Japan  82.000      33            1
-## 6  2007       Japan  82.603      33            1
-## 7  1997    Thailand  67.521      12           22
-## 8  2002    Thailand  68.564      12           22
-## 9  2007    Thailand  70.616      12           22
+## # Groups:   year [12]
+##    year country     lifeExp le_rank le_desc_rank
+##   <int> <fct>         <dbl>   <int>        <int>
+## 1  1997 Afghanistan    41.8       1           33
+## 2  1997 Japan          80.7      33            1
+## 3  1997 Thailand       67.5      12           22
+## 4  2002 Afghanistan    42.1       1           33
+## 5  2002 Japan          82        33            1
+## 6  2002 Thailand       68.6      12           22
+## 7  2007 Afghanistan    43.8       1           33
+## 8  2007 Japan          82.6      33            1
+## 9  2007 Thailand       70.6      12           22
 ```
 
 Afghanistan tends to present 1's in the `le_rank` variable, Japan tends to present 1's in the `le_desc_rank` variable and other countries, like Thailand, present less extreme ranks.
@@ -705,20 +705,20 @@ my_gap %>%
 ```
 ## # A tibble: 12 x 3
 ## # Groups:   year [12]
-##     year     country lifeExp
-##    <int>      <fctr>   <dbl>
-##  1  1952 Afghanistan  28.801
-##  2  1957 Afghanistan  30.332
-##  3  1962 Afghanistan  31.997
-##  4  1967 Afghanistan  34.020
-##  5  1972 Afghanistan  36.088
-##  6  1977    Cambodia  31.220
-##  7  1982 Afghanistan  39.854
-##  8  1987 Afghanistan  40.822
-##  9  1992 Afghanistan  41.674
-## 10  1997 Afghanistan  41.763
-## 11  2002 Afghanistan  42.129
-## 12  2007 Afghanistan  43.828
+##     year country     lifeExp
+##    <int> <fct>         <dbl>
+##  1  1952 Afghanistan    28.8
+##  2  1957 Afghanistan    30.3
+##  3  1962 Afghanistan    32.0
+##  4  1967 Afghanistan    34.0
+##  5  1972 Afghanistan    36.1
+##  6  1977 Cambodia       31.2
+##  7  1982 Afghanistan    39.9
+##  8  1987 Afghanistan    40.8
+##  9  1992 Afghanistan    41.7
+## 10  1997 Afghanistan    41.8
+## 11  2002 Afghanistan    42.1
+## 12  2007 Afghanistan    43.8
 ```
 
 ### Grand Finale
@@ -745,13 +745,13 @@ my_gap %>%
 ```
 ## # A tibble: 5 x 3
 ## # Groups:   continent [5]
-##   continent     country worst_le_delta
-##      <fctr>      <fctr>          <dbl>
-## 1    Africa      Rwanda        -20.421
-## 2      Asia    Cambodia         -9.097
-## 3  Americas El Salvador         -1.511
-## 4    Europe  Montenegro         -1.464
-## 5   Oceania   Australia          0.170
+##   continent country     worst_le_delta
+##   <fct>     <fct>                <dbl>
+## 1 Africa    Rwanda             -20.4  
+## 2 Asia      Cambodia            -9.10 
+## 3 Americas  El Salvador         -1.51 
+## 4 Europe    Montenegro          -1.46 
+## 5 Oceania   Australia            0.170
 ```
 
 Ponder that for a while. The subject matter and the code. Mostly you're seeing what genocide looks like in dry statistics on average life expectancy.
