@@ -20,8 +20,8 @@
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
-<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="libs/highlightjs-1.1/highlight.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,10 +40,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -100,6 +102,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -259,17 +264,14 @@ $(document).ready(function () {
 <div id="load-stringr-and-the-core-tidyverse" class="section level2">
 <h2>Load stringr and the core tidyverse</h2>
 <pre class="r"><code>library(tidyverse)
-#&gt; + ggplot2 2.2.1             Date: 2017-10-24
-#&gt; + tibble  1.3.4                R: 3.4.1
-#&gt; + tidyr   0.7.1               OS: macOS Sierra 10.12.6
-#&gt; + readr   1.1.1              GUI: X11
-#&gt; + purrr   0.2.3.9000      Locale: en_CA.UTF-8
-#&gt; + dplyr   0.7.3               TZ: America/Vancouver
-#&gt; + stringr 1.2.0           
-#&gt; + forcats 0.2.0
-#&gt; ── Conflicts ────────────────────────────────────────────────────
-#&gt; * filter(),  from dplyr, masks stats::filter()
-#&gt; * lag(),     from dplyr, masks stats::lag()
+#&gt; ── Attaching packages ───────────────────────────────────────────── tidyverse 1.2.1 ──
+#&gt; ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
+#&gt; ✔ tibble  1.4.2     ✔ dplyr   0.7.7
+#&gt; ✔ tidyr   0.8.1     ✔ stringr 1.3.1
+#&gt; ✔ readr   1.1.1     ✔ forcats 0.3.0
+#&gt; ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
+#&gt; ✖ dplyr::filter() masks stats::filter()
+#&gt; ✖ dplyr::lag()    masks stats::lag()
 library(stringr)</code></pre>
 </div>
 <div id="regex-free-string-manipulation-with-stringr-and-tidyr" class="section level2">
@@ -356,18 +358,19 @@ library(stringr)</code></pre>
 <pre class="r"><code>my_fruit_df &lt;- tibble(my_fruit)
 my_fruit_df %&gt;% 
   separate(my_fruit, into = c(&quot;pre&quot;, &quot;post&quot;), sep = &quot; &quot;)
-#&gt; Warning: Too few values at 5 locations: 1, 2, 3, 4, 6
+#&gt; Warning: Expected 2 pieces. Missing pieces filled with `NA` in 5 rows [1,
+#&gt; 2, 3, 4, 6].
 #&gt; # A tibble: 8 x 2
-#&gt;            pre  post
-#&gt; *        &lt;chr&gt; &lt;chr&gt;
-#&gt; 1   breadfruit  &lt;NA&gt;
-#&gt; 2  dragonfruit  &lt;NA&gt;
-#&gt; 3   grapefruit  &lt;NA&gt;
-#&gt; 4    jackfruit  &lt;NA&gt;
-#&gt; 5         kiwi fruit
-#&gt; 6 passionfruit  &lt;NA&gt;
-#&gt; 7         star fruit
-#&gt; 8         ugli fruit</code></pre>
+#&gt;   pre          post 
+#&gt;   &lt;chr&gt;        &lt;chr&gt;
+#&gt; 1 breadfruit   &lt;NA&gt; 
+#&gt; 2 dragonfruit  &lt;NA&gt; 
+#&gt; 3 grapefruit   &lt;NA&gt; 
+#&gt; 4 jackfruit    &lt;NA&gt; 
+#&gt; 5 kiwi         fruit
+#&gt; 6 passionfruit &lt;NA&gt; 
+#&gt; 7 star         fruit
+#&gt; 8 ugli         fruit</code></pre>
 </div>
 <div id="substring-extraction-and-replacement-by-position" class="section level3">
 <h3>Substring extraction (and replacement) by position</h3>
@@ -385,14 +388,14 @@ str_length(my_fruit)
   head() %&gt;% 
   mutate(snip = str_sub(fruit, 1:6, 3:8))
 #&gt; # A tibble: 6 x 2
-#&gt;         fruit  snip
-#&gt;         &lt;chr&gt; &lt;chr&gt;
-#&gt; 1       apple   app
-#&gt; 2     apricot   pri
-#&gt; 3     avocado   oca
-#&gt; 4      banana   ana
-#&gt; 5 bell pepper    pe
-#&gt; 6    bilberry   rry</code></pre>
+#&gt;   fruit       snip 
+#&gt;   &lt;chr&gt;       &lt;chr&gt;
+#&gt; 1 apple       app  
+#&gt; 2 apricot     pri  
+#&gt; 3 avocado     oca  
+#&gt; 4 banana      ana  
+#&gt; 5 bell pepper &quot; pe&quot;
+#&gt; 6 bilberry    rry</code></pre>
 <p>Finally, <code>str_sub()</code> also works for assignment, i.e. on the left hand side of <code>&lt;-</code>.</p>
 <pre class="r"><code>(x &lt;- head(fruit, 3))
 #&gt; [1] &quot;apple&quot;   &quot;apricot&quot; &quot;avocado&quot;
@@ -424,11 +427,11 @@ x
 fruit_df %&gt;% 
   unite(&quot;flavor_combo&quot;, fruit1, fruit2, sep = &quot; &amp; &quot;)
 #&gt; # A tibble: 4 x 1
-#&gt;            flavor_combo
-#&gt; *                 &lt;chr&gt;
-#&gt; 1   apple &amp; bell pepper
-#&gt; 2    apricot &amp; bilberry
-#&gt; 3  avocado &amp; blackberry
+#&gt;   flavor_combo         
+#&gt;   &lt;chr&gt;                
+#&gt; 1 apple &amp; bell pepper  
+#&gt; 2 apricot &amp; bilberry   
+#&gt; 3 avocado &amp; blackberry 
 #&gt; 4 banana &amp; blackcurrant</code></pre>
 </div>
 <div id="substring-replacement" class="section level3">
@@ -448,20 +451,17 @@ str_replace_na(melons, &quot;UNKNOWN MELON&quot;)
 <pre class="r"><code>tibble(melons) %&gt;% 
   replace_na(replace = list(melons = &quot;UNKNOWN MELON&quot;))
 #&gt; # A tibble: 3 x 1
-#&gt;          melons
-#&gt;           &lt;chr&gt;
-#&gt; 1  canary melon
+#&gt;   melons       
+#&gt;   &lt;chr&gt;        
+#&gt; 1 canary melon 
 #&gt; 2 UNKNOWN MELON
-#&gt; 3    watermelon</code></pre>
+#&gt; 3 watermelon</code></pre>
 <p>And that concludes our treatment of regex-free manipulations of character data!</p>
 </div>
 </div>
 <div id="regular-expressions-with-stringr" class="section level2">
 <h2>Regular expressions with stringr</h2>
-<div class="figure">
-<img src="img/regexbytrialanderror-big-smaller.png" />
-
-</div>
+<p><img src="img/regexbytrialanderror-big-smaller.png" /></p>
 <div id="load-gapminder" class="section level3">
 <h3>Load Gapminder</h3>
 <p>The country names in the gapminder dataset are convenient for examples. Load it now and store the 142 unique country names to the object <code>countries</code>.</p>

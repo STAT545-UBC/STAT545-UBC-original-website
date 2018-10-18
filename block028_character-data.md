@@ -1,4 +1,10 @@
-# Character data
+---
+title: "Character data"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+---
 
 
 
@@ -67,17 +73,14 @@ A God-awful and powerful language for expressing patterns to match in text or fo
 
 ```r
 library(tidyverse)
-#> + ggplot2 2.2.1             Date: 2017-10-24
-#> + tibble  1.3.4                R: 3.4.1
-#> + tidyr   0.7.1               OS: macOS Sierra 10.12.6
-#> + readr   1.1.1              GUI: X11
-#> + purrr   0.2.3.9000      Locale: en_CA.UTF-8
-#> + dplyr   0.7.3               TZ: America/Vancouver
-#> + stringr 1.2.0           
-#> + forcats 0.2.0
-#> ── Conflicts ────────────────────────────────────────────────────
-#> * filter(),  from dplyr, masks stats::filter()
-#> * lag(),     from dplyr, masks stats::lag()
+#> ── Attaching packages ───────────────────────────────────────────── tidyverse 1.2.1 ──
+#> ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
+#> ✔ tibble  1.4.2     ✔ dplyr   0.7.7
+#> ✔ tidyr   0.8.1     ✔ stringr 1.3.1
+#> ✔ readr   1.1.1     ✔ forcats 0.3.0
+#> ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
 library(stringr)
 ```
 
@@ -183,18 +186,19 @@ If the to-be-split variable lives in a data frame, `tidyr::separate()` will spli
 my_fruit_df <- tibble(my_fruit)
 my_fruit_df %>% 
   separate(my_fruit, into = c("pre", "post"), sep = " ")
-#> Warning: Too few values at 5 locations: 1, 2, 3, 4, 6
+#> Warning: Expected 2 pieces. Missing pieces filled with `NA` in 5 rows [1,
+#> 2, 3, 4, 6].
 #> # A tibble: 8 x 2
-#>            pre  post
-#> *        <chr> <chr>
-#> 1   breadfruit  <NA>
-#> 2  dragonfruit  <NA>
-#> 3   grapefruit  <NA>
-#> 4    jackfruit  <NA>
-#> 5         kiwi fruit
-#> 6 passionfruit  <NA>
-#> 7         star fruit
-#> 8         ugli fruit
+#>   pre          post 
+#>   <chr>        <chr>
+#> 1 breadfruit   <NA> 
+#> 2 dragonfruit  <NA> 
+#> 3 grapefruit   <NA> 
+#> 4 jackfruit    <NA> 
+#> 5 kiwi         fruit
+#> 6 passionfruit <NA> 
+#> 7 star         fruit
+#> 8 ugli         fruit
 ```
 
 ### Substring extraction (and replacement) by position
@@ -226,14 +230,14 @@ tibble(fruit) %>%
   head() %>% 
   mutate(snip = str_sub(fruit, 1:6, 3:8))
 #> # A tibble: 6 x 2
-#>         fruit  snip
-#>         <chr> <chr>
-#> 1       apple   app
-#> 2     apricot   pri
-#> 3     avocado   oca
-#> 4      banana   ana
-#> 5 bell pepper    pe
-#> 6    bilberry   rry
+#>   fruit       snip 
+#>   <chr>       <chr>
+#> 1 apple       app  
+#> 2 apricot     pri  
+#> 3 avocado     oca  
+#> 4 banana      ana  
+#> 5 bell pepper " pe"
+#> 6 bilberry    rry
 ```
 
 Finally, `str_sub()` also works for assignment, i.e. on the left hand side of `<-`.
@@ -288,11 +292,11 @@ fruit_df <- tibble(
 fruit_df %>% 
   unite("flavor_combo", fruit1, fruit2, sep = " & ")
 #> # A tibble: 4 x 1
-#>            flavor_combo
-#> *                 <chr>
-#> 1   apple & bell pepper
-#> 2    apricot & bilberry
-#> 3  avocado & blackberry
+#>   flavor_combo         
+#>   <chr>                
+#> 1 apple & bell pepper  
+#> 2 apricot & bilberry   
+#> 3 avocado & blackberry 
 #> 4 banana & blackcurrant
 ```
 
@@ -326,11 +330,11 @@ If the `NA`-afflicted variable lives in a data frame, you can use `tidyr::replac
 tibble(melons) %>% 
   replace_na(replace = list(melons = "UNKNOWN MELON"))
 #> # A tibble: 3 x 1
-#>          melons
-#>           <chr>
-#> 1  canary melon
+#>   melons       
+#>   <chr>        
+#> 1 canary melon 
 #> 2 UNKNOWN MELON
-#> 3    watermelon
+#> 3 watermelon
 ```
 
 And that concludes our treatment of regex-free manipulations of character data!
