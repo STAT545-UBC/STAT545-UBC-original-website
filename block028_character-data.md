@@ -27,7 +27,7 @@ I start with this because we cannot possibly do this topic justice in a short am
 #### Manipulating character vectors
 
   * [stringr package](https://cran.r-project.org/web/packages/stringr/index.html)
-    - A non-core package in the tidyverse. It is installed via `install.packages("tidyverse")`, but not loaded via `library(tidyverse)`. Load it as needed via `library(stringr)`. *2017-10 note: this is changing and stringr will be a core package at the next CRAN update.*
+    - A core package in the tidyverse. It is installed via `install.packages("tidyverse")` and also loaded via `library(tidyverse)`. Of course, you can also install or load it individually.
     - Main functions start with `str_`. Auto-complete is your friend.
     - Replacements for base functions re: string manipulation and regular expressions (see below).
     - Main advantagse over base functions: greater consistency about inputs and outputs. Outputs are more ready for your next analytical task. 
@@ -81,7 +81,6 @@ library(tidyverse)
 #> ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
-library(stringr)
 ```
 
 ## Regex-free string manipulation with stringr and tidyr

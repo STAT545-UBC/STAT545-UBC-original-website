@@ -202,7 +202,7 @@ $(document).ready(function () {
 <ul>
 <li><a href="https://cran.r-project.org/web/packages/stringr/index.html">stringr package</a>
 <ul>
-<li>A non-core package in the tidyverse. It is installed via <code>install.packages(&quot;tidyverse&quot;)</code>, but not loaded via <code>library(tidyverse)</code>. Load it as needed via <code>library(stringr)</code>. <em>2017-10 note: this is changing and stringr will be a core package at the next CRAN update.</em></li>
+<li>A core package in the tidyverse. It is installed via <code>install.packages(&quot;tidyverse&quot;)</code> and also loaded via <code>library(tidyverse)</code>. Of course, you can also install or load it individually.</li>
 <li>Main functions start with <code>str_</code>. Auto-complete is your friend.</li>
 <li>Replacements for base functions re: string manipulation and regular expressions (see below).</li>
 <li>Main advantagse over base functions: greater consistency about inputs and outputs. Outputs are more ready for your next analytical task.</li>
@@ -271,8 +271,7 @@ $(document).ready(function () {
 #&gt; ✔ readr   1.1.1     ✔ forcats 0.3.0
 #&gt; ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
 #&gt; ✖ dplyr::filter() masks stats::filter()
-#&gt; ✖ dplyr::lag()    masks stats::lag()
-library(stringr)</code></pre>
+#&gt; ✖ dplyr::lag()    masks stats::lag()</code></pre>
 </div>
 <div id="regex-free-string-manipulation-with-stringr-and-tidyr" class="section level2">
 <h2>Regex-free string manipulation with stringr and tidyr</h2>
