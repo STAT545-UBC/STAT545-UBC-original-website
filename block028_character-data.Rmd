@@ -70,7 +70,7 @@ A God-awful and powerful language for expressing patterns to match in text or fo
   * Certain operations are facilitated by `tidyr`. These are described below.
   * For a general discussion of how to work on variables that live in a data frame, see [Vectors versus tibbles](block031_vector-tibble-relations.html)
 
-## Load stringr and the core tidyverse
+## Load the tidyverse, which includes stringr
 
 ```{r}
 library(tidyverse)
