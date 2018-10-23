@@ -60,14 +60,14 @@ Sub-plot: watch the row and variable order of the join results for a healthy rem
 (ijsp <- inner_join(superheroes, publishers))
 #> Joining, by = "publisher"
 #> # A tibble: 6 x 5
-#>       name alignment gender publisher yr_founded
-#>      <chr>     <chr>  <chr>     <chr>      <int>
-#> 1  Magneto       bad   male    Marvel       1939
-#> 2    Storm      good female    Marvel       1939
-#> 3 Mystique       bad female    Marvel       1939
-#> 4   Batman      good   male        DC       1934
-#> 5    Joker       bad   male        DC       1934
-#> 6 Catwoman       bad female        DC       1934
+#>   name     alignment gender publisher yr_founded
+#>   <chr>    <chr>     <chr>  <chr>          <int>
+#> 1 Magneto  bad       male   Marvel          1939
+#> 2 Storm    good      female Marvel          1939
+#> 3 Mystique bad       female Marvel          1939
+#> 4 Batman   good      male   DC              1934
+#> 5 Joker    bad       male   DC              1934
+#> 6 Catwoman bad       female DC              1934
 ```
 
 We lose Hellboy in the join because, although he appears in `x = superheroes`, his publisher Dark Horse Comics does not appear in `y = publishers`. The join result has all variables from `x = superheroes` plus `yr_founded`, from `y`.
@@ -132,14 +132,14 @@ Catwoman   bad         female   DC                 1934
 (sjsp <- semi_join(superheroes, publishers))
 #> Joining, by = "publisher"
 #> # A tibble: 6 x 4
-#>       name alignment gender publisher
-#>      <chr>     <chr>  <chr>     <chr>
-#> 1  Magneto       bad   male    Marvel
-#> 2    Storm      good female    Marvel
-#> 3 Mystique       bad female    Marvel
-#> 4   Batman      good   male        DC
-#> 5    Joker       bad   male        DC
-#> 6 Catwoman       bad female        DC
+#>   name     alignment gender publisher
+#>   <chr>    <chr>     <chr>  <chr>    
+#> 1 Magneto  bad       male   Marvel   
+#> 2 Storm    good      female Marvel   
+#> 3 Mystique bad       female Marvel   
+#> 4 Batman   good      male   DC       
+#> 5 Joker    bad       male   DC       
+#> 6 Catwoman bad       female DC
 ```
 
 We get a similar result as with `inner_join()` but the join result contains only the variables originally found in `x = superheroes`. But note the row order has changed.
@@ -203,15 +203,15 @@ Catwoman   bad         female   DC
 (ljsp <- left_join(superheroes, publishers))
 #> Joining, by = "publisher"
 #> # A tibble: 7 x 5
-#>       name alignment gender         publisher yr_founded
-#>      <chr>     <chr>  <chr>             <chr>      <int>
-#> 1  Magneto       bad   male            Marvel       1939
-#> 2    Storm      good female            Marvel       1939
-#> 3 Mystique       bad female            Marvel       1939
-#> 4   Batman      good   male                DC       1934
-#> 5    Joker       bad   male                DC       1934
-#> 6 Catwoman       bad female                DC       1934
-#> 7  Hellboy      good   male Dark Horse Comics         NA
+#>   name     alignment gender publisher         yr_founded
+#>   <chr>    <chr>     <chr>  <chr>                  <int>
+#> 1 Magneto  bad       male   Marvel                  1939
+#> 2 Storm    good      female Marvel                  1939
+#> 3 Mystique bad       female Marvel                  1939
+#> 4 Batman   good      male   DC                      1934
+#> 5 Joker    bad       male   DC                      1934
+#> 6 Catwoman bad       female DC                      1934
+#> 7 Hellboy  good      male   Dark Horse Comics         NA
 ```
 
 We basically get `x = superheroes` back, but with the addition of variable `yr_founded`, which is unique to `y = publishers`. Hellboy, whose publisher does not appear in `y = publishers`, has an `NA` for `yr_founded`.
@@ -276,9 +276,9 @@ Hellboy    good        male     Dark Horse Comics            NA
 (ajsp <- anti_join(superheroes, publishers))
 #> Joining, by = "publisher"
 #> # A tibble: 1 x 4
-#>      name alignment gender         publisher
-#>     <chr>     <chr>  <chr>             <chr>
-#> 1 Hellboy      good   male Dark Horse Comics
+#>   name    alignment gender publisher        
+#>   <chr>   <chr>     <chr>  <chr>            
+#> 1 Hellboy good      male   Dark Horse Comics
 ```
 
 We keep __only__ Hellboy now (and do not get `yr_founded`).
@@ -337,14 +337,14 @@ Hellboy   good        male     Dark Horse Comics
 (ijps <- inner_join(publishers, superheroes))
 #> Joining, by = "publisher"
 #> # A tibble: 6 x 5
-#>   publisher yr_founded     name alignment gender
-#>       <chr>      <int>    <chr>     <chr>  <chr>
-#> 1        DC       1934   Batman      good   male
-#> 2        DC       1934    Joker       bad   male
-#> 3        DC       1934 Catwoman       bad female
-#> 4    Marvel       1939  Magneto       bad   male
-#> 5    Marvel       1939    Storm      good female
-#> 6    Marvel       1939 Mystique       bad female
+#>   publisher yr_founded name     alignment gender
+#>   <chr>          <int> <chr>    <chr>     <chr> 
+#> 1 DC              1934 Batman   good      male  
+#> 2 DC              1934 Joker    bad       male  
+#> 3 DC              1934 Catwoman bad       female
+#> 4 Marvel          1939 Magneto  bad       male  
+#> 5 Marvel          1939 Storm    good      female
+#> 6 Marvel          1939 Mystique bad       female
 ```
 
 In a way, this does illustrate multiple matches, if you think about it from the `x = publishers` direction. Every publisher that has a match in `y = superheroes` appears multiple times in the result, once for each match. In fact, we're getting the same result as with `inner_join(superheroes, publishers)`, up to variable order (which you should also never rely on in an analysis).
@@ -409,9 +409,9 @@ Marvel             1939  Mystique   bad         female
 #> Joining, by = "publisher"
 #> # A tibble: 2 x 2
 #>   publisher yr_founded
-#>       <chr>      <int>
-#> 1        DC       1934
-#> 2    Marvel       1939
+#>   <chr>          <int>
+#> 1 DC              1934
+#> 2 Marvel          1939
 ```
 
 Now the effects of switching the `x` and `y` roles is more clear. The result resembles `x = publishers`, but the publisher Image is lost, because there are no observations where `publisher == "Image"` in `y = superheroes`.
@@ -472,15 +472,15 @@ Marvel             1939
 (ljps <- left_join(publishers, superheroes))
 #> Joining, by = "publisher"
 #> # A tibble: 7 x 5
-#>   publisher yr_founded     name alignment gender
-#>       <chr>      <int>    <chr>     <chr>  <chr>
-#> 1        DC       1934   Batman      good   male
-#> 2        DC       1934    Joker       bad   male
-#> 3        DC       1934 Catwoman       bad female
-#> 4    Marvel       1939  Magneto       bad   male
-#> 5    Marvel       1939    Storm      good female
-#> 6    Marvel       1939 Mystique       bad female
-#> 7     Image       1992     <NA>      <NA>   <NA>
+#>   publisher yr_founded name     alignment gender
+#>   <chr>          <int> <chr>    <chr>     <chr> 
+#> 1 DC              1934 Batman   good      male  
+#> 2 DC              1934 Joker    bad       male  
+#> 3 DC              1934 Catwoman bad       female
+#> 4 Marvel          1939 Magneto  bad       male  
+#> 5 Marvel          1939 Storm    good      female
+#> 6 Marvel          1939 Mystique bad       female
+#> 7 Image           1992 <NA>     <NA>      <NA>
 ```
 
 We get a similar result as with `inner_join()` but the publisher Image survives in the join, even though no superheroes from Image appear in `y = superheroes`. As a result, Image has `NA`s for `name`, `alignment`, and `gender`.
@@ -546,8 +546,8 @@ Image              1992  NA         NA          NA
 #> Joining, by = "publisher"
 #> # A tibble: 1 x 2
 #>   publisher yr_founded
-#>       <chr>      <int>
-#> 1     Image       1992
+#>   <chr>          <int>
+#> 1 Image           1992
 ```
 
 We keep __only__ publisher Image now (and the variables found in `x = publishers`).
@@ -606,16 +606,16 @@ Image              1992
 (fjsp <- full_join(superheroes, publishers))
 #> Joining, by = "publisher"
 #> # A tibble: 8 x 5
-#>       name alignment gender         publisher yr_founded
-#>      <chr>     <chr>  <chr>             <chr>      <int>
-#> 1  Magneto       bad   male            Marvel       1939
-#> 2    Storm      good female            Marvel       1939
-#> 3 Mystique       bad female            Marvel       1939
-#> 4   Batman      good   male                DC       1934
-#> 5    Joker       bad   male                DC       1934
-#> 6 Catwoman       bad female                DC       1934
-#> 7  Hellboy      good   male Dark Horse Comics         NA
-#> 8     <NA>      <NA>   <NA>             Image       1992
+#>   name     alignment gender publisher         yr_founded
+#>   <chr>    <chr>     <chr>  <chr>                  <int>
+#> 1 Magneto  bad       male   Marvel                  1939
+#> 2 Storm    good      female Marvel                  1939
+#> 3 Mystique bad       female Marvel                  1939
+#> 4 Batman   good      male   DC                      1934
+#> 5 Joker    bad       male   DC                      1934
+#> 6 Catwoman bad       female DC                      1934
+#> 7 Hellboy  good      male   Dark Horse Comics         NA
+#> 8 <NA>     <NA>      <NA>   Image                   1992
 ```
 
 We get all rows of `x = superheroes` plus a new row from `y = publishers`, containing the publisher Image. We get all variables from `x = superheroes` AND all variables from `y = publishers`. Any row that derives solely from one table or the other carries `NA`s in the variables found only in the other table.

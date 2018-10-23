@@ -45,7 +45,7 @@ if (window.hljs) {
   hljs.configure({languages: []});
   hljs.initHighlightingOnLoad();
   if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlightingOnLoad(); }, 0);
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
   }
 }
 </script>
@@ -103,6 +103,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -210,14 +213,14 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 <pre class="r"><code>(ijsp &lt;- inner_join(superheroes, publishers))
 #&gt; Joining, by = &quot;publisher&quot;
 #&gt; # A tibble: 6 x 5
-#&gt;       name alignment gender publisher yr_founded
-#&gt;      &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;      &lt;int&gt;
-#&gt; 1  Magneto       bad   male    Marvel       1939
-#&gt; 2    Storm      good female    Marvel       1939
-#&gt; 3 Mystique       bad female    Marvel       1939
-#&gt; 4   Batman      good   male        DC       1934
-#&gt; 5    Joker       bad   male        DC       1934
-#&gt; 6 Catwoman       bad female        DC       1934</code></pre>
+#&gt;   name     alignment gender publisher yr_founded
+#&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;          &lt;int&gt;
+#&gt; 1 Magneto  bad       male   Marvel          1939
+#&gt; 2 Storm    good      female Marvel          1939
+#&gt; 3 Mystique bad       female Marvel          1939
+#&gt; 4 Batman   good      male   DC              1934
+#&gt; 5 Joker    bad       male   DC              1934
+#&gt; 6 Catwoman bad       female DC              1934</code></pre>
 <p>We lose Hellboy in the join because, although he appears in <code>x = superheroes</code>, his publisher Dark Horse Comics does not appear in <code>y = publishers</code>. The join result has all variables from <code>x = superheroes</code> plus <code>yr_founded</code>, from <code>y</code>.</p>
 <table style="font-size:14px" class="table table-bordered">
 <tr>
@@ -372,14 +375,14 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 <pre class="r"><code>(sjsp &lt;- semi_join(superheroes, publishers))
 #&gt; Joining, by = &quot;publisher&quot;
 #&gt; # A tibble: 6 x 4
-#&gt;       name alignment gender publisher
-#&gt;      &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;
-#&gt; 1  Magneto       bad   male    Marvel
-#&gt; 2    Storm      good female    Marvel
-#&gt; 3 Mystique       bad female    Marvel
-#&gt; 4   Batman      good   male        DC
-#&gt; 5    Joker       bad   male        DC
-#&gt; 6 Catwoman       bad female        DC</code></pre>
+#&gt;   name     alignment gender publisher
+#&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;    
+#&gt; 1 Magneto  bad       male   Marvel   
+#&gt; 2 Storm    good      female Marvel   
+#&gt; 3 Mystique bad       female Marvel   
+#&gt; 4 Batman   good      male   DC       
+#&gt; 5 Joker    bad       male   DC       
+#&gt; 6 Catwoman bad       female DC</code></pre>
 <p>We get a similar result as with <code>inner_join()</code> but the join result contains only the variables originally found in <code>x = superheroes</code>. But note the row order has changed.</p>
 <table style="font-size:14px" class="table table-bordered">
 <tr>
@@ -527,15 +530,15 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 <pre class="r"><code>(ljsp &lt;- left_join(superheroes, publishers))
 #&gt; Joining, by = &quot;publisher&quot;
 #&gt; # A tibble: 7 x 5
-#&gt;       name alignment gender         publisher yr_founded
-#&gt;      &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;             &lt;chr&gt;      &lt;int&gt;
-#&gt; 1  Magneto       bad   male            Marvel       1939
-#&gt; 2    Storm      good female            Marvel       1939
-#&gt; 3 Mystique       bad female            Marvel       1939
-#&gt; 4   Batman      good   male                DC       1934
-#&gt; 5    Joker       bad   male                DC       1934
-#&gt; 6 Catwoman       bad female                DC       1934
-#&gt; 7  Hellboy      good   male Dark Horse Comics         NA</code></pre>
+#&gt;   name     alignment gender publisher         yr_founded
+#&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;                  &lt;int&gt;
+#&gt; 1 Magneto  bad       male   Marvel                  1939
+#&gt; 2 Storm    good      female Marvel                  1939
+#&gt; 3 Mystique bad       female Marvel                  1939
+#&gt; 4 Batman   good      male   DC                      1934
+#&gt; 5 Joker    bad       male   DC                      1934
+#&gt; 6 Catwoman bad       female DC                      1934
+#&gt; 7 Hellboy  good      male   Dark Horse Comics         NA</code></pre>
 <p>We basically get <code>x = superheroes</code> back, but with the addition of variable <code>yr_founded</code>, which is unique to <code>y = publishers</code>. Hellboy, whose publisher does not appear in <code>y = publishers</code>, has an <code>NA</code> for <code>yr_founded</code>.</p>
 <table style="font-size:14px" class="table table-bordered">
 <tr>
@@ -697,9 +700,9 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 <pre class="r"><code>(ajsp &lt;- anti_join(superheroes, publishers))
 #&gt; Joining, by = &quot;publisher&quot;
 #&gt; # A tibble: 1 x 4
-#&gt;      name alignment gender         publisher
-#&gt;     &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;             &lt;chr&gt;
-#&gt; 1 Hellboy      good   male Dark Horse Comics</code></pre>
+#&gt;   name    alignment gender publisher        
+#&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;            
+#&gt; 1 Hellboy good      male   Dark Horse Comics</code></pre>
 <p>We keep <strong>only</strong> Hellboy now (and do not get <code>yr_founded</code>).</p>
 <table style="font-size:14px" class="table table-bordered">
 <tr>
@@ -817,14 +820,14 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 <pre class="r"><code>(ijps &lt;- inner_join(publishers, superheroes))
 #&gt; Joining, by = &quot;publisher&quot;
 #&gt; # A tibble: 6 x 5
-#&gt;   publisher yr_founded     name alignment gender
-#&gt;       &lt;chr&gt;      &lt;int&gt;    &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;
-#&gt; 1        DC       1934   Batman      good   male
-#&gt; 2        DC       1934    Joker       bad   male
-#&gt; 3        DC       1934 Catwoman       bad female
-#&gt; 4    Marvel       1939  Magneto       bad   male
-#&gt; 5    Marvel       1939    Storm      good female
-#&gt; 6    Marvel       1939 Mystique       bad female</code></pre>
+#&gt;   publisher yr_founded name     alignment gender
+#&gt;   &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt; 
+#&gt; 1 DC              1934 Batman   good      male  
+#&gt; 2 DC              1934 Joker    bad       male  
+#&gt; 3 DC              1934 Catwoman bad       female
+#&gt; 4 Marvel          1939 Magneto  bad       male  
+#&gt; 5 Marvel          1939 Storm    good      female
+#&gt; 6 Marvel          1939 Mystique bad       female</code></pre>
 <p>In a way, this does illustrate multiple matches, if you think about it from the <code>x = publishers</code> direction. Every publisher that has a match in <code>y = superheroes</code> appears multiple times in the result, once for each match. In fact, we’re getting the same result as with <code>inner_join(superheroes, publishers)</code>, up to variable order (which you should also never rely on in an analysis).</p>
 <table style="font-size:14px" class="table table-bordered">
 <tr>
@@ -980,9 +983,9 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 #&gt; Joining, by = &quot;publisher&quot;
 #&gt; # A tibble: 2 x 2
 #&gt;   publisher yr_founded
-#&gt;       &lt;chr&gt;      &lt;int&gt;
-#&gt; 1        DC       1934
-#&gt; 2    Marvel       1939</code></pre>
+#&gt;   &lt;chr&gt;          &lt;int&gt;
+#&gt; 1 DC              1934
+#&gt; 2 Marvel          1939</code></pre>
 <p>Now the effects of switching the <code>x</code> and <code>y</code> roles is more clear. The result resembles <code>x = publishers</code>, but the publisher Image is lost, because there are no observations where <code>publisher == &quot;Image&quot;</code> in <code>y = superheroes</code>.</p>
 <table style="font-size:14px" class="table table-bordered">
 <tr>
@@ -1100,15 +1103,15 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 <pre class="r"><code>(ljps &lt;- left_join(publishers, superheroes))
 #&gt; Joining, by = &quot;publisher&quot;
 #&gt; # A tibble: 7 x 5
-#&gt;   publisher yr_founded     name alignment gender
-#&gt;       &lt;chr&gt;      &lt;int&gt;    &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;
-#&gt; 1        DC       1934   Batman      good   male
-#&gt; 2        DC       1934    Joker       bad   male
-#&gt; 3        DC       1934 Catwoman       bad female
-#&gt; 4    Marvel       1939  Magneto       bad   male
-#&gt; 5    Marvel       1939    Storm      good female
-#&gt; 6    Marvel       1939 Mystique       bad female
-#&gt; 7     Image       1992     &lt;NA&gt;      &lt;NA&gt;   &lt;NA&gt;</code></pre>
+#&gt;   publisher yr_founded name     alignment gender
+#&gt;   &lt;chr&gt;          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt; 
+#&gt; 1 DC              1934 Batman   good      male  
+#&gt; 2 DC              1934 Joker    bad       male  
+#&gt; 3 DC              1934 Catwoman bad       female
+#&gt; 4 Marvel          1939 Magneto  bad       male  
+#&gt; 5 Marvel          1939 Storm    good      female
+#&gt; 6 Marvel          1939 Mystique bad       female
+#&gt; 7 Image           1992 &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</code></pre>
 <p>We get a similar result as with <code>inner_join()</code> but the publisher Image survives in the join, even though no superheroes from Image appear in <code>y = superheroes</code>. As a result, Image has <code>NA</code>s for <code>name</code>, <code>alignment</code>, and <code>gender</code>.</p>
 <table style="font-size:14px" class="table table-bordered">
 <tr>
@@ -1271,8 +1274,8 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 #&gt; Joining, by = &quot;publisher&quot;
 #&gt; # A tibble: 1 x 2
 #&gt;   publisher yr_founded
-#&gt;       &lt;chr&gt;      &lt;int&gt;
-#&gt; 1     Image       1992</code></pre>
+#&gt;   &lt;chr&gt;          &lt;int&gt;
+#&gt; 1 Image           1992</code></pre>
 <p>We keep <strong>only</strong> publisher Image now (and the variables found in <code>x = publishers</code>).</p>
 <table style="font-size:14px" class="table table-bordered">
 <tr>
@@ -1386,16 +1389,16 @@ publishers &lt;- read_csv(publishers, skip = 1)</code></pre>
 <pre class="r"><code>(fjsp &lt;- full_join(superheroes, publishers))
 #&gt; Joining, by = &quot;publisher&quot;
 #&gt; # A tibble: 8 x 5
-#&gt;       name alignment gender         publisher yr_founded
-#&gt;      &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;             &lt;chr&gt;      &lt;int&gt;
-#&gt; 1  Magneto       bad   male            Marvel       1939
-#&gt; 2    Storm      good female            Marvel       1939
-#&gt; 3 Mystique       bad female            Marvel       1939
-#&gt; 4   Batman      good   male                DC       1934
-#&gt; 5    Joker       bad   male                DC       1934
-#&gt; 6 Catwoman       bad female                DC       1934
-#&gt; 7  Hellboy      good   male Dark Horse Comics         NA
-#&gt; 8     &lt;NA&gt;      &lt;NA&gt;   &lt;NA&gt;             Image       1992</code></pre>
+#&gt;   name     alignment gender publisher         yr_founded
+#&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;                  &lt;int&gt;
+#&gt; 1 Magneto  bad       male   Marvel                  1939
+#&gt; 2 Storm    good      female Marvel                  1939
+#&gt; 3 Mystique bad       female Marvel                  1939
+#&gt; 4 Batman   good      male   DC                      1934
+#&gt; 5 Joker    bad       male   DC                      1934
+#&gt; 6 Catwoman bad       female DC                      1934
+#&gt; 7 Hellboy  good      male   Dark Horse Comics         NA
+#&gt; 8 &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;   Image                   1992</code></pre>
 <p>We get all rows of <code>x = superheroes</code> plus a new row from <code>y = publishers</code>, containing the publisher Image. We get all variables from <code>x = superheroes</code> AND all variables from <code>y = publishers</code>. Any row that derives solely from one table or the other carries <code>NA</code>s in the variables found only in the other table.</p>
 <table style="font-size:14px" class="table table-bordered">
 <tr>
