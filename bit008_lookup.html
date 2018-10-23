@@ -20,8 +20,8 @@
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
-<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="libs/highlightjs-1.1/highlight.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,10 +40,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -101,6 +103,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -152,18 +157,14 @@ $(document).ready(function () {
 <h3>Load gapminder and the tidyverse</h3>
 <pre class="r"><code>library(gapminder)
 library(tidyverse)
-## + ggplot2 2.2.1             Date: 2017-11-01
-## + tibble  1.3.4                R: 3.4.1
-## + tidyr   0.7.1               OS: macOS Sierra 10.12.6
-## + readr   1.1.1              GUI: X11
-## + purrr   0.2.3.9000      Locale: en_CA.UTF-8
-## + dplyr   0.7.4               TZ: America/Vancouver
-## + stringr 1.2.0.9000      
-## + forcats 0.2.0
-## Warning: package &#39;dplyr&#39; was built under R version 3.4.2
-## ── Conflicts ────────────────────────────────────────────────────
-## * filter(),  from dplyr, masks stats::filter()
-## * lag(),     from dplyr, masks stats::lag()</code></pre>
+## ── Attaching packages ─────────────────────────────────────────────── tidyverse 1.2.1 ──
+## ✔ ggplot2 3.0.0           ✔ purrr   0.2.5      
+## ✔ tibble  1.4.99.9005     ✔ dplyr   0.7.7      
+## ✔ tidyr   0.8.1           ✔ stringr 1.3.1      
+## ✔ readr   1.1.1           ✔ forcats 0.3.0
+## ── Conflicts ────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 </div>
 <div id="create-mini-gapminder" class="section level3">
 <h3>Create mini Gapminder</h3>
@@ -175,16 +176,16 @@ library(tidyverse)
   droplevels()
 mini_gap
 ## # A tibble: 8 x 4
-##         country continent  year lifeExp
-##          &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;
-## 1       Belgium    Europe  2002  78.320
-## 2       Belgium    Europe  2007  79.441
-## 3        Canada  Americas  2002  79.770
-## 4        Canada  Americas  2007  80.653
-## 5        Mexico  Americas  2002  74.902
-## 6        Mexico  Americas  2007  76.195
-## 7 United States  Americas  2002  77.310
-## 8 United States  Americas  2007  78.242</code></pre>
+##   country       continent  year lifeExp
+##   &lt;fct&gt;         &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;
+## 1 Belgium       Europe     2002    78.3
+## 2 Belgium       Europe     2007    79.4
+## 3 Canada        Americas   2002    79.8
+## 4 Canada        Americas   2007    80.7
+## 5 Mexico        Americas   2002    74.9
+## 6 Mexico        Americas   2007    76.2
+## 7 United States Americas   2002    77.3
+## 8 United States Americas   2007    78.2</code></pre>
 </div>
 <div id="dorky-national-food-example." class="section level3">
 <h3>Dorky national food example.</h3>
@@ -197,10 +198,10 @@ mini_gap
 )
 food
 ## # A tibble: 3 x 2
-##         country    food
-##           &lt;chr&gt;   &lt;chr&gt;
-## 1       Belgium  waffle
-## 2        Canada poutine
+##   country       food   
+##   &lt;chr&gt;         &lt;chr&gt;  
+## 1 Belgium       waffle 
+## 2 Canada        poutine
 ## 3 United States Twinkie</code></pre>
 </div>
 <div id="lookup-national-food" class="section level3">
@@ -216,30 +217,30 @@ food
 ## [1]  1  1  2  2 NA NA  3  3
 add_column(food[indices, ], x = mini_gap$country)
 ## # A tibble: 8 x 3
-##         country    food             x
-##           &lt;chr&gt;   &lt;chr&gt;        &lt;fctr&gt;
-## 1       Belgium  waffle       Belgium
-## 2       Belgium  waffle       Belgium
-## 3        Canada poutine        Canada
-## 4        Canada poutine        Canada
-## 5          &lt;NA&gt;    &lt;NA&gt;        Mexico
-## 6          &lt;NA&gt;    &lt;NA&gt;        Mexico
+##   country       food    x            
+##   &lt;chr&gt;         &lt;chr&gt;   &lt;fct&gt;        
+## 1 Belgium       waffle  Belgium      
+## 2 Belgium       waffle  Belgium      
+## 3 Canada        poutine Canada       
+## 4 Canada        poutine Canada       
+## 5 &lt;NA&gt;          &lt;NA&gt;    Mexico       
+## 6 &lt;NA&gt;          &lt;NA&gt;    Mexico       
 ## 7 United States Twinkie United States
 ## 8 United States Twinkie United States</code></pre>
 <p>Once all looks good, do the actual table lookup and, possibly, add the new info to your main table.</p>
 <pre class="r"><code>mini_gap %&gt;% 
   mutate(food = food$food[indices])
 ## # A tibble: 8 x 5
-##         country continent  year lifeExp    food
-##          &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;chr&gt;
-## 1       Belgium    Europe  2002  78.320  waffle
-## 2       Belgium    Europe  2007  79.441  waffle
-## 3        Canada  Americas  2002  79.770 poutine
-## 4        Canada  Americas  2007  80.653 poutine
-## 5        Mexico  Americas  2002  74.902    &lt;NA&gt;
-## 6        Mexico  Americas  2007  76.195    &lt;NA&gt;
-## 7 United States  Americas  2002  77.310 Twinkie
-## 8 United States  Americas  2007  78.242 Twinkie</code></pre>
+##   country       continent  year lifeExp food   
+##   &lt;fct&gt;         &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1 Belgium       Europe     2002    78.3 waffle 
+## 2 Belgium       Europe     2007    79.4 waffle 
+## 3 Canada        Americas   2002    79.8 poutine
+## 4 Canada        Americas   2007    80.7 poutine
+## 5 Mexico        Americas   2002    74.9 &lt;NA&gt;   
+## 6 Mexico        Americas   2007    76.2 &lt;NA&gt;   
+## 7 United States Americas   2002    77.3 Twinkie
+## 8 United States Americas   2007    78.2 Twinkie</code></pre>
 <p>Of course, if this was really our exact task, we could have used a join!</p>
 <pre class="r"><code>mini_gap %&gt;% 
   left_join(food)
@@ -247,16 +248,16 @@ add_column(food[indices, ], x = mini_gap$country)
 ## Warning: Column `country` joining factor and character vector, coercing
 ## into character vector
 ## # A tibble: 8 x 5
-##         country continent  year lifeExp    food
-##           &lt;chr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;chr&gt;
-## 1       Belgium    Europe  2002  78.320  waffle
-## 2       Belgium    Europe  2007  79.441  waffle
-## 3        Canada  Americas  2002  79.770 poutine
-## 4        Canada  Americas  2007  80.653 poutine
-## 5        Mexico  Americas  2002  74.902    &lt;NA&gt;
-## 6        Mexico  Americas  2007  76.195    &lt;NA&gt;
-## 7 United States  Americas  2002  77.310 Twinkie
-## 8 United States  Americas  2007  78.242 Twinkie</code></pre>
+##   country       continent  year lifeExp food   
+##   &lt;chr&gt;         &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1 Belgium       Europe     2002    78.3 waffle 
+## 2 Belgium       Europe     2007    79.4 waffle 
+## 3 Canada        Americas   2002    79.8 poutine
+## 4 Canada        Americas   2007    80.7 poutine
+## 5 Mexico        Americas   2002    74.9 &lt;NA&gt;   
+## 6 Mexico        Americas   2007    76.2 &lt;NA&gt;   
+## 7 United States Americas   2002    77.3 Twinkie
+## 8 United States Americas   2007    78.2 Twinkie</code></pre>
 <p>But sometimes you have a substantive reason (or psychological hangup) that makes you prefer the table look up interface.</p>
 </div>
 <div id="worlds-laziest-table-lookup" class="section level3">
@@ -270,16 +271,16 @@ add_column(food[indices, ], x = mini_gap$country)
 <pre class="r"><code>mini_gap %&gt;% 
   mutate(food = food_vec[country])
 ## # A tibble: 8 x 5
-##         country continent  year lifeExp    food
-##          &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;chr&gt;
-## 1       Belgium    Europe  2002  78.320  waffle
-## 2       Belgium    Europe  2007  79.441  waffle
-## 3        Canada  Americas  2002  79.770 poutine
-## 4        Canada  Americas  2007  80.653 poutine
-## 5        Mexico  Americas  2002  74.902 Twinkie
-## 6        Mexico  Americas  2007  76.195 Twinkie
-## 7 United States  Americas  2002  77.310    &lt;NA&gt;
-## 8 United States  Americas  2007  78.242    &lt;NA&gt;</code></pre>
+##   country       continent  year lifeExp food   
+##   &lt;fct&gt;         &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1 Belgium       Europe     2002    78.3 waffle 
+## 2 Belgium       Europe     2007    79.4 waffle 
+## 3 Canada        Americas   2002    79.8 poutine
+## 4 Canada        Americas   2007    80.7 poutine
+## 5 Mexico        Americas   2002    74.9 Twinkie
+## 6 Mexico        Americas   2007    76.2 Twinkie
+## 7 United States Americas   2002    77.3 &lt;NA&gt;   
+## 8 United States Americas   2007    78.2 &lt;NA&gt;</code></pre>
 <p>HOLD ON. STOP. Twinkies aren’t the national food of Mexico!?! What went wrong?</p>
 <p>Remember <code>mini_gap$country</code> is a factor. So when we use it in an indexing context, it’s integer nature is expressed. It is pure luck that we get the right foods for Belgium and Canada. Luckily the Mexico - United States situation tipped us off. Here’s what we are really indexing <code>food_vec</code> by above:</p>
 <pre class="r"><code>unclass(mini_gap$country)
@@ -290,16 +291,16 @@ add_column(food[indices, ], x = mini_gap$country)
 <pre class="r"><code>mini_gap %&gt;% 
   mutate(food = food_vec[as.character(country)])
 ## # A tibble: 8 x 5
-##         country continent  year lifeExp    food
-##          &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;chr&gt;
-## 1       Belgium    Europe  2002  78.320  waffle
-## 2       Belgium    Europe  2007  79.441  waffle
-## 3        Canada  Americas  2002  79.770 poutine
-## 4        Canada  Americas  2007  80.653 poutine
-## 5        Mexico  Americas  2002  74.902    &lt;NA&gt;
-## 6        Mexico  Americas  2007  76.195    &lt;NA&gt;
-## 7 United States  Americas  2002  77.310 Twinkie
-## 8 United States  Americas  2007  78.242 Twinkie</code></pre>
+##   country       continent  year lifeExp food   
+##   &lt;fct&gt;         &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1 Belgium       Europe     2002    78.3 waffle 
+## 2 Belgium       Europe     2007    79.4 waffle 
+## 3 Canada        Americas   2002    79.8 poutine
+## 4 Canada        Americas   2007    80.7 poutine
+## 5 Mexico        Americas   2002    74.9 &lt;NA&gt;   
+## 6 Mexico        Americas   2007    76.2 &lt;NA&gt;   
+## 7 United States Americas   2002    77.3 Twinkie
+## 8 United States Americas   2007    78.2 Twinkie</code></pre>
 <p>When your key variable is character (and not a factor), you can skip this step.</p>
 </div>
 
