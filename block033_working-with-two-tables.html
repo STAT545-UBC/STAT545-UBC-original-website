@@ -20,8 +20,8 @@
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
-<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="libs/highlightjs-1.1/highlight.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,10 +40,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -100,6 +102,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -184,6 +189,16 @@ $(document).ready(function () {
 <li>Joins are defined in terms of two tables or data frames. But sometimes this task has a “vector” vibe. You might be creating a vector or variable. Or maybe the secondary data source is a named vector. In any case, there’s at least one vector in the mix. I call that a lookup.</li>
 </ul>
 <p>Let’s explore each type of operation with a few examples.</p>
+<p>First, let’s load the tidyverse (and expose version information).</p>
+<pre class="r"><code>library(tidyverse)
+#&gt; ── Attaching packages ─────────────────────────────────────────────── tidyverse 1.2.1 ──
+#&gt; ✔ ggplot2 3.0.0           ✔ purrr   0.2.5      
+#&gt; ✔ tibble  1.4.99.9005     ✔ dplyr   0.7.7      
+#&gt; ✔ tidyr   0.8.1           ✔ stringr 1.3.1      
+#&gt; ✔ readr   1.1.1           ✔ forcats 0.3.0
+#&gt; ── Conflicts ────────────────────────────────────────────────── tidyverse_conflicts() ──
+#&gt; ✖ dplyr::filter() masks stats::filter()
+#&gt; ✖ dplyr::lag()    masks stats::lag()</code></pre>
 </div>
 <div id="bind" class="section level3">
 <h3>Bind</h3>
@@ -191,9 +206,7 @@ $(document).ready(function () {
 <h4>Row binding</h4>
 <p>We used word count data from the Lord of the Rings trilogy to explore the concept of tidy data. That kicked off with a quiet, successful row bind. Let’s revisit that.</p>
 <p>Here’s what a perfect row bind of three (untidy!) data frames looks like.</p>
-<pre class="r"><code>library(tidyverse)
-
-fship &lt;- tribble(
+<pre class="r"><code>fship &lt;- tribble(
                          ~Film,    ~Race, ~Female, ~Male,
   &quot;The Fellowship Of The Ring&quot;,    &quot;Elf&quot;,    1229,   971,
   &quot;The Fellowship Of The Ring&quot;, &quot;Hobbit&quot;,      14,  3644,
@@ -207,39 +220,39 @@ rking &lt;- tribble(
 )
 ttow &lt;- tribble(
                          ~Film,    ~Race, ~Female, ~Male,
-              &quot;The Two Towers&quot;,   &quot; Elf&quot;,     331,   513,
+              &quot;The Two Towers&quot;,    &quot;Elf&quot;,     331,   513,
               &quot;The Two Towers&quot;, &quot;Hobbit&quot;,       0,  2463,
               &quot;The Two Towers&quot;,    &quot;Man&quot;,     401,  3589
 )
 (lotr_untidy &lt;- bind_rows(fship, ttow, rking))
 #&gt; # A tibble: 9 x 4
-#&gt;                         Film   Race Female  Male
-#&gt;                        &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1 The Fellowship Of The Ring    Elf   1229   971
+#&gt;   Film                       Race   Female  Male
+#&gt;   &lt;chr&gt;                      &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1 The Fellowship Of The Ring Elf      1229   971
 #&gt; 2 The Fellowship Of The Ring Hobbit     14  3644
-#&gt; 3 The Fellowship Of The Ring    Man      0  1995
-#&gt; 4             The Two Towers    Elf    331   513
-#&gt; 5             The Two Towers Hobbit      0  2463
-#&gt; 6             The Two Towers    Man    401  3589
-#&gt; 7     The Return Of The King    Elf    183   510
-#&gt; 8     The Return Of The King Hobbit      2  2673
-#&gt; 9     The Return Of The King    Man    268  2459</code></pre>
+#&gt; 3 The Fellowship Of The Ring Man         0  1995
+#&gt; 4 The Two Towers             Elf       331   513
+#&gt; 5 The Two Towers             Hobbit      0  2463
+#&gt; 6 The Two Towers             Man       401  3589
+#&gt; 7 The Return Of The King     Elf       183   510
+#&gt; 8 The Return Of The King     Hobbit      2  2673
+#&gt; 9 The Return Of The King     Man       268  2459</code></pre>
 <p><code>dplyr::bind_rows()</code> works like a charm with these very row-bindable data frames! So does base <code>rbind()</code> (try it!).</p>
 <p>But what if one of the data frames is somehow missing a variable? Let’s mangle one and find out.</p>
 <pre class="r"><code>ttow_no_Female &lt;- ttow %&gt;% mutate(Female = NULL)
 bind_rows(fship, ttow_no_Female, rking)
 #&gt; # A tibble: 9 x 4
-#&gt;                         Film   Race Female  Male
-#&gt;                        &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1 The Fellowship Of The Ring    Elf   1229   971
+#&gt;   Film                       Race   Female  Male
+#&gt;   &lt;chr&gt;                      &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1 The Fellowship Of The Ring Elf      1229   971
 #&gt; 2 The Fellowship Of The Ring Hobbit     14  3644
-#&gt; 3 The Fellowship Of The Ring    Man      0  1995
-#&gt; 4             The Two Towers    Elf     NA   513
-#&gt; 5             The Two Towers Hobbit     NA  2463
-#&gt; 6             The Two Towers    Man     NA  3589
-#&gt; 7     The Return Of The King    Elf    183   510
-#&gt; 8     The Return Of The King Hobbit      2  2673
-#&gt; 9     The Return Of The King    Man    268  2459
+#&gt; 3 The Fellowship Of The Ring Man         0  1995
+#&gt; 4 The Two Towers             Elf        NA   513
+#&gt; 5 The Two Towers             Hobbit     NA  2463
+#&gt; 6 The Two Towers             Man        NA  3589
+#&gt; 7 The Return Of The King     Elf       183   510
+#&gt; 8 The Return Of The King     Hobbit      2  2673
+#&gt; 9 The Return Of The King     Man       268  2459
 rbind(fship, ttow_no_Female, rking)
 #&gt; Error in rbind(deparse.level, ...): numbers of columns of arguments do not match</code></pre>
 <p>We see that <code>dplyr::bind_rows()</code> does the row bind and puts <code>NA</code> in for the missing values caused by the lack of <code>Female</code> data from The Two Towers. Base <code>rbind()</code> refuses to row bind in this situation.</p>
@@ -271,19 +284,19 @@ gdp_percap &lt;- gapminder %&gt;%
 
 (gapminder_garbage &lt;- bind_cols(life_exp, pop, gdp_percap))
 #&gt; # A tibble: 1,704 x 5
-#&gt;        country  year lifeExp      pop gdpPercap
-#&gt;         &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
-#&gt;  1 Afghanistan  1952  28.801  8425333  879.5836
-#&gt;  2 Afghanistan  1957  30.332  1282697  860.7369
-#&gt;  3 Afghanistan  1962  31.997  9279525 2669.5295
-#&gt;  4 Afghanistan  1967  34.020  4232095 1071.5511
-#&gt;  5 Afghanistan  1972  36.088 17876956 1384.8406
-#&gt;  6 Afghanistan  1977  38.438  8691212 2864.9691
-#&gt;  7 Afghanistan  1982  39.854  6927772 1532.9853
-#&gt;  8 Afghanistan  1987  40.822   120447 1737.5617
-#&gt;  9 Afghanistan  1992  41.674 46886859 3020.9893
-#&gt; 10 Afghanistan  1997  41.763  8730405 1890.2181
-#&gt; # ... with 1,694 more rows
+#&gt;    country      year lifeExp      pop gdpPercap
+#&gt;    &lt;fct&gt;       &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+#&gt;  1 Afghanistan  1952    28.8  8425333      880.
+#&gt;  2 Afghanistan  1957    30.3  1282697      861.
+#&gt;  3 Afghanistan  1962    32.0  9279525     2670.
+#&gt;  4 Afghanistan  1967    34.0  4232095     1072.
+#&gt;  5 Afghanistan  1972    36.1 17876956     1385.
+#&gt;  6 Afghanistan  1977    38.4  8691212     2865.
+#&gt;  7 Afghanistan  1982    39.9  6927772     1533.
+#&gt;  8 Afghanistan  1987    40.8   120447     1738.
+#&gt;  9 Afghanistan  1992    41.7 46886859     3021.
+#&gt; 10 Afghanistan  1997    41.8  8730405     1890.
+#&gt; # … with 1,694 more rows
 
 summary(gapminder$lifeExp)
 #&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
@@ -337,19 +350,19 @@ head(gapminder_nonsense, 14)
 #&gt; into character vector
 #&gt; # A tibble: 142 x 4
 #&gt; # Groups:   country [?]
-#&gt;        country continent iso_alpha iso_num
-#&gt;          &lt;chr&gt;    &lt;fctr&gt;     &lt;chr&gt;   &lt;int&gt;
-#&gt;  1 Afghanistan      Asia       AFG       4
-#&gt;  2     Albania    Europe       ALB       8
-#&gt;  3     Algeria    Africa       DZA      12
-#&gt;  4      Angola    Africa       AGO      24
-#&gt;  5   Argentina  Americas       ARG      32
-#&gt;  6   Australia   Oceania       AUS      36
-#&gt;  7     Austria    Europe       AUT      40
-#&gt;  8     Bahrain      Asia       BHR      48
-#&gt;  9  Bangladesh      Asia       BGD      50
-#&gt; 10     Belgium    Europe       BEL      56
-#&gt; # ... with 132 more rows</code></pre>
+#&gt;    country     continent iso_alpha iso_num
+#&gt;    &lt;chr&gt;       &lt;fct&gt;     &lt;chr&gt;       &lt;int&gt;
+#&gt;  1 Afghanistan Asia      AFG             4
+#&gt;  2 Albania     Europe    ALB             8
+#&gt;  3 Algeria     Africa    DZA            12
+#&gt;  4 Angola      Africa    AGO            24
+#&gt;  5 Argentina   Americas  ARG            32
+#&gt;  6 Australia   Oceania   AUS            36
+#&gt;  7 Austria     Europe    AUT            40
+#&gt;  8 Bahrain     Asia      BHR            48
+#&gt;  9 Bangladesh  Asia      BGD            50
+#&gt; 10 Belgium     Europe    BEL            56
+#&gt; # … with 132 more rows</code></pre>
 </div>
 <div id="lookup" class="section level3">
 <h3>Lookup</h3>

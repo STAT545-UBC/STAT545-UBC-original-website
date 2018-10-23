@@ -1,4 +1,10 @@
-# When one tibble is not enough
+---
+title: "When one tibble is not enough"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+---
 
 
 
@@ -34,6 +40,21 @@ A variety of row- and column-wise operations fit into this framework, which impl
 
 Let's explore each type of operation with a few examples.
 
+First, let's load the tidyverse (and expose version information).
+
+
+```r
+library(tidyverse)
+#> ── Attaching packages ─────────────────────────────────────────────── tidyverse 1.2.1 ──
+#> ✔ ggplot2 3.0.0           ✔ purrr   0.2.5      
+#> ✔ tibble  1.4.99.9005     ✔ dplyr   0.7.7      
+#> ✔ tidyr   0.8.1           ✔ stringr 1.3.1      
+#> ✔ readr   1.1.1           ✔ forcats 0.3.0
+#> ── Conflicts ────────────────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
+```
+
 ### Bind
 
 #### Row binding
@@ -44,8 +65,6 @@ Here's what a perfect row bind of three (untidy!) data frames looks like.
 
 
 ```r
-library(tidyverse)
-
 fship <- tribble(
                          ~Film,    ~Race, ~Female, ~Male,
   "The Fellowship Of The Ring",    "Elf",    1229,   971,
@@ -60,23 +79,23 @@ rking <- tribble(
 )
 ttow <- tribble(
                          ~Film,    ~Race, ~Female, ~Male,
-              "The Two Towers",   " Elf",     331,   513,
+              "The Two Towers",    "Elf",     331,   513,
               "The Two Towers", "Hobbit",       0,  2463,
               "The Two Towers",    "Man",     401,  3589
 )
 (lotr_untidy <- bind_rows(fship, ttow, rking))
 #> # A tibble: 9 x 4
-#>                         Film   Race Female  Male
-#>                        <chr>  <chr>  <dbl> <dbl>
-#> 1 The Fellowship Of The Ring    Elf   1229   971
+#>   Film                       Race   Female  Male
+#>   <chr>                      <chr>   <dbl> <dbl>
+#> 1 The Fellowship Of The Ring Elf      1229   971
 #> 2 The Fellowship Of The Ring Hobbit     14  3644
-#> 3 The Fellowship Of The Ring    Man      0  1995
-#> 4             The Two Towers    Elf    331   513
-#> 5             The Two Towers Hobbit      0  2463
-#> 6             The Two Towers    Man    401  3589
-#> 7     The Return Of The King    Elf    183   510
-#> 8     The Return Of The King Hobbit      2  2673
-#> 9     The Return Of The King    Man    268  2459
+#> 3 The Fellowship Of The Ring Man         0  1995
+#> 4 The Two Towers             Elf       331   513
+#> 5 The Two Towers             Hobbit      0  2463
+#> 6 The Two Towers             Man       401  3589
+#> 7 The Return Of The King     Elf       183   510
+#> 8 The Return Of The King     Hobbit      2  2673
+#> 9 The Return Of The King     Man       268  2459
 ```
 
 `dplyr::bind_rows()` works like a charm with these very row-bindable data frames! So does base `rbind()` (try it!).
@@ -88,17 +107,17 @@ But what if one of the data frames is somehow missing a variable? Let's mangle o
 ttow_no_Female <- ttow %>% mutate(Female = NULL)
 bind_rows(fship, ttow_no_Female, rking)
 #> # A tibble: 9 x 4
-#>                         Film   Race Female  Male
-#>                        <chr>  <chr>  <dbl> <dbl>
-#> 1 The Fellowship Of The Ring    Elf   1229   971
+#>   Film                       Race   Female  Male
+#>   <chr>                      <chr>   <dbl> <dbl>
+#> 1 The Fellowship Of The Ring Elf      1229   971
 #> 2 The Fellowship Of The Ring Hobbit     14  3644
-#> 3 The Fellowship Of The Ring    Man      0  1995
-#> 4             The Two Towers    Elf     NA   513
-#> 5             The Two Towers Hobbit     NA  2463
-#> 6             The Two Towers    Man     NA  3589
-#> 7     The Return Of The King    Elf    183   510
-#> 8     The Return Of The King Hobbit      2  2673
-#> 9     The Return Of The King    Man    268  2459
+#> 3 The Fellowship Of The Ring Man         0  1995
+#> 4 The Two Towers             Elf        NA   513
+#> 5 The Two Towers             Hobbit     NA  2463
+#> 6 The Two Towers             Man        NA  3589
+#> 7 The Return Of The King     Elf       183   510
+#> 8 The Return Of The King     Hobbit      2  2673
+#> 9 The Return Of The King     Man       268  2459
 rbind(fship, ttow_no_Female, rking)
 #> Error in rbind(deparse.level, ...): numbers of columns of arguments do not match
 ```
@@ -138,19 +157,19 @@ gdp_percap <- gapminder %>%
 
 (gapminder_garbage <- bind_cols(life_exp, pop, gdp_percap))
 #> # A tibble: 1,704 x 5
-#>        country  year lifeExp      pop gdpPercap
-#>         <fctr> <int>   <dbl>    <int>     <dbl>
-#>  1 Afghanistan  1952  28.801  8425333  879.5836
-#>  2 Afghanistan  1957  30.332  1282697  860.7369
-#>  3 Afghanistan  1962  31.997  9279525 2669.5295
-#>  4 Afghanistan  1967  34.020  4232095 1071.5511
-#>  5 Afghanistan  1972  36.088 17876956 1384.8406
-#>  6 Afghanistan  1977  38.438  8691212 2864.9691
-#>  7 Afghanistan  1982  39.854  6927772 1532.9853
-#>  8 Afghanistan  1987  40.822   120447 1737.5617
-#>  9 Afghanistan  1992  41.674 46886859 3020.9893
-#> 10 Afghanistan  1997  41.763  8730405 1890.2181
-#> # ... with 1,694 more rows
+#>    country      year lifeExp      pop gdpPercap
+#>    <fct>       <int>   <dbl>    <int>     <dbl>
+#>  1 Afghanistan  1952    28.8  8425333      880.
+#>  2 Afghanistan  1957    30.3  1282697      861.
+#>  3 Afghanistan  1962    32.0  9279525     2670.
+#>  4 Afghanistan  1967    34.0  4232095     1072.
+#>  5 Afghanistan  1972    36.1 17876956     1385.
+#>  6 Afghanistan  1977    38.4  8691212     2865.
+#>  7 Afghanistan  1982    39.9  6927772     1533.
+#>  8 Afghanistan  1987    40.8   120447     1738.
+#>  9 Afghanistan  1992    41.7 46886859     3021.
+#> 10 Afghanistan  1997    41.8  8730405     1890.
+#> # … with 1,694 more rows
 
 summary(gapminder$lifeExp)
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
@@ -216,19 +235,19 @@ gapminder %>%
 #> into character vector
 #> # A tibble: 142 x 4
 #> # Groups:   country [?]
-#>        country continent iso_alpha iso_num
-#>          <chr>    <fctr>     <chr>   <int>
-#>  1 Afghanistan      Asia       AFG       4
-#>  2     Albania    Europe       ALB       8
-#>  3     Algeria    Africa       DZA      12
-#>  4      Angola    Africa       AGO      24
-#>  5   Argentina  Americas       ARG      32
-#>  6   Australia   Oceania       AUS      36
-#>  7     Austria    Europe       AUT      40
-#>  8     Bahrain      Asia       BHR      48
-#>  9  Bangladesh      Asia       BGD      50
-#> 10     Belgium    Europe       BEL      56
-#> # ... with 132 more rows
+#>    country     continent iso_alpha iso_num
+#>    <chr>       <fct>     <chr>       <int>
+#>  1 Afghanistan Asia      AFG             4
+#>  2 Albania     Europe    ALB             8
+#>  3 Algeria     Africa    DZA            12
+#>  4 Angola      Africa    AGO            24
+#>  5 Argentina   Americas  ARG            32
+#>  6 Australia   Oceania   AUS            36
+#>  7 Austria     Europe    AUT            40
+#>  8 Bahrain     Asia      BHR            48
+#>  9 Bangladesh  Asia      BGD            50
+#> 10 Belgium     Europe    BEL            56
+#> # … with 132 more rows
 ```
 
 ### Lookup
