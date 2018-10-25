@@ -220,26 +220,36 @@ as.integer(charToRaw(&quot;hello!&quot;))
 as.integer(charToRaw(&quot;hellṏ!&quot;))
 #&gt; [1] 104 101 108 108 225 185 143  33</code></pre>
 <p>Now we see that it takes more than one byte to represent <code>&quot;ṏ&quot;</code>. Three in fact: [225, 185, 143]. The encoding of a string defines this relationship: encoding is a map between one or more bytes and a displayable character.</p>
-<p>Take a look at what a single set of bytes looks like when you try different encodings.</p>
-<p>Here’s, a string encoded as ISO-8859-1 (also known as “Latin1”) with a special character. <em>Ruby</em></p>
+<p>Take a look at what a single set of bytes looks like when you try different encodings. First, define it and look at it in my native encoding, which is UTF-8 because I work on macOS.</p>
+<pre class="r"><code>string &lt;- &quot;hellÔ!&quot;
+string
+#&gt; [1] &quot;hellÔ!&quot;
+Encoding(string)
+#&gt; [1] &quot;unknown&quot;
+charToRaw(string)
+#&gt; [1] 68 65 6c 6c c3 94 21
+as.integer(charToRaw(string))
+#&gt; [1] 104 101 108 108 195 148  33</code></pre>
+<p>Now, explicitly encode that string as ISO-8859-1 (also known as “Latin1”). <em>Ruby</em></p>
 <pre><code>irb(main):003:0&gt; str = &quot;hellÔ!&quot;.encode(&quot;ISO-8859-1&quot;); str.encode(&quot;UTF-8&quot;)
 =&gt; &quot;hellÔ!&quot;
 
 irb(main):004:0&gt; str.bytes
 =&gt; [104, 101, 108, 108, 212, 33]</code></pre>
-<pre class="r"><code>string_latin &lt;- iconv(&quot;hellÔ!&quot;, from = &quot;UTF-8&quot;, to = &quot;Latin1&quot;)
+<p>Same in R.</p>
+<pre class="r"><code>string_latin &lt;- iconv(string, from = &quot;UTF-8&quot;, to = &quot;Latin1&quot;)
 string_latin
 #&gt; [1] &quot;hell\xd4!&quot;
 charToRaw(string_latin)
 #&gt; [1] 68 65 6c 6c d4 21
 as.integer(charToRaw(string_latin))
 #&gt; [1] 104 101 108 108 212  33</code></pre>
-<p>We’ve confirmed that we have the correct bytes (meaning the same as the Ruby example). What would that string look like interpreted as ISO-8859-5 instead? <em>Ruby</em></p>
+<p>See how the special character “Ô” is represented by different bytes depending on the encoding (but not depending on Ruby vs R)? Let’s see how this string looks when interpreted as ISO-8859-5 instead? <em>Ruby</em></p>
 <pre><code>irb(main):005:0&gt; str.force_encoding(&quot;ISO-8859-5&quot;); str.encode(&quot;UTF-8&quot;)
 =&gt; &quot;hellд!&quot;</code></pre>
 <pre class="r"><code>iconv(string_latin, from = &quot;ISO-8859-5&quot;, to = &quot;UTF-8&quot;)
 #&gt; [1] &quot;hellд!&quot;</code></pre>
-<p>It’s garbled, which is your first tip-off to an encoding problem.</p>
+<p>It’s garbled, which is often your first tip-off to an encoding problem, i.e. a string that is stored in one encoding being interpreted as if it had another.</p>
 <p>Also not all strings can be represented in all encodings: <em>Ruby</em></p>
 <pre><code>irb(main):006:0&gt; &quot;hi∑&quot;.encode(&quot;Windows-1252&quot;)
 Encoding::UndefinedConversionError: U+2211 to WINDOWS-1252 in conversion from UTF-8 to WINDOWS-1252
@@ -259,9 +269,18 @@ as.integer(charToRaw(string))
 #&gt; [1] &quot;hi???&quot;</code></pre>
 <p>In the Ruby post, we’ve seen 3 string functions so far. Review and note which R function was used in the translation.</p>
 <ul>
-<li><code>encode</code> translates a string to another encoding. We’ve used <code>iconv(x, from = &quot;UTF-8&quot;, to = &lt;DIFFERENT_ENCODING&gt;)</code> here.</li>
-<li><code>bytes</code> shows the bytes that make up a string. We’ve used <code>charToRaw()</code>, which returns hexadecimal in R. For the sake of comparison to the Ruby post, I’ve converted to decimal with <code>as.integer()</code>.</li>
-<li><code>force_encoding</code> shows what the input bytes would look like if interpreted by a different encoding. We’ve used <code>iconv(x, from = &lt;DIFFERENT_ENCODING&gt;, to = &quot;UTF-8&quot;)</code>.</li>
+<li>In Ruby, <code>encode</code> translates a string to another encoding.
+<ul>
+<li>In R, we’ve used <code>iconv(x, from = &quot;UTF-8&quot;, to = &lt;DIFFERENT_ENCODING&gt;)</code>.</li>
+</ul></li>
+<li>In Ruby, <code>bytes</code> shows the bytes that make up a string.
+<ul>
+<li>In R, we’ve used <code>charToRaw()</code>, which returns hexadecimal. For the sake of comparison to the Ruby post, I convert to decimal with <code>as.integer()</code>.</li>
+</ul></li>
+<li>In Ruby, <code>force_encoding</code> shows what the input bytes would look like if interpreted by a different encoding.
+<ul>
+<li>In R, we’ve used <code>iconv(x, from = &lt;DIFFERENT_ENCODING&gt;, to = &quot;UTF-8&quot;)</code>.</li>
+</ul></li>
 </ul>
 </div>
 <div id="a-three-step-process-for-fixing-encoding-bugs" class="section level2">

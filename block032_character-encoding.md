@@ -70,9 +70,22 @@ as.integer(charToRaw("hellṏ!"))
 
 Now we see that it takes more than one byte to represent `"ṏ"`. Three in fact: [225, 185, 143]. The encoding of a string defines this relationship: encoding is a map between one or more bytes and a displayable character.
 
-Take a look at what a single set of bytes looks like when you try different encodings.
+Take a look at what a single set of bytes looks like when you try different encodings. First, define it and look at it in my native encoding, which is UTF-8 because I work on macOS.
 
-Here's, a string encoded as ISO-8859-1 (also known as "Latin1") with a special character. *Ruby*
+
+```r
+string <- "hellÔ!"
+string
+#> [1] "hellÔ!"
+Encoding(string)
+#> [1] "unknown"
+charToRaw(string)
+#> [1] 68 65 6c 6c c3 94 21
+as.integer(charToRaw(string))
+#> [1] 104 101 108 108 195 148  33
+```
+
+Now, explicitly encode that string as ISO-8859-1 (also known as "Latin1"). *Ruby*
 
 ```
 irb(main):003:0> str = "hellÔ!".encode("ISO-8859-1"); str.encode("UTF-8")
@@ -82,9 +95,11 @@ irb(main):004:0> str.bytes
 => [104, 101, 108, 108, 212, 33]
 ```
 
+Same in R.
+
 
 ```r
-string_latin <- iconv("hellÔ!", from = "UTF-8", to = "Latin1")
+string_latin <- iconv(string, from = "UTF-8", to = "Latin1")
 string_latin
 #> [1] "hell\xd4!"
 charToRaw(string_latin)
@@ -93,7 +108,7 @@ as.integer(charToRaw(string_latin))
 #> [1] 104 101 108 108 212  33
 ```
 
-We've confirmed that we have the correct bytes (meaning the same as the Ruby example). What would that string look like interpreted as ISO-8859-5 instead? *Ruby*
+See how the special character "Ô" is represented by different bytes depending on the encoding (but not depending on Ruby vs R)? Let's see how this string looks when interpreted as ISO-8859-5 instead? *Ruby*
 
 ```
 irb(main):005:0> str.force_encoding("ISO-8859-5"); str.encode("UTF-8")
@@ -106,7 +121,7 @@ iconv(string_latin, from = "ISO-8859-5", to = "UTF-8")
 #> [1] "hellд!"
 ```
 
-It's garbled, which is your first tip-off to an encoding problem.
+It's garbled, which is often your first tip-off to an encoding problem, i.e. a string that is stored in one encoding being interpreted as if it had another.
 
 Also not all strings can be represented in all encodings: *Ruby*
 
@@ -140,9 +155,12 @@ In Ruby, apparently that is an error. In R, we just get `NA`. Alternatively, and
 
 In the Ruby post, we've seen 3 string functions so far. Review and note which R function was used in the translation.
 
-  * `encode` translates a string to another encoding. We've used `iconv(x, from = "UTF-8", to = <DIFFERENT_ENCODING>)` here.
-  * `bytes` shows the bytes that make up a string. We've used `charToRaw()`, which returns hexadecimal in R. For the sake of comparison to the Ruby post, I've converted to decimal with `as.integer()`.
-  * `force_encoding` shows what the input bytes would look like if interpreted by a different encoding. We've used `iconv(x, from = <DIFFERENT_ENCODING>, to = "UTF-8")`.
+  * In Ruby, `encode` translates a string to another encoding.
+    - In R, we've used `iconv(x, from = "UTF-8", to = <DIFFERENT_ENCODING>)`.
+  * In Ruby, `bytes` shows the bytes that make up a string.
+    - In R, we've used `charToRaw()`, which returns hexadecimal. For the sake of comparison to the Ruby post, I convert to decimal with `as.integer()`.
+  * In Ruby, `force_encoding` shows what the input bytes would look like if interpreted by a different encoding.
+    - In R, we've used `iconv(x, from = <DIFFERENT_ENCODING>, to = "UTF-8")`.
 
 ## A three-step process for fixing encoding bugs
 
