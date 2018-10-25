@@ -1,4 +1,10 @@
-# Character encoding
+---
+title: "Character encoding"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+---
 
 
 
@@ -160,14 +166,11 @@ Encoding(string)
 #> [1] "unknown"
 stringi::stri_enc_detect(string)
 #> [[1]]
-#> [[1]]$Encoding
-#> [1] "UTF-16BE" "UTF-16LE" "EUC-JP"   "EUC-KR"  
-#> 
-#> [[1]]$Language
-#> [1] ""   ""   "ja" "ko"
-#> 
-#> [[1]]$Confidence
-#> [1] 0.1 0.1 0.1 0.1
+#>   Encoding Language Confidence
+#> 1 UTF-16BE                 0.1
+#> 2 UTF-16LE                 0.1
+#> 3   EUC-JP       ja        0.1
+#> 4   EUC-KR       ko        0.1
 ```
 
 Advice given in post is to sleuth it out based on where the data came from. With larger amounts of text, each language's guessing facilities presumably do better than they do here. In real life, all of this advice can prove to be ... overly optimistic?
