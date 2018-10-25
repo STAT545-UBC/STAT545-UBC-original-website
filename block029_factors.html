@@ -20,8 +20,8 @@
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
-<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="libs/highlightjs-1.1/highlight.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,10 +40,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -100,6 +102,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -175,24 +180,19 @@ $(document).ready(function () {
 </div>
 <div id="the-forcats-package" class="section level3">
 <h3>The forcats package</h3>
-<p>forcats is a non-core package in the tidyverse. It is installed via <code>install.packages(&quot;tidyverse&quot;)</code>, but not loaded via <code>library(tidyverse)</code>. Load it yourself as needed via <code>library(forcats)</code>. Main functions start with <code>fct_</code>. There really is no coherent family of base functions that forcats replaces – that’s why it’s such a welcome addition.</p>
-<p>Currently this lesson will be mostly code vs prose. See the previous lesson for more discussion during the transition.</p>
+<p>forcats is a core package in the tidyverse. It is installed via <code>install.packages(&quot;tidyverse&quot;)</code> and attached via <code>library(tidyverse)</code>. You can always load it individually via <code>library(forcats)</code>. Main functions start with <code>fct_</code>. There really is no coherent family of base functions that forcats replaces – that’s why it’s such a welcome addition.</p>
 </div>
 <div id="load-tidyverse-forcats-gapminder" class="section level3">
 <h3>Load tidyverse, forcats, gapminder</h3>
 <pre class="r"><code>library(tidyverse)
-#&gt; + ggplot2 2.2.1             Date: 2017-10-29
-#&gt; + tibble  1.3.4                R: 3.4.1
-#&gt; + tidyr   0.7.1               OS: macOS Sierra 10.12.6
-#&gt; + readr   1.1.1              GUI: X11
-#&gt; + purrr   0.2.3.9000      Locale: en_CA.UTF-8
-#&gt; + dplyr   0.7.4               TZ: America/Vancouver
-#&gt; + stringr 1.2.0.9000      
-#&gt; + forcats 0.2.0
-#&gt; Warning: package &#39;dplyr&#39; was built under R version 3.4.2
-#&gt; ── Conflicts ────────────────────────────────────────────────────
-#&gt; * filter(),  from dplyr, masks stats::filter()
-#&gt; * lag(),     from dplyr, masks stats::lag()
+#&gt; ── Attaching packages ─────────────────────────────────────────────── tidyverse 1.2.1 ──
+#&gt; ✔ ggplot2 3.0.0           ✔ purrr   0.2.5      
+#&gt; ✔ tibble  1.4.99.9005     ✔ dplyr   0.7.7      
+#&gt; ✔ tidyr   0.8.1           ✔ stringr 1.3.1      
+#&gt; ✔ readr   1.1.1           ✔ forcats 0.3.0
+#&gt; ── Conflicts ────────────────────────────────────────────────── tidyverse_conflicts() ──
+#&gt; ✖ dplyr::filter() masks stats::filter()
+#&gt; ✖ dplyr::lag()    masks stats::lag()
 library(forcats)
 library(gapminder)</code></pre>
 </div>
@@ -212,21 +212,21 @@ class(gapminder$continent)
   count(continent)
 #&gt; # A tibble: 5 x 2
 #&gt;   continent     n
-#&gt;      &lt;fctr&gt; &lt;int&gt;
-#&gt; 1    Africa   624
-#&gt; 2  Americas   300
-#&gt; 3      Asia   396
-#&gt; 4    Europe   360
-#&gt; 5   Oceania    24
+#&gt;   &lt;fct&gt;     &lt;int&gt;
+#&gt; 1 Africa      624
+#&gt; 2 Americas    300
+#&gt; 3 Asia        396
+#&gt; 4 Europe      360
+#&gt; 5 Oceania      24
 fct_count(gapminder$continent)
 #&gt; # A tibble: 5 x 2
-#&gt;          f     n
-#&gt;     &lt;fctr&gt; &lt;int&gt;
-#&gt; 1   Africa   624
+#&gt;   f            n
+#&gt;   &lt;fct&gt;    &lt;int&gt;
+#&gt; 1 Africa     624
 #&gt; 2 Americas   300
-#&gt; 3     Asia   396
-#&gt; 4   Europe   360
-#&gt; 5  Oceania    24</code></pre>
+#&gt; 3 Asia       396
+#&gt; 4 Europe     360
+#&gt; 5 Oceania     24</code></pre>
 </div>
 <div id="dropping-unused-levels" class="section level3">
 <h3>Dropping unused levels</h3>
@@ -255,7 +255,7 @@ h_gap$country %&gt;%
 <ul>
 <li><code>droplevels()</code></li>
 <li><code>fct_drop()</code> inside <code>mutate()</code></li>
-<li><code>fct_dopr()</code> with <code>mutate_at()</code> or <code>mutate_if()</code></li>
+<li><code>fct_drop()</code> with <code>mutate_at()</code> or <code>mutate_if()</code></li>
 </ul>
 </div>
 <div id="change-order-of-the-levels-principled" class="section level3">
@@ -265,7 +265,7 @@ h_gap$country %&gt;%
 <li>Frequency. Make the most common level the first and so on.</li>
 <li>Another variable. Order factor levels according to a summary statistic for another variable. Example: order Gapminder countries by life expectancy.</li>
 </ul>
-<p>First, let’s order continent by frequency, forwards and backwards. This is often a great idea for tables and figures, esp. frequency barplots.</p>
+<p>First, let’s order continent by frequency, forwards and backwards. This is often a great idea for tables and figures, esp. frequency barplots.</p>
 <pre class="r"><code>## default order is alphabetical
 gapminder$continent %&gt;%
   levels()
@@ -382,28 +382,28 @@ levels(df2$country)
 #&gt; Warning in bind_rows_(x, .id): binding character and factor vector,
 #&gt; coercing into character vector
 #&gt; # A tibble: 8 x 6
-#&gt;         country continent  year lifeExp       pop gdpPercap
-#&gt;           &lt;chr&gt;     &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
-#&gt; 1        Mexico  Americas  2002  74.902 102479927  10742.44
-#&gt; 2        Mexico  Americas  2007  76.195 108700891  11977.57
-#&gt; 3 United States  Americas  2002  77.310 287675526  39097.10
-#&gt; 4 United States  Americas  2007  78.242 301139947  42951.65
-#&gt; 5        France    Europe  2002  79.590  59925035  28926.03
-#&gt; 6        France    Europe  2007  80.657  61083916  30470.02
-#&gt; 7       Germany    Europe  2002  78.670  82350671  30035.80
-#&gt; 8       Germany    Europe  2007  79.406  82400996  32170.37
+#&gt;   country       continent  year lifeExp       pop gdpPercap
+#&gt;   &lt;chr&gt;         &lt;chr&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+#&gt; 1 Mexico        Americas   2002    74.9 102479927    10742.
+#&gt; 2 Mexico        Americas   2007    76.2 108700891    11978.
+#&gt; 3 United States Americas   2002    77.3 287675526    39097.
+#&gt; 4 United States Americas   2007    78.2 301139947    42952.
+#&gt; 5 France        Europe     2002    79.6  59925035    28926.
+#&gt; 6 France        Europe     2007    80.7  61083916    30470.
+#&gt; 7 Germany       Europe     2002    78.7  82350671    30036.
+#&gt; 8 Germany       Europe     2007    79.4  82400996    32170.
 rbind(df1, df2)
 #&gt; # A tibble: 8 x 6
-#&gt;         country continent  year lifeExp       pop gdpPercap
-#&gt;          &lt;fctr&gt;    &lt;fctr&gt; &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
-#&gt; 1        Mexico  Americas  2002  74.902 102479927  10742.44
-#&gt; 2        Mexico  Americas  2007  76.195 108700891  11977.57
-#&gt; 3 United States  Americas  2002  77.310 287675526  39097.10
-#&gt; 4 United States  Americas  2007  78.242 301139947  42951.65
-#&gt; 5        France    Europe  2002  79.590  59925035  28926.03
-#&gt; 6        France    Europe  2007  80.657  61083916  30470.02
-#&gt; 7       Germany    Europe  2002  78.670  82350671  30035.80
-#&gt; 8       Germany    Europe  2007  79.406  82400996  32170.37</code></pre>
+#&gt;   country       continent  year lifeExp       pop gdpPercap
+#&gt;   &lt;fct&gt;         &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+#&gt; 1 Mexico        Americas   2002    74.9 102479927    10742.
+#&gt; 2 Mexico        Americas   2007    76.2 108700891    11978.
+#&gt; 3 United States Americas   2002    77.3 287675526    39097.
+#&gt; 4 United States Americas   2007    78.2 301139947    42952.
+#&gt; 5 France        Europe     2002    79.6  59925035    28926.
+#&gt; 6 France        Europe     2007    80.7  61083916    30470.
+#&gt; 7 Germany       Europe     2002    78.7  82350671    30036.
+#&gt; 8 Germany       Europe     2007    79.4  82400996    32170.</code></pre>
 </div>
 
 <div class="footer">

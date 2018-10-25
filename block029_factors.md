@@ -1,4 +1,10 @@
-# Be the boss of your factors
+---
+title: "Be the boss of your factors"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+---
 
 
 
@@ -21,27 +27,21 @@ Good articles about how the factor fiasco came to be:
 
 ### The forcats package
 
-forcats is a non-core package in the tidyverse. It is installed via `install.packages("tidyverse")`, but not loaded via `library(tidyverse)`. Load it yourself as needed via `library(forcats)`. Main functions start with `fct_`. There really is no coherent family of base functions that forcats replaces -- that's why it's such a welcome addition.
-
-Currently this lesson will be mostly code vs prose. See the previous lesson for more discussion during the transition.
+forcats is a core package in the tidyverse. It is installed via `install.packages("tidyverse")` and attached via `library(tidyverse)`. You can always load it individually via `library(forcats)`. Main functions start with `fct_`. There really is no coherent family of base functions that forcats replaces -- that's why it's such a welcome addition.
 
 ### Load tidyverse, forcats, gapminder
 
 
 ```r
 library(tidyverse)
-#> + ggplot2 2.2.1             Date: 2017-10-29
-#> + tibble  1.3.4                R: 3.4.1
-#> + tidyr   0.7.1               OS: macOS Sierra 10.12.6
-#> + readr   1.1.1              GUI: X11
-#> + purrr   0.2.3.9000      Locale: en_CA.UTF-8
-#> + dplyr   0.7.4               TZ: America/Vancouver
-#> + stringr 1.2.0.9000      
-#> + forcats 0.2.0
-#> Warning: package 'dplyr' was built under R version 3.4.2
-#> ── Conflicts ────────────────────────────────────────────────────
-#> * filter(),  from dplyr, masks stats::filter()
-#> * lag(),     from dplyr, masks stats::lag()
+#> ── Attaching packages ─────────────────────────────────────────────── tidyverse 1.2.1 ──
+#> ✔ ggplot2 3.0.0           ✔ purrr   0.2.5      
+#> ✔ tibble  1.4.99.9005     ✔ dplyr   0.7.7      
+#> ✔ tidyr   0.8.1           ✔ stringr 1.3.1      
+#> ✔ readr   1.1.1           ✔ forcats 0.3.0
+#> ── Conflicts ────────────────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
 library(forcats)
 library(gapminder)
 ```
@@ -70,21 +70,21 @@ gapminder %>%
   count(continent)
 #> # A tibble: 5 x 2
 #>   continent     n
-#>      <fctr> <int>
-#> 1    Africa   624
-#> 2  Americas   300
-#> 3      Asia   396
-#> 4    Europe   360
-#> 5   Oceania    24
+#>   <fct>     <int>
+#> 1 Africa      624
+#> 2 Americas    300
+#> 3 Asia        396
+#> 4 Europe      360
+#> 5 Oceania      24
 fct_count(gapminder$continent)
 #> # A tibble: 5 x 2
-#>          f     n
-#>     <fctr> <int>
-#> 1   Africa   624
+#>   f            n
+#>   <fct>    <int>
+#> 1 Africa     624
 #> 2 Americas   300
-#> 3     Asia   396
-#> 4   Europe   360
-#> 5  Oceania    24
+#> 3 Asia       396
+#> 4 Europe     360
+#> 5 Oceania     24
 ```
 
 ### Dropping unused levels
@@ -126,7 +126,7 @@ Exercise: Filter the gapminder data down to rows where population is less than a
 
   * `droplevels()`
   * `fct_drop()` inside `mutate()`
-  * `fct_dopr()` with `mutate_at()` or `mutate_if()`
+  * `fct_drop()` with `mutate_at()` or `mutate_if()`
 
 
 
@@ -313,26 +313,26 @@ bind_rows(df1, df2)
 #> Warning in bind_rows_(x, .id): binding character and factor vector,
 #> coercing into character vector
 #> # A tibble: 8 x 6
-#>         country continent  year lifeExp       pop gdpPercap
-#>           <chr>     <chr> <int>   <dbl>     <int>     <dbl>
-#> 1        Mexico  Americas  2002  74.902 102479927  10742.44
-#> 2        Mexico  Americas  2007  76.195 108700891  11977.57
-#> 3 United States  Americas  2002  77.310 287675526  39097.10
-#> 4 United States  Americas  2007  78.242 301139947  42951.65
-#> 5        France    Europe  2002  79.590  59925035  28926.03
-#> 6        France    Europe  2007  80.657  61083916  30470.02
-#> 7       Germany    Europe  2002  78.670  82350671  30035.80
-#> 8       Germany    Europe  2007  79.406  82400996  32170.37
+#>   country       continent  year lifeExp       pop gdpPercap
+#>   <chr>         <chr>     <int>   <dbl>     <int>     <dbl>
+#> 1 Mexico        Americas   2002    74.9 102479927    10742.
+#> 2 Mexico        Americas   2007    76.2 108700891    11978.
+#> 3 United States Americas   2002    77.3 287675526    39097.
+#> 4 United States Americas   2007    78.2 301139947    42952.
+#> 5 France        Europe     2002    79.6  59925035    28926.
+#> 6 France        Europe     2007    80.7  61083916    30470.
+#> 7 Germany       Europe     2002    78.7  82350671    30036.
+#> 8 Germany       Europe     2007    79.4  82400996    32170.
 rbind(df1, df2)
 #> # A tibble: 8 x 6
-#>         country continent  year lifeExp       pop gdpPercap
-#>          <fctr>    <fctr> <int>   <dbl>     <int>     <dbl>
-#> 1        Mexico  Americas  2002  74.902 102479927  10742.44
-#> 2        Mexico  Americas  2007  76.195 108700891  11977.57
-#> 3 United States  Americas  2002  77.310 287675526  39097.10
-#> 4 United States  Americas  2007  78.242 301139947  42951.65
-#> 5        France    Europe  2002  79.590  59925035  28926.03
-#> 6        France    Europe  2007  80.657  61083916  30470.02
-#> 7       Germany    Europe  2002  78.670  82350671  30035.80
-#> 8       Germany    Europe  2007  79.406  82400996  32170.37
+#>   country       continent  year lifeExp       pop gdpPercap
+#>   <fct>         <fct>     <int>   <dbl>     <int>     <dbl>
+#> 1 Mexico        Americas   2002    74.9 102479927    10742.
+#> 2 Mexico        Americas   2007    76.2 108700891    11978.
+#> 3 United States Americas   2002    77.3 287675526    39097.
+#> 4 United States Americas   2007    78.2 301139947    42952.
+#> 5 France        Europe     2002    79.6  59925035    28926.
+#> 6 France        Europe     2007    80.7  61083916    30470.
+#> 7 Germany       Europe     2002    78.7  82350671    30036.
+#> 8 Germany       Europe     2007    79.4  82400996    32170.
 ```

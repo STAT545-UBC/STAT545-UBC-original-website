@@ -29,9 +29,7 @@ Good articles about how the factor fiasco came to be:
 
 ### The forcats package
 
-forcats is a non-core package in the tidyverse. It is installed via `install.packages("tidyverse")`, but not loaded via `library(tidyverse)`. Load it yourself as needed via `library(forcats)`. Main functions start with `fct_`. There really is no coherent family of base functions that forcats replaces -- that's why it's such a welcome addition.
-
-Currently this lesson will be mostly code vs prose. See the previous lesson for more discussion during the transition.
+forcats is a core package in the tidyverse. It is installed via `install.packages("tidyverse")` and attached via `library(tidyverse)`. You can always load it individually via `library(forcats)`. Main functions start with `fct_`. There really is no coherent family of base functions that forcats replaces -- that's why it's such a welcome addition.
 
 ### Load tidyverse, forcats, gapminder
 
@@ -93,7 +91,7 @@ Exercise: Filter the gapminder data down to rows where population is less than a
 
   * `droplevels()`
   * `fct_drop()` inside `mutate()`
-  * `fct_dopr()` with `mutate_at()` or `mutate_if()`
+  * `fct_drop()` with `mutate_at()` or `mutate_if()`
 
 ```{r, eval = FALSE, include = FALSE}
 low_pop <- gapminder %>% 
