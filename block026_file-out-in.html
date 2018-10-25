@@ -20,8 +20,8 @@
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
-<link href="libs/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="libs/highlightjs-1.1/highlight.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,10 +40,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -101,6 +103,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -149,7 +154,7 @@ $(document).ready(function () {
 <div id="TOC">
 <ul>
 <li><a href="#file-io-overview">File I/O overview</a></li>
-<li><a href="#load-the-tidyverse-and-forcats">Load the tidyverse and forcats</a></li>
+<li><a href="#load-the-tidyverse-for-readr-and-forcats">Load the tidyverse, for readr and forcats</a></li>
 <li><a href="#locate-the-gapminder-data">Locate the Gapminder data</a></li>
 <li><a href="#bring-rectangular-data-in">Bring rectangular data in</a></li>
 <li><a href="#compute-something-worthy-of-export">Compute something worthy of export</a></li>
@@ -191,29 +196,24 @@ $(document).ready(function () {
 <p>How does this fit with our emphasis on dynamic reporting via R Markdown? There is a time and place for everything. There are projects and documents where the scope and personnel will allow you to geek out with <code>knitr</code> and R Markdown. But there are lots of good reasons why (parts of) an analysis should not (only) be embedded in a dynamic report. Maybe you are just doing data cleaning to produce a valid input dataset. Maybe you are making a small but crucial contribution to a giant multi-author paper. Etc. Also remember there are other tools and workflows for making something reproducible. I’m looking at you, <a href="http://kbroman.github.io/minimal_make/">make</a>.</p>
 </div>
 </div>
-<div id="load-the-tidyverse-and-forcats" class="section level3">
-<h3>Load the tidyverse and forcats</h3>
-<p>The main function we will be using is readr, which provides drop-in substitutes for <code>read.table()</code> and friends. However, to make some points about data export and import, it is nice to reorder factor levels. For that, we will also load and use the forcats package.</p>
+<div id="load-the-tidyverse-for-readr-and-forcats" class="section level3">
+<h3>Load the tidyverse, for readr and forcats</h3>
+<p>The main tidyverse package we will be using is readr, which provides drop-in substitutes for <code>read.table()</code> and friends. However, to make some points about data export and import, it is nice to reorder factor levels. For that, we will also use function from the forcats package.</p>
 <pre class="r"><code>library(tidyverse)
-## + ggplot2 2.2.1             Date: 2017-10-29
-## + tibble  1.3.4                R: 3.4.1
-## + tidyr   0.7.1               OS: macOS Sierra 10.12.6
-## + readr   1.1.1              GUI: X11
-## + purrr   0.2.3.9000      Locale: en_CA.UTF-8
-## + dplyr   0.7.4               TZ: America/Vancouver
-## + stringr 1.2.0.9000      
-## + forcats 0.2.0
-## Warning: package &#39;dplyr&#39; was built under R version 3.4.2
-## ── Conflicts ────────────────────────────────────────────────────
-## * filter(),  from dplyr, masks stats::filter()
-## * lag(),     from dplyr, masks stats::lag()
-library(forcats)</code></pre>
+## ── Attaching packages ─────────────────────────────────────────────── tidyverse 1.2.1 ──
+## ✔ ggplot2 3.0.0           ✔ purrr   0.2.5      
+## ✔ tibble  1.4.99.9005     ✔ dplyr   0.7.7      
+## ✔ tidyr   0.8.1           ✔ stringr 1.3.1      
+## ✔ readr   1.1.1           ✔ forcats 0.3.0
+## ── Conflicts ────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 </div>
 <div id="locate-the-gapminder-data" class="section level3">
 <h3>Locate the Gapminder data</h3>
 <p>We could load the data from the package as usual, but instead we will load it from tab delimited file. The gapminder package includes the data normally found in the <code>gapminder</code> data frame as a <code>.tsv</code>. So let’s get the path to that file on <em>your</em> system.</p>
-<pre class="r"><code>(gap_tsv &lt;- system.file(&quot;gapminder.tsv&quot;, package = &quot;gapminder&quot;))
-## [1] &quot;/Users/jenny/resources/R/library/gapminder/gapminder.tsv&quot;</code></pre>
+<pre class="r"><code>(gap_tsv &lt;- system.file(&quot;extdata/gapminder.tsv&quot;, package = &quot;gapminder&quot;))
+## [1] &quot;/Users/jenny/R/library/3.5/gapminder/extdata/gapminder.tsv&quot;</code></pre>
 </div>
 <div id="bring-rectangular-data-in" class="section level3">
 <h3>Bring rectangular data in</h3>
@@ -265,19 +265,19 @@ str(gapminder)
   ungroup()
 gap_life_exp
 ## # A tibble: 142 x 3
-##        country continent life_exp
-##         &lt;fctr&gt;    &lt;fctr&gt;    &lt;dbl&gt;
-##  1 Afghanistan      Asia   43.828
-##  2     Albania    Europe   76.423
-##  3     Algeria    Africa   72.301
-##  4      Angola    Africa   42.731
-##  5   Argentina  Americas   75.320
-##  6   Australia   Oceania   81.235
-##  7     Austria    Europe   79.829
-##  8     Bahrain      Asia   75.635
-##  9  Bangladesh      Asia   64.062
-## 10     Belgium    Europe   79.441
-## # ... with 132 more rows</code></pre>
+##    country     continent life_exp
+##    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;
+##  1 Afghanistan Asia          43.8
+##  2 Albania     Europe        76.4
+##  3 Algeria     Africa        72.3
+##  4 Angola      Africa        42.7
+##  5 Argentina   Americas      75.3
+##  6 Australia   Oceania       81.2
+##  7 Austria     Europe        79.8
+##  8 Bahrain     Asia          75.6
+##  9 Bangladesh  Asia          64.1
+## 10 Belgium     Europe        79.4
+## # … with 132 more rows</code></pre>
 <p>The <code>gap_life_exp</code> data frame is an example of an intermediate result that we want to store for the future and for downstream analyses or visualizations.</p>
 </div>
 <div id="write-rectangular-data-out" class="section level3">
@@ -322,14 +322,14 @@ head(levels(gap_life_exp$country)) # in increasing order of maximum life expecta
 ## [5] &quot;Rwanda&quot;       &quot;Mozambique&quot;
 head(gap_life_exp)
 ## # A tibble: 6 x 3
-##       country continent life_exp
-##        &lt;fctr&gt;    &lt;fctr&gt;    &lt;dbl&gt;
-## 1 Afghanistan      Asia   43.828
-## 2     Albania    Europe   76.423
-## 3     Algeria    Africa   72.301
-## 4      Angola    Africa   42.731
-## 5   Argentina  Americas   75.320
-## 6   Australia   Oceania   81.235</code></pre>
+##   country     continent life_exp
+##   &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;
+## 1 Afghanistan Asia          43.8
+## 2 Albania     Europe        76.4
+## 3 Algeria     Africa        72.3
+## 4 Angola      Africa        42.7
+## 5 Argentina   Americas      75.3
+## 6 Australia   Oceania       81.2</code></pre>
 <p>Note that the <strong>row order of <code>gap_life_exp</code> has not changed</strong>. I could choose to reorder the rows of the data frame if, for example, I was about to prepare a table to present to people. But I’m not, so I won’t.</p>
 </div>
 <div id="saverds-and-readrds" class="section level3">
@@ -344,19 +344,19 @@ gap_life_exp
 gap_life_exp &lt;- readRDS(&quot;gap_life_exp.rds&quot;)
 gap_life_exp
 ## # A tibble: 142 x 3
-##        country continent life_exp
-##         &lt;fctr&gt;    &lt;fctr&gt;    &lt;dbl&gt;
-##  1 Afghanistan      Asia   43.828
-##  2     Albania    Europe   76.423
-##  3     Algeria    Africa   72.301
-##  4      Angola    Africa   42.731
-##  5   Argentina  Americas   75.320
-##  6   Australia   Oceania   81.235
-##  7     Austria    Europe   79.829
-##  8     Bahrain      Asia   75.635
-##  9  Bangladesh      Asia   64.062
-## 10     Belgium    Europe   79.441
-## # ... with 132 more rows</code></pre>
+##    country     continent life_exp
+##    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;
+##  1 Afghanistan Asia          43.8
+##  2 Albania     Europe        76.4
+##  3 Algeria     Africa        72.3
+##  4 Angola      Africa        42.7
+##  5 Argentina   Americas      75.3
+##  6 Australia   Oceania       81.2
+##  7 Austria     Europe        79.8
+##  8 Bahrain     Asia          75.6
+##  9 Bangladesh  Asia          64.1
+## 10 Belgium     Europe        79.4
+## # … with 132 more rows</code></pre>
 <p><code>saveRDS()</code> has more arguments, in particular <code>compress</code> for controlling compression, so read the help for more advanced usage. It is also very handy for saving non-rectangular objects, like a fitted regression model, that took a nontrivial amount of time to compute.</p>
 <p>You will eventually hear about <code>save()</code> + <code>load()</code> and even <code>save.image()</code>. You may even see them in documentation and tutorials, but don’t be tempted. Just say no. These functions encourage unsafe practices, like storing multiple objects together and even entire workspaces. There are legitimate uses of these functions, but not in your typical data analysis.</p>
 </div>
@@ -365,14 +365,14 @@ gap_life_exp
 <p>Concrete demonstration of how non-alphabetical factor level order is lost with <code>write_delim()</code> / <code>read_delim()</code> workflows but maintained with <code>saveRDS()</code> / <code>readRDS()</code>.</p>
 <pre class="r"><code>(country_levels &lt;- tibble(original = head(levels(gap_life_exp$country))))
 ## # A tibble: 6 x 1
-##       original
-##          &lt;chr&gt;
+##   original    
+##   &lt;chr&gt;       
 ## 1 Sierra Leone
-## 2       Angola
-## 3  Afghanistan
-## 4      Liberia
-## 5       Rwanda
-## 6   Mozambique
+## 2 Angola      
+## 3 Afghanistan 
+## 4 Liberia     
+## 5 Rwanda      
+## 6 Mozambique
 write_csv(gap_life_exp, &quot;gap_life_exp.csv&quot;)
 saveRDS(gap_life_exp, &quot;gap_life_exp.rds&quot;)
 rm(gap_life_exp)
@@ -392,14 +392,14 @@ country_levels &lt;- country_levels %&gt;%
          via_rds = head(levels(gap_via_rds$country)))
 country_levels
 ## # A tibble: 6 x 3
-##       original     via_csv      via_rds
-##          &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;
+##   original     via_csv     via_rds     
+##   &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;       
 ## 1 Sierra Leone Afghanistan Sierra Leone
-## 2       Angola     Albania       Angola
-## 3  Afghanistan     Algeria  Afghanistan
-## 4      Liberia      Angola      Liberia
-## 5       Rwanda   Argentina       Rwanda
-## 6   Mozambique   Australia   Mozambique</code></pre>
+## 2 Angola       Albania     Angola      
+## 3 Afghanistan  Algeria     Afghanistan 
+## 4 Liberia      Angola      Liberia     
+## 5 Rwanda       Argentina   Rwanda      
+## 6 Mozambique   Australia   Mozambique</code></pre>
 <p>Note how the original, post-reordering country factor levels are restored using the <code>saveRDS()</code> / <code>readRDS()</code> strategy but revert to alphabetical ordering using <code>write_csv()</code> / <code>read_csv()</code>.</p>
 </div>
 <div id="dput-and-dget" class="section level3">
@@ -421,14 +421,14 @@ country_levels &lt;- country_levels %&gt;%
   mutate(via_dput = head(levels(gap_life_exp_dget$country)))
 country_levels
 ## # A tibble: 6 x 4
-##       original     via_csv      via_rds     via_dput
-##          &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;
+##   original     via_csv     via_rds      via_dput    
+##   &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;       
 ## 1 Sierra Leone Afghanistan Sierra Leone Sierra Leone
-## 2       Angola     Albania       Angola       Angola
-## 3  Afghanistan     Algeria  Afghanistan  Afghanistan
-## 4      Liberia      Angola      Liberia      Liberia
-## 5       Rwanda   Argentina       Rwanda       Rwanda
-## 6   Mozambique   Australia   Mozambique   Mozambique</code></pre>
+## 2 Angola       Albania     Angola       Angola      
+## 3 Afghanistan  Algeria     Afghanistan  Afghanistan 
+## 4 Liberia      Angola      Liberia      Liberia     
+## 5 Rwanda       Argentina   Rwanda       Rwanda      
+## 6 Mozambique   Australia   Mozambique   Mozambique</code></pre>
 <p>Note how the original, post-reordering country factor levels are restored using the <code>dput()</code> / <code>dget()</code> strategy.</p>
 <p>But why on earth would you ever do this?</p>
 <p>The main application of this is <a href="http://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example">the creation of highly portable, self-contained minimal examples</a>. For example, if you want to pose a question on a forum or directly to an expert, it might be required or just plain courteous to NOT attach any data files. You will need a monolithic, plain text blob that defines any necessary objects and has the necessary code. <code>dput()</code> can be helpful for producing the piece of code that defines the object. If you <code>dput()</code> without specifying a file, you can copy the return value from Console and paste into a script. Or you can write to file and copy from there or add R commands below.</p>

@@ -1,4 +1,10 @@
-# Getting data in and out of R
+---
+title: "Getting data in and out of R"
+output: 
+  html_document: 
+    keep_md: yes
+    toc: yes
+---
 
 
 
@@ -30,26 +36,21 @@ Second tip: don't be too cute or clever. A plain text file that is readable by a
 
 How does this fit with our emphasis on dynamic reporting via R Markdown? There is a time and place for everything. There are projects and documents where the scope and personnel will allow you to geek out with `knitr` and R Markdown. But there are lots of good reasons why (parts of) an analysis should not (only) be embedded in a dynamic report. Maybe you are just doing data cleaning to produce a valid input dataset. Maybe you are making a small but crucial contribution to a giant multi-author paper. Etc. Also remember there are other tools and workflows for making something reproducible. I'm looking at you, [make](http://kbroman.github.io/minimal_make/).
 
-### Load the tidyverse and forcats
+### Load the tidyverse, for readr and forcats
 
-The main function we will be using is readr, which provides drop-in substitutes for `read.table()` and friends. However, to make some points about data export and import, it is nice to reorder factor levels. For that, we will also load and use the forcats package.
+The main tidyverse package we will be using is readr, which provides drop-in substitutes for `read.table()` and friends. However, to make some points about data export and import, it is nice to reorder factor levels. For that, we will also use function from the forcats package.
 
 
 ```r
 library(tidyverse)
-## + ggplot2 2.2.1             Date: 2017-10-29
-## + tibble  1.3.4                R: 3.4.1
-## + tidyr   0.7.1               OS: macOS Sierra 10.12.6
-## + readr   1.1.1              GUI: X11
-## + purrr   0.2.3.9000      Locale: en_CA.UTF-8
-## + dplyr   0.7.4               TZ: America/Vancouver
-## + stringr 1.2.0.9000      
-## + forcats 0.2.0
-## Warning: package 'dplyr' was built under R version 3.4.2
-## ── Conflicts ────────────────────────────────────────────────────
-## * filter(),  from dplyr, masks stats::filter()
-## * lag(),     from dplyr, masks stats::lag()
-library(forcats)
+## ── Attaching packages ─────────────────────────────────────────────── tidyverse 1.2.1 ──
+## ✔ ggplot2 3.0.0           ✔ purrr   0.2.5      
+## ✔ tibble  1.4.99.9005     ✔ dplyr   0.7.7      
+## ✔ tidyr   0.8.1           ✔ stringr 1.3.1      
+## ✔ readr   1.1.1           ✔ forcats 0.3.0
+## ── Conflicts ────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
 ```
 
 ### Locate the Gapminder data
@@ -58,8 +59,8 @@ We could load the data from the package as usual, but instead we will load it fr
 
 
 ```r
-(gap_tsv <- system.file("gapminder.tsv", package = "gapminder"))
-## [1] "/Users/jenny/resources/R/library/gapminder/gapminder.tsv"
+(gap_tsv <- system.file("extdata/gapminder.tsv", package = "gapminder"))
+## [1] "/Users/jenny/R/library/3.5/gapminder/extdata/gapminder.tsv"
 ```
 
 ### Bring rectangular data in
@@ -127,19 +128,19 @@ gap_life_exp <- gapminder %>%
   ungroup()
 gap_life_exp
 ## # A tibble: 142 x 3
-##        country continent life_exp
-##         <fctr>    <fctr>    <dbl>
-##  1 Afghanistan      Asia   43.828
-##  2     Albania    Europe   76.423
-##  3     Algeria    Africa   72.301
-##  4      Angola    Africa   42.731
-##  5   Argentina  Americas   75.320
-##  6   Australia   Oceania   81.235
-##  7     Austria    Europe   79.829
-##  8     Bahrain      Asia   75.635
-##  9  Bangladesh      Asia   64.062
-## 10     Belgium    Europe   79.441
-## # ... with 132 more rows
+##    country     continent life_exp
+##    <fct>       <fct>        <dbl>
+##  1 Afghanistan Asia          43.8
+##  2 Albania     Europe        76.4
+##  3 Algeria     Africa        72.3
+##  4 Angola      Africa        42.7
+##  5 Argentina   Americas      75.3
+##  6 Australia   Oceania       81.2
+##  7 Austria     Europe        79.8
+##  8 Bahrain     Asia          75.6
+##  9 Bangladesh  Asia          64.1
+## 10 Belgium     Europe        79.4
+## # … with 132 more rows
 ```
 
 The `gap_life_exp` data frame is an example of an intermediate result that we want to store for the future and for downstream analyses or visualizations.
@@ -200,14 +201,14 @@ head(levels(gap_life_exp$country)) # in increasing order of maximum life expecta
 ## [5] "Rwanda"       "Mozambique"
 head(gap_life_exp)
 ## # A tibble: 6 x 3
-##       country continent life_exp
-##        <fctr>    <fctr>    <dbl>
-## 1 Afghanistan      Asia   43.828
-## 2     Albania    Europe   76.423
-## 3     Algeria    Africa   72.301
-## 4      Angola    Africa   42.731
-## 5   Argentina  Americas   75.320
-## 6   Australia   Oceania   81.235
+##   country     continent life_exp
+##   <fct>       <fct>        <dbl>
+## 1 Afghanistan Asia          43.8
+## 2 Albania     Europe        76.4
+## 3 Algeria     Africa        72.3
+## 4 Angola      Africa        42.7
+## 5 Argentina   Americas      75.3
+## 6 Australia   Oceania       81.2
 ```
 
 Note that the __row order of `gap_life_exp` has not changed__. I could choose to reorder the rows of the data frame if, for example, I was about to prepare a table to present to people. But I'm not, so I won't.
@@ -233,19 +234,19 @@ gap_life_exp
 gap_life_exp <- readRDS("gap_life_exp.rds")
 gap_life_exp
 ## # A tibble: 142 x 3
-##        country continent life_exp
-##         <fctr>    <fctr>    <dbl>
-##  1 Afghanistan      Asia   43.828
-##  2     Albania    Europe   76.423
-##  3     Algeria    Africa   72.301
-##  4      Angola    Africa   42.731
-##  5   Argentina  Americas   75.320
-##  6   Australia   Oceania   81.235
-##  7     Austria    Europe   79.829
-##  8     Bahrain      Asia   75.635
-##  9  Bangladesh      Asia   64.062
-## 10     Belgium    Europe   79.441
-## # ... with 132 more rows
+##    country     continent life_exp
+##    <fct>       <fct>        <dbl>
+##  1 Afghanistan Asia          43.8
+##  2 Albania     Europe        76.4
+##  3 Algeria     Africa        72.3
+##  4 Angola      Africa        42.7
+##  5 Argentina   Americas      75.3
+##  6 Australia   Oceania       81.2
+##  7 Austria     Europe        79.8
+##  8 Bahrain     Asia          75.6
+##  9 Bangladesh  Asia          64.1
+## 10 Belgium     Europe        79.4
+## # … with 132 more rows
 ```
 
 `saveRDS()` has more arguments, in particular `compress` for controlling compression, so read the help for more advanced usage. It is also very handy for saving non-rectangular objects, like a fitted regression model, that took a nontrivial amount of time to compute.
@@ -260,14 +261,14 @@ Concrete demonstration of how non-alphabetical factor level order is lost with `
 ```r
 (country_levels <- tibble(original = head(levels(gap_life_exp$country))))
 ## # A tibble: 6 x 1
-##       original
-##          <chr>
+##   original    
+##   <chr>       
 ## 1 Sierra Leone
-## 2       Angola
-## 3  Afghanistan
-## 4      Liberia
-## 5       Rwanda
-## 6   Mozambique
+## 2 Angola      
+## 3 Afghanistan 
+## 4 Liberia     
+## 5 Rwanda      
+## 6 Mozambique
 write_csv(gap_life_exp, "gap_life_exp.csv")
 saveRDS(gap_life_exp, "gap_life_exp.rds")
 rm(gap_life_exp)
@@ -287,14 +288,14 @@ country_levels <- country_levels %>%
          via_rds = head(levels(gap_via_rds$country)))
 country_levels
 ## # A tibble: 6 x 3
-##       original     via_csv      via_rds
-##          <chr>       <chr>        <chr>
+##   original     via_csv     via_rds     
+##   <chr>        <chr>       <chr>       
 ## 1 Sierra Leone Afghanistan Sierra Leone
-## 2       Angola     Albania       Angola
-## 3  Afghanistan     Algeria  Afghanistan
-## 4      Liberia      Angola      Liberia
-## 5       Rwanda   Argentina       Rwanda
-## 6   Mozambique   Australia   Mozambique
+## 2 Angola       Albania     Angola      
+## 3 Afghanistan  Algeria     Afghanistan 
+## 4 Liberia      Angola      Liberia     
+## 5 Rwanda       Argentina   Rwanda      
+## 6 Mozambique   Australia   Mozambique
 ```
 
 Note how the original, post-reordering country factor levels are restored using the `saveRDS()` / `readRDS()` strategy but revert to alphabetical ordering using `write_csv()` / `read_csv()`.
@@ -331,14 +332,14 @@ country_levels <- country_levels %>%
   mutate(via_dput = head(levels(gap_life_exp_dget$country)))
 country_levels
 ## # A tibble: 6 x 4
-##       original     via_csv      via_rds     via_dput
-##          <chr>       <chr>        <chr>        <chr>
+##   original     via_csv     via_rds      via_dput    
+##   <chr>        <chr>       <chr>        <chr>       
 ## 1 Sierra Leone Afghanistan Sierra Leone Sierra Leone
-## 2       Angola     Albania       Angola       Angola
-## 3  Afghanistan     Algeria  Afghanistan  Afghanistan
-## 4      Liberia      Angola      Liberia      Liberia
-## 5       Rwanda   Argentina       Rwanda       Rwanda
-## 6   Mozambique   Australia   Mozambique   Mozambique
+## 2 Angola       Albania     Angola       Angola      
+## 3 Afghanistan  Algeria     Afghanistan  Afghanistan 
+## 4 Liberia      Angola      Liberia      Liberia     
+## 5 Rwanda       Argentina   Rwanda       Rwanda      
+## 6 Mozambique   Australia   Mozambique   Mozambique
 ```
 
 Note how the original, post-reordering country factor levels are restored using the `dput()` / `dget()` strategy.
