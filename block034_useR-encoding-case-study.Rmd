@@ -117,7 +117,7 @@ please_work[c(34, 43, 61, 107, 212, 336), "CREATEUSERID"]
 
 Sad. We've correctly imported the problematic names, at the cost of garbling the other four.
 
-**Reality Check #2**: It an ideal world there is One True Encoding for any given file. Yes, that is how it is supposed to be. And yet it is not how it is.
+**Reality Check #2**: In an ideal world there is One True Encoding for any given file. Yes, that is how it is supposed to be. And yet it is not how it is.
 
 ## Unraveling a mixed encoding
 
