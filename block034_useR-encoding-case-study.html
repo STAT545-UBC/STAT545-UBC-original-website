@@ -268,9 +268,8 @@ $(document).ready(function () {
 #&gt; useR-2019-accepted-talks.csv: text/plain; charset=iso-8859-1</code></pre>
 <p>The putative encoding returned by <code>file -I</code> is ISO-8859-1, which is wrong but close and probably close enough. In these situations, you are thankful for any shred of information.</p>
 <p>There are many other ways to do this sort of detective work. For example, within R, you might use the <code>stri_enc_detect()</code> function from the <a href="http://www.gagolewski.com/software/stringi/">stringi package</a>:</p>
-<pre class="r"><code>library(stringi)
-x &lt;- rawToChar(readBin(&quot;useR-2019-accepted-talks.csv&quot;, &quot;raw&quot;, 100000))
-stri_enc_detect(x)
+<pre class="r"><code>x &lt;- rawToChar(readBin(&quot;useR-2019-accepted-talks.csv&quot;, &quot;raw&quot;, 100000))
+stringi::stri_enc_detect(x)
 #&gt; [[1]]
 #&gt;     Encoding Language Confidence
 #&gt; 1 ISO-8859-1       en       0.75
@@ -278,7 +277,7 @@ stri_enc_detect(x)
 #&gt; 3   UTF-16BE                0.10
 #&gt; 4   UTF-16LE                0.10
 #&gt; 5 ISO-8859-9       tr       0.10</code></pre>
-<p>The readr package exposes <code>stringi::stri_enc_detect()</code> is a more user-friendly form that takes a file path.</p>
+<p>The readr package exposes <code>stringi::stri_enc_detect()</code> in a more user-friendly form that takes a file path.</p>
 <pre class="r"><code>readr::guess_encoding(&quot;useR-2019-accepted-talks.csv&quot;)
 #&gt; # A tibble: 1 x 2
 #&gt;   encoding   confidence

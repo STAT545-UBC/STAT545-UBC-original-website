@@ -57,9 +57,8 @@ There are many other ways to do this sort of detective work. For example, within
 
 
 ```r
-library(stringi)
 x <- rawToChar(readBin("useR-2019-accepted-talks.csv", "raw", 100000))
-stri_enc_detect(x)
+stringi::stri_enc_detect(x)
 #> [[1]]
 #>     Encoding Language Confidence
 #> 1 ISO-8859-1       en       0.75
@@ -69,7 +68,7 @@ stri_enc_detect(x)
 #> 5 ISO-8859-9       tr       0.10
 ```
 
-The readr package exposes `stringi::stri_enc_detect()` is a more user-friendly form that takes a file path.
+The readr package exposes `stringi::stri_enc_detect()` in a more user-friendly form that takes a file path.
 
 
 ```r

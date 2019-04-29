@@ -57,12 +57,11 @@ The putative encoding returned by `file -I` is ISO-8859-1, which is wrong but cl
 There are many other ways to do this sort of detective work. For example, within R, you might use the `stri_enc_detect()` function from the [stringi package](http://www.gagolewski.com/software/stringi/):
 
 ```{r}
-library(stringi)
 x <- rawToChar(readBin("useR-2019-accepted-talks.csv", "raw", 100000))
-stri_enc_detect(x)
+stringi::stri_enc_detect(x)
 ```
 
-The readr package exposes `stringi::stri_enc_detect()` is a more user-friendly form that takes a file path.
+The readr package exposes `stringi::stri_enc_detect()` in a more user-friendly form that takes a file path.
 
 ```{r}
 readr::guess_encoding("useR-2019-accepted-talks.csv")
