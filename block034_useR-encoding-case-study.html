@@ -278,6 +278,12 @@ stri_enc_detect(x)
 #&gt; 3   UTF-16BE                0.10
 #&gt; 4   UTF-16LE                0.10
 #&gt; 5 ISO-8859-9       tr       0.10</code></pre>
+<p>The readr package exposes <code>stringi::stri_enc_detect()</code> is a more user-friendly form that takes a file path.</p>
+<pre class="r"><code>readr::guess_encoding(&quot;useR-2019-accepted-talks.csv&quot;)
+#&gt; # A tibble: 1 x 2
+#&gt;   encoding   confidence
+#&gt;   &lt;chr&gt;           &lt;dbl&gt;
+#&gt; 1 ISO-8859-1       0.75</code></pre>
 <p>Again, we get the implication that this file is encoded as ISO-8859-1, which is a good guess, but wrong. Again, this is a realistic tutorial.</p>
 <p>Let’s now assume you know the encoding. Or, well … you think you do.</p>
 </div>

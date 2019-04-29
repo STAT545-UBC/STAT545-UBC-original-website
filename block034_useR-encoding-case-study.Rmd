@@ -62,6 +62,12 @@ x <- rawToChar(readBin("useR-2019-accepted-talks.csv", "raw", 100000))
 stri_enc_detect(x)
 ```
 
+The readr package exposes `stringi::stri_enc_detect()` is a more user-friendly form that takes a file path.
+
+```{r}
+readr::guess_encoding("useR-2019-accepted-talks.csv")
+```
+
 Again, we get the implication that this file is encoded as ISO-8859-1, which is a good guess, but wrong. Again, this is a realistic tutorial.
 
 Let's now assume you know the encoding. Or, well ... you think you do.
