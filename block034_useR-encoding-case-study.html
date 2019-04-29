@@ -314,9 +314,9 @@ user &lt;- read_csv2(
 <div id="try-another-encoding" class="section level2">
 <h2>Try another encoding</h2>
 <p>Again, with my head start, allow me to show you something else. What if I import this file with UTF-8 encoding?</p>
-<pre class="r"><code>please_work &lt;- readr::read_csv2(
+<pre class="r"><code>please_work &lt;- read_csv2(
   &quot;useR-2019-accepted-talks.csv&quot;,
-  locale = readr::locale(encoding = &quot;UTF-8&quot;)
+  locale = locale(encoding = &quot;UTF-8&quot;)
 )
 #&gt; Using &#39;,&#39; as decimal and &#39;.&#39; as grouping mark. Use read_delim() for more control.
 #&gt; Parsed with column specification:

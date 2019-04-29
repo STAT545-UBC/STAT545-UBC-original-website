@@ -124,9 +124,9 @@ Again, with my head start, allow me to show you something else. What if I import
 
 
 ```r
-please_work <- readr::read_csv2(
+please_work <- read_csv2(
   "useR-2019-accepted-talks.csv",
-  locale = readr::locale(encoding = "UTF-8")
+  locale = locale(encoding = "UTF-8")
 )
 #> Using ',' as decimal and '.' as grouping mark. Use read_delim() for more control.
 #> Parsed with column specification:
