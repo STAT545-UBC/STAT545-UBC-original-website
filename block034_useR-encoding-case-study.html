@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Character encoding case study: useR! 2019</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68219208-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="libs/local/main.css" type="text/css" />
+<link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+<header>
+  <div class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="static/img/stat545-logo-s.png" width="70px" height="70px"/>
+    </a>
+    <ul>
+      <li class="home"><a href="index.html">Home</a></li>
+      <li class="faq"><a href="faq.html">FAQ</a></li>
+      <li class="syllabus"><a href="syllabus.html">Syllabus</a></li>
+      <li class="topics"><a href="topics.html">Topics</a></li>
+      <li class="people"><a href="people.html">People</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Character encoding case study: useR! 2019</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#character-encoding-other-stat-545-resources">Character encoding: other STAT 545 resources</a></li>
+<li><a href="#the-user-2019-speaker-list">The useR! 2019 Speaker List</a></li>
+<li><a href="#what-is-the-encoding-of-the-file">What is the encoding of the file?</a></li>
+<li><a href="#import-the-data">Import the data</a></li>
+<li><a href="#tricky-rows">Tricky rows</a></li>
+<li><a href="#try-another-encoding">Try another encoding</a></li>
+<li><a href="#unravelling-a-mixed-encoding">Unravelling a mixed encoding</a></li>
+<li><a href="#diagnosis">Diagnosis</a></li>
+<li><a href="#treatment">Treatment</a></li>
+</ul>
+</div>
+
+<div id="character-encoding-other-stat-545-resources" class="section level2">
+<h2>Character encoding: other STAT 545 resources</h2>
+<ul>
+<li>Main page about character data: <a href="block028_character-data.html">Character vectors</a></li>
+<li>General overview of character encoding, with links to external resources: <a href="block032_character-encoding.html">Encoding in R</a></li>
+</ul>
+<p>This article assumes you are familiar with the material linked above.</p>
+</div>
+<div id="the-user-2019-speaker-list" class="section level2">
+<h2>The useR! 2019 Speaker List</h2>
+<p>The last time I taught character encoding I vowed to develop a small case study the next time I encountered a suitable example in the wild. And, lo, the list of talks accepted for <a href="https://user2019.r-project.org/program_overview/">useR! 2019</a> provides a great example of the real world encoding problems faced routinely by data analysts.</p>
+<p>Let me be clear: I direct no criticism towards the organizers of useR! 2019. It’s very easy for these sorts of problems to creep in whenever multiple humans fling strings around the internet, using diverse operating systems, locales, and software. It was very thoughtful of them to share this information publicly before the full program is published. And I thank them for a great expository example.</p>
+<p>Here’s how I downloaded the original csv file, which I store inside this repo to make this case study more future-proof:</p>
+<pre class="r"><code>curl::curl_download(
+  &quot;http://www.user2019.fr/static/uploads/accepted-submissions_2019-04-16.csv&quot;,
+  destfile = &quot;useR-2019-accepted-talks.csv&quot;
+)</code></pre>
+</div>
+<div id="what-is-the-encoding-of-the-file" class="section level2">
+<h2>What is the encoding of the file?</h2>
+<p>Analysts are always admonished to specify the correct encoding whenever they import data.</p>
+<p><strong>Reality Check #1</strong>: How the heck are you supposed to know what the encoding is? In the real world, data providers rarely provide this precious information.</p>
+<p>Mercifully, the useR! organizers are on the ball and actually do describe the file:</p>
+<blockquote>
+<p>The list of accepted talks can be downloaded here (CSV file, separated by semi-colon, ISO-8859-15 encoded).</p>
+</blockquote>
+<p>This is fantastic. And incredibly rare. So how would you determine this otherwise?</p>
+<p>If you’re on same flavor of *nix, you can probably use the <code>file</code> command to get some info (I executed this in a bash shell on macOS):</p>
+<pre class="bash"><code>file -I useR-2019-accepted-talks.csv
+#&gt; useR-2019-accepted-talks.csv: text/plain; charset=iso-8859-1</code></pre>
+<p>The putative encoding returned by <code>file -I</code> is ISO-8859-1, which is wrong but close and probably close enough. In these situations, you are thankful for any shred of information.</p>
+<p>There are many other ways to do this sort of detective work. For example, within R, you might use the <code>stri_enc_detect()</code> function from the <a href="http://www.gagolewski.com/software/stringi/">stringi package</a>:</p>
+<pre class="r"><code>library(stringi)
+x &lt;- rawToChar(readBin(&quot;useR-2019-accepted-talks.csv&quot;, &quot;raw&quot;, 100000))
+stri_enc_detect(x)
+#&gt; [[1]]
+#&gt;     Encoding Language Confidence
+#&gt; 1 ISO-8859-1       en       0.75
+#&gt; 2 ISO-8859-2       ro       0.18
+#&gt; 3   UTF-16BE                0.10
+#&gt; 4   UTF-16LE                0.10
+#&gt; 5 ISO-8859-9       tr       0.10</code></pre>
+<p>Again, we get the implication that this file is encoded as ISO-8859-1, which is a good guess, but wrong. Again, this is a realistic tutorial.</p>
+<p>Let’s now assume you know the encoding. Or, well … you think you do.</p>
+</div>
+<div id="import-the-data" class="section level2">
+<h2>Import the data</h2>
+<p>Use your favorite method of importing a delimited file. I use <code>readr::read_csv2()</code>, where the “2” signals that the semicolon <code>;</code> is the field delimiter. We also specify the ISO-8859-15 encoding we were advised to use. I load the tidyverse meta-package to get readr, dplyr, and the pipe <code>%&gt;%</code> operator.</p>
+<pre class="r"><code>library(tidyverse)
+user &lt;- read_csv2(
+  &quot;useR-2019-accepted-talks.csv&quot;,
+  locale = locale(encoding = &quot;ISO-8859-15&quot;)
+)
+#&gt; Using &#39;,&#39; as decimal and &#39;.&#39; as grouping mark. Use read_delim() for more control.
+#&gt; Parsed with column specification:
+#&gt; cols(
+#&gt;   CREATEUSERID = col_character(),
+#&gt;   TITLE = col_character(),
+#&gt;   ABSTRACT = col_character(),
+#&gt;   TYPDOC = col_character()
+#&gt; )</code></pre>
+</div>
+<div id="tricky-rows" class="section level2">
+<h2>Tricky rows</h2>
+<p>Having inspected this file closely, allow me to draw your attention to a few specific names (format is “Lastname Firstname”):</p>
+<pre class="r"><code>user[c(34, 43, 61, 107, 212, 336), &quot;CREATEUSERID&quot;]
+#&gt; # A tibble: 6 x 1
+#&gt;   CREATEUSERID      
+#&gt;   &lt;chr&gt;             
+#&gt; 1 Gallopin Mélina   
+#&gt; 2 Robin Geneviève   
+#&gt; 3 Fontez BÃ©nÃ©dicte
+#&gt; 4 Sauder CÃ©cile    
+#&gt; 5 Mørk Kristoffer   
+#&gt; 6 Rey Jean-François</code></pre>
+<p>We’ve got two examples where we’ve clearly had some sort of encoding mishap (entries 3 and 4), mixed in with other strings with non-ASCII characters that look just fine. Hmm, that’s peculiar.</p>
+<p>If you are curious, I found these non-ASCII strings by looking for the elements of <code>user$CREATEUSERID</code> where the declared encoding, reported by <code>Encoding()</code>, was not “unknown”.</p>
+</div>
+<div id="try-another-encoding" class="section level2">
+<h2>Try another encoding</h2>
+<p>Again, with my headstart, allow me to show you something else. What if I import this file with UTF-8 encoding?</p>
+<pre class="r"><code>please_work &lt;- readr::read_csv2(
+  &quot;useR-2019-accepted-talks.csv&quot;,
+  locale = readr::locale(encoding = &quot;UTF-8&quot;)
+)
+#&gt; Using &#39;,&#39; as decimal and &#39;.&#39; as grouping mark. Use read_delim() for more control.
+#&gt; Parsed with column specification:
+#&gt; cols(
+#&gt;   CREATEUSERID = col_character(),
+#&gt;   TITLE = col_character(),
+#&gt;   ABSTRACT = col_character(),
+#&gt;   TYPDOC = col_character()
+#&gt; )
+please_work[c(34, 43, 61, 107, 212, 336), &quot;CREATEUSERID&quot;]
+#&gt; # A tibble: 6 x 1
+#&gt;   CREATEUSERID          
+#&gt;   &lt;chr&gt;                 
+#&gt; 1 &quot;Gallopin M\xe9lina&quot;  
+#&gt; 2 &quot;Robin Genevi\xe8ve&quot;  
+#&gt; 3 Fontez Bénédicte      
+#&gt; 4 Sauder Cécile         
+#&gt; 5 &quot;M\xf8rk Kristoffer&quot;  
+#&gt; 6 &quot;Rey Jean-Fran\xe7ois&quot;</code></pre>
+<p>Sad. We’ve correctly imported the problematic names, at the cost of garbling the other four.</p>
+<p><strong>Reality Check #2</strong>: It an ideal world there is One True Encoding for any given file. Yes, that is how it is supposed to be. And yet it is not how it is.</p>
+</div>
+<div id="unravelling-a-mixed-encoding" class="section level2">
+<h2>Unravelling a mixed encoding</h2>
+<p>So, what happened to this file? Its declared encoding is ISO-8859-1 but it’s got some strings that need to be ingested as UTF-8.</p>
+<p>The good news is you get to learn a delightful word for an unsavory phenomenon: <strong>mojibake</strong>:</p>
+<blockquote>
+<p>Mojibake is the garbled text that is the result of text being decoded using an unintended character encoding. The result is a systematic replacement of symbols with completely unrelated ones, often from a different writing system. – <a href="https://en.wikipedia.org/wiki/Mojibake">Wikipedia</a></p>
+</blockquote>
+<p>Used in a sentence:</p>
+<blockquote>
+<p>We have an ISO-8859-1 encoded, semicolon-delimited CSV, with a touch of mojibake.</p>
+</blockquote>
+<p>At this point, I can’t tell you how to catch this systematically. I can only say that with experience you get pretty good at knowing mojibake when you see it, forming a hypothesis about what went wrong, and fixing it. Remember the <a href="block032_character-encoding.html">Encoding in R</a> page links to external resources, such as debugging tables that juxtapose intended and actual characters for the most common encoding fiascos.</p>
+</div>
+<div id="diagnosis" class="section level2">
+<h2>Diagnosis</h2>
+<p>The fact that we’ve got strings that import correctly when the encoding is UTF-8 (contradicting the nominal encoding) is the critical clue.</p>
+<p>At some point, strings made it into this database that were UTF-8 encoded, although the intended encoding is ISO-8859-15. Then, when <code>readr::read_csv2()</code> ingests these allegedly ISO-8859-15 bytes and re-encodes them as UTF-8, we get the dreaded mojibake.</p>
+<p><em>Remember: I’m assuming you understand this problem space at the level presented in <a href="block032_character-encoding.html">Encoding in R</a>, i.e., you basically understand that characters are represented as bytes and different encodings are different systems for mapping between Unicode code points and 1 or more bytes.</em></p>
+<p>Let’s look at the (correct) bytes that represent our target first names in UTF-8, which is the default for my OS (macOS) and what readr always returns. These are the bytes we <em>should</em> be seeing for these names.</p>
+<pre class="r"><code>correct &lt;- c(&quot;Bénédicte&quot;, &quot;Cécile&quot;)
+iconv(correct, from = &quot;UTF-8&quot;, toRaw = TRUE)
+#&gt; [[1]]
+#&gt;  [1] 42 c3 a9 6e c3 a9 64 69 63 74 65
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 43 c3 a9 63 69 6c 65</code></pre>
+<p>This is hard to parse as a human, so I’m going to present richer output I got with the aid of a GitHub-only package, <a href="https://github.com/ThinkR-open/utf8splain#readme">ThinkR-open/utf8splain</a>.</p>
+<pre class="r"><code>library(utf8splain)
+runes(&quot;Bénédicte&quot;)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="left">description</th>
+<th align="left">rune</th>
+<th align="left">utf8_bytes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Latin Capital Letter B</td>
+<td align="left">U+0042</td>
+<td align="left">42</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">Latin Small Letter E with Acute</td>
+<td align="left">U+00E9</td>
+<td align="left">C3 A9</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">Latin Small Letter N</td>
+<td align="left">U+006E</td>
+<td align="left">6E</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Latin Small Letter E with Acute</td>
+<td align="left">U+00E9</td>
+<td align="left">C3 A9</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">Latin Small Letter D</td>
+<td align="left">U+0064</td>
+<td align="left">64</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="left">Latin Small Letter I</td>
+<td align="left">U+0069</td>
+<td align="left">69</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="left">Latin Small Letter C</td>
+<td align="left">U+0063</td>
+<td align="left">63</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="left">Latin Small Letter T</td>
+<td align="left">U+0074</td>
+<td align="left">74</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="left">Latin Small Letter E</td>
+<td align="left">U+0065</td>
+<td align="left">65</td>
+</tr>
+</tbody>
+</table>
+<p>You’ll notice the <code>utf8_bytes</code> reported here for “Bénédicte” match those returned by the <code>iconv()</code> call above, but the other columns help orient you to what else is going on:</p>
+<ul>
+<li><code>id</code> basically corresponds to what we perceive as “which character?” within the string</li>
+<li><code>description</code> is self-explanatory</li>
+<li><code>rune</code> identifies the associated Unicode code point</li>
+<li><code>utf8_bytes</code> are the literal bytes used to represent this code point in the UTF-8 encoding</li>
+</ul>
+<p>Recall my claim that these specific strings were represented by UTF-8 bytes, in a file that is nominally ISO-8859-15, and were then garbled at ingest. We can reproduce the problem exactly.</p>
+<pre class="r"><code>## 1. take UTF-8 encoded strings
+c(&quot;Bénédicte&quot;, &quot;Cécile&quot;) %&gt;%
+  ## 2. tell your converter to treat them as ISO-8859-15,
+  ##    i.e. convert from ISO-8858-15 to UTF-8 and give you the bytes
+  iconv(from = &quot;ISO-8859-15&quot;, to = &quot;UTF-8&quot;, toRaw = TRUE) -&gt; my_bytes
+
+my_bytes
+#&gt; [[1]]
+#&gt;  [1] 42 c3 83 c2 a9 6e c3 83 c2 a9 64 69 63 74 65
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 43 c3 83 c2 a9 63 69 6c 65
+
+## 3. convert these raw (allegendly UTF-8) bytes back to strings
+map_chr(my_bytes, rawToChar)
+#&gt; [1] &quot;BÃ©nÃ©dicte&quot; &quot;CÃ©cile&quot;</code></pre>
+<p>And that explains the mojibake we saw after the initial import:</p>
+<pre class="r"><code>user[c(61, 107), &quot;CREATEUSERID&quot;]
+#&gt; # A tibble: 2 x 1
+#&gt;   CREATEUSERID      
+#&gt;   &lt;chr&gt;             
+#&gt; 1 Fontez BÃ©nÃ©dicte
+#&gt; 2 Sauder CÃ©cile</code></pre>
+</div>
+<div id="treatment" class="section level2">
+<h2>Treatment</h2>
+<p>How do we fix this? For the affected strings, we:</p>
+<ul>
+<li>Assert they are UTF-8 encoded.</li>
+<li>Ask these bytes to be converted to ISO-8859-1.</li>
+<li>Insert these new byte representations into the existing (implicitly UTF-8) character vector.</li>
+</ul>
+<p>First, I’ll practice on one of our affected strings, revealing the gory details of what’s going on with the bytes:</p>
+<pre class="r"><code>(x &lt;- &quot;CÃ©cile&quot;)
+#&gt; [1] &quot;CÃ©cile&quot;
+iconv(x, from = &quot;UTF-8&quot;, toRaw = TRUE)
+#&gt; [[1]]
+#&gt; [1] 43 c3 83 c2 a9 63 69 6c 65
+(x_re_encoded &lt;- iconv(x, from = &quot;UTF-8&quot;, to = &quot;ISO-8859-15&quot;, toRaw = TRUE))
+#&gt; [[1]]
+#&gt; [1] 43 c3 a9 63 69 6c 65
+rawToChar(x_re_encoded[[1]])
+#&gt; [1] &quot;Cécile&quot;</code></pre>
+<p>Now we apply this repair formula to the affected strings in our useR! data frame:</p>
+<pre class="r"><code>fixme &lt;- c(61, 107)
+
+iconv(user$CREATEUSERID[fixme], from = &quot;UTF-8&quot;, to = &quot;ISO-8859-15&quot;)
+#&gt; [1] &quot;Fontez Bénédicte&quot; &quot;Sauder Cécile&quot;
+
+user$CREATEUSERID[fixme] &lt;- iconv(
+  user$CREATEUSERID[fixme],
+  from = &quot;UTF-8&quot;, to = &quot;ISO-8859-15&quot;
+)</code></pre>
+<p>We revisit the original 6 specimens to confirm that we’ve corrected the strings that needed repair, without disturbing those that did not.</p>
+<pre class="r"><code>user[c(34, 43, 61, 107, 212, 336), c(&quot;CREATEUSERID&quot;, &quot;TITLE&quot;)]
+#&gt; # A tibble: 6 x 2
+#&gt;   CREATEUSERID     TITLE                                                   
+#&gt;   &lt;chr&gt;            &lt;chr&gt;                                                   
+#&gt; 1 Gallopin Mélina  Appinetwork : Analysis of Protein-Protein Interaction N…
+#&gt; 2 Robin Geneviève  R package lori: A new multiple imputation method for co…
+#&gt; 3 Fontez Bénédicte Use of sentinel-2 images in Agriculture                 
+#&gt; 4 Sauder Cécile    BibliographeR : a set of tools to help your bibliograph…
+#&gt; 5 Mørk Kristoffer  Estimate, Estimator, Estimand?                          
+#&gt; 6 Rey Jean-Franço… R package development using GitLab CI/CD pipeline</code></pre>
+<p>Success!</p>
+<p>You will notice that this was a highly manual process and I’m afraid that is quite realistic, when something that should never happen – mixed encoding – actually happens. In my experience, it is typical to stumble across the problem, hope you can systematically identify the affected data, and then apply a targetted fix.</p>
+</div>
+
+<div class="footer">
+This work is licensed under the  <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC BY-NC 3.0 Creative Commons License</a>.
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

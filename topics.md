@@ -20,6 +20,7 @@ This material gets updated during Sept - Nov each year on a rolling basis.
     - [Be the boss of your factors, using forcats](block029_factors.html)
     - [Character vectors](block028_character-data.html): basic manipulation and regular expressions.
     - [Character encoding](block032_character-encoding.html)
+    - [Mixed encoding case study](block034_useR-encoding-case-study.html)
     - *placeholder for date-times; TLDR; consider the lubridate package*
   * Data analysis 3: Bring info from a secondary source into your main tibble
     - [When one tibble is not enough](block033_working-with-two-tables.html): Overview of binds, joins, lookups.

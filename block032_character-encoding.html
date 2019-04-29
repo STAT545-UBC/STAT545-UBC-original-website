@@ -82,9 +82,7 @@ h6 {
 <link rel="stylesheet" href="libs/local/nav.css" type="text/css" />
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -109,22 +107,92 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -169,10 +237,10 @@ $(document).ready(function () {
 </ul>
 </div>
 
-<p><em>under development … not clear where this is going</em></p>
 <div id="character-encoding-where-it-fits-in" class="section level2">
 <h2>Character encoding: where it fits in</h2>
 <p>Main page about character data: <a href="block028_character-data.html">Character vectors</a></p>
+<p>Case study of an encoding dilemma: <a href="block034_useR-encoding-case-study.html">dealing with mixed encoding</a></p>
 </div>
 <div id="resources" class="section level2">
 <h2>Resources</h2>
@@ -195,7 +263,7 @@ $(document).ready(function () {
 </div>
 <div id="translating-two-blog-posts-from-ruby-to-r" class="section level2">
 <h2>Translating two blog posts from Ruby to R</h2>
-<p>For now, this page walks through these two mini-tutorials (written for Ruby), but translated to R:</p>
+<p>This page walks through these two mini-tutorials (written for Ruby), but translated to R:</p>
 <ul>
 <li><a href="http://www.justinweiss.com/articles/3-steps-to-fix-encoding-problems-in-ruby/">Guide to fixing encoding problems in Ruby</a></li>
 <li><a href="http://www.justinweiss.com/articles/how-to-get-from-theyre-to-theyre/">How to Get From Theyâ€™re to They’re</a></li>

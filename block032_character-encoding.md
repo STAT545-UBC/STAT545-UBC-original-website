@@ -8,11 +8,11 @@ output:
 
 
 
-*under development ... not clear where this is going*
-
 ## Character encoding: where it fits in
 
 Main page about character data: [Character vectors](block028_character-data.html)
+
+Case study of an encoding dilemma: [dealing with mixed encoding](block034_useR-encoding-case-study.html)
 
 ## Resources
 
@@ -27,7 +27,7 @@ Main page about character data: [Character vectors](block028_character-data.html
 
 ## Translating two blog posts from Ruby to R
 
-For now, this page walks through these two mini-tutorials (written for Ruby), but translated to R:
+This page walks through these two mini-tutorials (written for Ruby), but translated to R:
 
   * [Guide to fixing encoding problems in Ruby](http://www.justinweiss.com/articles/3-steps-to-fix-encoding-problems-in-ruby/)
   * [How to Get From Theyâ€™re to They’re](http://www.justinweiss.com/articles/how-to-get-from-theyre-to-theyre/)
