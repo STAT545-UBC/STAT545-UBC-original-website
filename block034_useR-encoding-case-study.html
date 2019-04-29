@@ -321,7 +321,7 @@ user &lt;- read_csv2(
 <p>We’ve got two examples where we’ve clearly had some sort of encoding mishap (entries 3 and 4), mixed in with other strings with non-ASCII characters that look just fine. Hmm, that’s peculiar.</p>
 <div id="how-did-i-know-to-focus-on-these-names" class="section level3">
 <h3>How did I know to focus on these names?</h3>
-<p>Usually, you first discover encoding problems downstream, when you stumble across a garbled string. I first imported this file without specifying an encoding and saw problems. Then I remembered that the organizers specified an encoding, so I imported again with the correct encoding. And I <em>still</em> saw problems. Then I buckled up to write this case study.</p>
+<p>Usually, you first discover encoding problems downstream, when you stumble across a garbled string. I first imported this file without specifying an encoding and saw problems. Then I remembered that the organizers specified an encoding, so I imported again with the correct encoding. And I <em>still</em> saw problems, just different ones. Then I buckled up to write this case study.</p>
 <p>Once I knew I had problems, I went from my anecdata to a more comprehensive search for names likely to be affected. I found these non-ASCII strings by looking for the elements of <code>user$CREATEUSERID</code> where the declared encoding, reported by <code>Encoding()</code>, was not “unknown”. The exact behaviour of the encoding marks returned by <code>Encoding()</code> is very complicated and beyond our scope. I suspect that the functions <code>stringi::stri_enc_mark()</code> and <code>stringi::stri_enc_isascii()</code> would provide a less frustrating foundation for a more formal workflow.</p>
 </div>
 </div>
@@ -469,7 +469,7 @@ my_bytes
 #&gt; [[2]]
 #&gt; [1] 43 c3 83 c2 a9 63 69 6c 65
 
-## 3. convert these raw (allegendly UTF-8) bytes back to strings
+## 3. convert these raw (allegedly UTF-8) bytes back to strings
 map_chr(my_bytes, rawToChar)
 #&gt; [1] &quot;BÃ©nÃ©dicte&quot; &quot;CÃ©cile&quot;</code></pre>
 <p>And that explains the mojibake we saw after the initial import:</p>
@@ -485,7 +485,7 @@ map_chr(my_bytes, rawToChar)
 <p>How do we fix this? For the affected strings, we:</p>
 <ul>
 <li>Assert they are UTF-8 encoded.</li>
-<li>Ask these bytes to be converted to ISO-8859-15.</li>
+<li>Ask that these bytes be converted to ISO-8859-15.</li>
 <li>Insert these new byte representations into the existing (implicitly UTF-8) character vector.</li>
 </ul>
 <div id="gory-byte-details" class="section level3">
@@ -509,21 +509,21 @@ iconv(good, from = &quot;UTF-8&quot;, toRaw = TRUE)[[1]]
 
 (bad &lt;- rawToChar(bytes))
 #&gt; [1] &quot;Ã©&quot;</code></pre>
-<p>In this sketch, the problem is created as we go down the lines. It explains how “é” on someone’s computer screen got turned into “Ã©” on mine.</p>
+<p>In this sketch, the problem is created as we travel down. It explains how “é” on someone’s computer screen got turned into “Ã©” on mine.</p>
 <pre><code>                  é &lt;- good
        
 s                 &quot;Latin Small Letter E with Acute&quot;
 s                 U+00E9
 s      
-s--r       UTF-8 C3                                     A9
-   r  
-   r  ISO-8859-15 &quot;Latin Capital Letter A with Tilde&quot;   &quot;Copyright Sign&quot;
-   r             U+00C3                                U+00A9
-   r  
-   r       UTF-8 C3 83                                 C2 A9
+s--+       UTF-8  C3                                     A9                ^
+   r                                                                       ^
+   r  ISO-8859-15 &quot;Latin Capital Letter A with Tilde&quot;   &quot;Copyright Sign&quot;   ^
+   r              U+00C3                                U+00A9             ^
+   r                                                                       ^
+   r        UTF-8 C3 83                                 C2 A9              ^
        
-                  Ã© &lt;- bad</code></pre>
-<p>The solution is therefore to work backwards, up the lines.</p>
+                  Ã© &lt;- bad                                                </code></pre>
+<p>The solution is therefore to invert this process, i.e. to travel upwards.</p>
 <pre class="r"><code>(fixed_bytes &lt;- iconv(
   bad, from = &quot;UTF-8&quot;, to = &quot;ISO-8859-15&quot;, toRaw = TRUE)[[1]]
 )
@@ -533,7 +533,7 @@ s--r       UTF-8 C3                                     A9
 </div>
 <div id="repair-the-mis-encoded-strings" class="section level3">
 <h3>Repair the mis-encoded strings</h3>
-<p>Now we apply the repair formula to the affected strings in our useR! data frame:</p>
+<p>Now we apply the repair formula to the affected names in our useR! data frame:</p>
 <pre class="r"><code>fixme &lt;- c(61, 107)
 
 iconv(user$CREATEUSERID[fixme], from = &quot;UTF-8&quot;, to = &quot;ISO-8859-15&quot;)

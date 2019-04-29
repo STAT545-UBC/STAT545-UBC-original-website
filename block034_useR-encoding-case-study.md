@@ -128,7 +128,7 @@ We've got two examples where we've clearly had some sort of encoding mishap (ent
 
 ### How did I know to focus on these names?
 
-Usually, you first discover encoding problems downstream, when you stumble across a garbled string. I first imported this file without specifying an encoding and saw problems. Then I remembered that the organizers specified an encoding, so I imported again with the correct encoding. And I *still* saw problems. Then I buckled up to write this case study.
+Usually, you first discover encoding problems downstream, when you stumble across a garbled string. I first imported this file without specifying an encoding and saw problems. Then I remembered that the organizers specified an encoding, so I imported again with the correct encoding. And I *still* saw problems, just different ones. Then I buckled up to write this case study.
 
 Once I knew I had problems, I went from my anecdata to a more comprehensive search for names likely to be affected. I found these non-ASCII strings by looking for the elements of `user$CREATEUSERID` where the declared encoding, reported by `Encoding()`, was not "unknown". The exact behaviour of the encoding marks returned by `Encoding()` is very complicated and beyond our scope. I suspect that the functions `stringi::stri_enc_mark()` and `stringi::stri_enc_isascii()` would provide a less frustrating foundation for a more formal workflow.
 
@@ -246,7 +246,7 @@ my_bytes
 #> [[2]]
 #> [1] 43 c3 83 c2 a9 63 69 6c 65
 
-## 3. convert these raw (allegendly UTF-8) bytes back to strings
+## 3. convert these raw (allegedly UTF-8) bytes back to strings
 map_chr(my_bytes, rawToChar)
 #> [1] "BÃ©nÃ©dicte" "CÃ©cile"
 ```
@@ -268,7 +268,7 @@ user[c(61, 107), "CREATEUSERID"]
 How do we fix this? For the affected strings, we:
 
   * Assert they are UTF-8 encoded.
-  * Ask these bytes to be converted to ISO-8859-15.
+  * Ask that these bytes be converted to ISO-8859-15.
   * Insert these new byte representations into the existing (implicitly UTF-8) character vector.
   
 ### Gory byte details
@@ -298,7 +298,7 @@ iconv(good, from = "UTF-8", toRaw = TRUE)[[1]]
 #> [1] "Ã©"
 ```
 
-In this sketch, the problem is created as we go down the lines. It explains how "é" on someone's computer screen got turned into "Ã©" on mine.
+In this sketch, the problem is created as we travel down. It explains how "é" on someone's computer screen got turned into "Ã©" on mine.
 
 ```
                   é <- good
@@ -306,17 +306,17 @@ In this sketch, the problem is created as we go down the lines. It explains how 
 s                 "Latin Small Letter E with Acute"
 s                 U+00E9
 s      
-s--r       UTF-8 C3                                     A9
-   r  
-   r  ISO-8859-15 "Latin Capital Letter A with Tilde"   "Copyright Sign"
-   r             U+00C3                                U+00A9
-   r  
-   r       UTF-8 C3 83                                 C2 A9
+s--+       UTF-8  C3                                     A9                ^
+   r                                                                       ^
+   r  ISO-8859-15 "Latin Capital Letter A with Tilde"   "Copyright Sign"   ^
+   r              U+00C3                                U+00A9             ^
+   r                                                                       ^
+   r        UTF-8 C3 83                                 C2 A9              ^
        
-                  Ã© <- bad
+                  Ã© <- bad                                                
 ```
 
-The solution is therefore to work backwards, up the lines.
+The solution is therefore to invert this process, i.e. to travel upwards.
 
 
 ```r
@@ -330,7 +330,7 @@ The solution is therefore to work backwards, up the lines.
 
 ### Repair the mis-encoded strings
 
-Now we apply the repair formula to the affected strings in our useR! data frame:
+Now we apply the repair formula to the affected names in our useR! data frame:
   
 
 ```r
