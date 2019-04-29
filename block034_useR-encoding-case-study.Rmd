@@ -190,16 +190,59 @@ How do we fix this? For the affected strings, we:
   * Ask these bytes to be converted to ISO-8859-1.
   * Insert these new byte representations into the existing (implicitly UTF-8) character vector.
   
-First, I'll practice on one of our affected strings, revealing the gory details of what's going on with the bytes:
+### Gory byte details
+
+First, I reproduce the problem and prototype a solution with just the character "é".
+This shows the gory details at the byte level and can be skipped upon first reading. Just move on the next section.
+
+This chunk reproduces the problem:
+
+  * UTF-8 encoded strings sneak into the file at the data **s**ource
+  * **r**eadr dutifully interprets the bytes as ISO-8859-15 and re-encodes at UTF-8
 
 ```{r}
-(x <- "CÃ©cile")
-iconv(x, from = "UTF-8", toRaw = TRUE)
-(x_re_encoded <- iconv(x, from = "UTF-8", to = "ISO-8859-15", toRaw = TRUE))
-rawToChar(x_re_encoded[[1]])
+good <- "é"
+
+# s: string encoded as UTF-8 in the data **s**source
+iconv(good, from = "UTF-8", toRaw = TRUE)[[1]]
+
+# r: UTF-8 bytes mis-interpreted as ISO-8859-15 by **r**eadr and 
+#    re-encoded as UTF-8 bytes
+(bytes <- iconv(good, from = "ISO-8859-15", to = "UTF-8", toRaw = TRUE)[[1]])
+
+(bad <- rawToChar(bytes))
 ```
 
-Now we apply this repair formula to the affected strings in our useR! data frame:
+In this sketch, the problem is created as we go down the lines. It explains how "é" on someone's computer screen got turned into "Ã©" on mine.
+
+```
+                  é <- good
+       
+s                 "Latin Small Letter E with Acute"
+s                 U+00E9
+s      
+s--r       UTF-8 C3                                     A9
+   r  
+   r  ISO-8859-1 "Latin Capital Letter A with Tilde"   "Copyright Sign"
+   r             U+00C3                                U+00A9
+   r  
+   r       UTF-8 C3 83                                 C2 A9
+       
+                  Ã© <- bad
+```
+
+The solution is therefore to work backwards, up the lines.
+
+```{r}
+(fixed_bytes <- iconv(
+  bad, from = "UTF-8", to = "ISO-8859-15", toRaw = TRUE)[[1]]
+)
+(fixed <- rawToChar(fixed_bytes))
+```
+
+### Repair the mis-encoded strings
+
+Now we apply the repair formula to the affected strings in our useR! data frame:
   
 ```{r}
 fixme <- c(61, 107)

@@ -229,7 +229,10 @@ $(document).ready(function () {
 <li><a href="#try-another-encoding">Try another encoding</a></li>
 <li><a href="#unraveling-a-mixed-encoding">Unraveling a mixed encoding</a></li>
 <li><a href="#diagnosis">Diagnosis</a></li>
-<li><a href="#treatment">Treatment</a></li>
+<li><a href="#treatment">Treatment</a><ul>
+<li><a href="#gory-byte-details">Gory byte details</a></li>
+<li><a href="#repair-the-mis-encoded-strings">Repair the mis-encoded strings</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -474,18 +477,52 @@ map_chr(my_bytes, rawToChar)
 <li>Ask these bytes to be converted to ISO-8859-1.</li>
 <li>Insert these new byte representations into the existing (implicitly UTF-8) character vector.</li>
 </ul>
-<p>First, I’ll practice on one of our affected strings, revealing the gory details of what’s going on with the bytes:</p>
-<pre class="r"><code>(x &lt;- &quot;CÃ©cile&quot;)
-#&gt; [1] &quot;CÃ©cile&quot;
-iconv(x, from = &quot;UTF-8&quot;, toRaw = TRUE)
-#&gt; [[1]]
-#&gt; [1] 43 c3 83 c2 a9 63 69 6c 65
-(x_re_encoded &lt;- iconv(x, from = &quot;UTF-8&quot;, to = &quot;ISO-8859-15&quot;, toRaw = TRUE))
-#&gt; [[1]]
-#&gt; [1] 43 c3 a9 63 69 6c 65
-rawToChar(x_re_encoded[[1]])
-#&gt; [1] &quot;Cécile&quot;</code></pre>
-<p>Now we apply this repair formula to the affected strings in our useR! data frame:</p>
+<div id="gory-byte-details" class="section level3">
+<h3>Gory byte details</h3>
+<p>First, I reproduce the problem and prototype a solution with just the character “é”. This shows the gory details at the byte level and can be skipped upon first reading. Just move on the next section.</p>
+<p>This chunk reproduces the problem:</p>
+<ul>
+<li>UTF-8 encoded strings sneak into the file at the data <strong>s</strong>ource</li>
+<li><strong>r</strong>eadr dutifully interprets the bytes as ISO-8859-15 and re-encodes at UTF-8</li>
+</ul>
+<pre class="r"><code>good &lt;- &quot;é&quot;
+
+# s: string encoded as UTF-8 in the data **s**source
+iconv(good, from = &quot;UTF-8&quot;, toRaw = TRUE)[[1]]
+#&gt; [1] c3 a9
+
+# r: UTF-8 bytes mis-interpreted as ISO-8859-15 by **r**eadr and 
+#    re-encoded as UTF-8 bytes
+(bytes &lt;- iconv(good, from = &quot;ISO-8859-15&quot;, to = &quot;UTF-8&quot;, toRaw = TRUE)[[1]])
+#&gt; [1] c3 83 c2 a9
+
+(bad &lt;- rawToChar(bytes))
+#&gt; [1] &quot;Ã©&quot;</code></pre>
+<p>In this sketch, the problem is created as we go down the lines. It explains how “é” on someone’s computer screen got turned into “Ã©” on mine.</p>
+<pre><code>                  é &lt;- good
+       
+s                 &quot;Latin Small Letter E with Acute&quot;
+s                 U+00E9
+s      
+s--r       UTF-8 C3                                     A9
+   r  
+   r  ISO-8859-1 &quot;Latin Capital Letter A with Tilde&quot;   &quot;Copyright Sign&quot;
+   r             U+00C3                                U+00A9
+   r  
+   r       UTF-8 C3 83                                 C2 A9
+       
+                  Ã© &lt;- bad</code></pre>
+<p>The solution is therefore to work backwards, up the lines.</p>
+<pre class="r"><code>(fixed_bytes &lt;- iconv(
+  bad, from = &quot;UTF-8&quot;, to = &quot;ISO-8859-15&quot;, toRaw = TRUE)[[1]]
+)
+#&gt; [1] c3 a9
+(fixed &lt;- rawToChar(fixed_bytes))
+#&gt; [1] &quot;é&quot;</code></pre>
+</div>
+<div id="repair-the-mis-encoded-strings" class="section level3">
+<h3>Repair the mis-encoded strings</h3>
+<p>Now we apply the repair formula to the affected strings in our useR! data frame:</p>
 <pre class="r"><code>fixme &lt;- c(61, 107)
 
 iconv(user$CREATEUSERID[fixme], from = &quot;UTF-8&quot;, to = &quot;ISO-8859-15&quot;)
@@ -508,6 +545,7 @@ user$CREATEUSERID[fixme] &lt;- iconv(
 #&gt; 6 Rey Jean-Franço… R package development using GitLab CI/CD pipeline</code></pre>
 <p>Success!</p>
 <p>You will notice that this was a highly manual process and I’m afraid that is quite realistic, when something that should never happen – mixed encoding – actually happens. In my experience, it is typical to stumble across the problem, hope you can systematically identify the affected data, and then apply a targeted fix.</p>
+</div>
 </div>
 
 <div class="footer">
