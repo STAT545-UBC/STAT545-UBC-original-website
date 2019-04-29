@@ -344,14 +344,14 @@ please_work[c(34, 43, 61, 107, 212, 336), &quot;CREATEUSERID&quot;]
 </div>
 <div id="unraveling-a-mixed-encoding" class="section level2">
 <h2>Unraveling a mixed encoding</h2>
-<p>So, what happened to this file? Its declared encoding is ISO-8859-1 but it’s got some strings that need to be ingested as UTF-8.</p>
+<p>So, what happened to this file? Its declared encoding is ISO-8859-15 but it’s got some strings that need to be ingested as UTF-8.</p>
 <p>The good news is you get to learn a delightful word for an unsavory phenomenon: <strong>mojibake</strong>:</p>
 <blockquote>
 <p>Mojibake is the garbled text that is the result of text being decoded using an unintended character encoding. The result is a systematic replacement of symbols with completely unrelated ones, often from a different writing system. – <a href="https://en.wikipedia.org/wiki/Mojibake">Wikipedia</a></p>
 </blockquote>
 <p>Used in a sentence:</p>
 <blockquote>
-<p>We have an ISO-8859-1 encoded, semicolon-delimited CSV, with a touch of mojibake.</p>
+<p>We have an ISO-8859-15 encoded, semicolon-delimited CSV, with a touch of mojibake.</p>
 </blockquote>
 <p>At this point, I can’t tell you how to catch this systematically. I can only say that with experience you get pretty good at knowing mojibake when you see it, forming a hypothesis about what went wrong, and fixing it. Remember the <a href="block032_character-encoding.html">Encoding in R</a> page links to external resources, such as debugging tables that juxtapose intended and actual characters for the most common encoding fiascos.</p>
 </div>
@@ -474,7 +474,7 @@ map_chr(my_bytes, rawToChar)
 <p>How do we fix this? For the affected strings, we:</p>
 <ul>
 <li>Assert they are UTF-8 encoded.</li>
-<li>Ask these bytes to be converted to ISO-8859-1.</li>
+<li>Ask these bytes to be converted to ISO-8859-15.</li>
 <li>Insert these new byte representations into the existing (implicitly UTF-8) character vector.</li>
 </ul>
 <div id="gory-byte-details" class="section level3">
@@ -483,7 +483,7 @@ map_chr(my_bytes, rawToChar)
 <p>This chunk reproduces the problem:</p>
 <ul>
 <li>UTF-8 encoded strings sneak into the file at the data <strong>s</strong>ource</li>
-<li><strong>r</strong>eadr dutifully interprets the bytes as ISO-8859-15 and re-encodes at UTF-8</li>
+<li><strong>r</strong>eadr dutifully interprets the bytes as ISO-8859-15 and re-encodes as UTF-8</li>
 </ul>
 <pre class="r"><code>good &lt;- &quot;é&quot;
 
@@ -506,7 +506,7 @@ s                 U+00E9
 s      
 s--r       UTF-8 C3                                     A9
    r  
-   r  ISO-8859-1 &quot;Latin Capital Letter A with Tilde&quot;   &quot;Copyright Sign&quot;
+   r  ISO-8859-15 &quot;Latin Capital Letter A with Tilde&quot;   &quot;Copyright Sign&quot;
    r             U+00C3                                U+00A9
    r  
    r       UTF-8 C3 83                                 C2 A9

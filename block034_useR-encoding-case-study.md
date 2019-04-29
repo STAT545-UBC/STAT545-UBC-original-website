@@ -154,7 +154,7 @@ Sad. We've correctly imported the problematic names, at the cost of garbling the
 
 ## Unraveling a mixed encoding
 
-So, what happened to this file? Its declared encoding is ISO-8859-1 but it's got some strings that need to be ingested as UTF-8.
+So, what happened to this file? Its declared encoding is ISO-8859-15 but it's got some strings that need to be ingested as UTF-8.
 
 The good news is you get to learn a delightful word for an unsavory phenomenon: **mojibake**:
 
@@ -162,7 +162,7 @@ The good news is you get to learn a delightful word for an unsavory phenomenon: 
 
 Used in a sentence:
 
-> We have an ISO-8859-1 encoded, semicolon-delimited CSV, with a touch of mojibake.
+> We have an ISO-8859-15 encoded, semicolon-delimited CSV, with a touch of mojibake.
 
 At this point, I can't tell you how to catch this systematically. I can only say that with experience you get pretty good at knowing mojibake when you see it, forming a hypothesis about what went wrong, and fixing it. Remember the [Encoding in R](block032_character-encoding.html) page links to external resources, such as debugging tables that juxtapose intended and actual characters for the most common encoding fiascos.
 
@@ -254,7 +254,7 @@ user[c(61, 107), "CREATEUSERID"]
 How do we fix this? For the affected strings, we:
 
   * Assert they are UTF-8 encoded.
-  * Ask these bytes to be converted to ISO-8859-1.
+  * Ask these bytes to be converted to ISO-8859-15.
   * Insert these new byte representations into the existing (implicitly UTF-8) character vector.
   
 ### Gory byte details
@@ -265,7 +265,7 @@ This shows the gory details at the byte level and can be skipped upon first read
 This chunk reproduces the problem:
 
   * UTF-8 encoded strings sneak into the file at the data **s**ource
-  * **r**eadr dutifully interprets the bytes as ISO-8859-15 and re-encodes at UTF-8
+  * **r**eadr dutifully interprets the bytes as ISO-8859-15 and re-encodes as UTF-8
 
 
 ```r
@@ -294,7 +294,7 @@ s                 U+00E9
 s      
 s--r       UTF-8 C3                                     A9
    r  
-   r  ISO-8859-1 "Latin Capital Letter A with Tilde"   "Copyright Sign"
+   r  ISO-8859-15 "Latin Capital Letter A with Tilde"   "Copyright Sign"
    r             U+00C3                                U+00A9
    r  
    r       UTF-8 C3 83                                 C2 A9
