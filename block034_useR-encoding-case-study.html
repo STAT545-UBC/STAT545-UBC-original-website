@@ -225,7 +225,9 @@ $(document).ready(function () {
 <li><a href="#the-user-2019-speaker-list">The useR! 2019 Speaker List</a></li>
 <li><a href="#what-is-the-encoding-of-the-file">What is the encoding of the file?</a></li>
 <li><a href="#import-the-data">Import the data</a></li>
-<li><a href="#tricky-rows">Tricky rows</a></li>
+<li><a href="#tricky-rows">Tricky rows</a><ul>
+<li><a href="#how-did-i-know-to-focus-on-these-names">How did I know to focus on these names?</a></li>
+</ul></li>
 <li><a href="#try-another-encoding">Try another encoding</a></li>
 <li><a href="#unraveling-a-mixed-encoding">Unraveling a mixed encoding</a></li>
 <li><a href="#diagnosis">Diagnosis</a></li>
@@ -317,7 +319,11 @@ user &lt;- read_csv2(
 #&gt; 5 Mørk Kristoffer   
 #&gt; 6 Rey Jean-François</code></pre>
 <p>We’ve got two examples where we’ve clearly had some sort of encoding mishap (entries 3 and 4), mixed in with other strings with non-ASCII characters that look just fine. Hmm, that’s peculiar.</p>
-<p>If you are curious, I found these non-ASCII strings by looking for the elements of <code>user$CREATEUSERID</code> where the declared encoding, reported by <code>Encoding()</code>, was not “unknown”.</p>
+<div id="how-did-i-know-to-focus-on-these-names" class="section level3">
+<h3>How did I know to focus on these names?</h3>
+<p>Usually, you first discover encoding problems downstream, when you stumble across a garbled string. I first imported this file without specifying an encoding and saw problems. Then I remembered that the organizers specified an encoding, so I imported again with the correct encoding. And I <em>still</em> saw problems. Then I buckled up to write this case study.</p>
+<p>Once I knew I had problems, I went from my anecdata to a more comprehensive search for names likely to be affected. I found these non-ASCII strings by looking for the elements of <code>user$CREATEUSERID</code> where the declared encoding, reported by <code>Encoding()</code>, was not “unknown”. The exact behaviour of the encoding marks returned by <code>Encoding()</code> is very complicated and beyond our scope. I suspect that the functions <code>stringi::stri_enc_mark()</code> and <code>stringi::stri_enc_isascii()</code> would provide a less frustrating foundation for a more formal workflow.</p>
+</div>
 </div>
 <div id="try-another-encoding" class="section level2">
 <h2>Try another encoding</h2>

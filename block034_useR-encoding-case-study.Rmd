@@ -97,7 +97,11 @@ user[c(34, 43, 61, 107, 212, 336), "CREATEUSERID"]
 
 We've got two examples where we've clearly had some sort of encoding mishap (entries 3 and 4), mixed in with other strings with non-ASCII characters that look just fine. Hmm, that's peculiar.
 
-If you are curious, I found these non-ASCII strings by looking for the elements of `user$CREATEUSERID` where the declared encoding, reported by `Encoding()`, was not "unknown".
+### How did I know to focus on these names?
+
+Usually, you first discover encoding problems downstream, when you stumble across a garbled string. I first imported this file without specifying an encoding and saw problems. Then I remembered that the organizers specified an encoding, so I imported again with the correct encoding. And I *still* saw problems. Then I buckled up to write this case study.
+
+Once I knew I had problems, I went from my anecdata to a more comprehensive search for names likely to be affected. I found these non-ASCII strings by looking for the elements of `user$CREATEUSERID` where the declared encoding, reported by `Encoding()`, was not "unknown". The exact behaviour of the encoding marks returned by `Encoding()` is very complicated and beyond our scope. I suspect that the functions `stringi::stri_enc_mark()` and `stringi::stri_enc_isascii()` would provide a less frustrating foundation for a more formal workflow.
 
 ## Try another encoding
 
