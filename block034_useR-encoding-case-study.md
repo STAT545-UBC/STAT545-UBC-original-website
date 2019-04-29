@@ -43,7 +43,7 @@ Mercifully, the useR! organizers are on the ball and actually do describe the fi
 
 This is fantastic. And incredibly rare. So how would you determine this otherwise?
 
-If you're on same flavor of *nix, you can probably use the `file` command to get some info (I executed this in a bash shell on macOS):
+If you're on some flavor of *nix, you can probably use the `file` command to get some info (I executed this in a bash shell on macOS):
 
 
 ```bash
@@ -75,7 +75,7 @@ Let's now assume you know the encoding. Or, well ... you think you do.
 
 ## Import the data
 
-Use your favorite method of importing a delimited file. I use `readr::read_csv2()`, where the "2" signals that the semicolon `;` is the field delimiter. We also specify the ISO-8859-15 encoding we were advised to use. I load the tidyverse meta-package to get readr, dplyr, and the pipe `%>%` operator.
+Use your favorite method of importing a delimited file. I use `readr::read_csv2()`, where the "2" signals that the semicolon `;` is the field delimiter. We also specify the ISO-8859-15 encoding we were advised to use. I load the tidyverse meta-package, because this exposition makes use of readr, dplyr, purrr, and the pipe `%>%` operator.
 
 
 ```r
@@ -120,7 +120,7 @@ If you are curious, I found these non-ASCII strings by looking for the elements 
 
 ## Try another encoding
 
-Again, with my headstart, allow me to show you something else. What if I import this file with UTF-8 encoding?
+Again, with my head start, allow me to show you something else. What if I import this file with UTF-8 encoding?
 
 
 ```r
@@ -152,7 +152,7 @@ Sad. We've correctly imported the problematic names, at the cost of garbling the
 
 **Reality Check #2**: It an ideal world there is One True Encoding for any given file. Yes, that is how it is supposed to be. And yet it is not how it is.
 
-## Unravelling a mixed encoding
+## Unraveling a mixed encoding
 
 So, what happened to this file? Its declared encoding is ISO-8859-1 but it's got some strings that need to be ingested as UTF-8.
 
@@ -168,7 +168,7 @@ At this point, I can't tell you how to catch this systematically. I can only say
 
 ## Diagnosis
 
-The fact that we've got strings that import correctly when the encoding is UTF-8 (contradicting the nominal encoding) is the critical clue.
+The fact that we've got strings that import correctly when interpreted as UTF-8 (contradicting the nominal encoding) is the critical clue.
 
 At some point, strings made it into this database that were UTF-8 encoded, although the intended encoding is ISO-8859-15. Then, when `readr::read_csv2()` ingests these allegedly ISO-8859-15 bytes and re-encodes them as UTF-8, we get the dreaded mojibake.
 
@@ -306,4 +306,4 @@ user[c(34, 43, 61, 107, 212, 336), c("CREATEUSERID", "TITLE")]
 
 Success!
 
-You will notice that this was a highly manual process and I'm afraid that is quite realistic, when something that should never happen -- mixed encoding -- actually happens. In my experience, it is typical to stumble across the problem, hope you can systematically identify the affected data, and then apply a targetted fix.
+You will notice that this was a highly manual process and I'm afraid that is quite realistic, when something that should never happen -- mixed encoding -- actually happens. In my experience, it is typical to stumble across the problem, hope you can systematically identify the affected data, and then apply a targeted fix.

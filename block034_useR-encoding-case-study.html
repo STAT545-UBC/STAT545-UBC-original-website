@@ -227,7 +227,7 @@ $(document).ready(function () {
 <li><a href="#import-the-data">Import the data</a></li>
 <li><a href="#tricky-rows">Tricky rows</a></li>
 <li><a href="#try-another-encoding">Try another encoding</a></li>
-<li><a href="#unravelling-a-mixed-encoding">Unravelling a mixed encoding</a></li>
+<li><a href="#unraveling-a-mixed-encoding">Unraveling a mixed encoding</a></li>
 <li><a href="#diagnosis">Diagnosis</a></li>
 <li><a href="#treatment">Treatment</a></li>
 </ul>
@@ -260,7 +260,7 @@ $(document).ready(function () {
 <p>The list of accepted talks can be downloaded here (CSV file, separated by semi-colon, ISO-8859-15 encoded).</p>
 </blockquote>
 <p>This is fantastic. And incredibly rare. So how would you determine this otherwise?</p>
-<p>If you’re on same flavor of *nix, you can probably use the <code>file</code> command to get some info (I executed this in a bash shell on macOS):</p>
+<p>If you’re on some flavor of *nix, you can probably use the <code>file</code> command to get some info (I executed this in a bash shell on macOS):</p>
 <pre class="bash"><code>file -I useR-2019-accepted-talks.csv
 #&gt; useR-2019-accepted-talks.csv: text/plain; charset=iso-8859-1</code></pre>
 <p>The putative encoding returned by <code>file -I</code> is ISO-8859-1, which is wrong but close and probably close enough. In these situations, you are thankful for any shred of information.</p>
@@ -280,7 +280,7 @@ stri_enc_detect(x)
 </div>
 <div id="import-the-data" class="section level2">
 <h2>Import the data</h2>
-<p>Use your favorite method of importing a delimited file. I use <code>readr::read_csv2()</code>, where the “2” signals that the semicolon <code>;</code> is the field delimiter. We also specify the ISO-8859-15 encoding we were advised to use. I load the tidyverse meta-package to get readr, dplyr, and the pipe <code>%&gt;%</code> operator.</p>
+<p>Use your favorite method of importing a delimited file. I use <code>readr::read_csv2()</code>, where the “2” signals that the semicolon <code>;</code> is the field delimiter. We also specify the ISO-8859-15 encoding we were advised to use. I load the tidyverse meta-package, because this exposition makes use of readr, dplyr, purrr, and the pipe <code>%&gt;%</code> operator.</p>
 <pre class="r"><code>library(tidyverse)
 user &lt;- read_csv2(
   &quot;useR-2019-accepted-talks.csv&quot;,
@@ -313,7 +313,7 @@ user &lt;- read_csv2(
 </div>
 <div id="try-another-encoding" class="section level2">
 <h2>Try another encoding</h2>
-<p>Again, with my headstart, allow me to show you something else. What if I import this file with UTF-8 encoding?</p>
+<p>Again, with my head start, allow me to show you something else. What if I import this file with UTF-8 encoding?</p>
 <pre class="r"><code>please_work &lt;- readr::read_csv2(
   &quot;useR-2019-accepted-talks.csv&quot;,
   locale = readr::locale(encoding = &quot;UTF-8&quot;)
@@ -339,8 +339,8 @@ please_work[c(34, 43, 61, 107, 212, 336), &quot;CREATEUSERID&quot;]
 <p>Sad. We’ve correctly imported the problematic names, at the cost of garbling the other four.</p>
 <p><strong>Reality Check #2</strong>: It an ideal world there is One True Encoding for any given file. Yes, that is how it is supposed to be. And yet it is not how it is.</p>
 </div>
-<div id="unravelling-a-mixed-encoding" class="section level2">
-<h2>Unravelling a mixed encoding</h2>
+<div id="unraveling-a-mixed-encoding" class="section level2">
+<h2>Unraveling a mixed encoding</h2>
 <p>So, what happened to this file? Its declared encoding is ISO-8859-1 but it’s got some strings that need to be ingested as UTF-8.</p>
 <p>The good news is you get to learn a delightful word for an unsavory phenomenon: <strong>mojibake</strong>:</p>
 <blockquote>
@@ -354,7 +354,7 @@ please_work[c(34, 43, 61, 107, 212, 336), &quot;CREATEUSERID&quot;]
 </div>
 <div id="diagnosis" class="section level2">
 <h2>Diagnosis</h2>
-<p>The fact that we’ve got strings that import correctly when the encoding is UTF-8 (contradicting the nominal encoding) is the critical clue.</p>
+<p>The fact that we’ve got strings that import correctly when interpreted as UTF-8 (contradicting the nominal encoding) is the critical clue.</p>
 <p>At some point, strings made it into this database that were UTF-8 encoded, although the intended encoding is ISO-8859-15. Then, when <code>readr::read_csv2()</code> ingests these allegedly ISO-8859-15 bytes and re-encodes them as UTF-8, we get the dreaded mojibake.</p>
 <p><em>Remember: I’m assuming you understand this problem space at the level presented in <a href="block032_character-encoding.html">Encoding in R</a>, i.e., you basically understand that characters are represented as bytes and different encodings are different systems for mapping between Unicode code points and 1 or more bytes.</em></p>
 <p>Let’s look at the (correct) bytes that represent our target first names in UTF-8, which is the default for my OS (macOS) and what readr always returns. These are the bytes we <em>should</em> be seeing for these names.</p>
@@ -507,7 +507,7 @@ user$CREATEUSERID[fixme] &lt;- iconv(
 #&gt; 5 Mørk Kristoffer  Estimate, Estimator, Estimand?                          
 #&gt; 6 Rey Jean-Franço… R package development using GitLab CI/CD pipeline</code></pre>
 <p>Success!</p>
-<p>You will notice that this was a highly manual process and I’m afraid that is quite realistic, when something that should never happen – mixed encoding – actually happens. In my experience, it is typical to stumble across the problem, hope you can systematically identify the affected data, and then apply a targetted fix.</p>
+<p>You will notice that this was a highly manual process and I’m afraid that is quite realistic, when something that should never happen – mixed encoding – actually happens. In my experience, it is typical to stumble across the problem, hope you can systematically identify the affected data, and then apply a targeted fix.</p>
 </div>
 
 <div class="footer">
