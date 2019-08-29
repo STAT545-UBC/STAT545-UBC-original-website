@@ -15,6 +15,8 @@ Learn how to
   * make all of that reproducible, reusable, and shareable
   * using R
 
+STAT 545 @ UBC is moving websites! For course-related things, check out https://stat545.stat.ubc.ca.
+
 ### More info?
 
 Use the navigation bar above!
