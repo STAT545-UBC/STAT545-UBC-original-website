@@ -3,9 +3,9 @@
 
 The old repository for the website of STAT 545 @ University of British Columbia, a course in data wrangling, exploration, and analysis with R.
 
-This repo is no longer in use and will soon be archived, i.e. become read-only.
+This repo is no longer in use and has been archived (as of mid-September 2019).
 
-Most STAT 545 content is now available from a new website at the usual domain (transition happened mid-September 2019):
+Most STAT 545 content is now available from a new website at the usual domain:
 
 [stat545.com](https://stat545.com)
 
