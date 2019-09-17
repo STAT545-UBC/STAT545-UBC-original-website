@@ -5,7 +5,11 @@ The old repository for the website of STAT 545 @ University of British Columbia,
 
 This repo is no longer in use and will soon be archived, i.e. become read-only.
 
-The main "Topics" content is now maintained here:
+Most STAT 545 content is now available from a new website at the usual domain (transition happened mid-September 2019):
+
+[stat545.com](https://stat545.com)
+
+The source for the new website is here:
 
 <https://github.com/rstudio-education/stat545>
 
